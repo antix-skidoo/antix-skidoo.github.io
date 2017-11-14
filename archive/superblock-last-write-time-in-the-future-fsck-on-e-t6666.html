@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>superblock last write time in the future, fsck  on each boot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./superblock-last-write-time-in-the-future-fsck-on-e-t6666.html">superblock last write time in the future, fsck on each boot</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_48875" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48875">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48875">
+<time datetime="2016-10-31T19:09">posted: 2016-10-31 &nbsp; 19:09</time>
+<span class="permalink"><a href="./superblock-last-write-time-in-the-future-fsck-on-e-t6666.html#p48875" title="permalink">#1</a></span>
+
+<div class="content">As subj says. I have a typical win-dos AT-compatible machine; i.e. the RTClock keeps <em>local</em> time, not GMT. I'm reasonable sure I specified it during the initial graphical installation to disk, however I still get that message &amp; / file system check on each boot.<br>
+<br>
+Other than this annoyement, there is no problem with my date/time either in Linux nor in any of half a dozen OSes I multiboot. How do I correct this permanently please ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48876" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48876">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48876">
+
+<time datetime="2016-10-31T20:35">posted: 2016-10-31 &nbsp; 20:35</time>
+<span class="permalink"><a href="./superblock-last-write-time-in-the-future-fsck-on-e-t6666.html#p48876" title="permalink">#2</a></span>
+
+<div class="content">This problem usually happens when you have the time misconfigured. When the system wakes up it gets the time from the hardware clock. If your hardware clock <em>settings</em> are wrong then this will set your system time incorrectly and depending on the direction of the error can cause exactly the message that you get.<br>
+<br>
+The reason it keeps repeating is likely because you have the ntpd (network time protocol) daemon running so once it gets set up it will correct your system clock to the correct time. But if your hardware clock <em>settings</em> are wrong then it will set the hardware clock incorrectly which allows the problem to repeat on the next boot.<br>
+<br>
+If you have your timezone set up correctly then the problem is likely in your hardware clock setting. You tell your system whether the hardware clock keeps local time or UTC in the third line of the <em>/</em>etc/adjtime file. If it currently has"UTC" in the third line then edit that file as root and change it to"LOCAL".<br>
+<br>
+Only a totally brain-dead operating would store local time in the hardware clock. Or an operating system that has to dual boot with a totally brain-dead operating system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48878" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48878">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48878">
+
+<time datetime="2016-10-31T21:06">posted: 2016-10-31 &nbsp; 21:06</time>
+<span class="permalink"><a href="./superblock-last-write-time-in-the-future-fsck-on-e-t6666.html#p48878" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>You tell your system whether the hardware clock keeps local time or UTC in the third line of the etc/adjtime file. If it currently has"UTC" in the third line then edit that file as root and change it to"LOCAL".</div></blockquote>
+I'd checked that already. It is LOCAL, all caps, indeed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48879" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48879">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48879">
+
+<time datetime="2016-10-31T21:16">posted: 2016-10-31 &nbsp; 21:16</time>
+<span class="permalink"><a href="./superblock-last-write-time-in-the-future-fsck-on-e-t6666.html#p48879" title="permalink">#4</a></span>
+
+<div class="content">... and I've just now again cycled, rebooted in MS-DOS, then AntiX again. As usual, it found a"superblock write time is in the future', by less than one day, blah... And did a fsck. Oh well I can live with that, since date/time is apparently correct for all OSes. Still it's bizarre.<br>
+<br>
+(Edit, to add:) And agai;n this time shutting down and rebooting direct to Antix. Still same symptom ! Either it's for everyone (having the RTC time set to local), or else there are ghosts in the machine :=)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48880" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48880">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48880">
+
+<time datetime="2016-10-31T21:44">posted: 2016-10-31 &nbsp; 21:44</time>
+<span class="permalink"><a href="./superblock-last-write-time-in-the-future-fsck-on-e-t6666.html#p48880" title="permalink">#5</a></span>
+
+<div class="content">This almost always comes down to a misconfiguration somewhere. There are several tools available to help you track this down. If you have ntp installed then make sure it is disabled while you are debugging. You can see the time stored in the hardware clock with the command:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo hwclock --show</code></pre></div>
+This can be confusing because it relies on your utc vs localtime setting and also on your timezone. You can try running this right after the machine boots and then again before shutdown and see if the offset between the time stored in the hardware clock versus the system time changes significantly.<br>
+<br>
+If the error message tells you the time offset and these are fairly consistent then the problem almost has to be a misconfiguration. If the offsets wander around then it is possible the battery inside the computer needs to be replaced.<br>
+<br>
+The error message you get is caused by the time settings on your machine changing. This will happen if the battery needs to be replace, or if a system (like a live-usb/cd) accesses your partitions with the time not set correctly, or if the time on your system is misconfigured combined with an outside source for time information such as ntpd.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48882" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48882">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48882">
+
+<time datetime="2016-11-01T07:15">posted: 2016-11-01 &nbsp; 07:15</time>
+<span class="permalink"><a href="./superblock-last-write-time-in-the-future-fsck-on-e-t6666.html#p48882" title="permalink">#6</a></span>
+
+<div class="content">howabout: it's an older machine and the coin cell battery that's supposed to maintain the hardware clock is kaput.<br>
+That condition, along with the NTP check during boot, I think that has led to the"fsck every time" on some of my older PCs.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48883" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48883">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48883">
+
+<time datetime="2016-11-01">posted: 09:25</time>
+<span class="permalink"><a href="./superblock-last-write-time-in-the-future-fsck-on-e-t6666.html#p48883" title="permalink">#7</a></span>
+
+<div class="content">I don't think it's the cell battery. The RTC and"cmos" registers do'nt lose memory, furthermore this problem with the"superblock last write time" is specific to this new Linux install, never had such with the linuces I had installed here (2 versions).<br>
+<br>
+Regarding NTP : this morning I booted the system withouta network connection, yet It gave the same as usual warning. I do understand the test is incomplete, I should do a full cycle while the box is non connected. Shall do sometime ;=)<br>
+<br>
+Not precluding a hardware problem - but, my guts feeling is it's a software misconfiguration of sorts. Let us leave this mystery alone until later...</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

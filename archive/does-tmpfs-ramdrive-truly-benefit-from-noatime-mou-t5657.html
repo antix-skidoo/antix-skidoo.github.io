@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Does tmpfs ramdrive truly benefit from 'noatime' mount? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./does-tmpfs-ramdrive-truly-benefit-from-noatime-mou-t5657.html">Does tmpfs ramdrive truly benefit from 'noatime' mount?</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_41169" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41169">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41169">
+<time datetime="2015-06-14T02:36">posted: 2015-06-14 &nbsp; 02:36</time>
+<span class="permalink"><a href="./does-tmpfs-ramdrive-truly-benefit-from-noatime-mou-t5657.html#p41169" title="permalink">#1</a></span>
+
+<div class="content">My ongoing attempt to chase a live persistence bug (stranded files accumulate in the aufs..plnk directory) <br>
+has been hampered by lack of timestamps (due to the noatime mount directive) so I'm compelled to ask:<br>
+<br>
+during dynamic root persistence, where aufs-live is a tmpfs ramdrive, is noatime even desirable/beneficial ?<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://serverfault.com/questions/644468/will-noatime-on-a-tmpfs-volume-improve-performance"<br>linktext was:"http://serverfault.com/questions/644468 ... erformance"<br>====================================<br>
+<br>
+Perhaps the linked answer isn't an authoritative reference, but it states that in a ramdrive scenario, noatime probably provides no demonstrable benefit.<br>
+(Intuitively, that makes sense... unless we're talking about a 15yr-old PC with 100MHz RAM installed.)<br>
+<br>
+With intent toward knowing"what(all) files have been written to disk during this live session", can I (dare I?) remount,<br>
+(er, <em>bind remount or similar operation</em>) <strong>/live/aufs-ram</strong> and omit the 'noatime' arg... or must that occur at the outset (would require a live-init edit) ?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cat /{etc}/fstab
+$ mount
+$ findmnt
+/dev/loop0 on /live/linux type squashfs (ro,relatime)
+tmpfs on /live/aufs-ram type tmpfs (rw,noatime,size=1638400k)
+/live/aufs on / type aufs (rw,noatime,si=bf80c71f)
+tmpfs on /media type tmpfs (rw,noatime,size=10240k)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,noexec,noatime,size=206724k,mode=755)
+tmpfs on /live type tmpfs (rw,noatime,size=10240k,mode=755)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+sys on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+devtmpfs on /dev type devtmpfs (rw,relatime,size=1031824k,nr_inodes=219323,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+/live/aufs on /live/aufs type aufs (rw,noatime,si=bf80c71f)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+pstore on /sys/fs/pstore type pstore (rw,relatime)
+tmpfs on /run/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=1282400k)</code></pre></div>
+Having lastAccessed timestamps available would also be helpful toward testing during live session:<br>
+install a given package... launch...(config files etc are created) ...uninstall via"apt-get purge"<br>
+then check which files are left behind (and create a custom cleanup list).<br>
+(toward creating a customized cleanup list)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41170" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41170">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41170">
+
+<time datetime="2015-06-14T02:53">posted: 2015-06-14 &nbsp; 02:53</time>
+<span class="permalink"><a href="./does-tmpfs-ramdrive-truly-benefit-from-noatime-mou-t5657.html#p41170" title="permalink">#2</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>My ongoing attempt to chase a live persistence bug (stranded files accumulate in the aufs..plnk directory)</div></blockquote>
+We have that fixed for the next release. We are mounting the aufs with the noplink mount option.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

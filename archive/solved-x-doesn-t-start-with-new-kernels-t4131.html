@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[Solved] X doesn't start with new kernels - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html">[Solved] X doesn't start with new kernels</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_27627" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27627">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27627">
+<time datetime="2013-01-26T19:43">posted: 2013-01-26 &nbsp; 19:43</time>
+<span class="permalink"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html#p27627" title="permalink">#1</a></span>
+
+<div class="content">I have installed 686-pae kernel issuing 'sudo apt-get install linux-image-686 libc6-i686' and 'sudo update-grub'. After reboot to 686-pae, GUI doesn't start. After logging in manually, and running 'startx' the default desktop of slim is started (in my case, xfce). After running 'sudo lightdm' my default desktop of lightdm (Mate) is started. I would like to try out the 686-pae kernel without manually starting X.<br>
+Help, please.<br>
+<br>
+BTW, the 686-pae kernel is 3.2.0-4-686-pae, while the 486 kernel is 3.5.0-antix.2-486-smp. So the 686-pae seems to be outdated. Is it normal?<br>
+<br>
+* * *<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dpkg-reconfigure slim
+insserv: warning: current start runlevel(s) (2) of script `slim' overwrites defaults (2 5).
+insserv: warning: current stop runlevel(s) (0 1 3 4 5 6) of script `slim' overwrites defaults (0 1 6).
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dpkg-reconfigure lightdm
+[ ok ] Reloading system message bus config...done.
+</code></pre></div>
+*** <br>
+<br>
+Update: <br>
+- 686-pae debian kernel removed<br>
+- 3.7.4-antix.1-486-smp added<br>
+- 3.7.1-antix.2-486-smp added<br>
+- 3.7.0-4.dmz.1-liquorix-686 added<br>
+(all kernels with headers)<br>
+<br>
+* attached menu.lst updated<br>
+<br>
+Now kernel 3.5.0-antix.2-486-smp works propely, all other kernel fails. I see different behaviour after
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> 
+INIT: Entering runlevel 5
+..
+acpid: waiting for events: event logging is off</code></pre></div>
+Here I get an 'acpid: client 2059[0:0] has disconnected' message on tty7(ctrl + alt + F7), and a 'no suitable virtualbox kernel moduls found' error on tty1. Also an error about 'cpufrequtils' with liquorix kernel. There is NO message about dbus start on tty1.<br>
+<br>
+Any idea how to fix it? Wich additional informations would be helpful?</div>
+</div>
+<div class="notice">
+Last edited by <b>Eperbab</b> on 13 Feb 2013, 17:12, edited 3 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27669" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27669">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27669">
+
+<time datetime="2013-01-30T19:08">posted: 2013-01-30 &nbsp; 19:08</time>
+<span class="permalink"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html#p27669" title="permalink">#2</a></span>
+
+<div class="content">xorg.1.log from failed and succesful X starts plus latest xorg.conf attached. It seems to be a problem with radeon driver, but..<br>
+<br>
+1. <br>
+After X failed, I have logged to tty1, moved to init 1, logged in as root, logged out from maintenance mode, logged in as normal user, run 'sudo lightdm', and X started propely with same user, config and driver. Also tried init 2 and init 3, but only init 1 helps. <br>
+After logging out from maintenance mode, 'startx' and 'sudo lightdm' both are working propely. Before going to init 1 both fails. <br>
+<br>
+2. The original 3.5.0 kernel works out of the box. Same user, same config, same driver.<br>
+<br>
+Help, please..<br>
+<br>
+Critical part of the log:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[   480.540] (II) [KMS] Kernel modesetting enabled.
+[   480.540] (**) RADEON(0): Depth 16, (--) framebuffer bpp 16
+[   480.540] (II) RADEON(0): Pixel depth = 16 bits stored in 2 bytes (16 bpp pixmaps)
+[   480.540] (==) RADEON(0): Default visual is TrueColor
+[   480.541] (==) RADEON(0): RGB weight 565
+[   480.541] (II) RADEON(0): Using 6 bits per RGB (8 bit DAC)
+[   480.541] (--) RADEON(0): Chipset:"ATI Radeon 9200SE 5964 (AGP)" (ChipID = 0x5964)
+[   480.541] (II) RADEON(0): AGP card detected
+[   480.541] drmOpenDevice: node name is /dev/dri/card0
+[   480.541] drmOpenDevice: open result is 9, (OK)
+[   480.541] drmOpenByBusid: Searching for BusID pci:0000:01:00.0
+[   480.541] drmOpenDevice: node name is /dev/dri/card0
+[   480.541] drmOpenDevice: open result is 9, (OK)
+[   480.541] drmOpenByBusid: drmOpenMinor returns 9
+[   480.541] drmOpenByBusid: Interface 1.4 failed, trying 1.1
+[   480.541] drmOpenByBusid: drmGetBusid reports pci:0000:01:00.0
+[   480.541] (EE) RADEON(0): [drm] failed to set drm interface version.
+[   480.541] (EE) RADEON(0): Kernel modesetting setup failed
+[   480.541] (II) UnloadModule:"radeon"
+[   480.541] (EE) Screen(s) found, but none have a usable configuration.
+[   480.541] 
+Fatal server error:
+[   480.541] no screens found
+[   480.541] </code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27670" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27670">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27670">
+
+<time datetime="2013-01-30T19:31">posted: 2013-01-30 &nbsp; 19:31</time>
+<span class="permalink"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html#p27670" title="permalink">#3</a></span>
+
+<div class="content">Just a couple of shots in the dark.<br>
+<br>
+You may need to install a different radeon driver for the newer kernels.<br>
+<br>
+You could try using the"nomodeset" boot parameter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27672" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27672">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27672">
+
+<time datetime="2013-01-30T23:02">posted: 2013-01-30 &nbsp; 23:02</time>
+<span class="permalink"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html#p27672" title="permalink">#4</a></span>
+
+<div class="content">Did you use smxi/sgfxi to install the driver?<br>
+<br>
+As BJ says plus old radeon is no longer supported in newer kernels (The issue is according to h2 of the smxi scripts is with amd not the kernel devs)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27675" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27675">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27675">
+
+<time datetime="2013-01-31T18:50">posted: 2013-01-31 &nbsp; 18:50</time>
+<span class="permalink"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html#p27675" title="permalink">#5</a></span>
+
+<div class="content">I tried .. and I'm tired..<br>
+<br>
+@ Anti: I have never used smxi/sgfxi. Only inxi. Driver installed with apt-get install.<br>
+<br>
+- boot options: init 3, init 5 without boot params, nomodeset, nouveau.modeset=0, nouveau.modeset=1, vga=771 .. no change<br>
+- removed virtualbox: now X fails without error message on tty1 about vbox<br>
+- reinstalled virtualbox: only tries to build for 3.5.0 and 3.7.4 486 kernels, doesn't see others, build failed on 3.7.4<br>
+- dist upgrade to testing repo: no change<br>
+- update lightdm to experimental<br>
+- apt-get install -t experimental firmware-linux-nonfree libgl1-mesa-dri xserver-xorg-video-radeon xserver-xorg-video-ati <br>
+<br>
+I'm playing games on wine, so I need 3D acceleration with my Radeon 9200 SE card. Wich driver-kernel combinations may work?<br>
+At the moment, the original 3.5.0-antix.2-486-smp works with the packages above, everything else failed. So I set it default.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27677" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27677">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27677">
+
+<time datetime="2013-01-31T19:55">posted: 2013-01-31 &nbsp; 19:55</time>
+<span class="permalink"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html#p27677" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>Eperbab wrote:</cite>@ Anti: I have never used smxi/sgfxi. Only inxi. Driver installed with apt-get install.</div></blockquote>
+You really should use smxi or sgfxi to re-install the video driver. The purpose of these scripts is to help people easily solve the sort of problems you are encountering. If"apt-get install" worked in these cases then there would be no need for these scripts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27687" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27687">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27687">
+
+<time datetime="2013-02-01 &nbsp; 20:26">posted: 2013-02-01 &nbsp; 20:26</time>
+<span class="permalink"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html#p27687" title="permalink">#7</a></span>
+
+<div class="content">Yesterday it worked after using smxi, but today it doesn't work again. I have checked what smxi did, and repeated the steps without smxi on another kernel. Today all new kernels failed again, including the two kernels configured with smxi. Here is what I did yesterday:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update
+apt-get install firmware-linux-nonfree libgl1-mesa-dri xserver-xorg-video-radeon xserver-xorg-video-ati </code></pre></div>
+(re)boot with the kernel that has to be fixed:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>* Ctrl + Alt + F1 to tty1, login &amp;
+$ su
+$ killall Xorg
+$ apt-get install --reinstall xserver-xorg-core libgl1-mesa-glx xserver-xorg-video-ati
+</code></pre></div>
+Now we can start the display manager. (lightdm, or slim, kdm, xdm, gdm whatsoever..)<br>
+<br>
+<br>
+<strong>Today I found out, that X starts before the Radeon driver is fully loaded. </strong> I see a blank screen for a few second, before X starts on working kernels. There's no blanking with failing kernels. After X failed, now I did the following:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>* switch to tty1, login
+$ su
+$ killall Xorg
+$ lightdm
+</code></pre></div>
+X starts.<br>
+<br>
+It seems, that switching to init 1 killed Xorg. Smxi did the same, and before reinstalling the drivers I also typed 'killall Xorg'.<br>
+So how I can force Xorg to wait until the Radeon driver is loaded?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27848" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27848">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27848">
+
+<time datetime="2013-02-13T17:33">posted: 2013-02-13 &nbsp; 17:33</time>
+<span class="permalink"><a href="./solved-x-doesn-t-start-with-new-kernels-t4131.html#p27848" title="permalink">#8</a></span>
+
+<div class="content">After reinstalling radeon with and without smxi for 2 weeks, I lost my patience and started to make random changes to the system, including<br>
+- modification of etc/modprobe.d/radeon-kms.conf (options radeon modeset=0,1, commented out)<br>
+- sudo apt-get install xvba-va-driver libva-glx1 libva-egl1 vainfo fglrx-driver libgles2-mesa driconf<br>
+- etc/modules-load.d/modules.conf -&gt; adding/removing radeon<br>
+- apt-get install --reinstall firmware-linux-nonfree libgl1-mesa-dri xserver-xorg-video-radeon xserver-xorg-video-ati within and outside of X<br>
+- apt-get install --reinstall xserver-xorg-core libgl1-mesa-glx xserver-xorg-video-ati<br>
+- dpkg-reconfigure xserver-xorg<br>
+- modprobe radeon<br>
+- smxi -kwidt<br>
+- Xorg -configure<br>
+...<br>
+<br>
+I lost OpenGL support for 2 days, but now all kernels are up and running with openGL. Current settings:<br>
+- radeon-kms.conf: options radeon modeset=1 #1 (0 breaks openGL support, 1 (original value) breaked X, 1#1 gives error,but .. <span class="emoticon"> __{{emoticon}}__ </span><br>
+- Xorg.conf: radeon &amp; glx modules are loaded<br>
+- menu.lst: #defoptions=vga=791 quiet nosplash nouveau.modeset=0<br>
+<br>
+Managed to break the 1200 FPS barrier with glxgears at 10x10 pixel resolution, running X on 3.7.5.antix.1-486-smp kernel.<br>
+I will post the remaining problem in other thread.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

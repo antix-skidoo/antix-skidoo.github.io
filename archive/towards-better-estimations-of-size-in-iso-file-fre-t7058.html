@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>towards better estimations of &quot;size in iso file&quot; (free code) - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./software-f57/index.html"><span>Software</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./towards-better-estimations-of-size-in-iso-file-fre-t7058.html">towards better estimations of &quot;size in iso file&quot; (free code)</a></h2>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_51976" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51976">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 148</dd>
+<span class="username">figosdev</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51976">
+
+<time datetime="2017-07-03T12:02">posted: 2017-07-03  &nbsp; 12:02</time>
+<span class="permalink"><a href="./towards-better-estimations-of-size-in-iso-file-fre-t7058.html#p51976" title="permalink">#1</a></span>
+
+<div class="content">antix 17.b1"full" has an iso that is 847,249,408 bytes in size. there is debate about whether it could be smaller. my interest in file sizes should make it obvious which side of that im on; but this is a technical post, not a political one.<br>
+<br>
+of those 847,249,408 bytes, all but 22m are in a squashfs file called linuxfs. so this is really about that file, and the files that are in it.<br>
+<br>
+if you decompress the file, you will find out what size everything in it would be installed on your machine. the installation doesnt technically need to copy every file from there; but if it did those files would take up 2,584,420,683 bytes or 2.41g. squashfs is getting the size of the compressed file just under 1/3 the actual size.<br>
+<br>
+but not every file compresses the same; you cant (necessarily) pick a 100 files at random, divide by 3 and take that off the cd size. <br>
+<br>
+you can remove some files, compress the whole thing using mksquashfs and then you will have the actual size, but every time you do that it takes 15-25 minutes to compress everything. wouldnt it be nice if we could do better? ive spent a few hours (more than 5) trying to figure out how. perhaps searching the internet would be a better use of that time, but i enjoy experimenting-- i learn stuff that i can sometimes put to immediate use.<br>
+<br>
+i actually use mksquashfs, and when i do i use xz compression; i think thats typical. my first idea was to find out if compressing the files with xz would let us use tar or xz or unxz with --list...<br>
+<br>
+nope. it tars ALL the files, then compresses that-- we only get the compressed size of the entire thing, and we already have that information; its the size of linuxfs (or basically the size of the iso.)<br>
+<br>
+unsquashfs has -lls to list files without decompressing, but that doesnt help either. the size of libxul.so from -lls:<br>
+<br>
+73,274,760<br>
+<br>
+and the size if we mount linuxfs and du -b the same file:<br>
+<br>
+73,274,760 ...thats the uncompressed size again.<br>
+<br>
+<br>
+now suppose we mounted the iso, then mounted linuxfs, and used xz (with the default settings) to compress each file in it INDIVIDUALLY. how long would that take?<br>
+<br>
+about an HOUR AND a HALF. thats on an i-series intel processor, not a core2. it might go faster on a solid-state drive, or loading it all into ram first.<br>
+<br>
+the actual size of the linuxfs file: 824,418,304 bytes<br>
+<br>
+the size of each actual-size-file inside it, run through xz -c | wc -c to get a compressed bytecount and tallied?<br>
+<br>
+886,843,744. using similar compression of INDIVIDUAL files, our total is off by 59.5m-- not bad; at first i thought id compressed with the wrong setting. (the fairly safe xz default is -6... it can go higher.)<br>
+<br>
+i havent tried compressing each file individually with mksquashfs. however, i did try running tar -cvJf on the whole thing, to find out if that was more efficient. i figured it would be (but it doesnt give us the information we need.)<br>
+<br>
+the same files tarred and compressed for comparison: 698,450,164. now someones wondering what we get if we compress the antix 17 iso for a faster download. ok, i will do that for you:<br>
+<br>
+xz antix17.iso (a copy of the antix 17 iso) ; du -b antix17.iso.xz # 834,423,476<br>
+<br>
+a savings of only 12.2m. weird, huh? so to review:<br>
+<br>
+linuxfs: 824,418,304<br>
+<br>
+linuxfs unsquashed and tarred into one file, then compressed with xz: 698,450,164 (an entirely useless number for this.)<br>
+<br>
+linuxfs unsquashed and then each file processed individually with xz (so we can estimate compressed size in linuxfs): 886,843,744<br>
+<br>
+in linuxfs there are 131,430 files. on average, we have OVER-estimated the size of each files compressed size by nearly 475 bytes.<br>
+<br>
+practically speaking, that means that if we take our table of estimated compressed sizes and SUBTRACT the sizes of files we intend to delete, we OVER-estimate the savings and underestimate the final compressed size.<br>
+<br>
+but it also suggests that if we take our table of estimated compressed sizes and ADD the remaining sizes (other than the ones we intend to delete) then we UNDER-estimate the savings and overestimate the final compressed size.<br>
+<br>
+so if youre looking for a MUCH faster, more accurate way to estimate the iso size after compression, take the number 22m (23068672) and add the files from this table that you plan to keep in the iso:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>compressed      uncompressed    compressed total
+493132          1265272         493132           /root/squashdu/linuxfs/bin/bash
+261604          621700          754736           /root/squashdu/linuxfs/bin/btrfs
+130780          297444          885516           /root/squashdu/linuxfs/bin/btrfs-calc-size
+142084          326180          1027600          /root/squashdu/linuxfs/bin/btrfs-convert
+130928          297444          1158528          /root/squashdu/linuxfs/bin/btrfs-debug-tree
+129164          293348          1287692          /root/squashdu/linuxfs/bin/btrfs-find-root
+140940          322084          1428632          /root/squashdu/linuxfs/bin/btrfs-image
+130208          297444          1558840          /root/squashdu/linuxfs/bin/btrfs-map-logical
+128684          293348          1687524          /root/squashdu/linuxfs/bin/btrfs-select-super
+131236          301764          1818760          /root/squashdu/linuxfs/bin/btrfs-show-super
+128748          293348          1947508          /root/squashdu/linuxfs/bin/btrfs-zero-log
+130588          297444          2078096          /root/squashdu/linuxfs/bin/btrfstune
+13212           34480           2091308          /root/squashdu/linuxfs/bin/bunzip2
+335072          625828          2426380          /root/squashdu/linuxfs/bin/busybox
+13212           34480           2439592          /root/squashdu/linuxfs/bin/bzcat
+988             2140            2440580          /root/squashdu/linuxfs/bin/bzdiff
+2092            4877            2442672          /root/squashdu/linuxfs/bin/bzexe
+1688            3642            2444360          /root/squashdu/linuxfs/bin/bzgrep
+13212           34480           2457572          /root/squashdu/linuxfs/bin/bzip2</code></pre></div>
+<br>
+and you should get a pretty accurate guess there.<br>
+<br>
+is this overkill? it depends on how many times youve created a squashfs file only to have too large an iso. if you want to guess how many files you need to get rid of to make an iso fit on a cd, this could get you closer, faster.<br>
+<br>
+but it still takes one person / machine running this script for an hour and a half or more, to get the table. <br>
+<br>
+and no, i dont have the entire table; the first time i ran it, i didnt direct it to a file. but i timed it!<br>
+<br>
+and here is the script: feel free to add newlines, i like one-liners. i put them in the bash history and grep as needed.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>iso="antiX-17.b1_386-full.iso" ; mkdir /root/squashdu ; mkdir /root/squashdu/linuxfs ; mkdir /root/squashdu/iso ; mount"$iso" /root/squashdu/iso/ ; mount /root/squashdu/iso/antiX/linuxfs /root/squashdu/linuxfs/ ; d=$(date) ; tot=0 ; echo -e"compressed\tuncompressed\tcompressed total" ; for p in $(find /root/squashdu/linuxfs -type f | cat -A | tr ' ' '^' | sed"s/\$$//g") ; do pf="$(echo $p | tr '^' ' ')" cs=$(xz"$pf" -c 2&gt; /dev/null | wc -c 2&gt; /dev/null) ; uc=$(du -b"$pf" 2&gt; /dev/null | cut -f 1 2&gt; /dev/null) ; tot=$(($tot+cs)) ; echo -e"$cs\t\t$uc\t\t$tot\t\t$pf"  ; done ; echo ; echo"start: $d" ; echo -n"complete:" ; date ; umount /root/squashdu/linuxfs/ ; umount /root/squashdu/iso/ ; rmdir /root/squashdu/linuxfs/ /root/squashdu/iso/ ; rmdir /root/squashdu/ #### license: creative commons cc0 1.0 (public domain) http://creativecommons.org/publicdomain/zero/1.0/ </code></pre></div>
+<br>
+this entire post is in the public domain, if you want to flatter me by posting it online somewhere.<br>
+<br>
+oh, and its entirely possible someone else has done this. i havent checked, but i tried a lot of obvious alternatives. if you know another, post it here!</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51980" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51980">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,308</dd>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51980">
+
+<time datetime="2017-07-03T17:56">posted: 2017-07-03  &nbsp; 17:56</time>
+<span class="permalink"><a href="./towards-better-estimations-of-size-in-iso-file-fre-t7058.html#p51980" title="permalink">#2</a></span>
+
+<div class="content">I'm very impressed with your work. Your results look useful.<br>
+<br>
+As you've noted elsewhere, compressing something that has already been compressed is usually a net loss. I saved space in the live initrd.gz by using uncompressed fonts instead of the standard compressed ones. One way of seeing this is algorithmic information theory tells us that once something is perfectly compressed then (of course) it cannot be further compressed. On top of that, most forms of compression involve the construction of a"code table" which is overhead space-wise. So when you recompress something, you don't make significant savings on the data but you still add a new code table which is why you often lose.<br>
+<br>
+The reason using tar resulted in much better compression than mksquashfs is because tar can use just one code table. if the mksquashfs did this then the resulting file system would be much slower. Tar saves space by doing things wholesale using one code table while squashfs is better at doling out files one by one on a retail basis by using many code tables spread out through the file.<br>
+<br>
+I'm surprised that your estimate by compressing each file individually is as close as it is to the size of the entire squashfs file. The reason squashfs wins (size-wise) compared to individual compression again goes back to the code tables. It needs to put code tables throughout the squashfs file (for retail speed) but it is not forced to make a code table for every file.<br>
+<br>
+BTW: the construction of code tables also affects the speed of compression. Making a code table is usually very slow compared to compressing or decompressing data once a code table has been generated (which can be very fast). This is why compressing each file individually takes so much longer. I think the settings for better compression translate to working harder at making a better code table.<br>
+<br>
+Something else to look at, perhaps, is compressing each"leaf" directory (a directory that does not contain any subdirectories). I wonder if the sum of theses results would end up being closer to the size of the squashfs file. Of course, this won't be very informative for /usr/bin or /usr/lib but it may give better information for files and directories under /usr/share which often have a lot of smaller, highly compressible files.<br>
+<br>
+PS: I recently built a table with the installed size of every package in Debian/antiX. This took over 6 hours to run!</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51986" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51986">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 148</dd>
+<span class="username">figosdev</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51986">
+
+<time datetime="2017-07-03T20:36">posted: 2017-07-03  &nbsp; 20:36</time>
+<span class="permalink"><a href="./towards-better-estimations-of-size-in-iso-file-fre-t7058.html#p51986" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>I'm very impressed with your work. Your results look useful.</div></blockquote>
+im flattered and i hope youre right.<br>
+<br>
+<blockquote class="uncited"><div>As you've noted elsewhere, compressing something that has already been compressed is usually a net loss. I saved space in the live initrd.gz by using uncompressed fonts instead of the standard compressed ones.</div></blockquote>
+thats awesome and makes perfect sense.<br>
+<br>
+<blockquote class="uncited"><div>One way of seeing this is algorithmic information theory tells us that once something is perfectly compressed then (of course) it cannot be further compressed. On top of that, most forms of compression involve the construction of a"code table" which is overhead space-wise. So when you recompress something, you don't make significant savings on the data but you still add a new code table which is why you often lose.</div></blockquote>
+0 byte file uncompressed: 0 bytes. compressed? 32 bytes!<br>
+<br>
+<blockquote class="uncited"><div>The reason using tar resulted in much better compression than mksquashfs is because tar can use just one code table.</div></blockquote>
+i figured. i learned about this stuff while it was running, and i was reading the man page/options for xz. it explains more than any man page ive looked at before, it does it clearly without going too far i think, and id like to shake the hand of the person that wrote it.<br>
+<br>
+btw even though i say"i figured" i wasnt sure, and its nice to have confirmation. also 6 hours! woof.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

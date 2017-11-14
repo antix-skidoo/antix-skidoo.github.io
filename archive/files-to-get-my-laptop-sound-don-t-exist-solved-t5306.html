@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Files to get my laptop sound don't exist?!  [SOLVED] - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html">Files to get my laptop sound don't exist?! [SOLVED]</a></h2>
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_37274" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37274">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37274">
+
+<time datetime="2014-10-12T21:49">posted: 2014-10-12  &nbsp; 21:49</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37274" title="permalink">#1</a></span>
+
+<div class="content">After this weekend's"surgical reinstall" of antiX (pulled the"redneck SSD" out of the machine and connected it to my Core2Quad to install antiX 13.2 and update to testing repos), everything appears to be back up and running except sound. So, I did the obvious thing; I dug up my 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.freeforu ms.org/viewtopic.php?f=13&amp;t=4723"<br>linktext was:"old threads"<br>====================================<br>
+ from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.freeforu ms.org/viewtopic.php?f=13&amp;t=4734"<br>linktext was:"almost a year ago"<br>====================================<br>
+ on getting sound working on this machine, expecting that following the same steps would have similar results (ideally, I'd load the right module and once again the machine would start recognizing the built-in Yamaho OPL3-SA* synth chipset as a sound card).<br>
+<br>
+So, first thing I need to do (to get the USB sound working, which seemed to be a prerequisite to getting the internal sound hardware detected) is comment out a line that prevents the USB sound from loading ahead of other sound hardware in [/]etc/modprobe.d/alsa-base.conf -- but that file doesn't exist. Neither does [/]dev/soundstat, which was important to checking what I had. I've tried issuing"alsactl init" as root on several occasions, followed by restarting the machine, without any effect. Even though the USB hardware, at least, is detected, it doesn't trigger alsa to load, so alsa commands get error messages. See below:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lsusb
+Bus 001 Device 002: ID 0d8c:013c C-Media Electronics, Inc. CM108 Audio Controller
+Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+root@Little-Luddite:/home/dqualls# lsmod | grep snd
+snd_usb_audio          73509  0 
+snd_usbmidi_lib        12785  1 snd_usb_audio
+snd_hwdep               4064  1 snd_usb_audio
+snd_rawmidi            12723  1 snd_usbmidi_lib
+snd_seq_device          3890  1 snd_rawmidi
+snd_pcm_oss            26709  0 
+snd_mixer_oss          10327  1 snd_pcm_oss
+snd_pcm                50454  2 snd_pcm_oss,snd_usb_audio
+snd_page_alloc          5015  1 snd_pcm
+snd_timer              12034  1 snd_pcm
+snd                    36700  9 snd_pcm_oss,snd_usb_audio,snd_hwdep,snd_timer,snd_pcm,snd_rawmidi,snd_usbmidi_lib,snd_seq_device,snd_mixer_oss
+soundcore               3447  1 snd
+root@Little-Luddite:/home/dqualls# aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 1: Device [USB PnP Sound Device], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+</code></pre></div>
+This is everything I recall needing...</div>
+
+<div class="notice">
+Last edited by <b>Silent Observer</b> on 16 Oct 2014, 01:20, edited 1 time in total.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37311" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37311">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37311">
+
+<time datetime="2014-10-14T10:31">posted: 2014-10-14  &nbsp; 10:31</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37311" title="permalink">#2</a></span>
+
+<div class="content">Cricket, cricket...<br>
+<br>
+I'm working my way through the nine-page final thread that led up to the OS discovering the built-in sound hardware (OPL3 compatible), which allows playing bitstreams, but no midi, which is what I had before my most recent antiX reinstall -- but everything in that stream either reports the same as it did then, or depends on files that don't exist since the reinstall. Barring any better suggestions while I'm at work (heading there as soon as I finish typing this), I'll plan to do the"complete ALSA reinstall" on page six or seven of that thread tonight, in hopes that will get ALSA to recreate it conf files and folders. At present, it doesn't even appear that ALSA is getting launched during startup; there's no error message or start confirmation from it that I can pick out of the fast-streaming text prior to the slim login.<br>
+<br>
+I now suspect this is due to having booted, tested, and tweaked the install on the Core2Quad system I used for the successful reinstall; that system has an AC97 six-stack on-board sound chipset, completely unrelated to either the USB or the internal sound hardware on the laptop. I just don't know <em><strong>how</strong></em> that can have caused ALSA to fail to load...</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37321" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37321">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 850</dd>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37321">
+
+<time datetime="2014-10-14T14:16">posted: 2014-10-14  &nbsp; 14:16</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37321" title="permalink">#3</a></span>
+
+<div class="content">Maybe these will help remind you(?).
+<blockquote class="uncited"><div>Aha!!<br>
+Based on the clue about"not enabled in config" I did a file search for *.conf and found [/]etc/modprobe.d/alsa-base.conf -- which contains a line that prevents a USB sound card from loading in the first position. With no other cards to load ahead of the USB, that was preventing the USB from loading at all; commenting out that line and restarting brought up the speaker icon when fluxbox loaded, allowed me to adjust volume control, allowed me to load a music file into Gnome Mplayer, and hear the resulting output (right down to the pops and such from the original vinyl I recorded from). IOW, I was correct in thinking ALSA didn't have permission to talk to my USB sound device. Now it does..</div></blockquote>
+<blockquote class="uncited"><div>some of the older games (including gweled) require oss-compat (oss being an older sound system for linux, and oss-compat being libraries to make oss sound compatable to alsa). I suspect modprobing those oss drivers did the trick. to make room on the iso, oss-compat was left out of 13.2, but it is still installable with a quick apt-get install oss-compat.<br>
+<br>
+at least for me, that's all I needed for sound in the games.<br>
+<br>
+for some reason the steamtuner configuration points to audacious to play the streams. This needs changed in edit&gt;preferences to xmms, or you need to install audacious, take your pick.<br>
+</div></blockquote></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37332" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37332">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37332">
+
+<time datetime="2014-10-14T20:17">posted: 2014-10-14  &nbsp; 20:17</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37332" title="permalink">#4</a></span>
+
+<div class="content">Fatmac, the very first thing I looked for was etc/modprobe.d/alsa-base.conf -- and it wasn't there. I tried pasting in a copy of that file from about page 7 of my most recent laptop sound thread, but it doesn't make any difference. I even see a line scroll past during startup that snd-usb-audio has been loaded, and all the sound modules I'd expect are present -- but ALSA doesn't start, so nothing that depends on it can load. I haven't even gotten to the point where I can test xmms; speakertest finds nothing to talk to. Hence why I'm going to try the full removal and reinstall of alsa-base (using dpkg to remove it, so it doesn't take out stuff like antix-cc-full-antix that's dependent on alsa).<br>
+<br>
+Off to print the relevant post so I can keep it in hand while I go through the command steps and reboots...</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37347" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37347">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37347">
+
+<time datetime="2014-10-15T00:45">posted: 2014-10-15  &nbsp; 00:45</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37347" title="permalink">#5</a></span>
+
+<div class="content">Okay, that was a resounding failure. For a start, there isn't a single alsa package; there's alsa-base (which claims to exist only to allow easy removal of previous generation sound system config files), alsa-utils, alsa-tools, and the two libraries, libasound and libasound2 (all of which are installed, and when I get a good command, alsa-utils, at least, seems to respond appropriately). Then, the instructions use a program-on-one-line to, in theory, remove all remaining sound modules in /lib/modules -- which in fact apparently contained only files corresponding to the four kernel versions I had installed (one of which I've since removed, since it wouldn't boot on the Pentium II). This leaves me very suspicious about anything beyond that point doing any good, but a later command,<strong>modprobe snd-cm6501</strong> called a module that apparently isn't available.<br>
+<br>
+End result, still no sound; no recognition of the USB sound being plugged in during boot, other than a message about registering an interface called snd-usb-audio (which, starting with"snd-", ought to be an alsa component, right?).<br>
+<br>
+I don't recall who it was who suggested, back in about February, that I should remove the"redneck SSD" from the laptop and perform the antiX reinstall on another machine, but perhaps that person has done it and has some experience with whether it causes odd stuff. I'm <em>certain</em> volumeicon loaded when I booted the freshly installed antiX on my Core2Quad (having detected the on-board sound hardware), so there's every reason to believe that a fully functional set of alsa packages is still in the filesystem -- missing/changed/moved config files could easily be due to changes in alsa since the last time I installed it (this kind of thing happens on testing repos, I understand), but I don't see their tracks...</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37363" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37363">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 850</dd>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37363">
+
+<time datetime="2014-10-15T08:00">posted: 2014-10-15  &nbsp; 08:00</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37363" title="permalink">#6</a></span>
+
+<div class="content">Did you by any chance download the snd-cm6501 module from the Debian Multimedia repo(?).</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37364" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37364">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37364">
+
+<time datetime="2014-10-15T09:27">posted: 2014-10-15  &nbsp; 09:27</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37364" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite>Did you by any chance download the snd-cm6501 module from the Debian Multimedia repo(?).</div></blockquote>
+Not yet. Limited time, and I'll admit, I wasn't really aware it was available. I'll try to do that this morning or tonight.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37417" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37417">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37417">
+
+<time datetime="2014-10-16T00:09">posted: 2014-10-16  &nbsp; 00:09</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37417" title="permalink">#8</a></span>
+
+<div class="content">The Debian multimedia repos, as listed in the sources lists that come with antiX 13.2, fail when I try to update from them; I seem to recall there being an address change for those repos a year or so ago, possibly just after antiX 13.2 was frozen. I think I have the more updated ones in my Mepis 11 sources.list (the list in my Kubuntu install is no help for this; it's all pointed to Ubuntu repos).</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37421" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37421">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37421">
+
+<time datetime="2014-10-16T01:17">posted: 2014-10-16  &nbsp; 01:17</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37421" title="permalink">#9</a></span>
+
+<div class="content">And with a thunderous"AHA!!!", he finds the key to the internal sound hardware!<br>
+<br>
+Lacking any other information on how/where to look for the config files to enable USB sound, I went ahead and installed the kernel I'd been running immediately before reinstall -- linux-image-3.14-0.bpo.2-486 from wheezy backports repo. On booting with that kernel, the speaker icon appeared in the tray next to the wifi status icon -- a quick check of mixer levels, and sound as playing again (as, indeed, it's doing now as I post from the laptop). Apparently, that kernel (or more likely kernel series) has the OPL3 driver compiled in, causing alsa to load and letting volumeicon operate.<br>
+<br>
+I'm going to call this solved. <span class="emoticon"> __{{emoticon}}__ </span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37424" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37424">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 850</dd>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37424">
+
+<time datetime="2014-10-16T08:06">posted: 2014-10-16  &nbsp; 08:06</time>
+<span class="permalink"><a href="./files-to-get-my-laptop-sound-don-t-exist-solved-t5306.html#p37424" title="permalink">#10</a></span>
+
+<div class="content">Glad to hear, now make a note before you forget. <span class="emoticon"> __{{emoticon}}__ </span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

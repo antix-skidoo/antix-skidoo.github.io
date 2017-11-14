@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>What's your VM set-up to emulate antique boxes? - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./what-s-your-vm-set-up-to-emulate-antique-boxes-t6545.html">What's your VM set-up to emulate antique boxes?</a></h2>
+<div class="pagination">
+7 posts
+ &bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_47877" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47877">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 32</dd>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47877">
+
+<time datetime="2016-08-15T03:08">posted: 2016-08-15  &nbsp; 03:08</time>
+<span class="permalink"><a href="./what-s-your-vm-set-up-to-emulate-antique-boxes-t6545.html#p47877" title="permalink">#1</a></span>
+
+<div class="content">Hi. How do you set-up your VM to emulate good old boxes?<br>
+e.g. for a 2ghz (non-sse2/non-pae therefore non Windows <span class="emoticon"> __{{emoticon}}__ </span> ) CPU on hdd with DDR400 and some 32-to-256 MB AGP GPU system?<br>
+<br>
+For productivity testing and OS, application comparison our present checklist is to try getting:<br>
+<ul><li> <strong>computing capacities</strong> =&lt; to the target (eg 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://cpuboss.com/cpus/Intel-Pentium-III-1BGHz-vs-AMD-Athlon-XP-3000"<br>linktext was:"Athlon XP 2800+"<br>====================================<br>
+-based)<br>
+I dunno how far qemu restricts the guest cpu regarding e.g. the cpu caches</li>
+<li> reasonably close of the good ol' box <strong>IO capacities</strong>. <br>
+Not a specialist here. IDE maxes out @ 133 MB/sec theorical, how much does an standard SATA spinning HDD add to the former taking the 8MB cache and... the virtual image overhead in account? The bus/memory subsystem is a whole other question: e.g. how does the VM below takes advantage of the host's high speed DDR3?</li>
+<li> and same thing for <strong>2D performances</strong>. <br>
+For WM/DE aka desktop and productivity apps (and light games but these aren't on the priority line) - have no passthrough and no way to achieve it: just qemu/KVM graphical virtualisation which do suck btw</li></ul>
+atm I use this in Qemu/KVM, on a 3.3ghz Core i3
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cpulimit -l 60 \   # tries to emulate the 2ghz by restricting sub-process to use 60% of one of the host's 3.3 ghz threads
+qemu-system-i386 -cpu pentium3,enforce \    # sse only cpu
+ -m 1G -soundhw ac97 -vga std -display gtk -enable-kvm -hda hdd.img  #  on a 7200 Sata spinning HDD</code></pre></div>
+Which according to /proc/cpuinfo, inxi (and google chrome ha ha [1]) gives
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>  $ inxi -f 
+  CPU:       Single core Pentium III (Katmai) (-UP-) cache: 2048 KB clocked at 3292.518 MHz     
+            CPU Flags: apic cmov cx8 de fpu fxsr hypervisor mca mce mmx msr mtrr pae pge pse pse36
+            sep sse tsc vme x2apic</code></pre></div>
+
+<br>
+So what's your ideas or set-up?<br>
+<br>
+EDIT: some typos, formulation</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47888" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47888">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 32</dd>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47888">
+
+<time datetime="2016-08-16T08:35">posted: 2016-08-16  &nbsp; 08:35</time>
+<span class="permalink"><a href="./what-s-your-vm-set-up-to-emulate-antique-boxes-t6545.html#p47888" title="permalink">#2</a></span>
+
+<div class="content">Hmmm wouldn't that fit in the 'hardware' forum better?</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47891" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47891">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47891">
+
+<time datetime="2016-08-16T23:50">posted: 2016-08-16  &nbsp; 23:50</time>
+<span class="permalink"><a href="./what-s-your-vm-set-up-to-emulate-antique-boxes-t6545.html#p47891" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>kozaki wrote:</cite>Hmmm wouldn't that fit in the 'hardware' forum better?</div></blockquote>
+Moved to hardware forum since it was mentioned.<br>
+<br>
+<span class="emoticon"> __{{emoticon}}__ </span> Sorry. My equipment is old so no need for me to use VM to emulate what I already have.<br>
+So I do not VM at all. So no config to share. <br>
+<br>
+My IBM T23 has no sse2 as well as my Panasonic CF-48 and my M&amp;A Intel Atom single core N270 touchscreen netbooks struggle with the modern internet flash and java heavy sites as it is.<br>
+<br>
+I tried VM a few years back. After figuring out quirks for usb support and monitor resolution.<br>
+I felt like I was running Linux like a person wearing a rubber suit to a tanning party.<br>
+Everybody else is having fun and getting the full effect. While I am just insulated away from the party.<br>
+<br>
+I can be weird like that. <span class="emoticon"> __{{emoticon}}__ </span> So don't pay attention to this bikers post.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47892" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47892">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 98</dd>
+<span class="username">ile</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jan 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47892">
+
+<time datetime="2016-08-17T10:29">posted: 2016-08-17  &nbsp; 10:29</time>
+<span class="permalink"><a href="./what-s-your-vm-set-up-to-emulate-antique-boxes-t6545.html#p47892" title="permalink">#4</a></span>
+
+<div class="content">hi kozaki <br>
+aside. before i clicked on this post ,, with a smile came a internal wager on prediction that the rokytnji response would include something about having only old boxes ... Thanks rokytnji you didn't let me down. broadened the smiling to see that accordingly; no need to VM what I already have. only older stuff here; me too. machine here more likely put on the line forcepae for a thrill than vm past century. rokytnji thanks for the i knew it kneeslap. .classification dilemma about software that fakes hardware is a virtualizing topic and fake hardware belongs in software or virtual not in real hardware or other systems except some hardware virtualizes better? ? on some software ? ? great. how about a topic named carousel for that. <br>
+kozaki, none of the vm trialing here for compare... Your e.g.proposal has substantial graphics imbalanced to system.(?) <br>
+Had dell inspiron 2650 laptop with specs like those proposed or less running antix16_32dvd<em>Live</em> networked wirelessly last week. Got a good nod on that one; user is interested in <em>from=usb</em> feature. Hope you get the result you wish.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47893" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile47893">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 521</dd>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47893">
+
+<time datetime="2016-08-17T13:15">posted: 2016-08-17  &nbsp; 13:15</time>
+<span class="permalink"><a href="./what-s-your-vm-set-up-to-emulate-antique-boxes-t6545.html#p47893" title="permalink">#5</a></span>
+
+<div class="content">PC-recycle centers and refurbished from online sales is where I get my older computer stuff. I know VM exists, never tried it.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47903" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47903">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 32</dd>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47903">
+
+<time datetime="2016-08-17T22:49">posted: 2016-08-17  &nbsp; 22:49</time>
+<span class="permalink"><a href="./what-s-your-vm-set-up-to-emulate-antique-boxes-t6545.html#p47903" title="permalink">#6</a></span>
+
+<div class="content">Moved to hardware forum since it was mentioned.<br>
+Cool. Sure there are programmers around with the eperience I miss atm!<br>
+<br>
+I now about the « Get the old hardware and test on it » : He, it's me who's testing the OSes and apps on the 1997-2008 (and coming) boxes we've refurbished. <br>
+This is also the only way to get them seen and possibly tested by colleagues and the other people that are passing by.<br>
+<br>
+There's steps in the process where it's not enough, though.<br>
+<br>
+Factors that make it not that easy to go the hardware:<br>
+A. Our diy facility has limited opening (e.g. not at all on week ends, after work time, and is barely opened this month). That little time is when we communicate, receive/clean/test/dismantle/gnagnagna the hardware and teach between each other notably. <br>
+B. Got a small temporary flat; no room for one more computer, less for two or more [1]<br>
+<br>
+Testing process:<br>
+For older hardware goes there are two main 'lightweight' version of Ubuntu: Lubuntu and Xubuntu. Hmmm, oh well, I'm not that type of dude. Finding out the *really* cool OSes and apps for the end users and target good 'ol boxes goes, I believe, through four steps: <br>
+<br>
+<strong>1. Know our targets:</strong> hardware and users. Hardware you should know so I'll pass that Errr, can we do something of all these EDO stick, if you know please <span class="emoticon"> __{{emoticon}}__ </span> ? As for users, find out their common, RL application scenarios. Look for some test to help speed up the testing. Find none. Script to automatize what can be → here if I have to wait having free time at facility: com'on and be my guest!<br>
+<strong>2. List</strong>: (i.e. readings, videoing, searcing in your past 10-20 years experiences, get feedback...) Lets drop for it can all be done anywhere with free time; lets you with a TODO list. <br>
+<strong>3. Contest:</strong> where the real games begins: Install any of the listed OS and apps on a machine that's representative of your stock so far (e.g. the one in #1 in this thread). Drop any OS and app that just won't make it from your list. Run your application test, order the list. Dude that takes a whoooole lot of time. I can install and quick-test 5 OSes in Qemu/KVM in the time I do one « for real » at our facility. Flash, Skype, Google Chrome (..), 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bugs.mageia.org/show_bug.cgi?id=15594"<br>linktext was:"Qt-based"<br>====================================<br>
+ applications, eOS (Plasma/
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://lists.debian.org/debian-x/2015/04/msg00070.html"<br>linktext was:"Gnome"<br>====================================<br>
+-based requires sse2) or Cub Linux... all will be dropped on a properly set Qemu/KVM sooo much faster. Or re-listed (Palemoon 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.palemoon.org/technical.shtml#CPUsupport"<br>linktext was:"« requires sse2 »"<br>====================================<br>
+ my ass) as well<br>
+<strong>4. Test &amp; see how it optimizes</strong>: from the (vm.{swappiness,dirty_ratio,vfs_gnagna}) way it pages out and 'real' vs 'perceived' efficiency (hey Gary Sims and Rudd-O, thank you!), to the html5 rendering. And from these DEs ('jwm', 'pantheon' and others are a whole continent to the tilling WM old dude), setting tools Ω, Ŋ or Þ to packages managers I new I should get in earlier! Then the UI for beginners and « Oh but it got DOS! » dudes. I'm smart though a bit slow. To do that out of my browsers &amp; notes, cherry keyboard and large enough screen I request to be paid, and well! If I <br>
+<br>
+All-in-one, steps 2, 3 and 4 (those which require an antique set-up) are about 4-5 times faster in a VM. Like the difference between getting a modest win and a fail in a little project.<br>
+<br>
+[1] to start testing for these PII/III taking dust at the diy house...<br>
+<br>
+To the efficient antiX developers and contributors: Do you make that all on Athlon XP, or have set-up some reasonably appropriate virtual env too?</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47904" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47904">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 32</dd>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47904">
+
+<time datetime="2016-08-17T23:44">posted: 2016-08-17  &nbsp; 23:44</time>
+<span class="permalink"><a href="./what-s-your-vm-set-up-to-emulate-antique-boxes-t6545.html#p47904" title="permalink">#7</a></span>
+
+<div class="content">@ rokytnji my atom n450 (same as n270 + HT or 1/2 of the Athlon processing power) 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://pic.al/RHc"<br>linktext was:"does fine on the today web"<br>====================================<br>
+. And I mean it, &gt;95% of the time (and I know some who got well then that that on Core-something boxes). About role Vm can take in the process, I've got reasonable hope they're a bit clearer from my previous post.<br>
+<blockquote class="uncited"><div>kozaki, none of the vm trialing here for compare... Your e.g.proposal has substantial graphics imbalanced to system.(?)<br>
+Had dell inspiron 2650 laptop with specs like those proposed or less running antix16_32dvdLive networked wirelessly last week. Got a good nod on that one; user is interested in from=usb feature. Hope you get the result you wish.</div></blockquote>
+antiX does run efficiently on the Athlons. OS's 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.youtube.com/watch?v=EqnfjqfFIpE"<br>linktext was:"only a base for the jobs"<br>====================================<br>
+. Browsers needed some tweaking tho to play HD vids (yeah love Streamlight but remember I'm not the end user). Now did you imply it's the only OS available for the job?<br>
+What you wrote at the begining I did not understand.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

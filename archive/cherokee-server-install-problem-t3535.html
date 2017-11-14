@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Cherokee server install problem - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./cherokee-server-install-problem-t3535.html">Cherokee server install problem</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23356" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23356">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">leke</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23356">
+<time datetime="2012-01-17T13:46">posted: 2012-01-17 &nbsp; 13:46</time>
+<span class="permalink"><a href="./cherokee-server-install-problem-t3535.html#p23356" title="permalink">#1</a></span>
+
+<div class="content">Hi, I'm having some problems figuring out how to get cherokee installed on antix. If I fire up the package manager and select cherokee, I get...
+<blockquote class="uncited"><div>cherokee:<br>
+<br>
+Package cherokee has no available version, but exists in the database.<br>
+This typically means that the package was mentioned in a dependency and never uploaded, has been obsoleted or is not available with the contents of sources.list</div></blockquote>
+Reading the install advice on the cherokee site, is it ok if I try...
+<blockquote class="uncited"><div>The APT suite can handle more than one set of packages with different priorities. If you want to get the latest Cherokee off unstable, you can make your /etc/apt/sources.list be:<br>
+<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.debian.org/debian/"<br>linktext was:"http://ftp.debian.org/debian/"<br>====================================<br>
+ lenny main<br>
+deb-src 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.debian.org/debian/"<br>linktext was:"http://ftp.debian.org/debian/"<br>====================================<br>
+ lenny main<br>
+<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.debian.org/debian/"<br>linktext was:"http://ftp.debian.org/debian/"<br>====================================<br>
+ sid main<br>
+deb-src 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.debian.org/debian/"<br>linktext was:"http://ftp.debian.org/debian/"<br>====================================<br>
+ sid main<br>
+<br>
+And set your preferences to lenny in /etc/apt/preferences:<br>
+<br>
+Package: *<br>
+Pin: release a=stable<br>
+Pin-priority: 900<br>
+<br>
+Package: *<br>
+Pin: release a=testing<br>
+Pin-priority: 200<br>
+<br>
+Just make the pin-priority lower. Then, aptitude update to get the full lists, and install Cherokee from unstable:<br>
+<br>
+# aptitude -t testing install cherokee</div></blockquote>
+Is this method compatible with antix?<br>
+<br>
+Thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23357" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23357">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23357">
+
+<time datetime="2012-01-17T15:32">posted: 2012-01-17 &nbsp; 15:32</time>
+<span class="permalink"><a href="./cherokee-server-install-problem-t3535.html#p23357" title="permalink">#2</a></span>
+
+<div class="content">Post your /etc/apt/sources.list<br>
+<br>
+inxi -r<br>
+<br>
+cherokee is in squeeze and sid. I would try to install firstly fron squeeze, and if that doesn't work, enable sid/unstable repo, install cherokee and then comment out the sid/unstable repo again. No need to edit /etc/apt/preferences:</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23358" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23358">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">leke</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23358">
+ 
+<time datetime="2012-01-17T16:41">posted: 2012-01-17 &nbsp; 16:41</time>
+<span class="permalink"><a href="./cherokee-server-install-problem-t3535.html#p23358" title="permalink">#3</a></span>
+
+<div class="content">Here you go...
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@xp:/etc/apt# inxi -r
+Repos: Active apt sources in file: /etc/apt/sources.list
+           deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+           deb http://security.debian.org/ testing/updates main contrib non-free
+           deb http://liquorix.net/debian/ sid main
+           deb http://ftp.belnet.be/mirror/liquorix.net/debian sid main
+           Active apt sources in file: /etc/apt/sources.list.d/google-talkplugin.list
+           deb http://dl.google.com/linux/talkplugin/deb/ stable main
+</code></pre></div>
+I'll try like you saidand let you know if there are any problems. Thanks for the help <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+edit:<br>
+I got version 1.0.8-5 installed (latest is version 1.2 I think). <br>
+Started cherokee-admin and it seems to work apart from this error...<br>
+[17/01/2012 19:07:51.168] (error) rrd_tools.c:120 - Could not find the rrdtool binary.<br>
+I'll google for that though and see if ti's a big deal or not <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23359" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23359">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23359">
+
+<time datetime="2012-01-17T18:50">posted: 2012-01-17 &nbsp; 18:50</time>
+<span class="permalink"><a href="./cherokee-server-install-problem-t3535.html#p23359" title="permalink">#4</a></span>
+
+<div class="content">Ok, try the one from sid/unstable. It is the latest version</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

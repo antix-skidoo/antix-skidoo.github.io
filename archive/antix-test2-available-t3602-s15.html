@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-test2 available. - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-releases-f45/index.html"><span>Development releases</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-test2-available-t3602-s15.html">antiX-test2 available.</a></div>
+<div class="pagination">
+80 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-test2-available-t3602.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-test2-available-t3602.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./antix-test2-available-t3602-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-test2-available-t3602-s45.html" role="button">4</a></li>
+<li><a class="button" href="./antix-test2-available-t3602-s60.html" role="button">5</a></li>
+<li><a class="button" href="./antix-test2-available-t3602-s75.html" role="button">6</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-test2-available-t3602-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_23815" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23815">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23815">
+<time datetime="2012-03-07T13:01">posted: 2012-03-07 &nbsp; 13:01</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23815" title="permalink">#16</a></span>
+
+<div class="content"><blockquote><div><cite>newbody wrote:</cite>I failed to find the code for frugal install on usb but maybe it is same as above then. or it is in the file. </div></blockquote>
+Before doing a frugal install, it would be great if you could boot antiX with a LiveCD or LiveUSB on the target machine that has the ntfs partition. I will assume you can do this.<br>
+<br>
+You need four things in order to boot:
+<ol style="list-style-type: decimal"><li> Boot loader, usually grub or isolinux</li>
+<li> A kernel, usually /antiX/vmlinuz</li>
+<li> An initrd usually /antiX/initrd.gz</li>
+<li> a linuxfs file that contains the entire Linux system usually /antiX/linuxfs</li></ol>
+If you can boot from a LiveCD or a LiveUSB then you already have the first 3 things. For now, I suggest you continue to use those 3 things from either the LiveCD or LiveUSB and just put the linuxfs file on your ntfs partition.<br>
+<br>
+So all you need to do is copy the linuxfs file to a place on your ntfs partition and then tell us where to find it with boot parameters. Assuming you are in the LiveCD or LiveUSB environment, you need to:
+<ol style="list-style-type: lower-alpha"><li>mount the ntfs partition (if it is not mounted already),</li>
+<li> create an antiX/ directory on the top level of the ntfs partition,</li>
+<li> copy /live/boot-dev/antiX/linuxfs to the antiX/ directory on the ntfs partition</li></ol>
+Finally, you need to tell us which partition the linuxfs file is on and where to find it on that partition using boot parameters. The default directory is /antiX and the default filename is linuxfs so you just have to tell us the partition. If you have only one partition, or if you don't mind us scanning all of your partitions then you just need the <strong>from=hd</strong> boot code. You could also tell us the label, uuid, or device name of the partition. I gave examples of this above. You don't need the <strong>from=hd</strong> if you tell us the device name, label, or uuid, but it is still a very good idea to include it in case, for example, you insert a cd or a usb stick that has the same label you are using for your internal drive.<br>
+<br>
+The other boot options are optional. I like to use the <strong>quiet</strong> options and also set the resolution of the text consoles to either 1024x768 with <strong>vga=791</strong> or to 1280x1024 with <strong>vga=794</strong>. You could also use <strong>vga=ask</strong> to get prompted for what display resolution to use.<br>
+<br>
+The new <strong>antiX</strong> option is used to abbreviate four common antiX options:
+<ul>
+<li> <strong>L</strong> = lean</li>
+<li> <strong>X</strong> =Xtralean</li>
+<li> <strong>M</strong> = mean</li>
+<li> <strong>D</strong> = nodbus</li></ul>
+So <strong>antiX=LXMD</strong> enables all four of these options.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23817" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23817">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23817">
+
+<time datetime="2012-03-07T15:24">posted: 2012-03-07 &nbsp; 15:24</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23817" title="permalink">#17</a></span>
+
+<div class="content">BitJam, thanks for the detailed instruction. <br>
+Anti is answering me over at the thread he made here <br>
+post23814.html#p23814<br>
+<br>
+My poor English fails to make my situation clear. <br>
+I do my best but not being native user of English <br>
+I get into confusing grammar errors and Anti interpret <br>
+my words so we misunderstand each other. <br>
+<br>
+His take seems to be that it should work and <br>
+my take on it is that I am a pessimist. Maybe <br>
+it works for him, why else would he suggest it? <br>
+<br>
+But something about me being a total absolute noob <br>
+makes me fail to read even the easiest instruction <br>
+and fail to follow it. More by pure luck would things work here.<br>
+<br>
+So maybe we could continue in that thread? The questions <br>
+are very related so we keep this thread here for those specific <br>
+for the new test iso and the special problem that I have is <br>
+better to concentrate on that other thread I link to. Hope that is okay<br>
+<br>
+Much appreciated you care.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23833" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23833">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23833">
+
+<time datetime="2012-03-07T21:14">posted: 2012-03-07 &nbsp; 21:14</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23833" title="permalink">#18</a></span>
+
+<div class="content">Posting from antiX-full 04 March 2012<br>
+<br>
+Now I get the wicd icon in antixcc <span class="emoticon"> __{{emoticon}}__ </span><br>
+As usual, I have to set in Preferences the name of of the wireless interface (wlan0 for me)<br>
+I think that in earlier versions of antiX (of wicd ?), the interface was automatically detected <br>
+<br>
+Minor bug:<br>
+In live session from CD (antiX-full, with icons), I get a small empty window in the top left corner. I can move, enlarge the window. It is not a terminal (no input). I can iconify it, maximize it, but cannot kill it from the window decoration. I cannot neither xkill it. I noticed this ghost window alraedy with test1. Cannot see which process it comes from.<br>
+<br>
+Going to install to HD</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23834" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23834">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 162</span></div>
+
+</div>
+</div>
+<span class="username">drg</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Feb 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23834">
+
+<time datetime="2012-03-07T21:34">posted: 2012-03-07 &nbsp; 21:34</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23834" title="permalink">#19</a></span>
+
+<div class="content">On the P4, mountbox does mount/unmount USB flashdrives and calls up rox-filer as root. But now need to use MC, spacefm, sunflower or a 2nd instance of rox-filer as root to copy to HDD. Permission to do this, copy or open the file or directory, as user is not there; same with a save as from eg a wordprocessor as user. The copied file stays with root permissions, whether on HDD or copied back to USB flashdrive. <br>
+Anybody else find this so?<br>
+<br>
+As to my P200MMX, it is being grumpy with the CD Rom handling the install CD. It did boot the CD &amp; cli-installer started working, but hung up. Hardware issue, not software I’m sure.<br>
+As lagopus mentioned, also get a ‘ghost window’. Minor mystery.</div>
+
+<div class="notice">
+Last edited by <b>drg</b> on 09 Mar 2012, 21:26, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23837" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23837">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23837">
+
+<time datetime="2012-03-07T21:58">posted: 2012-03-07 &nbsp; 21:58</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23837" title="permalink">#20</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>yves@antiX1:~$ inxi -S
+System:    Host: antiX1 Kernel: 3.2.9-antix.1-486-smp i686 (32 bit) Desktop: IceWM 1.3.7 Distro: antiX-full 04 March 2012
+</code></pre></div>
+Same problem as in test-1 with /boot/grub/menu.lst (using minstall):<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title Microsoft Windows XP Home Edition at sda2
+map (hd0) 
+map  (hd0)
+rootnoverify ,1)
+chainloader +1
+</code></pre></div>
+I got entries for Windows (buggy) and for my fresh install of test-2 on /dev/sda7<br>
+But my current install of test1 in /dev/sda5 does not show up</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23841" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23841">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23841">
+
+<time datetime="2012-03-08T04:28">posted: 2012-03-08 &nbsp; 04:28</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23841" title="permalink">#21</a></span>
+
+<div class="content">Check out my initial experiences and general comments regarding antiX, and the Test 2 release in particular. I added some links in my article to some Debian-based resources in case anyone runs into issues with wireless firmware (something that rarely happens for me with antiX), but something I periodically encounter elsewhere (particularly with Ubuntu derivatives. The links are good resources to have handy.<br>
+<br>
+I did have to reinstall my wireless firmware for the Broadcom 4311 to get it working right; not sure if that is because I had it there from a previous installation, or if the firmware wasn't included in the Test 2 build, but I didn't see it, so I installed it and got everything up and running quite easily. The article I wrote is on my blog at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://brianmasinick.blogspot.com/2012/03/initial-experiences-with-antix-120-test.html"<br>linktext was:"Brian's Blog"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23850" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23850">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5</span></div>
+
+</div>
+</div>
+<span class="username">kelean</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23850">
+
+<time datetime="2012-03-08T16:06">posted: 2012-03-08 &nbsp; 16:06</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23850" title="permalink">#22</a></span>
+
+<div class="content">I also have the blank window. It was there on the live cd and is also present on the full install. I have tried to kill it several ways but it will not die. So I moved it to an unused desktop for now.<br>
+<br>
+I did a full install on my old sony viao laptop and is running great. All my hardware was detected and is working very well.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23857" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23857">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 162</span></div>
+
+</div>
+</div>
+<span class="username">drg</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Feb 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23857">
+
+<time datetime="2012-03-08T20:59">posted: 2012-03-08 &nbsp; 20:59</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23857" title="permalink">#23</a></span>
+
+<div class="content">Success with P200MMX, cli-installer. No ‘ghost window’, login after install goes to slim, works OK. Same issues with using USB thumbdrives as with the P4 (am I missing something considering this?)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23869" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23869">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 299</span></div>
+
+</div>
+</div>
+<span class="username">Cuttlefish</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Dec 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23869">
+
+<time datetime="2012-03-09T00:27">posted: 2012-03-09 &nbsp; 00:27</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23869" title="permalink">#24</a></span>
+
+<div class="content">Working very well from my thumb drive. No wireless issues (Atheros AR9285). Nice work anti! <br>
+<br>
+I don't quite understand how to use the wallpaper changer. Seems easy enough, but I'm not sure how to choose the wallpaper I want. Random setting on it works good though. <br>
+<br>
+Really looking forward to the final release and especially antiX snapshot. <br>
+<br>
+Dave<br>
+<br>
+EDIT: I think I have the wallpaper changer down. LOL</div>
+<div class="notice">
+Last edited by <b>Cuttlefish</b> on 09 Mar 2012, 14:14, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23874" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23874">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23874">
+
+<time datetime="2012-03-09T11:16">posted: 2012-03-09 &nbsp; 11:16</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23874" title="permalink">#25</a></span>
+
+<div class="content">Very typical of Newbody. I fail to read texts<br>
+<blockquote class="uncited"><div>The other boot options are optional. I like to use the quiet options and also set the resolution of the text consoles to either 1024x768 with vga=791 or to 1280x1024 with vga=794. You could also use vga=ask to get prompted for what display resolution to use.</div></blockquote> <br>
+That sets the resolution for the boot process not for the slim which one have to set <br>
+using grandr or some other set up prog. <br>
+<br>
+But the sad thing for me is that it does not remember the resolution that I give it. <br>
+Can I edit some xorg.conf or something so it does remember 1024 x 768 instead <br>
+of the 800 x 600 that it gives it now by default?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23883" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23883">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 299</span></div>
+
+</div>
+</div>
+<span class="username">Cuttlefish</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Dec 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23883">
+
+<time datetime="2012-03-09T13:35">posted: 2012-03-09 &nbsp; 13:35</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23883" title="permalink">#26</a></span>
+
+<div class="content">System now installed, but not updated. Had the same problem as afab, with gparted. Edited gparted.desktop as per instructions. Gparted opens but no partitions are shown."No devices detected" message is visible. When gparted is summoned via terminal all is well.<br>
+<br>
+When using the sux command in terminal obtained: <br>
+<br>
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device<br>
+bash: no job control in this shell<br>
+<br>
+Edit: Seems like a known bug: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=659878"<br>linktext was:"http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=659878"<br>====================================<br>
+<br>
+<br>
+I will update system.</div>
+<div class="notice">
+Last edited by <b>Cuttlefish</b> on 09 Mar 2012, 15:22, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23886" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23886">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 299</span></div>
+
+</div>
+</div>
+<span class="username">Cuttlefish</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Dec 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23886">
+
+<time datetime="2012-03-09T14:17">posted: 2012-03-09 &nbsp; 14:17</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23886" title="permalink">#27</a></span>
+
+<div class="content">System updated. I needed to reedit gparted.desktop. Changes were overidden after update. Still no partitons shown when gparted is opened via menu.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23888" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23888">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23888">
+
+<time datetime="2012-03-09T17:26">posted: 2012-03-09 &nbsp; 17:26</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23888" title="permalink">#28</a></span>
+
+<div class="content">the ghost window is a result of a taskbar item that starts at boot, my guess in wicd. a suggestion is to set a delay on the start of wicd taskbar icon.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23893" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23893">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23893">
+
+<time datetime="2012-03-09T17:57">posted: 2012-03-09 &nbsp; 17:57</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23893" title="permalink">#29</a></span>
+
+<div class="content">dark-D it is the volume icon in the task bar. A right-click on the ghost window and I think minimise. (Don;t have icewm to test and on my box I don't get the ghost)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23906" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23906">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">swiftlinuxcreator</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23906">
+
+<time datetime="2012-03-10T20:13">posted: 2012-03-10 &nbsp; 20:13</time>
+<span class="permalink"><a href="./antix-test2-available-t3602-s15.html#p23906" title="permalink">#30</a></span>
+
+<div class="content">anticapitalista, I'm trying out antiX-test2 in VirtualBox, and I like the improvements. The biggest improvement I've seen so far is the fact that the menu is automatically updated. For my new yet-to-be-released Mint-based Swift Linux, I will be using your successful menu-icewm-antix package to provide this feature, as I've been struggling to figure out how to do it on my own.<br>
+<br>
+I like the fact that you have put many features into *.deb packages, including the automatic menu updates and the control center. This makes it easier to figure out how things work, as well as make it easier to copy these features.<br>
+<br>
+I applaud your support for JWM, the default window manager of Puppy Linux. The Ubuntu/Unity and GNOME 3 controversies illustrate the value of having a Plan B. I don't think the people at IceWM would make any such controversial changes, but in the unlikely event that they do, you'll have the option of switching to JWM.<br>
+<br>
+I'm curious about your decisions to include LibreOffice and remove Asian fonts. Are you copying Swift Linux? If so, I'm very flattered, just as you should be flattered that I'd copy features from antiX Linux.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+80 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-test2-available-t3602.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-test2-available-t3602.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./antix-test2-available-t3602-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-test2-available-t3602-s45.html" role="button">4</a></li>
+<li><a class="button" href="./antix-test2-available-t3602-s60.html" role="button">5</a></li>
+<li><a class="button" href="./antix-test2-available-t3602-s75.html" role="button">6</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-test2-available-t3602-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] Automatically started program spawns zombie window - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html">[SOLVED] Automatically started program spawns zombie window</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23430" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23430">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23430">
+<time datetime="2012-01-24T21:11">posted: 2012-01-24 &nbsp; 21:11</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23430" title="permalink">#1</a></span>
+
+<div class="content">Hey all,<br>
+<br>
+I want the clipboard manager 'Parcellite' to be automatically started when booting AntiX. So I put the following line at the end of the file .icewm/startup in my HOME directory:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> /usr/bin/parcellite</code></pre></div>
+The entire startup file (which is executable) looks like this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+## Auto update menu
+#python ~/.icewm/icemenuyap2.py &gt; ~/.icewm/application ##This is old menu##
+
+auto-icewm-menu.sh &amp;
+
+#killall icewmtray
+#icewmtray &amp;
+#sleep 2 &amp;&amp; wicd-client &amp;
+#Use feh to set wallpaper
+eval `cat ~/.fehbgrox-ice` &amp;
+
+conky &amp;
+
+## Set desktop icons
+#pcmanfm --desktop &amp;
+rox --pinboard=antiX-ice &amp;
+
+# set live keyboard
+setxkbmap de
+
+########## PLAY STARTUP SOUND #########
+#play /usr/share/sounds/Pardus_Rocks/Pardus_Rocks-Logout.ogg &gt; /dev/null 2&gt;&amp;1 &amp;
+
+# Auto-mount usb devices in rox /media. Do not use with /etc/udev/rules.d/99-usbstorage.rules
+# Do not use if you use Thunar or pcmanfm file managers.
+#sleep 5 &amp;&amp; devmon --exec-on-drive"rox /media" &amp;
+
+## Set wallpaper via nitrogen
+#rm $HOME/.config/nitrogen/bg-saved.cfg
+#ln -s $HOME/.config/nitrogen/bg-saved-icewm.cfg $HOME/.config/nitrogen/bg-saved.cfg 
+#nitrogen --restore &amp;
+
+sleep 5 &amp;&amp; volumeicon &amp;
+
+#Beim Start den Clipboardmanager 'Parcellite' ausführen - Run 'Parcellite' on startup
+/usr/bin/parcellite
+</code></pre></div>
+Parcellite is started when booting the computer, alas with it comes a kind of a zombie window. The content is only black and the icon in the 'window header' as well as in the taskbar shows the windows as belonging to an executable file or program. <br>
+<br>
+I can neither close the windows nor kill it via xkill from the command line. Closing 'Parcellite' doesn't help either, but it has to belong to that programme as it only appears when I put the aforementioned line into the startup file.<br>
+I tried having IceWM send 'Parcellite' into the background by modifying the line to:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/usr/bin/parcellite &amp;</code></pre></div> but that doesn't work.<br>
+<br>
+Does someone have any thoughts on that?<br>
+What am I doing wrong?<br>
+<br>
+Thanks a lot for your help!</div>
+<div class="notice">
+Last edited by <b>Honeypuck</b> on 26 Jan 2012, 22:45, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23432" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23432">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23432">
+
+
+<time datetime="2012-01-24T23:16">posted: 2012-01-24 &nbsp; 23:16</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23432" title="permalink">#2</a></span>
+
+<div class="content">What does<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache policy gtk
+</code></pre></div>
+and <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache policy glib 
+</code></pre></div>
+Show?<br>
+<br>
+.<blockquote class="uncited"><div>Requirements<br>
+gtk &gt;= 2.10.0<br>
+glib &gt;= 2.14.0</div></blockquote>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://parcellite.sourceforge.net/?page_id=2"<br>linktext was:"http://parcellite.sourceforge.net/?page_id=2"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23436" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23436">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23436">
+
+<time datetime="2012-01-25T06:15">posted: 2012-01-25 &nbsp; 06:15</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23436" title="permalink">#3</a></span>
+
+<div class="content">Thanks a lot for the quick response. Could you name a specific package I should be looking for, or rather have apt-get look for?<br>
+When I look up the policy for <em>gtk</em>, I get this message (translated):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-cache policy gtk
+N: Package gtk could not be found
+</code></pre></div>
+The same goes for <em>glib</em>.<br>
+<br>
+The output of
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg -l | grep gtk</code></pre></div>
+is too large to post here and as far as I can tell, all the packages listed belong to specific programs not <em>gtk</em> in general. <br>
+<br>
+I figured that I do not have all the necessary GTK-packages installed, so I installed pretty much all GTK2 related stuff, as far as they seemed plausibly related to the problem.<br>
+<br>
+Still, I get the same message that apt-get cannot find the desired package.<br>
+<br>
+When I check for installed versions of <em>gtk</em>, I get told that the following are on my system:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg -l | grep gtk*
+..
+ii  libgtk-3-0                           3.2.3-1
+ii  libgtk2.0-0                         2.24.8-3 
+..
+</code></pre></div>
+I have the feeling that the too packages might confict with another...<br>
+<br>
+For <em>glib</em> I get:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg -l | grep glib
+..
+ ii  libglib2.0-0                        2.30.2-5
+..
+</code></pre></div>
+At least the package versions should be new enough to support 'Parcellite', the program itself runs fine.<br>
+What should I do now?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23438" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23438">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23438">
+
+<time datetime="2012-01-25T09:42">posted: 2012-01-25 &nbsp; 09:42</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23438" title="permalink">#4</a></span>
+
+<div class="content">Sorry for the gtk and glib apt-policy commands earlier. I was busy at my motorcycle shop and was in a hurry when I posted. 4:45 am here right now also so I am a bit groggy.<br>
+<br>
+What version of parcellite are you using? I just ask because of this Debian bug report for parcellite.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637272"<br>linktext was:"http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637272"<br>====================================<br>
+<br>
+<br>
+I found this<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://packages.debian.org/source/testing/gtk+2.0"<br>linktext was:"http://packages.debian.org/source/testing/gtk+2.0"<br>====================================<br>
+<br>
+<br>
+and this<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://packages.debian.org/source/testing/glib2.0"<br>linktext was:"http://packages.debian.org/source/testing/glib2.0"<br>====================================<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@biker:~$ apt-cache policy glib2.0
+libglib2.0-0:
+  Installed: 2.30.2-4
+  Candidate: 2.30.2-4
+  Version table:
+ *** 2.30.2-4 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libglib2.0-dev:
+  Installed: (none)
+  Candidate: 2.30.2-4
+  Version table:
+     2.30.2-4 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libglib2.0-doc:
+  Installed: (none)
+  Candidate: 2.30.2-4
+  Version table:
+     2.30.2-4 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libglib2.0-cil:
+  Installed: (none)
+  Candidate: 2.12.10-2
+  Version table:
+     2.12.10-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libtaglib2.0-cil:
+  Installed: (none)
+  Candidate: 2.0.3.7+dfsg-1
+  Version table:
+     2.0.3.7+dfsg-1 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libglib2.0-0-dbg:
+  Installed: (none)
+  Candidate: 2.30.2-4
+  Version table:
+     2.30.2-4 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libglib2.0-bin:
+  Installed: (none)
+  Candidate: 2.30.2-4
+  Version table:
+     2.30.2-4 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libglib2.0-data:
+  Installed: 2.30.2-4
+  Candidate: 2.30.2-4
+  Version table:
+ *** 2.30.2-4 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libglib2.0-dbg:
+  Installed: (none)
+  Candidate: (none)
+  Version table:
+libglib2.0-0-refdbg:
+  Installed: (none)
+  Candidate: 2.30.2-4
+  Version table:
+     2.30.2-4 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libglib2.0-cil-dev:
+  Installed: (none)
+  Candidate: 2.12.10-2
+  Version table:
+     2.12.10-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+@biker:~$ apt-cache policy gtk+2.0
+libgtk2.0-0:
+  Installed: 2.24.8-2
+  Candidate: 2.24.8-2
+  Version table:
+ *** 2.24.8-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libgtk2.0-doc:
+  Installed: (none)
+  Candidate: 2.24.8-2
+  Version table:
+     2.24.8-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-dev:
+  Installed: (none)
+  Candidate: 2.24.8-2
+  Version table:
+     2.24.8-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-cil-dev:
+  Installed: (none)
+  Candidate: 2.12.10-2
+  Version table:
+     2.12.10-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-cil:
+  Installed: (none)
+  Candidate: 2.12.10-2
+  Version table:
+     2.12.10-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-bin:
+  Installed: 2.24.8-2
+  Candidate: 2.24.8-2
+  Version table:
+ *** 2.24.8-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+monodoc-gtk2.0-manual:
+  Installed: (none)
+  Candidate: 2.12.10-2
+  Version table:
+     2.12.10-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libgwengui-gtk2-0:
+  Installed: (none)
+  Candidate: 4.3.0-1
+  Version table:
+     4.3.0-1 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-common:
+  Installed: 2.24.8-2
+  Candidate: 2.24.8-2
+  Version table:
+ *** 2.24.8-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gtk2.0-examples:
+  Installed: (none)
+  Candidate: 2.24.8-2
+  Version table:
+     2.24.8-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-0-dbg:
+  Installed: (none)
+  Candidate: 2.24.8-2
+  Version table:
+     2.24.8-2 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+gtk2.0-binver-2.10.0:
+  Installed: (none)
+  Candidate: (none)
+  Version table:
+lazarus-ide-gtk2-0.9.30:
+  Installed: (none)
+  Candidate: 0.9.30-3
+  Version table:
+     0.9.30-3 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+lcl-gtk2-0.9.30:
+  Installed: (none)
+  Candidate: 0.9.30-3
+  Version table:
+     0.9.30-3 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+librccgtk2-0:
+  Installed: (none)
+  Candidate: 0.2.9-3
+  Version table:
+     0.2.9-3 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+uim-gtk2.0:
+  Installed: (none)
+  Candidate: 1:1.7.1-3
+  Version table:
+     1:1.7.1-3 0
+        901 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+</code></pre></div>
+Should have been the right commands to search for gtk and glib in apt with apt-cache policy command. <br>
+I don't run parcellite so all I can do is help you search to make sure all correct dependencies are installed for parcellite to run and that you are running the fixed parcellite version stated in the bug report also.<br>
+<br>
+/usr/bin/parcellite &amp; command looks OK though for .icewm/startup to open it up after login. Maybe a sleep 2 option might help like you have in wicd startup line. Give it time to finish loading desktop before opening parcellite.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sleep 2 &amp;&amp; /usr/bin/parcellite &amp;</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23440" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23440">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23440">
+
+<time datetime="2012-01-25T19:29">posted: 2012-01-25 &nbsp; 19:29</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23440" title="permalink">#5</a></span>
+
+<div class="content">Change<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...## Set wallpaper via nitrogen
+#rm $HOME/.config/nitrogen/bg-saved.cfg
+#ln -s $HOME/.config/nitrogen/bg-saved-icewm.cfg $HOME/.config/nitrogen/bg-saved.cfg 
+#nitrogen --restore &amp;
+
+sleep 5 &amp;&amp; volumeicon &amp;
+
+#Beim Start den Clipboardmanager 'Parcellite' ausführen - Run 'Parcellite' on startup
+/usr/bin/parcellite</code></pre></div>
+in
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+...
+sleep 5 &amp;&amp; volumeicon &amp;
+
+parcellite &amp;</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23442" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23442">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23442">
+
+<time datetime="2012-01-25T22:32">posted: 2012-01-25 &nbsp; 22:32</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23442" title="permalink">#6</a></span>
+
+<div class="content">@rokytnji &amp; male:<br>
+<br>
+Your suggestions for modifying the startup file do not work, unfortunately, this annoying window appears nonetheless.<br>
+<br>
+I checked for fulfilled dependencies, and everything looks fine, like in <em>rokytnji</em>'s code example.<br>
+<br>
+Here is my output:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@AntiX:~# apt-cache policy glib2.0
+libglib2.0-0:
+  Installiert: 2.30.2-5
+  Kandidat:    2.30.2-5
+  Versionstabelle:
+ *** 2.30.2-5 0
+        100 /var/lib/dpkg/status
+     2.30.2-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libglib2.0-dev:
+  Installiert: (keine)
+  Kandidat:    2.30.2-4
+  Versionstabelle:
+     2.30.2-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libglib2.0-doc:
+  Installiert: 2.30.2-4
+  Kandidat:    2.30.2-4
+  Versionstabelle:
+ *** 2.30.2-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libglib2.0-cil:
+  Installiert: 2.12.10-2
+  Kandidat:    2.12.10-2
+  Versionstabelle:
+ *** 2.12.10-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libtaglib2.0-cil:
+  Installiert: (keine)
+  Kandidat:    2.0.3.7+dfsg-1
+  Versionstabelle:
+     2.0.3.7+dfsg-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libglib2.0-0-dbg:
+  Installiert: (keine)
+  Kandidat:    2.30.2-4
+  Versionstabelle:
+     2.30.2-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libglib2.0-bin:
+  Installiert: (keine)
+  Kandidat:    2.30.2-4
+  Versionstabelle:
+     2.30.2-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libglib2.0-data:
+  Installiert: 2.30.2-5
+  Kandidat:    2.30.2-5
+  Versionstabelle:
+ *** 2.30.2-5 0
+        100 /var/lib/dpkg/status
+     2.30.2-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libglib2.0-dbg:
+  Installiert: (keine)
+  Kandidat:    (keine)
+  Versionstabelle:
+libglib2.0-0-refdbg:
+  Installiert: (keine)
+  Kandidat:    2.30.2-4
+  Versionstabelle:
+     2.30.2-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libglib2.0-cil-dev:
+  Installiert: (keine)
+  Kandidat:    2.12.10-2
+  Versionstabelle:
+     2.12.10-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+root@AntiX:~# apt-cache policy gtk+2.0
+libgtk2.0-0:
+  Installiert: 2.24.8-3
+  Kandidat:    2.24.8-3
+  Versionstabelle:
+ *** 2.24.8-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libgtk2.0-doc:
+  Installiert: 2.24.8-3
+  Kandidat:    2.24.8-3
+  Versionstabelle:
+ *** 2.24.8-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libgtk2.0-dev:
+  Installiert: (keine)
+  Kandidat:    2.24.8-3
+  Versionstabelle:
+     2.24.8-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-cil-dev:
+  Installiert: (keine)
+  Kandidat:    2.12.10-2
+  Versionstabelle:
+     2.12.10-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-cil:
+  Installiert: 2.12.10-2
+  Kandidat:    2.12.10-2
+  Versionstabelle:
+ *** 2.12.10-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libgtk2.0-bin:
+  Installiert: 2.24.8-3
+  Kandidat:    2.24.8-3
+  Versionstabelle:
+ *** 2.24.8-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+monodoc-gtk2.0-manual:
+  Installiert: (keine)
+  Kandidat:    2.12.10-2
+  Versionstabelle:
+     2.12.10-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libgwengui-gtk2-0:
+  Installiert: (keine)
+  Kandidat:    4.3.1-1
+  Versionstabelle:
+     4.3.1-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+libgtk2.0-common:
+  Installiert: 2.24.8-3
+  Kandidat:    2.24.8-3
+  Versionstabelle:
+ *** 2.24.8-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gtk2.0-examples:
+  Installiert: 2.24.8-3
+  Kandidat:    2.24.8-3
+  Versionstabelle:
+ *** 2.24.8-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+libgtk2.0-0-dbg:
+  Installiert: (keine)
+  Kandidat:    2.24.8-3
+  Versionstabelle:
+     2.24.8-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gtk2.0-binver-2.10.0:
+  Installiert: (keine)
+  Kandidat:    (keine)
+  Versionstabelle:
+lazarus-ide-gtk2-0.9.30.2:
+  Installiert: (keine)
+  Kandidat:    0.9.30.2-1
+  Versionstabelle:
+     0.9.30.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+lcl-gtk2-0.9.30.2:
+  Installiert: (keine)
+  Kandidat:    0.9.30.2-1
+  Versionstabelle:
+     0.9.30.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+librccgtk2-0:
+  Installiert: (keine)
+  Kandidat:    0.2.9-3
+  Versionstabelle:
+     0.2.9-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+uim-gtk2.0:
+  Installiert: (keine)
+  Kandidat:    1:1.7.1-3
+  Versionstabelle:
+     1:1.7.1-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+</code></pre></div>
+Versions maybe a bit newer, but the same packages are installed.<br>
+<br>
+In case I haven't been clear enough, <em>Parcellite</em> works just fine, whether started manually or via the startup script, even with that window. Thus I would guess that this is actually not a <em>Parcellite</em> or <em>GTK</em> issue, but rather a problem with <em>IceWM</em>.<br>
+<br>
+Maybe someone can suggest me an alternative clipboard manager, I could deploy. It's only that I know <em>Parcellite</em> from the GNOME desktop, and there it works fine. If there is another clipboard program out there, where you can set an individual keyboard shortcut to invoke the list óf copied items, I'd be more than happy to use that one, provided it can be added to the startup script.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23443" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23443">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 162</span></div>
+
+</div>
+</div>
+<span class="username">drg</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Feb 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23443">
+
+<time datetime="2012-01-25T23:31">posted: 2012-01-25 &nbsp; 23:31</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23443" title="permalink">#7</a></span>
+
+<div class="content">Maybe clipit. <br>
+Check it out at packages.debian.org, wheezy or sid versions. <br>
+It has a recommended package called xdotool to"simulate X11 keyboard/mouse input" (and may have nothing to do with what you want). Also a link to 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://clipit.rspwn.com/"<br>linktext was:"http://clipit.rspwn.com/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23447" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23447">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23447">
+
+<time datetime="2012-01-26T15:11">posted: 2012-01-26 &nbsp; 15:11</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23447" title="permalink">#8</a></span>
+
+<div class="content">Try adding the daemon option to parcellite in your startup, as you are running it in non daemon mode it will probably open the window for parcellite configuration. Also it seems that it must wait for setxkbmap de to finish ( this may or may not be a problem ), I would add a &amp; to the end of that line as well.<br>
+<br>
+the modified parts should then look like<br>
+<br>
+setxkbmap de &amp;<br>
+and <br>
+parcellite -d &amp;</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23448" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23448">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23448">
+
+<time datetime="2012-01-26T19:14">posted: 2012-01-26 &nbsp; 19:14</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23448" title="permalink">#9</a></span>
+
+<div class="content">Try this in your startup: Works on my rig<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sleep 5 &amp;&amp; volumeicon &amp;
+sleep 5 &amp;&amp; parcellite &amp;
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23450" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23450">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23450">
+
+<time datetime="2012-01-26T19:56">posted: 2012-01-26 &nbsp; 19:56</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23450" title="permalink">#10</a></span>
+
+<div class="content">Thanks a lot for the last two suggestions, I finally got it to work with a mixture of the proposals. <br>
+Here is the code that works:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>setxkbmap de &amp;
+sleep 5 &amp;&amp; parcellite &amp;
+</code></pre></div>
+Thanks a lot for your help! <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23451" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23451">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23451">
+
+<time datetime="2012-01-26T20:15">posted: 2012-01-26 &nbsp; 20:15</time>
+<span class="permalink"><a href="./solved-automatically-started-program-spawns-zombie-t3545.html#p23451" title="permalink">#11</a></span>
+
+<div class="content">Genau!<br>
+<br>
+Sometimes it helps to get to run applications sequentially<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+sleep 5 &amp;&amp; volumeicon &amp;
+
+sleep 8 &amp;&amp; keepassx &amp;
+
+sleep 10 &amp;&amp; parcellite &amp;</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

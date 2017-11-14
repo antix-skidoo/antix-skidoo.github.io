@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Booting antiX with Grub 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./booting-antix-with-grub-2-t3720.html">Booting antiX with Grub 2</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24847" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24847">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">bat999</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24847">
+<time datetime="2012-05-31T22:39">posted: 2012-05-31 &nbsp; 22:39</time>
+<span class="permalink"><a href="./booting-antix-with-grub-2-t3720.html#p24847" title="permalink">#1</a></span>
+
+<div class="content">Hi<br>
+There's a thread running on Ubuntu Forum"<strong>ISO Booting with Grub 2</strong>.<br>
+Here ---&gt; 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ubuntuforums.org/showthread.php?t=1549847"<br>linktext was:"http://ubuntuforums.org/showthread.php?t=1549847"<br>====================================<br>
+<br>
+<br>
+(This method is not the same as a"frugal install").<br>
+<br>
+There's some information too in the antiX wiki and also in the Mepis wiki.<br>
+<br>
+Here is the <strong>GRUB2</strong> menuentry that works for me.<br>
+(Tested with antiX M12 Pre-Final)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry"antiX ISO" {
+isofile="/boot/iso/antiX-486.iso"
+loopback loop $isofile
+linux (loop)/antiX/vmlinuz fromiso=$isofile fromhd=/dev/sda1 quiet noxorg nomodeset nouveau.modeset=0 tz=Europe/London lang=uk
+initrd (loop)/antiX/initrd.gz
+}</code></pre></div>
+Note. <br>
+"fromhd=/dev/sda1"<br>
+This is needed so that antiX looks for the iso on my hard drive instead of CD or USB.<br>
+<span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24848" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24848">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24848">
+
+<time datetime="2012-05-31T23:09">posted: 2012-05-31 &nbsp; 23:09</time>
+<span class="permalink"><a href="./booting-antix-with-grub-2-t3720.html#p24848" title="permalink">#2</a></span>
+
+<div class="content">Thanks for that bat999.<br>
+<br>
+As you say, this is for booting the iso. Does adding the persist cheat (once persistence is set up) allow for persistence to work? I don't have grub2 anywhere to test this out.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24850" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24850">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">bat999</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24850">
+
+<time datetime="2012-06-01T00:48">posted: 2012-06-01 &nbsp; 00:48</time>
+<span class="permalink"><a href="./booting-antix-with-grub-2-t3720.html#p24850" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Does adding the persist cheat (once persistence is set up) allow for persistence to work?</div></blockquote>
+Hi<br>
+I haven't tried to use persistence when booting any iso with GRUB2 so far, though it was discussed in the Ubuntu thread.<br>
+<br>
+I think this GRUB2 iso method is intended as a 'cheap and cheerful' method to trial distros without burning CDs.<br>
+<span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

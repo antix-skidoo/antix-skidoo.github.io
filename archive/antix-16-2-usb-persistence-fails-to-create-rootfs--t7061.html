@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Antix 16.2 USB Persistence Fails To Create rootfs and homefs - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html">Antix 16.2 USB Persistence Fails To Create rootfs and homefs</a></div>
+<div class="pagination">
+43 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061-s15.html" role="button">2</a></li>
+<li><a class="button" href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_52005" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52005">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52005">
+<time datetime="2017-07-04T19:15">posted: 2017-07-04 &nbsp; 19:15</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52005" title="permalink">#1</a></span>
+
+
+<div class="content">I'm running MX-16.1 on my hard disk but decided to try an antiX-16.2 persistent USB boot. In the boot process, I disallow renaming the MX-16 root partition and then proceed to let the USB installer create an antiX subdirectory on my MX-16 hard disk root partition (which is does successfully). However, it cannot create either of the persistence files and reports the failure. I tied using the default persistence file size selections and also selecting my own custom sizes. There is plenty of space on the hard disk partition. I also tried setting the antiX subdirectory permissions to 777 and then re-trying a persistent boot. Nothing works so far.<br>
+<br>
+When I boot my MX-16.1 USB stick in persistence mode, it works perfectly and creates the rootfs and homefs files.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52008" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52008">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52008">
+
+<time datetime="2017-07-04T19:42">posted: 2017-07-04 &nbsp; 19:42</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52008" title="permalink">#2</a></span>
+
+<div class="content">You mean frugal install from a hard drive.<br>
+I confirm the error (this was also an error in MX16.1 early dev, but it got fixed). Give me time to trace the fix.<br>
+<br>
+In the meantime, boot live usb, F5 frugal persist (it will fail to create the rootfs and homefs files), but once at the desktop, go to control centre, live tab, make persist (or whatever it is called). Create rootfs and then homefs (optiontal) then rebot. At boot menu choose F5 frugal persist and add/type fdev=sdaX (ie the partition where the frugal files are.)</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52009" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52009">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52009">
+
+<time datetime="2017-07-04T20:05">posted: 2017-07-04 &nbsp; 20:05</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52009" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>You mean frugal install from a hard drive..<br>
+&lt;snip&gt;</div></blockquote>
+Thanks, anticapitalista! I didn't use F5"frugal". Rather, I used F5"full" from the USB boot options.<br>
+I'll try your suggestion and report back.<br>
+<br>
+Is the only difference between"frugal" and"full" being the defaults for the persistence file sizes? I have nearly all of a 2TB hard disk available so I'm not too worried about being frugal!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52010" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52010">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52010">
+
+<time datetime="2017-07-04T20:07">posted: 2017-07-04 &nbsp; 20:07</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52010" title="permalink">#4</a></span>
+
+<div class="content">Oh...and just to be clear and comprehensive in my report here, I made the USB using antiX-16.2_386-full.iso file and I checked its md5sum.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52011" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52011">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52011">
+
+<time datetime="2017-07-04T20:25">posted: 2017-07-04 &nbsp; 20:25</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52011" title="permalink">#5</a></span>
+
+<div class="content">I just tried F5 &gt;&gt;"frugal" and it created a <strong>/media/rootMX16/antiX-Frugal-4.4.10-antix.1-486-smp</strong> subdirectory but then tried to create rootfs and homefs (or somthing) and failed. It wanted to do a fsck too and that produced a segmentation fault!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52012" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52012">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52012">
+
+<time datetime="2017-07-04T20:40">posted: 2017-07-04 &nbsp; 20:40</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52012" title="permalink">#6</a></span>
+
+<div class="content">Not sure what you want to do. Do you want to run antiX-16.2 from the usb device or run it from the hard drive?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52013" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52013">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52013">
+
+<time datetime="2017-07-04T20:49">posted: 2017-07-04 &nbsp; 20:49</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52013" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Not sure what you want to do. Do you want to run antiX-1<blockquote><div><cite>anticapitalista wrote:</cite>Not sure what you want to do. Do you want to run antiX-16.2 from the usb device or run it from the hard drive?</div></blockquote></div></blockquote>
+I want to run antiX-16.2 from the usb but save its state (persistence) on the hard drive. I want to preserve my MX-16 system on the hard drive.<br>
+<br>
+It doesn't seem see the fdev-sda1 option from the boot loader. I made the homefs and rootfs files using the Control Center utility, but the persistence feature still can't find them.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52014" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52014">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52014">
+
+<time datetime="2017-07-04T20:56">posted: 2017-07-04 &nbsp; 20:56</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52014" title="permalink">#8</a></span>
+
+<div class="content">fdev= are you sure it is sda1?<br>
+<br>
+What file system is MX on? ext4?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52015" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52015">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52015">
+
+<time datetime="2017-07-04T21:05">posted: 2017-07-04 &nbsp; 21:05</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52015" title="permalink">#9</a></span>
+
+<div class="content">Yes. I'm running from the (non-persistent) antiX usb now and I get:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo mount |grep dev/sda
+/dev/sda1 on /media/rootMX16 type ext4 (rw,nosuid,nodev,noexec,relatime,lazytime,data=ordered)
+</code></pre></div>
+and<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>df |grep /dev/sda
+/dev/sda1      192[code] 0634804 5632264 1817416928   1% /media/rootMX16
+</code></pre></div>
+Yup--sda1 is the MX-16 partition. I used the MX-16 installer defaults.<br>
+<br>
+I did a fsck on this partition but it didn't help. The antiX USB persistence feature still tries to do a fsck and it causes a segmentation fault, which concerns me. We should not see segmentation faults!<br>
+<br>
+Sadly I cannot do screen captures during USB boot to aid you in the debug of this problem I would have to take them with my camera.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52016" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52016">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52016">
+
+<time datetime="2017-07-04T21:11">posted: 2017-07-04 &nbsp; 21:11</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52016" title="permalink">#10</a></span>
+
+<div class="content">The seg faults only appeared after you tried setting the antiX subdirectory permissions to 777, right?<br>
+<br>
+If so, you will need to start from the beginning and install antiX-16.2 again to the usb device.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52017" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52017">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52017">
+
+<time datetime="2017-07-04T21:14">posted: 2017-07-04 &nbsp; 21:14</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52017" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>calinb wrote:</cite>I want to run antiX-16.2 from the usb but save its state (persistence) on the hard drive. I want to preserve my MX-16 system on the hard drive.<br>
+<br>
+It doesn't seem see the fdev-sda1 option from the boot loader. I made the homefs and rootfs files using the Control Center utility, but the persistence feature still can't find them.</div></blockquote>
+If you want to put the persistence files on partition sda1 then use the cheat"pdev=sda1" ("p" for persist). I haven't tested this recently so I wouldn't be greatly surprised if it didn't work.<br>
+<br>
+Unrecognised boot options should be reported on the screen and in the file /var/log/live/initrd.log.<br>
+<br>
+You can also use the cheat"bp=b9" to set a breakpoint at the end of the early boot process to pause the boot so you can read what is on the screen or take a picture.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52018" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52018">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52018">
+
+<time datetime="2017-07-04T21:17">posted: 2017-07-04 &nbsp; 21:17</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52018" title="permalink">#12</a></span>
+
+<div class="content">My motive for running antiX persistent from the USB is my MX-16 system has intermittent wifi problems with my smartphone hotspot (as do other GNU/Linux systems I've run) but antiX wifi runs perfectly!<br>
+<br>
+I need to compare the wifi driver and network differences between antiX and MX-16, which will require rebooting many times, I'm sure. <span class="emoticon"> __{{emoticon}}__ </span> However, I'm getting bogged down with this new problem.<br>
+<br>
+I think I will use clonezilla to backup my MX-16 system and then install antiX to the hard drive. My MX-16 USB booted persistently for me so I can compare a hard drive antiX installation to a USB persistent MX-16 boot and hopefully solve my wifi problem.<br>
+<br>
+If I never solve it, perhaps I'll just retain my antiX system and add the extra packges to make it resemble MX-16 instead! Right now, I'm leaning that way anyhow (probably faster and easier than finding the root cause of my wifi problem).<br>
+<br>
+I'll try to find time to take photos of the antiX persistence boot screens later.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52019" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52019">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52019">
+
+<time datetime="2017-07-04T21:29">posted: 2017-07-04 &nbsp; 21:29</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52019" title="permalink">#13</a></span>
+
+<div class="content">There is a problem in antiX-16.2 that does not exist on MX-16.1 live with persistence either frugal or saving persistence file(s) to hard drive. I can reproduce it. I also remember it being fixed on MX-16. I can't remember the fix at the moment, we are working on it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52021" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52021">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52021">
+
+<time datetime="2017-07-04T23:01">posted: 2017-07-04 &nbsp; 23:01</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52021" title="permalink">#14</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>The seg faults only appeared after you tried setting the antiX subdirectory permissions to 777, right?<br>
+<br>
+If so, you will need to start from the beginning and install antiX-16.2 again to the usb device.</div></blockquote>
+I can remake the USB, but I completely deleted the chmod'ed 777 antiX subdirectory on my hard drive (sda1) and still got the segfaults when the USB boot wants to do a fsck. Why should deleting the directory not be sufficient?<br>
+<blockquote><div><cite>BitJam wrote:</cite>
+If you want to put the persistence files on partition sda1 then use the cheat"pdev=sda1" ("p" for persist). I haven't tested this recently so I wouldn't be greatly surprised if it didn't work.<br>
+<br>
+Unrecognised boot options should be reported on the screen and in the file /var/log/live/initrd.log.<br>
+<br>
+You can also use the cheat"bp=b9" to set a breakpoint at the end of the early boot process to pause the boot so you can read what is on the screen or take a picture.</div></blockquote>
+I tried"dev=sda1." I'll try pdev. Thanks!<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>There is a problem in antiX-16.2 that does not exist on MX-16.1 live with persistence either frugal or saving persistence file(s) to hard drive. I can reproduce it. I also remember it being fixed on MX-16. I can't remember the fix at the moment, we are working on it.</div></blockquote>
+Thanks! Yes-- it appears to be fixed in MX-16.1. My MX-16.1 USB worked fine for me with the full persistence option. (I think it's the first option on the F5 menu.)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52024" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52024">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">calinb</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52024">
+
+<time datetime="2017-07-05T02:49">posted: 2017-07-05 &nbsp; 02:49</time>
+<span class="permalink"><a href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061.html#p52024" title="permalink">#15</a></span>
+
+ <div class="content">I found a persistence method that will work for me (though it's not the highest performance). I used an SD card in my card reader slot. The boot time persistence tools still don't work and produce seg faults (with either a VFAT or ext4 SD card). However, I can setup persistence on the SD card using the control center live tools (ext4 only, because VFAT still fails), but I must also add pdev=sdb1 to the USB live boot options line.<br>
+<br>
+I suspect another USB memory stick in another USB port might work too.<br>
+<br>
+Thanks for everyone's help!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+43 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061-s15.html" role="button">2</a></li>
+<li><a class="button" href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-16-2-usb-persistence-fails-to-create-rootfs--t7061-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Unable to Access USB Stick - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./unable-to-access-usb-stick-t3936.html">Unable to Access USB Stick</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_26356" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26356">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26356">
+<time datetime="2012-10-02T07:44">posted: 2012-10-02 &nbsp; 07:44</time>
+<span class="permalink"><a href="./unable-to-access-usb-stick-t3936.html#p26356" title="permalink">#1</a></span>
+
+<div class="content">Automounting of drives upon plugging in is enabled via / etc/udev/rules.d/99-usbstorage.rules<br>
+<br>
+A USB flash drive, formatted as FAT32 is attached and recognised by antiX which automatically creates and a mountpoint as /media/USB-BLUE.<br>
+<br>
+An error message is received when attempting to list the contents of the stick:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls /media/USB-BLUE
+ls: cannot open directory /media/USB-BLUE: Permission denied</code></pre></div>
+Checking the owneship and permissions of the mountpoint reveals the following:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls -1lha /media
+total 17K
+drwxr-xr-x  5 root    root    4.0K Oct  2 07:45 .
+drwxr-xr-x 20 root    root    4.0K Oct  2 07:21 ..
+drwxr-xr-x  2 root    root    4.0K Aug 23 07:43 cdrom
+drwxr-xr-x  2 root    root    4.0K Aug 23 07:43 sr0
+drwxrwx---  2 builder builder  512 Jan  1  1970 USB-BLUE</code></pre></div>The mountpoint is being created with the wrong credentials.<br>
+<br>
+The account, <em>builder</em> was the account used when installing antiX to the hard disk. I am currently logged-in using the account <em>user2</em>, which was created via antiXCC.<br>
+<br>
+Account details
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>getent passwd | grep builder
+builder:x:1000:1000:,,,:/home/builder:/bin/bash
+
+ getent passwd | grep user2
+user2:x:1001:1001:,,,:/home/user2:/bin/bash
+
+groups builder
+builder : builder lp dialout cdrom floppy sudo audio dip video plugdev users fuse lpadmin scanner netdev
+groups user2
+user2 : user2 lp dialout cdrom floppy sudo audio dip video plugdev users fuse lpadmin scanner netdev</code></pre></div>
+Additionally, the drive and mountpoint cannot be removed via unplugdrive.sh. <br>
+<br>
+Has something changed recently in antiX as I cannot recall having seen this issue before?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26357" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26357">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26357">
+
+<time datetime="2012-10-02T11:31">posted: 2012-10-02 &nbsp; 11:31</time>
+<span class="permalink"><a href="./unable-to-access-usb-stick-t3936.html#p26357" title="permalink">#2</a></span>
+
+<div class="content">in 99-usbstorage.rules there is a spot to enter your username it sounds like you need to change the name from builder to your user.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26373" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26373">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26373">
+
+<time datetime="2012-10-04T10:02">posted: 2012-10-04 &nbsp; 10:02</time>
+<span class="permalink"><a href="./unable-to-access-usb-stick-t3936.html#p26373" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>in 99-usbstorage.rules there is a spot to enter your username it sounds like you need to change the name from builder to your user.</div></blockquote>Thanks. Directly editing the file to specify the current user name does indeed work and the mountpoint is created with ownership user2:user2. In a system having a single user account, this is OK. When multiple accounts exist, the problem still occurs for the unspecified users.<br>
+<br>
+Omitting the user name altogether creates the mountpoint with ownership root:root, permissions rwx-rwx---, which is not useful.<br>
+<br>
+From the udev manual it seems that it is possible to run an external program and capture its output into a variable. This might be a way of obtaining and using the current username. I have tried some variations but being totally unfamiliar with udev rules have unsuccessful. Perhaps someone else might know how to do it.<br>
+<br>
+As an alternative, automounting can be done as shown here antix-12-base-and-full-mounting-usb-drives-t3849.html.<br>
+<br>
+It would be good to have both methods working for systems with multiple user accounts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26374" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26374">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,062</dd>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26374">
+
+<time datetime="2012-10-04T11:24">posted: 2012-10-04 &nbsp; 11:24</time>
+<span class="permalink"><a href="./unable-to-access-usb-stick-t3936.html#p26374" title="permalink">#4</a></span>
+
+<div class="content">i have modified 99-usb storage.rules to pass the mounting duties to a script usb located in /usr/local/bin. This is currently functioning in a similar way to the regular *.rule but it can be modified to accomplish what you are.suggesting. There is also a dev tray app that helps with the management of usbs.<br>
+They can be found at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://daveserver.info/antiX/non-debs"<br>linktext was:"http://daveserver.info/antiX/non-debs"<br>====================================<br>
+<br>
+<br>
+I will work on adding user detection to the usb script to be more beneficial</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26650" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26650">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26650">
+
+<time datetime="2012-10-29T09:16">posted: 2012-10-29 &nbsp; 09:16</time>
+<span class="permalink"><a href="./unable-to-access-usb-stick-t3936.html#p26650" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>The following small changes to the stock / etc/udev/rules.d/99-usbstorage.rules seems to work OK for systems with either a single or multiple users</div></blockquote>The post has been withdrawn. The results were observed in ROX-Filer but were invalid as SpaceFM was open during the tests.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26659" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26659">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26659">
+
+<time datetime="2012-10-30T16:23">posted: 2012-10-30 &nbsp; 16:23</time>
+<span class="permalink"><a href="./unable-to-access-usb-stick-t3936.html#p26659" title="permalink">#6</a></span>
+
+<div class="content">Can someone test the following, it seems to work OK here. <br>
+<br>
+The changes to the stock / etc/udev/rules.d/99-usbstorage.rules are minor. As a result, it is no longer neccessary to explicitly specify the user name in the rules, and when a different user logs in they are also able to automount USB drives.<br>
+<br>
+Ammend the line (Section # File system specific mount options to avoid auto probing)<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>From
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs|vfat", ENV{pmount_options}="%E{pmount_options} --umask 007 --charset utf8"
+To
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs|vfat", ENV{pmount_options}="%E{pmount_options} --umask 000 --charset utf8"</code></pre></div>
+Replace the user name with -l (lowercase L) in the line (Section # Mount the device)<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>From
+SUBSYSTEMS=="usb", ACTION=="add", RUN+="/bin/su SamK -c '/usr/bin/pmount $env{pmount_options} /dev/%k /media/%E{dir_name}'"
+To
+SUBSYSTEMS=="usb", ACTION=="add", RUN+="/bin/su -l -c '/usr/bin/pmount $env{pmount_options} /dev/%k /media/%E{dir_name}'"</code></pre></div>
+Full file including changes<blockquote class="uncited"><div>KERNEL!="sd*[1-9]*", GOTO="exit"<br>
+<br>
+# Import FS infos<br>
+SUBSYSTEMS=="usb", IMPORT{program}="/sbin/blkid -o udev -p %N"<br>
+<br>
+# Get a label if present, otherwise specify one<br>
+SUBSYSTEMS=="usb", ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"/<br>
+SUBSYSTEMS=="usb", ENV{ID_FS_LABEL}=="", ENV{dir_name}="usb-%k"<br>
+<br>
+# Global mount options<br>
+SUBSYSTEMS=="usb", ACTION=="add", ENV{pmount_options}="--noatime"<br>
+<br>
+# File system specific mount options to avoid auto probing<br>
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs|vfat", ENV{pmount_options}="%E{pmount_options} --umask 00<span style="color: #FF0000">0</span> --charset utf8"<br>
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", ENV{pmount_options}="%E{pmount_options} -t ntfs-3g"<br>
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="vfat", ENV{pmount_options}="%E{pmount_options} -t vfat"<br>
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext2", ENV{pmount_options}="%E{pmount_options} -t ext2"<br>
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext3", ENV{pmount_options}="%E{pmount_options} -t ext3"<br>
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext4", ENV{pmount_options}="%E{pmount_options} -t ext4"<br>
+<br>
+# Mount the device<br>
+SUBSYSTEMS=="usb", ACTION=="add", RUN+="/bin/su <span style="color: #FF0000">-l</span> -c '/usr/bin/pmount $env{pmount_options} /dev/%k /media/%E{dir_name}'"<br>
+<br>
+# Clean up after removal<br>
+SUBSYSTEMS=="usb", ACTION=="remove", ENV{dir_name}!="", RUN+="/usr/bin/pumount /dev/%k"<br>
+<br>
+# Exit<br>
+LABEL="exit"</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Major GRUB and Partition Issues - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m11-jayaben-desai-f43/index.html"><span>antiX-M11 Jayaben Desai</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./major-grub-and-partition-issues-t3667.html">Major GRUB and Partition Issues</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_24374" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24374">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 28</span></div>
+
+</div>
+</div>
+<span class="username">alfred_e_newman</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24374">
+<time datetime="2012-04-21T20:13">posted: 2012-04-21 &nbsp; 20:13</time>
+<span class="permalink"><a href="./major-grub-and-partition-issues-t3667.html#p24374" title="permalink">#1</a></span>
+
+<div class="content">Hi AntiC and gang, happy weekend!<br>
+<br>
+If this is the wrong forum, or wrong section of the forum, please let me know and I’ll correct that.<br>
+<br>
+Summary:<br>
+Can’t do hard drive boot (GRUB failure)<br>
+Lost all data files (under my /home/joesmith directory)<br>
+<br>
+Recovering data files most important right now<br>
+<br>
+---------------------------<br>
+<br>
+Details:<br>
+<br>
+Had Antix M11 full hard-drive install, with swap. Worked fine.<br>
+<br>
+/dev/sda1 antix partition (ext3)<br>
+/dev/sd2 swap<br>
+<br>
+Decided to try out some other distributions, so booted Puppy Linux Live CD, ran<br>
+Partition Magic and created another small primary partition<br>
+<br>
+/dev/sda1 antix partition (ext3)<br>
+/dev/sda2 swap<br>
+/dev/sda3 new partition (ext3)<br>
+<br>
+Worked great, went back into AntiX.<br>
+<br>
+Few days later, installed Mageia 1 on /dev/sda3. Worked fine, but appears it reconfigured/re-installed GRUB.<br>
+<br>
+At hard-drive boot, there was a “primary” screen, with choices for Mageia and AntiX. The AntiX choice just took me back to the familiar AntiX screen, with 3 boot choices.<br>
+(like the menu was “nested”)<br>
+<br>
+Decided to wipe Mageia, so installed Salix to /dev/sda3. It wanted to format the swap (/dev/sda2), so it did that too. I bypassed the request to install LILO (knowing I had GRUB).<br>
+<br>
+Problems starting now…..<br>
+<br>
+Rebooted. Black screen with word “GRUB” in top-left corner. Nothing else.<br>
+<br>
+Booted Puppy Linux Live CD, and started Google-ing help.<br>
+<br>
+** Still able to mount sda1, and see all my files.***<br>
+<br>
+Ran cfdisk –lu. Error message: “Partition table entries are not in disk order”<br>
+<br>
+Used cfdisk “expert” commands to re-order, and message went away:<br>
+<br>
+/dev/sda1 antix partition (ext3)<br>
+/dev/sda2 new partition (ext3)<br>
+/dev/sda3 swap<br>
+<br>
+Reboot, still black screen. Back to Puppy Linux. <br>
+Used GRUB Legacy tool to try to “fix” GRUB menu on /dev/sda1, which was silly, because it just replaced the perfectly-fine AntiX menu.list with “generic” entries.<br>
+<br>
+Reboot, still black screen. Back to Puppy Linux – but now, much of my sda1 has been wiped out (mostly data files, many system files still in place)!! Happened at some point after fiddling around with Puppy tools.<br>
+<br>
+And just my luck, my last system backup didn’t work properly. So I’ve lost some stuff for sure.<br>
+<br>
+Need to take “time out” now LOL.<br>
+<br>
+So my questions are:<br>
+<br>
+Any chance of recovering my lost files? I’ve heard that photorec (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.cgsecurity.org/wiki/PhotoRec"<br>linktext was:"http://www.cgsecurity.org/wiki/PhotoRec"<br>====================================<br>
+) can recover from really ugly situations – any opinions?<br>
+<br>
+Can my GRUB mess be fixed without a hard-drive wipe-out? Also ran a GRUB scan tool, and it said something about not finding “Stage 2”. I can re-run the utility if need be.<br>
+<br>
+Thanks for any tips!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24376" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24376">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24376">
+
+<time datetime="2012-04-21T21:15">posted: 2012-04-21 &nbsp; 21:15</time>
+<span class="permalink"><a href="./major-grub-and-partition-issues-t3667.html#p24376" title="permalink">#2</a></span>
+
+<div class="content">Boot antiX live cd and recover your files. You should also be able to re-install grub to mbr and it should then get antiX back up and running unless your 'fiddling' in Puppy has destroyed too much.<br>
+<br>
+IMO It is best to use an older version of antiX for this ie antiX-M8.5-base or earlier. antiX-M11 grub recovery should be ok, but some have had issues.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24386" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24386">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 28</span></div>
+
+</div>
+</div>
+<span class="username">alfred_e_newman</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24386">
+
+<time datetime="2012-04-22T00:20">posted: 2012-04-22 &nbsp; 00:20</time>
+<span class="permalink"><a href="./major-grub-and-partition-issues-t3667.html#p24386" title="permalink">#3</a></span>
+
+<div class="content">Thanks so much, Anti! I will download 8.5 and try that ... I'm curious about the file recovery utility .... will see if it's just a"generic" utility or if there's"special" detection because the Live CD will see that I have Anti already installed.<br>
+<br>
+I'll keep you posted</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24405" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24405">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">nadir</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">nadir</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content24405">
+
+<time datetime="2012-04-22T21:45">posted: 2012-04-22 &nbsp; 21:45</time>
+<span class="permalink"><a href="./major-grub-and-partition-issues-t3667.html#p24405" title="permalink">#4</a></span>
+
+<div class="content">You mentioned it yourself, else i wouldn't post (am a bit unsure if it is"dangerous"):<br>
+I just recovered a bunch of files and folders (11 Gigs) with photorec from testdisk.<br>
+It worked, like said.<br>
+Problem: i wouldn't call the usage intuitive. And i had to search for quite a while to find what i was looking for after it was recovered (the restored folder is a bit of a mess).<br>
+<br>
+Reinstalling grub, otoh, is not hard. Boot a debian based live-CD, say antiX, mount the / of the install, say to /media/disk<br>
+mount -o bind /sys /media/disk/sys<br>
+mount -o bind /dev /media/disk/dev<br>
+mount -t proc /proc /media/disk/proc<br>
+and _if_ you got boot on a separate partition:<br>
+mount /dev/sd[a-z][0-9] /media/disk/grub<br>
+chroot<br>
+To chroot to it.<br>
+grub-install /dev/sda<br>
+assuming sda is where the mbr is supposed to be.<br>
+<br>
+Mind you: i don't know the tool anticapitalista speaks of (grub recovery). It might be much better (more easy, more safe, more whatever).<br>
+<br>
+this way, that way: good luck and take care (i wrote this from my memory, might contain errors)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

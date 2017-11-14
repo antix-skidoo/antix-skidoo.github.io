@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>fstab woes [Solved] - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-2-t-a-u-ke-witko-f37/index.html"><span>antiX-M8.2 Tȟašúŋke Witkó</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./fstab-woes-solved-t1992.html">fstab woes [Solved]</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_12815" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile12815">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12815">
+<time datetime="2009-10-06T15:24">posted: 2009-10-06 &nbsp; 15:24</time>
+<span class="permalink"><a href="./fstab-woes-solved-t1992.html#p12815" title="permalink">#1</a></span>
+
+<div class="content">Well, I need some help on this, <br>
+<br>
+I have antiX 8.2 running on my laptop,<br>
+<br>
+bobbylee@blb1:~$ inxi -F<br>
+System: Host blb1 Kernel 2.6.27-1-mepis-smp i686 (32 bit) Distro antiX-M8.2 Tȟašúŋke Witkó - Crazy Horse 24 July 2009<br>
+CPU: Single core Intel Pentium M (UP) cache 2048 KB flags (sse2) bmips 3589.83 clocked at 1800.00 MHz <br>
+Graphics: Card Intel 82852/855GM Integrated Graphics Device X.Org 1.4.2 Res: 1024x768@60.0hz <br>
+GLX Renderer Mesa GLX Indirect GLX Version 1.4 (2.1 Mesa 7.0.4) Direct Rendering No<br>
+Audio: Card Intel 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Audio Controller driver Intel ICH at ports 1c00 18c0 <br>
+Sound: Advanced Linux Sound Architecture Version 1.0.17<br>
+Network: Card-1 Broadcom BCM4401-B0 100Base-TX driver b44 v: 2.0<br>
+Card-2 Intel PRO/Wireless 2915ABG [Calexico2] Network Connection driver ipw2200 v: 1.2.2kmprq<br>
+Disks: HDD Total Size: 80.0GB (4.9% used) 1: /dev/hda FUJITSU MHT2080AT PL 80.0GB <br>
+Partition: ID:/ size: 24G used: 3.5G (16%) ID:swap-1 size: 4.34GB used: 0.00GB (0%) <br>
+Info: Processes 77 Uptime 1:02 Memory 157.9/993.2MB Client Shell inxi 1.1.13 <br>
+<br>
+I had 3 partitions, <br>
+/<br>
+swap<br>
+data<br>
+as hd1,hd2,hd3 respectively<br>
+<br>
+I used gparted to resize the data partition and added a 4th partition named virtualharddisks, with the intent of using it to store my vbox installs (permanent hd as opposed to dynamic)<br>
+<br>
+after repartitoning and rebooting, I have:<br>
+<br>
+root@blb1:/# fdisk -l<br>
+<br>
+Disk /dev/hda: 80.0 GB, 80026361856 bytes<br>
+255 heads, 63 sectors/track, 9729 cylinders<br>
+Units = cylinders of 16065 * 512 = 8225280 bytes<br>
+Disk identifier: 0xd0f4738c<br>
+<br>
+Device Boot Start End Blocks Id System<br>
+/dev/hda1 1 3133 25165791 83 Linux<br>
+/dev/hda2 3134 3661 4241160 82 Linux swap / Solaris<br>
+/dev/hda3 3662 6003 18812115 83 Linux<br>
+/dev/hda4 6004 9729 29929095 83 Linux<br>
+<br>
+fstab shows:<br>
+<br>
+# Pluggable devices are handled by uDev, they are not in fstab<br>
+/dev/hda1 / ext3 defaults,noatime 1 1<br>
+proc /proc proc defaults 0 0<br>
+devpts /dev/pts devpts mode=0622 0 0<br>
+# Dynamic entries below<br>
+/dev/hda2 swap swap sw,pri=1 0 0<br>
+/dev/hda3 /mnt/hda3 ext3 noauto,users,exec,relatime 0 0<br>
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+/dev/hdc /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+<br>
+mtab shows:<br>
+<br>
+/dev/hda1 / ext3 rw,noatime 0 0<br>
+tmpfs /lib/init/rw tmpfs rw,nosuid,mode=0755 0 0<br>
+proc /proc proc rw,noexec,nosuid,nodev 0 0<br>
+sysfs /sys sysfs rw,noexec,nosuid,nodev 0 0<br>
+udev /dev tmpfs rw,mode=0755 0 0<br>
+tmpfs /dev/shm tmpfs rw,nosuid,nodev 0 0<br>
+devpts /dev/pts devpts rw,noexec,nosuid,gid=5,mode=620 0 0<br>
+fusectl /sys/fs/fuse/connections fusectl rw 0 0<br>
+/dev/hda4 /media/virtualharddisks ext3 rw,nosuid,nodev,uhelper=hal 0 0<br>
+<br>
+So my questions are why did the hda4 show up as /dev/hdc in fstab<br>
+and as /dev/hda4 in mtab, and how do I change fstab and mtab so that I can read and write to hda4 as a user, ie vbox?<br>
+<br>
+any help appreciated<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+<div class="notice">
+Last edited by <b>oldhoghead</b> on 17 Oct 2009, 10:57, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_12817" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile12817">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">banshee</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jun 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12817">
+
+<time datetime="2009-10-06T16:49">posted: 2009-10-06 &nbsp; 16:49</time>
+<span class="permalink"><a href="./fstab-woes-solved-t1992.html#p12817" title="permalink">#2</a></span>
+
+<div class="content">try (something like ) this:<br>
+/dev/hdc4 /media/virtualharddisks ext3 defalults, users 0 0 <br>
+bout the parmeters/options (-&gt; defaults) im not sure. I use defaults and aint got problems reading or writing from/to it.<br>
+<br>
+that entry from fstab <br>
+/dev/hdc /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+is cdrom, therefor it differs from mtab (about which i dont know nothing <span class="emoticon"> __{{emoticon}}__ </span> )</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_12818" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile12818">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12818">
+
+<time datetime="2009-10-06T16:59">posted: 2009-10-06 &nbsp; 16:59</time>
+<span class="permalink"><a href="./fstab-woes-solved-t1992.html#p12818" title="permalink">#3</a></span>
+
+<div class="content">Yes, /dev/hdc have nothing to do with /dev/hda4, it seems. Create a line in fstab just like the /dev/hda3 one:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/hda4 /mnt/virtualharddisks ext3 noauto,users,exec,relatime 0 0</code></pre></div>
+supposing you have created /media/virtualharddisks<br>
+<em>edit</em>- if you'd like to mount them at boot time, change noauto to auto.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.tuxfiles.org/linuxhelp/fstab.html"<br>linktext was:"http://www.tuxfiles.org/linuxhelp/fstab.html"<br>====================================<br>
+" onclick="window.open(this.href);return false</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_12821" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile12821">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12821">
+
+<time datetime="2009-10-06T21:22">posted: 2009-10-06 &nbsp; 21:22</time>
+<span class="permalink"><a href="./fstab-woes-solved-t1992.html#p12821" title="permalink">#4</a></span>
+
+<div class="content">Thanks for the input, did not resolve the issue though, tried several iterations, none would work, deleted the partition and redid it all, still would not mount as /hda4, only as /media????? I don't get it, but anyway changed permissions for that mount point and managed to get done what I needed.<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_12822" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile12822">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12822">
+
+<time datetime="2009-10-07T00:32">posted: 2009-10-07 &nbsp; 00:32</time>
+<span class="permalink"><a href="./fstab-woes-solved-t1992.html#p12822" title="permalink">#5</a></span>
+
+<div class="content">Your fstab is very strange indeed. /swap is in the dynamic section?????<br>
+<br>
+This is what I would do.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+devpts /dev/pts devpts mode=0622 0 0
+proc /proc proc defaults 0 0
+/dev/hda1 / ext3 defaults,noatime 1 1
+/dev/hda2 swap swap sw,pri=1 0 0
+/dev/hda3 /mnt/hda3 ext3defaults,noatime 0 0
+/dev/hda4 /media/virtualharddisks ext3 defaults,noatime 0 0
+# Dynamic entries below
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/hdc /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0</code></pre></div>
+Check the actual mount point names and such but it should work.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_12823" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile12823">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12823">
+
+<time datetime="2009-10-07T14:31">posted: 2009-10-07 &nbsp; 14:31</time>
+<span class="permalink"><a href="./fstab-woes-solved-t1992.html#p12823" title="permalink">#6</a></span>
+
+<div class="content">eriefisher,<br>
+<br>
+Thanks, good catch on the swap, but still can't get hda4 to mount from the static section, if I remove hda4 from the static section and reboot, If I then run rox filer, there is no entry in media, but when I run pcmanfm it shows up and I can mount the partition, then If I go to rox filer it now will show in /media under rox, and when I click on the partition it mounts. Something is screwy here. I am going to do a complete reinstall, will let you know how it goes when I am finished with the reinstall. <br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_12824" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile12824">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12824">
+
+<time datetime="2009-10-07T15:07">posted: 2009-10-07 &nbsp; 15:07</time>
+<span class="permalink"><a href="./fstab-woes-solved-t1992.html#p12824" title="permalink">#7</a></span>
+
+<div class="content">Install halevt and remove ivman</div>
+</div>
+</div>
+
+</div>
+</div>
+ <div id="p_12826" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile12826">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12826">
+
+<time datetime="2009-10-07T16:49">posted: 2009-10-07 &nbsp; 16:49</time>
+<span class="permalink"><a href="./fstab-woes-solved-t1992.html#p12826" title="permalink">#8</a></span>
+
+<div class="content">anticapitalista,<br>
+<br>
+Thanks for the info, I did a complete reinstall and everything is good now, don't know what I had done, but simpler to reinstall than spend hours pulling my hair out.<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

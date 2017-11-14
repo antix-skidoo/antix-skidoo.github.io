@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>bug in wallpaper.py script (controlCenter &quot;ChooseWallpaper&quot;) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./bug-in-wallpaper-py-script-controlcenter-choosewal-t6449.html">bug in wallpaper.py script (controlCenter &quot;ChooseWallpaper&quot;)</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47291" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47291">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47291">
+<time datetime="2016-06-30T16:07">posted: 2016-06-30 &nbsp; 16:07</time>
+<span class="permalink"><a href="./bug-in-wallpaper-py-script-controlcenter-choosewal-t6449.html#p47291" title="permalink">#1</a></span>
+
+<div class="content">This is a regression? An older version of the wallpaper.py script wound up in antix16?<br>
+Asking because it sure feels like deja vu. I reported this &amp; it was fixed during beta testing way back in 2015.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antix1:~
+$ wallpaper.py
+fluxbox
+Traceback (most recent call last):
+  File"/usr/local/bin/wallpaper.py", line 530, in &lt;module&gt;
+    base = MainWindow()
+  File"/usr/local/bin/wallpaper.py", line 443, in __init__
+    Build_Picture().build_image(Var.IMAGE)
+  File"/usr/local/bin/wallpaper.py", line 153, in build_image
+    Build_Picture.pix = gtk.gdk.pixbuf_new_from_file_at_scale(image,300,200,True)
+glib.GError: Failed to open file '/usr/share/wallpaper/shells-massage-therapy-sand.jpg': No such file or directory
+</code></pre></div>
+Yes, I'm not using and have deleted the 700Kb+ imagefile"shells-massage-therapy-sand.jpg".<br>
+<br>
+the bug:<br>
+success of the wallpaper.py script should not depend on the presence of that specific imagefile</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47293" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47293">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47293">
+
+<time datetime="2016-06-30T16:37">posted: 2016-06-30 &nbsp; 16:37</time>
+<span class="permalink"><a href="./bug-in-wallpaper-py-script-controlcenter-choosewal-t6449.html#p47293" title="permalink">#2</a></span>
+
+<div class="content">I don't think that ever got fixed. It appears in antiX-15</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47305" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47305">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47305">
+
+<time datetime="2016-06-30T23:24">posted: 2016-06-30 &nbsp; 23:24</time>
+<span class="permalink"><a href="./bug-in-wallpaper-py-script-controlcenter-choosewal-t6449.html#p47305" title="permalink">#3</a></span>
+
+<div class="content">in Aug 2015, Dave mentioned that it is (was) now fixed<br>
+post42616.html?hilit=wallpaper<br>
+<br>
+I found this, dated Aug 19<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Dave/antix-wallpaper/blob/master/wallpaper.py"<br>linktext was:"https://github.com/antiX-Dave/antix-wal ... llpaper.py"<br>====================================<br>
+<br>
+in this version {compared to wallpaper.py shipped in antiX16} an if() statement has been inserted at line 115.<br>
+...but that still wasn't working for me when I tested it today.<br>
+<br>
+I've further modded the copy I retrieved from github, adding a conditional into build_image().<br>
+This seems to work; someone else should test it to confirm.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    def build_image(self, image):
+        if os.path.isfile(image):
+            Build_Picture.pix = gtk.gdk.pixbuf_new_from_file_at_scale(image,300,200,True)
+        else:
+            Build_Picture.pix = gtk.gdk.pixbuf_new_from_data("00000000",1,0,1,1,1,1)
+        Build_Picture.image = gtk.image_new_from_pixbuf(Build_Picture.pix)
+        MainWindow.imagebox.pack_start(Build_Picture.image)
+        Build_Picture.image.show()
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

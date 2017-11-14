@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Installing AntiX 8.5 (updated) on External USB HDD - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html">Installing AntiX 8.5 (updated) on External USB HDD</a></div>
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_17911" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17911">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">TedV-UK</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17911">
+<time datetime="2010-10-29T15:54">posted: 2010-10-29 &nbsp; 15:54</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p17911" title="permalink">#1</a></span>
+
+<div class="content">I have a laptop whose installed system (aptosid) is configured for work-related purposes, so installing over top of that wasn't an option. So I could play with AntiX in parallel, I decided to install it on an external USB HDD. The following are the steps I followed to get it working. <br>
+I have tried to make the steps sufficiently detailed so others can follow them. <br>
+<br>
+Hardware: <br>
+Dell Inspiron 6000 (4 years old)<br>
+Intel Pentium M 2.0 GHz<br>
+2 GB RAM<br>
+Wired: Broadcom BCM4401-B0 <br>
+Wireless: Intel Pro 2200BG <br>
+<br>
+External USB HDD: <br>
+Western Digital Element 250 GB (USB powered)<br>
+25 GB for root<br>
+198 GB for /home<br>
+10 GB for /swap<br>
+<br>
+AntiX 686-update Live CD (updated version from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepisimo.com/antix/Testing/"<br>linktext was:"http://www.mepisimo.com/antix/Testing/"<br>====================================<br>
+) <br>
+Boot cheat codes: I left the"lean" and added lang=en_GB<br>
+<br>
+Used the AntiX installer (not antix2usb) and did a normal install onto the external hdd. <br>
+At this point, the external hdd did not boot properly, nor did it find the wired ethernet connection because the Broadcom kernel module wasn't loaded. <br>
+<br>
+Post-Installation Tinkering: <br>
+The laptop was still running from the Live CD so ...<br>
+1. I used Gparted to find the UUIDs for the 3 partitions on the external hdd. <br>
+2. I mounted the root partition using the mount utility in the AntiX Control Centre (Disks tab &gt; Mount Connected Devices icon).<br>
+3. /boot/grub/menu.lst was edited: <br>
+"root (hd1,0)" was changed to"root (hd0,0)" <br>
+"kernel ... /dev/sdb1 ..." was changed to"kernel ... /dev/disk/by-uuid/&lt;uuid here&gt; ..." <br>
+added rootdelay=8 at the end of the kernel line to allow time for USB devices to settle. <br>
+removed"boot" in the final line of the section because it's not needed.<br>
+4. /etc/fstab was edited: <br>
+"/dev/sdb&lt;n&gt;" was replaced by"UUID=&lt;uuid for partition&gt;" <br>
+5. /etc/modprobe.d/b43.conf was edited: <br>
+I commented out the line containing"install b44 true" by putting a # at the beginning.<br>
+Note that the comments within this file refer to a /etc/defaults/mepis-network file/folder which does not seem to exist in the installed AntiX system. <br>
+6. I booted the system from the external USB HDD (after removing the Live CD). For some reason I have to use F12 to manually select the external USB drive even though I have set the BIOS boot order to CD then external USB drive then internal HDD. (My Arch Linux system which is also installed on an external USB HDD doesn't require me to press F12. So there is a bit of a mystery here.) After selecting the external USB drive, AntiX starts perfectly. <br>
+7. From the AntiX Control Centre, (Network tab &gt; Configure DSL Connection icon) I started the DSL configuration, replied"No" when it asked if all my interfaces were shown (because the wired ethernet was missing) and under the kernel/drivers/net section I added the b44 kernel module. Note that it said the"installation failed". <br>
+8. I rebooted the laptop from the external USB HDD and repeated step 7. This time it said the installation was successful. However the wired ethernet connection still wasn't working nor detected. <br>
+9. I rebooted the laptop a third time and the wired ethernet connection was detected and working. I edited the preferences for Wicd to make the wired connection my default (AntiX Control Centre &gt; Network tab &gt; Connect Wirelessly (wicd) icon). <br>
+10. I used Ceni to edit my wired connection (AntiX Control Centre &gt; Network tab &gt; Network Interfaces (ceni) icon). For the wired connection I selected"dhcp" and then"auto" (within the class window) because it is a built-in ethernet. <br>
+11. I opened a terminal, logged in as root and ran the get-iana script. I left the terminal window open for step 13. <br>
+12. I edited the firewall settings (AntiX Control Centre &gt; Network tab &gt; Manage Firewall icon) <br>
+START_FIREHOL=NO was changed to START_FIREHOL=YES <br>
+I saved the file. <br>
+Then I restarted the firewall (Firehol) by clicking on the Restart icon and typed in my root password when it asked.<br>
+13. In the open root terminal window I updated my system: <br>
+apt-get update <br>
+apt-get dist-upgrade <br>
+apt-get -f install <br>
+apt-get clean <br>
+apt-get autoclean<br>
+I closed the terminal window. <br>
+14. I have a running and up-to-date AntiX system on my external USB HDD. <br>
+<br>
+I hope this is helpful.<br>
+<br>
+Kind Regards,<br>
+Ted</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17912" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17912">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17912">
+
+<time datetime="2010-10-29T21:11">posted: 2010-10-29 &nbsp; 21:11</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p17912" title="permalink">#2</a></span>
+
+<div class="content">Welcome to anitX,<br>
+<br>
+There are several here who have run sidux and now aptosid,<br>
+I occasionally dl and try out KDE or XFCE from aptosid (sidux), but I always end up back with antiX, I prefer Fluxbox, though IceWM is tweaked very nicely by anticapitlista. I personally use sxmi on antiX running sid repos, but you can run stable too. It is a very flexible system.<br>
+Currently running the liquorix kernel.<br>
+<br>
+Nice writeup, very readable. Again Welcome.<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17914" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17914">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">TedV-UK</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17914">
+
+<time datetime="2010-10-30T09:05">posted: 2010-10-30 &nbsp; 09:05</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p17914" title="permalink">#3</a></span>
+
+<div class="content">Dear ohh,<br>
+<br>
+Thanks for the welcome! I'm glad you found the write-up clear. <br>
+When something doesn't"work out of the box" and I have to spend some time figuring out how to make it work, I like to write it up to save other people time. <br>
+<br>
+I switched to Linux nearly 4 years ago. I ran Debian Testing for quite a while then switched to sidux. sidux was nice and stable but with their recent problems I've found it"twitchy". Perhaps it will settle down again. But if not, AntiX is looking to be a bloat-free + rolling-release replacement I could happily live with. <br>
+<br>
+All the best,<br>
+Ted</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18096" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18096">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Crazy</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18096">
+
+<time datetime="2010-11-14T10:47">posted: 2010-11-14 &nbsp; 10:47</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18096" title="permalink">#4</a></span>
+
+<div class="content">I am trying to to install Antix on an external WD drive to use it as a portable system. I can install Antix using Antix2usb, but then I am stuck with a standard"live CD" type system, which is not what I am looking for. I want to install Antix in a similar way I have installed it on my computer (locale stettings, users, paswords, etc.), but then on an external drive so I can startup any computer using my disk and have my own system available.<br>
+<br>
+Any good suggestions?<br>
+<br>
+Crazy</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18097" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18097">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18097">
+
+<time datetime="2010-11-14T11:17">posted: 2010-11-14 &nbsp; 11:17</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18097" title="permalink">#5</a></span>
+
+<div class="content">Hmm,<br>
+<br>
+Well, I have in the past installed antiX to a USB hdd, and then any computer capable of booting from usb can be used to boot my antiX wherever I am.<br>
+I usually append the boot line with rootdelay=10 to allow time to read the usb. YMMV<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18098" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18098">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18098">
+
+<time datetime="2010-11-14T11:23">posted: 2010-11-14 &nbsp; 11:23</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18098" title="permalink">#6</a></span>
+
+<div class="content">Use the antiX installer as normal, but point it to install to the usb device.<br>
+make sure you install grub to the mbr of the usb device otherwise it wont boot.<br>
+You might also need to reconfigure the /boot/grub/menu.lst so root=points to the correct drive.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18099" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18099">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Crazy</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18099">
+
+<time datetime="2010-11-14T11:36">posted: 2010-11-14 &nbsp; 11:36</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18099" title="permalink">#7</a></span>
+
+<div class="content">I tried just what Anticapitalista suggested, but was only able ro run the system of of the laptop I installed it from.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18102" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18102">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18102">
+
+<time datetime="2010-11-14T11:54">posted: 2010-11-14 &nbsp; 11:54</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18102" title="permalink">#8</a></span>
+
+<div class="content">You will need to change the menu.lst on the usb device.<br>
+Post it so we can see it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18105" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18105">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">Crazy</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 14 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18105">
+
+<time datetime="2010-11-14T18:13">posted: 2010-11-14 &nbsp; 18:13</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18105" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>You will need to change the menu.lst on the usb device.<br>
+Post it so we can see it.</div></blockquote>
+here is the menu.lst file (should be default as have not made any changes)<br>
+<br>
+timeout 10<br>
+color cyan/blue white/blue<br>
+foreground ffffff<br>
+background 0639a1<br>
+<br>
+gfxmenu /boot/grub/message<br>
+<br>
+title antiX at sdb1, kernel 2.6.32-1-mepis-smp<br>
+root (hd1,0)<br>
+kernel /boot/vmlinuz-2.6.32-1-mepis-smp root=/dev/sdb1 nomce quiet nosplash vga=791 <br>
+initrd /boot/initrd.img-2.6.32-1-mepis-smp<br>
+boot<br>
+<br>
+title Microsoft Windows XP Professional at sda2<br>
+rootnoverify (hd0,1)<br>
+chainloader +1<br>
+<br>
+title antiX at sda1, kernel 2.6.32-1-mepis-smp<br>
+root (hd0,0)<br>
+kernel /boot/vmlinuz-2.6.32-1-mepis-smp root=/dev/sda1 nomce quiet nosplash vga=791<br>
+initrd /boot/initrd.img-2.6.32-1-mepis-smp<br>
+<br>
+### BEGIN AUTOMAGIC KERNELS LIST<br>
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified<br>
+## by the debian update-grub script except for the default options below<br>
+<br>
+## DO NOT UNCOMMENT THEM, Just edit them to your needs<br>
+<br>
+## ## Start Default Options ##<br>
+## default kernel options<br>
+## default kernel options for automagic boot options<br>
+## If you want special options for specific kernels use kopt_x_y_z<br>
+## where x.y.z is kernel version. Minor versions can be omitted.<br>
+## e.g. kopt=root=/dev/hda1 ro<br>
+## kopt_2_6_8=root=/dev/hdc1 ro<br>
+## kopt_2_6_8_2_686=root=/dev/hdc2 ro<br>
+# kopt=root=UUID=13f59ccf-aa12-4e7b-bf41-af8196742af0 ro<br>
+# kopt_2_6=root=UUID=13f59ccf-aa12-4e7b-bf41-af8196742af0 ro nosplash quiet<br>
+<br>
+## default grub root device<br>
+## e.g. groot=(hd0,0)<br>
+# groot=(hd1,0)<br>
+<br>
+## should update-grub create alternative automagic boot options<br>
+## e.g. alternative=true<br>
+## alternative=false<br>
+# alternative=true<br>
+<br>
+## should update-grub lock alternative automagic boot options<br>
+## e.g. lockalternative=true<br>
+## lockalternative=false<br>
+# lockalternative=false<br>
+<br>
+## additional options to use with the default boot option, but not with the<br>
+## alternatives<br>
+## e.g. defoptions=vga=791 resume=/dev/hda5<br>
+# defoptions=<br>
+<br>
+## should update-grub lock old automagic boot options<br>
+## e.g. lockold=false<br>
+## lockold=true<br>
+# lockold=false<br>
+<br>
+## Xen hypervisor options to use with the default Xen boot option<br>
+# xenhopt=<br>
+<br>
+## Xen Linux kernel options to use with the default Xen boot option<br>
+# xenkopt=console=tty0<br>
+<br>
+## altoption boot targets option<br>
+## multiple altoptions lines are allowed<br>
+## e.g. altoptions=(extra menu suffix) extra boot options<br>
+## altoptions=(single-user) single<br>
+# altoptions=(init-3) 3<br>
+<br>
+## controls how many kernels should be put into the menu.lst<br>
+## only counts the first occurence of a kernel, not the<br>
+## alternative kernel options<br>
+## e.g. howmany=all<br>
+## howmany=7<br>
+# howmany=all<br>
+<br>
+## should update-grub create memtest86 boot option<br>
+## e.g. memtest86=true<br>
+## memtest86=false<br>
+# memtest86=true<br>
+<br>
+## should update-grub adjust the value of the default booted system<br>
+## can be true or false<br>
+# updatedefaultentry=false<br>
+<br>
+## should update-grub add savedefault to the default options<br>
+## can be true or false<br>
+# savedefault=false<br>
+<br>
+## ## End Default Options ##<br>
+<br>
+title antiX-M8.5, kernel 2.6.32-1-mepis-smp<br>
+root (hd1,0)<br>
+kernel /boot/vmlinuz-2.6.32-1-mepis-smp root=UUID=13f59ccf-aa12-4e7b-bf41-af8196742af0 ro nosplash quiet <br>
+initrd /boot/initrd.img-2.6.32-1-mepis-smp<br>
+<br>
+title antiX-M8.5, kernel 2.6.32-1-mepis-smp (init-3)<br>
+root (hd1,0)<br>
+kernel /boot/vmlinuz-2.6.32-1-mepis-smp root=UUID=13f59ccf-aa12-4e7b-bf41-af8196742af0 ro nosplash quiet 3<br>
+initrd /boot/initrd.img-2.6.32-1-mepis-smp<br>
+<br>
+title antiX-M8.5, kernel memtest86+<br>
+root (hd1,0)<br>
+kernel /boot/memtest86+.bin<br>
+<br>
+### END DEBIAN AUTOMAGIC KERNELS LIST</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18106" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18106">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18106">
+
+<time datetime="2010-11-14T18:25">posted: 2010-11-14 &nbsp; 18:25</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18106" title="permalink">#10</a></span>
+
+<div class="content">Hmm, that seems ok.<br>
+Mine is similar.<br>
+Do you have antiX installed on sda1 and sdb1?<br>
+<br>
+Have you set the bias ok on the other boxes to boot from the usb device? If so, what errors do you get when it fails to boot antiX?<br>
+<br>
+My device.map looks like this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(hd0)    /dev/disk/by-id/ata-WDC_WD1600AAJS-00PSA0_WD-WCAP95014132
+(hd1)    /dev/disk/by-id/ata-ST3320620AS_9QF9VV48
+(hd2)    /dev/disk/by-id/usb-WDC_WD20_00JB-00GVA0_0-0:0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18109" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18109">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Crazy</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18109">
+
+<time datetime="2010-11-14T18:53">posted: 2010-11-14 &nbsp; 18:53</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18109" title="permalink">#11</a></span>
+
+<div class="content">it runs on sdb1<br>
+<br>
+When I start the other box just get:<br>
+<br>
+GRUB Loading stage1.5.<br>
+<br>
+GRUB loading, please wait...<br>
+<br>
+and that is it<br>
+<br>
+Crazy</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18113" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18113">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18113">
+
+<time datetime="2010-11-14T20:49">posted: 2010-11-14 &nbsp; 20:49</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18113" title="permalink">#12</a></span>
+
+<div class="content">No error number?<br>
+<br>
+This offers a solution:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://grub.enbug.org/GrubLegacy"<br>linktext was:"http://grub.enbug.org/GrubLegacy"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18115" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18115">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18115">
+
+<time datetime="2010-11-14T22:03">posted: 2010-11-14 &nbsp; 22:03</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18115" title="permalink">#13</a></span>
+
+<div class="content">I may be wrong, but are you positive your booting from the usb hdd?<br>
+In order to boot from mine I have to hit f12 (Dell Laptop) to get a boot menu to choose from<br>
+<br>
+hd<br>
+usb<br>
+cd-rom<br>
+network<br>
+<br>
+then I choose usb, the caveat is that when you do it this way grub has to be installed to the mbr of the usb drive as well as on your hd.<br>
+and you have to go into menu.lst on the usb and change it to read:<br>
+<br>
+as an example from<br>
+root (hd1,0)<br>
+to<br>
+root (hd0,0)<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18120" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18120">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">wayne128</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Sep 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18120">
+
+<time datetime="2010-11-15T05:08">posted: 2010-11-15 &nbsp; 05:08</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18120" title="permalink">#14</a></span>
+
+<div class="content">Hi , please allow me to join in on this subject.<br>
+I recently played with multi-booting from USB and went through some of these issues and probably can share a bit here.<br>
+<br>
+First, I borrow your grub stanza, just the first one that read:<br>
+<br>
+title antiX at sdb1, kernel 2.6.32-1-mepis-smp<br>
+<span style="color: #00BF00">root (hd1,0)</span><br>
+kernel /boot/vmlinuz-2.6.32-1-mepis-smp root=/dev/sdb1 nomce quiet nosplash vga=791<br>
+initrd /boot/initrd.img-2.6.32-1-mepis-smp<br>
+boot<br>
+<br>
+Here some explanation might be useful:<br>
+1. when Bios is set to boot from USB drive, then it becomes first boot drive.<br>
+It pays to note <span style="color: #FF8000">Grub always see first boot drive as (hd0)</span><br>
+2. the kernel see /dev/&lt;whatever&gt; according to floppy/IDE/Sata/SCSI/CDROM etc that depends also on kernel level. <br>
+My old laptop see it as /dev/hda by antiXM8.5, but other OS's kernel see the same IDE drive as /dev/sda so I often need to make proper change on grub stanza.<br>
+<br>
+When you setup your USB drive from the original computer, if the above grub stanza had not been changed, then it appeared that your original computer's grub see it as /dev/sdb1 (second drive , partition 1) and as such the grub stanza put <span style="color: #40BF00">(hd1,0)</span>= <span style="color: #FF8000">/dev/sdb1</span><br>
+<br>
+Now when you move the USB to second computer, and set that computer's Bios to boot from USB, remember now Grub will see your USB as (hd0) and your antiX partition as <span style="color: #FF8000">(hd0,0)</span>.<br>
+So you need to amend the grub stanza to <span style="color: #FF8000">(hd0,0)</span> for this reason. This is also permanent change since what you want is to boot from other computer via USB, as first boot drive. <br>
+<br>
+Next , the /dev/sdb1 on original computer seen by its kernel at the point of installation, when you move USB drive to second computer, it is important to know what this partition is seen by the kernel ( fdisk -l will show) and you would need to amend this to the proper /dev/&lt;whatever&gt;.<br>
+<br>
+This is the chore that I do not like, but have to deal with it. When I move this USB drive to the third, fourth computer and so on, while the line (hd0,0) will remain the same as Grub always see boot drive as (hd0), I need to change the /dev/&lt;whatever&gt; again. This is bad. Someday I hope to overcome this.<br>
+<br>
+Sometime, I just delete the root=/dev/&lt;whatever&gt; and still be able to boot from USB but I felt I did not do it right yet.<br>
+<br>
+Hope this help you to get your USB drive to boot on more than one computer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18123" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18123">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18123">
+
+<time datetime="2010-11-15T14:08">posted: 2010-11-15 &nbsp; 14:08</time>
+<span class="permalink"><a href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747.html#p18123" title="permalink">#15</a></span>
+
+<div class="content">Wayne,<br>
+<br>
+One way to minimize the hda, sda issue is to use uuid, but then you have to remember to tweak fstab any time a partition gets reformatted, then it gets a new uuid.<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./installing-antix-8-5-updated-on-external-usb-hdd-t2747-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

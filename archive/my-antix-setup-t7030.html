@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>My antiX Setup - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./my-antix-setup-t7030.html">My antiX Setup</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_51742" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51742">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51742">
+<time datetime="2017-06-25T17:19">posted: 2017-06-25 &nbsp; 17:19</time>
+<span class="permalink"><a href="./my-antix-setup-t7030.html#p51742" title="permalink">#1</a></span>
+
+<div class="content">My antiX Setup<br>
+<br>
+I burn the"base" iso, give 20 GB to /root and 4 GB to swap,<br>
+choose XFS as my file system, put Grub on the MBR, and finish the installation.<br>
+Take the CD out and reboot.<br>
+<br>
+Come back, login as ROOT, and do apt-get update/dist-upgrade<br>
+<br>
+Edit /etc/inittab and change the runlevel:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># The default runlevel.
+id:3:initdefault:
+</code></pre></div>
+No DM (display manager) for me.<br>
+save/exit<br>
+<br>
+Next, I edit /etc/sudoers and at the end of the file, add:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>yourusername  ALL=NOPASSWD:ALL
+</code></pre></div>
+save/exit<br>
+<br>
+Next I go to .bash_aliases and put:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>alias adu="sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade"
+alias agi="sudo apt-get install"
+</code></pre></div>
+I close the terminal, and open it again, and test this as USER:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ adu
+$ agi jwm xfe mirage xchat scrot libreoffice gmrun ufw numlockx unclutter
+</code></pre></div>
+Activate firewall:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># ufw enable
+</code></pre></div>
+As USER:<br>
+$ nano .xinitrc
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+setxkbmap -option terminate:ctrl_alt_bksp
+xsetroot -solid black
+unclutter -idle 2 &amp;
+numlockx &amp;
+
+exec jwm
+</code></pre></div>
+<br>
+<br>
+Reboot, come back and configure jwm.<br>
+<br>
+Happy trails,<br>
+macondo<a href="http://imageshack.com/i/pn8KoAODp" class="postlink"><img src="http://imagizer.imageshack.com/img923/3858/8KoAOD.th.png" class="postimage" alt="Image"></a></div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

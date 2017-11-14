@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>apt-get update &amp;&amp; apt-get dist-upgrade = system not working - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./apt-get-update-apt-get-dist-upgrade-system-not-wor-t3778.html">apt-get update &amp;&amp; apt-get dist-upgrade = system not working</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_25446" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25446">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">antixitis</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25446">
+<time datetime="2012-07-21T17:31">posted: 2012-07-21 &nbsp; 17:31</time>
+<span class="permalink"><a href="./apt-get-update-apt-get-dist-upgrade-system-not-wor-t3778.html#p25446" title="permalink">#1</a></span>
+
+<div class="content">I've performed a dist-upgrade with subsequent errors. After attempt to reboot, system starts at"(none) login:" where I cannot login as user or root.<br>
+I've already re-installed twice from USBstick the 5/26/12 preFull version of M12 iso.<br>
+What to do now?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25447" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25447">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25447">
+
+<time datetime="2012-07-21T19:04">posted: 2012-07-21 &nbsp; 19:04</time>
+<span class="permalink"><a href="./apt-get-update-apt-get-dist-upgrade-system-not-wor-t3778.html#p25447" title="permalink">#2</a></span>
+
+<div class="content">Ok,<br>
+Try and purge acpi-fakekey to begin with<br>
+<br>
+apt-get purge acpi-fakekey or dpkg -r acpi-fakekey<br>
+<br>
+If that doesn't do anything, try this. This is a bit brutal, but it worked on my simulation.<br>
+<br>
+Navigate to /var/lib/dpkg/info (as root in rox or mc) and rename the 3 acpi-fakekey postint, prerm and postrm (add a suffix like .bad to all 3) then <br>
+<br>
+apt-get -f install<br>
+<br>
+If you have more errors, again do<br>
+<br>
+apt-get -f install<br>
+<br>
+Then all seemed ok so I did<br>
+<br>
+apt-get update<br>
+apt-get dist-upgrade<br>
+<br>
+and more packages got installed and all ws fixed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25448" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25448">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">antixitis</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25448">
+
+<time datetime="2012-07-21T20:29">posted: 2012-07-21 &nbsp; 20:29</time>
+<span class="permalink"><a href="./apt-get-update-apt-get-dist-upgrade-system-not-wor-t3778.html#p25448" title="permalink">#3</a></span>
+
+<div class="content">I've re-installed again, but this time system hangs on boot on eth0, so I've not had the chance to get to the dist-upgrade yet. Restarted router, but for whatever reason same hang on boot. Will reinstall from usbSchtick again and will try to purge acpi-fakey&gt;apt-get -f&gt;update&gt;upgrade to see what happens.<br>
+Thanx for your time.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25449" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25449">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25449">
+
+<time datetime="2012-07-21T20:38">posted: 2012-07-21 &nbsp; 20:38</time>
+<span class="permalink"><a href="./apt-get-update-apt-get-dist-upgrade-system-not-wor-t3778.html#p25449" title="permalink">#4</a></span>
+
+<div class="content">Actually it is probably best to <br>
+<br>
+apt-get update<br>
+apt-get install acpi-fakekey<br>
+apt-get install irqbalance<br>
+apt-get install x11-common<br>
+<br>
+(yes do them separately) then<br>
+<br>
+apt-get dist-upgrade</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25450" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25450">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25450">
+
+<time datetime="2012-07-21T20:39">posted: 2012-07-21 &nbsp; 20:39</time>
+<span class="permalink"><a href="./apt-get-update-apt-get-dist-upgrade-system-not-wor-t3778.html#p25450" title="permalink">#5</a></span>
+
+<div class="content">Does it stop completely, or just use a LOT of time? Until you upgrade ifupdown, it has a very annoying"lag" at boot.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25451" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25451">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">antixitis</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25451">
+
+<time datetime="2012-07-21T20:46">posted: 2012-07-21 &nbsp; 20:46</time>
+<span class="permalink"><a href="./apt-get-update-apt-get-dist-upgrade-system-not-wor-t3778.html#p25451" title="permalink">#6</a></span>
+
+<div class="content">Hangs completely. Didn't on 1st 2 installs, but did on the 3rd install. I'm trying a 4th install just for the sake of futility. Then if no hang, I'll try to dist-upgrade according to your suggestions and see what happens.<br>
+Last Install I've decided to use install-2-partition instead of whole disk for install, and ext3 instead of pre-assigned ext4. <br>
+I wouldn't know how to update ifupdown without getting into the system 1st and getting a connection. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25452" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25452">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25452">
+
+<time datetime="2012-07-21T20:48">posted: 2012-07-21 &nbsp; 20:48</time>
+<span class="permalink"><a href="./apt-get-update-apt-get-dist-upgrade-system-not-wor-t3778.html#p25452" title="permalink">#7</a></span>
+
+<div class="content">Neither do I, but it does have a"wait" whie booting, I was just wondering if that is what you had, or if it was something else.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

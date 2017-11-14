@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX 12 install on Asus EeePC 900 step-by-step - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-12-install-on-asus-eeepc-900-step-by-step-t3868.html">antiX 12 install on Asus EeePC 900 step-by-step</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_25885" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25885">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 23</span></div>
+
+</div>
+</div>
+<span class="username">chatan</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25885">
+<time datetime="2012-08-21T09:11">posted: 2012-08-21 &nbsp; 09:11</time>
+<span class="permalink"><a href="./antix-12-install-on-asus-eeepc-900-step-by-step-t3868.html#p25885" title="permalink">#1</a></span>
+
+<div class="content">Using much of what rokytnji did for antiX11 (see links below) and other various links and my limited experience, I took copious notes installing antiX 12 on my Asus EEEPC 900 4gig/16gig dual SSD drive netbook. I didn't include screenshots, because shots in rokytnji antiX11 thread are still pretty relevant.<br>
+viewtopic.php?f=4&amp;t=3104<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://yatsite.blogspot.jp/2010/04/antix-85-full-install-on-asus-eeepc-900.html"<br>linktext was:"http://yatsite.blogspot.jp/2010/04/anti ... c-900.html"<br>====================================<br>
+<br>
+dealing-with-a-asus-eee-900-install-of-antix-8-5-t2328.html<br>
+<br>
+<br>
+So below are my notes. Use at your own risk! <span class="emoticon"> __{{emoticon}}__ </span> There some stuff I tested during rc2 (skype, sound, some Fn Keys, etc), so I'll add more as I get around to verifying it on the fresh Final 12 install<br>
+Cheers!<br>
+<br>
+<br>
+<span style="font-size: 150%; line-height: normal"><strong><span style="text-decoration: underline">Install</span></strong></span><br>
+Used unetbootin in MEPIS to make a “live” USB drive. (the antix 12 full version took 702 MB )<br>
+<br>
+Insert USB into powered-off EeePC.<br>
+Turn on.<br>
+At Boot screen, hit ESC and select your USB drive to boot from.<br>
+After boot menu loads, at the default option hit TAB to edit boot options.<br>
+at the end of the line add vga=788 to set the EeePC’s screen resolution<br>
+<br>
+Now on to connect with Wicd in antiX Control Center (Ctrl-Alt-c) &gt;&gt;&gt; Network tab &gt;&gt; Connect Wirelessly (wicd)<br>
+<br>
+In Wicd preferences (small dropdown arrow on the right side):<br>
+enter wlan0 for the wireless interface. (If not sure what your wireless interface is called run ifconfig -a as root)<br>
+Refresh and connect to the correct wireless network and as appropriate: adding the key (passphase) and selecting “Connect Automatically”<br>
+<br>
+Now Install (Click the desktop icon)<br>
+Use the defaults unless noted:<br>
+During step 1, Run partition tool:<br>
+1. delete all existing partitions.<br>
+2. on sda: create new partition as ext2 file system as a primary / partition<br>
+3. on sdb: create new partition as ext2 file system as a primary / partition<br>
+<br>
+Close Partition tool<br>
+<br>
+Make sure “Select Custom install on existing partitions” is selected<br>
+<br>
+Keep default choices of sda1, no swap and /home on root<br>
+<br>
+But, check box for “Preserve data in /home” to keep ext2 file system that we created before intact. ...Making “Filesystem type” not important.<br>
+<br>
+Continue install process. Choose Yes for “OK to use (no format) on /dev/sda1...”<br>
+Installation on my EeePC took about 6 minutes<br>
+<br>
+Choose Yes for “Install Grub to MBR on sda?” (assuming no other operating systems on the EeePC)<br>
+<br>
+<br>
+<span style="font-size: 150%; line-height: normal"><strong><span style="text-decoration: underline">Update antiX:</span></strong></span><br>
+antiX Control Center (Ctrl-Alt-c) &gt;&gt;&gt; System &gt;&gt; Manage Packages to open Synaptic<br>
+Click Reload<br>
+On Left lower side, Click “Status” then Installed (upgradeable).<br>
+and then Mark All Upgrades and then Apply<br>
+<br>
+<br>
+<span style="font-size: 150%; line-height: normal"><strong><span style="text-decoration: underline">Move /HOME to the 16GB SSD drive</span></strong></span><br>
+su<br>
+mkdir /media/sdb1<br>
+mount /dev/sdb1 /media/sdb1<br>
+<br>
+cp -rp /home/user /media/sdb1<br>
+<br>
+Edited fstab using geany:<br>
+fstab before:
+<blockquote class="uncited"><div># Pluggable devices are handled by uDev, they are not in fstab<br>
+UUID=1bce2c47-0a0f-4ab0-b367-96a8aa9997e6 / auto defaults,noatime 1 1<br>
+proc /proc proc defaults 0 0<br>
+devpts /dev/pts devpts mode=0622 0 0<br>
+# Dynamic entries below<br>
+<span style="color: #FF0000">UUID=cfb3ff1b-1dd9-4dd4-ab6d-23698d590357 /media/sdb1 ext2 noauto,users,exec,relatime 0 0</span>
+</div></blockquote>
+Changed to :
+<blockquote class="uncited"><div># Pluggable devices are handled by uDev, they are not in fstab<br>
+UUID=1bce2c47-0a0f-4ab0-b367-96a8aa9997e6 / auto defaults,noatime 1 1<br>
+proc /proc proc defaults 0 0<br>
+devpts /dev/pts devpts mode=0622 0 0<br>
+<span style="color: #FF0000">UUID=cfb3ff1b-1dd9-4dd4-ab6d-23698d590357 /home ext2 defaults,noatime 1 1</span><br>
+# Dynamic entries below</div></blockquote>
+rm -r /home<br>
+mkdir /home<br>
+Reboot<br>
+<br>
+<strong><span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">OOTB Test:</span></span></strong><br>
+<strong>OK:</strong> <span class="emoticon"> __{{emoticon}}__ </span> <br>
+Wireless<br>
+Wireless resuming after awake from suspend<br>
+Youtube works with sound<br>
+Fn Contrast buttons<br>
+Fn Suspend button<br>
+Fn Wireless on/off<br>
+Fn Numlock<br>
+webcam with guvcview<br>
+<br>
+<strong><br>
+Not OK:</strong> <span class="emoticon"> __{{emoticon}}__ </span> <br>
+Fn LCD/CRT display toggle<br>
+Fn Volume buttons<br>
+Fn Prt Scn<br>
+Suspend when lid gets closed</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25907" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25907">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 23</span></div>
+
+</div>
+</div>
+<span class="username">chatan</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25907">
+
+<time datetime="2012-08-22T10:49">posted: 2012-08-22 &nbsp; 10:49</time>
+<span class="permalink"><a href="./antix-12-install-on-asus-eeepc-900-step-by-step-t3868.html#p25907" title="permalink">#2</a></span>
+
+<div class="content"><span style="font-size: 150%; line-height: normal"><strong><span style="text-decoration: underline">Skype Install</span></strong></span><br>
+<ul> <li>Go here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.skype.com/intl/en/get-skype/"<br>linktext was:"http://www.skype.com/intl/en/get-skype/"<br>====================================<br>
+ ... ter/linux/ and download the Debian 6.0 32 bit version (it will be a .deb file)<br>
+Open terminal and change directory to where you downloaded the deb file - Probably cd /home/user<br>
+Enter su then your root password<br>
+enter dpkg -i skype (then use the Tab button to auto-complete)<br>
+If you get a message about libqt4-network dependency issue like I did, enter:<br>
+apt-get -f install<br>
+Skype should appear in Menu-&gt;Applications-&gt;Internet.<br>
+Close terminal</li> </ul>
+OOTB with skype:<br>
+built-in webcam video worked fine<br>
+Test Sound played fine<br>
+Test call: No Microphone<br>
+<br>
+<span style="font-size: 150%; line-height: normal"><strong><span style="text-decoration: underline">To get mic working<br>
+</span></strong></span>antiX CC &gt;&gt;&gt; Hardware &gt;&gt;&gt; Adjust Mixer - this will open alsamixer.<br>
+Hit f5 so that all channels show up and use arrow keys to match these settings - see screenshot:<br>
+Master 100% <br>
+Headphone 100%<br>
+Speaker 100%<br>
+PCM 100%<br>
+Mic 0 ‘mm’<br>
+Mic Boost 0<br>
+Capture 70% (also hit space bar to toggle show that ‘L---R Capture” shows in red)<br>
+Auto-mute enabled<br>
+Digital 71%<br>
+Internal Mic 70% (make sure it doesn’t say ‘mm’ by hitting the letter m key)<br>
+Internal Mic Boost 0<br>
+<br>
+Make another test call and adjust if needed to suit your desires</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26055" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26055">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 23</span></div>
+
+</div>
+</div>
+<span class="username">chatan</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26055">
+
+<time datetime="2012-08-26T22:41">posted: 2012-08-26 &nbsp; 22:41</time>
+<span class="permalink"><a href="./antix-12-install-on-asus-eeepc-900-step-by-step-t3868.html#p26055" title="permalink">#3</a></span>
+
+<div class="content"><strong><span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">Volume Icon/Hotkeys fix</span></span></strong><br>
+The Fn Volume/Mutes keys don’t work by default and the Volume icon is hard to see the status, so to fix:<br>
+Right Click the volume icon &gt;&gt;&gt; Preferences<br>
+For “Icon Theme” select Blue Bar (or other choice that you like)<br>
+Down where it says hotkeys:<br>
+check the boxes next to:<br>
+Volume Up XF86AudioLowerVolume<br>
+Volume Down XF86AudioRaiseVolume<br>
+Mute XF86AudioMute<br>
+<br>
+<br>
+Side note: The below is the first fix I tried and it also worked, but then I finally noticed the above fix in the volume icon preferences, which seemed much easier. <br>
+aniX cc &gt;&gt;&gt; Desktop &gt;&gt;&gt; Edit IceWM Settings<br>
+finds the “keys” tab and add these to the bottom:<br>
+key"XF86AudioLowerVolume" amixer -c 0 set Master 5-<br>
+key"XF86AudioRaiseVolume" amixer -c 0 set Master 5+<br>
+key"XF86AudioMute" amixer -c 0 -- set Master toggle<br>
+<br>
+<br>
+<strong><span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">SUSPEND on LID CLOSE</span></span></strong><br>
+aniX cc &gt;&gt;&gt; System &gt;&gt;&gt; Edit Config Files<br>
+<br>
+Open /etc /acpi/lid.sh<br>
+<br>
+Find the lines that say:<br>
+<br>
+if [ x$LID_SLEEP = xtrue ]; then<br>
+pm-suspend<br>
+fi<br>
+<br>
+and add hashtags to the two lines so it looks like this:<br>
+<br>
+# if [ x$LID_SLEEP = xtrue ]; then<br>
+pm-suspend<br>
+# fi<br>
+<br>
+<br>
+<strong><span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">WICD ICON</span></span></strong><br>
+Wicd icon doesn’t show on the taskbar at startup...to fix:<br>
+<br>
+aniX cc &gt;&gt;&gt; Desktop &gt;&gt;&gt; Edit IceWM Settings<br>
+finds the “startup” tab and remove the hashtag from the sleep line:<br>
+<br>
+# wicd<br>
+#sleep 2 &amp;&amp; wicd-client -t &amp;<br>
+<br>
+so it looks like this:<br>
+# wicd<br>
+sleep 2 &amp;&amp; wicd-client -t &amp;<br>
+<br>
+The above fix caused conky to not show up on some reboots. In the same startup config file, I added 1 to all sleep values except for wicd and conky seems to be behaving.<br>
+<br>
+<br>
+<strong><span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">TOUCHPAD TOGGLE</span></span></strong><br>
+(If you are typing and your thumbs always hit the touchpad causing you to mess up your text!)<br>
+<br>
+Step 1:<br>
+Create new script with below contents and save as /usr/local/bin/touchpad_toggle.sh<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+# touchpad toggle command from commandlinefu.com
+
+if [ $(synclient -l | grep TouchpadOff | awk '{print $3}') ="0" ]; then synclient TouchpadOff=1; elif [ $(synclient -l | grep TouchpadOff | awk '{print $3}') =="1" ]; then synclient TouchpadOff=0; else synclient TouchpadOff=0; fi</code></pre></div>
+Make the touchpad_toggle.sh script executable:<br>
+sudo chmod 755 /usr/local/bin/touchpad_toggle.sh<br>
+<br>
+Step 2:<br>
+Tie the script to the hotkey F6:<br>
+aniX cc &gt;&gt;&gt; Desktop &gt;&gt;&gt; Edit IceWM Settings<br>
+finds the “keys” tab and add this line to the bottom:<br>
+<br>
+key"F6" touchpad_toggle.sh</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

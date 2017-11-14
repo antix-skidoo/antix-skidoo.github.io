@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-16-RC1 available - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-releases-f45/index.html"><span>Development releases</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-16-rc1-available-t6406-s15.html">antiX-16-RC1 available</a></div>
+<div class="pagination">
+60 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-16-rc1-available-t6406.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-16-rc1-available-t6406.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./antix-16-rc1-available-t6406-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-16-rc1-available-t6406-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-16-rc1-available-t6406-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_47035" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47035">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47035">
+<ul class="post-buttons">
+ </ul>
+<time datetime="2016-06-16T02:58">posted: 2016-06-16 &nbsp; 02:58</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47035" title="permalink">#16</a></span>
+
+<div class="content">My USB stick gives none of those errors.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47037" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47037">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47037">
+
+<time datetime="2016-06-16T06:38">posted: 2016-06-16 &nbsp; 06:38</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47037" title="permalink">#17</a></span>
+
+<div class="content">This post discusses the <span style="color: blue">Control Centre -}"Choose Startup Services"</span> tool.<br>
+<br>
+The wrapper script needs to be modified (employ a lockfile, or killall sysv-rc-conf prior to calling sysv-rc-conf)<br>
+to guard against launching multiple concurrent sysv-rc-conf instances.<br>
+<br>
+"Why would a user launch multiple instances?"<br>
+Aside from fat-fingered / accidental double-click, consider that when user clicks"Choose Startup Services",<br>
+an inherent delay occurs (2+ seconds, tested on a 2.8GHz core2Duo w/ 800MHz RAM)...<br>
+which can lead the user to presume that"nothing happened" in response to first click. <br>
+Another"why": user (me) might get the bright idea to keep one instance open for reference, hoping to keep track of what the previous/default state was.<br>
+<br>
+If user has already (within 15min?) authenticated via sudo, the wrapper script currently<br>
+launches sysv-rc-conf without presenting password prompt, yes? <br>
+I think that's how/why, on various occasions, I've accidentally launched of multiple instances...<br>
+...and (oops) upon realizing the double, click the titlebar X to close the second window.<br>
+<br>
+Bug? Set aside the notion of concurrent instances and test just this: <br>
+1)"Choose Startup Services"<br>
+2) while sysv-rc-conf is running, click titlebar X to close the application window<br>
+In my testing, this (consistently) results in sustained 100% CPU load ~~ requiring kill by pid or sudo killall sysv-rc-conf intervention.<br>
+<br>
+Along with suggesting a change to wrapper script, here's a feature request:<br>
+inject a scripted"sysv-rc-conf --list /documented/path" into the build-iso script<br>
+(and same would be beneficial within iso-snapshot and live-snapshot script)<br>
+so the user has a frame of reference (is cron supposedta be autostarted for runlevel 4? for runlevel 6?) can refer to the"as-shipped" state of startup services.<br>
+<br>
+The sysv-rc-conf helpscreen mentions"press 'r' to view prior state"<br>
+but, pressing 'r' seems to abend the program.<br>
+sysv-rc-conf 2&gt; ouch.txt:<br>
+"Can't call method 'userdata' on an unidentified value<br>
+at <em>/</em>usr/bin/sysv-rc-conf line 251."</div>
+<div class="notice">
+Last edited by <b>skidoo</b> on 16 Jun 2016, 07:25, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47039" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47039">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">skidoo</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47039">
+
+<time datetime="2016-06-16T06:52">posted: 2016-06-16 &nbsp; 06:52</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47039" title="permalink">#18</a></span>
+
+<div class="content"><blockquote class="uncited"><div>skiddoo there is definently something going on with your install. Between these comments and your comments about the icons, there is something really wrong. Here's a screenshot of mine, default everything.</div></blockquote>After anticapitalista pointed out"same iconset", I didn't post a followup but realized that fuzzy post was a mistake (and sleepheaded bad reporting) on my part. I now realize that those"nice big redX icons" are still present, but they are only displayed for removables, not for fixed drive partitions (different from my typical usage and past testing, HDDs are present on THIS test system)<br>
+<br>
+dolphin, thanks for checking (and for refuting). You screenshot indicates IceWM? JWM?<br>
+Not that it should make a difference, but my observations were from a fresh liveboot (haven't messed with lxappearance) fluxbox session.<br>
+Or so I thought. Tomorrow I'll check"inxi -g" for that desktop box and will retest using another PC.<br>
+<br>
+On a related note (inclusion of using"Other Desktops" menu item during testing), I was going to ask someone else to test/recheck this:<br>
+if I launch"dillo" from a fluxbox session then switch to IceWM or JWM via"Other Desktops"... and back to fluxbox, the dillo window creeps upward.<br>
+After a few switches between WMs, the window's titlebar winds up out of reach (offscreen, above the top edge).<br>
+I haven't tested this extensively, but it seems repeatable, and (somehow) possibly only affects the application window containing dillo.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47040" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47040">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47040">
+
+<time datetime="2016-06-16T07:38">posted: 2016-06-16 &nbsp; 07:38</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47040" title="permalink">#19</a></span>
+
+<div class="content">I noticed that bleachbit is absent.<br>
+Wondering whether that's due to space limitations, or whether it has fallen into disfavor?<br>
+<br>
+I'm content with the decision to omit spacefm, but wanted to mention:<br>
+if/when user installs spacefm package, its auto-generated desktop menu item"bleachbit (as root" {sic} winds up broken/malformed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47041" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47041">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47041">
+
+<time datetime="2016-06-16T07:42">posted: 2016-06-16 &nbsp; 07:42</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47041" title="permalink">#20</a></span>
+
+<div class="content">launch streamtuner2. Click edit -} properties<br>
+<br>
+? missing font ?<br>
+I'm seeing placeholders (for missing unicode glyphs?) displayed for the"Channels" and the"Features" tab headers</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47042" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47042">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47042">
+
+<time datetime="2016-06-16T07:58">posted: 2016-06-16 &nbsp; 07:58</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47042" title="permalink">#21</a></span>
+
+<div class="content">usr/share/wallpaper<br>
+<br>
+The following tweaks will shed 1.5Mb or so<br>
+<br>
+Wooden.jpg <strong>685Kb</strong><br>
+--} mtpaint --} resave as jpg @85 --} <strong>186K</strong><br>
+To my eye, no remarkable loss of quality<br>
+<br>
+shells-massage-therapy-sand <strong>749Kb</strong><br>
+--} mtpaint --} resave as jpg @92 --} <strong>189K</strong><br>
+To my eye, no remarkable loss of quality.<br>
+@85 --} 125Kb, but I'd error on the safe side and choose @92<br>
+<br>
+sleek-antiX.png <strong>168Kb</strong><br>
+--} mtpaint --} resave as jpg @92 --} <strong>39K</strong><br>
+To my eye, no remarkable loss of quality<br>
+<br>
+antiX-galaxy.jpg <strong>{notes missing}Kb</strong><br>
+--} mtpaint --} resave as jpg @92 --} <strong>15Kb</strong><br>
+To my eye, no remarkable loss of quality<br>
+<span style="color: green">and can copy this smaller resaved version to the other places it's used (gfxboot? inside live-init?)</span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47044" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47044">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47044">
+
+<time datetime="2016-06-16T08:21">posted: 2016-06-16 &nbsp; 08:21</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47044" title="permalink">#22</a></span>
+
+<div class="content"><span style="color: blue">reporting a frustrating usability issue in iso-snapshot:<br>
+User has opportunity (button offered within iso-snapshot gui) to choose a custom destination directory during the workflow.<br>
+On the following screen, user has opportunity to edit iso-snapshot.conf<br>
+PROBLEM: clicking the"edit" button resets/erases the custom destination specified by the user (even if the conf file is just viewed, not actually edited).<br>
+<br>
+After tripping over this tonight, deja vu... I'm fairly certain I reported this same issue when testing iso-snapshot prior to MX-15 release.</span><br>
+<br>
+reporting a (non-reproduceable) bug in iso-snapshot:<br>
+<br>
+Via the provided"browse" directory picker, I chose <span style="color: green"><em>/</em>live/boot-dev/snapshothere</span><br>
+but iso-snapshot choked, like that's a too-long pathstring.<br>
+The string wound up being truncated, with the final slash char of the path absent<br>
+<span style="color: green"><em>/</em>live/boot-devhere</span><br>
+and, alongside this malformed pathstring, the gui errmsg stated 'no such path'.<br>
+<br>
+I renamed the intended target directory to something shorter, like"snaps" (sorry, didn't jot the exact dirname in my notes)<br>
+and iso-snapshot was able to successfully browse/select that as destination path (live/boot-dev/snaps)<br>
+<br>
+edited to add: During later runs, I chose custom destinations bearing pathstrings even longer <br>
+than the (above) failed example, and iso-snapshot successfully used those paths.<br>
+<br>
+<br>
+additional notes regarding iso-snapshot use:<br>
+<br>
+During operation, 300 or so error lines are spammed to the ui scrollbox"cannot change ownership to uid 0"<br>
+followed by a line stating"tar: exiting with failure due to previous errors".<br>
+The error message burrrrrp is non-fatal, but is confusing to the user. No"exit" happens; afterward, the ui informs it is proceeding with mksquashfs.<br>
+<br>
+During some runs, iso-snapshot doesn't completely cleanup files from its working directory.<br>
+It may (especially if operation doesn't complete successfully) leave behind stray files pathed in e.g. /home/demo/snapshot/iso-snapshot-eVh8g/<br>
+<br>
+--------------------------------<br>
+<br>
+I also tested live-remaster (personal) and successfully booted afterward. I have not tested the"rollback" feature (and don't plan to, unless requested).<br>
+<br>
+??? live-remaster... is the script which instructs"don't close this box, even if sez 100%"<br>
+Well, FWIW, following its 14 minutes (or so) of 100% CPUload churning... yep, it seemed to stop working.<br>
+No CPU load, no drive activity, no incremental increase in consumed amount of RAM.<br>
+I ran out of patience about 20 minutes later, and clicked to interrupt it.<br>
+dialogbox: ARE YOU SURE? ARE YOU REALLY ABSOLUTELY SUPERDUPER SURE YOU WANT TO QUIT?<br>
+I responded"No"<br>
+and it immediately"sprang back to life" (CPU load/activity resumed) reporting successful completion within 1 minute.<br>
+Coincidence?<br>
+It was actually working the entire time?<br>
+It was 45seconds away from successfully completing when I interrupted?<br>
+Naw, although I've rarely used this tool aside from occasional testing...<br>
+(I prefer to 'snapshot' instead, safekeeping a copy of the iso on another PC)<br>
+...it sure seemed like the script was"stuck in limbo, playing dead until I intervened".</div>
+<div class="notice">
+Last edited by <b>skidoo</b> on 17 Jun 2016, 03:39, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47047" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47047">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47047">
+
+<time datetime="2016-06-16T12:04">posted: 2016-06-16 &nbsp; 12:04</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47047" title="permalink">#23</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>I noticed that bleachbit is absent.<br>
+Wondering whether that's due to space limitations, or whether it has fallen into disfavor?<br>
+<br>
+I'm content with the decision to omit spacefm, but wanted to mention:<br>
+if/when user installs spacefm package, its auto-generated desktop menu item"bleachbit (as root" {sic} winds up broken/malformed.</div></blockquote>
+<br>
+I'm going to assme you mean bleachbit, not spacefm. Just checking!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47049" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47049">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47049">
+
+<time datetime="2016-06-16T12:29">posted: 2016-06-16 &nbsp; 12:29</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47049" title="permalink">#24</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>The default desktop theme has a usability issue specific to GTK3 apps (synaptic, roxterm) ~~ no border<br>
+(nor contrasting background color) is rendered for checkbox input fields. Unticked inputs are essentially invisible.<br>
+<br>
+Two quick examples:<br>
+Launch roxterm. Open a second roxterm tab. Click 'X' to close the window (and observe the resulting dialogbox).<br>
+Launch synaptic. Visit the multi-tabbed"preferences" box (and note the"invisible" checkbox input elements).</div></blockquote>
+I see something like this with Dark theme, but not with the default Light.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47050" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47050">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47050">
+
+<time datetime="2016-06-16T12:36">posted: 2016-06-16 &nbsp; 12:36</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47050" title="permalink">#25</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>launch streamtuner2. Click edit -} properties<br>
+<br>
+? missing font ?<br>
+I'm seeing placeholders (for missing unicode glyphs?) displayed for the"Channels" and the"Features" tab headers</div></blockquote>
+I see this too, but not sure what the fix is.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47055" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47055">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47055">
+
+<time datetime="2016-06-16T15:30">posted: 2016-06-16 &nbsp; 15:30</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47055" title="permalink">#26</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>usr/share/wallpaper<br>
+<br>
+The following tweaks will shed 1.5Mb or so<br>
+<br>
+Wooden.jpg <strong>685Kb</strong><br>
+--} mtpaint --} resave as jpg @85 --} <strong>186K</strong><br>
+To my eye, no remarkable loss of quality<br>
+...</div></blockquote>
+Nice find <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Testing 16-RC1 Live<br>
+Two minors details, a possible bug and a question:<br>
+<br>
+1. When entering a new Live session after logging out the <strong>keyboard layout </strong>that one sets at boot reverts to QWERTY.<br>
+2. <strong>Libreoffice</strong> has Java activated by default but no JRE's installed. May also impact starting time<br>
+3. <strong>Installer</strong> won't display in fluxbox-* session (default boot options)<br>
+As shown in the screens below it starts but won't show. Killing it and re-launching makes it appears... in the dock. But only shows up if I force"Maximize". Quite awkward. Shifted to other desktop and only got that behaviour in fluxbox-*s.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://pic.al/FGd.png"<br>linktext was:"http://pic.al/FGd.png"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://pic.al/GGd.png"<br>linktext was:"http://pic.al/GGd.png"<br>====================================<br>
+<br>
+<br>
+4. <strong>Install</strong> on a logical volume??<br>
+Installer does not recognize LVs. <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://pic.al/LGd.png"<br>linktext was:"http://pic.al/LGd.png"<br>====================================<br>
+<br>
+Is there a workaround in case installing into an lvm2 setup is wanted?<br>
+<br>
+<strong>Desktop choice impact on resources</strong><br>
+Wanted to see how the desktop compare in term of resources and responsiveness.<br>
+- Fluxbox and JWN taxes the less RAM (default boot options)<br>
+- JWN felt particularly responsive I mean notably more than the others on my setup.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://pic.al/CGd.png"<br>linktext was:"http://pic.al/CGd.png"<br>====================================<br>
+ 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://pic.al/DGd.png"<br>linktext was:"http://pic.al/DGd.png"<br>====================================<br>
+ 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://pic.al/HGd.png"<br>linktext was:"http://pic.al/HGd.png"<br>====================================<br>
+<br>
+<br>
+Hardware setup used for this test:<br>
+Good ol' Athlon 1GHz, spinning HDD, 1GB RAM (emulated via qemu-kvm &amp; cpulimit)<br>
+<br>
+<strong>Torrent </strong><br>
+Please note the RC1_386-full ISO is uploaded to 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linuxtracker.org/index.php?page=torrents&amp;category=2007"<br>linktext was:"LT"<br>====================================<br>
+ should go public any moment (available in LT's feed already)<br>
+<br>
+EDIT<br>
+Responsiveness and RAM usage are nothing but impressive:<br>
+- Default with Firefox-esr, LO spreadsheet, Mirage and playing music: 250 MB<br>
+- Same with fluxbox: 230 MB<br>
+- Same with JWM: 240 MB<br>
+- Same with 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://pic.al/MGd.png"<br>linktext was:"JWM and Palemoon replacing FF: 190 MB"<br>====================================<br>
+ (24% memory less than default).<br>
+These are only numbers but really say something though <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+<div class="back2top">
+ </div>
+</div>
+</div>
+<div id="p_47058" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47058">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47058">
+
+<time datetime="2016-06-16T18:12">posted: 2016-06-16 &nbsp; 18:12</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47058" title="permalink">#27</a></span>
+
+<div class="content">{blush}<br>
+d_o, yes I meant bleachbit<br>
+<br>
+spacefm, a few months ago I was tempted to suggest it should be pinned, at version 1.0.4 until or unless someone<br>
+rebuilt 1.0.5 to exclude the newly-added foofoo features (no thanks, I don't want auto-generated thumbnails of video files)<br>
+and the resulting (multiple libs, several Mb) package dependencies incurred by v1.0.5<br>
+<br>
+Toward avoiding duplication of effort, I'll mention that I've tested the launchability of, via the desktop menu, all the RC1 preinstalled programs.<br>
+I haven't waded through testing all the ControlCentre launchers, but not much has changed within cc for this release, right?<br>
+Holler if there's anything specific which needs testing.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47059" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47059">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47059">
+
+<time datetime="2016-06-16T18:18">posted: 2016-06-16 &nbsp; 18:18</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47059" title="permalink">#28</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>{blush}<br>
+d_o, yes I meant bleachbit<br>
+<br>
+spacefm, a few months ago I was tempted to suggest it should be pinned, at version 1.0.4 until or unless someone<br>
+rebuilt 1.0.5 to exclude the newly-added foofoo features (no thanks, I don't want auto-generated thumbnails of video files)<br>
+and the resulting (multiple libs, several Mb) package dependencies incurred by v1.0.5<br>
+<br>
+Toward avoiding duplication of effort, I'll mention that I've tested the launchability of, via the desktop menu, all the RC1 preinstalled programs.<br>
+I haven't waded through testing all the ControlCentre launchers, but not much has changed within cc for this release, right?<br>
+Holler if there's anything specific which needs testing.</div></blockquote>
+we've got an tool for setting automount of usb devices in control center, which should work on the rox desktop as well as spacefm (doesn't rely on spacefm). There is also a set font size tool for changing the dpi of the display. It was meant for those with high dpi monitors, but I've come to really like the 120 setting even on my small screen.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47065" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47065">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47065">
+
+<time datetime="2016-06-17">posted: 04:04</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47065" title="permalink">#29</a></span>
+
+<div class="content">I've edited and updated my earlier post regarding iso-snapshot. Ultimately, it successfully generated usable xz and gz -compressed isos.<br>
+<br>
+page describes gtk theme checkbox bug I'm experiencing. Still, it provides no clue why we're seeing different results when testing same iso,<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bugs.eclipse.org/bugs/show_bug.cgi?id=463733"<br>linktext was:"https://bugs.eclipse.org/bugs/show_bug.cgi?id=463733"<br>====================================<br>
+<br>
+<br>
+edited to add:<br>
+I've now booted to 3 different PCs using the RC1 liveUSB, one with radeon card, another with discrete nvidia card, another having onboard intel gpu.<br>
+FWIW, testing didn't apply cheatcodes, didn't involve non-default graphics driver, and same result ("invisible" checboxes) on each of the 3 PCs.</div>
+<div class="notice">
+Last edited by <b>skidoo</b> on 17 Jun 2016, 18:28, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47075" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47075">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">masinick</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47075">
+
+<time datetime="2016-06-17T17:23">posted: 2016-06-17 &nbsp; 17:23</time>
+<span class="permalink"><a href="./antix-16-rc1-available-t6406-s15.html#p47075" title="permalink">#30</a></span>
+
+<div class="content">If we've downloaded a previous Alpha or Beta image and continuously updated, other than identification strings, should we have essentially the same software?<br>
+<br>
+I think I have b2 @Home and in recent days/weeks, it has been running well. One distribution (Fedora 23) that I had been using to control the MBR seemed to have an issue - when updating it's system list, interactively it would list antiX 16, but after a reboot, it would display and select an old, no longer existing antiX 15 or 15.1 image. Curiously, if I would go to the GRUB 2 command line, say set root='hd0,gpt7', then chainloader +1 then boot, antiX 16's view of the distributions on the GPT formatted disk would appear, so I could get in.<br>
+<br>
+More recently I put a stable version of openSUSE 42.1 Leap in charge, and it correctly identified each distribution and I was able to directly access antiX 16.<br>
+<br>
+I've occasionally run across seemingly minor issues that are probably defects, but they've been difficult to isolate in the limited amount of time I've had available to test, and I've not reported anything because I've not been able to create a useful, reproducible defect report. But over the course of time, it appears that many (most) of the"minor" quirks have disappeared, so they've probably been reported and fixed for the most part.<br>
+<br>
+If I can spare a few minutes, I'll try to grab the release candidate and try it out again. The installer, as far as the primary installation functionality, works fine. I tried a couple of the live options to retain content at various points. I had the most success saving the base configuration in a Frugal setup and saving a home directory in Frugal was also successful. I did not, however, inspect every possible combination or dig deeply for inconsistencies; it appears that a few people have done that reasonably well.<br>
+<br>
+I agree that the software looks close to readiness and a few weekends of polishing and refining are quite likely to complete yet another really good, flexible system that allows you to start simple and extend a configuration in any direction you want - Frugal storage for removable images, full installations of light, intermediate, or full-featured software, so I am very confident in the direction the work has taken and I use it frequently, even in the test configuration.</div>
+</div>
+</div>
+<div class="back2top">
+ </div>
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+60 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-16-rc1-available-t6406.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-16-rc1-available-t6406.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./antix-16-rc1-available-t6406-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-16-rc1-available-t6406-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-16-rc1-available-t6406-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

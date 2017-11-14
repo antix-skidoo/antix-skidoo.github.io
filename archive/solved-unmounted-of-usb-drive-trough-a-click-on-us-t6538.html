@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] Unmounted of USB drive trough a click on usb-icon - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-unmounted-of-usb-drive-trough-a-click-on-us-t6538.html">[SOLVED] Unmounted of USB drive trough a click on usb-icon</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_47840" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47840">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47840">
+<time datetime="2016-08-10T23:43">posted: 2016-08-10 &nbsp; 23:43</time>
+<span class="permalink"><a href="./solved-unmounted-of-usb-drive-trough-a-click-on-us-t6538.html#p47840" title="permalink">#1</a></span>
+
+<div class="content">Hello community...!<br>
+<br>
+I like this operating system... I am using AntiX-13.2 with desktop SpaceFM-IceWM with some small adjustment"to own taste", and is amazing... <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I am using the lastest version of SpaceFM (1.0.5+alpha), installed trough spacefm-installer.sh script from its official website. <br>
+To removable media automount, I using devmon script as daemon using SpaceFM Devices|Settings|Auto-Run|On unmount option with <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eject %v ; sleep 7 ; eject -t %v</code></pre></div>
+command for eject CD/DVD after unmounted, only. <br>
+This feature work fine!<br>
+<br>
+For to unmount USB drives, I added the following line at startup file in $HOME/.icewm directory:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>devmon --exec-on-drive"spacefm %d" --exec-on-drive"killall yad ; sleep 1 ; yad --image=\"$ICON\" --text=\"A USB drive has been \ndetected and mounted\" --geometry=\"150x45+734-25\" --no-buttons --skip-taskbar --on-top --undecorated --timeout=\"5\"" --exec-on-drive"sleep 3 ; yad --notification --image=\"$ICON" --text=\"Click for unmount USB drive(s) mounted\" --command=\"/usr/local/bin/unplugdrive.sh\"" --exec-on-disc"spacefm %d" --exec-on-audio"deadbeef cdda://%f" --exec-on-video"smplayer dvd://%f" --exec-on-remove"sleep 10 ; /usr/local/bin/kill-usb-icon.sh" &amp; &gt; /tmp/devmon.log
+</code></pre></div>
+and for log in on new session without some devmon process running, well I added it to exitantix.sh script:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>devmon_daemon=$(ps ax | grep -v grep | grep"devmon")
+if ["$devmon_daemon" &gt; /dev/null ]; then
+   echo"Kill some devmon process that be running"
+    kill -9 `"$devmon_daemon" | awk '{ print $1 }' | cut -d' ' -f 1`;
+    pkill -u $USER devmon
+fi</code></pre></div>
+Several USB drives are mounted and can be unmounted easily with a click on usb-icon in WM's systray.<br>
+<br>
+But after that some device is unmounted, the usb-icon disappear when exists others USB drives mounted yet. This behaviour is because to kill-usb-icon.sh script:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+## Name of script: kill-usb-icon.sh
+## Function: Close USB icon on systray if not exists usb drive mounted.
+## Author: fdm
+## Adapted from unplugdrive.sh bash script by SamK and Anticapitalista 
+## Date: 21/07/2016 23:42.
+## Lastest update: 
+#
+# Copyright (C) &lt;2016&gt;  &lt;fdm&gt;
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+#
+#############################################
+
+# Variables
+ICON1=$HOME/.icons/usbdrv.png
+ICON2=$HOME/.icons/removable_media_mounted.png
+TEXT1=A USB drive has been \ndetected and mounted
+TEXT2=One or more USB drive(s) \nare mounted yet
+# Collect details of each removable device that has at least one mounted partition
+discovered=$(pmount|grep /dev/|sort|tr ' ' '_'|cut -d _ -f 1,2,3)
+
+# Create a list of removable devices excluding CD/DVD
+for item in $discovered;do
+   if [[ ! $item = /dev/sr* ]];then
+     detectedlist="$detectedlist$item"
+   fi
+done
+
+# Create a list of each removable drive, mounted partition and mountpoint
+removablelist=""
+removablenow=""
+for item in $detectedlist;do
+   removablenow=$(echo $item|cut -c 6-|tr '_' ' ')
+   removablelist="$removablelist$removablenow\n"
+done
+
+# Create a list of each unplugable drive
+drivelist=""
+drivenow=""
+driveprevious=""
+position=0
+for item in $detectedlist;do
+   drivenow=$(echo $item|cut -d _ -f 1|cut -c 6-8)
+   if ["$drivenow" !="$driveprevious" ];then
+      drivelist="$drivelist $position $drivenow"
+      driveprevious=$drivenow
+   fi
+#   position=$(expr $position + 1)
+done
+
+if [ !"$drivenow" ="" ]; then
+
+   kill -9 `ps ax | grep -v grep | grep"yad" | awk '{ print $1 }' | cut -d' ' -f 1`;
+
+   devmon --exec-on-drive"spacefm %d" --exec-on-drive"yad --notification --image=\"$ICON1" --text=\"$TEXT1\" --geometry=\"150x45+734-25\" --no-buttons --skip-taskbar --on-top --undecorated --timeout=\"5\"" --exec-on-disc"spacefm %d" -on-audio"deadbeef cdda://%f" --exec-on-video"smplayer dvd://%f"" &amp; &gt; /tmp/devmon.log
+   
+else
+
+    yad --image="$ICON2" --text="$TEXT2" --geometry="150x45+734-25" --no-buttons --skip-taskbar --on-top --undecorated --timeout="5"
+
+fi</code></pre></div>
+At last, I have a question:<br>
+What parameter I should write in <blockquote class="uncited"><div>if [ !"$drivenow" ="" ]; then</div></blockquote> condition section of kill-usb-icon.sh script for others drives be detected, and consequently, perform the <blockquote class="uncited"><div>else</div></blockquote> statement?<br>
+<br>
+I am biologist and have little knowledge on programming.<br>
+(Sorry by my English use... ).<br>
+<br>
+I hope you can help me.<br>
+<br>
+Thanks<br>
+<br>
+fdm</div>
+<div class="notice">
+Last edited by <b>tuto</b> on 07 Sep 2016, 22:02, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47844" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47844">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47844">
+
+<time datetime="2016-08-11T01:49">posted: 2016-08-11 &nbsp; 01:49</time>
+<span class="permalink"><a href="./solved-unmounted-of-usb-drive-trough-a-click-on-us-t6538.html#p47844" title="permalink">#2</a></span>
+
+<div class="content">Howdy and Welcome. I am just wondering if you have watched<br>
+<br>
+<span data-s9e-mediaembed="youtube" style="display:inline-block;width:100%;max-width:640px"><span style="display:block;overflow:hidden;position:relative;padding-bottom:56.25%"><iframe allowfullscreen="" scrolling="no" style="background:url(https://i.ytimg.com/vi/L4pnACi6QBA/hqdefault.jpg) 50% 50% / cover;border:0;height:100%;left:0;position:absolute;width:100%" src="https://www.youtube.com/embed/L4pnACi6QBA"></iframe></span></span><br><br><b>^----</b> embedded YouTube-hosted video: <b>https://www.youtube.com/L4pnACi6QBA</b><br><br><br>
+<br>
+or read<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepiscommunity.org/wiki/antix-faqs/automount-usb-sticks-and-cddvd-discs-antix"<br>linktext was:"http://www.mepiscommunity.org/wiki/anti ... iscs-antix"<br>====================================<br>
+<br>
+<br>
+Yet? It might help. or not. I am not sure as I am posting from a hospital bed and a bit groggy.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47851" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47851">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47851">
+
+<time datetime="2016-08-12T09:14">posted: 2016-08-12 &nbsp; 09:14</time>
+<span class="permalink"><a href="./solved-unmounted-of-usb-drive-trough-a-click-on-us-t6538.html#p47851" title="permalink">#3</a></span>
+
+<div class="content">Dear rokytnji<br>
+<br>
+Thanks for your by reply...<br>
+<br>
+I saw and read those links. I succeeded unmount a usb drive by clicking on the icon showed in systray. <br>
+<br>
+I think that the only thing missing is to know what the appropriate parameter to add in the condition statement of previous script.<br>
+<br>
+I'm still in search.<br>
+<br>
+I hope you recover soon.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48121" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48121">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">tuto</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48121">
+
+<time datetime="2016-09-07T22:00">posted: 2016-09-07 &nbsp; 22:00</time>
+<span class="permalink"><a href="./solved-unmounted-of-usb-drive-trough-a-click-on-us-t6538.html#p48121" title="permalink">#4</a></span>
+
+<div class="content">Hi Antixers!<br>
+<br>
+After a long time thinking how to solve this topic, I found a solution that works for me and hopefully to others as well.<br>
+<br>
+In summary:<br>
+<br>
+<strong>1)</strong> I am using AntiX-13.2 on a desktop PC. <br>
+<br>
+<strong>2)</strong> I am using SpaceFM_1.0.5+alpha (this version bring in many improvements), and my principal desktop is space-icewm.<br>
+<br>
+<strong>3)</strong> The automount it of USB devices is carried out by <span style="color: #FFBF00">devmon script</span>, both SpaceFM well as for Rox-Filer, being available from any window manager (be added to startup file). <br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://igurublog.wordpress.com/downloads/script-devmon/"<br>linktext was:"https://igurublog.wordpress.com/downloa ... pt-devmon/"<br>====================================<br>
+<br>
+<br>
+Here my IceWM startup file:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+# ### Well see $HOME/.xinitrc-custom script.
+
+# Save gpid for graceful killing of orphans
+cut -d"" -f5 /proc/$$/stat &gt; $HOME/.antix-session/startup-pgid:${DISPLAY%.[0-9]}
+
+# Set wallpaper
+login_background.sh 
+
+# Auto update menu
+auto-icewm-menu.sh 
+
+# run icewm systray. 
+# Do NOT run if icewm-session is running.
+#icewmtray &amp;
+
+# kill icewmbg if is running.
+if ps ax | grep -v grep | grep"icewmbg" &gt; /dev/null; then pkill -u $USER icewmbg ; fi
+
+# wicd
+# sleep 2 &amp;&amp; wicd-client -t &amp;
+
+# keyring
+# gnome-keyring-daemon &amp;
+
+# run devmon_startup.sh script as automounter daemon for removables devices.
+devmon_startup.sh
+
+# run spacefm -d to automount plugin devices and popup spacefm filer.
+# Do NOT enable if you use spacefm desktop.
+# spacefm -d &amp;
+
+# mount Samba and/or NFS shares  
+# connectshares &amp;
+
+# set live keyboard.
+# Do NOT enable if use some keyboard layout switcher, as fbxkb.
+# setxkbmap -layout"$XKBLAYOUT" -variant"$XKBVARIANT" -option"$XKBOPTIONS"
+
+# run numlockx to LED NumLock-key on and activate the numpad.
+# A bug in actual version SLiM unallow activate it from log in.  
+numlockx &amp;
+
+# run unclutter to hide the mouse pointer on screen after 5 s without move it.
+# When mouse move, the pointer will be show it again.
+unclutter &amp;
+
+# run volumeicon to change volume level from systray and keyboard control.
+volumeicon &amp;
+
+# run fbxkb
+fbxkb &amp;
+
+# run system monitor conky
+sleep 1 &amp;&amp; conky -c ~/.conky/conkyrc_icewm
+</code></pre></div>
+<strong>4)</strong> The <span style="color: #FF0000">devmon_startup script </span> (located in /usr/local/bin directory) is:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+## Script's name: devmon_startup.sh
+## Function: Run devmon script as automounter daemon for removables devices depending of file manager running.
+## Author: fdm from others scripts as unplugdrive.sh and devmon.
+## Last update: 
+#
+# Requires that devmon be installed, and devmon script is provided by udevil.
+#
+# Copyright (C) &lt;2016&gt;  &lt;fdm&gt;
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+#
+#############################################################################
+
+# Variables
+DESKTOP_CODE="$HOME/.antix-session/desktop-code$DISPLAY"
+FM=`cat $DESKTOP_CODE | cut -d"-" -f1`
+IMG1="/usr/share/icons/gTangish-2.0a1/48x48/actions/go-down.png"
+TXT1="A USB drive has been \ndetected and mounted"
+IMG2="/home/tesistas/.icons/usbdrv.png"
+TXT2="Click for unmount USB drive(s) mounted"
+if ["$FM" =="space" ] ; then
+
+     # Run"spacefm --desktop" if not run at startup automatically.
+   ps_out=$(/bin/ps ax | grep -v grep | grep"spacefm --desktop" | cut -d"" -f2)
+   SPACE_PID=$(echo $ps_out)
+   
+   if ["$SPACE_PID" !="" ] ; then 
+   
+      echo"spacefm --desktop is running"
+      
+   else
+   
+      (spacefm --desktop) &amp;
+      
+   fi
+      
+#   if [ ! -e"$SPACE_PID" ] ; then 
+#      echo"spacefm --desktop is not running" &gt;&gt;/dev/null
+#      spacefm --desktop 
+#   fi
+
+#   if [ -z"$ps_out" ] ; then 
+#      echo"spacefm --desktop is not running" &gt;&gt;/dev/null
+#      spacefm --desktop 
+#   fi
+
+     # Run devmon for automount it removables media on SpaceFM. In SpaceFM's menupath Devices|Settings|Auto Run|"On unmount" option was added"eject %v ; sleep 7 ; eject -t %v" without double quotes marks.
+     which devmon &amp;&gt;/dev/null &amp;&amp; which udevil &amp;&gt;/dev/null &amp;&amp; devmon --exec-on-drive"spacefm %d" --exec-on-drive"killall yad ; sleep 1 ; yad --image=\"$IMG1\" --text=\"$TXT1\" --geometry=\"150x45+710-35\" --no-buttons --skip-taskbar --on-top --undecorated --timeout=\"5\"" --exec-on-drive"sleep 3 ; yad --notification --image=\"$IMG2\" --text=\"$TXT2\" --command=\"/usr/local/bin/unplugdrive_v3.sh\"" --exec-on-disc"spacefm %d" --exec-on-audio"deadbeef cdda://%f" --exec-on-video"smplayer dvd://%f" --exec-on-remove"sleep 10 ; /usr/local/bin/kill-usb-icon.sh" &amp; &gt; /tmp/devmon.log
+
+   
+elif ["$FM" =="rox" ] ; then
+
+        # Run devmon for automount it removables media on Rox-Filer.
+     which devmon &amp;&gt;/dev/null &amp;&amp; which udevil &amp;&gt;/dev/null &amp;&amp; devmon --exec-on-drive"rox %d" --exec-on-drive"killall yad ; sleep 1 ; yad --image=\"$IMG1\" --text=\"$TXT1\" --geometry=\"150x45+710-35\" --no-buttons --skip-taskbar --on-top --undecorated --timeout=\"5\"" --exec-on-drive"sleep 3 ; yad --notification --image=\"$IMG2\" --text=\"$TXT2\" --command=\"/usr/local/bin/unplugdrive_v3.sh\"" --exec-on-disc"rox %d" --exec-on-audio"deadbeef cdda://%f" --exec-on-video"smplayer dvd://%f" --exec-on-remove"sleep 10 ; /usr/local/bin/kill-usb-icon.sh" &amp; &gt; /tmp/devmon.log
+
+else
+
+   urxvt -hold -e echo"File manager by default running is not found." &amp; sleep 3 &amp;&amp; killall urxvt
+   
+fi
+
+</code></pre></div>
+Here the" usbdrv.png" usb icon used (adapted from Puppy Linux"Lucid"):<br>
+<br>
+<a href="http://imageshack.com/i/plbUkr84p" class="postlink"><img src="http://imagizer.imageshack.com/img921/7739/bUkr84.th.png" class="postimage" alt="Image"></a><br>
+<br>
+<br>
+<strong>5)</strong> I used the <span style="color: #0000FF">unplugdrive.sh script</span> from AntiX-15 on AntiX-13.2. I did small changes so I renamed to unplugdrive_v3.sh, but the credits are of anticapitalista and SamK being the script's original authors.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+## Script's name: unplugdrive_v3.sh
+## Function:
+## Enables unmounting prior to unplugging removable storage
+## Allows simultaneous selection of multiple drives
+## Unmounts all mounted partitions on nominated drive(s)
+## Removes mountpoints
+## Original Authors: anticapitalista from unplugdrive.sh script. 
+## Modified by: fdm
+## Lastest Update:
+#
+# Requires yad and pmount to be installed.
+# Requires / etc/udev/rules.d/99-usbstorage.unused to be renamed 99-usbstorage
+#
+# Copyright (C) &lt;2016&gt;  &lt;fdm&gt;
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+#
+# ##############################################################################
+
+# Variables
+TEXTDOMAINDIR="/usr/share/locale"
+TEXTDOMAIN="unplugdrive.sh"
+ICONS="/home/tesistas/.icons"
+ICON="/usr/share/icons/gnome/32x32/devices/media-removable.png"
+
+# Collect details of each removable device that has at least one mounted partition
+discovered=$(pmount|grep /dev/|sort|tr ' ' '_'|cut -d _ -f 1,2,3)
+
+# Create a list of removable devices excluding CD/DVD
+for item in $discovered;do
+   if [[ ! $item = /dev/sr* ]];then
+     detectedlist="$detectedlist$item"
+   fi
+done
+
+# Create a list of each removable drive, mounted partition and mountpoint
+removablelist=""
+removablenow=""
+for item in $detectedlist;do
+   removablenow=$(echo $item|cut -c 6-|tr '_' ' ')
+   removablelist="$removablelist$removablenow\n"
+done
+
+# Create a list of each unplugable drive
+drivelist=""
+drivenow=""
+driveprevious=""
+position=0
+for item in $detectedlist;do
+   drivenow=$(echo $item|cut -d _ -f 1|cut -c 6-8)
+   if ["$drivenow" !="$driveprevious" ];then
+      drivelist="$drivelist $position $drivenow"
+      driveprevious=$drivenow
+   fi
+   position=$(expr $position + 1)
+done
+
+# Display a message that no candidate for unmounting was discovered
+if [ -z"$drivelist" ];then
+   yad --image="$ICONS/usbdrv_unmount.png" --geometry="413x88+464-54" --text $"Attention: \n\nA removable drive with a mounted partition was not found.\nIt is safe to unplug the drive(s)" --no-buttons --on-top --undecorated --skip-taskbar --timeout="8"
+   exit 0
+fi
+
+# Display a list from which the drives to be unplugged may be selected
+selected=$(yad --window-icon="$ICONS/usbdrv.png" --image="$ICONS/removable_media_mounted.png" --title="USB drive" --list --geometry="300x300+514-34" --skip-taskbar --text=$"The following are currently mounted:\n$removablelist\nChoose the drive(s) to be unplugged\n" --checklist --column="Select" --column="Drives" --separator="" $drivelist)
+   if [ -z"$selected" ];then
+      yad --image="$ICONS/usb_unselected.png" --geometry="250x88+558-41" --text=$"Attention: \n\nNothing selected.\nAborting without unmounting." --no-buttons --on-top --undecorated --skip-taskbar --timeout="10"
+      exit 1
+   fi
+echo selected is $selected
+
+# Create a list of mountpoints used by the drives selected to be unplugged
+declare -a mountpointlist
+mountpointnow=""
+
+TEMPFILE=/tmp/unpluglist
+for item in $selected;do
+   if ["$item" ="TRUE" ] ||["$item" ="FALSE" ]; then
+    echo"nothing"
+   else
+   #mountpointnow=$(df |grep $item|awk -F"%" '{print $2}')
+   df |grep $item|awk -F"%" '{print $2}'| tee -a $TEMPFILE  
+   fi
+done
+OLDIFS=$IFS
+IFS=$'\n'
+mountpointlist=(`cat $TEMPFILE`)
+   echo mountlist0 is ${mountpointlist[0]}
+   echo mountlist1 is ${mountpointlist[1]}
+   echo mountlist2 is ${mountpointlist[2]}
+   rm -f $TEMPFILE
+# Create a list summarising what is about to be unmounted
+IFS=$OLDIFS
+summarylist=""
+summarypoint=""
+for item in $selected;do
+   if ["$item" ="TRUE" ] ||["$item" ="FALSE" ]; then
+    echo"nothing"
+   else
+   echo item is $item
+   summarypoint=$(df --output=source,target |grep $item)
+   echo summarypoint is $summarypoint
+   summarylist="$summarylist$summarypoint\n"
+   fi
+done
+echo summary list is $summarylist
+
+# Obtain confirmation to proceed with unmounting
+yad --window-icon="$ICONS/usbdrv.png" --image="$ICON" --geometry="233x133+552-36" --skip-taskbar --title="USB drive" --text=$"About to unmount:\n$summarylist\nPlease confirm you wish to proceed."
+if [ $? ="1" ];then
+   yad --window-icon="$ICONS/usbdrv.png" --image="$ICONS/removable_media_mounted.png" --title="Attention" --geometry="318x88+554-52" --skip-taskbar --text=$"Nothing has been unmounted.\nAborting as requested with no action taken."
+   exit 1
+else
+# Ensure everything is written to storage then unmount
+   yad --text=$"Data is being written to devices.\nPlease wait..." &amp; pid1="$!"
+   sync
+   kill $pid1
+   count=${#mountpointlist[@]}
+   echo count is $count
+   i=0
+   while ["$i" -lt"$count" ]
+   do
+    #$(pumount $item)
+    echo item $i is ${mountpointlist[i]}
+    pumount"${mountpointlist[i]}"
+    i=$[$i+1]
+   done
+fi
+
+#  Collect details of each removable device that has at least one mounted partition
+postunmount=$(pmount|grep /dev/|sort|cut -d _ -f 1,2,3)
+
+# Collect details of each mountpoint that pumount failed to remove
+
+mountpointerrorlist=""
+   i=0
+   while ["$i" -lt"$count" ]
+   do
+   echo error check mount point ${mountpointlist[i]}
+     mountpointerror=$(pmount|grep /dev/|sort|cut -d _ -f 1,2,3|grep -o"${mountpointlist[i]}")
+     echo mountpointerror is $mountpointerror
+    if [ ! -z"$mountpointerror" ];then
+      mountpointerrorlist="$mountpointerrorlist$mountpointerror\n"
+   fi
+   i=$[$i+1]
+   done
+
+# Display a message if unmount failed
+if [ ! -z"$mountpointerrorlist" ];then
+   yad --window-icon="$ICONS/usbdrv.png" --image="$ICONS/usb_removal_failed.png" --title="Attention" --geometry="422x133+475-59"  --skip-taskbar --text=$"Mountpoint removal FAILED.\n\nA mountpoint remains present at:\n$mountpointerrorlist\nCheck each mountpoint listed before unpluging the drive(s)."
+   exit 1
+else
+   # Display a message if unmount successful   
+   yad --image="$ICONS/usb_safe_unplug.png" --geometry="250x90+584-36" --text=$"Unmounted USB drive:\n$summarylist\nIt is safe to unplug the drive(s)" --no-buttons --on-top --undecorated --skip-taskbar --timeout="8"
+   exit 0
+fi
+                                 
+</code></pre></div>
+Here the"usb_safe_unplug.png" icon used (modified by me):<br>
+<br>
+<a href="http://imageshack.com/i/plX98PxIp" class="postlink"><img src="http://imagizer.imageshack.com/img921/1504/X98PxI.th.png" class="postimage" alt="Image"></a><br>
+<br>
+<strong>6)</strong> The <span style="color: #800000">kill-usb-icon.sh script</span> (located in /usr/local/bin directory and used in devmon_startup.sh script) is:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+## Name of script: kill-usb-icon.sh
+## Function: Close USB icon on systray if not exists usb drive mounted.
+## Author: fdm
+## Adapted from unplugdrive.sh bash script by SamK and Anticapitalista 
+## Date: 21/07/2016 23:42.
+## Lastest update: 
+#
+# Requires yad and pmount to be installed.
+# Requires / etc/udev/rules.d/99-usbstorage.unused to be renamed 99-usbstorage
+#
+# Copyright (C) &lt;2016&gt;  &lt;fdm&gt;
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+#
+#############################################################################
+
+# Variables
+DESKTOP_CODE="$HOME/.antix-session/desktop-code$DISPLAY"
+FM=`cat $DESKTOP_CODE | cut -d"-" -f1`
+ICON="/usr/share/icons/gnome/48x48/devices/media-removable.png"
+TEXT="One or more USB drive(s) \nare mounted yet"
+# Collect details of each removable device that has at least one mounted partition
+discovered=$(pmount|grep /dev/|sort|tr ' ' '_'|cut -d _ -f 1,2,3)
+
+# Create a list of removable devices excluding CD/DVD
+for item in $discovered;do
+   if [[ ! $item = /dev/sr* ]];then
+     detectedlist="$detectedlist$item"
+   fi
+done
+
+# Create a list of each removable drive, mounted partition and mountpoint
+removablelist=""
+removablenow=""
+for item in $detectedlist;do
+   removablenow=$(echo $item|cut -c 6-|tr '_' ' ')
+   removablelist="$removablelist$removablenow\n"
+done
+
+# Create a list of each unplugable drive
+drivelist=""
+drivenow=""
+driveprevious=""
+position=0
+for item in $detectedlist;do
+   drivenow=$(echo $item|cut -d _ -f 1|cut -c 6-8)
+   if ["$drivenow" !="$driveprevious" ];then
+      drivelist="$drivelist $position $drivenow"
+      driveprevious=$drivenow
+   fi
+   position=$(expr $position + 1)
+done
+
+if [ -z"$drivelist" ];then
+
+#  killall yad
+
+   kill -9 `ps ax | grep -v grep | grep"yad --notification" | awk '{ print $1 }' | cut -d' ' -f 2`;
+
+   if ["$FM" =="space" ] ; then
+
+       /usr/local/bin/devmon_startup.sh
+
+   elif ["$FM" =="rox" ] ; then
+   
+        /usr/local/bin/devmon_startup.sh
+                
+   else
+   
+      urxvt -hold -e echo"File manager by default running is not found." &amp; sleep 3 &amp;&amp; killall urxvt
+      
+   fi     
+else
+
+    yad --image="$ICON" --text="$TEXT"  --geometry="150x45+710-35" --no-buttons --skip-taskbar --on-top --undecorated --timeout="5"
+
+fi
+
+</code></pre></div>
+With all previous, I can unmount some USB device mounted with a click on usb icon on systray. <br>
+If own usb device is mounted only, the usb icon will disappear from systray. But if several usb devices are mounted, when remove it one device the usb icon continues to be displayed until all devices be remove it.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

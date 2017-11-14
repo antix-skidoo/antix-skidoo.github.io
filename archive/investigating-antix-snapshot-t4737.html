@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Investigating antiX-Snapshot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./investigating-antix-snapshot-t4737.html">Investigating antiX-Snapshot</a></div>
+<div class="pagination">
+22 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./investigating-antix-snapshot-t4737-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./investigating-antix-snapshot-t4737-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_32332" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32332">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32332">
+<time datetime="2013-12-14T16:39">posted: 2013-12-14 &nbsp; 16:39</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32332" title="permalink">#1</a></span>
+
+<div class="content">All tests conducted on real hardware<br>
+<br>
+TEST RIG<br>
+antiX version 13.2-Full-Stable 32-bit<br>
+Kernel 3.7.10-antix.7-486-smp<br>
+Hard disk partitions sda1=OS+APPS, sda2=HOME<br>
+File system format ext4 for each<br>
+All upgrades applied<br>
+Single user account<br>
+<br>
+<br>
+The antiX info re Snapshot refers to capturing (almost) the entire system to an installable ISO. The objective of theses tests is to explore whether it works when only system owned elements are collected.<br>
+<br>
+BACKUP1<br>
+All items in ~ commented out in exclusion list<br>
+- home/* added to exclusion list<br>
+<br>
+Unmodified antixsnapshot.conf used<br>
+<br>
+ISO produced in isohybrid format<br>
+<br>
+Bootable USB stick produced via dd<br>
+<br>
+System booted from USB stick<br>
+<br>
+Observation<br>
+The GRUB boot screen displays a message"This is a 32-bit computer. You cannot use 64-bit software on it."<br>
+Question<br>
+I recall this being produced on early 13 series but then susequently fixed. Was this one missed?<br>
+<br>
+Observation<br>
+The values presented in the GRUB boot screen are the shipped defaults i.e. Language=English (US), Desktop ROX-IceWM, etc.<br>
+Question<br>
+As the ISO is a backup of a system with tailored settings is it possible for these to be presented as the default values in the GRUB screen? Of course these may not have been picked up if they are referenced in the excluded ~.<br>
+<br>
+Observation<br>
+The boot up completes OK upto the point of log-in, which fails. This is expected as the user home area was excluded from the backup. Login as root displays the default Debian IceWM desktop.<br>
+Question<br>
+What is the command to issue at this point in order to install the backup? The shipped installation ISO runs antixsources.sh and minstall neither of which can I find in the backup.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32341" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32341">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32341">
+
+<time datetime="2013-12-15T00:13">posted: 2013-12-15 &nbsp; 00:13</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32341" title="permalink">#2</a></span>
+
+<div class="content">the cli-installer is still available on an installed system. That's what I used with my antix-core snapshots.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32349" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32349">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32349">
+
+<time datetime="2013-12-15T12:02">posted: 2013-12-15 &nbsp; 12:02</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32349" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>the cli-installer is still available on an installed system.</div></blockquote>Thanks, yes selecting the command line option in the GRUB screen boots to a CLI. <br>
+<br>
+For non-technical users, restoring the snapshot from a GUI environment is likely to be a more comfortable experience during a stressful time. I will make an unresearched guess that most non-technical users will have conducted their original install of antiX via the GUI installer. So it is still an open query.<br>
+QUESTION<br>
+In the set up described in the opening post, after booting the snapshot and logging-in as root to a GUI environment, how does one start the snapshot installation procedure and carry it out within the GUI?<br>
+<br>
+<br>
+<br>
+Notes on installing (restoring) snapshot in CLI mode from GRUB screen<br>
+<br>
+OBSERVATION<br>
+An option to install to the MBR is offered. Doing this also overwrites the existing copy of the GRUB menu.lst. In turn this loses any customisations added to it. <br>
+SUGGESTION<br>
+It will be useful to capture a copy of the MBR during the creation of the snapshot. During the restoration of a snapshot, an option to restore the copied MBR might be included. In this way the original state is preserved and customisations retained.<br>
+<br>
+OBSERVATION<br>
+During restoration of a snapshot, an option is offered to specify the hostname of the system. Unless the value entered precisely matches the value in the snapshot, networking might not work.<br>
+SUGGESTION<br>
+The assigned hostname is contained within the snapshot. The restoration procedure will be improved by automatically using this as the default value.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32350" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32350">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32350">
+
+<time datetime="2013-12-15T13:09">posted: 2013-12-15 &nbsp; 13:09</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32350" title="permalink">#4</a></span>
+
+<div class="content">QUESTION<br>
+In the set up described in the opening post, after booting the snapshot and logging-in as root to a GUI environment, how does one start the snapshot installation procedure and carry it out within the GUI?<br>
+<br>
+ANSWER:<br>
+You can't (at the moment). Only the cli-installer allows for installation of a snapshot.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32351" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32351">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32351">
+
+<time datetime="2013-12-15T14:23">posted: 2013-12-15 &nbsp; 14:23</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32351" title="permalink">#5</a></span>
+
+<div class="content">you can however run the cli-installer in a terminal window.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32367" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32367">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">fatmac</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32367">
+
+<time datetime="2013-12-16T09:17">posted: 2013-12-16 &nbsp; 09:17</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32367" title="permalink">#6</a></span>
+
+<div class="content">Regarding the question of the mbr, just make a copy of it using dd before creating your snapshot so you can write it back to your disk.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dd if=/dev/&lt;your-disk&gt; of=mbr-backup bs=512 count=1</code></pre></div>
+Slightly different to this particular subject, but, I did a remaster snapshot &amp; wrote it to a pendrive as a live system for installation to multiple computers, so I would not want the original disk's mbr writing to them, so I think this is the right way to have this set up.<br>
+<br>
+EDIT: Also, I would want different hostnames for different machines, so having that option presented, is also correct, I believe..</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32368" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32368">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32368">
+
+<time datetime="2013-12-16T10:43">posted: 2013-12-16 &nbsp; 10:43</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32368" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite>Regarding the question of the mbr, just make a copy of it using dd before creating your snapshot so you can write it back to your disk.</div></blockquote>Thanks for the command. I am not looking to do this for myself. I am exploring from the perspective of a non-technical user creating a <em>backup</em> of their system using tools provided by antiX (ref posts 1 and 3). The approach divorces the backup of user owned files from root owned files. This thread is recording my observations and ideas of ways in which <em>backing up</em> the latter might be improved.<br>
+<br>
+<blockquote><div><cite>fatmac wrote:</cite>
+..as a live system for installation to multiple computers, so I would not want the original disk's mbr writing to them...</div></blockquote>This is an equally valid use to the one being explored. The suggestion is that the MBR of the original disk is available as an option rather than being the only possible choice.<br>
+<br>
+<blockquote><div><cite>fatmac wrote:</cite>
+...I would want different hostnames for different machines, so having that option presented, is also correct, I believe...</div></blockquote>The current restoration of a snaphot defaults to offering the same hostname (antiX1) as the shipped ISO installer. This is obviously OK when the machine is the only antiX system on the site. Like you, I also work on sites where there are multiple antiX systems, each with unique hostnames. These have to be specified manually, either when installing from the shipped ISO or (as in your case) from a customised installation snapshot.<br>
+<br>
+When the snapshot is used as a <em>backup</em>, it is specific to one machine. In such a case a successful and working restoration requires the hostname contained within the <em>backup</em> is used. Again this is intended to be an option rather than exluding all other possibilities.<br>
+<br>
+When used as a deployment tool as you describe, the hostname will need to manually entered to ensure it is different on each deployed system. The suggestion is that snapshot restoration defaults to offering the hostname that is included in the snapshot. This will leave you in the same position i.e. editing the field to enter a different one manually.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32371" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32371">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32371">
+
+<time datetime="2013-12-16T11:38">posted: 2013-12-16 &nbsp; 11:38</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32371" title="permalink">#8</a></span>
+
+<div class="content">OK, I see what you are aiming at. <br>
+<br>
+In simple terms you want the original machines settings, including the mbr, to be diplayed as the defaults for restoration, without changing anything else in the program, so that a non techie can just hit the enter/return key all the way through to restore the system snapshot to their machine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32373" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32373">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32373">
+
+<time datetime="2013-12-16T12:16">posted: 2013-12-16 &nbsp; 12:16</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32373" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>
+<blockquote><div><cite>SamK wrote:</cite>
+QUESTION<br>
+In the set up described in the opening post, after booting the snapshot and logging-in as root to a GUI environment, how does one start the snapshot installation procedure and carry it out within the GUI?</div></blockquote>
+ANSWER:<br>
+You can't (at the moment). Only the cli-installer allows for installation of a snapshot.</div></blockquote>OK. For the moment, I'll park looking at the GUI mode and continue with the CLI mode.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32389" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32389">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32389">
+
+<time datetime="2013-12-17T08:27">posted: 2013-12-17 &nbsp; 08:27</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32389" title="permalink">#10</a></span>
+
+<div class="content">OBSERVATION<br>
+Having excluded /home/*, a snaphot ISO of antiX-Full can easily exceed 700MB. This is exacerbated if it is produced as an isohybrid which automatically increases the size of the resulting ISO. For similar reasons that the shipped ISO is kept under 700MB, it is probably beneficial to try and handle the backup ISO so it can be used by aged hardware that does not natively support booting from USB.<br>
+<br>
+IDEA<br>
+Using third party software<br>
+At creation<ul>
+<li>Produce the snapshot ISO</li>
+<li>Produce a PLOP (or similar) boot manager ISO/IMG</li></ul>
+At restoration<ul>
+<li>Create a boot loader CD/floppy from the PLOP ISO/IMG</li>
+<li>Create a bootable USB device from the snapshot ISO</li>
+<li>Boot the system using both</li></ul>
+Pros<ul>
+<li>Single method works on ancient and modern kit</li>
+<li>Requires no change to current snapshot creation routine</li>
+<li>Kit that natively supports USB booting may disregard use of PLOP at restore time</li>
+<li>Trivial amount of storage space used by PLOP</li></ul>
+Cons<ul>
+<li>Extra stage is needed to accommodate old kit</li>
+<li>PLOP is not part of antiX/Debian</li></ul>
+<br>
+IDEA<br>
+Using shipped software<br>
+At creation<ul>
+<li>Produce a snapshot ISO</li>
+<li>Produce a boot ISO of minimal size from the source system. It will contain only the files required to boot the system, access an external USB storage device, and begin the restoration process</li></ul>
+At restoration<ul>
+<li>Old kit<ul>
+<li>Burn the minimal ISO to CD and use to boot the system</li>
+<li>Access the USB device containing snapshot</li>
+<li>Restore the backup from the snapshot on USB</li></ul></li>
+<li>Modern Kit<ul>
+<li>Boot using the USB device and begin the restoration</li></ul></li></ul>
+Pros<ul>
+<li>Single method works on ancient and modern kit</li>
+<li>Kit that natively supports USB booting may disregard use of minimal boot ISO at restore time</li>
+<li>Uses software that is part of antiX/Debian</li>
+<li>Potential to implement via use of two different exclusion lists, one for each ISO</li></ul>
+Cons<ul>
+<li>Extra stage is needed to accommodate old kit</li>
+<li>Requires snapshot creation routine to be run once for each ISO</li>
+<li>Uses more storage space and will take longer to create than PLOP alternative</li></ul></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32390" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32390">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32390">
+
+<time datetime="2013-12-17T10:47">posted: 2013-12-17 &nbsp; 10:47</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32390" title="permalink">#11</a></span>
+
+<div class="content">SamK, the existing antiX Live boot system is extremely versatile. If the compressed filesystem to too large to fit on a cd then just create a bootable antiX cd without the /antiX/linuxfs file and put the /antiX/linuxfs file on a usb stick. When you boot from that cd with the usb stick plugged in, the system will automatically use the linuxfs file that is on the usb stick with no changes made to the boot parameters. This is because by default the LiveUSB/CD will automatically look for the linuxfs file on all cd/dvd devices and on all removable/usb devices.<br>
+<br>
+If you want to use a stock antiX LiveCD to boot using a linuxfs file that is on a usb stick then you will need to add a boot parameter to ensure the linuxfs file on the usb stick is always used. Otherwise we will use the linuxfs file from whichever cd/dvd or usb device first shows up and has a /antiX/linuxfs file. The easiest boot parameter to use in this case is:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>from=usb</code></pre></div>This will force the live system to only look at usb devices for the linuxfs file. We will no longer look at cd/dvd devices.<br>
+<br>
+Likewise if you want to force it to get the linuxfs from a cd or dvd then you could use:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>from=cd</code></pre></div>.<br>
+If you want to force it to get the linuxfs file from an internal hard drive partition then use:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>from=hd</code></pre></div>
+These can be combined with commas. For example, the default configuration is:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>from=usb,cd</code></pre></div> so by default we only look for the linuxfs file on cd/dvd devices and usb devices.<br>
+<br>
+While the <strong>from</strong> bootcode is the simplest way to specify where to find the linuxfs file, it is not the only way. You can use <strong>blab</strong> to specify the disk label of the partition that holds the linuxfs file you want to use; or you can use <strong>buuid</strong> to specify the UUID of that partition, or even use <strong>bdev</strong> to specify the device node of the partition. You are also allowed to mix and match these specifications with the <strong>from</strong> boot code.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_32554" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32554">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32554">
+
+<time datetime="2013-12-27T08:58">posted: 2013-12-27 &nbsp; 08:58</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32554" title="permalink">#12</a></span>
+
+<div class="content">OBSERVATION<br>
+On a system that has been in use for a while (or one that is being migrated to antiX) it is probable that the total size of files owned by a user will be many times larger than the size of those owned by root. Storing the backup of both types of file in a single location is likely to be a common practice. In this case the storage capacity of the backup device becomes a consideration.<br>
+<br>
+IDEA<br>
+Use external hard disk. Both external USB disks and redundant internal disks exist in large numbers. The capacity of such disks is often in excess of flash drives currently available. A redundant internal disk can be reused as an external USB disk via an adaptor as similar to the one in the attached file <em>Generic Adaptor</em>.<br>
+Pros<ul>
+<li>Single method works on ancient and modern kit</li>
+<li>Can use either a new or recycled IDE or SATA disk</li>
+<li>Reuse of otherwise redundant kit meshes with a primary goal of antiX</li>
+<li>A wide range of disk management and maintenance tools are provided within antiX</li>
+<li>Accommodates large size backups (potentially of different types to minimize time required)</li>
+<li>Enables a complete set of backup files to be kept in a physically separate location</li></ul>
+Cons<ul>
+<li>Reliability of reycled kit</li></ul>
+Alternatives<ul>
+<li>A high capacity flash drive may be used if desired</li>
+<li>Trivial modification to use a NAS or other LAN share</li></ul></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32618" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32618">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32618">
+
+<time datetime="2013-12-31T13:26">posted: 2013-12-31 &nbsp; 13:26</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32618" title="permalink">#13</a></span>
+
+<div class="content">OBSERVATION<br>
+A backup ISO will usually be employed to create bootable external media in order to conduct a restoration. Doing this as part of the backup creation is optional. A user may be tempted to defer doing it until a restore is to be done because:<ul>
+<li>Producing separate bootable media will significantly increase the time required</li>
+<li>The bootable media cannot be used for anything else (e.g. small isohybrid uses entire large USB storage device)</li>
+<li>For a non technical user, creating a bootable USB device from an isohybrid via dd, is complicated, dangerous, and unfriendly</li></ul> <br>
+IDEA<br>
+Use an external hard disk that has been made bootable. Place the backup ISO on the disk. Ensure the bootloader directly boots the (unextracted) ISO file. In the booted antiX environment, conduct the restoration.<br>
+Pros<ul>
+<li>Reduces time required because bootable storage is created once only</li>
+<li>Works with both standard and isohybrid backup ISO files</li>
+<li>Because the unextracted ISO archive is booted directly, unused disk space remains avaialable</li>
+<li>Unused disk space may optionally be used for a (separate and different type of) backup of user owned files</li>
+<li>For a non technical user, copying a single file (ISO) is uncomplicated, familiar and friendly</li>
+<li>Ease of restoration - simply plug-in the external disk and power up to boot the system</li></ul> Cons<ul>
+<li>Requires installation of suitable bootloader on external disk</li></ul>
+TESTED<br>
+An external hard disk was formatted as ext4 and GRUB2 bootloader installed. A boot menu was created pointing to an unextracted backup ISO (isohybrid format and standard format tested). A restoration of root owned files was successfully conducted from both the CLI and GUI. The resulting system booted and worked as expected.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32620" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32620">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32620">
+
+<time datetime="2013-12-31T16:06">posted: 2013-12-31 &nbsp; 16:06</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32620" title="permalink">#14</a></span>
+
+<div class="content">OBSERVATION<br>
+During the running of cli-installer a question is asked<br>
+"Install GRUB on MBR (Y/n)"<br>
+After answering"n" (to decline) GRUB is still installed.<br>
+<br>
+SUGGESTION<br>
+cli-installer to contain an option whereby GRUB is not installed.<br>
+Alternatively, after GRUB has been reinstalled, offer an option to copy (again) the GRUB configuration file (menu.lst) from the backup to overwrite the virgin one.<br>
+Pros<ul>
+<li>Tailored GRUB entries (video driver settings etc) are preserved rather than overwritten and lost</li></ul>
+Cons<ul>
+<li>An additional option is presented to the user conducting the restore</li></ul></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32641" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile32641">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32641">
+
+<time datetime="2014-01-01T05:52">posted: 2014-01-01 &nbsp; 05:52</time>
+<span class="permalink"><a href="./investigating-antix-snapshot-t4737.html#p32641" title="permalink">#15</a></span>
+
+<div class="content">thread title reads"snapshot"<br>
+<br>
+but you're talking about installer?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+22 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./investigating-antix-snapshot-t4737-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./investigating-antix-snapshot-t4737-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

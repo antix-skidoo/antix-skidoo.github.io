@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>First test of antix 8 - goods and bads - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-intifada-f28/index.html"><span>antiX-M8 Intifada!</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./first-test-of-antix-8-goods-and-bads-t1412.html">First test of antix 8 - goods and bads</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_9025" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9025">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">h2</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9025">
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/9025/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-02-14 &nbsp; 03:28">posted: 2009-02-14 &nbsp; 03:28</time>
+<span class="permalink"><a href="./first-test-of-antix-8-goods-and-bads-t1412.html#p9025" title="permalink">#1</a></span>
+
+<div class="content">Well, the initial boot into antix was pleasant, a good clean overall impression, things worked, I like it, except for some issues with xorg.conf, which are mepis caused, not your fault.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host ax-32-1 Kernel 2.6.27-1-mepis-smp i686 (32 bit) Distro antiX-M8 Intifada! 12 February 2009
+CPU:       Dual core AMD Athlon 64 X2 4400+ (SMP) cache 1024 KB flags (sse3 nx lm svm) bmips 3981.48 
+           Clock Speeds: (1) 1000.00 MHz (2) 1000.00 MHz
+Graphics:  Card ATI RV370 5B60 [Radeon X300 (PCIE)] X.Org 1.4.2 Res 1280x1024@75.0hz
+           GLX Renderer Radeon X300/X550/X1050 Series GLX Version 1.4 (2.1.8395 Release)
+Audio:     Card nVidia MCP65 High Definition Audio driver HDA Intel
+           Sound: Advanced Linux Sound Architecture Version 1.0.17
+Network:   Card Realtek RTL8111/8168B PCI Express Gigabit Ethernet controller driver r8169 v: 2.3LK-NAPI at port d800 
+Disks:     HDD Total Size: 122.9GB (1.3% used) 1: /dev/sda Maxtor 6Y120M0 122.9GB
+Partition: ID:/ size: 3.0G used: 1.5G (54%) ID: swap:/dev/sda8 size: 2.28GB 
+Info:      Processes 84 Uptime 4 min Memory 104.8/2025.9MB Client Shell inxi 1.0.1 </code></pre></div>
+Fglrx standard mode install is working it looks like.<br>
+<br>
+However, to get the screen to actually display correctly I had to replace the xorg.conf that mepis generates, that one is just not working at all, I think that entire generator thing needs to be rewritten to work with new xorg syntax.<br>
+<br>
+X did start for me with the mepis generated xorg.conf, but the screen was messed up, and only displayed about 85% width. Once I dumped that xorg.conf and used this one it was all fine (fglrx stuff added after by sgfxi)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"InputDevice"
+        Identifier     "Generic Keyboard"
+        Driver         "kbd"
+        Option         "XkbRules"     "xorg"
+        Option         "XkbModel"     "pc104"
+        Option         "XkbLayout"    "us"
+EndSection
+
+Section"InputDevice"
+        Identifier     "Configured Mouse"
+        Driver         "mouse"
+EndSection
+
+Section"Device"
+        Driver "fglrx"
+        Option     "UseInternalAGPGART""on"
+        Option"TexturedXrender"
+        Identifier     "Device 0"
+        #BusID         "PCI:1:0:0"
+EndSection
+
+Section"Monitor"
+        Identifier     "Monitor 0"
+EndSection
+
+Section"Screen"
+        Identifier     "Screen 0"
+        Monitor        "Monitor 0"
+        DefaultColorDepth 24
+        SubSection"Display"
+                Depth   8
+        EndSubSection
+    SubSection"Display"
+        Depth   15
+    EndSubSection
+    SubSection"Display"
+        Depth   16
+    EndSubSection
+    SubSection"Display"
+        Depth   24
+    EndSubSection
+EndSection
+
+Section"Extensions"
+    Option     "Composite"   "disable"
+#    Option     "RENDER"   "disable"
+EndSection</code></pre></div>
+I added a new 'secret' option in sgfxi that downloads a standard, slightly modified current Debian xorg.conf (-! 30). It does not however change your keyboard settings, though I will add that to the option later, for now all it does is download a straight, clean, us keyboard, pc105 (but again, I'll update this later to import those settings from your current xorg.conf file. Of course, the first time you run it, it will create a backup, called I think: xorg-conf-sg-orig in /etc/X11 so you can compare and add stuff manually from the old one if you need to.<br>
+<br>
+I believe Warren is using methods that are not brought up to date with current xorg, which requires almost no configuration (see for example the current pontos sidux generated xorg.conf to compare).<br>
+<br>
+The mepis xorg.conf seems to cause random failures or weirdnesses, especially with non free drivers, though my initial radeon install worked fine as is, no changes required.<br>
+<br>
+One suggestion: add gpm, for mouse in console, which is really nice.<br>
+<br>
+Also, slim locks up when I try to shut down, or when sgfxi tries to shutdown, x, and the only way I can get it unlocked is by going to init 1, then back to init 2, which starts slim again, so I set slim to start at init 3, and leave init 2 for x-less logins, but not single user. Personally I think that's the way to do it, or 3/5 like sidux does, it's more flexible and easier to debug issues, though I did note that networking is enabled in single user mode, init 1, so you can do stuff.<br>
+<br>
+Also, the password 'root' isn't particularly obvious when you try to run the installer, though a quick google shows that information, but I didn't see any hint of that in the installer itself when it started, that's a slight user unfriendly thing, I remember that from last time too, it was confusing. <br>
+<br>
+Let's see, what else? Ok, that's the negatives, the positives, it looks super clean and nice, overall a very good package selection,, a nice clean choice of theme colors and images, good flux stuff there, nice going anticapitalista and company.<br>
+<br>
+Good new menus too, those are nice, very clean, no clutter, but more obvious than the default flux style of nothing. One non intuitive thing: the shutdown item was not in the main menu, that was confusing to me initially, though of course you can figure it out, but you might think of adding a launcher for the shutdown/restart thing in the main menu too, with the logout item.<br>
+<br>
+I didn't check a new kernel install because this is an fglrx system, so I can't run sidux kernels, but I'll check it on an nvidia system, and see if the xorg.conf issues remain a problem, which I assume they will, the xorg.conf file contains multiple section Device, when it should have just one, same for section Screen etc, something is wrong in that generator.<br>
+<br>
+Keep up the good work, constructively, slim continues to be buggy, that's what my own tests showed too, and locks up x when you enter console, gpm is a must have once you get used to it, easy enough to install of course, apt-get install gpm, but it's nice to have it there.<br>
+<br>
+Couldn't see much else.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9171" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile9171">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">masinick</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9171">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/9171/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-02-19T17:27">posted: 2009-02-19 &nbsp; 17:27</time>
+<span class="permalink"><a href="./first-test-of-antix-8-goods-and-bads-t1412.html#p9171" title="permalink">#2</a></span>
+
+<div class="content">Thanks for the feedback h2. I've seen quite a bit of refinement and improvement in antiX since the early days and we are all working together to make it even better. Your constructive comments are most helpful, and I look forward to seeing more influence from your tools and your insights in future updates.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9173" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9173">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9173">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/9173/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-02-19T17:37">posted: 2009-02-19 &nbsp; 17:37</time>
+<span class="permalink"><a href="./first-test-of-antix-8-goods-and-bads-t1412.html#p9173" title="permalink">#3</a></span>
+
+<div class="content">i like the suggestion about gpm.<br>
+and about the root password my suggestion is that either make the installer without password of add the root password in to the wallpaper. but adding the root to the wallpaper will ruin the look .</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9181" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile9181">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9181">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/9181/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-02-20T00:06">posted: 2009-02-20 &nbsp; 00:06</time>
+<span class="permalink"><a href="./first-test-of-antix-8-goods-and-bads-t1412.html#p9181" title="permalink">#4</a></span>
+
+<div class="content">h2,<br>
+<br>
+I don't see a"modes" section in your xorg.conf. Did you just leave it out or??????<br>
+<br>
+Can you elaborate on the xorg.conf you download, how, where?<br>
+<br>
+Great observations by the way. The"root" password thing is a Mepis/Warren thing as well. I think for a live disc running as root might be a good idea.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

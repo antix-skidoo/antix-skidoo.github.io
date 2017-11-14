@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>how set @@XMODULE@@ ar xorg - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-set-atatxmoduleatat-ar-xorg-t6509.html">how set @@XMODULE@@ ar xorg</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47650" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47650">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47650">
+<time datetime="2016-07-27T20:26">posted: 2016-07-27 &nbsp; 20:26</time>
+<span class="permalink"><a href="./how-set-atatxmoduleatat-ar-xorg-t6509.html#p47650" title="permalink">#1</a></span>
+
+<div class="content">Hi!<br>
+<br>
+I see at etc/X11/xorg.conf.in this lines
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"Device"
+    Identifier "Card0"
+    Driver"@@XMODULE@@"
+    BoardName"unknown"</code></pre></div>
+<br>
+I need to test Driver"modesetting", to compare xserver-xorg-video-modesetting vs. of xf86-video-intel<br>
+<br>
+One option is just change the @@XMODULE@@ ocurences at .in file, the over option is change the variable.<br>
+<br>
+How is set the XMODULE variable at xorg?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47655" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47655">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47655">
+
+<time datetime="2016-07-28T07:02">posted: 2016-07-28 &nbsp; 07:02</time>
+<span class="permalink"><a href="./how-set-atatxmoduleatat-ar-xorg-t6509.html#p47655" title="permalink">#2</a></span>
+
+<div class="content">The"@@XMODULE@@" is a placeholder so some program can replace it with the name of a real module. I don't know what program that is. In antiX and MX we use the make-xorg-conf program to generate xorg.conf files. To create an xorg.conf that uses the modesetting drive I suggest you first do:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>make-xorg-conf --help</code></pre></div> to get an idea of how the program works. Then run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>make-xorg-conf modesetting</code></pre></div>This should display on the screen the xorg.conf file it would make. If all looks good then backup your current xorg.conf (if any) and put the new one in place:<blockquote class="uncited"><div> sudo mv <em>/</em>etc/X11/xorg.conf <em>/</em>etc/X11/xorg.conf.original<br>
+sudo make-xorg-conf modesetting --output=<em>/</em>etc/X11/xorg.conf</div></blockquote>
+Then restart X by logging out (to the SLiM login screen) and logging in again.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+ 
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

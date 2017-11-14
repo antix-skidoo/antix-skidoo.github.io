@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Installing Kdenlive without KDE - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installing-kdenlive-without-kde-t2756.html">Installing Kdenlive without KDE</a></div>
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_17939" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17939">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 89</span></div>
+
+</div>
+</div>
+<span class="username">Stuart O'mahony</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17939">
+<time datetime="2010-11-03T15:29">posted: 2010-11-03 &nbsp; 15:29</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17939" title="permalink">#1</a></span>
+
+<div class="content">I am having some trouble installing Kdenlive without first having to install kde, so have decided to compile kdenlive, following instructions at this link (see Compiling libraries):<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://en.wikibooks.org/wiki/Kdenlive/Getting_and_installing"<br>linktext was:"http://en.wikibooks.org/wiki/Kdenlive/G ... installing"<br>====================================<br>
+<br>
+<br>
+I have made some decent progress, installing many of the prescribed development packages (or their latest Debian incarnation):<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>kdelibs-dev kdelibs
+
+libsamplerate         YES   libsamplerate0
+libsamplerate-dev            YES
+libogg                YES    libogg0
+libogg-dev            YES    libogg-dev0
+libvorbis             YES   libvorbis0a 
+libvorbis-dev        YES
+libdv                 YES    libdv4
+libdv-dev            YES    libdv-dev4
+ladspa-sdk            YES
+libjack-dev            YES
+sox                 YES
+sox-dev            YES    libsox-dev
+libxml2             YES
+libxml2-dev            YES
+libmad-dev            YES    libmad0-dev
+swh-plugins            YES
+libquicktime         YES    libquicktime1
+libquicktime-dev            YES
+libtheora             YES   libtheora0
+libtheora-dev        YES
+libavformat            likely
+libswscale             likely
+libswscale-dev        YES</code></pre></div>
+I also require libmlt++1 and mlt, the latter of which I have compiled and installled (unnecessarily!); the former I grabbed the source (mlt++), as the binaries appear to be unavailable in the repositories. The libraries I am having trouble compiling.<br>
+<br>
+There is a binary of kden available for kde3 (I am using kde3 libs!) that I tried installing, but dpkg complains 'mlt', ('mlt' has since been renamed 'melt' which is what I have), and its libs are not present, so fails to configure. Compilation brings me no greater success, as I have first to set 'unsermake' in my environment path (a downloaded binary using an earlier version of python that is used over 'make'), and then brings up a screen full of 'warning' errors. <br>
+<br>
+I have found this previous post, but aptitude seems equally insistant I should install kde.<br>
+<br>
+viewtopic.php?f=20&amp;t=1032&amp;hilit=kdenlive<br>
+<br>
+What's the best way in achieving this task, and are there no .deb packages available anywhere for mlt&amp;co?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17951" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17951">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 89</span></div>
+
+</div>
+</div>
+<span class="username">Stuart O'mahony</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17951">
+
+<time datetime="2010-11-04T16:27">posted: 2010-11-04 &nbsp; 16:27</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17951" title="permalink">#2</a></span>
+
+<div class="content">Okay, so i've seen through searching that mlt++1 and libmlt1 are available via the stable debian-multimedia.org branch, and so have enabled this. Now i'm running in to dependency issues.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> stuart@stuart:~$ sudo apt-get install libmlt++1
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies:
+  libmlt++1: Depends: libmlt1 (&gt;= 1:0.3.0) but it is not going to be installed
+E: Broken packages
+stuart@stuart:~$</code></pre></div>
+Here's my sources.lst:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Mepis 8 series. Only use for kernel upgrades.
+# deb ftp://ftp.mepis.com/mepis/ mepis-8.5 main 
+deb http://fr1.mepis-deb.org/mepis/ mepis-8.0 main 
+# Debian
+# deb http://ftp.us.debian.org/debian/ stable main contrib non-free 
+#OFFdeb http://ftp.us.debian.org/debian/ testing main contrib non-free 
+#OFFdeb http://security.debian.org/ testing/updates main contrib non-free 
+# deb-src http://ftp.us.debian.org/debian/ stable main contrib non-free 
+
+# mplayer
+ deb http://www.debian-multimedia.org/ stable main 
+# deb http://www.debian-multimedia.org/ testing main 
+
+# Goggles music manager
+deb http://apt.progchild.de/ stable main 
+
+# Mepis Community Main, Restricted, and Test Repos
+# deb http://main.mepis-deb.org/mepiscr/repo/ mepis8cr main non-free 
+# deb http://restricted.mepis-deb.org/mepiscr/repo/ mepis8cr restricted restricted-non-free 
+# deb http://main.mepis-deb.org/mepiscr/testrepo/ mepis8cr test 
+# deb http://restricted.mepis-deb.org/mepiscr/testrepo/ mepis8cr test-restricted  
+
+# opera
+# deb http://deb.opera.com/opera/ lenny non-free 
+
+# virtualbox
+# deb http://download.virtualbox.org/virtualbox/debian/ lenny non-free 
+
+# liquorix kernels
+# deb http://liquorix.net/debian/ sid main 
+
+# Remastersys Lenny
+deb http://www.geekconnection.org/remastersys/repository debian/
+
+###### Debian Unstable/Sid##########
+########
+########
+###### Use at your own risk! ########
+# deb http://ftp.us.debian.org/debian/ unstable main contrib non-free 
+# deb http://www.debian-multimedia.org/ unstable main 
+
+#Kdenlive#
+#deb-src http://ftp.fr.debian.org/debian/ unstable main contrib non-free
+#deb http://ftp.fr.debian.org/debian/ unstable main contrib non-free
+
+#Marillat multimedia#
+#deb http://www.debian-multimedia.org sid main
+#deb http://www.debian-multimedia.org testing main</code></pre></div>
+There is a non-free lenny stable branch at /
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"www.debian-multimedia.org"<br>====================================<br>
+, should I try enabling this?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17952" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17952">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17952">
+
+<time datetime="2010-11-04T18:54">posted: 2010-11-04 &nbsp; 18:54</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17952" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>The following packages have unmet dependencies:<br>
+libmlt++1: Depends: libmlt1 (&gt;= 1:0.3.0) but it is not going to be installed<br>
+E: Broken packages</div></blockquote>
+It's telling you it needs a newer libmit package. When I have ran into this type of problem. And I am not saying this is the right thing to do. But I do it any ways.<br>
+<br>
+I enable <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>###### Debian Unstable/Sid##########
+################
+###### Use at your own risk! ########
+# deb http://ftp.us.debian.org/debian/ unstable main contrib non-free
+# deb http://www.debian-multimedia.org/ unstable main </code></pre></div>
+Then run a apt-get update before I run apt-get install (whatever needs that dependancy)<br>
+<br>
+Beofre that though I run <strong>after apt-get update</strong> after enabling sid repos.<br>
+In your case I would run<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache policy libmit ++1</code></pre></div>
+and see if version 1 shows up first before running apt-get install libmit ++1.<br>
+<br>
+I would then comment out Sid repos again and run apt-get update again to reset things. This works for me in sticky dependency and broken package situations. Like I said. It may not be the right thing to do. So take what I say with a grain of salt.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17977" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17977">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 89</span></div>
+
+</div>
+</div>
+<span class="username">Stuart O'mahony</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17977">
+
+<time datetime="2010-11-05T09:34">posted: 2010-11-05 &nbsp; 09:34</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17977" title="permalink">#4</a></span>
+
+<div class="content">'apt-cache policy' is just the command i've been wanting to use for ages - thanks roky!<br>
+<br>
+The dependency version of libmlt1 requested by ++1 is contained within the same stable repo, so it's my guess that some where along the dependency chain it becomes untenable that libmlt1 be used, and hence libmlt++1. <br>
+<br>
+I'd have thought the same as you, but look:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>stuart@stuart:~$ apt-cache policy libmlt++1 libmlt1 | grep 1
+libmlt++1:
+  Candidate: 1:0.3.0-0.0
+     1:0.3.0-0.0 0
+        100 /var/lib/dpkg/status
+libmlt1:
+  Candidate: 1:0.3.0-0.1
+     1:0.3.0-0.1 0</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17982" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17982">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17982">
+
+<time datetime="2010-11-05T12:46">posted: 2010-11-05 &nbsp; 12:46</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17982" title="permalink">#5</a></span>
+
+<div class="content">You don't seem to have any of the Debian repos enabled.<br>
+First try with stable enabled and if there is a problem, try with Debian testing enabled.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17985" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17985">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 89</span></div>
+
+</div>
+</div>
+<span class="username">Stuart O'mahony</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17985">
+
+<time datetime="2010-11-05T14:05">posted: 2010-11-05 &nbsp; 14:05</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17985" title="permalink">#6</a></span>
+
+<div class="content">Same story.<br>
+<br>
+Am I right in thinking that the missing deps are elsewhere down 'the chain', given mlt1 and mlt++1 match version-wise?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17987" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17987">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17987">
+
+<time datetime="2010-11-05T14:51">posted: 2010-11-05 &nbsp; 14:51</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17987" title="permalink">#7</a></span>
+
+<div class="content">I think you need libmlt++3 <br>
+Can you do an apt-get install melt libmlt++3</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17988" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17988">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 89</span></div>
+
+</div>
+</div>
+<span class="username">Stuart O'mahony</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17988">
+
+<time datetime="2010-11-05T15:28">posted: 2010-11-05 &nbsp; 15:28</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17988" title="permalink">#8</a></span>
+
+<div class="content">That's already installed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17989" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17989">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17989">
+
+<time datetime="2010-11-05T15:33">posted: 2010-11-05 &nbsp; 15:33</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17989" title="permalink">#9</a></span>
+
+<div class="content">I know you don't really want kde, but what about.<br>
+<br>
+apt-get install kdenlive --no-install-recommends</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17990" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17990">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner"> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17990">
+
+<time datetime="2010-11-05T15:39">posted: 2010-11-05 &nbsp; 15:39</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17990" title="permalink">#10</a></span>
+
+<div class="content">You will need to use the testing or squeeze repos</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17991" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17991">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 89</dd>
+<span class="username">Stuart O'mahony</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17991">
+
+<time datetime="2010-11-05T15:47">posted: 2010-11-05 &nbsp; 15:47</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17991" title="permalink">#11</a></span>
+
+<div class="content">Hmm... you mean me to avoid the five packages listed here:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Recommended packages:
+  virtuoso-minimal kaboom frei0r-plugins recordmydesktop dvdauthor
+The following NEW packages will be installed:
+  kdebase-runtime kdebase-runtime-data kdelibs-bin kdelibs5-data
+  kdelibs5-plugins</code></pre></div>
+I'm afraid I don't like this solution much. Sorry.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17992" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17992">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">Stuart O'mahony</a> </span> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 89</span></div>
+
+</div>
+</div>
+<span class="username">Stuart O'mahony</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17992">
+
+<time datetime="2010-11-05T15:57">posted: 2010-11-05 &nbsp; 15:57</time>
+<span class="permalink"><a href="./installing-kdenlive-without-kde-t2756.html#p17992" title="permalink">#12</a></span>
+
+<div class="content">I get the above solution whether I go testing, or unstable. Stable has the old, 0.5 version of kdenlive which likes the 3.5 kdelibs - and therefore doesn't need kdebase - but throws a fit with mlt++1.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

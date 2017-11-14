@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[Solved] Can't get xorg.conf mouse &quot;Emulate3Buttons&quot; to work - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html">[Solved] Can't get xorg.conf mouse &quot;Emulate3Buttons&quot; to work</a></div>
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_22386" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22386">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">gurfle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Oct 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22386">
+<time datetime="2011-10-18T04:54">posted: 2011-10-18 &nbsp; 04:54</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22386" title="permalink">#1</a></span>
+
+<div class="content">Mouse section of xorg.conf is:<br>
+<br>
+Section"InputDevice"<br>
+<br>
+# generated from default<br>
+Identifier"Mouse0"<br>
+Driver"mouse"<br>
+Option"Protocol""auto"<br>
+Option"Device""/dev/psaux"<br>
+Option"Emulate3Buttons""yes"<br>
+Option"ZAxisMapping""4 5"<br>
+<br>
+EndSection<br>
+<br>
+but cannot get simultaneous click of 2Button mouse to behave as 3rd button (this works in my squeeze gnome setup on same machine).<br>
+<br>
+Since I like to use the 3rd button paste selection feature a lot, I'd like to get this back.<br>
+<br>
+Thanks, Nick</div>
+
+<div class="notice">
+Last edited by <b>gurfle</b> on 21 Oct 2011, 04:54, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22389" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22389">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22389">
+
+<time datetime="2011-10-18T12:09">posted: 2011-10-18 &nbsp; 12:09</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22389" title="permalink">#2</a></span>
+
+<div class="content">I have this line in ~/.xinitrc near the top.<br>
+<br>
+xmodmap -e 'pointer = 1 2 3 4 5'</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22392" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile22392">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 117</span></div>
+
+</div>
+</div>
+<span class="username">buttcoffee</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Aug 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22392">
+
+<time datetime="2011-10-18T22:42">posted: 2011-10-18 &nbsp; 22:42</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22392" title="permalink">#3</a></span>
+
+<div class="content">MatchIsPointer"on"<br>
+Option"Emulate3Buttons""on"<br>
+<br>
+add that then restart X<br>
+<br>
+You can always remap your mouse if that doesn't work or install gpointing-device-settings to make it easier on you. it comes with a bunch of gnome lib, i think<br>
+<br>
+I don't even have an xorg.conf, interesting</div>
+</div>
+</div>
+<div class="back2top">
+ </div>
+</div>
+</div>
+<div id="p_22395" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22395">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">gurfle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Oct 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22395">
+
+<time datetime="2011-10-19T03:21">posted: 2011-10-19 &nbsp; 03:21</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22395" title="permalink">#4</a></span>
+
+<div class="content">Thanks for the ideas, but I am not sure what to do with them. I would like to get a more basic soultion than using gpointing-device-settings as @buttcoffee mentions. I tried<br>
+<br>
+Option"Emulate3Buttons""on"<br>
+and<br>
+Option"Emulate3Buttons""true"<br>
+<br>
+with no improvement <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+The antiX version of xorg.conf (using"Emulate3Buttons""yes") is identical to the one that works using gdm in my debian squeeze setup (which, by the way, does not use .xinitrc).<br>
+<br>
+Can I change the ~/.xinitrc line<br>
+<br>
+xmodmap -e 'pointer = 1 2 3 4 5'<br>
+<br>
+in some way? (Commenting it out is no good because then there is no mouse at all <span class="emoticon"> __{{emoticon}}__ </span> )<br>
+<br>
+|\|</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22408" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22408">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 117</span></div>
+
+</div>
+</div>
+<span class="username">buttcoffee</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Aug 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22408">
+
+<time datetime="2011-10-20T05:33">posted: 2011-10-20 &nbsp; 05:33</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22408" title="permalink">#5</a></span>
+
+<div class="content">So, did you try what I suggested?<br>
+<br>
+Change Driver"mouse" to Driver"evdev" Make sure you have xserver-xorg-input-evdev installed, then restart x<br>
+<br>
+Are you using gdm to boot into antix?<br>
+<br>
+To figure out what number represent what button on your mouse buttons, use xev</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22424" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22424">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22424">
+
+<time datetime="2011-10-21T04:15">posted: 2011-10-21 &nbsp; 04:15</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22424" title="permalink">#6</a></span>
+
+<div class="content">I found this in an archlinux.org forum. I tried in VirtualBox with the lastest testing version of antiX and it worked. Add the following to /etc/X11/xorg.conf:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"InputClass"
+    Identifier"whatever"
+    MatchIsPointer"on"
+    Option"Emulate3Buttons""on"
+EndSection</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22426" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22426">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">gurfle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Oct 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22426">
+
+<time datetime="2011-10-21T04:50">posted: 2011-10-21 &nbsp; 04:50</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22426" title="permalink">#7</a></span>
+
+<div class="content">@BitJam: Your solution works for me too! and persuing your forum discovery a little, I found this rationale behind the change:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://who-t.blogspot.com/2010/06/new-evdev-middle-mouse-button-emulation.html"<br>linktext was:"http://who-t.blogspot.com/2010/06/new-e ... ation.html"<br>====================================<br>
+<br>
+<br>
+Thanks you indeed! <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22427" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22427">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 117</span></div>
+
+</div>
+</div>
+<span class="username">buttcoffee</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Aug 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22427">
+
+<ul class="post-buttons">
+ </ul>
+<time datetime="2011-10-21T05:16">posted: 2011-10-21 &nbsp; 05:16</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22427" title="permalink">#8</a></span>
+
+<div class="content">Could've tried it when i suggested the same thing. :\</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22428" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22428">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">gurfle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Oct 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22428">
+
+<time datetime="2011-10-21T05:50">posted: 2011-10-21 &nbsp; 05:50</time>
+<span class="permalink"><a href="./solved-can-t-get-xorg-conf-mouse-emulate3buttons-t-t3385.html#p22428" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>buttcoffee wrote:</cite>Could've tried it when i suggested the same thing. :\</div></blockquote>
+Sorry @butcoffee, I did try all I could do to figure out what to do from your posting that consisted of nothing but a note to"add" the two lines<br>
+<br>
+MatchIsPointer"on"<br>
+Option"Emulate3Buttons""on"<br>
+<br>
+Unfortuntely, the lack of context gave me no clue how to fit them in. Option"Emulate3Buttons""on" was already in place, and sadly X would not even start after I inserted<br>
+<br>
+MatchIsPointer"on"<br>
+<br>
+into the existing mouse"InputDevice" Section - not quite sure where, so I quickly gave up on that <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Without the full context @BitJam offered for where to place those lines you originally gave, I was unable to get it to work. I was just going to post a reply to that effect when I saw the posting that explained how to insert those lines. I tried to figure out how to use"MatchisPointer", but obviously my understanding was too feeble to be able put the available pieces together.<br>
+<br>
+Nonetheless, thanks for you ideas. It was helpful to discover the use of xev, as you suggested, to see how the system was numbering the buttons.<br>
+<br>
+Nick</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

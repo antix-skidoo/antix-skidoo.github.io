@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Display Function Key Cheatcodes during Antix13.2 boot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./display-function-key-cheatcodes-during-antix13-2-b-t4747.html">Display Function Key Cheatcodes during Antix13.2 boot</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_32429" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32429">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32429">
+<time datetime="2013-12-21T00:23">posted: 2013-12-21 &nbsp; 00:23</time>
+<span class="permalink"><a href="./display-function-key-cheatcodes-during-antix13-2-b-t4747.html#p32429" title="permalink">#1</a></span>
+
+<div class="content">Is there a way I can enable the F2 &amp; F3 buttons to display cheat codes after installing the AntiX 13.2 onto a HDD? <br>
+<br>
+<span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32431" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32431">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32431">
+
+<time datetime="2013-12-21T02:27">posted: 2013-12-21 &nbsp; 02:27</time>
+<span class="permalink"><a href="./display-function-key-cheatcodes-during-antix13-2-b-t4747.html#p32431" title="permalink">#2</a></span>
+
+<div class="content">Well, yes and no. Yes, you can modify the boot loader and re-enable the F2 and F3 menus. The problem is that the boot parameters those menus add will not be recognized by the installed system so they won't do anything. Anticapitalista might be able to help you to re-install the scripts that you need but ISTM you would be just asking for a lot of trouble. Anticapitalista is more familiar (than I am) with adding the live init scripts to an installed system. If he thinks it's okay then he can help you and you can ignore my warning.<br>
+<br>
+If you want the functionality of the F2 and F3 bootloader menus then my suggestion is to use either a frugal install or make a LiveUSB. We offer several forms of persistence and also easy remastering for these Live systems. This is the official and supported solution we offer to provide the functionality you want. I think this would be far easier than mixing in parts of the Live system on an installed system.<br>
+<br>
+In case you want to do it the hard way, I've attached new-message.gz. To use it, make a backup of /boot/grub/message and then put the unzipped version of this new file in its place:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>gunzip new-message.gz
+sudo mv /boot/grub/message /boot/grub/message.orig
+sudo cp new-message /boot/grub/message</code></pre></div>
+I could also provide you with instructions but they are slightly non-trivial (unless you are comfortable working with cpio archives). If you want to enable all of the menus then you can copy the /boot/grub/message file from the live iso. You can mount an iso file for reading with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo mkdir /mnt/iso
+sudo mount -o loop,user,ro -t iso9660 blah-blah-blah.iso /mnt/iso</code></pre></div>
+The message file will be at /mnt/iso/boot/grub/message.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32433" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32433">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32433">
+
+<time datetime="2013-12-21T02:46">posted: 2013-12-21 &nbsp; 02:46</time>
+<span class="permalink"><a href="./display-function-key-cheatcodes-during-antix13-2-b-t4747.html#p32433" title="permalink">#3</a></span>
+
+<div class="content">That's interesting. How instead might I just add a note on that screen like press F1 for boot options and then just having it display a list of my choice which I can manually add to the boot string. If that's still a bit of work then I might just decide then to reinstall it as a frugal on my HDD.<br>
+<br>
+Thanks and I'm hoping more people will be interested in that nice detail you went into.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32436" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32436">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32436">
+
+<time datetime="2013-12-21T03:48">posted: 2013-12-21 &nbsp; 03:48</time>
+<span class="permalink"><a href="./display-function-key-cheatcodes-during-antix13-2-b-t4747.html#p32436" title="permalink">#4</a></span>
+
+<div class="content">AFAIK, we are the only distro that makes this relatively easy. It would be far easier on a LiveUSB. In fact I suggest you try it out on a LiveUSB first and then when it works there, move it to your installed system.<br>
+<br>
+<strong><span style="color: red">Note:</span></strong> When you make the LiveUSB you should choose the syslinux bootloader. If you use grub instead then you will have to unpack and repack the cpio archive as explained below. I believe recent versions of the unetbootin program will use the syslinux bootloader when it makes an antiX LiveUSB. Our program that creates a LiveUSB gives you a choice.<br>
+<br>
+On the LiveUSB, instructions for custom menus are in the file /live/boot-dev/boot/syslinux/README. If you just mount an iso file as described above then they will be at /mnt/iso/boot/syslinux/README. Here is the relevant part:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Custom Menus
+============
+You can create 3 different custom menus using files named
+options1.men, custom1.men, and custom2.men.  You would make
+corresponding Fn key assignments like this:
+
+  key.F4=options1
+  key.F5=custom1
+  key.F6=custom2
+Custom Menu file Format
+-----------------------
+The file format for .men files is straightforward.  The first
+line is the title.  The following lines are the label followed by
+optional spaces (not tabs) a back-tick character (`) and then the
+boot parameters associated with the label.</code></pre></div>
+So all you need to do is create a custom1.men file and then edit the gfxboot.cfg file changing the F2 line to:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>key.F2=custom1</code></pre></div>Of course you can use a different function key if you want.<br>
+<br>
+For the installed system, you need to deal with unpacking and repacking the"message" cpio archive. I might add more complete instructions for that later either in a separate post or as an addition to this post. Here is the short version. The file you want to change is /boot/grub/message.<br>
+<br>
+Unpack the archive:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir cpio-dir
+cd cpio-dir
+cpio -idum &lt; /boot/grub/message</code></pre></div>
+Then edit the files in the cpio-dir directory. When you are done, repack the archive. You MUST be in the cpio-dir directory when you run the first command:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>find . | cpio -o &gt; ../new-message
+sudo mv /boot/grub/message /boot/grub/message.orig
+sudo cp ../new-message /boot/grub/message</code></pre></div>
+Good luck! Please have a LiveUSB or LiveCD available just in case you temporarily break grub.<br>
+<br>
+You probably don't need to add a note on the screen since the Fn keys and their titles are rather obvious. If you really want to add text then I suggest using the"convert" program from the imagemagick suite. That's what we use to add the"Live" text to the background image for the live system. The background image is in the file back.jpg in the same directory as gfxboot.cfg and the other files.<br>
+<br>
+If you really want to dive into this stuff I can send you our development kit. One of the neat features it provides is it can make a tiny .iso file that just contains the bootloader. Nothing else. I then boot this iso file in VirtualBox for testing. The time from making a change to testing the change is under a minute. You would also have to install VirtualBox and the gfxboot program in order to get this all working. If you are just adding one custom menu it may not be worth the overhead of getting everything set up for rapid development. Almost 100% of my development work is done using .iso files and VirtualBox.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

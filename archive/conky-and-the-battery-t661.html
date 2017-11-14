@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Conky and the Battery - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./antix-m7-lysistrata-f11/index.html"><span>antiX-M7 Lysistrata</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./conky-and-the-battery-t661.html">Conky and the Battery</a></h2>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_3592" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3592">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3592">
+
+<time datetime="2008-05-01T21:18">posted: 2008-05-01  &nbsp; 21:18</time>
+<span class="permalink"><a href="./conky-and-the-battery-t661.html#p3592" title="permalink">#1</a></span>
+
+<div class="content">I'm trying to get conky to display the battery levels but it claims there is no uevent file? I have confirmed in /proc that my battery is BAT1 but I don't see this file. Does anyone use this feature and can provide some guidance?<br>
+<br>
+eriefisher</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3595" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3595">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 316</dd>
+<span class="username">DJiNN</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3595">
+
+<time datetime="2008-05-01T21:55">posted: 2008-05-01  &nbsp; 21:55</time>
+<span class="permalink"><a href="./conky-and-the-battery-t661.html#p3595" title="permalink">#2</a></span>
+
+<div class="content">eriefisher - i had the same problem with the battery on my laptop, and all i did was change the battery in conky from 1 to 0, and it worked fine. I kind of took the approach that most things in the computer world start with 0, not 1, and it paid off! <span class="emoticon"> __{{emoticon}}__ </span> Try it, it may work for you as well.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3598" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3598">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3598">
+
+<time datetime="2008-05-01T22:41">posted: 2008-05-01  &nbsp; 22:41</time>
+<span class="permalink"><a href="./conky-and-the-battery-t661.html#p3598" title="permalink">#3</a></span>
+
+<div class="content">I tried that but it could not find Bat0 so I switched to BAT1 and confirmed the related files where there in /proc/acpi/battery which shows BAT1 and not BAT0. I must be missing a related package somewhere.<br>
+<br>
+eriefisher</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3603" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3603">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 58</dd>
+<span class="username">Urban</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3603">
+
+<time datetime="2008-05-02T05:27">posted: 2008-05-02  &nbsp; 05:27</time>
+<span class="permalink"><a href="./conky-and-the-battery-t661.html#p3603" title="permalink">#4</a></span>
+
+<div class="content">Here is the command I run to have my battery displayed in conky:<br>
+execi 10 ~/.battery.sh<br>
+<br>
+and in ~/.battery.sh I have this: <br>
+acpi -b | awk '{print $3, $4, $5}'<br>
+<br>
+So I use the acpi package to display"discharging, 61%, 01:38:07"<br>
+<br>
+Not the best way, but it was the way I got it working and it displays all the information I need. Also the seconds only update every 10 seconds which is a bit annoying, but I could adjust the execution rate rate. That would probably increase cpu usage though. If anyone can figure out how to embed the command directly into the .conkyrc that would be helpful.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3606" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3606">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3606">
+
+<time datetime="2008-05-02T12:42">posted: 2008-05-02  &nbsp; 12:42</time>
+<span class="permalink"><a href="./conky-and-the-battery-t661.html#p3606" title="permalink">#5</a></span>
+
+<div class="content">Ok, I found a way around this. I installed acpitool and put this line in conky:<br>
+<br>
+${color white}ACPI:<br>
+${color white}${execi 10 acpitool}<br>
+<br>
+I also had to widen the text area a little to accommodate the width. This will give you charging/discharging %, AC adapter on/off-line and Thermal zone????<br>
+<br>
+eriefisher</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3608" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3608">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 58</dd>
+<span class="username">Urban</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3608">
+
+<time datetime="2008-05-02T14:49">posted: 2008-05-02  &nbsp; 14:49</time>
+<span class="permalink"><a href="./conky-and-the-battery-t661.html#p3608" title="permalink">#6</a></span>
+
+<div class="content">That is why I used awk to display only the information I wanted it to.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

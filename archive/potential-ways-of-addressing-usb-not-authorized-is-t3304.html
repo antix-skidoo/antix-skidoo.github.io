@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Potential Ways of Addressing USB Not Authorized Issue - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./potential-ways-of-addressing-usb-not-authorized-is-t3304.html">Potential Ways of Addressing USB Not Authorized Issue</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_21723" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21723">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21723">
+<time datetime="2011-08-24T19:25">posted: 2011-08-24 &nbsp; 19:25</time>
+<span class="permalink"><a href="./potential-ways-of-addressing-usb-not-authorized-is-t3304.html#p21723" title="permalink">#1</a></span>
+
+<div class="content">This topic was forked from: post21711.html#p21711<br>
+I hope it is not excessively recovering any previous discussions.<br>
+<br>
+The problem of an unprivileged user being unable to (un)mount usb devices without generating a"Not Aurthorized" message seems to have two strands to it.
+<ul><li>* SLiM, the dislay manager</li> </ul>
+<ul><li>* ConsoleKit, keeps track of users, sessions, etc</li></ul>
+It appears that it is a known issue to which three possible approaches may be taken:<br>
+1. A permanent resolution<br>
+2. Two alternative workarounds that work with ROX-filer and other file managers<br>
+3. Wait until the cause of the symptoms have been fixed<br>
+Probably none of the options are ideal for antiX.<br>
+<br>
+<br>
+<em>Permanent Resolution</em><br>
+One posible resolution is to replace SLiM with GDM3 as described in this thread:<br>
+usb-not-authorized-in-pcmanfm-nautilus-t3280.html<br>
+<br>
+This may not be a palatable choice for antiX at present as it involves a major change to a main component. I am guessing that SLiM was chosen due to it being light in its use of system resources. I have no figures to show whether GDM3 is any better or worse in this respect. Historically, GDM has tended to be more heavyweight and this probably goes against the antiX philosophy. SLiM is now unmaintained, so there may be a question over it remaining useful in the longer term.<br>
+<br>
+<br>
+<em>Alternative Workarounds</em><br>
+A bug has been reported in ConsoleKit and is currently being worked on.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=597937"<br>linktext was:"http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=597937"<br>====================================<br>
+<br>
+<br>
+The the bug report and this message both report success in downgrading the version of ConsoleKit.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://lists.debian.org/debian-user/2011/06/msg01586.html"<br>linktext was:"http://lists.debian.org/debian-user/201 ... 01586.html"<br>====================================<br>
+<br>
+<br>
+I have not yet enough experience with antiX to know how to conduct such a downgrade and pinning. Perhaps one of the more experienced antiX user community could test whether such an action does resolve the issue. In any event I would welcome a description of the method of downgrading and pinning. My guess is that if it works this represents a good holding position.<br>
+<br>
+<br>
+Success has been reported by making a change to policykit.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://blog.dale.id.au/archives/1068"<br>linktext was:"http://blog.dale.id.au/archives/1068"<br>====================================<br>
+<br>
+<br>
+I have tested this one and its does work, restoring what might be described as usual and expected capabilities to an unprivileged user. It is not clear how long this method might remain usable as it has been suggested that it exploits a bug. If anyone wishes to test this in conjunction with the unplugdrive.sh script it is best to rename /etc/udev/rules.d/99-usbstorage as 99-usbstorage.unused.<br>
+<br>
+<br>
+<em>Wait for an Upstream Fix</em><br>
+A self explanatory description.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21779" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21779">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21779">
+
+<time datetime="2011-08-27T10:06">posted: 2011-08-27 &nbsp; 10:06</time>
+<span class="permalink"><a href="./potential-ways-of-addressing-usb-not-authorized-is-t3304.html#p21779" title="permalink">#2</a></span>
+
+<div class="content">Having lived with the <em>change to policykit</em> fix for a few days it has worked consistently and reliably. <br>
+<br>
+In case the original site goes missing I thought it might be worth recording the method here. It seems to be based on an article from Archlinux. See the section"Mounting as normal user" on this page: <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/PCManFM"<br>linktext was:"https://wiki.archlinux.org/index.php/PCManFM"<br>====================================<br>
+<br>
+<br>
+<br>
+<strong><em>Method to Mount &amp; Unmount via a File Manager Without Error Message"Not Authorised"</em></strong><br>
+Turn off wrapping in your text editor<br>
+<br>
+<strong>Add a File to Policykit</strong><br>
+As root create a text file:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/etc/polkit-1/localauthority/50-local.d/55-storage.pkla</code></pre></div>
+Add the following:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[Storage Permissions]
+Identity=unix-group:plugdev
+Action=org.freedesktop.udisks.filesystem-mount;org.freedesktop.udisks.drive-eject;org.freedesktop.udisks.drive-detach;org.freedesktop.udisks.luks-unlock;org.freedesktop.udisks.inhibit-polling;org.freedesktop.udisks.drive-set-spindown
+ResultAny=yes
+ResultActive=yes
+ResultInactive=no</code></pre></div> Note: Action=org... to ...spindown is on the same line<br>
+Note: Policykit will automatically recognize the newly added file.<br>
+<br>
+<br>
+<strong>Verify Your User Account has Membership of the plugdev Group</strong>
+<blockquote class="uncited"><div>getent group | grep plugdev</div></blockquote>Note: Your account is included by default in antiX-M11<br>
+<br>
+<br>
+<strong>If Not Currently a Member of the plugdev Group</strong> <br>
+Add membership to your account
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>usermod -a -G plugdev YOUR-LOGIN</code></pre></div>Logout and log back in for above to take effect<br>
+<br>
+<br>
+Edit SamK<br>
+* Fix typos</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_21780" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21780">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21780">
+
+<time datetime="2011-08-27T13:36">posted: 2011-08-27 &nbsp; 13:36</time>
+<span class="permalink"><a href="./potential-ways-of-addressing-usb-not-authorized-is-t3304.html#p21780" title="permalink">#3</a></span>
+
+<div class="content">Thanks for sharing SamK,<br>
+I have tried the meathod posted above and it to is working well for me. I have a usb stick that was known to produce that error, but it is working fine now. <br>
+<span class="emoticon"> __{{emoticon}}__ </span> thanks again</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22145" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22145">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 173</span></div>
+
+</div>
+</div>
+<span class="username">DeepDayze</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22145">
+
+<time datetime="2011-09-24T16:17">posted: 2011-09-24 &nbsp; 16:17</time>
+<span class="permalink"><a href="./potential-ways-of-addressing-usb-not-authorized-is-t3304.html#p22145" title="permalink">#4</a></span>
+
+<div class="content">I got USB automount as user working with creating the /etc/polkit-1/localauthority/50-local.d/55-storage.pkla file. As for the ConsoleKit bug I'll live with it for now until it's fixed in a future update.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25074" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25074">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">eldergeek</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25074">
+
+<time datetime="2012-06-15T02:39">posted: 2012-06-15 &nbsp; 02:39</time>
+<span class="permalink"><a href="./potential-ways-of-addressing-usb-not-authorized-is-t3304.html#p25074" title="permalink">#5</a></span>
+
+<div class="content">"Wait for an Upstream Fix"<br>
+<br>
+Considering the post I copy/pasted this suggestion from is 11 months old, how much faith should I put in the notion of an upstream fix?<br>
+<br>
+I need a lightweight distro for some 1 GHz, P3s (each having a half gig of ram). Which belong to a pair of 12 Y.O. twins. They're running Xubuntu 10.04 LTS well enough but it's now obsolete and the machines are terribly slow with Xubuntu 12.04 LTS. Antix seems perfect for the machines (the kids don't live near me but I have another, very similar, machine I've been using to test-drive various distros) but these kids regularly move files around on USB flash (thumb) drives.<br>
+<br>
+I can talk their older brother through installing Antix well enough but I don't think he can cope with any of the"fixes" listed here for this issue. This really rains on my parade. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Install AntiX M12 in LVM - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./install-antix-m12-in-lvm-t4087.html">Install AntiX M12 in LVM</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_27357" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27357">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27357">
+<time datetime="2012-12-28T23:23">posted: 2012-12-28 &nbsp; 23:23</time>
+<span class="permalink"><a href="./install-antix-m12-in-lvm-t4087.html#p27357" title="permalink">#1</a></span>
+
+<div class="content">I would like to install AntiX M12 in a LVM setting in order to be more flexible in case I have to resize partitions after install. <br>
+I want to have SWAP, ROOT and HOME partition in the LVM, BOOT-partition will be separate as only Grub2 can boot from LVM (As far as I know).<br>
+<br>
+I successfully created a physical volume, a volume group and finally logical volumes for the three partitions in questions.<br>
+<br>
+BTW: Maybe new AntiX-users should be told (Where would you do that? I'm more than happy to help and write some lines in the forum) that when using the shell in the Live-version they should do a <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update</code></pre></div>
+before they try to install any additional packages they deem necesssary for their installation purposes. Otherwise apt-get doesn't find any new packages, as I experienced.<br>
+<br>
+Now my problem is that the cli-installer does not recognize the logical volumes as partitions to use for /, SWAP and /home, it only sees /dev/sda7 as the LVM. How do I make the logical volumes available to the installer? Do I have to create partitions on top of the LVs? The partitioning tool <em>cfdisk</em> does not let me create sub-partitions under the logical partition /dev/sda7.<br>
+<br>
+I changed all Volume Groups on the hard drive to active via:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>vgchange -a y</code></pre></div> <br>
+As you can see, I'm not an expert in these matters.<br>
+<br>
+Anyway, thanks for a marvellous Debian derivative, way more stable than original Debain Testing, I have to say.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27401" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27401">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27401">
+
+<time datetime="2012-12-30T20:49">posted: 2012-12-30 &nbsp; 20:49</time>
+<span class="permalink"><a href="./install-antix-m12-in-lvm-t4087.html#p27401" title="permalink">#2</a></span>
+
+<div class="content">Thinking about my problem, I realized that installing in a LVM will be harder than I thought at first, if not impossible. Will the package <em>lvm2</em> be included in the regular installation? If not, how is the boot loader supposed to recognize the LVM, activate the volume group and thus access ROOT- &amp; HOME-partitions? Seems to me that this would be not possible. If that is the case, I will have to use an orthodox partitioning layout <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Do you have some thoughts on that?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

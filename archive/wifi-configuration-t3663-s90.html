@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>WIFI configuration - Page 7 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./wifi-configuration-t3663-s90.html">WIFI configuration</a></div>
+<div class="pagination">
+98 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./wifi-configuration-t3663-s75.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./wifi-configuration-t3663.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./wifi-configuration-t3663-s30.html" role="button">3</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s45.html" role="button">4</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s60.html" role="button">5</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s75.html" role="button">6</a></li>
+<li class="active"><span>7</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24895" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24895">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">rokytnji</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24895">
+<time datetime="2012-06-04T23:42">posted: 2012-06-04 &nbsp; 23:42</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s90.html#p24895" title="permalink">#91</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>           Card-2 Atheros Atheros AR5001X+ Wireless Network Adapter driver ath5k v: 0.6.0 bus-ID: 03:00.0</code></pre></div>
+That card is at least being picked up by inxi and should be supported out of the box so I am stumped at your ifconfig -a report. Maybe try <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ip addr show</code></pre></div>
+and<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ip link show</code></pre></div>
+instead of ifconfig. <br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/ath5k"<br>linktext was:"http://wiki.debian.org/ath5k"<br>====================================<br>
+<br>
+<br>
+You don't happen to have a wifi kill key on the keyboard, do you? Also look in bios to see if there is a wireless on off type of section. I don't remember everything posted in this thread. So excuse me if I am off base here. <br>
+<br>
+what does as root<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> rfkill list</code></pre></div>
+show?<br>
+<br>
+also<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>iwconfig</code></pre></div>
+Is this also a new fresh install with this wireless card or your existing install where all kinds of changes (ndiswrapper, blacklistiing, etc.....) was made also. Because with a fresh install. This card should just work out of the box. Maybe all the previous tweaks may be killing it?<br>
+<br>
+Edit: I knew ath5k works atheros chips because my eeepc uses ath5k, plus my Acer Aspire One Netbook, and my Amrel Laptop with a generic chinese pcmcia wireless g with atheros chip uses ath5k also . I found my old inxi report for the amrel in the what are you running Antix on 2011 thread. I still run Antix 8.5 core iso on it. So you see why I a a bit stumped with why your new card does not work right out of the box.<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@Biker:~$ inxi -z -F
+System:    Host: Biker Kernel: 3.1.5-antix-586-smp i686 (32 bit)
+           Desktop: LXDE (Openbox 3.5.0) Distro: antiX-core-686-a1 20 June 2010
+Machine:   System: Intel product: Montara Family of Chipsets
+           Mobo: Phoenix model: RT786EX version: 41118 Bios: Phoenix version: MGM-ALL1.86C.1009.D.0604271130 date: 04/27/06
+CPU:       Single core Intel Pentium M (-UP-) cache: 2048 KB flags: (sse sse2) clocked at 1594.971 MHz
+Graphics:  Card: Intel 82852/855GM Integrated Graphics Device X.Org: 1.11.2.902 driver: intel Resolution: 1024x768@60.0hz
+           GLX Renderer: Mesa DRI Intel 852GM/855GM x86/MMX/SSE2 GLX Version: 1.3 Mesa 7.11.2
+Audio:     Card: Intel 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Audio Controller driver: snd_intel8x0
+           Sound: Advanced Linux Sound Architecture ver: 1.0.24
+Network:   Card-1: Atheros AR5212/AR5213 Wireless Network Adapter driver: ath5k
+           IF: wlan0 state: up mac: &lt;filter&gt;
+           Card-2: Realtek RTL-8139/8139C/8139C+ driver: 8139too
+           IF: eth1 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 30.0GB (29.4% used) 1: /dev/sda IC25N030ATCS04 30.0GB
+Partition: ID: / size: 17G used: 4.6G (29%) fs: ext3 ID: swap-1 size: 0.58GB used: 0.00GB (0%) fs: swap
+Sensors:   System Temperatures: cpu: 42.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 101 Uptime: 37 min Memory: 257.3/492.5MB Client: Shell inxi: 1.7.2</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24896" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24896">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24896">
+
+<time datetime="2012-06-05T01:20">posted: 2012-06-05 &nbsp; 01:20</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s90.html#p24896" title="permalink">#92</a></span>
+
+<div class="content">What a learning experience! <br>
+<br>
+First, I'll respond to your questions: <br>
+<blockquote class="uncited"><div>Is this also a new fresh install with this wireless card or your existing install where all kinds of changes (ndiswrapper, blacklistiing, etc.....) was made also. Because with a fresh install. This card should just work out of the box. </div></blockquote>
+<em>This is just a restart with the Belkin card out and the AirLink card in.</em><br>
+<blockquote class="uncited"><div>Maybe all the previous tweaks may be killing it?</div></blockquote>
+<em><br>
+I think the only tweak we performed was</em> <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /etc/modprobe.d/blacklist</code></pre></div> . We were trying to blacklist atmel_cs I believe. Maybe... there's a way to unblacklist?[/i]<br>
+<br>
+You don't happen to have a wifi kill key on the keyboard, do you? <br>
+<br>
+<em>I don't believe so.</em><br>
+<br>
+Also look in bios to see if there is a wireless on off type of section.<br>
+<br>
+<em>No, there isn't.</em><br>
+<br>
+Now, the code:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/joost# ip addr show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:08:74:e2:88:62 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.103/24 brd 192.168.1.255 scope global eth0
+3: wlan0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN qlen 1000
+    link/ether 00:18:02:45:d6:6b brd ff:ff:ff:ff:ff:ff</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/joost# ip link show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:08:74:e2:88:62 brd ff:ff:ff:ff:ff:ff
+3: wlan0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN qlen 1000
+    link/ether 00:18:02:45:d6:6b brd ff:ff:ff:ff:ff:ff</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/joost# rfkill list
+0: phy0: Wireless LAN
+    Soft blocked: no
+    Hard blocked: no</code></pre></div>
+<em>(...seems to indicate nothing's currently blocked.)</em></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24900" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24900">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24900">
+
+<time datetime="2012-06-05T17:16">posted: 2012-06-05 &nbsp; 17:16</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s90.html#p24900" title="permalink">#93</a></span>
+
+<div class="content">So type wlan0 into wicd preferences and hit the refresh button and I hope the heck it works.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24915" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24915">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 57</dd>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24915">
+
+<time datetime="2012-06-06T04:13">posted: 2012-06-06 &nbsp; 04:13</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s90.html#p24915" title="permalink">#94</a></span>
+
+<div class="content">It works! IT WORKS!!<br>
+<span style="font-size: 150%; line-height: normal">It works! IT WORKS!!</span><br>
+<span style="font-size: 200%; line-height: normal">It works! IT WORKS!!</span><br>
+<br>
+<br>
+Thanks!!!!<br>
+<br>
+<em>(now I need to review this thread to figure out what I learned. WOW this is great)</em></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24917" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24917">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24917">
+
+<time datetime="2012-06-06T09:35">posted: 2012-06-06 &nbsp; 09:35</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s90.html#p24917" title="permalink">#95</a></span>
+
+<div class="content">Congratulations to both JXR and roky for persisting with this!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24948" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24948">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24948">
+
+<time datetime="2012-06-07T02:18">posted: 2012-06-07 &nbsp; 02:18</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s90.html#p24948" title="permalink">#96</a></span>
+
+<div class="content">Especially Roky!!!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24950" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24950">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24950">
+
+<time datetime="2012-06-07T03:06">posted: 2012-06-07 &nbsp; 03:06</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s90.html#p24950" title="permalink">#97</a></span>
+
+<div class="content">You guys make me grin and blush for a ignorant biker. Here is a<br>
+<br>
+<img src="http://1.bp.blogspot.com/-MWE6wSQ_7Es/TxMOsQUlevI/AAAAAAAAAM8/0gHEKwG-_YE/s1600/Hot%20Dancing%20Girl%20Animation.gif" class="postimage" alt="Image"><br>
+<br>
+to celebrate your success jxr. (I like her better than a dancing banana) <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Edit: Just more info I am throwing into this thread.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.cyberciti.biz/tips/linux-find-out-wireless-network-speed-signal-strength.html"<br>linktext was:"8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24989" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24989">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24989">
+
+
+<time datetime="2012-06-08T22:50">posted: 2012-06-08 &nbsp; 22:50</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s90.html#p24989" title="permalink">#98</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Congratulations to both JXR and roky for persisting with this!</div></blockquote>
+I think this is an excellent topic, and those who visit here may very well benefit from seeing it.<br>
+<br>
+Thanks to all who have participated. JXR, thanks for asking, and for sticking with it, and a big thanks to Roky for patience and skill in helping out, as well as his visual displays to keep it lively. Great job, gentlemen!<br>
+<br>
+This is one of the things that makes antiX a great distribution. We have great code in our base code, with the excellent Debian-derived software, then we have an excellent foundation in the components that Warren Woodford put together for MEPIS, and yet, it is the attention to detail, not only from these outstanding sources, but also from anticapitalista and each of us who, in various ways, contribute to fill in the gaps, and I think that deserves plenty of credit too. Again, great job!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+98 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./wifi-configuration-t3663-s75.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./wifi-configuration-t3663.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./wifi-configuration-t3663-s30.html" role="button">3</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s45.html" role="button">4</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s60.html" role="button">5</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s75.html" role="button">6</a></li>
+<li class="active"><span>7</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

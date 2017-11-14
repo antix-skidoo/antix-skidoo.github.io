@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>policykit, usb drive, software suspend - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-intifada-f28/index.html"><span>antiX-M8 Intifada!</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./policykit-usb-drive-software-suspend-t1687.html">policykit, usb drive, software suspend</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_10631" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10631">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10631">
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10631/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-05-07T02:15">posted: 2009-05-07 &nbsp; 02:15</time>
+<span class="permalink"><a href="./policykit-usb-drive-software-suspend-t1687.html#p10631" title="permalink">#1</a></span>
+
+<div class="content">after a recent upgrade I had some trouble with a new debian feature called policy kit. this feature was preventing hal from allowing a normal user to mount a usb drive. with anti's help, we adjusted a file called /etc/PolicyKit/PolicyKit.conf to restore the missing functions. Later I ran into a issue with"ejecting" a usb mp3 player. suspecting policykit again, some googling resulted in a brute force fix for my removable storage issues. <br>
+<br>
+I've since discovered that PolicyKit also interferes with the function of the exitantix.sh script (the logout/suspend/shutdown menu), and while reboot and shutdown options work (I suspect do to the way the sudoers file is set up), the hibernate and suspend functions did not. applying what I learned when dealing with the removable storage issue, I made another mod to PolicyKit.conf.<br>
+<br>
+Below is my new PolicyKit.conf file, with all mods. there may be ways to fine tune it to make it more restrictive or secure, but it got my functionality back.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt;!DOCTYPE pkconfig PUBLIC"-//freedesktop//DTD PolicyKit Configuration 1.0//EN"   "http://hal.freedesktop.org/releases/PolicyKit/1.0/config.dtd"&gt;
+
+    &lt;!-- See the manual page PolicyKit.conf(5) for file format --&gt;
+
+    &lt;config version="0.1"&gt;
+        &lt;match action="org.freedesktop.hal.storage.*"&gt;
+            &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+   
+        &lt;match action="org.freedesktop.hal.power-management.*"&gt;
+            &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+    &lt;/config&gt;
+</code></pre></div>
+Maybe this will help someone out. (props to the Arch Linux guys for this)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10633" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10633">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 319</span></div>
+
+</div>
+</div>
+<span class="username">impuwat</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10633">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10633/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-05-07T05:14">posted: 2009-05-07 &nbsp; 05:14</time>
+<span class="permalink"><a href="./policykit-usb-drive-software-suspend-t1687.html#p10633" title="permalink">#2</a></span>
+
+<div class="content">Thanks for taking the time to document this!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10639" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10639">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">dark-D</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10639">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10639/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-05-07T14:19">posted: 2009-05-07 &nbsp; 14:19</time>
+<span class="permalink"><a href="./policykit-usb-drive-software-suspend-t1687.html#p10639" title="permalink">#3</a></span>
+
+<div class="content">thanks dolphin_oracle. i was wandering why suspend didn't work.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10640" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10640">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 316</span></div>
+
+</div>
+</div>
+<span class="username">DJiNN</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10640">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10640/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-05-07T14:34">posted: 2009-05-07 &nbsp; 14:34</time>
+<span class="permalink"><a href="./policykit-usb-drive-software-suspend-t1687.html#p10640" title="permalink">#4</a></span>
+
+<div class="content">Nice work, and many thanks for the code.<br>
+<br>
+I've been having all sorts of problems with USB drives (Both keys &amp; hard drives) lately, so hopefully this will go someway towards putting things right again. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+DJiNN</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10641" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10641">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10641">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10641/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-05-07T15:49">posted: 2009-05-07 &nbsp; 15:49</time>
+<span class="permalink"><a href="./policykit-usb-drive-software-suspend-t1687.html#p10641" title="permalink">#5</a></span>
+
+<div class="content">I'm happy to contribute!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10649" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10649">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10649">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10649/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-05-08T00:44">posted: 2009-05-08 &nbsp; 00:44</time>
+<span class="permalink"><a href="./policykit-usb-drive-software-suspend-t1687.html#p10649" title="permalink">#6</a></span>
+
+<div class="content">I pounded my head on this one. Devices would mount automatically but not unmount. Reboot/shutdown as well as suspend/hibernate would also fail saying"no action/result"? I ended up editing the file so thta every action is specifically mentioned and now xfce works perfectly again. <br>
+<br>
+If your going to edit this file be sure to run, as root:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> polkit-config-file-validate</code></pre></div>
+Here is my new PolicyKit.conf
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt; &lt;!-- -*- XML -*- --&gt;
+
+&lt;!DOCTYPE pkconfig PUBLIC"-//freedesktop//DTD PolicyKit Configuration 1.0//EN"    
+"http://hal.freedesktop.org/releases/PolicyKit/1.0/config.dtd"&gt;
+
+    &lt;!-- See the manual page PolicyKit.conf(5) for file format --&gt;
+
+    &lt;config version="0.1"&gt;
+        &lt;match action="org.freedesktop.hal.storage.*"&gt;
+        &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+
+    &lt;match action="org.freedesktop.hal.storage.unmount-removable"&gt;
+        &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+
+    &lt;match action="org.freedesktop.hal.storage.mount-removable"&gt;
+             &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+   
+        &lt;match action="org.freedesktop.hal.power-management.*"&gt;
+            &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+
+    &lt;match action="org.freedesktop.hal.power-management.shutdown"&gt;
+            &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+
+    &lt;match action="org.freedesktop.hal.power-management.reboot"&gt;
+            &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+
+    &lt;match action="org.freedesktop.hal.power-management.suspend"&gt;
+            &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+
+    &lt;match action="org.freedesktop.hal.power-management.hibernate"&gt;
+            &lt;return result="yes"/&gt;
+        &lt;/match&gt;
+    &lt;/config&gt;</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

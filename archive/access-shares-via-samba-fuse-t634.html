@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Access shares via samba/fuse - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-development-f24/index.html"><span>antiX-development</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./documentation-f18/index.html"><span>Documentation</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./access-shares-via-samba-fuse-t634.html">Access shares via samba/fuse</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_3350" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile3350">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3350">
+<time datetime="2008-04-16T13:10">posted: 2008-04-16 &nbsp; 13:10</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p3350" title="permalink">#1</a></span>
+
+<div class="content">This is to access windows shares and linux shares using samba. I assume you have a working smb.conf, if not post back for assistance.<br>
+<br>
+First make sure you have the needed apps:<br>
+<br>
+Samba<br>
+Fusesmb<br>
+smbfs<br>
+Samba-common<br>
+smbclient<br>
+<br>
+These can be installed via apt-get or synaptic if you prefer. They may pull down other supporting packages so don't worry.<br>
+<br>
+Now once all the packages have been installed create a folder where you want to access your workgroup/network. For me it is /home/me/network but this can be your choice. Right click on it and select properties and choose the permissions you want (read,write,etc)<br>
+<br>
+Next, open /home/username/.fluxbox/startup file. At the end of the list of autostarted applications add:<br>
+<br>
+fusesmb /home/me/network (or the location of the folder you created)<br>
+<br>
+This script can also be placed in .xinitrc if you use multiple window managers but you will need to make it a bash script by adding:<br>
+#!/bin/sh<br>
+<br>
+fusesmb /home/me/network<br>
+<br>
+to the top of .xinitrc. This way it will be mounted when X starts regardless of the window manager.<br>
+<br>
+Log out and login, open the folder you created and you should see a folder called"yourworkgroup". Inside you will see another folder for each of the computers on your network and they will list all of their shares.<br>
+<br>
+I think I covered everything but if not let me know. I wanted to put this in the wiki but I still cannot create an account to add/edit.<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3358" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3358">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 253</span></div>
+
+</div>
+</div>
+<span class="username">mariel77</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3358">
+
+<time datetime="2008-04-17T05:48">posted: 2008-04-17 &nbsp; 05:48</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p3358" title="permalink">#2</a></span>
+
+<div class="content">Thank you for posting this; I'll try it out in a day or two.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3360" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3360">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">gritibaenz</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3360">
+
+<time datetime="2008-04-17T15:56">posted: 2008-04-17 &nbsp; 15:56</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p3360" title="permalink">#3</a></span>
+
+<div class="content">First of all, thanks to eriefisher for the article!<br>
+<br>
+please remark that for installation of the mentioned packages their names should be lowercase (Samba =&gt; samba)<br>
+<br>
+Following the article delivers a smb connection, but if the shares are not open, you cannot access them. You probably have to create/edit a file ~/.smb/fusesmb.conf <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>; Global settings
+[global]
+; Default username and password
+username=bgates
+password=takeovertheworld
+
+; List hidden shares
+;showhiddenshares=true
+
+; Connection timeout in seconds
+timeout = 10
+
+;Interval for updating new shares in minutes
+;You may want to set this lower - if you are adding/removing shares a lot.
+interval = 10</code></pre></div>
+More information about that file &amp; fusesmb can be found at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://help.ubuntu.com/community/FuseSmb"<br>linktext was:"https://help.ubuntu.com/community/FuseSmb"<br>====================================<br>
+<br>
+<br>
+regards, gritibaenz</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3361" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3361">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3361">
+
+<time datetime="2008-04-17T16:08">posted: 2008-04-17 &nbsp; 16:08</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p3361" title="permalink">#4</a></span>
+
+<div class="content">Of course you are correct and you will definitely need this config if you are set up to need a login and password. I probably should have not assumed that everyone left their local network shares open or at least mentioned it. Mine are open for local use and I am behind a router so they cannot be accessed from the outside.<br>
+<br>
+Thank you for pointing this out.<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3510" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3510">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 253</span></div>
+
+</div>
+</div>
+<span class="username">mariel77</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3510">
+
+<time datetime="2008-04-27T06:47">posted: 2008-04-27 &nbsp; 06:47</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p3510" title="permalink">#5</a></span>
+
+<div class="content">Hi, eriefisher,<br>
+<br>
+I previously had only fusesmb installed with a /home/laptop/Network folder. I would run fusesmb and then I could see my Mepis shares from my other computer on my laptop, but I could not see the laptop in Mepis.<br>
+<br>
+I followed your instructions and now I continue to see the Mepis shared folder, but I can also see the laptop in smb4k on mepis. However, when I click on Laptop to view the files (still on Mepis), a window pops up and asks for authentication data. It won't take any of the usernames and passwords or the root username and password. I have the permissions on the laptop set so that User can Read, Write, and Exec. Group and World can only Read and Exec. Is this correct? I tried to allow Group to exec using rox run as root, but it doesn't seem to allow it to stay. When I r-click the /home/laptop/Network folder in antiX, the permissions don't have Group allowed to write.<br>
+<br>
+I would like to be able to see the files of the laptop on Mepis without using a password.<br>
+<br>
+I did allow apt-get - the install - to use the package maintainers version of smb.conf, I think it was. Usually I would have kept my version. You may want to put a note on what to do at that point in your instructions. I need to quit for the night. I think I found what to edit in my laptop smb.conf file; I'll look at it later.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3513" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3513">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3513">
+
+<time datetime="2008-04-27T11:38">posted: 2008-04-27 &nbsp; 11:38</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p3513" title="permalink">#6</a></span>
+
+<div class="content">Hello mariel77.<br>
+<br>
+A couple things you may want to check, first check the permissions of the shared folder on the laptop(sounds as if you did) to make sure they are set read/write via right click in rox and select properties and check the needed permisions. Next I would check the smb.conf is set up correctly. I use a Mepis version only because it has worked for ever and I never let it get overwritten by the maintainers version just for this reasons. I can post it if you wish.<br>
+<br>
+I don't use it but you may also look at setting up a ~/.smb/fusesmb.conf as mentioned by gritibaenz. I have my shares open so I never set this up and just found it complicated things for my local network. You shouldn't need this if your file permissions are set to read/write for everyone and your smb.conf is set to share.<br>
+<br>
+Let me know how you make out.<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3543" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3543">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 253</span></div>
+
+</div>
+</div>
+<span class="username">mariel77</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3543">
+
+<time datetime="2008-04-29T03:19">posted: 2008-04-29 &nbsp; 03:19</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p3543" title="permalink">#7</a></span>
+
+<div class="content">Hi, eriefisher,<br>
+<br>
+I found my previous /etc/samba/smb.conf file for my antiX laptop. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+I made a couple of changes to make it exactly like my Mepis 7 smb.conf, but probably didn't need to.<br>
+<br>
+Now I can copy files from the shares of each computer. I can't write from the laptop to the shares of the mepis computer or vice versa. I think the last time I could write to shares was with mepis 3.4 though, so that's OK.<br>
+<br>
+So your method works well for networking on antiX. I think you would want to put it in the antiX FAQs page. I haven't checked it yet today to see if you did). I don't think you need a login. <br>
+<br>
+My only comment is to mention NOT installing the package maintainer's version of smb.conf even though I really knew better than to do that. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Thanks for all your help!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5844" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile5844">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">Cyclepiet</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5844">
+
+<time datetime="2008-08-01T19:50">posted: 2008-08-01 &nbsp; 19:50</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p5844" title="permalink">#8</a></span>
+
+<div class="content">Dear all,<br>
+<br>
+I did it, and it worked, but is it possible to make this auto at start-up?<br>
+<br>
+Another question about the same subject. Yesterday I looked (by accident?) in a text-file, at which one could change the permissions from other computers, to acces files in this (AntiX) one. Now I couldn't find that file (age?), again. Anyone who can give me a hint?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5845" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5845">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5845">
+
+<time datetime="2008-08-01T20:04">posted: 2008-08-01 &nbsp; 20:04</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p5845" title="permalink">#9</a></span>
+
+<div class="content">You can add this to your .xinitrc at the top. Edit this file as a user not root.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+fusesmb /path/to/mount-point</code></pre></div>
+Open a run dial log and enter"leafpad .xinitrc". When it opens add the lines to the top. This will mount your network in the folder you specify when x starts.<br>
+<br>
+Not sure what you mean by changing permissions from another computer. I don't think this can be done unless your logged in to that machine as the user.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6016" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6016">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">Cyclepiet</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6016">
+
+<time datetime="2008-08-10T13:42">posted: 2008-08-10 &nbsp; 13:42</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p6016" title="permalink">#10</a></span>
+
+<div class="content">Dear Eriefisher,<br>
+<br>
+Sorry for the late reaction, but i was very busy with other things.<br>
+Anyway, it was not allowed for me, to save the changes. I tried also to change the permissions in properties, but also that was not possible.<br>
+<br>
+The 2nd question about permission, you did not understand, was because of my English i think. What i meant was, from my desktop PC i would be able to access the Thinkpad (antiX) and look / change files . I saw three items, Music, Shared and Printers and Faxes. When for instance i click on the Music tab, i got the message, i am not authorized to access that map. I can understand that (i think), because, see first tekst-part. By the way, i cann't find the items Music and Shared on the Thinkpad.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8141" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile8141">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8141">
+
+<time datetime="2008-12-12T00:57">posted: 2008-12-12 &nbsp; 00:57</time>
+<span class="permalink"><a href="./access-shares-via-samba-fuse-t634.html#p8141" title="permalink">#11</a></span>
+
+<div class="content">I don't know if anyone else is having trouble but I have found fuse to be very unstable and unpredictable. I have overcome this by using smbnetfs. Just replace fusesmb with smbnetfs for the command and it should work well.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>cwd in $PATH, really ? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./cwd-in-usdpath-really-t6684.html">cwd in $PATH, really ?</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_48983" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48983">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48983">
+<time datetime="2016-11-06T17:51">posted: 2016-11-06 &nbsp; 17:51</time>
+<span class="permalink"><a href="./cwd-in-usdpath-really-t6684.html#p48983" title="permalink">#1</a></span>
+
+<div class="content">Linux quasi-noobie question : I'm seeing my $PATH in antiX (regular user account) starts in dot (current working directory). Even twice fwiw ! I thought it was not good practice, what is the consensus ? How would I most easily remove/repair the double occurrence of dot in PATH, and would the removing possibly break some built-in script, functionality or program ?<br>
+<br>
+<span style="font-size: 90%; line-height: normal"></span><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ echo $PATH
+.:.:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin
+</code></pre></div>[/size]</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48985" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48985">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48985">
+
+<time datetime="2016-11-06T19:22">posted: 2016-11-06 &nbsp; 19:22</time>
+<span class="permalink"><a href="./cwd-in-usdpath-really-t6684.html#p48985" title="permalink">#2</a></span>
+
+<div class="content">If you check <span style="color: green">echo $PATH</span> from console (Ctrl+Alt+F1--F6) you'll see a different result.<br>
+When you see that ( .:.: ) in terminal emulator,"how to get rid of it" could vary, depending on:<br>
+-- how the emulator is/was launched (affects whether $ENV is preserved)<br>
+-- directives within the emulator's config file<br>
+-- which shell (presumably bash) is running in the emulator<br>
+-- ^--&gt; the content of your ~/.bashrc (or other rc file for other shell, as applicable)<br>
+-- the content of your ~/.profile<br>
+-- (certain situations) the content of <strong>/</strong>etc/bash.bashrc (hmm, or izzit <strong>/</strong>etc/profile ?)<br>
+<br>
+You're probably seeing double dots because your chosen terminal emulator is naively stacking/concatenating the path stanzas read from those various configs. AFAIK, the status quo of double dots has never caused a problem for me. As for"best practice", shrug. If you would prefer incessantly typing full filepaths, knock yerself out. On my systems, I welcome the presence of leading dot (cwd) in the path envvar.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48991" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48991">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48991">
+
+<time datetime="2016-11-06T21:27">posted: 2016-11-06 &nbsp; 21:27</time>
+<span class="permalink"><a href="./cwd-in-usdpath-really-t6684.html#p48991" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>As for"best practice", shrug. If you would prefer incessantly typing full filepaths, knock yerself out. On my systems, I welcome the presence of leading dot (cwd) in the path envvar.</div></blockquote>
+OK, that's the micro$oft way, too <span class="emoticon"> __{{emoticon}}__ </span> The issue with cwd in path is somthing (malware...) could easily induce one to execute a malicious replacement for a legitimate command. Well, I guess malware is less a problem on antiX than in Windows (and I've never been"infected" running Windows, either). Thanks for the hint, Skidoo - I am going to leave the dot where it belongs and to ignore the double (triple, even, in a rxvt I'ne just opened now) occurrence.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48993" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48993">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 64</span></div>
+
+</div>
+</div>
+<span class="username">reverseDog</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jul 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48993">
+
+<time datetime="2016-11-06T22:09">posted: 2016-11-06 &nbsp; 22:09</time>
+<span class="permalink"><a href="./cwd-in-usdpath-really-t6684.html#p48993" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>Ninho wrote:</cite>How would I most easily remove/repair the double occurrence of dot in PATH [...],</div></blockquote>
+Open the file <strong>/usr/local/lib/desktop-session/lib-desktop-session.sh</strong> in an editor and comment the line"PATH=.:$PATH" out.
+<blockquote><div><cite>Ninho wrote:</cite>[...] and would the removing possibly break some built-in script, functionality or program ?</div></blockquote>
+Well, I don't feel authorized to answer the second half of your question. But I have removed the double (in my case: triple) dots some hours ago and haven't observed any problems since.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48995" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48995">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48995">
+
+<time datetime="2016-11-06T23:00">posted: 2016-11-06 &nbsp; 23:00</time>
+<span class="permalink"><a href="./cwd-in-usdpath-really-t6684.html#p48995" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>reverseDog wrote:</cite> comment the line"PATH=.:$PATH" out. <br>
+... I have removed the double (in my case: triple) dots some hours ago and haven't observed any problems since.</div></blockquote>
+Thanks, rD ! I'll follow your lead, not expecting problems either.</div>
+<div class="postcontent_footer">
+ 
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49012" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49012">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49012">
+
+<time datetime="2016-11-07T19:24">posted: 2016-11-07 &nbsp; 19:24</time>
+<span class="permalink"><a href="./cwd-in-usdpath-really-t6684.html#p49012" title="permalink">#6</a></span>
+
+<div class="content"><blockquote class="uncited"><div>The issue with cwd in path is something (malware...) <br>
+could easily induce one to execute a malicious replacement for a legitimate command.</div></blockquote>
+You've raised an excellent point. Considering all the other hoops I jump through trying to be safe, I realize that I really shouldn't"shrug". <br>
+<br>
+The user environment isn't preserved by default for sudo user (and leading dot is absent from sudo/root $PATH), and I'm not inclined to<br>
+download and run stuff from untrusted sources. I suppose that's my rationalization for not adopting this particular"best practice".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50165" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50165">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50165">
+
+<time datetime="2017-02-07T08:30">posted: 2017-02-07 &nbsp; 08:30</time>
+<span class="permalink"><a href="./cwd-in-usdpath-really-t6684.html#p50165" title="permalink">#7</a></span>
+
+<div class="content">Back in November, we didn't definitively resolve this, eh?
+<blockquote class="uncited"><div>I'm seeing my $PATH in antiX (regular user account) starts in dot (current working directory). <strong>Even twice...</strong></div></blockquote>
+I encountered this (.:.:.:.:.:.:.:.:.:.:.:/usr/bin...) recently while using lxterminal.<br>
+Checking roxterm, I found the $PATH was <strong>not</strong> similarly affected.<br>
+Comparing prefs set for the 2 emulators, I noticed that"treat shell as login shell" was checkmarked in my roxterm prefs.<br>
+Same wasn't marked in lxterminal prefs, and when I did so, that resolved lxterminal's"weird" pathstring.<br>
+<blockquote class="uncited"><div>
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.tldp.org/HOWTO/text/Path"<br>linktext was:"http://www.tldp.org/HOWTO/text/Path"<br>====================================<br>
+<br>
+<br>
+sudo command has again a different approach to path handling.<br>
+It modifies the search path so that the current directory is always the last one.<br>
+However, it does not modify PATH environment variable.</div></blockquote>That quoted linuxDocumentationProject page mentions about 8 or 9 places along the way<br>
+(between booting... and the context of using an xterm terminal emulator app)<br>
+where a configuration file may (re)set the default pathstring declaration for a user (or all users).<br>
+<br>
+That bit I've quoted here, it overlaps with the configured behavior of gksu (and gexec).<br>
+IIRC, antiX default gksu configuration instructs"preserve environment" but does <strong>not</strong> set"treat as login shell".<br>
+Can check by typing"gksu" at a terminal emulator prompt... then clicking"advanced" in the gksu dialogbox.<br>
+<span style="color: green"><strong>man gksu</strong></span> explains that we can override the preconfigured default(s) by passing optional runtime args.<br>
+I checked and found that none of the launchstrings within ControlCenter pass those args to gksu.<br>
+(I'm not suggesting that any of the launchstrings should be changed, I'm just documenting the status quo.)<br>
+One of the cc launchers (sysv-rc-conf?) does present a confusing inconsistency -- it requires root user's password<br>
+<span style="color: green"></span><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>--preserve-env, -k
+        Preserve the current environments, does not set $HOME nor $PATH, for example.
+--login, -l
+       Make this a login shell.</code></pre></div>[/color]</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50244" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50244">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 64</span></div>
+
+</div>
+</div>
+<span class="username">reverseDog</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jul 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50244">
+
+<time datetime="2017-02-08T20:21">posted: 2017-02-08 &nbsp; 20:21</time>
+<span class="permalink"><a href="./cwd-in-usdpath-really-t6684.html#p50244" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>Checking roxterm, I found the $PATH was not similarly affected.<br>
+Comparing prefs set for the 2 emulators, I noticed that"treat shell as login shell" was checkmarked in my roxterm prefs.<br>
+Same wasn't marked in lxterminal prefs, and when I did so, that resolved lxterminal's"weird" pathstring.</div></blockquote>
+Since <strong>/usr/local/lib/desktop-session/lib-desktop-session.sh</strong> is responsible for adding the current working directory (.) to $PATH but doesn't get sourced by login shell, your solution works.<br>
+<br>
+Above I had suggested to comment out the line"PATH=.:$PATH" in /usr/local/lib/desktop-session/lib-desktop-session.sh. But I am not fond though of customizing system-wide files, so I found myself a better way to get rid of those weird cwds in $PATH. I simply added the line
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>export PATH=${PATH##+(.:)}</code></pre></div>
+to my ~/.bashrc. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

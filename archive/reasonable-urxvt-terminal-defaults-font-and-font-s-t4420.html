@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Reasonable Urxvt (terminal) defaults: font and font size - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./reasonable-urxvt-terminal-defaults-font-and-font-s-t4420.html">Reasonable Urxvt (terminal) defaults: font and font size</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_29808" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29808">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29808">
+<time datetime="2013-06-19T17:06">posted: 2013-06-19 &nbsp; 17:06</time>
+<span class="permalink"><a href="./reasonable-urxvt-terminal-defaults-font-and-font-s-t4420.html#p29808" title="permalink">#1</a></span>
+
+<div class="content">It took me a while to play with all the uxrvt settings before I was really happy with it. Here is how I deal with fonts and font size. The font I start with is probably too large for most people but that is easy to adjust by reducing"size=17" below. The rest of the entries allow me to adjust the font-size on the fly with &lt;Ctrl&gt;-&lt;Shift&gt;-&lt;Up_Arrow&gt; and &lt;Ctrl&gt;-&lt;Shift&gt;-&lt;Down_Arrow&gt;<br>
+<br>
+In ~.Xdefaults I have:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>urxvt*.font:  xft:DejaVu Sans Mono:autohint=true:pixelsize=17
+
+urxvt.perl-lib:                     /home/USER/.urxvt
+urxvt.keysym.Control-Shift-Up:      perl:font:increment
+urxvt.keysym.Control-Shift-Down:    perl:font:decrement
+urxvt.perl-ext-common:              default,font</code></pre></div>
+I've attached a gzipped copy of the ~/.urxvt/font file that is used for dynamically changing the font size. It needs to be gunzipped in the ~./urxvt directory and then the perl-lib line should be edited with USER replaced by your username. Alternatively, you could put the file in /usr/lib/urxvt/perl/ and then you wouldn't need the perl-lib line in .Xdefaults.<br>
+<br>
+It's quite possible there is a newer version of the dynamic font size extension. This version conflicts with fancy prompts which span from one side of the window to the other. The prompts are unaware of the new font size.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29810" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29810">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29810">
+
+<time datetime="2013-06-19T17:58">posted: 2013-06-19 &nbsp; 17:58</time>
+<span class="permalink"><a href="./reasonable-urxvt-terminal-defaults-font-and-font-s-t4420.html#p29810" title="permalink">#2</a></span>
+
+<div class="content">FWIW, here are all of my urxvt settings. I use"URxvt" because some of the settings (tab menu colors) need the leading UR and none seem to have a problem with it. I removed the scrollbar. Most people probably want it back.<br>
+<br>
+I gave it a transparent background but the background is both tinted and blurred so the text is always easy to read. The text dims when the terminal is not the selected window. I almost alway launch it in tabbed mode via"uxrvt -pe tabbed".<br>
+<br>
+I have my own modified version of the tabbed extension which using &lt;Alt&gt;-&lt;Left_Arrow&gt; and &lt;Alt&gt;-&lt;Right_Arrow&gt; for switching tabs which corresponds to switching between virtual consoles. This makes my life easier. YMMV so I have not included it. My version also allows you to open multiple tabs from the command line, each with its own CWD.<br>
+<br>
+The colors are toned down and are perhaps a bit sherbet-y. I'm not suggesting we use these settings as the default for antiX but this might be a good starting point to find a reasonable set of defaults for antiX. IMO the dynamic font size is handy on LiveUSBs that boot on a variety of machines. <br>
+<br>
+After making changes to ~/.Xdefaults you should run"xrdb ~/.Xdefaults" to have them take effect the next time a window is opened.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>!--- Font and font size
+
+URxvt*.font:  xft:DejaVu Sans Mono:autohint=true:pixelsize=17
+URxvt.perl-lib:                     /home/jbowlin/.urxvt
+URxvt.keysym.Control-Shift-Up:      perl:font:increment
+URxvt.keysym.Control-Shift-Down:    perl:font:decrement
+URxvt.perl-ext-common:              default,font
+
+!--- General
+
+URxvt.buffered:             true
+URxvt.urlLauncher:          /usr/bin/firefox
+URxvt.matcher.button:       1
+URxvt.geometry:             100x45
+!--- Scrolling
+
+URxvt*.scrollTtyOutput:     false
+URxvt*.scrollWithBuffer:    false
+URxvt*.scrollTtyKeypress:   true
+URxvt.secondaryScroll:      true
+URxvt*scrollstyle:          plain
+URxvt*saveLines:            20000
+URxvt.scrollBar_right:      true
+URxvt.scrollBar:            false
+
+!-- Shading and Fading
+
+URxvt.transparent:          true
+URxvt.shading:              50
+URxvt.blurRadius:           5
+URxvt.fading:               30
+
+!--- Tabbing Menu colors
+
+URxvt.tabbed.tabbar-bg:     0
+URxvt.tabbed.tabbar-fg:     6
+URxvt.tabbed.tab-bg:        0
+URxvt.tabbed.tab-fg:        5
+
+!--- Colors
+
+URxvt.background:           black
+URxvt.underlineColor:       #4ad5e1
+
+URxvt.pointerColor:         #dc74d1
+URxvt.color0:               #000000
+URxvt.color1:               #dc74d1
+URxvt.color2:               #0eb8c7
+URxvt.color3:               #dfe37e
+URxvt.color5:               #9e88f0
+URxvt.color6:               #73f7ff
+URxvt.color7:               gray90
+URxvt.color8:               #8b8f93
+URxvt.color9:               #dc74d1
+URxvt.color10:              #0eb8c7
+URxvt.color11:              #dfe37e
+URxvt.color12:              #8080ff
+URxvt.color13:              #9e88f0
+URxvt.color14:              #73f7ff
+URxvt.color15:              #e1dddd
+URxvt.foreground:           #c0e5f1
+URxvt.cursorColor:          #e0e080</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

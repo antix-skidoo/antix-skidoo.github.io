@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] Boot Hang After Fresh Install and Dist-Upgrade - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html">[SOLVED] Boot Hang After Fresh Install and Dist-Upgrade</a></div>
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_39834" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39834">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39834">
+<time datetime="2015-03-03T13:05">posted: 2015-03-03 &nbsp; 13:05</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39834" title="permalink">#1</a></span>
+
+<div class="content">I'm dual booting CrunchBang and antiX. Grub (v1.99) for CrunchBang is in the MBR and grub for antiX is in antiX root.<br>
+<br>
+Sequence of events leading up to the issue:<br>
+01) Fresh install of antiX 13-2 tracking Testing repo on sda2.<br>
+02) Performed dist-upgrade<br>
+03) Installed a few packages (aptitude, debfoster, popularity-contest)<br>
+04) Rebooted (reboot took unusually long)<br>
+05) Booted CrunchBang (on sda1), dropped to terminal, ran sudo update-grub<br>
+06) Reboot<br>
+07) Chose first entry for antiX (non inti-3) from grub menu<br>
+08) Boot sequence hangs<br>
+09) Hard shutdown (power switch)<br>
+10) Reboot<br>
+11) Chose second entry for antiX (inti-3) from grub menu<br>
+12) Boot sequence hangs<br>
+<br>
+inxi output (under CrunchBang):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Machine:   System: ASUSTeK product: ET2321I v: 0606
+           Mobo: ASUSTeK model: ET2321I v: Rev 1.xx
+           Bios: American Megatrends v: 0606 date: 05/16/2014
+CPU:       Dual core Intel Core i7-4500U (-HT-MCP-) cache: 4096 KB 
+           clock speeds: max: 3000 MHz 1: 2094 MHz 2: 1236 MHz 3: 2174 MHz
+           4: 1527 MHz
+Graphics:  Card-1: Intel Haswell-ULT Integrated Graphics Controller
+           Card-2: NVIDIA Device 1292
+           Display Server: X.Org 1.12.4 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1920x1080@60.0hz
+           GLX Renderer: N/A GLX Version: N/A
+Audio:     Card-1 Intel Lynx Point-LP HD Audio Controller
+           driver: snd_hda_intel
+           Card-2 Intel Device 0a0c driver: snd_hda_intel
+           Sound: Advanced Linux Sound Architecture v: k3.16.0-0.bpo.4-amd64
+Network:   Card-1: Realtek RTL8111/8168B PCI Express Gigabit Ethernet controller
+           driver: r8169
+           IF: eth0 state: up speed: 1000 Mbps duplex: full mac: &lt;filter&gt;
+           Card-2: Broadcom Device 43b1
+           IF: N/A state: N/A speed: N/A duplex: N/A mac: N/A
+Drives:    HDD Total Size: 1000.2GB (30.1% used)
+           ID-1: /dev/sda model: TOSHIBA_DT01ACA1 size: 1000.2GB
+</code></pre></div>
+Snippet from boot/grub/grub.cfg under CrunchBang:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>### BEGIN etc/grub.d/10_linux ###
+menuentry 'CrunchBang GNU/Linux, with Linux 3.16.0-0.bpo.4-amd64' --class crunchbang --class gnu-linux --class gnu --class os {
+    load_video
+    insmod gzio
+    insmod part_msdos
+    insmod ext2
+    set root='(hd0,msdos1)'
+    search --no-floppy --fs-uuid --set=root [UUID redacted]
+    echo    'Loading Linux 3.16.0-0.bpo.4-amd64 ...'
+    linux    boot/vmlinuz-3.16.0-0.bpo.4-amd64 root=UUID=[redacted] ro  quiet
+    echo    'Loading initial ramdisk ...'
+    initrd    boot/initrd.img-3.16.0-0.bpo.4-amd64
+}
+menuentry 'CrunchBang GNU/Linux, with Linux 3.16.0-0.bpo.4-amd64 (recovery mode)' --class crunchbang --class gnu-linux --class gnu --class os {
+    load_video
+    insmod gzio
+    insmod part_msdos
+    insmod ext2
+    set root='(hd0,msdos1)'
+    search --no-floppy --fs-uuid --set=root [UUID redacted]
+    echo    'Loading Linux 3.16.0-0.bpo.4-amd64 ...'
+    linux    boot/vmlinuz-3.16.0-0.bpo.4-amd64 root=UUID=[redacted]
+    echo    'Loading initial ramdisk ...'
+    initrd    boot/initrd.img-3.16.0-0.bpo.4-amd64
+}
+menuentry 'CrunchBang GNU/Linux, with Linux 3.2.0-4-amd64' --class crunchbang --class gnu-linux --class gnu --class os {
+    load_video
+    insmod gzio
+    insmod part_msdos
+    insmod ext2
+    set root='(hd0,msdos1)'
+    search --no-floppy --fs-uuid --set=root [redacted]
+    echo    'Loading Linux 3.2.0-4-amd64 ...'
+    linux    boot/vmlinuz-3.2.0-4-amd64 root=UUID=[redacted] ro  quiet
+    echo    'Loading initial ramdisk ...'
+    initrd    boot/initrd.img-3.2.0-4-amd64
+}
+menuentry 'CrunchBang GNU/Linux, with Linux 3.2.0-4-amd64 (recovery mode)' --class crunchbang --class gnu-linux --class gnu --class os {
+    load_video
+    insmod gzio
+    insmod part_msdos
+    insmod ext2
+    set root='(hd0,msdos1)'
+    search --no-floppy --fs-uuid --set=root [UUID redacted]
+    echo    'Loading Linux 3.2.0-4-amd64 ...'
+    linux    boot/vmlinuz-3.2.0-4-amd64 root=UUID=[redacted] ro single 
+    echo    'Loading initial ramdisk ...'
+    initrd    boot/initrd.img-3.2.0-4-amd64
+}
+### END etc/grub.d/10_linux ###
+
+### BEGIN etc/grub.d/20_linux_xen ###
+### END etc/grub.d/20_linux_xen ###
+
+### BEGIN etc/grub.d/30_os-prober ###
+menuentry"antiX-13.2, kernel 3.7.10-antix.5-amd64-smp (on dev/sda2)" --class gnu-linux --class gnu --class os {
+    insmod part_msdos
+    insmod ext2
+    set root='(hd0,msdos2)'
+    search --no-floppy --fs-uuid --set=root [UUID redacted]
+    linux boot/vmlinuz-3.7.10-antix.5-amd64-smp root=UUID=[redacted] ro
+    initrd boot/initrd.img-3.7.10-antix.5-amd64-smp
+}
+menuentry"antiX-13.2, kernel 3.7.10-antix.5-amd64-smp (init-3) (on dev/sda2)" --class gnu-linux --class gnu --class os {
+    insmod part_msdos
+    insmod ext2
+    set root='(hd0,msdos2)'
+    search --no-floppy --fs-uuid --set=root [UUID redacted]
+    linux boot/vmlinuz-3.7.10-antix.5-amd64-smp root=UUID=[redacted] ro 3
+    initrd boot/initrd.img-3.7.10-antix.5-amd64-smp
+}
+menuentry"antiX-13.2, kernel memtest86+ (on dev/sda2)" --class gnu-linux --class gnu --class os {
+    insmod part_msdos
+    insmod ext2
+    set root='(hd0,msdos2)'
+    search --no-floppy --fs-uuid --set=root [UUID redacted]
+    linux boot/memtest86+.bin 
+}
+### END etc/grub.d/30_os-prober ###
+</code></pre></div></div>
+<div class="notice">
+Last edited by <b>KrunchTime</b> on 06 Mar 2015, 13:39, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39838" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39838">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39838">
+
+<time datetime="2015-03-03T14:10">posted: 2015-03-03 &nbsp; 14:10</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39838" title="permalink">#2</a></span>
+
+<div class="content">Are you hanging on the kernel 3.19 like you mentioned in your other thread or is the kernel stock.<br>
+What kernel are you booting?<br>
+<br>
+/boot/grub/menu.lst from AntiX would be more useful in this thread than crunchbangs grub 2 stuff. Since crunchbang grub is working and passing off to AntiX legacy grub. Where the hangup occurs.<br>
+<br>
+Mixing aptitude and apt in AntiX is just looking for trouble IMO. OK once. But not as a permanent thing.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39839" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39839">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39839">
+
+<time datetime="2015-03-03T14:12">posted: 2015-03-03 &nbsp; 14:12</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39839" title="permalink">#3</a></span>
+
+<div class="content">@roky- actually, I don't think Krunchtime is using antix's grub at all. He is booting directly from crunchbang's grub2. <br>
+<br>
+***edit*** we do need to know which kernel though.<br>
+<br>
+I think part of the clue is the dist-upgrade. i assume the boot worked fine before the dist-upgrade.<br>
+<br>
+does the boot ever complete? does it freeze up around"populating udev" or some message like that?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39840" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39840">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">rokytnji</a>  </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39840">
+
+<time datetime="2015-03-03T14:16">posted: 2015-03-03 &nbsp; 14:16</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39840" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div>@roky- actually, I don't think Krunchtime is using antix's grub at all. He is booting directly from crunchbang's grub2.
+</div></blockquote>
+OK. Easy to get confused because chainloading and install AntiX grub to / and kernel 3.19 was mentioned in another thread pointing to here.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39841" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39841">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39841">
+
+<time datetime="2015-03-03T17:02">posted: 2015-03-03 &nbsp; 17:02</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39841" title="permalink">#5</a></span>
+
+<div class="content"><blockquote class="uncited"><div>antiX-13.2, kernel 3.7.10-antix.5-amd64-smp</div></blockquote>
+That's what's in his grub config......<br>
+If I remember, wasn't there a problem with nvidia driver somewhere in 13.2(?).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39842" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39842">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39842">
+
+<time datetime="2015-03-03T18:26">posted: 2015-03-03 &nbsp; 18:26</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39842" title="permalink">#6</a></span>
+
+<div class="content">What's the last thing that happens before the boot hangs? If we know when it it hanging then we have a better shot at fixing it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39843" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39843">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span>  <a href="#" class="username">male</a> </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39843">
+
+<time datetime="2015-03-03T19:47">posted: 2015-03-03 &nbsp; 19:47</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39843" title="permalink">#7</a></span>
+
+<div class="content">Correct would have been:<br>
+<br>
+01) Fresh install of antiX 13-2 tracking Testing repo on sda2.<br>
+05) Booted CrunchBang (on sda1), dropped to terminal, ran sudo update-grub<br>
+06) Reboot &gt; antiX 13.2 <strong>(!)</strong><br>
+02) Performed dist-upgrade <strong>(!!)</strong><br>
+03) Installed a few packages (aptitude, debfoster, popularity-contest)<br>
+<br>
+In addition, the main bootloader is"very old"
+<blockquote class="uncited"><div>Grub (v1.99) for CrunchBang is in the MBR and grub for antiX is in antiX root.</div></blockquote>
+How old is os-prober?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39848" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39848">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39848">
+
+<time datetime="2015-03-04T09:24">posted: 2015-03-04 &nbsp; 09:24</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39848" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite>Correct would have been:<br>
+<br>
+01) Fresh install of antiX 13-2 tracking Testing repo on sda2.<br>
+05) Booted CrunchBang (on sda1), dropped to terminal, ran sudo update-grub<br>
+06) Reboot &gt; antiX 13.2 <strong>(!)</strong><br>
+02) Performed dist-upgrade <strong>(!!)</strong><br>
+03) Installed a few packages (aptitude, debfoster, popularity-contest)<br>
+<br>
+In addition, the main bootloader is"very old"
+<blockquote class="uncited"><div>Grub (v1.99) for CrunchBang is in the MBR and grub for antiX is in antiX root.</div></blockquote>
+How old is os-prober?</div></blockquote>
+My apologies; you're correct. I did perform the <em>sudo update-grub</em> under CrunchBang before rebooting into antiX to perform the dist-upgrade. That's what happens when you stay up all night playing with Linux. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Grub v1.99 may be old, but it works and it's not complicated. I've dual booted CrunchBang and antiX (tracking testing) on two older laptops without any main issues.<br>
+<br>
+os-prober is v1.58.<br>
+<br>
+For the others, the kernel is 3.7.10 as shown in the snippet from grub.cfg.<br>
+<br>
+@roky: Why is it not a good idea to mix use of apt and aptitude under antiX, or are you referring to antiX tracking Testing? In general, I prefer aptitude, but if Testing is like Sid/Unstable, I have no qualms about using apt for dist-upgrades.<br>
+<br>
+@fatmac: There are no NVidia drivers installed.<br>
+<br>
+@BitJam: The boot hangs at different points, so I didn't keep track. I can try again if you think it would be helpful. Are there any log contents that might be useful for troubleshooting? I am able to access the antiX partition from my CrunchBang partition.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39851" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39851">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39851">
+
+<time datetime="2015-03-04T13:37">posted: 2015-03-04 &nbsp; 13:37</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39851" title="permalink">#9</a></span>
+
+<div class="content">One thing I HAVE learned about having multiple distros on a HD is to do your update-grub on each <strong>extended</strong> partition <span style="font-size: 150%; line-height: normal"><strong>before</strong></span> doing the update-grub on the main partition. [All of the distros I have been working with do use Synaptic (although there are a few where I stay in the terminal) which tends to do an automatic update-grub.] I too have fought with hanging at various spots on boot up, and found quite by accident that if I do the update-grub on the partition I am working in, and THEN at the main partition do an update-grub the hang would go away.<br>
+<br>
+Right now I have 16 partitions on my HD with MX-14 as my main and antix on the next four (full, experimental, &amp; custom) PLUS pure Debian (which I am trying to do what I want with) and a ew smaller distros of varied origin.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39852" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39852">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39852">
+
+<time datetime="2015-03-04T13:51">posted: 2015-03-04 &nbsp; 13:51</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39852" title="permalink">#10</a></span>
+
+<div class="content"><blockquote class="uncited"><div>@roky: Why is it not a good idea to mix use of apt and aptitude under antiX, or are you referring to antiX tracking Testing? In general, I prefer aptitude, but if Testing is like Sid/Unstable, I have no qualms about using apt for dist-upgrades.</div></blockquote>
+Personal experience over the years and <br>
+<blockquote class="uncited"><div>The difference is aptitude will by default remove packages that were automatically installed and apt-get does not.
+</div></blockquote>
+And aptitude dependency resolver is not as robust as apt-gets.<br>
+Heck. I have a hard enough answering problems here with just using<br>
+apt-get. Using both just complicates things more. Use one or the other<br>
+and stick with that..<br>
+But not both together. <br>
+<br>
+You asked. I answered. Just my opinion. Do what you wish.<br>
+It's your machine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39865" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39865">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">male</a> </span> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39865">
+
+<time datetime="2015-03-05T09:38">posted: 2015-03-05 &nbsp; 09:38</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39865" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite>How old is os-prober?<blockquote><div><cite>KrunchTime wrote:</cite>os-prober is v1.58.</div></blockquote></div></blockquote>
+I am not familiar with the package management CrunchBang.<br>
+<br>
+If this system your main boot loader is then ...<br>
+<br>
+os-prober is currently in v1.65 <br>
+grub2 in v2.02 ~ beta2-20<br>
+<br>
+os-prober had a lot of mistakes</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39874" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39874">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39874">
+
+<time datetime="2015-03-06T06:57">posted: 2015-03-06 &nbsp; 06:57</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39874" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>jdmeaux1952 wrote:</cite>One thing I HAVE learned about having multiple distros on a HD is to do your update-grub on each <strong>extended</strong> partition <span style="font-size: 150%; line-height: normal"><strong>before</strong></span> doing the update-grub on the main partition. [All of the distros I have been working with do use Synaptic (although there are a few where I stay in the terminal) which tends to do an automatic update-grub.] I too have fought with hanging at various spots on boot up, and found quite by accident that if I do the update-grub on the partition I am working in, and THEN at the main partition do an update-grub the hang would go away.</div></blockquote>
+Interesting...I thought that any new package install under an extended partition requiring a grub update automatically triggered the update. I've never had issues in the past just performing an update-grub only on the main partition. I guess it doesn't hurt to do it. So how did you get around the boot hang?<br>
+<br>
+@rokytnji: I was using both because aptitude doesn't seem to remove all related packages when removing packages that come with an installed Linux distro. I discovered that apt-get will not remove related packages, but will tell you that such packages are no longer needed/required. I have read posts in other forums where users say it doesn't matter if you mix them as they use the same database. I did learn from the Siduction forums that it is better to use apt-get for Sid/Unstable because aptitude tries to be too smart sometimes and that can get you in trouble under Sid/Unstable.<br>
+<br>
+@male: Package management under CrunchBang is the same as antiX as they are both based on Debian; apt, aptitude, dpkg, or synaptic. My main bootloader is under CrunchBang and is grub v1.99 and comes from the CrunchBang repo, so I guess Phil Newborough customized a version of grub for the distro.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39881" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39881">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39881">
+
+<time datetime="2015-03-06T10:01">posted: 2015-03-06 &nbsp; 10:01</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39881" title="permalink">#13</a></span>
+
+
+<div class="content">I decided to do a little bit of research on mixing apt and aptitude. The following links were informative and enlightening.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forums.debian.net/viewtopic.php?f=10&amp;t=55295"<br>linktext was:"http://forums.debian.net/viewtopic.php?f=10&amp;t=55295"<br>====================================<br>
+<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forums.debian.net/viewtopic.php?f=20&amp;t=55286"<br>linktext was:"http://forums.debian.net/viewtopic.php?f=20&amp;t=55286"<br>====================================<br>
+<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://raphaelhertzog.com/2011/06/20/apt-get-aptitude-%E2%80%A6-pick-the-right-debian-package-manager-for-you/"<br>linktext was:"http://raphaelhertzog.com/2011/06/20/ap ... r-for-you/"<br>====================================<br>
+<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forums.solydxk.com/viewtopic.php?f=7&amp;t=3657"<br>linktext was:"http://forums.solydxk.com/viewtopic.php?f=7&amp;t=3657"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39892" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39892">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39892">
+
+<time datetime="2015-03-06T13:44">posted: 2015-03-06 &nbsp; 13:44</time>
+<span class="permalink"><a href="./solved-boot-hang-after-fresh-install-and-dist-upgr-t5548.html#p39892" title="permalink">#14</a></span>
+
+<div class="content">@jdmeaux1952: You were right. I re-installed antiX yet again about an hour ago.<br>
+<br>
+01) Ran update-grub under antiX after the install<br>
+02) Rebooted into CrunchBang and ran update-grub<br>
+03) Rebooted into antiX, ran dist-upgrade, installed 3.18.6 image and header, ran update-grub.<br>
+04) Rebooted into CrunchBang and ran update-grub<br>
+05) Rebooted into antiX successfully with no hangs<br>
+<br>
+Interesting...I've never had a problem in the past NOT running update-grub under additional distros in a multi-boot environment.<br>
+<br>
+Edit 01: I just thought of something. There is something I haven't done yet on the antiX install that I've done in the past. I modify fstab to auto-mount a shared data partition. IMO that shouldn't cause an issue; never has under any other Linux installs I've done. I'm going to modify fstab on antiX and see what happens.<br>
+<br>
+Edit 02: Still booting fine after setting up the shared partition.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

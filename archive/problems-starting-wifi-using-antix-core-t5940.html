@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Problems starting wifi using antiX core - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problems-starting-wifi-using-antix-core-t5940.html">Problems starting wifi using antiX core</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43160" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43160">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 8</span></div>
+
+</div>
+</div>
+<span class="username">dave.clements</span>
+</dt>
+<dd class="profile-joined">Joined: 15 May 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43160">
+<time datetime="2015-09-17T04:19">posted: 2015-09-17 &nbsp; 04:19</time>
+<span class="permalink"><a href="./problems-starting-wifi-using-antix-core-t5940.html#p43160" title="permalink">#1</a></span>
+
+<div class="content">Hello, I'm a long time Unix / Linux user,but new to antiX. Trying to install antiX 15 core on a Lenovo T61, this laptop has a Intel WiFi 4965AGN, and during boot at the"Waiting for /dev to be fully populated" it fails with"Missing Free Firmware (non-Free Firmware loading is disabled".<br>
+<br>
+The relevant part of dmesg output is:<br>
+[ 1153.938627] cfg80211: Calling CRDA to update world regulatory domain<br>
+[ 1153.948092] iwl4965: Intel(R) Wireless WiFi 4965 driver for Linux, in-tree:<br>
+[ 1153.948095] iwl4965: Copyright(c) 2003-2011 Intel Corporation<br>
+[ 1153.948175] iwl4965 0000:03:00.0: can't disable ASPM; OS doesn't have ASPM control<br>
+[ 1153.948300] iwl4965 0000:03:00.0: Detected Intel(R) Wireless WiFi Link 4965AGN, REV=0x4<br>
+[ 1153.987234] iwl4965 0000:03:00.0: device EEPROM VER=0x36, CALIB=0x5<br>
+[ 1153.987249] iwl4965 0000:03:00.0: Tunable channels: 11 802.11bg, 13 802.11a channels<br>
+[ 1153.987388] 0000:03:00.0: Missing Free firmware (non-Free firmware loading is disabled)<br>
+[ 1153.987462] iwl4965 0000:03:00.0: Direct firmware load for /*(DEBLOBBED)*/ failed with error -2<br>
+[ 1153.987592] iwl4965: probe of 0000:03:00.0 failed with error -22<br>
+<br>
+The error -2 on the penultimate line suggests the file iwl4965.ko is missing but that is not true<br>
+<br>
+I have searched through syslog, messages, kern.log, etc. to see if I can identify what is missing but no luck there and by playing with modprobe i am convinced iwl4965.ko is the problem file. iwlegacy, cfg80211 and mac80211 seem ok.<br>
+<br>
+I have a usb connected (ralink) wifi device and the system also fails to activate that device.<br>
+<br>
+When I run ceni it only finds eth0 <br>
+<br>
+antiX 15 base and full activate the devices as wlan0 and wlan1, I can see both in ceni and can connect both to my wifi / router.<br>
+<br>
+The modules loaded in each case, core,base and full are identical is size, use counts etc.<br>
+<br>
+I copied /lib/firmaware from full to core, to see if anything is missing, and again core fails to activate either wifi device.<br>
+<br>
+I tried installing antiX 13 core and it also fails to activate either wifi device but"full" is ok.<br>
+<br>
+Does anyone have any idea what I can try next.<br>
+<br>
+inxi -Fxz output<br>
+System: Host: antix-core Kernel: <br>
+4.0.5-gnu-antix.2-amd64-smp x86_64 (64 bit gcc: 4.9.2)<br>
+Console: tty 1 <br>
+Distro: antiX-15-V_x64-core-libre Killah P 30 June 2015 <br>
+Machine: System: LENOVO product: 7658CTO v: ThinkPad T61 <br>
+Mobo: LENOVO model: 7658CTO Bios: LENOVO v: 7LETB7WW (2.17 ) date: 04/25/2008 <br>
+CPU: Dual core Intel Core2 Duo T8100 (-MCP-) cache: 3072 KB <br>
+flags: (lm nx sse sse2 sse3 sse4_1 ssse3 vmx) bmips: 8382 <br>
+clock speeds: max: 2101 MHz 1: 1200 MHz 2: 1600 MHz <br>
+Graphics: Card: Intel Mobile GM965/GL960 Integrated Graphics Controller (primary) bus-ID: 00:02.0 <br>
+Display Server: N/A driver: N/A tty size: 160x50 Advanced Data: N/A for root out of X <br>
+Audio: Card Intel 82801H (ICH8 Family) HD Audio Controller driver: snd_hda_intel bus-ID: 00:1b.0 <br>
+Sound: Advanced Linux Sound Architecture v: k4.0.5-gnu-antix.2-amd64-smp <br>
+Network: Card-1: Intel 82566MM Gigabit Network Connection driver: e1000e v: 2.3.2-k<br>
+port: 1840 bus-ID: 00:19.0 IF: eth0 state: down mac: &lt;filter&gt; <br>
+Card-2: Intel PRO/Wireless 4965 AG or AGN [Kedron] Network Connection bus-ID: 03:00.0 <br>
+IF: N/A state: N/A mac: N/A <br>
+Drives: HDD Total Size: 502.2GB (1.4% used) ID-1: /dev/sda model: WDC_WD5000BUCT size: 500.1GB <br>
+ID-2: USB /dev/sdb model: USB_DRIVE size: 2.1GB <br>
+Partition: ID-1: / size: 38G used: 1.1G (3%) fs: ext4 dev: /dev/sda7 <br>
+ID-2: swap-1 size: 4.29GB used: 0.00GB (0%) fs: swap dev: /dev/sda2 <br>
+Sensors: None detected - is lm-sensors installed and configured? <br>
+Info: Processes: 89 Uptime: 2:04 Memory: 72.5/1978.8MB Init: SysVinit runlevel: 5 Gcc sys: N/A <br>
+Client: Shell (bash 4.3.421) inxi: 2.2.25</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43164" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43164">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43164">
+
+<time datetime="2015-09-17T10:42">posted: 2015-09-17 &nbsp; 10:42</time>
+<span class="permalink"><a href="./problems-starting-wifi-using-antix-core-t5940.html#p43164" title="permalink">#2</a></span>
+
+<div class="content">the kernels with"gnu" in the title will not work with proprietary firmware, which intel and ralink both possess. core comes with a gnu kernel, so even if the firmware is present, it won't use it.<br>
+<br>
+this is the key line from your post:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[ 1153.987388] 0000:03:00.0: Missing Free firmware (non-Free firmware loading is disabled)
+</code></pre></div>
+so you need a new kernel. If you like, you can check out my video series on antiX core (is 13, but except for the grub stuff most things will be the same), which includes searching for and finding a new kernel. Just pick a non-gnu 4.05 amd64 kernel.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.youtube.com/playlist?list=PLTRkAa6x1htX4mWfyIK9q3dFngWfb5b1M"<br>linktext was:"https://www.youtube.com/playlist?list=P ... FngWfb5b1M"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43173" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43173">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 8</span></div>
+
+</div>
+</div>
+<span class="username">dave.clements</span>
+</dt>
+<dd class="profile-joined">Joined: 15 May 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43173">
+
+<time datetime="2015-09-17T13:53">posted: 2015-09-17 &nbsp; 13:53</time>
+<span class="permalink"><a href="./problems-starting-wifi-using-antix-core-t5940.html#p43173" title="permalink">#3</a></span>
+
+<div class="content">I have looked at that line for a long time, sure it was telling me what was wrong, a fresh pair of eyes is always useful. Thanks very much for your help. D.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

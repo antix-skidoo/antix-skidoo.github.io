@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>convert a Legacy install to UEFI - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./convert-a-legacy-install-to-uefi-t6660.html">convert a Legacy install to UEFI</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_48839" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48839">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48839">
+<time datetime="2016-10-30T16:08">posted: 2016-10-30 &nbsp; 16:08</time>
+<span class="permalink"><a href="./convert-a-legacy-install-to-uefi-t6660.html#p48839" title="permalink">#1</a></span>
+
+<div class="content">The initial installation needs to be performed to a GPT disk to allow convertion to UEFI. The GPT disk needs to have an ESP partition formatted to fat32 and labelled as a EF00 type. I installed my antix to dual-boot with windows and the ESP partition was already existing and used by Windows so I reused the ESP for antix.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048         1026047   500.0 MiB   EF00  EFI system partition</code></pre></div>
+I installed the antix-16-core-libre dist to a partition created from unallocated space after shrinking the Windows OS partition. The last step of the installer was to select"Install Grub to the root partition" of my antix partition. Do not choose to install to the MBR because this is a GPT disk. The easiest way would be to fix the antix partition before rebooting so everything will start in UEFI mode. The messy details of rebooting without a bootloader are left to the ingenuity of the reader. The first step after the installer is finished with the Grub is to edit the fstab to mount the ESP partition to the /boot/efi directory. <br>
+EDIT: First change from the live installer to the installation partition as shown in the next post.<br>
+Then edit the fstab and change the UUID to match your ESP.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>UUID=1234-WXYZ  /boot/efi  vfat  umask=0077  0 0</code></pre></div>
+The next step was to create the /boot/efi directory in my antix partition as a mount point. The subsequent step was to create the antix directory in the EFI directory after mounting the ESP partition to the /boot/efi directory.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir /boot/efi
+mount /boot/efi
+mkdir /boot/efi/EFI/antix</code></pre></div>
+There were some packages missing from the core-libre installation needed to convert to the UEFI:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Start-Date: 2016-10-29  21:28:17
+Commandline: apt-get install efibootmgr
+Install: libefivar0:amd64 (0.15-3, automatic), efibootmgr:amd64 (0.11.0-3)
+End-Date: 2016-10-29  21:28:24
+
+Start-Date: 2016-10-29  21:29:46
+Commandline: apt-get install grub-efi
+Install: grub-efi-amd64-bin:amd64 (2.02~beta2-22+deb8u1, automatic), grub-efi-amd64:amd64 (2.02~beta2-22+deb8u1, automatic), grub-efi:amd64 (2.02~beta2-22+deb8u1)
+Remove: grub-pc:amd64 (2.02~beta2-22+deb8u1)
+End-Date: 2016-10-29  21:29:51
+</code></pre></div>
+Next is to create the bootloader in the ESP directory with this command:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=antix</code></pre></div>
+This is the resulting UEFI bootloader: /boot/efi/EFI/antix/grubx64.efi<br>
+<br>
+An easy way to keep the installation working is to put the above grub-install command into a script like /usr/local/sbin/update-efi for example. Then running the 'update-efi' with every new kernel will tell the UEFI what to do.<br>
+<br>
+When finished, I rebooted into the UEFI and changed the mode from Legacy to boot in UEFI. There is a possibility to do everything in UEFI mode if starting with a UEFI USB stick made with live-usb-maker if fixing the partition before rebooting. I am curious if anybody can fix everything before the first reboot. The steps shown here would be the same either way.</div>
+<div class="notice">
+Last edited by <b>hobbyist7890</b> on 30 Oct 2016, 18:45, edited 3 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48841" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48841">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48841">
+
+<time datetime="2016-10-30T17:11">posted: 2016-10-30 &nbsp; 17:11</time>
+<span class="permalink"><a href="./convert-a-legacy-install-to-uefi-t6660.html#p48841" title="permalink">#2</a></span>
+
+<div class="content">A big problem is the installer unmounts the antix install root partition when finished with the Grub and is ready to reboot. The root partition has to be remounted and then chroot to finish the installation. The way to do the chroot is at least these commands depending on the networking:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir /mnt/mynewroot
+mount /dev/sdXY /mnt/mynewroot
+mount -o bind /dev /mnt/mynewroot/dev
+mount -o bind /sys /mnt/mynewroot/sys
+mount -o bind /proc /mnt/mynewroot/proc
+mount -o bind /tmp /mnt/mynewroot/tmp
+mount -o bind \etc/resolv.conf /mnt/mynewroot\etc/resolv.conf
+chroot /mnt/mynewroot /bin/bash
+</code></pre></div>
+There are probably some more steps here except my install went the hard way so this is now speculation. This is much easier with an ethernet connection.<br>
+Be sure to change the back-slashes above to the forward slashes needed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49399" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49399">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49399">
+
+<time datetime="2016-12-04T19:15">posted: 2016-12-04 &nbsp; 19:15</time>
+<span class="permalink"><a href="./convert-a-legacy-install-to-uefi-t6660.html#p49399" title="permalink">#3</a></span>
+
+<div class="content">I just tried the SuperGrub2 disk and that gives an easy way to boot a kernel without a bootloader installed. This worked fine on both UEFI and Legacy booting. I would recommend the SuperGrub2 instead of the chroot shown above and allows for easier converting to UEFI booting.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.supergrubdisk.org/super-grub2-disk/"<br>linktext was:"http://www.supergrubdisk.org/super-grub2-disk/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

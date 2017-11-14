@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Start antiX with grub4dos - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./start-antix-with-grub4dos-t3175.html">Start antiX with grub4dos</a></div>
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_20860" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20860">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">user4</span>
+</dt>
+<dd class="profile-joined">Joined: 26 May 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20860">
+<time datetime="2011-05-26T03:46">posted: 2011-05-26 &nbsp; 03:46</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20860" title="permalink">#1</a></span>
+
+<div class="content">hi, i'm a nOOb and here is my PC config: Celeron 1.7/512MB and i've been using SimplyMEPIS for 2 years as dual boot with winxp using grub4dos. (renaming grldr to ntldr &amp; ntldr to ntldrxp as given 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://reboot.pro/2224/"<br>linktext was:"http://reboot.pro/2224/"<br>====================================<br>
+)<br>
+<br>
+SimplyMEPIS 11 doesn't work on my PC becuz of the low RAM/512/, I guess and decided to move on to antiX. There were no problems in downloading the M-11.686 iso or burning CD and booting liveCD. No problems in installing antiX from there too.<br>
+<br>
+But after installation, cannot boot into antiX and fails saying 'cannot start tty'. can anyone please point out the error in my menu.lst file?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># SimplyMEPIS/antiX has been installed in 2nd partition of Pri Master HDD (hda2 or hd0,1)
+# SimplyMEPIS/antiX /root folder is hda2 &amp; /home folder is hda3 (this home folder might not exist seperate)
+# WinXP installed in C: drive - 1st partition of Pri Master HDD (hda1 or hd0,0)
+# Uses the utility 'grub4dos' under DOS/Win or Linux
+# Default setting number starts at '0'; antiX/MEPIS/KUBUNTU = 0, Win = '1' &amp; MEMTEST = '2'
+
+timeout 8
+default 1
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+
+title antiX at hda2
+root (hd0,1)
+kernel /boot/vmlinuz root=/dev/hda2
+initrd /boot/initrd.img
+boot
+
+# title MEPIS at hda2
+# root (hd0,1)
+# kernel /boot/vmlinuz root=/dev/hda2 nomce autoexec=xconf;telinit~4 
+# initrd /boot/initrd.img
+# boot
+
+# title KUBUNTU at hda2
+# root (hd0,1)
+# kernel /boot/vmlinuz root=/dev/hda2 ro quiet splash 
+# initrd /boot/initrd.img
+# boot
+
+title Microsoft Windows XP Pro at hda1
+rootnoverify (hd0,0)
+find --set-root /ntldrxp
+chainloader /ntldrxp
+
+title MEMTEST
+root (hd0,1)
+kernel /boot/memtest86+.bin</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20874" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20874">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 128</span></div>
+
+</div>
+</div>
+<span class="username">Hannes Worst</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20874">
+
+<time datetime="2011-05-26T14:22">posted: 2011-05-26 &nbsp; 14:22</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20874" title="permalink">#2</a></span>
+
+<div class="content">Which version of AntiX are you using? In the Grub menu.lst at my AntiX-M11 I had to name my partition as sda, instead of hda. And I had to specify the kernel-entry: vmlinuz-2.6.36-1-mepis-smp. That was also the case with the initrd.img.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20876" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20876">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20876">
+
+<time datetime="2011-05-26T14:32">posted: 2011-05-26 &nbsp; 14:32</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20876" title="permalink">#3</a></span>
+
+<div class="content">Add this to the kernel line to look like:<br>
+<br>
+kernel /boot/vmlinuz root=/dev/sda2 quiet nouveau.modeset=0 vga=791(optional)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20879" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20879">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">user4</span>
+</dt>
+<dd class="profile-joined">Joined: 26 May 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20879">
+
+<time datetime="2011-05-26T17:50">posted: 2011-05-26 &nbsp; 17:50</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20879" title="permalink">#4</a></span>
+
+<div class="content">@ hannes worst &gt; antiX M-11 686 - switched over when mepis 11 couldn't boot<br>
+@ anticapitalista &gt; thanx mate, i'll try it 2mrw. here in IND it is late night. maybe it is to be sda instead of hda because i noticed error msg something like 'cannot locate dev /hda' whatever i'll try it 2mrw and get back.<br>
+going off to sleep. GN</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20881" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20881">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20881">
+
+<time datetime="2011-05-26T21:33">posted: 2011-05-26 &nbsp; 21:33</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20881" title="permalink">#5</a></span>
+
+<div class="content">Yeah, The new kernel 2.6.36 in AntiX 11uses /dev/sd instead of /dev/hd.<br>
+<br>
+Edit: I have posted my AntiX 11 grub4dos menu.lst somewhere on this forum .I am not on that Desktop right now or I'd post it. <br>
+<br>
+Maybe you can find it inn search on forum.<br>
+<br>
+Edit: Found my post<br>
+<br>
+post20292.html?hilit=grub4dos#p20292</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20902" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20902">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">user4</span>
+</dt>
+<dd class="profile-joined">Joined: 26 May 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20902">
+
+<time datetime="2011-05-28T06:39">posted: 2011-05-28 &nbsp; 06:39</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20902" title="permalink">#6</a></span>
+
+<div class="content">hi,<br>
+I put in the kernel line, including the 'vga=791' and antiX dropped into 'option not supported, select another option' - just like Mepis and I selected option 9 and antiX started to boot.<br>
+<br>
+the change to /sda2 instead of /hda2 worked, sort of, ONCE. the antiX booted and displayed the login screen. After I logged in, the screen went blank/black. waited for 5 mins. and when nothing seemed to happen - no HDD whirring also - pressed Ctrl+Alt+F1 and it dropped into the console (shell? / bash?) and started blinking with antixlogin:<br>
+<br>
+On screen I could see that antiX msgs saying 'updating menu.lst at /root/grub/' and such like.<br>
+<br>
+Now antiX is not booting at all - error message saying 'error 15: Cannot find File'<br>
+<br>
+any pointers? thanx</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20903" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20903">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 128</span></div>
+
+</div>
+</div>
+<span class="username">Hannes Worst</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20903">
+
+<time datetime="2011-05-28T07:05">posted: 2011-05-28 &nbsp; 07:05</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20903" title="permalink">#7</a></span>
+
+<div class="content">As I said, you might have to specify the kernel and the initrd.img. Also you could try to state vga=normal instead of vga=791. If you could mount your partition, maybe with the live-cd, you could try to find out the correct kernel-entries in your /boot/-directory on sda2.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20904" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20904">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">user4</span>
+</dt>
+<dd class="profile-joined">Joined: 26 May 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20904">
+
+<time datetime="2011-05-28T07:38">posted: 2011-05-28 &nbsp; 07:38</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20904" title="permalink">#8</a></span>
+
+<div class="content">@ rokytnji - got that menu.lst by search, but thanx for the edit<br>
+@ Hannes Worst - thanx, will try specifying kernel and initrd - means i'll have to boot livecd again to find them out <span class="emoticon"> __{{emoticon}}__ </span><br>
+BTW should I also get the UUID, once i'm on liveCD &amp; if so how to I get them? <br>
+should i use the command 'blkid' in terminal?<br>
+and from terminal, can i export or copy/paste into say 'menu.lst' file in the windows c: partition?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20907" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20907">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 128</span></div>
+
+</div>
+</div>
+<span class="username">Hannes Worst</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20907">
+
+<time datetime="2011-05-28T10:09">posted: 2011-05-28 &nbsp; 10:09</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20907" title="permalink">#9</a></span>
+
+
+<div class="content">This is how I mount partitions with the live-cd<br>
+As root I do:<br>
+# mkdir /mnt/AntiX<br>
+# mount -t /dev/sda2 /mnt/AntiX<br>
+<br>
+Then with pcmanfm or rox I would search through the boot-directory of /mnt/AntiX for the exact name of vmlinuz and intrd.img. I have no uuid's in my menu.lst, just /dev/sda2 worked for me.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20910" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20910">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 128</span></div>
+
+</div>
+</div>
+<span class="username">Hannes Worst</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20910">
+
+<time datetime="2011-05-28T12:53">posted: 2011-05-28 &nbsp; 12:53</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20910" title="permalink">#10</a></span>
+
+<div class="content">Indeed, you can find the uuid's by using blkid in the terminal. I've tried in Antix and it works for me. Or with the command"ls /dev/disk/by-uuid"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20912" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20912">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20912">
+
+<time datetime="2011-05-28T15:48">posted: 2011-05-28 &nbsp; 15:48</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20912" title="permalink">#11</a></span>
+
+<div class="content">not grub4dos. But here is my menu.lst usig blkid UUID= for finding partition and booting on y Amrel Laptop.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 10
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+gfxmenu /boot/grub/message
+### BEGIN AUTOMAGIC KERNELS LIST
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified
+## by the debian update-grub script except for the default options below
+
+## DO NOT UNCOMMENT THEM, Just edit them to your needs
+
+## ## Start Default Options ##
+## default kernel options
+## default kernel options for automagic boot options
+## If you want special options for specific kernels use kopt_x_y_z
+## where x.y.z is kernel version. Minor versions can be omitted.
+## e.g. kopt=root=/dev/hda1 ro
+##      kopt_2_6_8=root=/dev/hdc1 ro
+##      kopt_2_6_8_2_686=root=/dev/hdc2 ro
+# kopt=root=UUID=8bdcb4fd-4a43-45e9-be6b-dd455f91e802 ro
+# kopt_2_6=root=UUID=8bdcb4fd-4a43-45e9-be6b-dd455f91e802 ro nosplash quiet
+
+## default grub root device
+## e.g. groot=(hd0,0)
+# groot=(hd0,2)
+
+## should update-grub create alternative automagic boot options
+## e.g. alternative=true
+##      alternative=false
+# alternative=true
+
+## should update-grub lock alternative automagic boot options
+## e.g. lockalternative=true
+##      lockalternative=false
+# lockalternative=false
+
+## additional options to use with the default boot option, but not with the
+## alternatives
+## e.g. defoptions=vga=791 resume=/dev/hda5
+# defoptions=
+
+## should update-grub lock old automagic boot options
+## e.g. lockold=false
+##      lockold=true
+# lockold=false
+
+## Xen hypervisor options to use with the default Xen boot option
+# xenhopt=
+
+## Xen Linux kernel options to use with the default Xen boot option
+# xenkopt=console=tty0
+
+## altoption boot targets option
+## multiple altoptions lines are allowed
+## e.g. altoptions=(extra menu suffix) extra boot options
+##      altoptions=(single-user) single
+# altoptions=(init-3) 3
+
+## controls how many kernels should be put into the menu.lst
+## only counts the first occurence of a kernel, not the
+## alternative kernel options
+## e.g. howmany=all
+##      howmany=7
+# howmany=all
+
+## should update-grub create memtest86 boot option
+## e.g. memtest86=true
+##      memtest86=false
+# memtest86=true
+
+## should update-grub adjust the value of the default booted system
+## can be true or false
+# updatedefaultentry=false
+
+## should update-grub add savedefault to the default options
+## can be true or false
+# savedefault=false
+
+## ## End Default Options ##
+
+title        AntiX 8.5 Core i686, kernel 2.6.38-7.dmz.1-liquorix-686
+root        (hd0,2)
+kernel        /boot/vmlinuz-2.6.38-7.dmz.1-liquorix-686 root=UUID=8bdcb4fd-4a43-45e9-be6b-dd455f91e802 ro nosplash quiet 
+initrd        /boot/initrd.img-2.6.38-7.dmz.1-liquorix-686
+
+title        AntiX 8.5 Core i686, kernel 2.6.38-7.dmz.1-liquorix-686 (init-3)
+root        (hd0,2)
+kernel        /boot/vmlinuz-2.6.38-7.dmz.1-liquorix-686 root=UUID=8bdcb4fd-4a43-45e9-be6b-dd455f91e802 ro nosplash quiet 3
+initrd        /boot/initrd.img-2.6.38-7.dmz.1-liquorix-686
+
+title        AntiX 8.5 Core i686, kernel memtest86+
+root        (hd0,2)
+kernel        /boot/memtest86+.bin
+
+### END DEBIAN AUTOMAGIC KERNELS LIST</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20989" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20989">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">user4</span>
+</dt>
+<dd class="profile-joined">Joined: 26 May 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20989">
+
+<time datetime="2011-06-02T10:12">posted: 2011-06-02 &nbsp; 10:12</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20989" title="permalink">#12</a></span>
+
+<div class="content">hi guys,<br>
+thanx for all the help. got the antiX going. in fact, this post on antiX with Iceape. really thanx for everything. Here is what I actually did - formatted the linux partitions - I had earlier installed Mepis 8.5 in 2 parititions. /root in hda2 (5GB) and /home in hda5 (5GB). Combined both the partitions into 10GB partition - formatted as ext3.<br>
+<br>
+[one question where is the partition manager in antiX with ICEWM?]<br>
+<br>
+then booted up with liveCD and installed antix &amp; also noted down the UUID with blkid.<br>
+this is the menu.lst using grub4dos ....<br>
+OOps, cannot locate the winxp disks.<br>
+<br>
+[two question - how do we get to winxp partitions antiX/Icewm? In Mepis we had 'my computer' thingy]<br>
+<br>
+anyway - did not use uuid; here is the relevant part<br>
+<br>
+title AntiX at hda2<br>
+root (hd0,1)<br>
+kernel /boot/vmlinuz-2.6.36-1-mepis-smp root=/dev/sda2 vga=normal<br>
+initrd /boot/initrd-2.6.36-1-mepis-smp<br>
+boot<br>
+<br>
+thanx once again all u guys</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20990" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20990">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20990">
+
+<time datetime="2011-06-02T10:35">posted: 2011-06-02 &nbsp; 10:35</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20990" title="permalink">#13</a></span>
+
+<div class="content">1. partition manager is in antiX control centre -&gt; Disks -&gt; Partition a drive<br>
+<br>
+2. Use rox as root user for now. Open a terminal, type sux then root password, then rox). Longterm you'll probably need to edit /etc/fstab</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20991" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20991">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">user4</span>
+</dt>
+<dd class="profile-joined">Joined: 26 May 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20991">
+
+<time datetime="2011-06-02T10:54">posted: 2011-06-02 &nbsp; 10:54</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20991" title="permalink">#14</a></span>
+
+<div class="content">@anticapitalista - thanx mate -<br>
+1. fingering around got to the partition manger thro control centre<br>
+2. got around the rox window thro control centre too<br>
+also tried out thro terminal like u said above<br>
+but can't get the devices<br>
+<br>
+/etc/fstab has these entries already
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+/dev/sda2 / ext3 defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+# Dynamic entries below
+/dev/sdb1 /mnt/sdb1 ntfs-3g noauto,users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0
+/dev/sda1 /mnt/sda1 vfat noauto,users,gid=users,dmask=002,fmask=113,relatime 0 0
+/dev/sda4 /mnt/sda4 ntfs-3g noauto,users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0
+/dev/sdc1 /mnt/sdc1 ntfs-3g noauto,users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20997" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20997">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20997">
+
+<time datetime="2011-06-05T23:53">posted: 2011-06-05 &nbsp; 23:53</time>
+<span class="permalink"><a href="./start-antix-with-grub4dos-t3175.html#p20997" title="permalink">#15</a></span>
+
+<div class="content">Change this part to <br>
+/dev/sdb1 /mnt/sdb1 ntfs-3g <strong>auto</strong>,users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0<br>
+/dev/sda1 /mnt/sda1 vfat <strong>auto</strong>,users,gid=users,dmask=002,fmask=113,relatime 0 0<br>
+/dev/sda4 /mnt/sda4 ntfs-3g <strong>auto</strong>,users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0<br>
+/dev/sdc1 /mnt/sdc1 ntfs-3g <strong>auto,</strong>users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0<br>
+<br>
+Make sure /mnt has folders <br>
+sda1<br>
+sdb1<br>
+sda4<br>
+sdc1<br>
+<br>
+If not. Just add new folders as root in rox file manager or as root in thunar.<br>
+<br>
+Mine for reference. (I used UUID instead of /dev/sdx)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+UUID=3fe7d362-f455-43a0-9eb6-d60231f24be2 / ext3 defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+# Dynamic entries below
+UUID=1A20A02E20A01335 /mnt/hda1 ntfs-3g auto,users,gid=users,dmask=002,fmask=113,relatime 0 0
+UUID=38d34375-a4c6-4fda-bcc7-736eeb487061 swap swap sw,pri=1 0 0
+UUID=93317189-8b9c-440a-9224-0799fa567f9b /mnt/hda6 ext3 auto,users,exec,relatime 0 0
+UUID=4B5F-B945 /mnt/hda7 vfat auto,users,gid=users,dmask=002,fmask=113,relatime 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/hdc /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0</code></pre></div>
+I left the old hdx folders and old /dev/hdx entries in /ect/fstab out of laziness. They were there because I had the 2.6.32 mepis smp kernel on this laptop when /etc/fstab was made. That is why my /mnt looks different than yours in /etc/fstab.<br>
+<br>
+<br>
+Mototrcycle life has been keeping a bit busy. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>live-persistence on ntfs partition - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./live-persistence-on-ntfs-partition-t3604.html">live-persistence on ntfs partition</a></div>
+<div class="pagination">
+47 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s15.html" role="button">2</a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s30.html" role="button">3</a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23781" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23781">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23781">
+<time datetime="2012-03-06T13:41">posted: 2012-03-06 &nbsp; 13:41</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23781" title="permalink">#1</a></span>
+
+<div class="content">This is not recommended so use at your own risk.<br>
+<br>
+Latest antiX-test2 allows booting from an ntfs partition (windows) with persistence. You need a working grub legacy. The following steps should work.<br>
+<br>
+1. Download the latest antiX-test2.iso (full or base or even core) and run it live from a cd or usb stick.<br>
+Either:<br>
+2. Boot live cd/usb and once at desktop, click run. Type rox /media, check 'Run as root' - ok.<br>
+You will be prompted for your live password which is root<br>
+3. In rox /media click on your windows folder eg /sda1<br>
+4. Open another rox filer as root, but type rox /live/boot-dev<br>
+Copy all of those files to your windows partition.<br>
+Or:<br>
+Use midnight commander to transfer the live files from the iso to your windows partition if you have a running linux.<br>
+<br>
+Now we set up persistence for the windows folder.<br>
+<br>
+5. Menu-&gt;Applications-&gt;Other-&gt;RemasterCC, root password and click on Set up live file system.<br>
+6. Directory MUST be where you copied the files to on your windows partition. eg /media/sda1/antiX<br>
+7. You need a homefs file to save user files in /home and a rootfs file to save admin changes eg new apps.<br>
+8. Once you have added your rootfs and homefs files, persistence will be ready on first boot.<br>
+<br>
+Your /media/sda1/antiX folder should have linuxfs, rootfs, homefs, vmlinuz, initrd.gz, linuxfs.md5, antiX (sym link to linuxfs).<br>
+<br>
+Now we need to set up the working /boot/grub/menu.lst<br>
+The antiX live persistence entry should look like this. Obviously use your own partitions. The examples are for sda1 and sdb2 respectively.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiXl-ntfs-sda1
+root (hd0,0)
+kernel /antiX/vmlinuz quiet noxorg bdev=sda1 vga=791 bdir=antiX antiX=LMXD 
+initrd /antiX/initrd.gz
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiXl-ntfs-sdb2
+root (hd1,1)
+kernel /antiX/vmlinuz quiet noxorg bdev=sdb2 vga=791 bdir=antiX antiX=LMXD 
+initrd /antiX/initrd.gz
+</code></pre></div>
+More information about persistence can be found here:<br>
+<br>
+live-persistence-t3566.html</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23782" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23782">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23782">
+
+<time datetime="2012-03-06T14:07">posted: 2012-03-06 &nbsp; 14:07</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23782" title="permalink">#2</a></span>
+
+<div class="content">Thanks for making this thread. <br>
+<br>
+Jay, this worked very well. I still have to follow <br>
+the description on how to add the homefs and rootfs <br>
+but it booted very well. I never understood the LMXD <br>
+what that stood for but seems to work <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Hopefully I got persistence later. But seems the restricted user <br>
+are not allowed to even look at the drive I booted from but root <br>
+maybe have that permission. I have to look to find out. <br>
+<br>
+Thanks for caring about me. I know I am annoying. Not that I want to though.<br>
+<br>
+oops I should not have run that in terminal now when I run it in Run then <br>
+I saw the root thing. So I try again.<br>
+<br>
+I do something wrong. Have no idea what. I am root. When I ask whoami <br>
+then it says root but it fails to do this <br>
+3. In rox /media click on your windows folder eg /sda1<br>
+<br>
+Nothing happens it say error and a lot of texts. MC does not get me into sda1 or sda2 either<br>
+<br>
+So maybe I have to mount sda2 with root priv. <br>
+<br>
+I trust that it fails due to the sda1 and sda2 are owned by initrd or wmlinuz kernel <br>
+or the demo boot up process. Are there no other way to get to these files? <br>
+Can I reboot into Puppy linux and reach them from there by mounting some <br>
+file in the antiX directory?<br>
+<br>
+I try to copy exactly what it says.<br>
+<blockquote class="uncited"><div>Mounting /media/sda2<br>
+Mount is denied because the NTFS volume is already exclusively opened.<br>
+The volume may be already mounted, or another software may use it which<br>
+could be identified for example by the help of the 'fuser' command.<br>
+Mount failed<br>
+<br>
+Done<br>
+There was one error.
+</div></blockquote>
+So I have to install it on a usb to get hold of these files but that would not help would it?<br>
+<br>
+I would still get this error even then? The homefs and rootfs does not change that permission <br>
+or that the drive is already busy. the drive would still be busy due to being mounted by the <br>
+live Demo user or the boot up process? I am just trying to get how it works. <br>
+<br>
+I had same problem using Crunchbang and other debians. <br>
+<br>
+Edit again. I should try to find my oldest postings about 8.5 <br>
+Did I not get that one to accept to read and write to the HD? <br>
+<br>
+I ahve that notion but I fail to find it now. I caim in one thread that I got Swift to work. <br>
+That is surprising because it is supposed to be like AntiX only with his personal changes. <br>
+<br>
+Could he have made some deeper change to the initrd thing so it allow access to the drive <br>
+one mount from or is is my memory that fails me. I ahve to look if he still is around.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23785" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23785">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23785">
+
+<time datetime="2012-03-06T15:58">posted: 2012-03-06 &nbsp; 15:58</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23785" title="permalink">#3</a></span>
+
+<div class="content">Just to check a few things.<br>
+<br>
+1. Have you managed to boot from your ntfs partition without persistence?<br>
+If yes, good. That means your grub/menu.lst is working ok.<br>
+At the moment you can not make the rootfs and homefs while running from the ntfs partition as it is ro (read only).<br>
+<br>
+2. If you have puppy or any other linux or a live antiX cd you can use any to transfer your rootfs and homefs files to your folder on the ntfs partition.<br>
+<br>
+Here's how. It *should* work presuming 1. above is true.<br>
+<br>
+1. Boot from your ntfs partition as normal.<br>
+2. As normal user, copy the antiX folder and its contents of /live/boot-dev to your /home/demo folder.<br>
+3. Use RemasterCC as explained in the first post of this thread, but save the rootfs and homefs files to /home/demo/antiX folder (the one you copied to in 2.)<br>
+4. Copy those 2 files roootfs and homefs to a usb stick or to a hard drive you can access.<br>
+5. Using Puppy or any other linux, now copy the files from the usb stick to the antiX folder on your windows partition.<br>
+<br>
+Good luck!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23786" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23786">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23786">
+
+<time datetime="2012-03-06T16:45">posted: 2012-03-06 &nbsp; 16:45</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23786" title="permalink">#4</a></span>
+
+<div class="content">Thanks. Yes that sound logical to me. But it does not help me get access to my internal HD <br>
+where I have all music and texts and so on. <br>
+<br>
+I would need to install AntiX to a usb and use homefs and rootfs on that usb or <br>
+maybe have them on the HD but always boot from the usb. <br>
+<br>
+As I get it logically what you described above would not allow me access to the hd. <br>
+I mean none of that text change that the hd is locked to the boot up. <br>
+<br>
+I did copy the text telling that. So that is only solved if one boot from USB or CD <br>
+Debian seems made that way. I most likely where mistaken about Swift being different. <br>
+Now I even fail to boot it. Thanks for helping me to boot it but if I have no access to <br>
+the internal HD then I can not use it. I wait until I see somebody else having success <br>
+booting from internal NTFS HD with access to it and then I ask them how they did that. <br>
+<br>
+No use being able to save to a HD that I even fail to read after the info got saved to it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23787" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23787">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23787">
+
+<time datetime="2012-03-06T17:04">posted: 2012-03-06 &nbsp; 17:04</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23787" title="permalink">#5</a></span>
+
+<div class="content">Can you answer question 1?<br>
+<br>
+it you can do this, then antiX can be made to work with persistence</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23789" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23789">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23789">
+
+<time datetime="2012-03-06T17:45">posted: 2012-03-06 &nbsp; 17:45</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23789" title="permalink">#6</a></span>
+
+<div class="content">I wrote this:"Jay, this worked very well." but did not repeat it in next post. I thought you already knew. <br>
+<br>
+Sorry my poor English misled you. I did tell this in the post above and thought that where obvious. <br>
+How else would I be able to do everything I described? <br>
+<br>
+Yes it boots but it says this when I try to mount the hd following the instructions. <br>
+<br>
+"Mounting /media/sda2<br>
+Mount is denied because the NTFS volume is already exclusively opened.<br>
+The volume may be already mounted, or another software may use it which<br>
+could be identified for example by the help of the 'fuser' command.<br>
+Mount failed<br>
+<br>
+Done<br>
+There was one error." <br>
+<br>
+I could not have seen that if I where not booted could I? <br>
+<br>
+I am not good at logic but I thought it where crystal clear that I where booted and <br>
+that is why I could boot into the forum and make that copy while it did happen. <br>
+<br>
+So my question still stand. How do you explain that I can do as you say <br>
+if the drive is still owned or busy by the boot process. Nothing of what <br>
+you wrote relates to that does it? No criticism at all I just try to get the logic of it all. <br>
+<br>
+Sidux or Aptosid that is named does allow me to see the internal HD that it booted from <br>
+but like Crunchbang and other Debians it does not allow me to write to it. <br>
+Same message as I just copied.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23791" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23791">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23791">
+
+<time datetime="2012-03-06T19:12">posted: 2012-03-06 &nbsp; 19:12</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23791" title="permalink">#7</a></span>
+
+<div class="content">What is on the computer you are using apart from windows? Post your working /boot/grub/menu.lst you use to boot antiX-test2 on ntfs.<br>
+<br>
+The instructions refer to running live antiX on a stick or cd, not from the windows ntfs partition. You must set up the persistence files rootfs/homefs either by running live cd or live usb or the method in my second boot.<br>
+<br>
+Once you transfer the rootfs and homefs files to your antiX folder on ntfs, then persistence will work and you can read and write.<br>
+(You need to add the cheat persist)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23795" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23795">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23795">
+
+<ul class="post-buttons">
+ </ul>
+<time datetime="2012-03-06T21:20">posted: 2012-03-06 &nbsp; 21:20</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23795" title="permalink">#8</a></span>
+
+<div class="content">Yes sorry I assumed too much. So frugal install only work if <br>
+those two files are there? You are the Boss so you should <br>
+know such things but it is not logical seen from my noob <br>
+perspective. Have never heard of such elaborate ways <br>
+to do a frugal install before. <br>
+<br>
+But I give it a try. Now I only need to find the text that <br>
+describes how to manually install it on usb then. <br>
+<br>
+What I have in menu.lst? okay here is the list. In no <br>
+priority order it is just happens to be in that order <br>
+due to my finding them on the internet. <br>
+<br>
+title lupu-528-004 processor.max_cstate=1 i915.modeset=1 nosmp rootnoverify (hd0,1) works good <br>
+<br>
+title Polarpup Puppy Linux 5 FireFox 3.6.23 1024x768 JWM. nolapic works good <br>
+<br>
+title Snow Puppy Linux 5 FireFox 3.6.23 1024x768 JWM. nolapic works good<br>
+<br>
+title Slacko Puppy Linux woorks good but have some quirks still<br>
+<br>
+title Saluki Puppy Linux not my style of puppy but do work<br>
+<br>
+title Porteus w/changes works good does save to save file. one of the best non-puppy<br>
+<br>
+title subito rootnoverify (hd0,1) interesting but way above my head. <br>
+<br>
+title Netrunner 2011 frugal iso boot of netrunner-3.2.iso one of the best"cheat" booting Ubuntu. <br>
+<br>
+<br>
+title LM12 2011 frugal iso boot of LM12 one of the best"cheat" booting Ubuntu. second to netrunner <br>
+<br>
+title SliTaz 4RC2 usernam root psw root works good but above my head. do allow writes to the ntfs. <br>
+<br>
+title dreamstudio_11.10 one of the best"cheat" booting Ubuntu. but too big making it slow on 1GB <br>
+<br>
+title Slacko Puppy Linux works good <br>
+<br>
+title 3head Luci Puppy Linux works good<br>
+<br>
+title Pussy Linux hotRoxPussy by jbv Boots but don't allow writes to ntfs drive<br>
+<br>
+title antiXl-ntfs-sda2 booted but failed to edit on the drive and not mount it. <br>
+root (hd0,1)<br>
+kernel /antiX/vmlinuz noxorg bdev=sda2 vga=791 bdir=antiX antiX=LMXD<br>
+initrd /antiX/initrd.gz<br>
+<br>
+These three I I tested today from DistroWatch<br>
+title kepler frugal iso boot of netrunner-3.2.iso failed to boot<br>
+<br>
+title sidux 32bit from ISO booted but did not allow write on the ntfs drive <br>
+<br>
+title Nosonja failed to boot</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23798" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23798">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23798">
+
+<time datetime="2012-03-06T21:51">posted: 2012-03-06 &nbsp; 21:51</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23798" title="permalink">#9</a></span>
+
+<div class="content">I will test with this one for usb tomorrow <br>
+<br>
+title antiXl-ntfs-sdb2<br>
+root (hd1,1)<br>
+kernel /antiX/vmlinuz quiet noxorg bdev=sdb2 vga=791 bdir=antiX antiX=LMXD<br>
+initrd /antiX/initrd.gz</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23799" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23799">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23799">
+
+<time datetime="2012-03-06T21:57">posted: 2012-03-06 &nbsp; 21:57</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23799" title="permalink">#10</a></span>
+
+<div class="content">If you want to save changes then rootfs and homefs are needed. They are like the puppy sfs files.<br>
+<br>
+You can create these 2 files while using puppy if you like and copy them over to the antiX folder which has your initrd.gz, linuxfs, vmlinuz files.<br>
+<br>
+The code to make a rootfs is this: In a root terminal, type
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>SIZE=500
+dd if=/dev/zero of=rootfs bs=1M count=0 seek=$SIZE
+mkfs.ext2 -q -m 0 -O ^has_journal -F rootfs
+</code></pre></div>
+For homefs
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>SIZE=100
+dd if=/dev/zero of=homefs bs=1M count=0 seek=$SIZE
+mkfs.ext2 -q -m 0 -O ^has_journal -F homefs
+</code></pre></div>
+Obviously you choose the SIZE for rootfs and homefs.<br>
+<br>
+Once you have rootfs and homefs in your folder on ntfs (sda2) then your grub/menu.lst will be like this.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiXl-ntfs-sda2
+root (hd0,1)
+kernel /antiX/vmlinuz quiet noxorg bdev=sda2 vga=791 bdir=antiX antiX=LMXD persist 
+initrd /antiX/initrd.gz
+</code></pre></div></div>
+</div>
+</div>
+<div class="back2top">
+
+</div>
+</div>
+</div>
+<div id="p_23811" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23811">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23811">
+
+<time datetime="2012-03-07T08:33">posted: 2012-03-07 &nbsp; 08:33</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23811" title="permalink">#11</a></span>
+
+<div class="content">Much appreciated. <br>
+Then I would not have to go over usb to make an AntiX install to USB <br>
+and then do all that manual stuff of having two Rox and such that I barely <br>
+know how to do. <br>
+<br>
+I tried to follow the description but being a confused noob I where very unsure of <br>
+if one should take them line by line or all of them as a whole. One need to know such things. <br>
+<br>
+Anyway those two files got created and I am booted now and it asked me to change passwords <br>
+for both root and demo. Looking in terminal I am obviously demo now so maybe that is why <br>
+I am not allowed to look at sda2 the drive and partition that I booted from. <br>
+<br>
+But it behaves as I anticipated. And I tried to make a screenshot so you can see for yourself. <br>
+<br>
+Should not demo be allowed to at least look at sda2? I don't remember how to be root <br>
+but I will try to start up the file manager as root whereever that one is. I get back</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23812" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23812">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23812">
+
+<time datetime="2012-03-07T09:39">posted: 2012-03-07 &nbsp; 09:39</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23812" title="permalink">#12</a></span>
+
+<div class="content">oops I should do this thing <br>
+"click run. Type rox /media, check 'Run as root' - ok."<br>
+<br>
+I did that and it still give this error message <br>
+<br>
+Mounting /media/sda2<br>
+Mount is denied because the NTFS volume is already exclusively opened.<br>
+The volume may be already mounted, or another software may use it which<br>
+could be identified for example by the help of the 'fuser' command.<br>
+Mount failed<br>
+<br>
+Done<br>
+There was one error.<br>
+<br>
+So I would need to do either to ram so all of AntiX is loaded in RAM <br>
+and then do an unmount of the drive. But I trust it still would say the <br>
+drive is owned by the boot up process. <br>
+<br>
+So I will still ahve to do an USB install. Could you maybe help me do a dd if antix to a 4GB usb? <br>
+<br>
+Now I am a very confused linux user. Logically that would still not allow me to boot from <br>
+NTFS HD or ext3 HD either because it is the boot up sequence that set the drive as owned <br>
+by the live user process. <br>
+<br>
+Debian original Developers most likely has set it that way to live up to some Unix policy <br>
+of what a demo or"Live" user should be allowed. Them working at a University or a big <br>
+company has to protect themselves against careless employees doing all sort of things <br>
+while us are on our own single user or at most a family that respect each other and not <br>
+make havoc of each other. <br>
+<br>
+So hopefully you are right and I am wrong but it looks bad from here. <br>
+So what do you suggest now? I reboot now and see what happens<br>
+<br>
+Edit as I anticipated when wanting to log out it told me that it could not save to the homfs <br>
+due to same reason as I gave quotes to above. I tried to make a new screenshot but <br>
+don't know where it went so I feel rather sure that Debian simply don't allow these kind of things. <br>
+<br>
+What computer do you have and did you do frugal install on it. Could it be that I use <br>
+grub4dos and that that loader activate something in the script that have other permissions <br>
+then if grub legacy would boot same os? Is that logical. I thought them would treat it similar? <br>
+<br>
+Anyway feel very unsure of what to do. <br>
+<br>
+Do you know any pure 100% compatible with Debian version that allow this? <br>
+Knoppix is not 100% Debian. I see it as a fork or something. I will go to DW and Wiki <br>
+and look for debian varieties and see what they say. I thought me had tested all of <br>
+the most known Debian derivatives like Mepis and Crunchbang and Debian Mine and AntiX though.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://distrowatch.com/dwres.php?resource=independence"<br>linktext was:"http://distrowatch.com/dwres.php?resource=independence"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23814" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23814">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23814">
+
+<time datetime="2012-03-07T12:55">posted: 2012-03-07 &nbsp; 12:55</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23814" title="permalink">#13</a></span>
+
+<div class="content">Ok, you have persistence working from your ntfs partition.<br>
+There is no need to go to the media. sda2 folder as you are already using it. You are in it as your antiX frugal folder is on sda2. (the windows partition).<br>
+<br>
+Instead what you have to do is go to /live/boot-dev. All your windows stuff and anything else on the ntfs partition is there.<br>
+If you want to make changes while running frugal-antiX, you can save a file for example in your /home/demo folder and changes are saved so next time you use antiX-frugal it will be there is /home/demo.<br>
+If you want to access what you do in antiX eg a file when using windows, you must save it in /live/boot-dev.<br>
+<br>
+Try this.<br>
+<br>
+Run antiX frugal with the persist option.<br>
+When at the desktop, open the filer to /home/demo and in there create and save a file.<br>
+Use antiX control centre to change the wallpaper.<br>
+Reboot and you should boot into the new wallpaper and that file you created in /home/demo should still be there.<br>
+No need to use root (yet).<br>
+<br>
+What else is on your sda2 partition? You should see them when running antiX-frugal in /live/boot-dev</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23818" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23818">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23818">
+
+<time datetime="2012-03-07T15:37">posted: 2012-03-07 &nbsp; 15:37</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23818" title="permalink">#14</a></span>
+
+<div class="content">Thanks Anti. <br>
+<br>
+I will try what you suggest <br>
+<br>
+"Try this.<br>
+<br>
+Run antiX frugal with the persist option.<br>
+When at the desktop, open the filer to /home/demo and in there create and save a file.<br>
+Use antiX control centre to change the wallpaper.<br>
+Reboot and you should boot into the new wallpaper and that file you created in /home/demo should still be there.<br>
+No need to use root (yet)." <br>
+<br>
+Edit from within AntiX booted as you described. <br>
+It gave a boot error that confirm my take on what fails. <br>
+<br>
+But I will follow what you suggest anway. <br>
+<br>
+I ahve now changed the wallpaper and I have edit a text file in Demo <br>
+and save it but that is only saved in RAM. I ahve set the saving to <br>
+Automatic so I hope it give it a try. Last time I tested this then it gave <br>
+and error that the drive where busy and I told you so. <br>
+<br>
+I try now and get back and report what did happen now today. <br>
+So give me some minute or so or 5 even if it succeeds so <br>
+I can reboot <br>
+<br>
+Edit it says antiX Save Persistent Root Error <br>
+So now I will read BitJam again and see what difference that text can make. <br>
+I am not familiar with it so have to read it again. Thanks <br>
+<br>
+But read the following too. <br>
+<br>
+I told BitJam over at the other thread <br>
+post23817.html#p23817<br>
+that maybe it is better we concentrate it to this thread <br>
+so my exclusive need to boot from NTFS get answered <br>
+in one spot instead of two. <br>
+<br>
+Now what to say. As is obvious I am not on that level. <br>
+Sure it can work if I give it a try but I am deeply pessimistic. <br>
+<br>
+Over at Puppy linux I talked to Sickgut who makes a debian <br>
+derivate that is 100% compatible with Debian and he had asked <br>
+the Devs that are active on the irc chat at freenode and they <br>
+told him that it is a low priority thing they will look into some day <br>
+in the future and none know whenever that will happen. <br>
+<br>
+So unless you have actually changed something then it should <br>
+not work. It simply is no way for it to work. <br>
+<br>
+So don't get me wrong now. Can you tell me why you think it <br>
+does work. Have you actually done it on a computer that does <br>
+not already have AntiX on it so it does not find other ways to boot <br>
+and that is why you have that experience that it should work. <br>
+<br>
+I have tested Linux Mind Debian Ed and Crunchbang and asked in <br>
+their forum and I have tested Sidux and Aptosid and other known <br>
+Debian versions and everybody tells me it is not possible to change <br>
+that situation. <br>
+<br>
+The boot code will always set the drive that one boot from as ro <br>
+read only and that it is busy and owned by the live boot session <br>
+and the only way to work around it would be to remaster the initrd <br>
+or some other code and there change it. Would be a big job that <br>
+none are motivated to do because so few need it and it is a PITA <br>
+to do it. Takes months of hard work. <br>
+<br>
+So you have to forgive me. I will only work with this if you show <br>
+that you have it working on your computer and that it does not <br>
+borrow code from somewhere else like other partitions or so <br>
+and that it actually can change things on the same drive that you boot from. <br>
+<br>
+I am writing from Knoppix now and that one just worked instantly so <br>
+most likely I accept that as close as I can get to Debian. Is is not close?</div>
+<div class="notice">
+Last edited by <b>newbody</b> on 07 Mar 2012, 16:01, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23821" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23821">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23821">
+
+<time datetime="2012-03-07T15:56">posted: 2012-03-07 &nbsp; 15:56</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604.html#p23821" title="permalink">#15</a></span>
+
+<div class="content"><blockquote class="uncited"><div>The boot code will always set the drive that one boot from as ro<br>
+read only and that it is busy and owned by the live boot session<br>
+and the only way to work around it would be to remaster the initrd<br>
+or some other code and there change it. Would be a big job that<br>
+none are motivated to do because so few need it and it is a PITA<br>
+to do it. Takes months of hard work. </div></blockquote>
+That is exactly what BitJam has done to make it possible in antiX.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+47 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s15.html" role="button">2</a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s30.html" role="button">3</a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Trying to login after X starts but it logs right out - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html">Trying to login after X starts but it logs right out</a></div>
+<div class="pagination">
+24 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_32464" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32464">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32464">
+<time datetime="2013-12-22 &nbsp; 13:59">posted: 2013-12-22 &nbsp; 13:59</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32464" title="permalink">#16</a></span>
+
+<div class="content">Thanks all, still no luck looking around. Just noticed that I never tried my wireless connection as it's running now. Previously I was able to connect using the WiCD gui. When I copied a couple logs, I used my flash drive. I found wicd-curses a text version of wicd but it all looks good yet there is no connection. How does apt-get handle trying to do a dist-upgrade without a network connection. Does it say all is ok needing 0 upgrades as it currently does (not knowing there are more upgrades)?<br>
+<br>
+As far as the home directory being full. It's setup with an 8 gig root partition with 1/2 of it left and a 500 meg swap. <br>
+<br>
+<br>
+Here is my etc/slim.conf:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Path, X server and arguments (if needed)
+# Note: -xauth $authfile is automatically appended
+default_path        ./:/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin
+default_xserver     usr/bin/X
+xserver_arguments   -dpi 96 -nolisten tcp
+
+# Commands for halt, login, etc.
+halt_cmd            usr/local/bin/persist-config --shutdown --command halt 
+reboot_cmd          usr/local/bin/persist-config --shutdown --command reboot  
+console_cmd         usr/bin/urxvt -C -fg white -bg black +sb -T"Console login" -e bin/sh -c"/bin/cat etc/issue; exec bin/login"
+#suspend_cmd        usr/sbin/suspend
+
+# Full path to the xauth binary
+xauth_path         usr/bin/xauth 
+
+# Xauth file for server
+authfile           var/run/slim.auth
+# Activate numlock when slim starts. Valid values: on|off
+numlock             off
+
+# Hide the mouse cursor (note: does not work with some WMs).
+# Valid values: true|false
+hidecursor          true
+
+# This command is executed after a succesful login.
+# you can place the %session and %theme variables
+# to handle launching of specific commands in .xinitrc
+# depending of chosen session and slim theme
+#
+# NOTE: if your system does not have bash you need
+# to adjust the command according to your preferred shell,
+# i.e. for freebsd use:
+# login_cmd         exec bin/bash -login etc/X11/Xsession %session 
+login_cmd         exec bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors$DISPLAY 2&gt;&amp;1
+# login_cmd exec dbus-launch bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors 2&gt;&amp;1
+
+# Commands executed when starting and exiting a session.
+# They can be used for registering a X11 session with
+# sessreg. You can use the %user variable
+#
+sessionstart_cmd   usr/bin/sessreg -a -l $DISPLAY %user
+sessionstop_cmd       usr/bin/sessreg -d -l $DISPLAY %user
+
+# Start in daemon mode. Valid values: yes | no
+# Note that this can overridden by the command line
+# option"-d"
+# daemon    yes
+
+# Available sessions (first one is the default).
+# The current chosen session name is replaced in the login_cmd
+# above, so your login command can handle different sessions.
+# see the xinitrc.sample file shipped with slim sources
+sessions        rox-fluxbox,space-fluxbox,fluxbox,rox-icewm,space-icewm,icewm,rox-jwm,space-jwm,jwm,wmii  
+
+# Executed when pressing F11 (requires imagemagick)
+screenshot_cmd      scrot tmp/slim.png
+
+# welcome message. Available variables: %host, %domain
+welcome_msg         (Press F1 to toggle sessions)
+
+# shutdown  reboot messages
+shutdown_msg       The system is shutting down...
+reboot_msg         The system is rebooting...
+
+# Focus the password field on start when default_user is set
+# Set to"yes" to enable this feature
+#focus_password      no
+
+# Automatically login the default user (without entering
+# the password. Set to"yes" to enable this feature
+
+# current theme, use comma separated list to specify a set to 
+# randomly choose from
+current_theme       antiX
+
+# Lock file
+lockfile            var/run/slim.lock
+
+# Log file
+logfile             var/log/slim.log
+
+auto_login          yes
+
+# default user, leave blank or remove this line
+# for avoid pre-loading the username.
+default_user        guest
+</code></pre></div>
+As far as booting to init 3 and starting X, I did that the other day without luck so I gave it a go again to see if there is any more clues. OK tried again. X starts and immediately logs out to a black screen (guessing because it's not reverting back to slim). The F1 console is displaying some errors. I will try to capture them and post them in the next post.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32465" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32465">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32465">
+
+<time datetime="2013-12-22T14:34">posted: 2013-12-22 &nbsp; 14:34</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32465" title="permalink">#17</a></span>
+
+<div class="content">I'm having such a problem posting here. Keep getting forbidden error even after removing the pre slashes in a path<br>
+Here is my var/log/Xorg.0.log:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[    96.426] 
+X.Org X Server 1.14.3
+Release Date: 2013-09-12
+[    96.426] X Protocol Version 11, Revision 0
+[    96.427] Build Operating System: Linux 3.2.0-4-amd64 i686 Debian
+[    96.427] Current Operating System: Linux antiX1 3.7.10-antix.5-486-smp #2 SMP Tue Oct 15 20:58:22 EEST 2013 i686
+[    96.427] Kernel command line: root=UUID=fdf20818-19ff-4c31-b057-76f97979bae8 ro 3
+[    96.428] Build Date: 25 November 2013  03:36:53PM
+[    96.428] xorg-server 2:1.14.3-5 (Maarten Lankhorst &lt;maarten.lankhorst@ubuntu.com&gt;) 
+[    96.428] Current version of pixman: 0.30.2
+[    96.428]     Before reporting problems, check http://wiki.x.org
+    to make sure that you have the latest version.
+[    96.429] Markers: (--) probed, (**) from config file, (==) default setting,
+    (++) from command line, (!!) notice, (II) informational,
+    (WW) warning, (EE) error, (NI) not implemented, (??) unknown.
+[    96.430] (==) Log file:"var/log/Xorg.0.log", Time: Sun Dec 22 08:59:11 2013
+[    96.539] (==) Using config directory:"etc/X11/xorg.conf.d"
+[    96.539] (==) Using system config directory"usr/share/X11/xorg.conf.d"
+[    96.596] (==) No Layout section.  Using the first Screen section.
+[    96.596] (==) No screen section available. Using defaults.
+[    96.596] (**) |--&gt;Screen"Default Screen Section" (0)
+[    96.596] (**) |   |--&gt;Monitor"&lt;default monitor&gt;"
+[    96.622] (==) No monitor specified for screen"Default Screen Section".
+    Using a default monitor configuration.
+[    96.622] (==) Automatically adding devices
+[    96.622] (==) Automatically enabling devices
+[    96.622] (==) Automatically adding GPU devices
+[    96.679] (WW) The directory"usr/share/fonts/X11/cyrillic" does not exist.
+[    96.679]     Entry deleted from font path.
+[    96.680] (WW) The directory"usr/share/fonts/X11/75dpi/" does not exist.
+[    96.680]     Entry deleted from font path.
+[    96.680] (WW) The directory"usr/share/fonts/X11/75dpi" does not exist.
+[    96.681]     Entry deleted from font path.
+[    96.681] (==) FontPath set to:
+    /usr/share/fonts/X11/misc,
+    /usr/share/fonts/X11/100dpi/:unscaled,
+    /usr/share/fonts/X11/Type1,
+    /usr/share/fonts/X11/100dpi,
+    built-ins
+[    96.681] (==) ModulePath set to"usr/lib/xorg/modules"
+[    96.681] (II) The server relies on udev to provide the list of input devices.
+    If no devices become available, reconfigure udev or disable AutoAddDevices.
+[    96.681] (II) Loader magic: 0xb77386a0
+[    96.681] (II) Module ABI versions:
+[    96.681]     X.Org ANSI C Emulation: 0.4
+[    96.681]     X.Org Video Driver: 14.1
+[    96.681]     X.Org XInput driver : 19.1
+[    96.681]     X.Org Server Extension : 7.0
+[    96.683] (--) PCI:*(0:1:0:0) 1002:4c4d:0e11:b18b rev 100, Mem @ 0xf5000000/16777216, 0xf4100000/4096, I/O @ 0x00002000/256, BIOS @ 0x????????/131072
+[    96.684] (II) Open ACPI successful (/var/run/acpid.socket)
+[    96.705] Initializing built-in extension Generic Event Extension
+[    96.705] Initializing built-in extension SHAPE
+[    96.705] Initializing built-in extension MIT-SHM
+[    96.705] Initializing built-in extension XInputExtension
+[    96.706] Initializing built-in extension XTEST
+[    96.706] Initializing built-in extension BIG-REQUESTS
+[    96.706] Initializing built-in extension SYNC
+[    96.706] Initializing built-in extension XKEYBOARD
+[    96.706] Initializing built-in extension XC-MISC
+[    96.707] Initializing built-in extension SECURITY
+[    96.707] Initializing built-in extension XINERAMA
+[    96.707] Initializing built-in extension XFIXES
+[    96.707] Initializing built-in extension RENDER
+[    96.707] Initializing built-in extension RANDR
+[    96.708] Initializing built-in extension COMPOSITE
+[    96.708] Initializing built-in extension DAMAGE
+[    96.708] Initializing built-in extension MIT-SCREEN-SAVER
+[    96.708] Initializing built-in extension DOUBLE-BUFFER
+[    96.708] Initializing built-in extension RECORD
+[    96.709] Initializing built-in extension DPMS
+[    96.709] Initializing built-in extension X-Resource
+[    96.709] Initializing built-in extension XVideo
+[    96.709] Initializing built-in extension XVideo-MotionCompensation
+[    96.709] Initializing built-in extension SELinux
+[    96.710] Initializing built-in extension XFree86-VidModeExtension
+[    96.710] Initializing built-in extension XFree86-DGA
+[    96.710] Initializing built-in extension XFree86-DRI
+[    96.710] Initializing built-in extension DRI2
+[    96.710] (II) LoadModule:"glx"
+[    96.734] (II) Loading usr/lib/xorg/modules/extensions/libglx.so
+[    96.804] (II) Module glx: vendor="X.Org Foundation"
+[    96.804]     compiled for 1.14.3, module version = 1.0.0
+[    96.804]     ABI class: X.Org Server Extension, version 7.0
+[    96.804] (==) AIGLX enabled
+[    96.807] Loading extension GLX
+[    96.807] (==) Matched ati as autoconfigured driver 0
+[    96.807] (==) Matched vesa as autoconfigured driver 1
+[    96.807] (==) Matched modesetting as autoconfigured driver 2
+[    96.807] (==) Matched fbdev as autoconfigured driver 3
+[    96.807] (==) Assigned the driver to the xf86ConfigLayout
+[    96.807] (II) LoadModule:"ati"
+[    96.845] (II) Loading usr/lib/xorg/modules/drivers/ati_drv.so
+[    96.860] (II) Module ati: vendor="X.Org Foundation"
+[    96.860]     compiled for 1.14.3, module version = 7.2.0
+[    96.860]     Module class: X.Org Video Driver
+[    96.860]     ABI class: X.Org Video Driver, version 14.1
+[    96.860] (II) LoadModule:"mach64"
+[    96.861] (II) Loading usr/lib/xorg/modules/drivers/mach64_drv.so
+[    96.894] (II) Module mach64: vendor="X.Org Foundation"
+[    96.894]     compiled for 1.14.3, module version = 6.9.4
+[    96.894]     Module class: X.Org Video Driver
+[    96.894]     ABI class: X.Org Video Driver, version 14.1
+[    96.894] (II) LoadModule:"vesa"
+[    96.895] (II) Loading usr/lib/xorg/modules/drivers/vesa_drv.so
+[    96.913] (II) Module vesa: vendor="X.Org Foundation"
+[    96.913]     compiled for 1.14.3, module version = 2.3.3
+[    96.913]     Module class: X.Org Video Driver
+[    96.913]     ABI class: X.Org Video Driver, version 14.1
+[    96.913] (II) LoadModule:"modesetting"
+[    96.914] (II) Loading usr/lib/xorg/modules/drivers/modesetting_drv.so
+[    96.938] (II) Module modesetting: vendor="X.Org Foundation"
+[    96.938]     compiled for 1.14.3, module version = 0.8.1
+[    96.938]     Module class: X.Org Video Driver
+[    96.938]     ABI class: X.Org Video Driver, version 14.1
+[    96.938] (II) LoadModule:"fbdev"
+[    96.939] (II) Loading usr/lib/xorg/modules/drivers/fbdev_drv.so
+[    96.951] (II) Module fbdev: vendor="X.Org Foundation"
+[    96.951]     compiled for 1.14.3, module version = 0.4.4
+[    96.951]     Module class: X.Org Video Driver
+[    96.951]     ABI class: X.Org Video Driver, version 14.1
+[    96.951] (II) MACH64: Driver for ATI Mach64 chipsets
+[    96.951] (II) VESA: driver for VESA chipsets: vesa
+[    96.951] (II) modesetting: Driver for Modesetting Kernel Drivers: kms
+[    96.951] (II) FBDEV: driver for framebuffer: fbdev
+[    96.951] (--) using VT number 7
+
+[    96.959] (WW) Falling back to old probe method for vesa
+[    96.960] (WW) Falling back to old probe method for modesetting
+[    96.960] (EE) open dev/dri/card0: No such file or directory
+[    96.960] (WW) Falling back to old probe method for fbdev
+[    96.960] (II) Loading sub module"fbdevhw"
+[    96.960] (II) LoadModule:"fbdevhw"
+[    96.976] (II) Loading usr/lib/xorg/modules/libfbdevhw.so
+[    97.004] (II) Module fbdevhw: vendor="X.Org Foundation"
+[    97.004]     compiled for 1.14.3, module version = 0.0.2
+[    97.004]     ABI class: X.Org Video Driver, version 14.1
+[    97.004] (EE) open dev/fb0: No such file or directory
+[    97.005] (II) MACH64(0): Creating default Display subsection in Screen section
+   "Default Screen Section" for depth/fbbpp 24/32
+[    97.005] (==) MACH64(0): Depth 24, (--) framebuffer bpp 32
+[    97.005] (==) MACH64(0): Using EXA acceleration architecture
+[    97.005] (II) MACH64: Mach64 in slot 1:0:0 detected.
+[    97.005] (II) Loading sub module"int10"
+[    97.005] (II) LoadModule:"int10"
+[    97.006] (II) Loading usr/lib/xorg/modules/libint10.so
+[    97.049] (II) Module int10: vendor="X.Org Foundation"
+[    97.049]     compiled for 1.14.3, module version = 1.0.0
+[    97.049]     ABI class: X.Org Video Driver, version 14.1
+[    97.058] (II) MACH64(0): Primary V_BIOS segment is: 0xc000
+[    97.058] (II) Loading sub module"ddc"
+[    97.058] (II) LoadModule:"ddc"
+[    97.058] (II) Module"ddc" already built-in
+[    97.058] (II) Loading sub module"vbe"
+[    97.058] (II) LoadModule:"vbe"
+[    97.059] (II) Loading usr/lib/xorg/modules/libvbe.so
+[    97.080] (II) Module vbe: vendor="X.Org Foundation"
+[    97.080]     compiled for 1.14.3, module version = 1.1.0
+[    97.080]     ABI class: X.Org Video Driver, version 14.1
+[    97.080] (II) MACH64(0): VESA BIOS detected
+[    97.080] (II) MACH64(0): VESA VBE Version 2.0
+[    97.080] (II) MACH64(0): VESA VBE Total Mem: 8128 kB
+[    97.080] (II) MACH64(0): VESA VBE OEM: ATI MACH64
+[    97.080] (II) MACH64(0): VESA VBE OEM Software Rev: 1.0
+[    97.080] (II) MACH64(0): VESA VBE OEM Vendor: ATI Technologies Inc.
+[    97.080] (II) MACH64(0): VESA VBE OEM Product: MACH64RM
+[    97.080] (II) MACH64(0): VESA VBE OEM Product Rev: 01.00
+[    97.084] (II) MACH64(0): VESA VBE DDC supported
+[    97.084] (II) MACH64(0): VESA VBE DDC Level none
+[    97.084] (II) MACH64(0): VESA VBE DDC transfer in appr. 2 sec.
+[    97.087] (II) MACH64(0): VESA VBE DDC read failed
+[    97.089] (--) MACH64(0): Panel model LG LP133X7.
+[    97.089] (II) MACH64(0): BIOS Data:  BIOSSize=0x10000, ROMTable=0x0106.
+[    97.089] (II) MACH64(0): BIOS Data:  ClockTable=0x0A88, FrequencyTable=0x0000.
+[    97.089] (II) MACH64(0): BIOS Data:  LCDTable=0x0178.
+[    97.089] (II) MACH64(0): BIOS Data:  VideoTable=0x0000, HardwareTable=0x0156.
+[    97.089] (II) MACH64(0): BIOS Data:  I2CType=0x0F, Tuner=0x00, Decoder=0x00, Audio=0x0F.
+[    97.089] (--) MACH64(0): ATI 3D Rage Mobility graphics controller detected.
+[    97.089] (--) MACH64(0): Chip type 4C4D"LM", version 4, foundry TSMC, class 0, revision 0x01.
+[    97.089] (--) MACH64(0): AGP bus interface detected;  block I/O base is 0x2000.
+[    97.089] (--) MACH64(0): ATI Mach64 adapter detected.
+[    97.089] (!!) MACH64(0): For information on using the multimedia capabilities
+    of this adapter, please see http://gatos.sf.net.
+[    97.089] (--) MACH64(0): Internal RAMDAC (subtype 1) detected.
+[    97.089] (==) MACH64(0): RGB weight 888
+[    97.089] (==) MACH64(0): Default visual is TrueColor
+[    97.089] (==) MACH64(0): Using gamma correction (1.0, 1.0, 1.0)
+[    97.090] (II) MACH64(0): Using Mach64 accelerator CRTC.
+[    97.090] (--) MACH64(0): 1024x768 panel (ID 4) detected.
+[    97.090] (--) MACH64(0): Panel clock is 65.146 MHz.
+[    97.090] (II) MACH64(0): Using digital flat panel interface.
+[    97.090] (II) MACH64(0): Storing hardware cursor image at 0xF57FFC00.
+[    97.090] (II) MACH64(0): Using 8 MB linear aperture at 0xF5000000.
+[    97.090] (!!) MACH64(0): Virtual resolutions will be limited to 8191 kB
+ due to linear aperture size and/or placement of hardware cursor image area.
+[    97.090] (II) MACH64(0): Using Block 0 MMIO aperture at 0xF4100400.
+[    97.090] (II) MACH64(0): Using Block 1 MMIO aperture at 0xF4100000.
+[    97.091] (II) MACH64(0): MMIO write caching enabled.
+[    97.091] (--) MACH64(0): 8192 kB of SDRAM (1:1) detected (using 8191 kB).
+[    97.092] (WW) MACH64(0): Cannot shadow an accelerated frame buffer.
+[    97.092] (II) MACH64(0): Engine XCLK 124.453 MHz;  Refresh rate code 12.
+[    97.092] (--) MACH64(0): Internal programmable clock generator detected.
+[    97.092] (--) MACH64(0): Reference clock 29.500 MHz.
+[    97.092] (WW) MACH64(0): Unable to estimate virtual size
+[    97.092] (II) MACH64(0): Maximum clock: 230.00 MHz
+[    97.092] (II) MACH64(0): Not using default mode"1152x864" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"576x432" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"1280x960" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"640x480" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"1280x960" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"640x480" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"1280x1024" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"640x512" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"1280x1024" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"640x512" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"1280x1024" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"640x512" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"1600x1200" (exceeds panel dimensions)
+[    97.092] (II) MACH64(0): Not using default mode"800x600" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1600x1200" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"800x600" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1600x1200" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"800x600" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1600x1200" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"800x600" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1600x1200" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"800x600" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1792x1344" (insufficient memory for mode)
+[    97.093] (II) MACH64(0): Not using default mode"896x672" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1792x1344" (insufficient memory for mode)
+[    97.093] (II) MACH64(0): Not using default mode"896x672" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1856x1392" (insufficient memory for mode)
+[    97.093] (II) MACH64(0): Not using default mode"928x696" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1856x1392" (insufficient memory for mode)
+[    97.093] (II) MACH64(0): Not using default mode"928x696" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1920x1440" (insufficient memory for mode)
+[    97.093] (II) MACH64(0): Not using default mode"960x720" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1920x1440" (insufficient memory for mode)
+[    97.093] (II) MACH64(0): Not using default mode"960x720" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1152x864" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"576x432" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1152x864" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"576x432" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"1152x864" (exceeds panel dimensions)
+[    97.093] (II) MACH64(0): Not using default mode"576x432" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1152x864" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"576x432" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1152x864" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"576x432" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1152x864" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"576x432" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1360x768" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1360x768" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1400x1050" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"700x525" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1400x1050" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"700x525" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1400x1050" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"700x525" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1400x1050" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"700x525" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1440x900" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"720x450" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1600x1024" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"800x512" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1680x1050" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"840x525" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1680x1050" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"840x525" (exceeds panel dimensions)
+[    97.094] (II) MACH64(0): Not using default mode"1680x1050" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"840x525" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"1680x1050" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"840x525" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"1680x1050" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"840x525" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"1920x1080" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"960x540" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"1920x1200" (insufficient memory for mode)
+[    97.095] (II) MACH64(0): Not using default mode"960x600" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"1920x1440" (insufficient memory for mode)
+[    97.095] (II) MACH64(0): Not using default mode"960x720" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"2048x1536" (insufficient memory for mode)
+[    97.095] (II) MACH64(0): Not using default mode"1024x768" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"2048x1536" (insufficient memory for mode)
+[    97.095] (II) MACH64(0): Not using default mode"1024x768" (exceeds panel dimensions)
+[    97.095] (II) MACH64(0): Not using default mode"2048x1536" (insufficient memory for mode)
+[    97.095] (II) MACH64(0): Not using default mode"1024x768" (exceeds panel dimensions)
+[    97.096] (--) MACH64(0): Virtual size is 1024x768 (pitch 1024)
+[    97.096] (**) MACH64(0): *Default mode"1024x768i": 44.9 MHz, 35.5 kHz, 86.9 Hz (I)
+[    97.096] (II) MACH64(0): Modeline"1024x768i"x86.9   44.90  1024 1032 1208 1264  768 768 776 817 interlace +hsync +vsync (35.5 kHz zd)
+[    97.096] (**) MACH64(0): *Default mode"1024x768": 94.5 MHz, 68.7 kHz, 85.0 Hz
+[    97.096] (II) MACH64(0): Modeline"1024x768"x85.0   94.50  1024 1072 1168 1376  768 769 772 808 +hsync +vsync (68.7 kHz zd)
+[    97.096] (**) MACH64(0): *Default mode"1024x768": 78.8 MHz, 60.0 kHz, 75.0 Hz
+[    97.096] (II) MACH64(0): Modeline"1024x768"x75.0   78.75  1024 1040 1136 1312  768 769 772 800 +hsync +vsync (60.0 kHz zd)
+[    97.096] (**) MACH64(0): *Default mode"1024x768": 75.0 MHz, 56.5 kHz, 70.1 Hz
+[    97.096] (II) MACH64(0): Modeline"1024x768"x70.1   75.00  1024 1048 1184 1328  768 771 777 806 -hsync -vsync (56.5 kHz zd)
+[    97.096] (**) MACH64(0): *Default mode"1024x768": 65.0 MHz, 48.4 kHz, 60.0 Hz
+[    97.096] (II) MACH64(0): Modeline"1024x768"x60.0   65.00  1024 1048 1184 1344  768 771 777 806 -hsync -vsync (48.4 kHz zd)
+[    97.096] (**) MACH64(0): *Built-in mode"Native panel mode": 65.1 MHz, 62.6 kHz, 81.4 Hz
+[    97.096] (II) MACH64(0): Modeline"Native panel mode"x81.4   65.15  1024 1024 1032 1040  768 768 769 770 (62.6 kHz zb)
+[    97.096] (**) MACH64(0): *Default mode"832x624": 57.3 MHz, 49.7 kHz, 74.6 Hz
+[    97.096] (II) MACH64(0): Modeline"832x624"x74.6   57.28  832 864 928 1152  624 625 628 667 -hsync -vsync (49.7 kHz zd)
+[    97.096] (**) MACH64(0): *Default mode"800x600": 56.3 MHz, 53.7 kHz, 85.1 Hz
+[    97.096] (II) MACH64(0): Modeline"800x600"x85.1   56.30  800 832 896 1048  600 601 604 631 +hsync +vsync (53.7 kHz zd)
+[    97.096] (**) MACH64(0): *Default mode"800x600": 49.5 MHz, 46.9 kHz, 75.0 Hz
+[    97.097] (II) MACH64(0): Modeline"800x600"x75.0   49.50  800 816 896 1056  600 601 604 625 +hsync +vsync (46.9 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"800x600": 50.0 MHz, 48.1 kHz, 72.2 Hz
+[    97.097] (II) MACH64(0): Modeline"800x600"x72.2   50.00  800 856 976 1040  600 637 643 666 +hsync +vsync (48.1 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"800x600": 40.0 MHz, 37.9 kHz, 60.3 Hz
+[    97.097] (II) MACH64(0): Modeline"800x600"x60.3   40.00  800 840 968 1056  600 601 605 628 +hsync +vsync (37.9 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"800x600": 36.0 MHz, 35.2 kHz, 56.2 Hz
+[    97.097] (II) MACH64(0): Modeline"800x600"x56.2   36.00  800 824 896 1024  600 601 603 625 +hsync +vsync (35.2 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"640x480": 36.0 MHz, 43.3 kHz, 85.0 Hz
+[    97.097] (II) MACH64(0): Modeline"640x480"x85.0   36.00  640 696 752 832  480 481 484 509 -hsync -vsync (43.3 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"640x480": 31.5 MHz, 37.5 kHz, 75.0 Hz
+[    97.097] (II) MACH64(0): Modeline"640x480"x75.0   31.50  640 656 720 840  480 481 484 500 -hsync -vsync (37.5 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"640x480": 31.5 MHz, 37.9 kHz, 72.8 Hz
+[    97.097] (II) MACH64(0): Modeline"640x480"x72.8   31.50  640 664 704 832  480 489 492 520 -hsync -vsync (37.9 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"640x480": 25.2 MHz, 31.5 kHz, 59.9 Hz
+[    97.097] (II) MACH64(0): Modeline"640x480"x59.9   25.18  640 656 752 800  480 490 492 525 -hsync -vsync (31.5 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"720x400": 35.5 MHz, 37.9 kHz, 85.0 Hz
+[    97.097] (II) MACH64(0): Modeline"720x400"x85.0   35.50  720 756 828 936  400 401 404 446 -hsync +vsync (37.9 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"680x384": 36.0 MHz, 47.4 kHz, 60.0 Hz (D)
+[    97.097] (II) MACH64(0): Modeline"680x384"x60.0   36.00  680 704 720 760  384 385 390 395 doublescan +hsync -vsync (47.4 kHz zd)
+[    97.097] (**) MACH64(0): *Default mode"680x384": 42.4 MHz, 47.7 kHz, 59.8 Hz (D)
+[    97.098] (II) MACH64(0): Modeline"680x384"x59.8   42.38  680 716 784 888  384 385 390 399 doublescan -hsync +vsync (47.7 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"640x400": 31.5 MHz, 37.9 kHz, 85.1 Hz
+[    97.098] (II) MACH64(0): Modeline"640x400"x85.1   31.50  640 672 736 832  400 401 404 445 -hsync +vsync (37.9 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"640x350": 31.5 MHz, 37.9 kHz, 85.1 Hz
+[    97.098] (II) MACH64(0): Modeline"640x350"x85.1   31.50  640 672 736 832  350 382 385 445 +hsync -vsync (37.9 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"512x384i": 22.4 MHz, 35.5 kHz, 86.6 Hz (D)
+[    97.098] (II) MACH64(0): Modeline"512x384i"x86.6   22.45  512 516 604 632  384 384 388 409 interlace doublescan +hsync +vsync (35.5 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"512x384": 47.2 MHz, 68.7 kHz, 85.0 Hz (D)
+[    97.098] (II) MACH64(0): Modeline"512x384"x85.0   47.25  512 536 584 688  384 384 386 404 doublescan +hsync +vsync (68.7 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"512x384": 39.4 MHz, 60.0 kHz, 75.0 Hz (D)
+[    97.098] (II) MACH64(0): Modeline"512x384"x75.0   39.38  512 520 568 656  384 384 386 400 doublescan +hsync +vsync (60.0 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"512x384": 37.5 MHz, 56.5 kHz, 70.1 Hz (D)
+[    97.098] (II) MACH64(0): Modeline"512x384"x70.1   37.50  512 524 592 664  384 385 388 403 doublescan -hsync -vsync (56.5 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"512x384": 32.5 MHz, 48.4 kHz, 60.0 Hz (D)
+[    97.098] (II) MACH64(0): Modeline"512x384"x60.0   32.50  512 524 592 672  384 385 388 403 doublescan -hsync -vsync (48.4 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"416x312": 28.6 MHz, 49.7 kHz, 74.7 Hz (D)
+[    97.098] (II) MACH64(0): Modeline"416x312"x74.7   28.64  416 432 464 576  312 312 314 333 doublescan -hsync -vsync (49.7 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"400x300": 28.1 MHz, 53.7 kHz, 85.3 Hz (D)
+[    97.098] (II) MACH64(0): Modeline"400x300"x85.3   28.15  400 416 448 524  300 300 302 315 doublescan +hsync +vsync (53.7 kHz zd)
+[    97.098] (**) MACH64(0): *Default mode"400x300": 24.8 MHz, 46.9 kHz, 75.1 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"400x300"x75.1   24.75  400 408 448 528  300 300 302 312 doublescan +hsync +vsync (46.9 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"400x300": 25.0 MHz, 48.1 kHz, 72.2 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"400x300"x72.2   25.00  400 428 488 520  300 318 321 333 doublescan +hsync +vsync (48.1 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"400x300": 20.0 MHz, 37.9 kHz, 60.3 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"400x300"x60.3   20.00  400 420 484 528  300 300 302 314 doublescan +hsync +vsync (37.9 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"400x300": 18.0 MHz, 35.2 kHz, 56.3 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"400x300"x56.3   18.00  400 412 448 512  300 300 301 312 doublescan +hsync +vsync (35.2 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"320x240": 18.0 MHz, 43.3 kHz, 85.2 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"320x240"x85.2   18.00  320 348 376 416  240 240 242 254 doublescan -hsync -vsync (43.3 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"320x240": 15.8 MHz, 37.5 kHz, 75.0 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"320x240"x75.0   15.75  320 328 360 420  240 240 242 250 doublescan -hsync -vsync (37.5 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"320x240": 15.8 MHz, 37.9 kHz, 72.8 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"320x240"x72.8   15.75  320 332 352 416  240 244 246 260 doublescan -hsync -vsync (37.9 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"320x240": 12.6 MHz, 31.5 kHz, 60.1 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"320x240"x60.1   12.59  320 328 376 400  240 245 246 262 doublescan -hsync -vsync (31.5 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"360x200": 17.8 MHz, 37.9 kHz, 85.0 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"360x200"x85.0   17.75  360 378 414 468  200 200 202 223 doublescan -hsync +vsync (37.9 kHz zd)
+[    97.099] (**) MACH64(0): *Default mode"320x200": 15.8 MHz, 37.9 kHz, 85.3 Hz (D)
+[    97.099] (II) MACH64(0): Modeline"320x200"x85.3   15.75  320 336 368 416  200 200 202 222 doublescan -hsync +vsync (37.9 kHz zd)
+[    97.100] (**) MACH64(0): *Default mode"320x175": 15.8 MHz, 37.9 kHz, 85.3 Hz (D)
+[    97.100] (II) MACH64(0): Modeline"320x175"x85.3   15.75  320 336 368 416  175 191 192 222 doublescan +hsync -vsync (37.9 kHz zd)
+[    97.100] (==) MACH64(0): DPI set to (96, 96)
+[    97.100] (II) Loading sub module"fb"
+[    97.100] (II) LoadModule:"fb"
+[    97.101] (II) Loading usr/lib/xorg/modules/libfb.so
+[    97.133] (II) Module fb: vendor="X.Org Foundation"
+[    97.133]     compiled for 1.14.3, module version = 1.0.0
+[    97.133]     ABI class: X.Org ANSI C Emulation, version 0.4
+[    97.133] (II) Loading sub module"ramdac"
+[    97.133] (II) LoadModule:"ramdac"
+[    97.133] (II) Module"ramdac" already built-in
+[    97.133] (II) Loading sub module"exa"
+[    97.133] (II) LoadModule:"exa"
+[    97.134] (II) Loading usr/lib/xorg/modules/libexa.so
+[    97.147] (II) Module exa: vendor="X.Org Foundation"
+[    97.148]     compiled for 1.14.3, module version = 2.6.0
+[    97.148]     ABI class: X.Org Video Driver, version 14.1
+[    97.148] (II) Loading sub module"i2c"
+[    97.148] (II) LoadModule:"i2c"
+[    97.148] (II) Module"i2c" already built-in
+[    97.148] (II) MACH64(0): I2C bus"Mach64" initialized.
+[    97.149] (II) UnloadModule:"vesa"
+[    97.149] (II) Unloading vesa
+[    97.149] (II) UnloadModule:"modesetting"
+[    97.149] (II) Unloading modesetting
+[    97.149] (II) UnloadModule:"fbdev"
+[    97.149] (II) Unloading fbdev
+[    97.149] (II) UnloadSubModule:"fbdevhw"
+[    97.149] (II) Unloading fbdevhw
+[    97.149] (--) Depth 24 pixmap format is 32 bpp
+[    97.237] (II) MACH64(0): [drm] SAREA 2200+1208: 3408
+[    97.237] drmOpenDevice: node name is dev/dri/card0
+[    97.635] drmOpenDevice: node name is dev/dri/card0
+[    98.041] [drm] failed to load kernel module"mach64"
+[    98.042] (EE) [drm] drmOpen failed.
+[    98.042] (EE) MACH64(0): [dri] DRIScreenInit Failed
+[    98.129] (II) MACH64(0): EXA memory management initialized
+     base     :  0xb6540000
+     offscreen: +    300000
+     size     : +    7ffc00
+     cursor   :  0xb6d3fc00
+[    98.130] (II) MACH64(0): Will use 5119 kB of offscreen memory for EXA
+         or  1.67 viewports (composite)
+         or  3.79 dvdframes (xvideo)
+[    98.130] (II) MACH64(0): Render acceleration enabled
+[    98.130] (II) EXA(0): Offscreen pixmap area of 5241856 bytes
+[    98.130] (II) EXA(0): Driver registered support for the following operations:
+[    98.130] (II)         Solid
+[    98.130] (II)         Copy
+[    98.130] (II)         Composite (RENDER acceleration)
+[    98.130] (==) MACH64(0): Backing store disabled
+[    98.131] (==) MACH64(0): Silken mouse enabled
+[    98.151] (==) MACH64(0): DPMS enabled
+[    98.151] (II) MACH64(0): Direct rendering disabled
+[    98.152] (==) RandR enabled
+[    98.190] (II) SELinux: Disabled on system
+[    98.194] (II) AIGLX: Screen 0 is not DRI2 capable
+[    98.195] (II) AIGLX: Screen 0 is not DRI capable
+[    99.986] (II) AIGLX: Loaded and initialized swrast
+[    99.986] (II) GLX: Initialized DRISWRAST GL provider for screen 0
+[   100.687] (II) config/udev: Adding input device AT Translated Set 2 keyboard (/dev/input/event0)
+[   100.687] (**) AT Translated Set 2 keyboard: Applying InputClass"evdev keyboard catchall"
+[   100.687] (II) LoadModule:"evdev"
+[   100.688] (II) Loading usr/lib/xorg/modules/input/evdev_drv.so
+[   100.714] (II) Module evdev: vendor="X.Org Foundation"
+[   100.717]     compiled for 1.14.3, module version = 2.8.2
+[   100.717]     Module class: X.Org XInput Driver
+[   100.717]     ABI class: X.Org XInput driver, version 19.1
+[   100.717] (II) Using input driver 'evdev' for 'AT Translated Set 2 keyboard'
+[   100.717] (**) AT Translated Set 2 keyboard: always reports core events
+[   100.717] (**) evdev: AT Translated Set 2 keyboard: Device:"dev/input/event0"
+[   100.717] (--) evdev: AT Translated Set 2 keyboard: Vendor 0x1 Product 0x1
+[   100.717] (--) evdev: AT Translated Set 2 keyboard: Found keys
+[   100.717] (II) evdev: AT Translated Set 2 keyboard: Configuring as keyboard
+[   100.717] (**) Option"config_info""udev:/sys/devices/platform/i8042/serio0/input/input0/event0"
+[   100.718] (II) XINPUT: Adding extended input device"AT Translated Set 2 keyboard" (type: KEYBOARD, id 6)
+[   100.718] (**) Option"xkb_rules""evdev"
+[   100.718] (**) Option"xkb_model""pc105"
+[   100.718] (**) Option"xkb_layout""us,us"
+[   100.718] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"
+[   100.863] (II) config/udev: Adding input device SynPS/2 Synaptics TouchPad (/dev/input/event2)
+[   100.863] (**) SynPS/2 Synaptics TouchPad: Applying InputClass"evdev touchpad catchall"
+[   100.863] (**) SynPS/2 Synaptics TouchPad: Applying InputClass"touchpad catchall"
+[   100.863] (**) SynPS/2 Synaptics TouchPad: Applying InputClass"Default clickpad buttons"
+[   100.863] (**) SynPS/2 Synaptics TouchPad: Applying InputClass"Touchpad"
+[   100.863] (II) LoadModule:"synaptics"
+[   100.864] (II) Loading usr/lib/xorg/modules/input/synaptics_drv.so
+[   100.891] (II) Module synaptics: vendor="X.Org Foundation"
+[   100.891]     compiled for 1.14.3, module version = 1.7.1
+[   100.891]     Module class: X.Org XInput Driver
+[   100.892]     ABI class: X.Org XInput driver, version 19.1
+[   100.892] (II) Using input driver 'synaptics' for 'SynPS/2 Synaptics TouchPad'
+[   100.892] (**) SynPS/2 Synaptics TouchPad: always reports core events
+[   100.892] (**) Option"Device""dev/input/event2"
+[   100.892] (--) synaptics: SynPS/2 Synaptics TouchPad: x-axis range 1472 - 5472 (res 85)
+[   100.892] (--) synaptics: SynPS/2 Synaptics TouchPad: y-axis range 1408 - 4448 (res 94)
+[   100.893] (--) synaptics: SynPS/2 Synaptics TouchPad: pressure range 0 - 255
+[   100.893] (--) synaptics: SynPS/2 Synaptics TouchPad: finger width range 0 - 15
+[   100.893] (--) synaptics: SynPS/2 Synaptics TouchPad: buttons: left right double triple scroll-buttons
+[   100.893] (--) synaptics: SynPS/2 Synaptics TouchPad: Vendor 0x2 Product 0x7
+[   100.893] (**) Option"VertEdgeScroll""1"
+[   100.893] (**) Option"CornerCoasting""1"
+[   100.893] (**) Option"VertTwoFingerScroll""1"
+[   100.893] (**) Option"HorizTwoFingerScroll""1"
+[   100.893] (**) Option"RBCornerButton""9"
+[   100.893] (**) Option"LBCornerButton""8"
+[   100.893] (**) Option"TapButton1""1"
+[   100.893] (**) Option"TapButton2""2"
+[   100.893] (**) Option"TapButton3""3"
+[   100.893] (**) Option"CircularScrolling""1"
+[   100.894] (**) Option"CircScrollTrigger""7"
+[   100.894] (**) Option"MinSpeed""0.5"
+[   100.894] (**) Option"MaxSpeed""1.0"
+[   100.894] (**) Option"AccelFactor""0.075"
+[   100.894] (**) Option"CoastingSpeed""8"
+[   100.894] (--) synaptics: SynPS/2 Synaptics TouchPad: touchpad found
+[   100.894] (**) SynPS/2 Synaptics TouchPad: always reports core events
+[   100.894] (**) Option"config_info""udev:/sys/devices/platform/i8042/serio1/input/input2/event2"
+[   100.894] (II) XINPUT: Adding extended input device"SynPS/2 Synaptics TouchPad" (type: TOUCHPAD, id 7)
+[   100.895] (**) synaptics: SynPS/2 Synaptics TouchPad: (accel) MinSpeed is now constant deceleration 2.0
+[   100.895] (**) synaptics: SynPS/2 Synaptics TouchPad: (accel) MaxSpeed is now 2.00
+[   100.895] (**) synaptics: SynPS/2 Synaptics TouchPad: (accel) AccelFactor is now 0.075
+[   100.896] (**) SynPS/2 Synaptics TouchPad: (accel) keeping acceleration scheme 1
+[   100.896] (**) SynPS/2 Synaptics TouchPad: (accel) acceleration profile 1
+[   100.896] (**) SynPS/2 Synaptics TouchPad: (accel) acceleration factor: 2.000
+[   100.896] (**) SynPS/2 Synaptics TouchPad: (accel) acceleration threshold: 4
+[   100.896] (--) synaptics: SynPS/2 Synaptics TouchPad: touchpad found
+[   100.897] (II) config/udev: Adding input device SynPS/2 Synaptics TouchPad (/dev/input/mouse0)
+[   100.898] (**) SynPS/2 Synaptics TouchPad: Ignoring device from InputClass"touchpad ignore duplicates"
+[   100.899] (II) config/udev: Adding input device PC Speaker (/dev/input/event1)
+[   100.899] (II) No input driver specified, ignoring this device.
+[   100.899] (II) This device may have been added with another device file.
+[   100.901] (II) config/udev: Adding input device ACPI Virtual Keyboard Device (/dev/input/event3)
+[   100.901] (**) ACPI Virtual Keyboard Device: Applying InputClass"evdev keyboard catchall"
+[   100.901] (II) Using input driver 'evdev' for 'ACPI Virtual Keyboard Device'
+[   100.902] (**) ACPI Virtual Keyboard Device: always reports core events
+[   100.902] (**) evdev: ACPI Virtual Keyboard Device: Device:"dev/input/event3"
+[   100.902] (--) evdev: ACPI Virtual Keyboard Device: Vendor 0 Product 0
+[   100.902] (--) evdev: ACPI Virtual Keyboard Device: Found keys
+[   100.902] (II) evdev: ACPI Virtual Keyboard Device: Configuring as keyboard
+[   100.902] (**) Option"config_info""udev:/sys/devices/virtual/input/input3/event3"
+[   100.902] (II) XINPUT: Adding extended input device"ACPI Virtual Keyboard Device" (type: KEYBOARD, id 8)
+[   100.902] (**) Option"xkb_rules""evdev"
+[   100.902] (**) Option"xkb_model""pc105"
+[   100.902] (**) Option"xkb_layout""us,us"
+[   100.902] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"
+[   116.576] (EE) 
+[   116.580] (EE) Backtrace:
+[   116.628] (EE) 0: usr/bin/X (xorg_backtrace+0x49) [0xb76b4f79]
+[   116.629] (EE) 1: usr/bin/X (0xb7515000+0x1a3d04) [0xb76b8d04]
+[   116.629] (EE) 2: linux-gate.so.1 (__kernel_rt_sigreturn+0x0) [0xb74f3410]
+[   116.629] (EE) 3: usr/lib/xorg/modules/drivers/mach64_drv.so (0xb6ec9000+0x1de95) [0xb6ee6e95]
+[   116.629] (EE) 4: usr/lib/xorg/modules/drivers/mach64_drv.so (0xb6ec9000+0x1df7c) [0xb6ee6f7c]
+[   116.629] (EE) 5: usr/lib/xorg/modules/libexa.so (0xb64f3000+0xd45e) [0xb650045e]
+[   116.629] (EE) 6: usr/lib/xorg/modules/libexa.so (0xb64f3000+0xe1d4) [0xb65011d4]
+[   116.630] (EE) 7: usr/lib/xorg/modules/libexa.so (0xb64f3000+0xc219) [0xb64ff219]
+[   116.630] (EE) 8: usr/bin/X (0xb7515000+0x123531) [0xb7638531]
+[   116.630] (EE) 9: usr/bin/X (CompositeGlyphs+0xa6) [0xb7626ac6]
+[   116.630] (EE) 10: usr/bin/X (0xb7515000+0x11ccdc) [0xb7631cdc]
+[   116.630] (EE) 11: usr/bin/X (0xb7515000+0x11877d) [0xb762d77d]
+[   116.631] (EE) 12: usr/bin/X (0xb7515000+0x3c35d) [0xb755135d]
+[   116.631] (EE) 13: usr/bin/X (0xb7515000+0x2a38a) [0xb753f38a]
+[   116.631] (EE) 14: lib/i386-linux-gnu/libc.so.6 (__libc_start_main+0xf5) [0xb7131585]
+[   116.632] (EE) 15: usr/bin/X (0xb7515000+0x2a768) [0xb753f768]
+[   116.632] (EE) 
+[   116.632] (EE) Segmentation fault at address 0xc
+[   116.632] (EE) 
+Fatal server error:
+[   116.632] (EE) Caught signal 11 (Segmentation fault). Server aborting
+[   116.632] (EE) 
+[   116.632] (EE) 
+Please consult the The X.Org Foundation support 
+     at http://wiki.x.org
+ for help. 
+[   116.633] (EE) Please also check the log file at"var/log/Xorg.0.log" for additional information.
+[   116.633] (EE) 
+[   116.652] (EE) Server terminated with error (1). Closing log file.
+
+</code></pre></div>
+That was noted in the 1st console Ctrl-Alt-F1 but there were also some errors after that which I couldn't find the log file that had it so I took a picture and will try to post them here.<br>
+Which includes the same ImLib2 Develop Warning I posted earlier.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32467" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32467">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32467">
+
+
+<time datetime="2013-12-22T14:51">posted: 2013-12-22 &nbsp; 14:51</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32467" title="permalink">#18</a></span>
+
+<div class="content">I plugged in another wifi plug for now and got wifi going. It's real simple in wicd-curses. Don't want to get hung up right now on figuring out why the other didn't work. My main concern is the window managers keeps logging out after logging in.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32468" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32468">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32468">
+
+<time datetime="2013-12-22T17:19">posted: 2013-12-22 &nbsp; 17:19</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32468" title="permalink">#19</a></span>
+
+<div class="content"><blockquote><div><cite>nassausky wrote:</cite><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[   116.632] (EE) Segmentation fault at address 0xc</code></pre></div></div></blockquote>This is a serious problem. Either there is a problem with your hardware or there is something really messed up with the software as I explained before.<br>
+<br>
+BTW: You can use the"vga" boot parameter to increase the resolution of your console. A list of resolutions if available via the"F1" help menu in the boot loader. Two popular choices are:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>vga=795  --&gt; 1280x1024
+vga=792  --&gt; 1024x768</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32471" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32471">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32471">
+
+<time datetime="2013-12-22T19:02">posted: 2013-12-22 &nbsp; 19:02</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32471" title="permalink">#20</a></span>
+
+<div class="content">Ok maybe it is a hardware issue but it just bugs me that I am not seeing issues booting into Windows 2000 on the other partition and previously before the move to testing repo, AntiX 13.2 wheezy stable logged in. <br>
+<br>
+Maybe I will try re installing once again and seeing if that error was hidden earlier that I didn't notice or if I can isolate which upgrade is causing the issue.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32475" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32475">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">nassausky</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32475">
+
+<time datetime="2013-12-22T21:33">posted: 2013-12-22 &nbsp; 21:33</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32475" title="permalink">#21</a></span>
+
+<div class="content">How can I force this machine to use VESA for X instead of the MACH64 driver? It mentioned [drm] failed to load kernel module"mach64" yet it kept going on in the log file after that about other MACH64 items enabled.<br>
+<br>
+Thanks</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32476" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32476">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32476">
+
+<time datetime="2013-12-22T22:18">posted: 2013-12-22 &nbsp; 22:18</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32476" title="permalink">#22</a></span>
+
+<div class="content">OK it seems it was the video driver since I am logged in now using Vesa (slow but it works). I edited etc/X11/xorg.conf actually copied it from xorg.conf.in and removed the device section and screen section and replaced it with vesa and a basic depth and resolution that I knew it could handle 1024x768 at 16 bit depth.<br>
+<br>
+I replaced the sections with:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"Device"
+    Identifier"?"
+    Driver"vesa"
+    BusID"PCI:1:0:0"
+EndSection
+
+Section"Screen"
+    Identifier"Default Screen"
+    Device"?"
+    Monitor"?"
+    DefaultDepth 16
+
+    SubSection"Display"
+    Depth 16
+    Modes"1024x768"
+    EndSubSection
+EndSection
+</code></pre></div>
+<br>
+<br>
+Now I have to figure how to maybe rollback the video driver and/or how to reinstall it to get a bump up in speed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32477" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32477">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32477">
+
+<time datetime="2013-12-22T23:01">posted: 2013-12-22 &nbsp; 23:01</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32477" title="permalink">#23</a></span>
+
+<div class="content">You might have to stick to wheezy stable repos or upgrade to sid (no guarantee that the video driver works better, but you never know)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32479" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32479">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32479">
+
+<time datetime="2013-12-23T04:41">posted: 2013-12-23 &nbsp; 04:41</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html#p32479" title="permalink">#24</a></span>
+
+<div class="content">Another option may be to make the X server build an xorg.conf file and try using it. Seeing how you are familiar with the console, if you boot into it again and run X -configure and then cp /root/xorg.conf.new / etc/X11/xorg.conf followed by a reboot or startx/slim. It may work out better than auto detecting all the time, also it should give you a more refined starting point for editing if needed. I'm not sure if it is a better option as most distros seem to be shying away from using an xorg.conf, but it is still a way that works quite well for me.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+24 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

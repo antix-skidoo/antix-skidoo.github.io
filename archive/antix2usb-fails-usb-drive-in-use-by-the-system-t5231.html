@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antix2usb fails: USB drive in use by the system - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html">antix2usb fails: USB drive in use by the system</a></div>
+<div class="pagination">
+23 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_36646" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36646">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36646">
+<time datetime="2014-08-10T19:34">posted: 2014-08-10 &nbsp; 19:34</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36646" title="permalink">#1</a></span>
+
+<div class="content">Since my last post I got quite good in making snapshots. I routinely end up with usable .iso files. However, the next step, transferring this iso file to a bootable usb often goes wrong. I found that essentially only one set of options works reliably when choosing the ext2 filesystem:
+<ul>
+<li>use full device</li>
+<li>extlinux boot loader</li></ul>
+Ideally, I would want to use only half of the USB drive for the antix system, and format the other half as a FAT32 partition, to make exchange of data with Windows more easy. However, if I do so, or if I choose the GRUB loader, the resulting USB key doesn't boot. What's worse: I cannot correct the mistake. The antix2usb script is no longer able to make a file system on that USB drive. It does wipe the partition table, but then issues the error message<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/sdb1 is apparently in use by the system; will not make a filesystem here!</code></pre></div>
+The error has nothing to do with data on the USB drive: I can use that same USB drive on another antix system, and there I can succesfully run the antix2usb script. Untill I make a mistake there, and then the same thing happens there. Also, I can mount another USB key as /dev/sdb1, then insert the malfunctioning USB key as /dev/sdc and use it without problems with the antix2usb script. So there must be some erroneous configuration file on the system itself, not on the USB key.<br>
+<br>
+I have two Antix systems running now. One has malfunctioning /dev/sdb and /dev/sdc, the other one only /dev/sdc. The first one is a virtual drive. So I could presumably add a dummy hdd with 2 partitions, which would occupy sdb and sdc and then the USB key would get assigned to /dev/sdd. But I would like to solve the problem in a more fundamental way. What is particularly worrying is that the problem is inherited by the imaged system: so the 'child' antix systems also cannot use sdb and sdc in the antix2usb script.<br>
+<br>
+I googled around for the error message. It's a known problem, but I didn't find a solution that seemed applicable here.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36648" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36648">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+
+</dl>
+<div class="postbody">
+<div id="post_content36648">
+
+<time datetime="2014-08-11T02:31">posted: 2014-08-11 &nbsp; 02:31</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36648" title="permalink">#2</a></span>
+
+<div class="content">How big is your iso?<br>
+<br>
+I have used unetbootin to make bootable usb's from snapshot isos. This lets me use the whole stick as fat32. but you are limited file sizes of less than 4gb that way. depending on how much you image, that could be a problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36649" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36649">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36649">
+
+<time datetime="2014-08-11T04:12">posted: 2014-08-11 &nbsp; 04:12</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36649" title="permalink">#3</a></span>
+
+<div class="content">
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.overclockers.com/forums/showthread.php?t=667317"<br>linktext was:"The first Google hit"<br>====================================<br>
+ contains a fairly good answer in 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.overclockers.com/forums/showpost.php?p=6749336&amp;postcount=9"<br>linktext was:"post 9"<br>====================================<br>
+:<blockquote class="uncited"><div>So, if you find this page via Google and have this issue:<br>
+<br>
+Make sure the partition isn't mounted.<br>
+Make sure the partition or drive is not in a RAID array.<br>
+Stop any MDADM devices that are not legitimate and remove them.<br>
+This should allow you do work with the drives.<br>
+<br>
+It took me a long time to find this information and to piece it together, so I really hope this helps someone. If you are reading this issue and this information does not help, create an account and respond here.</div></blockquote>
+Further down in the thread there are some posts that talk about LVM (Linux Volume Management) being the culprit. The author of post 9 zeroed out his entire drive and it still didn't work. Apparently at one time the system saw something on the drive that made it think it was part of a RAID. After that no changes to the drive itself would fix the problem. He/she had to use the RAID software (mdadm) in order to tell the system that the problem drive was not part of a RAID. There can be a similar problem with LVM. I have never heard of anything like this before.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36651" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36651">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36651">
+
+<time datetime="2014-08-11T10:01">posted: 2014-08-11 &nbsp; 10:01</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36651" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>How big is your iso?<br>
+<br>
+I have used unetbootin to make bootable usb's from snapshot isos. This lets me use the whole stick as fat32. but you are limited file sizes of less than 4gb that way. depending on how much you image, that could be a problem.</div></blockquote>
+My iso is only 3 Gb, so I'm pretty sure that unetbootin would do the trick. It's just that I would like to teach others how to transfer the iso to USB, and antix2usb is as easy to use as one could wish for. Also I would like to understand just what is goin on. There's also some other functionality that is affected: gparted has difficulties with /dev/sdb. It shows an unrecognised partition but refuses to delete it. Strangely I have been able to format it (using gpartes) as an ext2 filesystem. It became visible then in spacefm, but I still couldn't use it with antix2usb. Which maybe could be expected, since antix2usb starts cleaning the partitiontable right away.<br>
+<br>
+@bitjam: that was not applicable here I think. As far as I can see mdadm is not even included in Antix. When I type 'mdadm' in a console, I get a 'command not found' error. Strangely also fdisk seems absent. I thought that was pretty much standard in linux?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36652" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36652">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36652">
+
+<time datetime="2014-08-11T11:41">posted: 2014-08-11 &nbsp; 11:41</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36652" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>dirkd wrote:</cite>@bitjam: that was not applicable here I think. As far as I can see mdadm is not even included in Antix. When I type 'mdadm' in a console, I get a 'command not found' error. Strangely also fdisk seems absent. I thought that was pretty much standard in linux?</div></blockquote>
+LVM (Linux Volume Management) does come on antiX. Further down in the thread people say this is a possible culprit. <br>
+<br>
+If you do have mdadm installed then it should be in the /sbin directory which is not on the default PATH for a normal user. You should become root first to see if you can run it. You could also try the"find" command but switching to root is faster:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo su -
+which mdadm</code></pre></div>
+The sudo command will ask you for your *user* password. The fdisk program is also in /sbin so you will get"command not found" if your try to run it as a normal user. If you know where the program is then you can run it with the full path:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo /sbin/fdisk</code></pre></div>
+Another trick is to add /sbin and /usr/sbin to your PATH in your .bashrc file. Add this line:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>PATH="/sbin:/usr/sbin:$PATH"</code></pre></div>
+To get the change to show up in a terminal window that is already open, run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>source ~/.bashrc</code></pre></div>An even easier way is to just start a new bash shell:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>bash</code></pre></div>
+You will usually not be able to run programs that are in /sbin and in /usr/sbin as a normal user but by adding those directories to your PATH, you can use run them with sudo:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo fdisk</code></pre></div>
+I think the next version of antiX will have /sbin and /usr/sbin on the PATH OOTB. That's what I always do and it is what Dave always does and it is just an big cause of confusion not have them on the PATH.<br>
+<br>
+HTH</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36657" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36657">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36657">
+
+<time datetime="2014-08-11T12:57">posted: 2014-08-11 &nbsp; 12:57</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36657" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>dirkd wrote:</cite>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/sdb1 is apparently in use by the system; will not make a filesystem here!</code></pre></div></div></blockquote>
+Sounds like the system is auto mounting your pendrive, use a terminal and unmount it.<br>
+I have had this problem before, sometimes having to unmount several times.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36666" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36666">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36666">
+
+<time datetime="2014-08-11T16:04">posted: 2014-08-11 &nbsp; 16:04</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36666" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>dirkd wrote:</cite>Ideally, I would want to use only half of the USB drive for the antix system, and format the other half as a FAT32 partition, to make exchange of data with Windows more easy.</div></blockquote>I also see a lot of value in this. I made the suggestion way back that it would be a worthwhile addition, but it was not picked up. Since then it has been a case of creating it manually.<br>
+post26295.html?hilit=LINWIN%20ZONE#p26295<br>
+<blockquote><div><cite>dirkd wrote:</cite>I found that essentially only one set of options works reliably when choosing the ext2 filesystem:
+<ul>
+<li>use full device</li>
+<li>extlinux boot loader</li></ul>
+...<br>
+...if I choose the GRUB loader, the resulting USB key doesn't boot.</div></blockquote>I can't reproduce this. <br>
+Starting with an 8GB USB stick with two partitions (see below) and the system booted from antiX-13.2-Full-Stable-Live-CD, specifying GRUB and ext2, together with a partition size of 4GB, produced a bootable USB installation that works as expected.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blkid -o list /dev/sdb[1,2]
+device     fs_type label    mount point    UUID
+-------------------------------------------------------------------------------
+/dev/sdb1  vfat    LINWIN-ZONE (not mounted) EE84-F565
+/dev/sdb2  ext2    LINUX-ZONE (not mounted) ea362fbd-ad21-494d-8e50-329bc3ca8727
+
+sdb1=1GiB
+sdb2=6.4GiB
+antix2usb from main menu
+ISO=antiX-13.2_386-full.iso
+System Partition=4096MB (Full device not seleceted)
+Format=ext2
+Bootloader=GRUB
+blkid -o list /dev/sdb[1,2]
+device     fs_type label    mount point    UUID
+-------------------------------------------------------------------------------
+/dev/sdb1  ext2    antiXlive (not mounted) 2387c552-88f3-4903-9808-72c90cb0ae9a</code></pre></div>
+<blockquote><div><cite>dirkd wrote:</cite>but then issues the error message<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/sdb1 is apparently in use by the system; will not make a filesystem here!</code></pre></div></div></blockquote>This is often seen, particularly on systems that use automounting upon plugging in and sticks that have multiple partitions.<br>
+<br>
+I will offer a totally unsubstantiated guess. When the script was designed it inherited the working pattern of someone who worked extensively at the command line and conducted mounting predominately manually rather than automatically. <br>
+<br>
+It is likely that a significant number of users routinely have their systems automount USB devices, and multiple partitions are not uncommon. Perhaps there is a usability gain to be obtained by having the script unmount all file systems on the stick and also offer to create multiple partitions/file systems.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36668" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36668">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36668">
+
+<time datetime="2014-08-11T21:02">posted: 2014-08-11 &nbsp; 21:02</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36668" title="permalink">#8</a></span>
+
+<div class="content">@SamK, I agree with you that having a fat32 partition on a LiveUSB that is running from ext2/3/4 is an excellent idea. I am compiling a list of antix2usb change requests. I will add it to the list. I suggest using either ext3 or even ext4 (if the boot loader supports it) because the file system checks are so much faster and more robust. ISTM it is very easy to unplug a LiveUSB while it is still mounted. I think this triggers a file system check on the next boot.<br>
+<br>
+Yes, some people suggest that a journaling filesystem will wear out a usb stick faster. I have not seen any hard evidence that backs this up. The journal usually records only meta-data. 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://rwmj.wordpress.com/2009/11/08/filesystem-metadata-overhead/"<br>linktext was:"this page"<br>====================================<br>
+ says the meta-data is only a few percent of the actual data. If this is correct (it rings true to me) then adding a journal only decreases the life span by a few percent assuming there is some wear leveling.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36669" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36669">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 91</dd>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36669">
+
+<time datetime="2014-08-11T21:14">posted: 2014-08-11 &nbsp; 21:14</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36669" title="permalink">#9</a></span>
+
+<div class="content">Thank you all for your extensive feedback on my question.<br>
+<br>
+@SamK: I'm a little confused. I start the santix2usb script from the antix control center. I've never seen the kind of output in the console that you show in your post. USB drives are indeed automounted, and for the purpose I have in mind, this should remain so. When I forget to dismount the targest USB, antix2usb issues a warning. I can then umount the target USB (I do so in spacefm) and proceed. I seem to remember that at one time I did produce a bootable USB with GRUB, but last time I tried I had two failures in a row. I also don't see how you could ever use a target USB key with more than one partition, since ALL data are removed from the stick.<br>
+<br>
+By the way, that too is a mystery to me: if /dev/sdb1 is truly in use by the system, how can Antix remove the partitiontable? And after it has done so, it refuses to make a new filesystem?<br>
+<br>
+@bitjam: In the meantime I found out that fdisk needs a sudo. I also found out that lvm2 is installed. I'll have to do some study though, before I can use that. I also tried to 'sudo apt-get install mdadm', but I couldn't. I got a message saying the package was absent from the repository (I use 'sid' btw).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36672" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36672">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36672">
+
+<time datetime="2014-08-12T12:41">posted: 2014-08-12 &nbsp; 12:41</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36672" title="permalink">#10</a></span>
+
+<div class="content">OK, I may have found something. If I mount the target USB key and open mtab, I see the following in the entry for /dev/sdb1:
+<ul>
+<li>on the system where antix2usb fails there is an option 'errors=remount-ro'</li>
+<li>on a system where antix2usb does make the filesystem the corresponding option is 'errors=continue'</li></ul>
+I have the feeling that this may explain the different behaviour of the antix2usb script. Only thing is: mtab is generated automatically, and I don't know how to configure the entries the system makes in mtab. Any suggestions?<br>
+<br>
+Thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36674" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36674">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36674">
+
+<time datetime="2014-08-12T13:18">posted: 2014-08-12 &nbsp; 13:18</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36674" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>dirkd wrote:</cite>I start the santix2usb script from the antix control center.</div></blockquote>Ditto.<br>
+<blockquote><div><cite>dirkd wrote:</cite>I've never seen the kind of output in the console that you show in your post.</div></blockquote>Perhaps the meaning of that section is not as clear as I intended. It is meant to indicate the position <em>before, during and after</em> using antix2usb rather than indicate feedback from it.<br>
+<br>
+The first <em>blkid</em> command was issued in a terminal. It shows the stick contains two partitions.<br>
+<br>
+The <em>antix2usb from main menu</em> section shows the details entered into the antix2usb GUI.<br>
+<br>
+The final <em>blkid</em> command was issued in a terminal. It shows the condition of the stick produced by antix2usb.<br>
+<blockquote><div><cite>dirkd wrote:</cite>USB drives are indeed automounted, and for the purpose I have in mind, this should remain so.</div></blockquote>I suspect this is representative of the way many (most?) users work with the Full versions of antiX, hence my comment that antix2usb will be improved by automatically unmounting file systems on the stick.<br>
+<blockquote><div><cite>dirkd wrote:</cite>I also don't see how you could ever use a target USB key with more than one partition, since ALL data are removed from the stick.</div></blockquote>In its current form, antix2usb is unable to produce a stick, with multiple partitions. This is confirmed by the <em>before, during and after</em> info. Also, have a look back at my earlier post in this topic. I mention that presently, it must be done manually.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36679" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36679">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36679">
+
+<time datetime="2014-08-12T14:51">posted: 2014-08-12 &nbsp; 14:51</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36679" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>I suggest using either ext3 or even ext4...</div></blockquote>Because <strong>dirkd</strong> reported issues with ext2 and GRUB they were used in a test to try and reproduce the reported behaviour.<br>
+<br>
+Offering choice is at the heart of antiX, so offering ext2/3/4... is a good fit. To avoid taking this thread off topic I will perhaps post separately further ideas and suggestions for antix2usb.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36680" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36680">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36680">
+
+<time datetime="2014-08-12T15:41">posted: 2014-08-12 &nbsp; 15:41</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36680" title="permalink">#13</a></span>
+
+<div class="content">Found the culprit!<br>
+<br>
+Who or what is mounting my USB's? SpaceFM of course. But - bless spacefm! - that filemanager makes the mount process configurable! Under the menu /Devices/Settings/Mount Command I saw I was able to choose between no less than 4 different mount commands.<br>
+<br>
+Default setting is
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/usr/bin/pmount %v</code></pre></div>
+but changing that to
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/usr/bin/udevil mount -o %o %v</code></pre></div>
+did the trick.<br>
+<br>
+My USB's still automount, but when I look at the mtab file sdb1 is mounted with the option
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>errors=continue</code></pre></div>
+in stead of
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>errors=remount-ro.</code></pre></div>
+Here's my guess at what's going on. When antix2usb clears the partitiontable on the device /dev/sdb it generates some kind of error on the device. Then it gets remounted immediately in a read-only state, presumably again causing an error, since no partitions are present on the device. That's why the system thinks /dev/sdb1 is 'in use' by the system, and refuses to make a new filesystem. It's just a guess, I don't really understand much of what's going on behind the scenes. Also, at the start of the process /dev/sdb is unmounted, so the entry in mtab is not even there at that time.<br>
+<br>
+I just finished a succesfull test using the whole device and choosing the ext2 boot loader. Next thing to try: using part of the device and GRUB.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36686" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36686">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36686">
+
+<time datetime="2014-08-12T21:07">posted: 2014-08-12 &nbsp; 21:07</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36686" title="permalink">#14</a></span>
+
+<div class="content">Two final tests. No trouble anymore to run antix2usb, using only part of the target USB. That is: if I choose the extlinux bootloader.<br>
+<br>
+If I use GRUB, the USB still won't boot (although antix2usb claims to have completed succesfully). When trying to boot I see two messages on the startup screen:<br>
+<br>
+'GRUB 1.5'<br>
+<br>
+'GRUB loading... please wait' (or something very similar)<br>
+<br>
+and then the system hangs...<br>
+<br>
+Maybe I'll look into it at a later time. For the moment I can live with the situation as it is.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36689" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36689">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36689">
+
+<time datetime="2014-08-12T22:50">posted: 2014-08-12 &nbsp; 22:50</time>
+<span class="permalink"><a href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231.html#p36689" title="permalink">#15</a></span>
+
+<div class="content">1) select syslinux instead of grub. The files for grub aren't in the lastest iso files.<br>
+<br>
+2) the worst thing about antix2usb is that it lies about completing successfully and hides all error messages. Look in /var/log/antix2usb.log to see if there are any error messages, and if so, to see what they are.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+23 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix2usb-fails-usb-drive-in-use-by-the-system-t5231-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

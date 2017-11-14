@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>About /etc/apt/preferences and /etc/apt/apt.conf - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./about-etc-apt-preferences-and-etc-apt-apt-conf-t2485.html">About /etc/apt/preferences and /etc/apt/apt.conf</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_16063" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16063">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16063">
+<time datetime="2010-06-11T00:05">posted: 2010-06-11 &nbsp; 00:05</time>
+<span class="permalink"><a href="./about-etc-apt-preferences-and-etc-apt-apt-conf-t2485.html#p16063" title="permalink">#1</a></span>
+
+<div class="content">anti mentioned about uploading an updated version of antix, including one with a CLI installer, and this post is to discuss if the cited files should be removed. From what I know about it, yes they should. This probably means making antiX incompatible with the MEPIS repos (at least OOTB), but at the moment they are not of much use for the majority of users due to the relative stability of Squeeze and to the distance of antiX packages to Lenny.<br>
+<br>
+/etc/apt/apt.conf:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>APT::Default-Release"mepis";
+APT::Cache-Limit 40000000;
+APT::Get::Purge;
+APT::Get::AllowUnauthenticated 0;
+Acquire::cdrom::Mount"/media/cdrom";
+</code></pre></div>
+Why dump it? First and foremost because the documentation* says clearly that it should only be used if explicitly needed, which is not the case (maybe it was/is in MEPIS).<br>
+* <em>man apt.conf</em> and /usr/share/doc/apt/examples/configure-index.gz<br>
+The first line is obviously conflicting with antiX, don't need to be an expert, the second line was a source of many an exercise of typewriting for us here answering post-installation problems in antiX 8.2 (anybody know why it's there at all?). The third should make <em>apt-get remove</em> act as <em>apt-get purge</em>, IDK if it works, but even if it does, that should stay on the user's hands. The fourth...and the fifth is not needed since that entry is already in /etc/fstab.<br>
+<br>
+/etc/apt/preferences:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Package: *
+Pin: release o=Debian
+Pin-Priority: 901
+
+Package: *
+Pin: release o=MEPIS
+Pin-Priority: 800
+
+</code></pre></div>
+(Yes, I know it's missing the linux-kbuild entry, but I'm copying this from a 8.5 pre-final live-cd).<br>
+The missing line puts the linux-kbuild package from the mepis repos with a priority of 995 which makes it un-updatable unless the cited repos are enabled. Since the MEPIS kernel in not compatible with the linux-kbuild package from Debian, the entry is needed if antiX is to come with that kernel.<br>
+The two entries shown above apparently shouldn't pose problems since it seems they just define an hierarchy between releases. But they do interfere with the debian-multimedia repositories, which come enabled by default in antiX.<br>
+From what I know, debian-multimedia used to bring multimedia packages that weren't present in the other Debian repos. Nowadays there are packages that are present in both but debian-multimedia has them more up-to-date and also with less restrictions license-wise.<br>
+Debian itself doesn't come with any of the two configuration files that are the subject of this post and debian-multimedia.org is made to be perfectly compatible with Debian. What happens is that from the moment a /etc/apt/preferences file is present then all the enabled (or to be possibly enabled) repositories must have an entry in it. Since antiX didn't come with an entry for debian-multimedia.org and came with a Debian one, the system was giving (and <strong>is</strong> giving if any of you still have that file) preference to the Debian packages in the updates even if there were more recent ones from debian-multimedia.org. This broke MPlayer for me and was what made me pay attention to this (it happened in a Sid installation but the problem was there anyway).<br>
+So /etc/apt/preferences, along with /etc/apt/apt.conf, could be removed from the system. If antiX comes with the MEPIS kernel, then /etc/apt/preferences must stay with the linux-kbuild entry, but not with the other two. I tried to add an entry for debian-multimedia.org but my knowledge wasn't enough to create a valid one, that worked.<br>
+<br>
+So if anyone have a more profound knowledge of Debian and wants to add to this discussion, please do so. But it looks simple to me that there were files that were there kind of by inertia and they were of course causing troubles, and could cause some else in the future, because they do affect the updating and maintenance of the system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16075" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16075">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>1,228</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16075">
+
+<time datetime="2010-06-11T12:31">posted: 2010-06-11 &nbsp; 12:31</time>
+<span class="permalink"><a href="./about-etc-apt-preferences-and-etc-apt-apt-conf-t2485.html#p16075" title="permalink">#2</a></span>
+
+<div class="content">Just to detail a bit more, the pinning is for package linux-kbuild-2.6.32 so if someone installs a newer kernel, like Liquorix, as long as it isn't 2.6.32 then that parameter in /etc/apt/preferences won't affect anything.<br>
+<br>
+Reflecting upon the packages that come with antiX, I noted that my system had aumix and there was a message at boot time that it wouldn't touch the mixer since alsamixer was present. Note that it was only CLI aumix and its dependency aumix-common but not aumix-gtk which was replaced by gamix in antiX 8.5. So maybe aumix and aumix-common could be removed?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16087" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16087">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,955</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16087">
+
+<time datetime="2010-06-11T22:05">posted: 2010-06-11 &nbsp; 22:05</time>
+<span class="permalink"><a href="./about-etc-apt-preferences-and-etc-apt-apt-conf-t2485.html#p16087" title="permalink">#3</a></span>
+
+<div class="content">Thanks for taking the time to look into this.<br>
+<br>
+Here is my angle, mainly agreeing with secipolla.<br>
+<br>
+As antiX uses the MEPIS kernel by default it must pin linux-kbuild-2.6.32 MEPIS version because, as you say, it is needed to build nvidia drivers, otherwise it fails.<br>
+If users install a liquorix kernel, the linux-kbuild-2.6.32 from Debian testing (and Sid) works ok.<br>
+<br>
+/etc/apt/apt.conf can be removed.<br>
+<br>
+My opinion is that debian-multimedia.org repo should only be used to get w32codecs, libdvdcss2 and for those that use it mencoder or othe dvd rippers such as the great k9copy. If you use k9copy or any other dvd ripper you should keep multimedia repos enabled otherwise there is no real need.<br>
+<br>
+Latest versions of antiX have aumix-gtk removed, though I'm thinking of keeping it and removing gamix.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16093" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16093">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16093">
+
+<time datetime="2010-06-12T01:04">posted: 2010-06-12 &nbsp; 01:04</time>
+<span class="permalink"><a href="./about-etc-apt-preferences-and-etc-apt-apt-conf-t2485.html#p16093" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>
+My opinion is that debian-multimedia.org repo should only be used to get w32codecs, libdvdcss2 and for those that use it mencoder or othe dvd rippers such as the great k9copy. If you use k9copy or any other dvd ripper you should keep multimedia repos enabled otherwise there is no real need.
+</div></blockquote>
+Ok, so I'm just thinking since right now I can only judge by what you said. w32codecs and libdvdcss2 seem to me a good enough reason to keep debian-multimedia.org enabled in antiX (unless it has to comply with USA's copyright or whatever laws).<br>
+<br>
+As said, it is perfectly safe to keep the linux-kbuild-2.6.32 entry (pinning it to MEPIS repos) in /etc/apt/preferences. I know that if the Debian or Liquorix 2.6.32 kernels are installed one just have to replace the linux-kbuild-2.6.32 package for the stock one, I can't remember if it only can be done by calling directly the package for installation but anyway that's a problem for the user that's tweaking his system.<br>
+<br>
+So if debian-multimedia.org is to come enabled by default in antiX then either the Debian and the MEPIS entries in the preferences file must be removed or a valid entry for debian-multimedia.org with the same priority as Debian should be created. I tend to suspect that the second option <em>might</em> not be possible, but the first one would be ok.<br>
+<br>
+Anyone that would want to have the MEPIS repos in antiX (and maybe that would be a rather freak experiment nowadays) could then copy the files from MEPIS itself or ask for them in the forum.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

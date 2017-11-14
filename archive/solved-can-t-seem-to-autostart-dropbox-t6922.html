@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] Can't seem to autostart Dropbox - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./software-f57/index.html"><span>Software</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./solved-can-t-seem-to-autostart-dropbox-t6922.html">[SOLVED] Can't seem to autostart Dropbox</a></h2>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_50899" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50899">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 75</dd>
+<span class="username">M_Mynaardt</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50899">
+
+<time datetime="2017-03-28T20:13">posted: 2017-03-28  &nbsp; 20:13</time>
+<span class="permalink"><a href="./solved-can-t-seem-to-autostart-dropbox-t6922.html#p50899" title="permalink">#1</a></span>
+
+<div class="content">Hi there!<br>
+Managed to get the Dropbox Daemon installed, contents of my Dropbox file downloaded and synced.<br>
+No problems there.<br>
+<br>
+However, I can't seem to get Dropbox to start up with an antiX session.<br>
+I tried adding <strong>"dropbox &amp;"</strong> to the <strong>~/.desktop-session</strong>, but that didn't do anything either.<br>
+<br>
+In fact, when I try <strong>$ dropbox</strong> in the terminal, all I get is the help file, no matter what parameter I type in.<br>
+<br>
+Any tips?<br>
+I'm running antiX 16.1 (64 bit) on an ASSUS X55U.<br>
+<br>
+Thanks in advance!</div>
+
+<div class="notice">
+Last edited by <b>M_Mynaardt</b> on 02 Apr 2017, 05:56, edited 1 time in total.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50906" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50906">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,445</dd>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50906">
+
+<time datetime="2017-03-28T23:27">posted: 2017-03-28  &nbsp; 23:27</time>
+<span class="permalink"><a href="./solved-can-t-seem-to-autostart-dropbox-t6922.html#p50906" title="permalink">#2</a></span>
+
+<div class="content">idunno the name of the dropbox executable.<br>
+Try using these commands in a terminal emulator to find it<br>
+<span style="color: green">apropos dropbox</span><br>
+and/or<br>
+<span style="color: green">sudo updatedb &amp;&amp; locate dropbox</span><br>
+or, launch synaptic and (providing the Preferences}}ShowPackageDetailsInMainWindow is checkmarked) search for dropbox<br>
+and right-click its listing. Refer to the"Installed Files" tab in the bottom-right synaptic Details pane &amp; discover the <br>
+path to the installed dropbox executable<br>
+<br>
+If you know the exact packagename (package might not be named"dropbox"), can call up a list of installed files from commandline, using dkpg-query<br>
+<span style="color: green">dpkg-query -L <strong><em>packagename</em></strong></span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50911" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50911">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 75</dd>
+<span class="username">M_Mynaardt</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50911">
+
+<time datetime="2017-03-29T06:04">posted: 2017-03-29  &nbsp; 06:04</time>
+<span class="permalink"><a href="./solved-can-t-seem-to-autostart-dropbox-t6922.html#p50911" title="permalink">#3</a></span>
+
+<div class="content">Hello again skidoo!<br>
+<br>
+Another nudge in the right direction! <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I looked through the package information through synaptic, as suggested.<br>
+Found the file <strong>/usre/bin/share/applications/dropbox.desktop</strong> and found the crucial command:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dropbox start -i</code></pre></div>
+I ran that from the command line, and <strong>voilà</strong>! It worked.<br>
+<br>
+Odd thing was, though, that neither <strong>start</strong> nor <strong>-i</strong> showed up as options when I tried <strong>$ dropbox --help</strong><br>
+Oh well. At least now I know how to get it started!<br>
+I put that useful command into <strong>~/.desktop-session</strong><br>
+<br>
+Thanks again for the help!</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50913" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50913">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,445</dd>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50913">
+
+<time datetime="2017-03-29T06:07">posted: 2017-03-29  &nbsp; 06:07</time>
+<span class="permalink"><a href="./solved-can-t-seem-to-autostart-dropbox-t6922.html#p50913" title="permalink">#4</a></span>
+
+ <div class="content">ok, thanks for following up to report the solution</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50915" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50915">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 75</dd>
+<span class="username">M_Mynaardt</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50915">
+
+<time datetime="2017-03-29T06:09">posted: 2017-03-29  &nbsp; 06:09</time>
+<span class="permalink"><a href="./solved-can-t-seem-to-autostart-dropbox-t6922.html#p50915" title="permalink">#5</a></span>
+
+<div class="content">Just part of the learning curve, I reckon!</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

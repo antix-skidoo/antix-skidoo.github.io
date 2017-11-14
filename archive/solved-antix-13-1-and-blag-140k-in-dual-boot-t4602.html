@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] antiX 13.1 and Blag 140k in dual boot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html">[SOLVED] antiX 13.1 and Blag 140k in dual boot</a></div>
+<div class="pagination">
+28 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_31017" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31017">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">taigarden</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31017">
+<time datetime="2013-09-17T14:40">posted: 2013-09-17 &nbsp; 14:40</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31017" title="permalink">#1</a></span>
+
+<div class="content">I am trying to have antiX 13.1 i386 and Blag 140k i686 in dual boot. AntiX is in sda, with grub installed in same disk, and it is working fine. Blag was installed in the second physical hard drive sdb, with its grub in it. Blag is a Fedora derivative, so I think it uses grub2. When I finished Blag installation, and did the first reboot, I had just the usual antiX boot entries. I did update-grub in antiX but grub legacy did not discover Blag. So, I will need to add manually a boot stanza for Blag in the menu.lst file of antiX.<br>
+Can someone provide me with a typical boot stanza in the format of grub legacy in order to obtain an entry to boot Blag 140k? Thank you.</div>
+<div class="notice">
+Last edited by <b>taigarden</b> on 20 Sep 2013, 14:17, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31018" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31018">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31018">
+
+<time datetime="2013-09-17T14:57">posted: 2013-09-17 &nbsp; 14:57</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31018" title="permalink">#2</a></span>
+
+<div class="content">Hand edit AntiX /boot/grub/menu.lst to chainload Blag. This can be done through antixcc.<br>
+<br>
+A example of a grub 2 entry on my shop computer with dual drives and grub 2 but what yours should look like<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title Blag
+rootnoverify (hd1,0)
+chainloader +1</code></pre></div>
+Blag is installed in /dev/sda1 on hard drive number number 2, hence the hd1,0.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31021" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31021">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">taigarden</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31021">
+
+<time datetime="2013-09-17T15:43">posted: 2013-09-17 &nbsp; 15:43</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31021" title="permalink">#3</a></span>
+
+<div class="content">Thank you rokytnji. I will use you suggested boot stanza and post the result.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31033" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31033">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">taigarden</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31033">
+
+<time datetime="2013-09-18T00:09">posted: 2013-09-18 &nbsp; 00:09</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31033" title="permalink">#4</a></span>
+
+<div class="content">No, It didn't work. I had"Error 13: Invalid or unsupported executable format".<br>
+<br>
+I also tried:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Title Blag
+rootnoverify (hd1,0)
+kernel /boot/grub/core.img
+savedefault
+boot</code></pre></div>
+But the new error was that" /boot/grub/core.img" doesn't exist<br>
+<br>
+And after that I also tried:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Title Blag
+rootnoverify (hd1,0)
+configfile /boot/grub/menu.lst
+savedefault
+boot</code></pre></div>
+And again I obtained te error that" /boot/grub/menu.lst" doesn't exist<br>
+<br>
+Then, using gparted I found the following information about files in sdb:<br>
+<br>
+(1) Boot partition:<br>
+Partition: /dev/sdb1/<br>
+File type:: ext4<br>
+Mount point: /media/sdb1<br>
+Options: boot<br>
+<br>
+(2) The rest of the disk:<br>
+Partition: /dev/sdb2<br>
+File type: lvm2 pv<br>
+Mount point: VolGroup<br>
+Options: lvm<br>
+<br>
+I have no previous experience with"lvm2 pv files".<br>
+<br>
+Please advice. Thank you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31034" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31034">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+ <div id="post_content31034">
+
+<time datetime="2013-09-18T00:19">posted: 2013-09-18 &nbsp; 00:19</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31034" title="permalink">#5</a></span>
+
+<div class="content"><blockquote class="uncited"><div>I have no previous experience with"lvm2 pv files".</div></blockquote>
+Me neither. To show my quadbooter which is what I went by<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 10
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+title AntiX  at sda1, kernel 3.3.5-antix.1-486-smp
+kernel /boot/vmlinuz-3.3.5-antix.1-486-smp root=/dev/sda1 nomce quiet nosplash nouveau.modeset=0 vga=791
+initrd /boot/initrd.img-3.3.5-antix.1-486-smp
+boot
+
+title Semplice GNU/Linux, with Linux 3.2.0-3-486
+rootnoverify (hd1,1)
+chainloader +1
+
+title Vector STD Gold 7 at /dev/sda2
+rootnoverify (hd0,1)
+chainloader +1
+
+title Puppy Linux 529 frugal in sdb1 dir macpup529frugal
+rootnoverify (hd1,0)
+kernel /macpup529frugal/vmlinuz pmedia=atahd psubdir=macpup529frugal
+initrd /macpup529frugal/initrd.gz
+
+### BEGIN AUTOMAGIC KERNELS LIST
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified
+## by the debian update-grub script except for the default options below
+
+## DO NOT UNCOMMENT THEM, Just edit them to your needs
+
+## ## Start Default Options ##
+## default kernel options
+## default kernel options for automagic boot options
+## If you want special options for specific kernels use kopt_x_y_z
+## where x.y.z is kernel version. Minor versions can be omitted.
+## e.g. kopt=root=/dev/hda1 ro
+##      kopt_2_6_8=root=/dev/hdc1 ro
+##      kopt_2_6_8_2_686=root=/dev/hdc2 ro
+# kopt=root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro
+# kopt_2_6=root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro nosplash quiet
+
+## default grub root device
+## e.g. groot=(hd0,0)
+# groot=(hd0,0)
+
+## should update-grub create alternative automagic boot options
+## e.g. alternative=true
+##      alternative=false
+# alternative=true
+
+## should update-grub lock alternative automagic boot options
+## e.g. lockalternative=true
+##      lockalternative=false
+# lockalternative=false
+
+## additional options to use with the default boot option, but not with the
+## alternatives
+## e.g. defoptions=vga=791 resume=/dev/hda5
+# defoptions=
+
+## should update-grub lock old automagic boot options
+## e.g. lockold=false
+##      lockold=true
+# lockold=false
+
+## Xen hypervisor options to use with the default Xen boot option
+# xenhopt=
+
+## Xen Linux kernel options to use with the default Xen boot option
+# xenkopt=console=tty0
+
+## altoption boot targets option
+## multiple altoptions lines are allowed
+## e.g. altoptions=(extra menu suffix) extra boot options
+##      altoptions=(single-user) single
+# altoptions=(init-3) 3
+
+## controls how many kernels should be put into the menu.lst
+## only counts the first occurence of a kernel, not the
+## alternative kernel options
+## e.g. howmany=all
+##      howmany=7
+# howmany=all
+
+## should update-grub create memtest86 boot option
+## e.g. memtest86=true
+##      memtest86=false
+# memtest86=true
+
+## should update-grub adjust the value of the default booted system
+## can be true or false
+# updatedefaultentry=false
+
+## should update-grub add savedefault to the default options
+## can be true or false
+# savedefault=false
+
+## ## End Default Options ##
+
+title      Debian GNU/Linux, kernel 3.5.2-antix.1-486-smp
+root      (hd0,0)
+kernel      /boot/vmlinuz-3.5.2-antix.1-486-smp root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro
+initrd      /boot/initrd.img-3.5.2-antix.1-486-smp
+
+title      Debian GNU/Linux, kernel 3.5.2-antix.1-486-smp (init-3)
+root      (hd0,0)
+kernel      /boot/vmlinuz-3.5.2-antix.1-486-smp root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro 3
+initrd      /boot/initrd.img-3.5.2-antix.1-486-smp
+
+title      Debian GNU/Linux, kernel 3.3.5-antix.1-486-smp
+root      (hd0,0)
+kernel      /boot/vmlinuz-3.3.5-antix.1-486-smp root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro
+initrd      /boot/initrd.img-3.3.5-antix.1-486-smp
+
+title      Debian GNU/Linux, kernel 3.3.5-antix.1-486-smp (init-3)
+root      (hd0,0)
+kernel      /boot/vmlinuz-3.3.5-antix.1-486-smp root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro 3
+initrd      /boot/initrd.img-3.3.5-antix.1-486-smp
+
+title      Debian GNU/Linux, kernel memtest86+
+root      (hd0,0)
+kernel      /boot/memtest86+.bin
+
+### END DEBIAN AUTOMAGIC KERNELS LIST</code></pre></div>
+Semplice and Vector use grub 2. Puppy bootloader installed to /home in Puppy. AntiX grub installed to mbr and controlling everybody on 2 ide hard drives.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31035" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31035">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">rokytnji</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31035">
+
+<time datetime="2013-09-18T01:02">posted: 2013-09-18 &nbsp; 01:02</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31035" title="permalink">#6</a></span>
+
+<div class="content">Hmmm. though I know nothing about Blag. 1st I would make sure os-prober is installed in Blag.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://hedayatvk.wordpress.com/2011/02/25/automatically-adding-other-distributions-to-fedora-grub-using-os-prober/"<br>linktext was:"http://hedayatvk.wordpress.com/2011/02/ ... os-prober/"<br>====================================<br>
+<br>
+<br>
+Then tell Blag to install grub to mbr to replace AntiX grub in mbr. Then run os-prober in Blag and cross my fingers. Then run update-grub in Blag to be double sure. Might work. Might not. Heck if I know though. I have to experiment myself and make bad decisions to gain experience to make good decisions later.<br>
+<br>
+There should be a os-prober in AntiX. Lets check<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-cache policy os-prober
+os-prober:
+  Installed: 1.58
+  Candidate: 1.58
+  Version table:
+ *** 1.58 0
+        500 http://ftp.us.debian.org/debian/ wheezy/main i386 Packages
+        100 /var/lib/dpkg/status</code></pre></div>
+yep but I don't need it on this single boot M&amp;A Companion Netbook I am posting from.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxz
+System:    Host: biker Kernel: 3.7.10-antix.3-486-smp i686 (32 bit, gcc: 4.7.3) 
+           Desktop: IceWM 1.3.7 Distro: antiX-13_386-full Luddite 01 June 2013
+Machine:   System: manda product: Intel powered classmate PC version: Gen 1.5L
+           Mobo: N/A model: N/A Bios: American Megatrends version: CM94515A.86A.0024.2008.0715.1716 date: 07/15/2008
+CPU:       Single core Intel Core CPU N270 (-HT-) cache: 512 KB flags: (nx pae sse sse2 sse3 ssse3) bmips: 3191.79 
+           Clock Speeds: 1: 800.00 MHz 2: 1333.00 MHz
+Graphics:  Card: Intel Mobile 945GSE Express Integrated Graphics Controller bus-ID: 00:02.0 
+           X.Org: 1.12.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 1024x600@53.3hz 
+           GLX Renderer: Mesa DRI Intel 945GME x86/MMX/SSE2 GLX Version: 1.4 Mesa 8.0.5 Direct Rendering: Yes
+Audio:     Card: Intel NM10/ICH7 Family High Definition Audio Controller driver: snd_hda_intel bus-ID: 00:1b.0 
+           Sound: Advanced Linux Sound Architecture ver: k3.7.10-antix.3-486-smp
+Network:   Card: Realtek RTL8101E/RTL8102E PCI Express Fast Ethernet controller 
+           driver: r8169 ver: 2.3LK-NAPI port: ec00 bus-ID: 01:00.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 63.3GB (39.6% used) 1: id: /dev/sda model: KingSpec_KSD size: 63.3GB 
+Partition: ID: / size: 59G used: 24G (43%) fs: ext2 
+Sensors:   System Temperatures: cpu: 63.0C mobo: N/A 
+           Fan Speeds (in rpm): cpu: N/A 
+Info:      Processes: 98 Uptime: 52 min Memory: 259.5/2015.1MB Runlevel: 5 Gcc sys: 4.7.2 
+           Client: Shell (bash 4.2.37) inxi: 1.9.14 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31036" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31036">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">taigarden</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31036">
+
+<time datetime="2013-09-18T01:53">posted: 2013-09-18 &nbsp; 01:53</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31036" title="permalink">#7</a></span>
+
+<div class="content">rokytnji, thank you for your two posts. It will take some time for me to process both. Anyway, the hardware in which I have antiX 13.1 i386 and Blag 140k i686 is for experimenting and learning. <br>
+Actually I was considering to install in the second Hard Drive of my legacy hardware some of the Distros you are using, and you gave me some hints regarding compatibility with antiX for multiple boot. <br>
+I just learned today that Blag 140k is a bit dormant and a little old, so I will eventually substitute it for a newer Linux. But still, I am a little stubborn, and I will try to boot Blag in dual boot with antiX. Regards.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31039" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31039">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31039">
+
+<time datetime="2013-09-18T04:08">posted: 2013-09-18 &nbsp; 04:08</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31039" title="permalink">#8</a></span>
+
+<div class="content">I am not sure if this it he case, but if I a reading this right it seems that blag's grub is in the mbr of the second disk. However you are trying to run the os on the second disk really from the mbr of first. If this is the case would grub not have to be installed to the root partition of the blag install on the second disk... not the mbr of the second disk? Please correct me if I am wrong thinking this.</div>
+</div>
+</div>
+<div class="back2top">
+
+</div>
+</div>
+</div>
+<div id="p_31040" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31040">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31040">
+
+<time datetime="2013-09-18T04:14">posted: 2013-09-18 &nbsp; 04:14</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31040" title="permalink">#9</a></span>
+
+<div class="content">I had assumed he knew to install grub to root on secondary installs Dave.<br>
+<br>
+Thanks for bringing the point up. I had not even thought of that. All my secondary installs went to root.<strong><span style="text-decoration: underline"> Not the mbr.</span></strong> Puppy is just different because it runs in root and boot/grub/menu.lst in frugal ends up in root/home. Kinda strange but I am used to it<br>
+since I am a Macpup team member also.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31041" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31041">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31041">
+
+<time datetime="2013-09-18T09:28">posted: 2013-09-18 &nbsp; 09:28</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31041" title="permalink">#10</a></span>
+
+<div class="content">If you are not familiar with lvm, then why did you install in this environment?<br>
+<br>
+How is the grub of antiX appeal to the files of the grub of Blag, if they lie in an encrypted partition?<br>
+<br>
+<br>
+Please spending of antiX as root<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg --list | grep grub
+dpkg --list | grep os-prober
+fdisk -lu
+parted -l</code></pre></div>
+If the Grub boot antiX the Blag, then its corresponding files must previously in an unencrypted<br>
+/boot<br>
+Partition to be established. <br>
+<br>
+Example sdb:<br>
+<br>
+sdb1 &gt; /boot<br>
+sdb2 &gt; lvm with /<br>
+<br>
+Which can be already outdated ... <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31042" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31042">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">taigarden</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31042">
+
+<time datetime="2013-09-18T13:48">posted: 2013-09-18 &nbsp; 13:48</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31042" title="permalink">#11</a></span>
+
+ <div class="content"><blockquote><div><cite>Dave wrote:</cite>I am not sure if this it he case, but if I a reading this right it seems that blag's grub is in the mbr of the second disk. However you are trying to run the os on the second disk really from the mbr of first. If this is the case would grub not have to be installed to the root partition of the blag install on the second disk... not the mbr of the second disk? Please correct me if I am wrong thinking this.</div></blockquote>
+(1) Yes, Blag's grub is in the mbr of the second disk (sdb1).<br>
+(2) Yes, I'm trying to run the os on the second disk from the mbr of the first.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31043" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31043">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">taigarden</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31043">
+
+<time datetime="2013-09-18T13:58">posted: 2013-09-18 &nbsp; 13:58</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31043" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite>If you are not familiar with lvm, then why did you install in this environment?<br>
+<br>
+How is the grub of antiX appeal to the files of the grub of Blag, if they lie in an encrypted partition?<br>
+</div></blockquote>
+(1) I opted to let Blag's installer run with automatic defaults using the entire second hard drive. I wasn't aware that the system will take the format lvm. My mistake.<br>
+(2) I am not aware about an encrypted partition.<br>
+(3) Tonight, or at most tomorrow, I will make the verifications that you suggested and will post the outputs.<br>
+Thank you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31044" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31044">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">taigarden</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31044">
+
+<time datetime="2013-09-18T14:01">posted: 2013-09-18 &nbsp; 14:01</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31044" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>I had assumed he knew to install grub to root on secondary installs Dave.<br>
+</div></blockquote>
+Blag's installer gave the option to install grub in the mbr of the second hard drive (sdb) and I took that.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31045" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31045">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31045">
+
+<time datetime="2013-09-18T14:43">posted: 2013-09-18 &nbsp; 14:43</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31045" title="permalink">#14</a></span>
+
+<div class="content">Ok then I would suggest to look up how to install grub from blag to another device. That way you can install blag's grub to the root partition of the blag install. If it is not possible you may need to install blag again and choose install to root partition instead of install to mbr. <br>
+<br>
+Another option would be to use super grub disk to install grub to the root partition of blag.<br>
+<br>
+Dave</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31046" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31046">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">taigarden</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31046">
+
+<time datetime="2013-09-18T15:24">posted: 2013-09-18 &nbsp; 15:24</time>
+<span class="permalink"><a href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602.html#p31046" title="permalink">#15</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Ok then I would suggest to look up how to install grub from blag to another device. That way you can install blag's grub to the root partition of the blag install. If it is not possible you may need to install blag again and choose install to root partition instead of install to mbr. <br>
+<br>
+Another option would be to use super grub disk to install grub to the root partition of blag.<br>
+<br>
+Dave</div></blockquote>
+Since I can not access Blag system, I might opt to use super grub disk to install grub to the root partition of Blag.<br>
+<br>
+There are two versions of super grub disk:<br>
+<br>
+(a) Super GRUB Disk, which uses grub legacy.<br>
+(b) Super GRUB2 Disk, which uses grub2.<br>
+<br>
+Which one do you suggest? <br>
+Thank you.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+28 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./solved-antix-13-1-and-blag-140k-in-dual-boot-t4602-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

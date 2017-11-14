@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Upgrading antiX-M8.5 to squeeze. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./announcements-and-news-old-f38/index.html"><span>Announcements and News (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./upgrading-antix-m8-5-to-squeeze-t2952.html">Upgrading antiX-M8.5 to squeeze.</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_19348" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19348">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19348">
+<time datetime="2011-02-07T12:20">posted: 2011-02-07 &nbsp; 12:20</time>
+<span class="permalink"><a href="./upgrading-antix-m8-5-to-squeeze-t2952.html#p19348" title="permalink">#1</a></span>
+
+<div class="content">I just did this from a fresh install of antiX-M8.5. <br>
+Make sure you have plenty of space on your root partition and a fast and reliable internet connection.<br>
+<br>
+Good luck!<br>
+<br>
+1. Edit /etc/apt/sources.list<br>
+- Comment out the Testing repos, uncomment the first 2 in the stable repos and change the word stable to squeeze<br>
+- Change all references to lenny to squeeze<br>
+- remove the goggles repo<br>
+- Do not enable the MEPIS repos.<br>
+<br>
+2. Comment out halevt &amp; in both /home/username/.fluxbox/startup and /home/username/.icewm/startup files.<br>
+<br>
+3. Either remove wicd completely if you do not need it or create a user called demo by running the following in a root terminal.<br>
+<br>
+# adduser demo<br>
+<br>
+4. back up your important data, just in case.<br>
+<br>
+5. apt-get update &amp;&amp; apt-get dist-upgrade<br>
+<br>
+A fresh install upgraded 670 packages, removed 5 (ok), 88 newly installed. 454MB of archives downloaded, 190MB of additional space to be used.<br>
+You may see locale errors during the upgrade, but no need to worry.<br>
+<br>
+6. Answer N (default) if asked if you want to accept maintainers version.<br>
+<br>
+7. If the upgrade gives an error at end, try<br>
+<br>
+#apt-get -f install<br>
+<br>
+8. Remove unwanted cruft.<br>
+<br>
+# apt-get autoremove<br>
+# deborphan | xargs apt-get -y remove<br>
+# COLUMNS=200 dpkg -l |grep ^rc |awk '{print $2} ' | xargs dpkg -P<br>
+<br>
+9. Update inxi script with <br>
+<br>
+inxi -U<br>
+<br>
+10. Reboot</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id="p_19350" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19350">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">wayne128</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Sep 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19350">
+
+<time datetime="2011-02-07T13:30">posted: 2011-02-07 &nbsp; 13:30</time>
+<span class="permalink"><a href="./upgrading-antix-m8-5-to-squeeze-t2952.html#p19350" title="permalink">#2</a></span>
+
+<div class="content">Anti,<br>
+Thank you very much for the simple to follow procedure.<br>
+<br>
+Did it on first computer, smooth sailing...<br>
+<br>
+Reboot, works, typing this post with new M8.5<br>
+<br>
+<span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Graphics card issues - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./graphics-card-issues-t4780.html">Graphics card issues</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./graphics-card-issues-t4780-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./graphics-card-issues-t4780-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_32688" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32688">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32688">
+<time datetime="2014-01-03T01:04">posted: 2014-01-03 &nbsp; 01:04</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p32688" title="permalink">#1</a></span>
+
+<div class="content">I installed AntiX 13.2 (with kernel vmlinuz-3.7.10-antix.5-486-smp) on my laptop. When using the live CD, running it with the default option would cause stuff to load for a little while, then the screen would go blank and stay like that. However, by using the CLI-installer option, I was able to install it to my hard drive. After that, booting from the hard drive had the same result as when I tried it with the live CD.<br>
+Fortunately, it does boot when I put ro 3 at the end of the kernel line in GRUB. It's just that I can't get any GUI when I do that.<br>
+<br>
+Output from running sudo inxi -F:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: S2550 Kernel: 3.7.10-antix.5-486-smp (i686) (32 bit)
+               Console: tty1 Distro: antiX-13.2_386-full Luddite 4 November 2013
+Machine:   System: Gateway product: Solo 2550 version: Rev 1 serial: 0018942899
+               Mobo: Gateway model: Solo 2550 version: Rev 1.0 Bios: Gateway version: 15.03
+               date: 03/09/2000
+CPU:         Single core  Pentium III (Coppermine)  (-UP-) cache: 256 KB flags: (paesse) clocked
+               at 597.368 MHz
+Graphics:  Card: Silicon Motion SM710 LynxEM
+               X.org: 1.12.4 drivers: fbdev,vesa,siliconmotion tty size: 80x25
+               Advanced Data: N/A for root out of X
+Audio:      Card: ESS ES1978 Maestro 2E driver: snd_es1968 Sound: ALSA
+               ver: k3.7.10-antix.5-486-smp
+Network:   Failed to Detect Network Card!
+Drives:      HDD Total Size: 80.0 GB (-) 1: id: /dev/sda model: ST980815A size: 80.0 GB
+Partition:   ID: / size: 35G used: 2.5G (8%) fs: ext3 ID: swap-1 size: 5.24GB used: 0.00GB      
+                (0%) fs: swap
+Sensors:    System Temperatures: cpu: 35.0C mobo: N/A
+                Fan Speeds (in rpm): cpu: N/A
+Info:          Processes: 67 Uptime: 2 min Memory: 30.4/278.2MB Runlevel: 3
+                 Client: Shell (sudo) inxi: 1.9.16
+</code></pre></div>
+I also attached /var/log/Xorg.0.log. There is a very suspicious line in that file:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[   984.277] (EE) SMI(0): Not enough video memory for the configured screen size (1024x1024) and color depth.
+</code></pre></div>
+I have no idea why it's trying to use 1024x1024 even though everything else in the log talks about 1024x768.<br>
+<br>
+I've tried several things in GRUB to try to boot into the GUI:<br>
+- removing nouveau.modeset=0 from the kernel line (so the line reads kernel (kernel location) (root location)<br>
+- appending ro 5 to the end of the kernel line (but without the nouveau.modeset=0, for this and everything below this)<br>
+- appending ro nomodeset nouveau.modeset=0 noxorg to the end of the kernel line<br>
+- appending ro nomodeset to the end of the kernel line<br>
+<br>
+I've also tried:<br>
+- Running startx after booting into init-3<br>
+- Running slim after booting into init-3<br>
+<br>
+But all of those still end up with the same blank screen. I'm stuck! Any ideas?<br>
+P.S. I don't know much about Linux. All of what I did above is information I got from other threads.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32744" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32744">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32744">
+
+<time datetime="2014-01-07T04:22">posted: 2014-01-07 &nbsp; 04:22</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p32744" title="permalink">#2</a></span>
+
+<div class="content">I worked on it some more and I'm making some progress. I am convinced this is an issue with X.<br>
+<br>
+Using sudo Xorg -configure to generate an xorg.conf (since there wasn't one in <strong>/</strong>etc/X11), I saw that X thought that I had a dual monitor setup, so I deleted everything that referenced the second monitor. Then I rebooted, and selected the normal (quiet nouveau.modeset=0) in the boot menu, and it booted! To console mode. <br>
+/var/log/Xorg.0.log contains lines such as:<br>
+Hotplugging is on, devices using drivers 'kbd', 'mouse' or 'vmmouse' will be disabled<br>
+open /dev/fb0: no such file or directory<br>
+Falling back to old probe method for fbdev<br>
+Screen(s) found, but none have a usable configuration<br>
+Fatal Sever Error: No screens found</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32745" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32745">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32745">
+
+<time datetime="2014-01-07T04:55">posted: 2014-01-07 &nbsp; 04:55</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p32745" title="permalink">#3</a></span>
+
+<div class="content">Have you tried without removing any screens?<br>
+It should use only one even though two are setup.<br>
+Also you should be able to set modes for the 1024x768 screen resolution.<br>
+Right after all the depth lines add a line like<br>
+Modes"1024x768"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32814" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32814">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32814">
+
+<time datetime="2014-01-10T07:50">posted: 2014-01-10 &nbsp; 07:50</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p32814" title="permalink">#4</a></span>
+
+<div class="content">In the xorg.conf that sudo Xorg -configure generated, I get the black screen problem. If I add the Modes line like you suggested, I still get the black screen problem.<br>
+In the xorg.conf from Xorg -configure, if I remove the duplicate screens, cards, etc., it boots, but X runs into errors when it loads and it goes to console mode. If I take that xorg.conf that has the duplicate screen removed, and add the Modes line, it does the same thing as without the Modes line.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32855" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32855">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32855">
+
+<time datetime="2014-01-13T03:13">posted: 2014-01-13 &nbsp; 03:13</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p32855" title="permalink">#5</a></span>
+
+<div class="content">Hmm, maybe try using a single screen configuration but using vesa as the driver and a mode line.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32862" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32862">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+ 
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32862">
+
+<time datetime="2014-01-13T22:37">posted: 2014-01-13 &nbsp; 22:37</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p32862" title="permalink">#6</a></span>
+
+<div class="content">Doing that gives me the same black screen problem.<br>
+Here's xorg.conf in case it helps:<br>
+<br>
+xorg.conf:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"ServerLayout"
+    Identifier    "X.org Configured"
+    Screen      0 "Screen0" 0 0
+#    Screen      1 "Screen1" RightOf"Screen0"
+    InputDevice   "Mouse0""CorePointer"
+    InputDevice   "Keyboard0""CoreKeyboard"
+EndSection
+
+Section"ServerFlags"
+    Option"AutoAddDevices""False"
+    Option"AllowEmptyInput""False"
+EndSection
+
+Section"Files"
+    ModulePath  "/usr/lib/xorg/modules"
+    FontPath    "/usr/share/fonts/X11/misc"
+    FontPath    "/usr/share/fonts/X11/cyrillic"
+    FontPath    "/usr/share/fonts/X11/100dpi/:unscaled"
+    FontPath    "/usr/share/fonts/X11/75dpi/:unscaled"
+    FontPath    "/usr/share/fonts/X11/Type1"
+    FontPath    "/usr/share/fonts/X11/100dpi"
+    FontPath    "/usr/share/fonts/X11/75dpi"
+    FontPath    "/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType"
+    FontPath    "built-ins"
+EndSection
+
+Section"Module"
+    Load "extmod"
+    Load "dri2"
+    Load "dbe"
+    Load "record"
+    Load "glx"
+    Load "dri"
+EndSection
+
+Section"InputDevice"
+    Identifier "Keyboard0"
+    Driver     "kbd"
+    Option"Device""/dev/input/event0"
+EndSection
+
+Section"InputDevice"
+    Identifier "Mouse0"
+    Driver     "mouse"
+    Option       "Protocol""auto"
+    Option       "Device""/dev/input/event4"
+    Option       "ZAxisMapping""4 5 6 7"
+EndSection
+
+Section"Monitor"
+    Identifier  "Monitor0"
+    VendorName  "Monitor Vendor"
+    ModelName   "Monitor Model"
+EndSection
+
+Section"Device"
+        ### Available Driver options are:-
+        ### Values: &lt;i&gt;: integer, &lt;f&gt;: float, &lt;bool&gt;:"True"/"False",
+        ### &lt;string&gt;:"String", &lt;freq&gt;:"&lt;f&gt; Hz/kHz/MHz",
+        ### &lt;percent&gt;:"&lt;f&gt;%"
+        ### [arg]: arg optional
+        #Option    "ShadowFB"               # [&lt;bool&gt;]
+        #Option    "Rotate"                 # &lt;str&gt;
+        #Option    "fbdev"                  # &lt;str&gt;
+        #Option    "debug"                  # [&lt;bool&gt;]
+    Identifier "Card0"
+    Driver     "vesa"
+    BusID      "PCI:1:0:0"
+EndSection
+
+Section"Screen"
+    Identifier"Screen0"
+    Device    "Card0"
+    Monitor   "Monitor0"
+    SubSection"Display"
+        Viewport   0 0
+        Depth     1
+        Modes"1024x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     4
+        Modes"1024x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     8
+        Modes"1024x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     15
+        Modes"1024x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     16
+        Modes"1024x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     24
+        Modes"1024x768"
+    EndSubSection
+EndSection
+
+</code></pre></div>
+I read about a program that's included in Linux called xorgconfig, so I'll see what happens when I run it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32863" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32863">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32863">
+
+<time datetime="2014-01-14T03:18">posted: 2014-01-14 &nbsp; 03:18</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p32863" title="permalink">#7</a></span>
+
+<div class="content">There is also sgfxi if you would like to give that a go. <br>
+I'm not seeing any thing totally upsetting with the xorg.conf posted. <br>
+As far as I know live tries to use the vesa driver, but I could be wrong. I'm also thinking that the driver that was running before trying to change it to vesa was siliconmotion. If it was not then maybe changing it to siliconmotion would work. Sgfxi should be able to find, install and build an xorg.conf if needed but I have only heard / tried it on intel/nvidia/ati cards. also maybe a smaller screen resolution would allow it to fit in the video memory buffer.... I am not sure of the boot line kernel parameter to increase video memory allocation but that may be an possible tweak as well.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33155" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33155">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33155">
+
+<time datetime="2014-01-29T04:33">posted: 2014-01-29 &nbsp; 04:33</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p33155" title="permalink">#8</a></span>
+
+<div class="content">Sorry for the huge delay in posting. And thank you so much for your suggestions. They are leading me toward the solution. Using the siliconmotion driver, the line"Modes 800x600", and the line"DefaultDepth 8" in xorg.conf, something actually showed up on the screen. It wasn't 8-bit color, though; it was monochromatic. Also, the graphics quality was so horrible that it was unusable. And the mouse didn't work. I don't think the keyboard worked either. Despite all of these problems, it is a huge step ahead.<br>
+<br>
+In Xorg.0.log, for at least 100 lines, there's:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Setting mouse protocol to"PS/2"
+ps2EnableDataReporting: failed (this line repeats itself 4 more times then the cycle starts again)
+</code></pre></div>
+Xorg.0.log also says that it failed to load the module kbd. One line claims that the module couldn't be opened. Another line claims the module doesn't exist.<br>
+<br>
+I've been looking for that kernel parameter you mentioned but couldn't find it. Instead I found the DefaultDepth idea. I also tried running sgfxi but it looks like it needs a network connection to work (which I need to find out how to do with only init-3 access). It looks like I have many next directions to choose from to get closer to solving this.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33157" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33157">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33157">
+
+<time datetime="2014-01-29T05:11">posted: 2014-01-29 &nbsp; 05:11</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p33157" title="permalink">#9</a></span>
+
+<div class="content">I think the kernel code is kvmalloc=somethingInKb....<br>
+It seems odd that the keyboard and the mouse failed to load. What kind of devices are these? Did you verify the md5sum of the iso / check the cd with the f4 boot menu option? <br>
+<br>
+Sgfxi should have an option to turn off the network check. However then it can only build the xorg.conf as it cannot download drivers. You should be able to connect to the network by running ceni as root in terminal. Not sure if it will work though as inxi is not showing any network cards. That is a little more common with wireless devices missing drivers, but by the spec of the machine I would guess it to have a wired interface. Which is again kind of odd to be not functioning</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33158" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33158">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33158">
+
+<time datetime="2014-01-29T08:08">posted: 2014-01-29 &nbsp; 08:08</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p33158" title="permalink">#10</a></span>
+
+<div class="content">The keyboard is built in to the laptop, and the mouse is a touchpad that's also built into the laptop. Just now, I used the F4 option on the CD and everything passed inspection.<br>
+<br>
+The laptop has a PCMCIA wireless card. I don't think it was plugged in when I ran inxi in the first post. To be sure, I ran inxi -F again (while logged in as root). It says the card is Broadcom BCM4318 [AirForce One 54g] 802.11g Wireless LAN Controller and the driver is b43-pci-bridge.<br>
+<br>
+I have to go to bed now (well, 3 hours ago :p), so I'll work on those 2 things (the kernel code, and sgfxi) later.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33182" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33182">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33182">
+
+<time datetime="2014-01-30T05:44">posted: 2014-01-30 &nbsp; 05:44</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p33182" title="permalink">#11</a></span>
+
+<div class="content">I got an internet connection working, and ran sgfxi, with the following output:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>checking sgfxi versions... local and remote versions match. Continuing...
+---------
+sgfxi :: version 4.22.09 : last updated: 2014-01-27
+---------
+graphics card information:
+    series: Silicon Motion, Inc. SM710 LynxEM (rev a3)
+    vendor: Gateway 2000
+-------
+ERROR: (254) No supported card found!
+Exiting script now.
+</code></pre></div>
+Is vmalloc = xxxM what you're thinking of? I tried all the way up to vmalloc=2048M but the screen looks the same each time.<br>
+<br>
+I took the mouse and keyboard information from Xorg --configure and replaced the mouse and keyboard stuff in my xorg.conf with it. This got the mouse working but the keyboard is still a no-go.<br>
+<br>
+The lines in Xorg.0.log relating to the keyboard are:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(II) LoadModule:"kbd"
+(WW) Warning, couldn't open module kbd
+(II) UnloadModule:"kbd"
+(EE) Failed to load module"kbd" (module does not exist, 0)
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33184" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33184">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33184">
+
+<time datetime="2014-01-30T11:47">posted: 2014-01-30 &nbsp; 11:47</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p33184" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>hw3patch wrote:</cite>The keyboard is built in to the laptop, and the mouse is a touchpad that's also built into the laptop. Just now, I used the F4 option on the CD and everything passed inspection.<br>
+<br>
+The laptop has a PCMCIA wireless card. I don't think it was plugged in when I ran inxi in the first post. To be sure, I ran inxi -F again (while logged in as root). It says the card is Broadcom BCM4318 [AirForce One 54g] 802.11g Wireless LAN Controller and the driver is b43-pci-bridge.<br>
+<br>
+I have to go to bed now (well, 3 hours ago :p), so I'll work on those 2 things (the kernel code, and sgfxi) later.</div></blockquote>
+Here is the debian wiki, for the Broadcom wireless driver you need. <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/bcm43xx"<br>linktext was:"https://wiki.debian.org/bcm43xx"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33188" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33188">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33188">
+
+<time datetime="2014-01-31T03:24">posted: 2014-01-31 &nbsp; 03:24</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p33188" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>Eino wrote:</cite>
+Here is the debian wiki, for the Broadcom wireless driver you need. <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/bcm43xx"<br>linktext was:"https://wiki.debian.org/bcm43xx"<br>====================================<br>
+</div></blockquote>
+Thanks. It looks like that driver is already included in my version of AntiX, because I got my internet connection working without me needing to install anything.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33281" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33281">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33281">
+
+<time datetime="2014-02-08T08:21">posted: 2014-02-08 &nbsp; 08:21</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p33281" title="permalink">#14</a></span>
+
+<div class="content">I changed the defaultdepth to 16, and now the desktop looks fine. Now I need to figure out how to get the keyboard to work, and everything will be working. In Xorg.0.log, there's:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(II) LoadModule:"kbd"
+(WW) Warning, couldn't open module kbd
+(II) UnloadModule:"kbd"
+(II) Unloading kbd
+(EE) Failed to load module"kbd" (module does not exist, 0)
+(EE) No input driver matching 'kbd'
+</code></pre></div>
+Based on searching the web, apparently, a file called kbd_drv.so is supposed to exist in /usr/lib/xorg/modules/input. That file isn't there. It isn't there in my other computer either, but its keyboard is working fine. How peculiar...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33283" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33283">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">hw3patch</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33283">
+
+<time datetime="2014-02-08T09:34">posted: 2014-02-08 &nbsp; 09:34</time>
+<span class="permalink"><a href="./graphics-card-issues-t4780.html#p33283" title="permalink">#15</a></span>
+
+<div class="content">Everything is working now! When I'm not so tired, I'll write up how to get it working on this laptop model so anyone else having this problem doesn't have to go through the hassle that I did.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./graphics-card-issues-t4780-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./graphics-card-issues-t4780-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

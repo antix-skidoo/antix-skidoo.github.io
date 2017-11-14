@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Installing ipw2200 drivers - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installing-ipw2200-drivers-t4492.html">Installing ipw2200 drivers</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_30356" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30356">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Brainwright</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Jul 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30356">
+<time datetime="2013-07-18T00:15">posted: 2013-07-18 &nbsp; 00:15</time>
+<span class="permalink"><a href="./installing-ipw2200-drivers-t4492.html#p30356" title="permalink">#1</a></span>
+
+<div class="content">I'm having trouble installing the ipw2200 drivers on my old laptop.<br>
+<br>
+Apt-get can't find the file, and the only other source I have is a .tgz file.<br>
+<br>
+So what do I need to do to use the .tgz file?<br>
+<br>
+Normally, I'd try to compile and see what I get, but that doesn't seem to be an option here. What am I missing?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30357" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30357">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30357">
+
+<time datetime="2013-07-18T01:17">posted: 2013-07-18 &nbsp; 01:17</time>
+<span class="permalink"><a href="./installing-ipw2200-drivers-t4492.html#p30357" title="permalink">#2</a></span>
+
+<div class="content">The ipw2200 driver is part of the kernel which is way you can't install it as a package. It is already in antiX:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ find /lib/modules -name ipw2200.ko
+/lib/modules/3.7.10-gnu-antix.3-486-smp/kernel/drivers/net/wireless/ipw2x00/ipw2200.ko</code></pre></div>
+You can see if it is already loaded with"lsmod | grep ipw". You can load it manually (as root) with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># modprobe ipw2200</code></pre></div>
+There have been two recent threads about this module.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/viewtopic.php?f=49&amp;t=4477"<br>linktext was:"The most recent"<br>====================================<br>
+ shows you how to install the firmware. Some people need it and some don't.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/viewtopic.php?f=16&amp;t=4470"<br>linktext was:"The older thread"<br>====================================<br>
+ tells you how to get the ipw2200 driver to automatically load at boot time. The instructions there for getting the firmware are incorrect. You should follows SamK's instructions in the more recent thread. For one person, the module loaded automatically but they needed to install the firmware. For the other person, the module didn't load automatically but once it was loaded they didn't need the firmware.<br>
+<br>
+First make sure the module is loaded. If not, load it. If that solves your problem then follow instructions in the older thread for making it load automatically at boot time. If the module is already loaded or if loading it does not solve your problem then you should install the firmware as described in the most recent thread.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30551" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30551">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Brainwright</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Jul 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30551">
+
+<time datetime="2013-08-03T21:25">posted: 2013-08-03 &nbsp; 21:25</time>
+<span class="permalink"><a href="./installing-ipw2200-drivers-t4492.html#p30551" title="permalink">#3</a></span>
+
+<div class="content">Thanks a lot for your help. <br>
+<br>
+I finally got it working, and the diagnostic commands shown in the instructions have given me a good idea of how to solve and future problems.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

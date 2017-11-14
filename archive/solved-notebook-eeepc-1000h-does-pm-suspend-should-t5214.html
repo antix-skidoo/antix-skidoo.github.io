@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] Notebook (eeepc 1000H) does pm-suspend -should not! - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-notebook-eeepc-1000h-does-pm-suspend-should-t5214.html">[SOLVED] Notebook (eeepc 1000H) does pm-suspend -should not!</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_36543" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36543">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Nordlicht</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Jul 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36543">
+<time datetime="2014-07-28T20:24">posted: 2014-07-28 &nbsp; 20:24</time>
+<span class="permalink"><a href="./solved-notebook-eeepc-1000h-does-pm-suspend-should-t5214.html#p36543" title="permalink">#1</a></span>
+
+<div class="content">Hi Forum and Hello from germany<br>
+<br>
+Got a eeepc with antiX-13 and
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Linux eeepc 3.7.10-antix.5-486-smp #2 SMP Tue Oct 15 20:58:22 EEST 2013 i686 GNU/Linux</code></pre></div>
+with openbox and based on testing.<br>
+I configured xfce4-power-manager to do nothing when on ac and the lid gets closed - <br>
+but it does a suspend to ram!<br>
+Who is doing that?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat .config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml </code></pre></div>
+show's<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;channel name="xfce4-power-manager" version="1.0"&gt;
+  &lt;property name="xfce4-power-manager" type="empty"&gt;
+    &lt;property name="power-button-action" type="uint" value="4"/&gt;
+    &lt;property name="show-tray-icon" type="uint" value="3"/&gt;
+    &lt;property name="hibernate-button-action" type="uint" value="2"/&gt;
+    &lt;property name="sleep-button-action" type="uint" value="1"/&gt;
+    &lt;property name="inactivity-on-ac" type="uint" value="14"/&gt;
+    &lt;property name="brightness-on-ac" type="uint" value="120"/&gt;
+    &lt;property name="critical-power-action" type="uint" value="4"/&gt;
+    &lt;property name="lid-action-on-battery" type="uint" value="2"/&gt;
+    &lt;property name="inactivity-on-battery" type="uint" value="15"/&gt;
+    &lt;property name="brightness-on-battery" type="uint" value="120"/&gt;
+    &lt;property name="dpms-on-battery-sleep" type="uint" value="15"/&gt;
+    &lt;property name="dpms-on-battery-off" type="uint" value="20"/&gt;
+    &lt;property name="critical-power-level" type="uint" value="5"/&gt;
+    &lt;property name="lock-screen-suspend-hibernate" type="bool" value="false"/&gt;
+    &lt;property name="lid-action-on-ac" type="uint" value="0"/&gt;
+  &lt;/property&gt;
+&lt;/channel&gt;</code></pre></div>
+According to the kernel log the suspend is done by pm!
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[..]
+PM: Syncing filesystems ... done.
+Jul 28 22:18:24 eeepc kernel: [  645.564748] Freezing user space processes ... (elapsed 0.01 seconds) done.
+Jul 28 22:18:24 eeepc kernel: [  645.580317] Freezing remaining freezable tasks ... (elapsed 0.01 seconds) done.
+Jul 28 22:18:24 eeepc kernel: [  645.596394] Suspending console(s) (use no_console_suspend to debug)
+Jul 28 22:18:24 eeepc kernel: [  645.597204] sd 0:0:0:0: [sda] Synchronizing SCSI cache
+Jul 28 22:18:24 eeepc kernel: [  645.597473] sd 0:0:0:0: [sda] Stopping disk
+Jul 28 22:18:24 eeepc kernel: [  645.598963] option1 ttyUSB0: option_instat_callback: error -2
+Jul 28 22:18:24 eeepc kernel: [  645.625149] ACPI handle has no context!
+Jul 28 22:18:24 eeepc kernel: [  645.625167] ACPI handle has no context!
+Jul 28 22:18:24 eeepc kernel: [  646.220232] PM: suspend of devices complete after 623.573 msecs
+Jul 28 22:18:24 eeepc kernel: [  646.220632] PM: late suspend of devices complete after 0.390 msecs
+Jul 28 22:18:24 eeepc kernel: [  646.252376] PM: noirq suspend of devices complete after 31.735 msecs
+Jul 28 22:18:24 eeepc kernel: [  646.252426] ACPI: Preparing to enter system sleep state S3
+Jul 28 22:18:24 eeepc kernel: [  646.278845] PM: Saving platform NVS memory
+Jul 28 22:18:24 eeepc kernel: [  646.279899] Disabling non-boot CPUs ...
+Jul 28 22:18:24 eeepc kernel: [  646.384033] smpboot: CPU 1 is now offline
+[..]</code></pre></div>
+But why?<br>
+<br>
+Anyone ?</div>
+<div class="notice">
+Last edited by <b>Nordlicht</b> on 01 Aug 2014, 10:06, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36544" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36544">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36544">
+
+<time datetime="2014-07-28T20:38">posted: 2014-07-28 &nbsp; 20:38</time>
+<span class="permalink"><a href="./solved-notebook-eeepc-1000h-does-pm-suspend-should-t5214.html#p36544" title="permalink">#2</a></span>
+
+<div class="content">have you made any changes to / etc/default/acpi-support? There is a switch in the file for the lid/sleep function that will take precedence over anything else.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36545" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36545">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Nordlicht</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Jul 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36545">
+
+<time datetime="2014-07-28T21:22">posted: 2014-07-28 &nbsp; 21:22</time>
+<span class="permalink"><a href="./solved-notebook-eeepc-1000h-does-pm-suspend-should-t5214.html#p36545" title="permalink">#3</a></span>
+
+<div class="content">In / etc/default/acpi-support is everything deactivated!<br>
+<br>
+I checked BIOS - nothing<br>
+I checked default xfce4 settings in / etc/xdg - nothing<br>
+<br>
+who is doing this suspend to ram ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36549" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36549">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 23</span></div>
+
+</div>
+</div>
+<span class="username">chatan</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36549">
+
+<time datetime="2014-07-29T11:21">posted: 2014-07-29 &nbsp; 11:21</time>
+<span class="permalink"><a href="./solved-notebook-eeepc-1000h-does-pm-suspend-should-t5214.html#p36549" title="permalink">#4</a></span>
+
+<div class="content">I'm by no means an expert but on my EEE PC 900 I had to edit my / etc/acpi/lid.sh file get the lid to do what I wanted... but my case was independent of the power cord status, so not sure if this helps you.<br>
+Cheers</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36553" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36553">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Nordlicht</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Jul 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36553">
+
+<time datetime="2014-07-30T07:45">posted: 2014-07-30 &nbsp; 07:45</time>
+<span class="permalink"><a href="./solved-notebook-eeepc-1000h-does-pm-suspend-should-t5214.html#p36553" title="permalink">#5</a></span>
+
+<div class="content">Hi @all and thanks for you help....<br>
+- it is still suspending to ram, when I close the lid.<br>
+<span class="emoticon"> __{{emoticon}}__ </span> <br>
+I changed (added) to lid.sh in second line
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>exit 0</code></pre></div>
+so the rest of the script will not take affect! Still suspending!<br>
+<br>
+<span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Anyone any idea?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36578" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36578">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">Nordlicht</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Jul 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36578">
+
+<time datetime="2014-08-01T10:05">posted: 2014-08-01 &nbsp; 10:05</time>
+<span class="permalink"><a href="./solved-notebook-eeepc-1000h-does-pm-suspend-should-t5214.html#p36578" title="permalink">#6</a></span>
+
+<div class="content">Hi @ all<br>
+<br>
+I changed the action from lidswitch to ignore in / etc/systemd/logind.conf.<br>
+<br>
+That's it!<br>
+<br>
+Thanks for your help!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>adding frugal install menuentry - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./adding-frugal-install-menuentry-t6301.html">adding frugal install menuentry</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_45952" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45952">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">zpimp</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45952">
+<time datetime="2016-03-22T20:22">posted: 2016-03-22 &nbsp; 20:22</time>
+<span class="permalink"><a href="./adding-frugal-install-menuentry-t6301.html#p45952" title="permalink">#1</a></span>
+
+<div class="content">again i require your help<br>
+i want to make a frugal install on the second partition <br>
+antix is installed on /sda1<br>
+<br>
+all files in iso are extracted to second partition / sda3 / frugal / * (yes sd3 is my second partition)<br>
+made a file /e.t.c./grub.d/11_frugal , chmod 755 then sudo update-grub<br>
+<br>
+file contents:<br>
+menuentry"boot frugal" {<br>
+set root=(hd0,1)<br>
+linux / frugal / vmlinuz ro quiet splash<br>
+initrd / frugal / initrd.img<br>
+}<br>
+<br>
+<br>
+i remember doing frugal install before, but it was somehow different<br>
+did antix13 used grub legacy?<br>
+can you give me some pointers, where to look?<br>
+<br>
+edit:<br>
+after reading some more i figured i should put the files in a directory called antiX cause it seemed to search them there<br>
+changed menu entry accordingly :<br>
+menuentry" boot frugal" {<br>
+search --no-floppy --fs-uuid --set=root 'cff4df6f-0243-4caa-b5aa-05a52268124f'<br>
+linux /antiX/vmlinuz ro quiet splash<br>
+initrd /antiX/initrd.gz<br>
+}<br>
+<br>
+it boots first part, then it says<br>
+<br>
+scan usb,cd devices, look for boot files antiXlinuxfs<br>
+retry for 10 seconds<br>
+fatal error<br>
+no usb, cd devices found<br>
+<br>
+i understand it looks for files on cd,usb, but i dont have any idea how to change this <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45997" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile45997">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">jono</span>
+</dt>
+<dd class="profile-joined">Joined: 06 Jun 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45997">
+
+<time datetime="2016-03-24T09:56">posted: 2016-03-24 &nbsp; 09:56</time>
+<span class="permalink"><a href="./adding-frugal-install-menuentry-t6301.html#p45997" title="permalink">#2</a></span>
+
+<div class="content">For the parameters on the kernel-line please look here:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.mepis.org/index.php?title=Frugal_install"<br>linktext was:"http://antix.mepis.org/index.php?title=Frugal_install"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45998" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45998">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45998">
+
+<time datetime="2016-03-24T11:06">posted: 2016-03-24 &nbsp; 11:06</time>
+<span class="permalink"><a href="./adding-frugal-install-menuentry-t6301.html#p45998" title="permalink">#3</a></span>
+
+<div class="content">My frugal entry looks like this.<br>
+<br>
+menuentry 'antiX-xorg-sid-386' --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-    gnulinux-/Remaster/work/antiX-16-a1-xorg-sid-386-sid-core/iso/antiX/vmlinuz--2c53bf5a-8caa-4534-beb1-f5aa04050918' {<br>
+insmod part_msdos<br>
+insmod ext2<br>
+set root='hd0,msdos1'<br>
+if [ x$feature_platform_search_hint = xy ]; then<br>
+search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1 2c53bf5a-8caa-4534-beb1-f5aa04050918<br>
+else<br>
+search --no-floppy --fs-uuid --set=root 2c53bf5a-8caa-4534-beb1-f5aa04050918<br>
+fi<br>
+linux /Remaster/work/antiX-16-a1-xorg-sid-386-sid-core/iso/antiX/vmlinuz bdev=sda3 bdir=Remaster/work/antiX-16-a1-xorg-sid-386-sid-core/iso/antiX quiet splash=v nosysv=LX vga=795<br>
+initrd /Remaster/work/antiX-16-a1-xorg-sid-386-sid-core/iso/antiX/initrd.gz<br>
+}<br>
+<br>
+So try adding bdev=sda3 bdir=antiX to the linux line<br>
+<br>
+BTW - My entry is for grub2. If you are using grub-legacy, then see the post above mine</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46017" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46017">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">zpimp</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46017">
+
+<time datetime="2016-03-24T21:06">posted: 2016-03-24 &nbsp; 21:06</time>
+<span class="permalink"><a href="./adding-frugal-install-menuentry-t6301.html#p46017" title="permalink">#4</a></span>
+
+<div class="content">i am using grub2<br>
+also posted to linuxforums, and i have found this to be working, by myself <span class="emoticon"> __{{emoticon}}__ </span><br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.linuxquestions.org/questions/showthread.php?p=5520279"<br>linktext was:"http://www.linuxquestions.org/questions ... ?p=5520279"<br>====================================<br>
+<br>
+<br>
+menuentry"---------- boot frugal" {<br>
+linux (hd0,3)/antiX/vmlinuz bootdev=sda3 quiet splash=v disable_srv=LX<br>
+initrd (hd0,3)/antiX/initrd.gz<br>
+}<br>
+<br>
+i was just wondering if i could use bootdir, bootdev, bdir, bdev but couldnt find these switches anywhere on grub docs<br>
+are these interchangeable? i assume they are specific to antix,going to try it now<br>
+thank you very much for your help</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46020" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46020">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46020">
+
+<time datetime="2016-03-24 &nbsp; 21:46">posted: 2016-03-24 &nbsp; 21:46</time>
+<span class="permalink"><a href="./adding-frugal-install-menuentry-t6301.html#p46020" title="permalink">#5</a></span>
+
+<div class="content">
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://download.tuxfamily.org/antix/docs-antiX-15/FAQ/boot-params.html"<br>linktext was:"http://download.tuxfamily.org/antix/doc ... arams.html"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46036" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46036">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">zpimp</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46036">
+
+<time datetime="2016-03-25T19:53">posted: 2016-03-25 &nbsp; 19:53</time>
+<span class="permalink"><a href="./adding-frugal-install-menuentry-t6301.html#p46036" title="permalink">#6</a></span>
+
+<div class="content">i see antix 15 has an option to install frugal, but<br>
+is it hard to manually install grub to newly formatted hdd<br>
+then put the menuentry myself?<br>
+it seems i cant get grub to install to a hdd without an os</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

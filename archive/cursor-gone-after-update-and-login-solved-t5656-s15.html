@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Cursor gone after update and login. (Solved) - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./cursor-gone-after-update-and-login-solved-t5656-s15.html">Cursor gone after update and login. (Solved)</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./cursor-gone-after-update-and-login-solved-t5656.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./cursor-gone-after-update-and-login-solved-t5656.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_41246" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41246">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41246">
+<time datetime="2015-06-16T12:37">posted: 2015-06-16 &nbsp; 12:37</time>
+<span class="permalink"><a href="./cursor-gone-after-update-and-login-solved-t5656-s15.html#p41246" title="permalink">#16</a></span>
+
+<div class="content">Hi Roky, for what it's worth, I hadn't run into the exact issue you were experiencing on any of my antiX or MX instances (at least not the ones I have been running recently), but I have recently run into two separate, and possibly unrelated issues.<br>
+<br>
+One involved Debian Sid, and I got that one taken care of over the weekend. On Sid, my CPU usage was running out of control, and I suspected something afoul with the graphics driver interaction with the kernel. When I finally got a little bit of time to experiment with it, I went into console mode on the Sid system (stopping the X server while I did so). That made the system more responsive, and just prior to that, I was able (after several minutes of waiting) to execute a command that showed that indeed it was X that was burning up all of my available CPU time on this one Sid instance.<br>
+<br>
+So I ran smxi, which I happened to have on the Sid-based system, and I first performed all of the package updates that were available. Then I used the smxi feature that calls its graphics subsystem, and I had it completely rebuild the X server, including the core Xorg package and the Intel graphics driver for it. When the rebuild completed, I went back into graphical user mode and the issues were gone, so there definitely was some kind of issue between the kernel version I was running and the graphics setup I had until I explicitly fixed it, then it worked.<br>
+<br>
+The other issue I sometimes run into - and I haven't quite isolated where it's right and where it's wrong is when I want to shut down my system. In the past, when I'd perform the normal shutdown, a"shutdown" was interpreted as stopping all of the activities on the system, then physically powering down the computer. In contrast, a reboot would halt the processor then reboot the computer into whatever system image you selected at the boot menu. Previously, when I'd halt, both halt and poweroff would do essentially the same thing. More recently, however, halt and poweroff are NOT the same. Both will stop the system from actively processing, but halt by itself does stop processor activity without physically shutting off power, whereas poweroff performs both a halt processor and a poweroff activity.<br>
+<br>
+Turns out that the shutdown command on many systems performs differently than in the past. A shutdown -h now, at least on one of my system instances will halt the processor, but that's it, in spite of what the docunentation suggests. A shutdown -hP now will halt and poweroff. That may account for the difference in behavior that I have experienced. It may also be some subtle changes in the manner in which the command works because of changes in the way that init works depending on which init system is being used.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://man7.org/linux/man-pages/man8/shutdown.8.html"<br>linktext was:"http://man7.org/linux/man-pages/man8/shutdown.8.html"<br>====================================<br>
+ documents the shutdown command (but I've noticed that the actual behavior on systems with systemd is not always in sync with what this page suggests), and that's why I have recently been using shutdown -hP now to poweroff my system.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./cursor-gone-after-update-and-login-solved-t5656.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./cursor-gone-after-update-and-login-solved-t5656.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

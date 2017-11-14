@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>speedtest-cli (candidate for console-grid-gui inclusion) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-development-f24/index.html"><span>antiX-development</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-f6/index.html"><span>Development</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./speedtest-cli-candidate-for-console-grid-gui-inclu-t7231.html">speedtest-cli (candidate for console-grid-gui inclusion)</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+
+<div id="p_53678" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile53678">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53678">
+<time datetime="2017-10-12T03:09">posted: 2017-10-12 &nbsp; 03:09</time>
+<span class="permalink"><a href="./speedtest-cli-candidate-for-console-grid-gui-inclu-t7231.html#p53678" title="permalink">#1</a></span>
+
+<div class="content">debian-packaged version is older (v1.0.0-1) <strong>and</strong>"depends" on  <em>python-pkg-resources</em>, aka <em>PyPi</em><br>
+Attached to this post is my modded version of 1.0.6, from: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/sivel/speedtest-cli"<br>linktext was:"https://github.com/sivel/speedtest-cli"<br>====================================<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>speedtest-cli
+    Command line interface for testing internet bandwidth using speedtest.net
+        version  "1.0.6ski"
+DESCRIPTION
+    Speedtest.net is a web service for testing your broadband connection by downloading a file from a
+    nearby speedtest.net server on the web. This tool allows you to access the service from the command line.
+    Speedtest mini is a version of the Speedtest.net server that you can host locally.
+
+=======================
+regarding potential inconsistency:
+   It is not a goal of this application to be a reliable latency reporting tool.
+
+Latency reported by this tool should not be relied on as a value indicative of ICMP style latency.
+It is a relative value used for determining the lowest-latency server for performing the actual speed test against.
+
+There is the potential for this tool to report results inconsistent with Speedtest.net.
+There are several concepts to be aware of that factor into the potential inconsistency:
+
+1. Speedtest.net has migrated to using pure socket tests instead of HTTP based tests.
+2. This application is written in Python.
+3. Different versions of Python will execute certain parts of the code faster than others.
+4. CPU and Memory capacity and speed will play a large part in inconsistency between
+   Speedtest.net and even other machines on the same network
+========================
+OPTIONS
+Usage: speedtest\-cli [OPTION...]
+
+-h, --help
+        Displays usage for the tool
+
+--bytes
+        Display values in bytes instead of bits.
+
+--csv
+        Suppress verbose output, only show basic information in CSV format.
+        Speeds are listed in bits/sec and are not affected by --bytes
+
+--csv-delimiter CSV_DELIMITER
+        Single character delimiter to use in CSV output. Default","
+
+--csv-header
+        Print CSV headers
+--debug
+        howdy needa description?
+
+--json
+        Suppress verbose output, only show basic information in JSON format.
+        Speeds are listed in bits/sec and are not affected by --bytes
+
+--list
+        Display a list of speedtest.net servers sorted by distance
+
+--mini MINI
+        URL of the Speedtest Mini server
+
+--no-pre-allocate
+        Do not pre allocate upload data.
+        Pre allocation is enabled by default to improve upload performance. 
+        To support systems with insufficient memory,
+        use this option to avoid a MemoryError
+
+--numiter
+        Number of iterations to run
+
+--secure
+        Use HTTPS instead of HTTP when communicating with speedtest.net operated servers
+
+--server SERVER
+        Specify a server ID (or city name) to test against
+
+--simple
+        Suppress verbose output, only show basic information
+
+--source SOURCE
+        Source IP address to bind to
+
+--timeout TIMEOUT
+        HTTP timeout in seconds. Default 10
+
+--version
+        Show the version number and exit
+        
+        
+###    EXAMPLES
+###
+###    Automatically find closest server and start testing (no args)
+###            speedtest-cli
+###
+###    Specify testing against server 1491
+###            speedtest-cli --server 1491
+###
+###    Testing against Speedtest Mini
+###            speedtest-cli --mini 172.18.66.1        
+</code></pre></div>
+<strong>sample output</strong><blockquote class="uncited"><div>demo@antix1:~<br>
+$ <span style="color: silver">time</span> /usr/local/bin/speedtest-cli.py<br>
+<br>
+Retrieving speedtest.net configuration...<br>
+Testing from Moonshine Cable Co (94.131.128.164)...<br>
+Retrieving speedtest.net server list...<br>
+Selecting best server based on ping...<br>
+Hosted by Moonshine Cable Co (Hootersville, KY) [49.75 km]: 20.8 ms<br>
+Testing download speed...................................<br>
+Download: 90.31 Mbit/s<br>
+Testing upload speed.................................<br>
+Upload: 12.23 Mbit/s<br>
+<br>
+<span style="color: silver">real    0m23.057s<br>
+user    0m4.165s<br>
+sys    0m1.399s</span></div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53769" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile53769">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53769">
+
+<time datetime="2017-10-16T18:29">posted: 2017-10-16 &nbsp; 18:29</time>
+<span class="permalink"><a href="./speedtest-cli-candidate-for-console-grid-gui-inclu-t7231.html#p53769" title="permalink">#2</a></span>
+
+<div class="content"><img alt="😉" class="emoji" draggable="false" src="//cdn.jsdelivr.net/emojione/assets/svg/1f609.svg"> Hi skidoo,<br>
+<br>
+with conky  
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>### pkill -xf"conky -q -c /home/male/speedtest/conkyspeedrc" &amp; 
+### works perfect @male 2017-07-19 
+background no
+use_xft yes
+#xftfont monospace:size=10
+xftfont monofur:size=10
+xftalpha 1
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_hints undecorated,below,skip_taskbar,skip_pager  #sticky,
+own_window_class Conky
+own_window_title Speedtest
+own_window_argb_visual yes
+#own_window_argb_value 80
+double_buffer yes
+draw_borders no
+border_inner_margin 5  #margin between border and text
+border_outer_margin 0  #margin between border and window edge
+border_width 5  #border thickness
+draw_outline no
+draw_graph_borders yes
+stippled_borders 0
+
+default_color cyan
+default_shade_color black
+default_outline_color white
+alignment top_right
+gap_x 60
+gap_y 90
+cpu_avg_samples 10
+override_utf8_locale yes
+
+minimum_size 160 100
+maximum_width 160
+update_interval 3  #21600 #86400
+
+#--LUA--#
+#lua_load ~/Lua/draw-bg.lua
+
+TEXT
+#${lua conky_draw_bg 10 0 0 0 0 0x000000 0.2}
+#leet chars: ┤┤└└┴┴┐┐││┘┘┌┌├├┬┬┼┼┴┴── ││ ▽▼△▲▵▴▾▿
+┌───────────────┐
+│ SPEEDTEST.NET │
+└───────────────┘
+${texeci 3600 speedtest --simple --server 10963}
+${texeci 3600 notify-send -i network-transmit-receive"Speedtest Completed"} 
+
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>-- pkill -xf"conky -q -c /home/male/speedtest/conkyspeedrc" &amp;
+-- works perfect @male 2017-07-19
+conky.config = {
+    background = false,
+    use_xft = true,
+--xftfont monospace:size=10
+    font = 'monofur:size=10',
+    xftalpha = 1,
+    total_run_times = 0,
+    own_window = true,
+    own_window_transparent = true,
+    own_window_hints = 'undecorated,below,skip_taskbar,skip_pager',--sticky,
+    own_window_class = 'Conky',
+    own_window_title = 'Speedtest',
+    own_window_argb_visual = true,
+--own_window_argb_value 80
+    double_buffer = true,
+    draw_borders = false,
+    border_inner_margin = 5,--margin between border and text
+    border_outer_margin = 0,--margin between border and window edge
+    border_width = 5,--border thickness
+    draw_outline = false,
+    draw_graph_borders = true,
+    stippled_borders = 0,
+
+    default_color = 'cyan',
+    default_shade_color = 'black',
+    default_outline_color = 'white',
+    alignment = 'top_right',
+    gap_x = 90,
+    gap_y = 80,
+    cpu_avg_samples = 10,
+    override_utf8_locale = true,
+
+    minimum_width = 160, minimum_height = 100,
+    maximum_width = 160,
+    update_interval = 3,--21600 --86400
+
+----LUA--#
+--lua_load ~/Lua/draw-bg.lua
+
+};
+
+conky.text = [[
+#${lua conky_draw_bg 10 0 0 0 0 0x000000 0.2}
+#leet chars: ┤┤└└┴┴┐┐││┘┘┌┌├├┬┬┼┼┴┴── ││ ▽▼△▲▵▴▾▿
+┌───────────────┐
+│ SPEEDTEST.NET │
+└───────────────┘
+${texeci 3600 speedtest --simple --server 10963}
+${texeci 3600 notify-send -i network-transmit-receive"Speedtest Completed"} 
+]];
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53780" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile53780">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53780">
+
+<time datetime="2017-10-17T04:10">posted: 2017-10-17 &nbsp; 04:10</time>
+<span class="permalink"><a href="./speedtest-cli-candidate-for-console-grid-gui-inclu-t7231.html#p53780" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Hootersville, KY Moonshine Cable</div></blockquote>
+<a href="http://www.desismileys.com/" class="postlink"><img src="http://www.desismileys.com/smileys/desismileys_0966.gif" class="postimage" alt="Image"></a><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ /usr/local/bin/speedtest-cli.py
+Retrieving speedtest.net configuration...
+Testing from Windstream Communications (69.40.147.140)...
+Retrieving speedtest.net server list...
+Selecting best server based on ping...
+Hosted by Charter Communications (Fort Worth, TX) [86.00 km]: 79.308 ms
+Testing download speed................................................................................
+Download: 1.43 Mbit/s
+Testing upload speed................................................................................................
+Upload: 0.50 Mbit/s
+</code></pre></div>
+Now you know why. I pay attention to md5.<br>
+And wget -c is my friend.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53783" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile53783">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53783">
+
+<time datetime="2017-10-17T08:38">posted: 2017-10-17 &nbsp; 08:38</time>
+<span class="permalink"><a href="./speedtest-cli-candidate-for-console-grid-gui-inclu-t7231.html#p53783" title="permalink">#4</a></span>
+
+<div class="content">Just gave it (yours) a try.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Testing download speed................................................................................
+Download: 45.17 Mbit/s
+Testing upload speed................................................................................................
+Upload: 5.19 Mbit/s
+</code></pre></div>
+(That's just about what it was when I last tested via firefox about a week ago.)<br>
+<br>
+Beats having to load a browser to test it. :)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

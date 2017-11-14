@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-15-beta1-V ready for testing - Page 6 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-releases-f45/index.html"><span>Development releases</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html">antiX-15-beta1-V ready for testing</a></div>
+<div class="pagination">
+183 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-15-beta1-v-ready-for-testing-t5565-s60.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s45.html" role="button">4</a></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s60.html" role="button">5</a></li>
+<li class="active"><span>6</span></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s90.html" role="button">7</a></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s105.html" role="button">8</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s180.html" role="button">13</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-15-beta1-v-ready-for-testing-t5565-s90.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_40138" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40138">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40138">
+<time datetime="2015-03-20T18:47">posted: 2015-03-20 &nbsp; 18:47</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40138" title="permalink">#76</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite><blockquote><div><cite>Dave wrote:</cite>
+Take that command and put it in a udev rule for block devices. That will keep the depends only to udisks and not entirely spacefm. Iirc there is a udev rules there for build fstab for the live system auto mounting. If that is the case copy that rule and change out the command to udisks which I think would be the easiest</div></blockquote>
+wow, that was bizarrely easy.<br>
+<br>
+here is / etc/udev/rules.d/11-usb-automount.rules<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ACTION=="add",KERNEL=="sd??" RUN+="/usr/bin/udisks --mount /dev/%k"
+</code></pre></div>
+my two partition thumb drive now automounts both partitions in /media. one by label and one by uuid (one of the partitions doens't have a label, so makes a good test).<br>
+<br>
+***edit*** never mind...only worked on first insertion. that longer one anti posted probably takes care of stuff like that.</div></blockquote>
+Most likely because you are missing<br>
+# Clean up after removal<br>
+SUBSYSTEMS=="usb", ACTION=="remove", ENV{dir_name}!="", RUN+="/usr/bin/pumount /dev/%k"<br>
+with udisks instead of pmount</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40139" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40139">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40139">
+
+<time datetime="2015-03-20T18:52">posted: 2015-03-20 &nbsp; 18:52</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40139" title="permalink">#77</a></span>
+
+<div class="content">For the dumb biker.<br>
+<br>
+Name new file
+<blockquote class="uncited"><div>/90-usb-semiauto.rules</div></blockquote>
+insert in new black file 90-usb-semiauto.rules<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>KERNEL!="sd*[1-9]*", GOTO="exit"
+
+# Import FS infos
+SUBSYSTEMS=="usb", IMPORT{program}="/sbin/blkid -o udev -p %N"
+
+# Get a label if present, otherwise specify one
+SUBSYSTEMS=="usb", ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+SUBSYSTEMS=="usb", ENV{ID_FS_LABEL}=="", ENV{dir_name}="usb-%k"
+
+# Global mount options
+SUBSYSTEMS=="usb", ACTION=="add", ENV{pmount_options}="--noatime"
+
+# File system specific mount options to avoid auto probing
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs|vfat", ENV{pmount_options}="%E{pmount_options} --umask 007 --charset utf8"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", ENV{pmount_options}="%E{pmount_options} -t ntfs-3g"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="vfat", ENV{pmount_options}="%E{pmount_options} -t vfat"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext2", ENV{pmount_options}="%E{pmount_options} -t ext2"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext3", ENV{pmount_options}="%E{pmount_options} -t ext3"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext4", ENV{pmount_options}="%E{pmount_options} -t ext4"
+
+# Mount the device
+SUBSYSTEMS=="usb", ACTION=="add", RUN+="/bin/su nn -c '/usr/bin/pmount $env{pmount_options} /dev/%k /media/%E{dir_name}'"
+
+# Clean up after removal
+SUBSYSTEMS=="usb", ACTION=="remove", ENV{dir_name}!="", RUN+="/usr/bin/pumount /dev/%k"
+
+# Exit
+LABEL="exit"
+</code></pre></div>
+Make it executable. Logout or reboot. I'll probably reboot. Then give it a go?<br>
+<br>
+Edit: nope. Silly biker. File is already there. So hell if I know?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@antix1:~
+$ cd / etc/udev/rules.d/
+harry@antix1:/ etc/udev/rules.d
+$ ls
+70-persistent-net.rules  90-fstab-automount.rules.live  90-usb-semiauto.rules
+harry@antix1:/ etc/udev/rules.d
+$ 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40140" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40140">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40140">
+
+<time datetime="2015-03-20T19:06">posted: 2015-03-20 &nbsp; 19:06</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40140" title="permalink">#78</a></span>
+
+<div class="content">Ha. Just looked in geany and the 90-usb-semiauto.rules is empty.<br>
+<br>
+So time to shady tree test. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40141" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40141">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40141">
+
+<time datetime="2015-03-20T19:11">posted: 2015-03-20 &nbsp; 19:11</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40141" title="permalink">#79</a></span>
+
+<div class="content">basically just put it in that folder with the .rules extension and plug in your usb key....<br>
+<br>
+Edit:<br>
+I think some people should really devote some time scouring the internet for good rules that can be included or modified and included in antix.<br>
+usb is a good one... so is hdmi detection (especially with bitjams script), and the like. Really IMO this seems very underutilized and I have not really found a reason why it is so underutilized.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40142" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40142">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40142">
+
+<time datetime="2015-03-20T19:25">posted: 2015-03-20 &nbsp; 19:25</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40142" title="permalink">#80</a></span>
+
+<div class="content"><blockquote class="uncited"><div>I think some people should really devote some time scouring the internet for good rules that can be included or modified and included in antix.</div></blockquote>
+I would if I knew what I was looking for or know what I am doing 1/2 time.<br>
+I inserted Antis text into my empty 90-usb-semiauto.rules and rebooted.<br>
+Now the usb automounts OK when plugged into the pcmcia card with the usb<br>
+2.0 ports on it. It was a go to issue for me because copying 10 gig of backup<br>
+data took all night while I was asleep on the usb 1.1 ports on the back of the IBM T23.<br>
+<br>
+I am now posting from the M&amp;A touchscreen netbook. Usb did not automount there either.<br>
+So I am going to make the same changes to fluxbox and Icewm startup with spacefm -d &amp; and<br>
+do the edits on 90-usb-semiauto.rules .<br>
+<br>
+You know me Dave. I aim to please. Sometimes I miss the toilet bowl and spray the floor though<br>
+through ineptness. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40143" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40143">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40143">
+
+<time datetime="2015-03-20T19:33">posted: 2015-03-20 &nbsp; 19:33</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40143" title="permalink">#81</a></span>
+
+<div class="content">roky - you should only need to do 1.<br>
+<br>
+Either the udev rules or spacefm -d &amp; (not both)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40144" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40144">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40144">
+
+<time datetime="2015-03-20T19:37">posted: 2015-03-20 &nbsp; 19:37</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40144" title="permalink">#82</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>roky - you should only need to do 1.<br>
+<br>
+Either the udev rules or spacefm -d &amp; (not both)</div></blockquote>
+OOps. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+OK.Just for info. USB automounts after a log out and login on the netbook.<br>
+I'll keep the udev rules and delete the startup line in the Window managers.<br>
+<br>
+Edit:<br>
+<blockquote class="uncited"><div>I'll keep the udev rules and delete the startup line in the Window managers.</div></blockquote>
+Nope. Automount quite working so I will empty the file in udev instead and reinstate the startup line in the window managers instead.<br>
+<br>
+Last Edit: emptying / etc/udev/rules.d/90-usb-semiauto.rules<br>
+and setting up<br>
+~/.icewm/startup<br>
+to
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+# set live keyboard
+setxkbmap -layout"us" -option"grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll" -variant""
+
+(sleep 5 &amp;&amp; toram-eject) &amp;
+(sleep 5 &amp;&amp; sudo persist-config --startup) &amp;
+#automount usb with spacefm
+spacefm -d &amp;</code></pre></div>
+and <br>
+<br>
+~/.fluxbox/startup<br>
+to
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Change your keymap:
+# xmodmap ~/.Xmodmap
+
+#Automount usb in spacefm
+ spacefm -d &amp;</code></pre></div>
+is good enough for automount as user in spacefm for usb. On both pcmcia usb and internal usb.<br>
+Just info as usual.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40149" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40149">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40149">
+
+<time datetime="2015-03-21T02:06">posted: 2015-03-21 &nbsp; 02:06</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40149" title="permalink">#83</a></span>
+
+<div class="content">Looking into this because of a boot error message about fsck at the beginning on both of my installs.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@antix1:~
+$ apt search bootlogd
+Sorting... Done
+Full Text Search... Done
+bootlogd/testing 2.88dsf-58 i386
+  daemon to log boot messages
+
+harry@antix1:~
+$ apt-cache policy bootlogd
+bootlogd:
+  Installed: (none)
+  Candidate: 2.88dsf-58
+  Version table:
+     2.88dsf-58 0
+        500 http://ftp.us.debian.org/debian/ testing/main i386 Packages
+harry@antix1:~
+$ sudo apt-get install bootlogd
+[sudo] password for harry: 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  bootlogd
+0 upgraded, 1 newly installed, 0 to remove and 3 not upgraded.
+Need to get 59.0 kB of archives.
+After this operation, 70.7 kB of additional disk space will be used.
+Get:1 http://ftp.us.debian.org/debian/ testing/main bootlogd i386 2.88dsf-58 [59.0 kB]
+Fetched 59.0 kB in 0s (92.0 kB/s) 
+Selecting previously unselected package bootlogd.
+(Reading database ... 110338 files and directories currently installed.)
+Preparing to unpack .../bootlogd_2.88dsf-58_i386.deb ...
+Unpacking bootlogd (2.88dsf-58) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up bootlogd (2.88dsf-58) ...
+harry@antix1:~
+</code></pre></div>
+Will be back tomorrow to post what those errors are.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40151" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40151">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 94</span></div>
+
+</div>
+</div>
+<span class="username">james c</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40151">
+
+<time datetime="2015-03-21T06:26">posted: 2015-03-21 &nbsp; 06:26</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40151" title="permalink">#84</a></span>
+
+<div class="content">I'm seeing a quick fsck error message on boot on my installs as well,for what its worth.<br>
+<br>
+Another install,no difficulties so far.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>james@antix1:~
+$ inxi -F
+System:    Host: antix1 Kernel: 3.19.1-antix.1-486-smp i686 (32 bit)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-15-beta1-V_386-full Killah P 16 March 2015
+Machine:   System: Compaq Presario 061 product: DK214A-ABA S4020WM NA210 v: 0n31411RE101SALSA10
+           Mobo: N/A model: KM266-8235
+           Bios: Phoenix v: AM37312 date: 03/17/2003
+CPU:       Single core AMD Athlon XP 2400+ (-UP-) cache: 256 KB
+           speed: 1998 MHz (max)
+Graphics:  Card: NVIDIA NV18 [GeForce4 MX 440 AGP 8x]
+           Display Server: X.Org 1.16.4 drivers: nouveau (unloaded: fbdev,vesa)
+           Resolution: 1024x768@85.00hz
+           GLX Renderer: Mesa DRI nv18 x86/MMX+/3DNow!+/SSE
+           GLX Version: 1.2 Mesa 10.3.2
+Audio:     Card VIA VT8233/A/8235/8237 AC97 Audio Controller
+           driver: snd_via82xx
+           Sound: ALSA v: k3.19.1-antix.1-486-smp
+Network:   Card: Realtek RTL-8100/8101L/8139 PCI Fast Ethernet Adapter
+           driver: 8139too
+           IF: eth0 state: unknown speed: 100 Mbps duplex: full
+           mac: 00:40:ca:5a:1c:14
+Drives:    HDD Total Size: 80.0GB (4.7% used)
+           ID-1: /dev/sda model: ST380215A size: 80.0GB
+Partition: ID-1: / size: 5.0G used: 2.4G (51%) fs: ext4 dev: /dev/sda8
+           ID-2: swap-1 size: 1.26GB used: 0.00GB (0%) fs: swap dev: /dev/sda6
+Sensors:   System Temperatures: cpu: 40.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 86 Uptime: 10 min Memory: 198.5/1005.4MB
+           Client: Shell (bash) inxi: 2.2.16 </code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>james@antix1:~
+$ free
+             total       used       free     shared    buffers     cached
+Mem:       1029536     490736     538800       2192      84184     206320
+-/+ buffers/cache:     200232     829304
+Swap:      1228936          0    1228936</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40152" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40152">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40152">
+
+<time datetime="2015-03-21T07:04">posted: 2015-03-21 &nbsp; 07:04</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40152" title="permalink">#85</a></span>
+
+
+<div class="content"><strong>Re: Boot loader help section F7</strong><br>
+<br>
+I have a dim recollection that this has been reported previously by someone, but I cannot find it.<br>
+<br>
+F1 help contains two references to F7 which do not correspond to what is seen when pressing F7 in main boot screen</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40153" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40153">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40153">
+
+<time datetime="2015-03-21T07:08">posted: 2015-03-21 &nbsp; 07:08</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40153" title="permalink">#86</a></span>
+
+<div class="content"><strong>Re: fbcondecor</strong><br>
+<br>
+Pending outcome of tests post40020.html#p40020<br>
+<br>
+Because the proportion of the antiX user base that work exclusively in console is vanishingly small<ul><li>The shipped ISO should default to splash=off</li>
+<li>The bootcode should not default to automatically being shown in the boot options entry box/line, rather, it should be added manually by interested users</li></ul></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40154" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40154">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40154">
+
+<time datetime="2015-03-21T10:50">posted: 2015-03-21 &nbsp; 10:50</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40154" title="permalink">#87</a></span>
+
+<div class="content">Well. Installing bootlogd was no help.<br>
+<br>
+from /var/log/boot<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(Nothing has been logged yet.)
+Fri Mar 20 21:09:55 2015: [....] Setting parameters of disc: (none)^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0c.
+Fri Mar 20 21:09:55 2015: [....] Setting preliminary keymap...^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0cdone.
+Fri Mar 20 21:10:00 2015: [....] Activating swap...^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0cdone.
+Fri Mar 20 21:10:00 2015: [....] Checking root file system...fsck from util-linux 2.25.2
+Fri Mar 20 21:10:00 2015: antiX15root: clean, 126783/960992 files, 868137/3840000 blocks
+Fri Mar 20 21:10:01 2015: ^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0cdone.
+Fri Mar 20 21:10:01 2015: [....] Cleaning up temporary files... /tmp^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0c.
+Fri Mar 20 21:10:01 2015: [....] Starting early crypto disks...^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0cdone.
+Fri Mar 20 21:10:01 2015: [....] Starting remaining crypto disks...^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0cdone.
+Fri Mar 20 21:10:01 2015: [....] Activating lvm and md swap...^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0cdone.
+Fri Mar 20 21:10:01 2015: [....] Checking file systems...fsck from util-linux 2.25.2
+Fri Mar 20 21:10:01 2015: ^[[?25l^[[?1c^[7^[[1G[^[[32m ok ^[[39;49m^[8^[[?25h^[[?0cdone.
+</code></pre></div>
+At the begiinning of boot. fsck error mentions exited with errror code 8 because of a missong file on /dev/sda1. So I guess no big deal if it is not showing up in boot log.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40157" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40157">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+ <strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content40157">
+
+<time datetime="2015-03-21T11:39">posted: 2015-03-21 &nbsp; 11:39</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40157" title="permalink">#88</a></span>
+
+<div class="content">Time for instalation was 11 minutes until logged-in to new system.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxz
+System:    Host: antix64 Kernel: 3.19.1-antix.1-486-smp i686 (32 bit gcc: 4.9.2)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-15-beta1-V_386-full Killah P 16 March 2015
+Machine:   Mobo: Gigabyte model: GA-78LMT-USB3 v: x.x
+           Bios: Award v: F4 date: 10/19/2012
+CPU:       Octa core AMD FX-8350 Eight-Core (-MCP-) cache: 16384 KB
+           flags: (lm nx pae sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 svm) bmips: 64285
+           clock speeds: max: 4000 MHz 1: 1400 MHz 2: 2100 MHz 3: 1400 MHz
+           4: 2100 MHz 5: 1400 MHz 6: 1400 MHz 7: 1400 MHz 8: 4000 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] Turks XT [Radeon HD 6670/7670]
+           bus-ID: 01:00.0
+           Display Server: X.Org 1.16.4 drivers: ati,radeon (unloaded: fbdev,vesa)
+           Resolution: 1920x1080@60.00hz
+           GLX Renderer: Gallium 0.4 on AMD TURKS
+           GLX Version: 3.0 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card-1 Advanced Micro Devices [AMD/ATI] Turks/Whistler HDMI Audio [Radeon HD 6000 Series]
+           driver: snd_hda_intel bus-ID: 01:00.1
+           Card-2 Advanced Micro Devices [AMD/ATI] SBx00 Azalia (Intel HDA)
+           driver: snd_hda_intel bus-ID: 00:14.2
+           Sound: ALSA v: k3.19.1-antix.1-486-smp
+Network:   Card: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+           driver: r8169 v: 2.3LK-NAPI port: ee00 bus-ID: 03:00.0
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: &lt;filter&gt;
+Drives:    HDD Total Size: 1000.2GB (0.5% used)
+           ID-1: /dev/sda model: MB1000EAMZE size: 1000.2GB
+Partition: ID-1: / size: 305G used: 2.4G (1%) fs: ext4 dev: /dev/sda3
+           ID-2: swap-1 size: 2.28GB used: 0.00GB (0%) fs: swap dev: /dev/sda4
+Sensors:   System Temperatures: cpu: 19.4C mobo: N/A gpu: 35.5
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 153 Uptime: 1 min Memory: 143.2/3286.7MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.2.16 
+aalan@antix64:~
+</code></pre></div>
+Got the PD tremor today, so now am aalan <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+I love it, but shouldn't somebody have mentioned that if you don't use the default-desktop you don't get an"Install" icon. Trying to catch us Flubox folks out, eh Anti? <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Later edit: The Yad repository comes up with"<strong>forbidden</strong>" so I disabled it.<br>
+<blockquote class="uncited"><div>W: Failed to fetch 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://debs.slavino.sk/dists/testing/non-free/binary-i386/Packages"<br>linktext was:"http://debs.slavino.sk/dists/testing/no ... 6/Packages"<br>====================================<br>
+ 403 Forbidden [IP: 217.67.30.35 80]</div></blockquote>
+@Roky I used to be inept but now I've progressed to complete incompetence. Change is good, you know, it shows we're still alive <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Further update: In order to make spacefm open as default fm I edited usr/share/applications/antix/desktop-defaults-follow-fm.desktop. Don't know if this is right, but it worked for me.</div>
+<div class="notice">
+Last edited by <b>Guest</b> on 22 Mar 2015, 11:21, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40170" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40170">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content40170">
+
+<time datetime="2015-03-22T11:00">posted: 2015-03-22 &nbsp; 11:00</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40170" title="permalink">#89</a></span>
+
+<div class="content">Ran Sensors-detect and upgraded to Sid:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxz
+System:    Host: antix64 Kernel: 3.19.1-antix.1-486-smp i686 (32 bit gcc: 4.9.2)
+           Desktop: Fluxbox 1.3.5
+           Distro: antiX-15-beta1-V_386-full Killah P 16 March 2015
+Machine:   Mobo: Gigabyte model: GA-78LMT-USB3 v: x.x
+           Bios: Award v: F4 date: 10/19/2012
+CPU:       Octa core AMD FX-8350 Eight-Core (-MCP-) cache: 16384 KB
+           flags: (lm nx pae sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 svm) bmips: 64287
+           clock speeds: max: 4000 MHz 1: 1400 MHz 2: 1400 MHz 3: 1400 MHz
+           4: 1400 MHz 5: 1400 MHz 6: 1400 MHz 7: 2800 MHz 8: 2100 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] Turks XT [Radeon HD 6670/7670]
+           bus-ID: 01:00.0
+           Display Server: X.Org 1.16.4 drivers: ati,radeon (unloaded: fbdev,vesa)
+           Resolution: 1920x1080@60.00hz
+           GLX Renderer: Gallium 0.4 on AMD TURKS
+           GLX Version: 3.0 Mesa 10.4.2 Direct Rendering: Yes
+Audio:     Card-1 Advanced Micro Devices [AMD/ATI] Turks/Whistler HDMI Audio [Radeon HD 6000 Series]
+           driver: snd_hda_intel bus-ID: 01:00.1
+           Card-2 Advanced Micro Devices [AMD/ATI] SBx00 Azalia (Intel HDA)
+           driver: snd_hda_intel bus-ID: 00:14.2
+           Sound: ALSA v: k3.19.1-antix.1-486-smp
+Network:   Card: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+           driver: r8169 v: 2.3LK-NAPI port: ee00 bus-ID: 03:00.0
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: &lt;filter&gt;
+Drives:    HDD Total Size: 1000.2GB (0.5% used)
+           ID-1: /dev/sda model: MB1000EAMZE size: 1000.2GB
+Partition: ID-1: / size: 305G used: 2.8G (1%) fs: ext4 dev: /dev/sda3
+           ID-2: swap-1 size: 2.28GB used: 0.00GB (0%) fs: swap dev: /dev/sda4
+Sensors:   System Temperatures: cpu: 32.0C mobo: 28.0C gpu: 33.5
+           Fan Speeds (in rpm): cpu: 1159 fan-1: 2547 fan-3: 0
+Info:      Processes: 152 Uptime: 0 min Memory: 164.9/3286.7MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.331) inxi: 2.2.19 </code></pre></div>
+Edited /usr/share/applications/synaptic.desktop to use gksu synaptic, in order to restore functionality, and added xapain wotnot to restore usual search box in same.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40171" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40171">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40171">
+
+<time datetime="2015-03-22T16:02">posted: 2015-03-22 &nbsp; 16:02</time>
+<span class="permalink"><a href="./antix-15-beta1-v-ready-for-testing-t5565-s75.html#p40171" title="permalink">#90</a></span>
+
+<div class="content">Well the good news is the 3.19 kernel boots. That's better than I've been able to do with it on my MX-14 install.<br>
+<br>
+However, I'm not able to get it to boot in UEFI mode, it doesn't seem to detect the LiveUSB key when in UEFI mode. I had to change it to the legacy (CSM) mode to get it to boot my LiveUSB key.<br>
+<br>
+<br>
+Using the default boot option I seem to be stuck using the vesa driver at a 1024x768 resolution, instead of using the radeon driver at my display's 1600x900 native resolution.<br>
+Here's a inxi report<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:~
+$ cat /proc/cmdline 
+quiet splash=v disable_srv=LX
+
+demo@antiX1:~
+$ inxi -Fxxx
+System:    Host: antiX1 Kernel: 3.19.1-antix.1-486-smp i686 (32 bit gcc: 4.9.2) Desktop: IceWM 1.3.8 dm: slim
+           Distro: antiX-15-beta1-V_386-full Killah P 16 March 2015
+Machine:   Mobo: Gateway model: SX2185 Bios: American Megatrends v: P11-A4 date: 09/17/2013
+CPU:       Dual core AMD E1-2500 APU with Radeon HD Graphics (-MCP-) cache: 2048 KB
+           flags: (lm nx pae sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 svm) bmips: 5589
+           clock speeds: min/max: 800/1400 MHz 1: 1400 MHz 2: 900 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] Kabini [Radeon HD 8240 / R3 Series]
+           bus-ID: 00:01.0 chip-ID: 1002:9838
+           Display Server: X.Org 1.16.4 driver: vesa Resolution: 1024x768@0.00hz
+           GLX Renderer: Gallium 0.4 on llvmpipe (LLVM 3.5, 128 bits)
+           GLX Version: 3.0 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card-1 Advanced Micro Devices [AMD] FCH Azalia Controller
+           driver: snd_hda_intel bus-ID: 00:14.2 chip-ID: 1022:780d
+           Card-2 Advanced Micro Devices [AMD/ATI] Kabini HDMI/DP Audio
+           driver: snd_hda_intel bus-ID: 00:01.1 chip-ID: 1002:9840
+           Sound: Advanced Linux Sound Architecture v: k3.19.1-antix.1-486-smp
+Network:   Card: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+           driver: r8169 v: 2.3LK-NAPI port: e000 bus-ID: 01:00.0 chip-ID: 10ec:8168
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: f8:0f:41:ac:77:6f
+Drives:    HDD Total Size: 502.1GB (1.7% used) ID-1: /dev/sda model: ST500DM002 size: 500.1GB serial: W3T26NVP
+           ID-2: USB /dev/sdb model: Cruzer size: 2.0GB serial: 0572700EFE224B8C-0:0
+Partition: ID-1: swap-1 size: 8.86GB used: 0.00GB (0%) fs: swap dev: /dev/sda6
+Sensors:   System Temperatures: cpu: 40.6C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 92 Uptime: 2 min Memory: 98.7/2477.3MB
+           Init: SysVinit v: 2.88 runlevel: 5 default: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301 running in roxterm) inxi: 2.2.16 </code></pre></div>
+<br>
+If I add the 'noxorg' and 'vga=980' cheats it will use my display's 1600x900 native resolution, though it still doesn't use the radeon driver for some reason<br>
+Here's a inxi report using those cheats:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:~
+$ cat /proc/cmdline 
+quiet splash=v disable_srv=LX noxorg vga=980
+ 
+demo@antiX1:~
+$ inxi -Fxxx
+System:    Host: antiX1 Kernel: 3.19.1-antix.1-486-smp i686 (32 bit gcc: 4.9.2) Desktop: IceWM 1.3.8 dm: slim
+           Distro: antiX-15-beta1-V_386-full Killah P 16 March 2015
+Machine:   Mobo: Gateway model: SX2185 Bios: American Megatrends v: P11-A4 date: 09/17/2013
+CPU:       Dual core AMD E1-2500 APU with Radeon HD Graphics (-MCP-) cache: 2048 KB
+           flags: (lm nx pae sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 svm) bmips: 5589
+           clock speeds: min/max: 800/1400 MHz 1: 1400 MHz 2: 900 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] Kabini [Radeon HD 8240 / R3 Series]
+           bus-ID: 00:01.0 chip-ID: 1002:9838
+           Display Server: X.Org 1.16.4 drivers: fbdev,ati (unloaded: vesa,radeon) Resolution: 1600x900@77.00hz
+           GLX Renderer: Gallium 0.4 on llvmpipe (LLVM 3.5, 128 bits)
+           GLX Version: 3.0 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card-1 Advanced Micro Devices [AMD] FCH Azalia Controller
+           driver: snd_hda_intel bus-ID: 00:14.2 chip-ID: 1022:780d
+           Card-2 Advanced Micro Devices [AMD/ATI] Kabini HDMI/DP Audio
+           driver: snd_hda_intel bus-ID: 00:01.1 chip-ID: 1002:9840
+           Sound: Advanced Linux Sound Architecture v: k3.19.1-antix.1-486-smp
+Network:   Card: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+           driver: r8169 v: 2.3LK-NAPI port: e000 bus-ID: 01:00.0 chip-ID: 10ec:8168
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: f8:0f:41:ac:77:6f
+Drives:    HDD Total Size: 502.1GB (1.7% used) ID-1: /dev/sda model: ST500DM002 size: 500.1GB serial: W3T26NVP
+           ID-2: USB /dev/sdb model: Cruzer size: 2.0GB serial: 0572700EFE224B8C-0:0
+Partition: ID-1: swap-1 size: 8.86GB used: 0.00GB (0%) fs: swap dev: /dev/sda6
+Sensors:   System Temperatures: cpu: 39.9C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 92 Uptime: 1 min Memory: 110.5/2477.3MB
+           Init: SysVinit v: 2.88 runlevel: 5 default: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301 running in roxterm) inxi: 2.2.16</code></pre></div>
+I think the reason it's not using the radeon driver is these lines in the dmesg report, the"*ERROR*" line in particular. The firmware-linux-nonfree package is installed, so I'm not sure why it spits out that error.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ dmesg | grep drm
+[    2.347659] [drm] Initialized drm 1.1.0 20060810
+[    2.377370] [drm] radeon kernel modesetting enabled.
+[    2.377486] [drm:radeon_pci_probe [radeon]] *ERROR* radeon kernel modesetting for R600 or later requires firmware-linux-nonfree.</code></pre></div>
+There's also this in the /var/log/Xorg.0.log
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ grep drm /var/log/Xorg.0.log -B10 -A10
+    MULLINS, MULLINS, MULLINS, KAVERI, KAVERI, KAVERI, KAVERI, KAVERI,
+    KAVERI, KAVERI, KAVERI, KAVERI, KAVERI, KAVERI, KAVERI, KAVERI,
+    KAVERI, KAVERI, KAVERI, KAVERI, KAVERI, KAVERI, KAVERI, KAVERI,
+    KAVERI, HAWAII, HAWAII, HAWAII, HAWAII, HAWAII, HAWAII, HAWAII,
+    HAWAII, HAWAII, HAWAII, HAWAII, HAWAII
+[    24.838] (II) modesetting: Driver for Modesetting Kernel Drivers: kms
+[    24.838] (II) FBDEV: driver for framebuffer: fbdev
+[    24.838] (II) VESA: driver for VESA chipsets: vesa
+[    24.839] (++) using VT number 7
+
+[    24.996] (II) [KMS] drm report modesetting isn't supported.
+[    24.996] (EE) open /dev/dri/card0: No such file or directory
+[    24.996] (WW) Falling back to old probe method for modesetting
+[    24.996] (EE) open /dev/dri/card0: No such file or directory
+[    24.996] (II) Loading sub module"fbdevhw"
+[    24.996] (II) LoadModule:"fbdevhw"
+[    24.998] (II) Loading /usr/lib/xorg/modules/libfbdevhw.so
+[    25.028] (II) Module fbdevhw: vendor="X.Org Foundation"
+[    25.028]     compiled for 1.16.4, module version = 0.0.2
+[    25.028]     ABI class: X.Org Video Driver, version 18.0
+[    25.028] (**) FBDEV(2): claimed PCI slot 0@0:1:0</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+183 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-15-beta1-v-ready-for-testing-t5565-s60.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s45.html" role="button">4</a></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s60.html" role="button">5</a></li>
+<li class="active"><span>6</span></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s90.html" role="button">7</a></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s105.html" role="button">8</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-15-beta1-v-ready-for-testing-t5565-s180.html" role="button">13</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-15-beta1-v-ready-for-testing-t5565-s90.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

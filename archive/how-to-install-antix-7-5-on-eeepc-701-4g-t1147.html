@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How-to: Install AntiX 7.5 on EeePC 701/4G - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-install-antix-7-5-on-eeepc-701-4g-t1147.html">How-to: Install AntiX 7.5 on EeePC 701/4G</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_7132" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7132">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7132">
+<time datetime="2008-10-24T01:00">posted: 2008-10-24 &nbsp; 01:00</time>
+<span class="permalink"><a href="./how-to-install-antix-7-5-on-eeepc-701-4g-t1147.html#p7132" title="permalink">#1</a></span>
+
+<div class="content">This how-to requires some knowledge of linux...<br>
+<br>
+Try not to break your base Xandros linux on the Eeepc SSD disk (the /dev/sda disk) ...we'll need it for some post-install tweaks.<br>
+After this warning, go on...<br>
+<br>
+Step 1) Download and burn the Antix 7.5 iso<br>
+<br>
+Step 2) Run AntiX from you CD drive (I got an external CD drive)<br>
+Alternative: try a live USB install (link?), or run the process from inside another linux box<br>
+<br>
+Step 3) You decide to install to a USB key or a SD card (&gt;=4 GB, the installed stuff weights 1.2 GB) Go to System-&gt;Install antiX<br>
+<br>
+Step 4) Choose"Use disk:" sdb or sdc (check with df or mount) and"Custom install"<br>
+Format your key or card... go on and wait for the process to finish (drink a glass of retsina wine at the next ΚΑΦΕΝΕΙΟ) <br>
+Install grub to your new / partition (not on the SSD!)<br>
+<br>
+Step 5) Reboot. You are not a fresh new Eeepc user, so you hit 3 or 4 the Esc key when the Eeepc starts, and you select to boot from the key (or card).<br>
+Likely it will fail, you return to the grub menu, hit 'e' to edit the boot line:<br>
+replace (hd1,0) by (hd0,0) since the system now sees the key as the first boot device, enter 'b' to boot... and then:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>kernel panic - not syncing: VF: Unable to mount root fs on unknown-block(0,0)
+</code></pre></div>
+Step 6) Now you are aware: you could skip step 5! Reboot your eeepc (or your mepis box) in normal (Xandros, Mepis, Ubuntu?) mode. You key is mounted?<br>
+Go to the key (something like /media/usbdisk, /media/USB KEY/partition1, /media/SDHC-CARD...) and next to the <strong>mounted</strong> boot/grub directory.<br>
+<br>
+Edit the menu.lst (and have a look at the menu.lst.old saved during the install process). You should be root. Replace the 'boot' line by:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>initrd  /boot/initrd
+</code></pre></div>
+<strong><em>Updated: In the install process, when installing grub to the / partition, check the initrd checkbox, this will add the initrd line in menu.lst</em></strong><br>
+<br>
+In the 'kernel' line, the device (the 'boot=' argument, your key/card) should be specified by its UUID - as the /dev/sdX may vary randomly according to the devices attached to your system (as root, use the <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blkid</code></pre></div> command, Xandros does not have the vol_id command, nor the /dev/disk/by-uuid special file)<br>
+<br>
+Here is my menu.lst (of course substitute your key's UUID)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 15
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+
+title MEPIS at sdb1, newest kernel
+root (hd0,0)
+kernel /boot/vmlinuz root=UUID=92f9fc37-6721-4917-82ab-11ae9407229e nomce nosplash vga=791 
+initrd          /boot/initrd.img
+
+title MEPIS at sdb1, previous kernel (if any)
+root (hd0,0)
+kernel /boot/vmlinuz.old root=UUID=92f9fc37-6721-4917-82ab-11ae9407229e nomce quiet splash vga=791 
+initrd          /boot/initrd.img
+
+title MEPIS at sdb1, kernel 2.6.22-1-mepis-smp
+root (hd0,0)
+kernel /boot/vmlinuz-2.6.22-1-mepis-smp root=UUID=92f9fc37-6721-4917-82ab-11ae9407229e nomce quiet splash vga=791 
+initrd          /boot/initrd.img
+
+title Normal Boot
+root (hd0,0)
+kernel /boot/vmlinuz-2.6.21.4-eeepc quiet rw vga=785 irqpoll root=/dev/sda1
+initrd /boot/initramfs-eeepc.img
+
+title MEMTEST
+kernel /boot/memtest86+.bin
+</code></pre></div>
+I removed the quiet option, and set the nosplash option to see what happens.<br>
+<br>
+Step 7) Reboot, Esc-Esc-Esc, select the key/card, at the grub menu select Mepis newest kernel (all kernels at the moment are the same, except 'Normal boot' that should lead you to the Xandros system - provided you did not erase the SSD disk -remember: you did it at your own risk)... and Hurrah! Antix is there.<br>
+<br>
+To be continued:<br>
+Eeepc's adventures in AntiXland - Season 2: The wifi connection.<br>
+<br>
+Feel free to comment...</div>
+<div class="notice">
+Last edited by <b>lagopus</b> on 28 Jan 2009, 20:42, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7133" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7133">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7133">
+
+<time datetime="2008-10-24T02:33">posted: 2008-10-24 &nbsp; 02:33</time>
+<span class="permalink"><a href="./how-to-install-antix-7-5-on-eeepc-701-4g-t1147.html#p7133" title="permalink">#2</a></span>
+
+<div class="content"><strong>Part 2: Enabling WIFI<br>
+</strong><br>
+<br>
+When I boot my fresh install of antiX, I get the kernel log:
+<blockquote class="uncited"><div>Oct 23 19:39:51 pinocchio kernel: ath_hal: module license 'Proprietary' taints kernel.<br>
+Oct 23 19:39:51 pinocchio kernel: ath_hal: 0.9.18.0 (AR5210, AR5211, AR5212, RF5111, RF5112, RF2413, RF5413)<br>
+Oct 23 19:39:51 pinocchio kernel: ACPI: PCI Interrupt 0000:00:1f.3<strong> -&gt; GSI 19 (level, low) -&gt; IRQ 19<br>
+Oct 23 19:39:51 pinocchio kernel: wlan: 0.8.4.2 (0.9.3.2-rc1)<br>
+Oct 23 19:39:51 pinocchio kernel: ath_pci: 0.9.4.5 (0.9.3.2-rc1)<br>
+Oct 23 19:39:51 pinocchio kernel: ACPI: PCI Interrupt 0000:01:00.0[A] -&gt; GSI 18 (level, low) -&gt; IRQ 18<br>
+Oct 23 19:39:51 pinocchio kernel: PCI: Setting latency timer of device 0000:01:00.0 to 64<br>
+Oct 23 19:39:51 pinocchio kernel: wifi%d: unable to attach hardware: 'Hardware revision not supported' (HAL status 13)</strong>
+</div></blockquote><strong><br>
+Ok I have a problem with the ath_hal and ath_pci modules. <br>
+<br>
+I decided to install the windows XP driver with ndiswrapper:<br>
+<br>
+Step 1) Blacklist the modules in /etc/modprobe.d/madwifi:<br>
+(uncommented the commented lines and vice versa)</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>## ath5k (mac80211)
+## Comment out the following line, and uncomment all of the
+## madwifi modules below to use the athk module
+#blacklist ath5k
+
+## madwifi (non-free)
+blacklist ath_hal
+blacklist ath_pci
+blacklist ath_rate_amrr
+blacklist ath_rate_onoe
+blacklist ath_rate_sample
+blacklist wlan
+blacklist wlan_acl
+blacklist wlan_ccmp
+blacklist wlan_scan_ap
+blacklist wlan_scan_sta
+blacklist wlan_tkip
+blacklist wlan_wep
+blacklist wlan_xauth
+</code></pre></div>
+2) Download the drivers from Asus site 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://support.asus.com/download/download.aspx?SLanguage=en-us"<br>linktext was:"http://support.asus.com/download/downlo ... uage=en-us"<br>====================================<br>
+<br>
+<br>
+3) Unzip the downloaded files and make a local copy the Wireless/ndis5x and lan/Attansic/WinXP_32 directories<br>
+<br>
+4) cd to these directories and install the drivers:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># ndiswrapper -i l251x86.inf
+# ndiswrapper -i net5211.inf
+</code></pre></div>
+5) Check:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># ndiswrapper -l
+airplus : driver installed
+bcmwl5 : driver installed
+bcmwl5a : driver installed
+l251x86 : driver installed
+        device (1969:2048) present
+lsbcmnds6 : driver installed
+lstinds : driver installed
+mrv8k51 : driver installed
+net5211 : driver installed
+        device (168C:001C) present (alternate driver: ath_pci)
+net8185 : driver installed
+netr33x : driver installed
+prismnic : driver installed
+wlannic : driver installed
+wlanuig : driver installed
+wlipnds : driver installed
+</code></pre></div>
+6) Reload the module:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># modprobe -r ndiswrapper
+# modprobe ndiswrapper
+</code></pre></div>
+7) Is my wifi interface up?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># iwconfig
+lo        no wireless extensions.
+
+wlan0     IEEE 802.11g  ESSID:off/any  
+          Mode:Managed  Frequency:2.412 GHz  Access Point: Not-Associated   
+          Bit Rate:54 Mb/s   
+          Encryption key:off
+          Power Management:off
+          Link Quality:0  Signal level:0  Noise level:0
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+</code></pre></div>
+(I am not sure my ethernet lan works, but I can configure my wifi connection) <br>
+<br>
+<span class="emoticon"> __{{emoticon}}__ </span> Can I see my network?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># iwlist wlan0 scan
+wlan0     Scan completed :
+          Cell 01 - Address: 66:BB:EE:11:AA:00
+                    ESSID:"HelloWorld"
+                    Protocol:IEEE 802.11g
+                    Mode:Managed
+                    Frequency:2.427 GHz (Channel 4)
+                    Quality:93/100  Signal level:-36 dBm  Noise level:-96 dBm
+                    Encryption key:on
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 6 Mb/s
+                              9 Mb/s; 12 Mb/s; 18 Mb/s; 24 Mb/s; 36 Mb/s
+                              48 Mb/s; 54 Mb/s
+                    Extra:bcn_int=100
+                    Extra:atim=0
+...
+</code></pre></div>
+<span class="emoticon"> __{{emoticon}}__ </span> Configure my access (access point, key, DHCP, etc)<br>
+Open Control Center -&gt; Network -&gt; Wicd...<br>
+<br>
+Next steps: <br>
+= Install a new kernel (sidux?) that may have the linux drivers working out of the box<br>
+= Download and run the sidux-eepc.sh script</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7141" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7141">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7141">
+
+<time datetime="2008-10-24T12:13">posted: 2008-10-24 &nbsp; 12:13</time>
+<span class="permalink"><a href="./how-to-install-antix-7-5-on-eeepc-701-4g-t1147.html#p7141" title="permalink">#3</a></span>
+
+<div class="content">I think there are some specific eeepc modules in the sidux kernels, I would have to check to be sure. There is also a package called eeepc-acpi-scripts in the repos. You may need this for keys and lights and such.<br>
+<br>
+Great how-to by the way. Keep posting what ever info you find, I'm sure someone else will make good use of it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7145" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7145">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7145">
+ 
+<time datetime="2008-10-24T15:19">posted: 2008-10-24 &nbsp; 15:19</time>
+<span class="permalink"><a href="./how-to-install-antix-7-5-on-eeepc-701-4g-t1147.html#p7145" title="permalink">#4</a></span>
+
+<div class="content">Thanks very much for this howto. I'm sure others will benefit from it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8830" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile8830">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 192</span></div>
+
+</div>
+</div>
+<span class="username">coyotito</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8830">
+
+
+<time datetime="2009-01-28T21:01">posted: 2009-01-28 &nbsp; 21:01</time>
+<span class="permalink"><a href="./how-to-install-antix-7-5-on-eeepc-701-4g-t1147.html#p8830" title="permalink">#5</a></span>
+
+<div class="content">or this kernel?<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.array.org/ubuntu/"<br>linktext was:"http://www.array.org/ubuntu/"<br>====================================<br>
+" onclick="window.open(this.href);return false</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8831" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile8831">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8831">
+
+<time datetime="2009-01-28T21:49">posted: 2009-01-28 &nbsp; 21:49</time>
+<span class="permalink"><a href="./how-to-install-antix-7-5-on-eeepc-701-4g-t1147.html#p8831" title="permalink">#6</a></span>
+
+<div class="content">Cyotito:<br>
+<br>
+I never tried these custom kernels.<br>
+I stay with antix-M8 2.6.27-1-mepis-smp<br>
+Sound and wireless works, did not tried the webcam.<br>
+<br>
+Yves</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8832" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile8832">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8832">
+
+<time datetime="2009-01-28T21:59">posted: 2009-01-28 &nbsp; 21:59</time>
+<span class="permalink"><a href="./how-to-install-antix-7-5-on-eeepc-701-4g-t1147.html#p8832" title="permalink">#7</a></span>
+
+<div class="content">Great stuff! I do not have this box, but if I find someone who does, I can point them to this set of tips on how to get AntiX functional on the EeePC 701/4G. Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

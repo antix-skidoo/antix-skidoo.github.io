@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>loopback interface on startup - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m11-jayaben-desai-f43/index.html"><span>antiX-M11 Jayaben Desai</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./loopback-interface-on-startup-t3711.html">loopback interface on startup</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_24781" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24781">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24781">
+<time datetime="2012-05-24T02:30">posted: 2012-05-24 &nbsp; 02:30</time>
+<span class="permalink"><a href="./loopback-interface-on-startup-t3711.html#p24781" title="permalink">#1</a></span>
+
+<div class="content">Stuck again <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+I recently did an dist-upgrade on my laptop and installed XBMC on it. Everything worked fine until a reboot where I found XBMC did not want to start. I did some digging around and found that XBMC requires a valid network configuration (loopback / wired / wireless). I did an ifconfig and it outputs the following<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eth0      Link encap:Ethernet  HWaddr c8:0a:a9:ec:98:92  
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+          Interrupt:43 
+
+wlan0     Link encap:Ethernet  HWaddr 5c:ac:4c:48:b0:7e  
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:2308 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2571 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:1578127 (1.5 MiB)  TX bytes:636783 (621.8 KiB)
+</code></pre></div>
+Noticed that there is no loopback interface and after starting it with ifconfig lo up XBMC functioned. After every reboot however I need to issue ifconfig lo up. Does anyone have any insight as to how / why the loopback interface does not come up at boot? <br>
+<br>
+/etc/network/interfaces
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+#
+
+auto lo
+iface lo inet loopback
+address 127.0.0.1
+netmask 255.0.0.0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24794" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24794">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24794">
+
+<time datetime="2012-05-25T22:26">posted: 2012-05-25 &nbsp; 22:26</time>
+<span class="permalink"><a href="./loopback-interface-on-startup-t3711.html#p24794" title="permalink">#2</a></span>
+
+
+<div class="content">OK got it working, I think it may have been the migration from the separate and multiple run folders to /run. Fixed the issue by<br>
+<br>
+dpkg-reconfigure ifupdown <br>
+<br>
+and <br>
+<br>
+dpkg-reconfigure resolvconf<br>
+<br>
+as root.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

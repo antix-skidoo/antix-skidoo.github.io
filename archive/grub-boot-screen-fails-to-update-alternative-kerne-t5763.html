@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>GRUB Boot Screen Fails to Update Alternative Kernel - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./grub-boot-screen-fails-to-update-alternative-kerne-t5763.html">GRUB Boot Screen Fails to Update Alternative Kernel</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="viewtopic_wrapper">
+<div id="p_41880" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41880">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41880">
+<time datetime="2015-07-08T09:21">posted: 2015-07-08 &nbsp; 09:21</time>
+<span class="permalink"><a href="./grub-boot-screen-fails-to-update-alternative-kerne-t5763.html#p41880" title="permalink">#1</a></span>
+
+<div class="content">The following complete without any error messages<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install linux-image-486 linux-headers-486
+
+ls -1lh /boot | grep -E 'initrd|vmlinuz'
+-rw-r--r-- 1 root root  19M Jul  8 08:28 initrd.img-3.16.0-4-586
+-rw-r--r-- 1 root root  16M Jul  1 15:30 initrd.img-4.0.5-antix.1-486-smp
+-rw-r--r-- 1 root root 2.7M May 26 05:37 vmlinuz-3.16.0-4-586
+-rw-r--r-- 1 root root 3.5M Jun  7 22:27 vmlinuz-4.0.5-antix.1-486-smp
+
+update-grub
+Generating grub configuration file ...
+Found background: /usr/share/wallpaper/back.jpg
+Found background image: /usr/share/wallpaper/back.jpg
+Found linux image: /boot/vmlinuz-4.0.5-antix.1-486-smp
+Found initrd image: /boot/initrd.img-4.0.5-antix.1-486-smp
+Found linux image: /boot/vmlinuz-3.16.0-4-586
+Found initrd image: /boot/initrd.img-3.16.0-4-586
+Found memtest86+ image: /boot/memtest86+.bin
+Found memtest86+ multiboot image: /boot/memtest86+_multiboot.bin
+done</code></pre></div>
+reboot<br>
+<br>
+<br>
+The resulting GRUB screen is not updated to include the newly installed kernel</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41889" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41889">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41889">
+
+<time datetime="2015-07-08T12:17">posted: 2015-07-08 &nbsp; 12:17</time>
+<span class="permalink"><a href="./grub-boot-screen-fails-to-update-alternative-kerne-t5763.html#p41889" title="permalink">#2</a></span>
+
+<div class="content">That is a wonderment. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@antix1:~
+$ dpkg --list | grep linux-image
+ii  linux-image-3.16.0-4-686-pae             3.16.7-ckt11-1                     i386         Linux 3.16 for modern PCs
+rc  linux-image-3.19.1-antix.1-486-smp       3.19.1-antix.1-486-smp-1           i386         Linux kernel, version 3.19.1-antix.1-486-smp
+rc  linux-image-4.0-5.dmz.2-liquorix-686-pae 4.0-11                             i386         Linux 4.0 for modern PCs
+rc  linux-image-4.0.0-040000rc1-generic      4.0.0-040000rc1.201502222235       i386         Linux kernel image for version 4.0.0 on 32 bit x86 SMP
+rc  linux-image-4.0.0-antix.1-486-smp        4.0.0-antix.1-486-smp-1            i386         Linux kernel, version 4.0.0-antix.1-486-smp
+rc  linux-image-4.0.5-antix.1-486-smp        4.0.5-antix.1-486-smp-1            i386         Linux kernel, version 4.0.5-antix.1-486-smp
+rc  linux-image-4.0.5-towo.1-siduction-686   4.0-11                             i386         Linux 4.0 for modern PCs
+harry@antix1:~
+$ dpkg --list | grep linux-headers
+ii  linux-headers-3.16.0-4-686-pae           3.16.7-ckt11-1                     i386         Header files for Linux 3.16.0-4-686-pae
+ii  linux-headers-3.16.0-4-common            3.16.7-ckt11-1                     i386         Common header files for Linux 3.16.0-4
+</code></pre></div>
+I rolled with the 3.16 on this netbook because of screen dimming issues during bootup with later kernels.<br>
+Hnce the hodge podge of images I have installed while trying to solve that problem.<br>
+Which the 3.16 handled fine, while keeping touchscreen drivers in place on this type of touchscreen netbook.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@antix1:~
+$ inxi -S
+System:    Host: antix1 Kernel: 3.16.0-4-686-pae i686 (32 bit)
+           Desktop: IceWM 1.3.8+githubmod+20150412+960629d
+           Distro: antiX-15-beta1-V_386-full Killah P 16 March 2015
+</code></pre></div>
+As you can see. I have not got around to doing a reinstall on it yet. It just runs OK as is so far.<br>
+I guess re running update-grub does not help?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41890" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41890">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">rokytnji</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41890">
+
+<time datetime="2015-07-08T12:44">posted: 2015-07-08 &nbsp; 12:44</time>
+<span class="permalink"><a href="./grub-boot-screen-fails-to-update-alternative-kerne-t5763.html#p41890" title="permalink">#3</a></span>
+
+<div class="content">Just poking around as I drink my coffee<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@antix1:/ etc
+$ cd grub.d
+harry@antix1:/ etc/grub.d
+$ ls
+00_header        10_linux      20_memtest86+  30_uefi-firmware  41_custom
+05_debian_theme  20_linux_xen  30_os-prober   40_custom         README
+harry@antix1:/ etc/grub.d
+$ cd / etc/default
+harry@antix1:/ etc/default
+$ ls
+acpid         console-setup  gdomap   irqbalance  numlockx       ssh
+acpi-support  cron           grub     keyboard    rcS            tmpfs
+avahi-daemon  cryptdisks     halt     locale      rsync          ufw
+bluetooth     dbus           hdparm   networking  rsyslog        unclutter
+bsdmainutils  devpts         hwclock  nss         saned          useradd
+cacerts       extlinux       ifplugd  ntpdate     smartmontools  wicd
+harry@antix1:/ etc/default
+$ cat grub
+# If you change this file, run 'update-grub' afterwards to update
+# /boot/grub/grub.cfg.
+# For full documentation of the options in this file, see:
+#   info -f grub -n 'Simple configuration'
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+GRUB_CMDLINE_LINUX=""
+
+# Uncomment to enable BadRAM filtering, modify to suit your needs
+# This works with Linux (no patch required) and with any kernel that obtains
+# the memory map information from GRUB (GNU Mach, kernel of FreeBSD ...)
+#GRUB_BADRAM="0x01234567,0xfefefefe,0x89abcdef,0xefefefef"
+
+# Uncomment to disable graphical terminal (grub-pc only)
+#GRUB_TERMINAL=console
+
+# The resolution used on graphical terminal
+# note that you can use only modes which your graphic card supports via VBE
+# you can see them in real GRUB with the command `vbeinfo'
+#GRUB_GFXMODE=640x480
+
+# Uncomment if you don't want GRUB to pass"root=UUID=xxx" parameter to Linux
+#GRUB_DISABLE_LINUX_UUID=true
+
+# Uncomment to disable generation of recovery mode menu entries
+GRUB_DISABLE_RECOVERY="true"
+
+# Uncomment to get a beep at grub start
+GRUB_INIT_TUNE="480 440 1"
+
+GRUB_DISABLE_OS_PROBER=false
+GRUB_BACKGROUND=/usr/share/wallpaper/back.jpg 
+harry@antix1:/ etc/default
+$ cd /boot
+harry@antix1:/boot
+$ ls
+config-3.16.0-4-686-pae      memtest86+.bin
+extlinux                     memtest86+_multiboot.bin
+grub                         System.map-3.16.0-4-686-pae
+initrd.img-3.16.0-4-686-pae  vmlinuz-3.16.0-4-686-pae
+harry@antix1:/boot
+$ cd grub
+harry@antix1:/boot/grub
+$ ls
+fonts  grub.cfg  grubenv  i386-pc  locale  unicode.pf2
+harry@antix1:/boot/grub
+$ cat grub.cfg
+#
+# DO NOT EDIT THIS FILE
+#
+# It is automatically generated by grub-mkconfig using templates
+# from / etc/grub.d and settings from / etc/default/grub
+#
+
+### BEGIN / etc/grub.d/00_header ###
+if [ -s $prefix/grubenv ]; then
+  set have_grubenv=true
+  load_env
+fi
+if ["${next_entry}" ] ; then
+   set default="${next_entry}"
+   set next_entry=
+   save_env next_entry
+   set boot_once=true
+else
+   set default="0"
+fi
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi
+
+export menuentry_id_option
+
+if ["${prev_saved_entry}" ]; then
+  set saved_entry="${prev_saved_entry}"
+  save_env saved_entry
+  set prev_saved_entry=
+  save_env prev_saved_entry
+  set boot_once=true
+fi
+
+function savedefault {
+  if [ -z"${boot_once}" ]; then
+    saved_entry="${chosen}"
+    save_env saved_entry
+  fi
+}
+function load_video {
+  if [ x$feature_all_video_module = xy ]; then
+    insmod all_video
+  else
+    insmod efi_gop
+    insmod efi_uga
+    insmod ieee1275_fb
+    insmod vbe
+    insmod vga
+    insmod video_bochs
+    insmod video_cirrus
+  fi
+}
+
+if [ x$feature_default_font_path = xy ] ; then
+   font=unicode
+else
+insmod part_msdos
+insmod ext2
+set root='hd0,msdos1'
+if [ x$feature_platform_search_hint = xy ]; then
+  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+else
+  search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+fi
+    font="/usr/share/grub/unicode.pf2"
+fi
+
+if loadfont $font ; then
+  set gfxmode=auto
+  load_video
+  insmod gfxterm
+  set locale_dir=$prefix/locale
+  set lang=en_US
+  insmod gettext
+fi
+terminal_output gfxterm
+insmod part_msdos
+insmod ext2
+set root='hd0,msdos1'
+if [ x$feature_platform_search_hint = xy ]; then
+  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+else
+  search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+fi
+insmod jpeg
+background_image -m stretch /usr/share/wallpaper/back.jpg
+if ["${recordfail}" = 1 ] ; then
+  set timeout=30
+else
+  if [ x$feature_timeout_style = xy ] ; then
+    set timeout_style=menu
+    set timeout=5
+  # Fallback normal timeout code in case the timeout_style feature is
+  # unavailable.
+  else
+    set timeout=5
+  fi
+fi
+play 480 440 1
+### END / etc/grub.d/00_header ###
+
+### BEGIN / etc/grub.d/05_debian_theme ###
+insmod part_msdos
+insmod ext2
+set root='hd0,msdos1'
+if [ x$feature_platform_search_hint = xy ]; then
+  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+else
+  search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+fi
+insmod jpeg
+if background_image /usr/share/wallpaper/back.jpg; then
+  true
+else
+  set menu_color_normal=cyan/blue
+  set menu_color_highlight=white/blue
+fi
+### END / etc/grub.d/05_debian_theme ###
+
+### BEGIN / etc/grub.d/10_linux ###
+function gfxmode {
+    set gfxpayload="${1}"
+}
+set linux_gfx_mode=
+export linux_gfx_mode
+menuentry 'antiX GNU/Linux' --class antix --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c' {
+    load_video
+    insmod gzio
+    if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+    insmod part_msdos
+    insmod ext2
+    set root='hd0,msdos1'
+    if [ x$feature_platform_search_hint = xy ]; then
+      search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    else
+      search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    fi
+    echo    'Loading Linux 3.16.0-4-686-pae ...'
+    linux    /boot/vmlinuz-3.16.0-4-686-pae root=UUID=66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c ro  quiet
+    echo    'Loading initial ramdisk ...'
+    initrd    /boot/initrd.img-3.16.0-4-686-pae
+}
+submenu 'Advanced options for antiX GNU/Linux' $menuentry_id_option 'gnulinux-advanced-66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c' {
+    menuentry 'antiX GNU/Linux, with Linux 3.16.0-4-686-pae' --class antix --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.16.0-4-686-pae-advanced-66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c' {
+        load_video
+        insmod gzio
+        if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+        insmod part_msdos
+        insmod ext2
+        set root='hd0,msdos1'
+        if [ x$feature_platform_search_hint = xy ]; then
+          search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+        else
+          search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+        fi
+        echo    'Loading Linux 3.16.0-4-686-pae ...'
+        linux    /boot/vmlinuz-3.16.0-4-686-pae root=UUID=66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c ro  quiet
+        echo    'Loading initial ramdisk ...'
+        initrd    /boot/initrd.img-3.16.0-4-686-pae
+    }
+    menuentry 'antiX GNU/Linux, with Linux 3.16.0-4-686-pae (sysvinit)' --class antix --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-3.16.0-4-686-pae-init-sysvinit-66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c' {
+        load_video
+        insmod gzio
+        if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+        insmod part_msdos
+        insmod ext2
+        set root='hd0,msdos1'
+        if [ x$feature_platform_search_hint = xy ]; then
+          search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+        else
+          search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+        fi
+        echo    'Loading Linux 3.16.0-4-686-pae ...'
+        linux    /boot/vmlinuz-3.16.0-4-686-pae root=UUID=66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c ro  quiet init=/lib/sysvinit/init
+        echo    'Loading initial ramdisk ...'
+        initrd    /boot/initrd.img-3.16.0-4-686-pae
+    }
+}
+
+### END / etc/grub.d/10_linux ###
+
+### BEGIN / etc/grub.d/20_linux_xen ###
+
+### END / etc/grub.d/20_linux_xen ###
+
+### BEGIN / etc/grub.d/20_memtest86+ ###
+menuentry"Memory test (memtest86+)" {
+    insmod part_msdos
+    insmod ext2
+    set root='hd0,msdos1'
+    if [ x$feature_platform_search_hint = xy ]; then
+      search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    else
+      search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    fi
+    linux16    /boot/memtest86+.bin
+}
+menuentry"Memory test (memtest86+, serial console 115200)" {
+    insmod part_msdos
+    insmod ext2
+    set root='hd0,msdos1'
+    if [ x$feature_platform_search_hint = xy ]; then
+      search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    else
+      search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    fi
+    linux16    /boot/memtest86+.bin console=ttyS0,115200n8
+}
+menuentry"Memory test (memtest86+, experimental multiboot)" {
+    insmod part_msdos
+    insmod ext2
+    set root='hd0,msdos1'
+    if [ x$feature_platform_search_hint = xy ]; then
+      search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    else
+      search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    fi
+    multiboot    /boot/memtest86+_multiboot.bin
+}
+menuentry"Memory test (memtest86+, serial console 115200, experimental multiboot)" {
+    insmod part_msdos
+    insmod ext2
+    set root='hd0,msdos1'
+    if [ x$feature_platform_search_hint = xy ]; then
+      search --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    else
+      search --no-floppy --fs-uuid --set=root 66edc50e-9cb4-4d92-a5a0-0ac3c1c6a84c
+    fi
+    multiboot    /boot/memtest86+_multiboot.bin console=ttyS0,115200n8
+}
+### END / etc/grub.d/20_memtest86+ ###
+
+### BEGIN / etc/grub.d/30_os-prober ###
+### END / etc/grub.d/30_os-prober ###
+
+### BEGIN / etc/grub.d/30_uefi-firmware ###
+### END / etc/grub.d/30_uefi-firmware ###
+
+### BEGIN  /  etc/grub.d/40_custom ###
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+### END / etc/grub.d/40_custom ###
+
+### BEGIN / etc/grub.d/41_custom ###
+if [ -f  ${config_directory}/custom.cfg ]; then
+  source ${config_directory}/custom.cfg
+elif [ -z"${config_directory}" -a -f  $prefix/custom.cfg ]; then
+  source $prefix/custom.cfg;
+fi
+### END / etc/grub.d/41_custom ###
+harry@antix1:/boot/grub
+$ cd / etc/grub.d
+harry@antix1:/ etc/grub.d
+$ ls
+00_header        10_linux      20_memtest86+  30_uefi-firmware  41_custom
+05_debian_theme  20_linux_xen  30_os-prober   40_custom         README
+harry@antix1:/ etc/grub.d
+$ cd _custom
+bash: cd: _custom: No such file or directory
+harry@antix1:/ etc/grub.d
+$ cd 40_custom
+bash: cd: 40_custom: Not a directory
+harry@antix1:/ etc/grub.d
+$ cat README
+
+All executable files in this directory are processed in shell expansion order.
+
+  00_*: Reserved for 00_header.
+  10_*: Native boot entries.
+  20_*: Third party apps (e.g. memtest86+).
+
+The number namespace in-between is configurable by system installer and/or
+administrator.  For example, you can add an entry to boot another OS as
+01_otheros, 11_otheros, etc, depending on the position you want it to occupy in
+the menu; and then adjust the default setting via / etc/default/grub.
+harry@antix1:/ etc/grub.d
+</code></pre></div>
+grub2 is so hard on me to try and play with. As well as the etc forum bug for this post. A lot of debugging went into making this post stick. On a 9 inch screen.<br>
+Sigh. Maybe you can compare text files I posted with yours.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

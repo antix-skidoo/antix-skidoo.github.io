@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] antiX 13 NVIDIA/SMXI issue - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html">[SOLVED] antiX 13 NVIDIA/SMXI issue</a></div>
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_29732" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29732">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 99</span></div>
+
+</div>
+</div>
+<span class="username">spaceman</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29732">
+<time datetime="2013-06-16T16:28">posted: 2013-06-16 &nbsp; 16:28</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29732" title="permalink">#1</a></span>
+
+<div class="content">I used the fantastic smxi script to install xorg, gdm and xfce on a <strong>x86_64 M13 Core </strong>install again. Now I approached it exactly as I did with antiX 12. Everthing went as I'd expect until I got to the Nvidia drivers (I'm feeling a bit like Linus at the moment:"F@#k you, Nvidia!").<br>
+<br>
+The installation failed with <strong>Error (245): Nvidia driver failed to install Error: 1</strong>. So I tried again, failed, reinstalled antix (twice) and then tried to install the drivers manually.<br>
+<br>
+What I've learnt: the smxi script times out downloading the drivers from Nvidia and tacks forever. A manual <strong>wget</strong> or browse to <strong>downloads.nvidia.com</strong> delivers the drivers <em>in a couple of seconds</em>...I popped the manually downloaded 319.23 drivers in the <strong>/usr/src/sgfxi-downloads</strong> folder (removing the half downloaded driver in there) and ran the script again...so I don't think the issue is the script...so it could be the driver, antiX or more likely me...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>nvidia-installer log file '/var/log/nvidia-installer.log'
+creation time: Sun Jun 16 11:59:51 2013
+installer version: 319.23
+
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+nvidia-installer command line:
+    ./nvidia-installer
+    -s
+    -N
+    --x-module-path=/usr/lib/xorg/modules
+    --x-library-path=/usr/lib
+    -k
+    3.7.10-gnu-antix.3-amd64-smp
+
+Using built-in stream user interface
+-&gt; License accepted by command line option.
+-&gt; Installing NVIDIA driver version 319.23.
+-&gt; Not probing for precompiled kernel interfaces.
+-&gt; Performing CC sanity check with CC="/usr/bin/gcc-4.7".
+-&gt; Kernel source path: '/lib/modules/3.7.10-gnu-antix.3-amd64-smp/build'
+-&gt; Kernel output path: '/lib/modules/3.7.10-gnu-antix.3-amd64-smp/build'
+-&gt; Performing rivafb check.
+-&gt; Performing nvidiafb check.
+-&gt; Performing Xen check.
+-&gt; Cleaning kernel module build directory.
+   executing: 'cd ./kernel; make clean'...
+-&gt; Building kernel module:
+   executing: 'cd ./kernel; make module SYSSRC=/lib/modules/3.7.10-gnu-antix.3-amd64-smp/build SYSOUT=/lib/modules/3.7.10-gnu-antix.3-amd64-smp/build'...
+   NVIDIA: calling KBUILD...
+   test -e include/generated/autoconf.h -a -e include/config/auto.conf || (        \
+       echo &gt;&amp;2;                            \
+       echo &gt;&amp;2"  ERROR: Kernel configuration is invalid.";        \
+       echo &gt;&amp;2"         include/generated/autoconf.h or include/config/auto.conf are missing.";\
+       echo &gt;&amp;2"         Run 'make oldconfig &amp;&amp; make prepare' on kernel src to fix it.";    \
+       echo &gt;&amp;2 ;                            \
+       /bin/false)
+   mkdir -p /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/.tmp_versions ; rm -f /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/.tmp_versions/*
+   make -f scripts/Makefile.build obj=/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel
+     /usr/bin/gcc-4.7 -Wp,-MD,/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/.nv.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/4.7/include -I/usr/src/linux-headers-3.7.10-gnu-antix.3-amd64-smp/arch/x86/include -Iarch/x86/include/generated  -Iinclude -I/usr/src/linux-headers-3.7.10-gnu-antix.3-amd64-smp/arch/x86/include/uapi -Iarch/x86/include/generated/u
+   api -I/usr/src/linux-headers-3.7.10-gnu-antix.3-amd64-smp/include/uapi -Iinclude/generated/uapi -include /usr/src/linux-headers-3.7.10-gnu-antix.3-amd64-smp/include/linux/kconfig.h -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -fno-delete-null-pointer-checks -Os -m64 -mtune=generic -mno-red-zone -mcmodel=kernel -funit-at-a-time -maccumulate-outgoing-args -fstack-protector -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_FXSAVEQ=1 -DCONFIG_AS_AVX=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -Wframe-larger-than=2048 -Wno-unused-but-set-variable -fomit-frame-pointer -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -DCC_HAVE_ASM_GOTO -I/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel -Wall -MD -Wsign-compare -Wno-cast-qual -Wno-error -D__KERNEL__ -DMODULE -DNVRM 
+   -DNV_VERSION_STRING=\"319.23\" -Wno-unused-function -Wuninitialized -mno-red-zone -mcmodel=kernel -UDEBUG -U_DEBUG -DNDEBUG -D__linux__  -DMODULE  -D"KBUILD_STR(s)=#s" -D"KBUILD_BASENAME=KBUILD_STR(nv)"  -D"KBUILD_MODNAME=KBUILD_STR(nvidia)" -c -o /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/.tmp_nv.o /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/nv.c
+   In file included from include/linux/kernel.h:10:0,
+                    from include/linux/sched.h:15,
+                    from include/linux/utsname.h:5,
+                    from /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/nv-linux.h:44,
+                    from /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/nv.c:13:
+   include/linux/bitops.h: In function 'hweight_long':
+   include/linux/bitops.h:66:41: warning: signed and unsigned type in conditional expression [-Wsign-compare]
+   In file included from /usr/src/linux-headers-3.7.10-gnu-antix.3-amd64-smp/arch/x86/include/asm/uaccess.h:594:0,
+                    from include/linux/poll.h:11,
+                    from /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/nv-linux.h:115,
+                    from /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/nv.c:13:
+   /usr/src/linux-headers-3.7.10-gnu-antix.3-amd64-smp/arch/x86/include/asm/uaccess_64.h: In function 'copy_from_user':
+   /usr/src/linux-headers-3.7.10-gnu-antix.3-amd64-smp/arch/x86/include/asm/uaccess_64.h:62:6: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   scripts/basic/fixdep: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.14' not found (required by scripts/basic/fixdep)
+   make[3]: *** [/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel/nv.o] Error 1
+   make[2]: *** [_module_/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-319.23/kernel] Error 2
+   NVIDIA: left KBUILD.
+   nvidia.ko failed to build!
+   make[1]: *** [module] Error 1
+   make: *** [module] Error 2
+-&gt; Error.
+ERROR: Unable to build the NVIDIA kernel module.
+ERROR: Installation has failed.  Please see the file '/var/log/nvidia-installer.log' for details.  You may find suggestions on fixing installation problems in the README available on the Linux driver download page at www.nvidia.com.</code></pre></div></div>
+<div class="notice">
+Last edited by <b>spaceman</b> on 19 Jun 2013, 11:38, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29748" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29748">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content29748">
+
+<time datetime="2013-06-17T11:01">posted: 2013-06-17 &nbsp; 11:01</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29748" title="permalink">#2</a></span>
+
+<div class="content">Have you got linux-libc-dev installed? That's Linux support headers for userspace development.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.nvnews.net/vbulletin/showthread.php?s=e027a246f056e2e7e6f278ed8396b371&amp;t=72490"<br>linktext was:"http://www.nvnews.net/vbulletin/showthr ... 71&amp;t=72490"<br>====================================<br>
+<br>
+<br>
+If you wish to install the NVIDIA Linux graphics driver on a Debian GNU/Linux or Ubuntu system that ships with Xorg 7.x, please ensure that your system meets the following requirements:<br>
+<br>
+* development tools like make and gcc are installed<br>
+* the linux-headers package matching the installed Linux kernel is installed<br>
+* the pkg-config and xserver-xorg-dev packages are installed<br>
+* the nvidia-glx package has been uninstalled with the --purge option and the files /etc/init.d/nvidia-glx and /etc/init.d/nvidia-kernel do not exist</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29751" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29751">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 99</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">spaceman</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 07 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29751">
+
+<time datetime="2013-06-17T12:14">posted: 2013-06-17 &nbsp; 12:14</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29751" title="permalink">#3</a></span>
+
+<div class="content">Thanks for the swift response!<br>
+<br>
+<strong>linux-libc-dev</strong> - check!<br>
+<strong>make</strong> and <strong>gcc</strong> - check!<br>
+<strong>linux-headers</strong> package matching the installed Linux kernel is installed? - Aha, the edge of my knowledge. <em>How do I confirm whether the linux-headers package matches the installed kernel</em>?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ uname -a
+Linux hostname 3.7.10-gnu-antix.3-amd64-smp #1 SMP Sat Jun 1 01:37:44 EEST 2013 x86_64 GNU/Linux
+</code></pre></div>
+<strong>pkg-config</strong> - check!<br>
+<strong>xserver-xorg-dev</strong> - no, this wasn't installed. It is not however!<br>
+<strong>nvidia-glx package uninstalled with --purge option</strong> - check!<br>
+<strong>/etc/init.d/nvidia-glx</strong> and <strong>/etc/init.d/nvidia-kernel</strong> do <em>not</em> exist - check!<br>
+<br>
+So my continuing problem could be the linux-headers...</div>
+<div class="notice">
+Last edited by <b>spaceman</b> on 17 Jun 2013, 14:51, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29757" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29757">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+ </table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content29757">
+
+<time datetime="2013-06-17T14:44">posted: 2013-06-17 &nbsp; 14:44</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29757" title="permalink">#4</a></span>
+
+<div class="content">anticapitalista said something to somebody about using sgfxi -f to install his own nvidia drivers but I can't now find it.<br>
+<br>
+Found it now <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/post28136.html?hilit=sgfxi%20f#p28136"<br>linktext was:"antix.freeforu ms.org/post28136.h ... 20f#p28136"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29758" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29758">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 99</span></div>
+
+</div>
+</div>
+<span class="username">spaceman</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29758">
+
+<time datetime="2013-06-17T14:49">posted: 2013-06-17 &nbsp; 14:49</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29758" title="permalink">#5</a></span>
+
+<div class="content">Yeah, I'd already tried this but it never hurts to have another go.<br>
+<br>
+Exactly the same result... <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29765" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29765">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29765">
+
+<time datetime="2013-06-17T19:27">posted: 2013-06-17 &nbsp; 19:27</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29765" title="permalink">#6</a></span>
+
+<div class="content">If you are still trying to find what headers you need :-<br>
+sudo apt-cache search linux-headers<br>
+<br>
+Edit: I'm on Crunchbang just now, but you should be looking for something like -<br>
+linux-headers-3.2.0-4-amd64 - Header files for Linux 3.2.0-4-amd64</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29767" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29767">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29767">
+
+<time datetime="2013-06-17T21:40">posted: 2013-06-17 &nbsp; 21:40</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29767" title="permalink">#7</a></span>
+
+<div class="content">spaceman <br>
+<br>
+I have just been testing this and I get the same when using antiX-13-core 64 bit. (antiX-13-core 32 bit does build nvidia driver though).<br>
+<br>
+OK, until I get this fixed with probably a new kernel build for the antiX-13-core 64 bit kernel, you have these options.<br>
+<br>
+1. Use testing repos, do apt-get update &amp;&amp; apt-get dist-upgrade and then run sgfxi again.<br>
+This worked for me.<br>
+<br>
+2. Keep the repos at Wheezy and install another kernel. Try the non-gnu antiX 3.7.10 kernel or a Debian/siduction/aptosid/liquorix one.<br>
+<br>
+Congratulations on finding this bug in antiX-13-core 64 bit <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29774" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29774">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 99</span></div>
+
+</div>
+</div>
+<span class="username">spaceman</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29774">
+
+<time datetime="2013-06-18T09:39">posted: 2013-06-18 &nbsp; 09:39</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29774" title="permalink">#8</a></span>
+
+<div class="content">YAY! A bug means it effects more than me and it's valuable to point it out! I contributed, excellent. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Thanks for the interim suggestions, Anti! I'll get right on it. <span class="emoticon"> __{{emoticon}}__ </span> Thanks Alanarchy and Fatmac for your advice, I learned stuff - is always good.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29780" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29780">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29780">
+
+<time datetime="2013-06-18T17:48">posted: 2013-06-18 &nbsp; 17:48</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29780" title="permalink">#9</a></span>
+
+<div class="content">spaceman<br>
+<br>
+There is a new antiX 3.7-10-gnu-antix.4 kernel in the repo that should work.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29798" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29798">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 99</span></div>
+
+</div>
+</div>
+<span class="username">spaceman</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29798">
+
+<time datetime="2013-06-19T11:37">posted: 2013-06-19 &nbsp; 11:37</time>
+<span class="permalink"><a href="./solved-antix-13-nvidia-smxi-issue-t4412.html#p29798" title="permalink">#10</a></span>
+
+<div class="content">Thanks man, I always use a liquorix kernel, they're described as 'high performance' and they've always worked fine, so I slapped 3.8 in then the Nvidia drivers worked as normal. Now, just the eternal struggle to build Wine 1.5.x from source on an AMD64 system... /sigh<br>
+<br>
+Thanks all.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

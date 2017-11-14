@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>JWM Screen is not usable - Page 3 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./jwm-screen-is-not-usable-t4725-s30.html">JWM Screen is not usable</a></div>
+<div class="pagination">
+33 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./jwm-screen-is-not-usable-t4725-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./jwm-screen-is-not-usable-t4725.html" role="button">1</a></li>
+<li><a class="button" href="./jwm-screen-is-not-usable-t4725-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_32578" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32578">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 19</span></div>
+
+</div>
+</div>
+<span class="username">jean202</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32578">
+<time datetime="2013-12-28T13:48">posted: 2013-12-28 &nbsp; 13:48</time>
+<span class="permalink"><a href="./jwm-screen-is-not-usable-t4725-s30.html#p32578" title="permalink">#31</a></span>
+
+<div class="content">is it the grub in menu.list?<br>
+with xres=800x600 (boot code)<br>
+xrandr -s 800x600 doesn't change anything<br>
+xrandr -s 640x480 gives a bad screen <br>
+xrandr -s 320x240 gives a big screen<br>
+i read tdfx driver is good with libglide3<br>
+i don't know how to change tdfx driver by vesa driver</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32579" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32579">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32579">
+
+<time datetime="2013-12-28T16:09">posted: 2013-12-28 &nbsp; 16:09</time>
+<span class="permalink"><a href="./jwm-screen-is-not-usable-t4725-s30.html#p32579" title="permalink">#32</a></span>
+
+<div class="content">I thought I posted this already in this thread, but I guess I messed up some how with that. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Maybe you could try booting into init 3 by adding the number"3" to the end of the grub boot line.<br>
+Then log in as root:<br>
+Type: service slim stop (press enter)<br>
+Type: X -configure (press enter)<br>
+Note the capital X, this should make an xorg.conf in /root called xorg.conf.new. <br>
+Copy this to / etc/X11/ by<br>
+Type: cp /root/xorg.conf.new / etc/X11/xorg.conf (press enter)<br>
+Then try running slim to see if you have the correct screen setting.<br>
+Type: service slim start (press enter)<br>
+If you are still seeing a funny screen, you can specify the resolution using a mode line in / etc/X11/xorg.conf under the correct depth (or all of them)<br>
+I always use a mode line similar to:<br>
+Modes"1366x768"<br>
+In your case, this should be <br>
+Modes"800x600"<br>
+But you can also make a list like<br>
+Modes"800x600""1024x768""640x480" <br>
+This line should show up right under the <br>
+Depth #<br>
+Lines in you Screen section<br>
+Example:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"Screen"
+    Identifier"Screen0"
+    Device    "Card0"
+    Monitor   "Monitor0"
+    SubSection"Display"
+        Viewport   0 0
+        Depth     1
+                Modes"1366x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     4
+                Modes"1366x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     8
+                Modes"1366x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     15
+                Modes"1366x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     16
+                Modes"1366x768"
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     24
+                Modes"1366x768"
+    EndSubSection
+EndSection
+</code></pre></div>
+The resolution you would like to"force" should show up at the front of that line.<br>
+You can get back to the init 3 console by pressing"Control + Alt + F1"<br>
+Type: service slim stop (press enter)<br>
+Type: nano / etc/X11/xorg.conf (press enter)<br>
+Add/Change: Your mode lines<br>
+Press:"Control + x" followed by"y" to save<br>
+Type: service slim start (press enter)<br>
+If it is still not working right and you would like to try the vesa driver as stated above, you can edit your xorg.conf to use the vesa driver.<br>
+Press:"Control + Alt + f1" (press enter)<br>
+Type: service slim stop (press enter)<br>
+Type: nano / etc/X11/xorg.conf<br>
+In the Device section(s) change the <br>
+Driver *.* <br>
+Line to say <br>
+Driver vesa<br>
+Press:"Control + x" followed by"y" to save<br>
+Type: service slim start (press enter)<br>
+<br>
+Hopefully this should get something working as it should.<br>
+Dave</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32580" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32580">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 19</span></div>
+
+</div>
+</div>
+<span class="username">jean202</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32580">
+
+<time datetime="2013-12-28T18:32">posted: 2013-12-28 &nbsp; 18:32</time>
+<span class="permalink"><a href="./jwm-screen-is-not-usable-t4725-s30.html#p32580" title="permalink">#33</a></span>
+
+<div class="content">In section"Monitor"<br>
+for Identifier"Monitor0"<br>
+<br>
+i add <br>
+HorizSync 31-38<br>
+VertRefresh 60<br>
+<br>
+Bingo. Wonderful<br>
+Thank's a lot</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+33 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./jwm-screen-is-not-usable-t4725-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./jwm-screen-is-not-usable-t4725.html" role="button">1</a></li>
+<li><a class="button" href="./jwm-screen-is-not-usable-t4725-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

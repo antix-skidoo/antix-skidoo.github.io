@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Distri display in multiboot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./distri-display-in-multiboot-t5520.html">Distri display in multiboot</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_39617" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39617">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39617">
+<time datetime="2015-02-15T11:04">posted: 2015-02-15 &nbsp; 11:04</time>
+<span class="permalink"><a href="./distri-display-in-multiboot-t5520.html#p39617" title="permalink">#1</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite>
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.gnu.org/software/grub/manual"<br>linktext was:"http://www.gnu.org/software/grub/manual"<br>====================================<br>
+ ... l#Features<br>
+(see 5.3 Multi-boot manual config)</div></blockquote>
+post39615.html?hilit=#p39615<br>
+<br>
+Well, I've been looking too long after that.<br>
+There are several possibilities.<br>
+The easiest way I find this<br>
+in a multiboot system with Grub2 and os-prober<br>
+<br>
+The example antiX<br>
+check<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache policy lsb-release
+lsb-release:
+  Installiert:           4.1+Debian13+nmu1
+  Installationskandidat: 4.1+Debian13+nmu1
+  Versionstabelle:
+ *** 4.1+Debian13+nmu1 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+        100 /var/lib/dpkg/status
+</code></pre></div>and the presence of the file <strong>(/)etc/lsb-release</strong><br>
+if so, rename it to .old<br>
+<br>
+<br>
+create a New (/)etc/lsb-release<br>
+with this content
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>DISTRIB_ID=antiX
+DISTRIB_RELEASE=14
+DISTRIB_CODENAME=Killah P
+DISTRIB_DESCRIPTION="antiX 14"
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-grub</code></pre></div>
+os-prober reads this line <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>DISTRIB_DESCRIPTION="antiX 14"</code></pre></div>
+and after the reboot you will see them in their Grub menu multi-boot system. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39619" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39619">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39619">
+
+<time datetime="2015-02-15T13:26">posted: 2015-02-15 &nbsp; 13:26</time>
+<span class="permalink"><a href="./distri-display-in-multiboot-t5520.html#p39619" title="permalink">#2</a></span>
+
+<div class="content">Thats amazing!<br>
+<br>
+But why isnt that in the grub manual or used by the distros?<br>
+<br>
+It boggles the mind!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39620" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39620">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39620">
+
+<time datetime="2015-02-15T13:36">posted: 2015-02-15 &nbsp; 13:36</time>
+<span class="permalink"><a href="./distri-display-in-multiboot-t5520.html#p39620" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>thriftee wrote:</cite>Thats amazing!<br>
+<br>
+But why isnt that in the grub manual or used by the distros?<br>
+<br>
+It boggles the mind!</div></blockquote>
+It is in the a14/15 series. 13.2 used grub-legacy.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39623" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39623">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39623">
+
+<time datetime="2015-02-15T14:43">posted: 2015-02-15 &nbsp; 14:43</time>
+<span class="permalink"><a href="./distri-display-in-multiboot-t5520.html#p39623" title="permalink">#4</a></span>
+
+<div class="content">@thriftee<br>
+<br>
+this also works with 11; 13.1; 13.2 etc.<br>
+(here is the name of the file os-release &gt; .old)<br>
+<br>
+the primary boot loader must be grub2</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39628" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39628">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39628">
+
+<time datetime="2015-02-15T17:32">posted: 2015-02-15 &nbsp; 17:32</time>
+<span class="permalink"><a href="./distri-display-in-multiboot-t5520.html#p39628" title="permalink">#5</a></span>
+
+<div class="content">Well, myself, having 10 or 12 distros on each drive has not been unusual, and grub-legacy and grub4dos and lilo left me"up the creek without a paddle" too many times, so I've made a rule that any OS that grub2 doesn't work on either doesn't get loaded at all, or certainly is not intentionally permitted to update the MBR or control the boot, having made that mistake so many times before, and non-conforming distros only get loaded to old junker disk drives so they can't screw me too badly.<br>
+<br>
+So, having many"unknown linux distributions" the past year, that get regenerated as"unknown" everytime I install another, I finally resorted to putting in / etc/slackware-version files for them to try to leave a trail of breadcrumbs so that the grub menus would at least have SOME indication of what OS was going to boot. If someone had put the lsb stuff into the documentation, even s simply as your post, I might have"done it right", or better yet not needed to because it would have already been there if it had been common knowledge of how grub would decide what to put in its menu text.<br>
+<br>
+Anyway, your / etc/lsb-release file is nothing short of a revelation for me, and it makes zero sense to me why the devs of these systems couldn't have taken a few minutes to add one to their distros.<br>
+<br>
+And then you having given me a search string, I went and looked and found this... IMO, they shouldn't have skipped them and instead put in the error message so people would ask to have it fixed, and if that had been the case, I wouldn't have these messes on my drives today... Look at the date...<br>
+<br>
+os-prober (0.14) unstable; urgency=low<br>
+* Joey Hess<br>
+- It's actually allowed and common for / etc/lsb-release to not include a<br>
+DISTRIB_DESCRIPTION or DISTRIB_CODENAME, so don't call such distros<br>
+"Unknown semi-LSB-compliant Linux distribution", just skip to the next<br>
+test. This affected FC2.<br>
+-- Joey Hess &lt;<a href="mailto:joeyh@debian.org">joeyh@debian.org</a>&gt; Fri, 27 Aug 2004 12:57:06 -0400</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Force Sound Blaster mode in antiX? - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./force-sound-blaster-mode-in-antix-t4649.html">Force Sound Blaster mode in antiX?</a></h2>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_31351" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31351">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31351">
+
+<time datetime="2013-10-13T15:56">posted: 2013-10-13  &nbsp; 15:56</time>
+<span class="permalink"><a href="./force-sound-blaster-mode-in-antix-t4649.html#p31351" title="permalink">#1</a></span>
+
+<div class="content">I've finally gotten my ca. 1998 laptop (Gateway Solo 2500) dual booting in antiX 13.1 32-bit and Win98. The sound works perfectly in Windows (as it has for as long as I've had the machine), but antiX doesn't detect sound hardware or doesn't load a driver for it. The sound system built into the machine is a NeoMagic MagicWave 3DX, and as far as I've been able to determine, there has never been a Linux driver for this sound hardware, primarily because NeoMagic has never released the specs that would be needed to create one (it also apparently does some bizarre things, like using the top of video memory for the sound buffers). Obviously, there's a perfectly fine Windows 98 (presumably 32-bit) driver available, but though I've read there's a project in work to allow using Wine to access Windows drivers for Linux, I don't know of an estimated availability date or whether that would work on a general basis or be specific to individual software.<br>
+<br>
+On the short term, according to the documentation I've been able to locate, the MagicWave 3DX is supposed to be"compatible" with Sound Blaster 16, at least for game settings (IO ports, DMA, and interrupts), so I'm looking for a way to convince antiX that I have, in fact, a Sound Blaster so ALSA can output sound (that would let me run the machine in antiX 24/7 and avoid concerns with leaving it on the network while in Win98, which is currently used primarily as a sound playback system). How can I force the Sound Blaster driver to load and tell it what specs to use? All the relevant resources on 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linux-sound.org/drivers.html"<br>linktext was:"this page"<br>====================================<br>
+ are gone (haven't tried Wayback Machine yet, but there's nothing current) -- I don't expect anything from Creative to work, since it'll be all low-level rather than game-level connections. Is there a game-level SB driver around that might work with a range of obscure SB-compatible hardware?<br>
+<br>
+Edit to add: Closer examination of the System Information reveals there are Yamaha components as well as the proprietary NeoMagic drivers -- this may indicate that the NeoMagic hardware (which was the first one-chip implementation, which made it popular for laptops for a short time until other systems came along) integrated an OPL2 or OPL3 layer, and forcing an OPL driver might work -- but I don't know how to do that.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31358" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31358">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 630</dd>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31358">
+
+<time datetime="2013-10-14T11:18">posted: 2013-10-14  &nbsp; 11:18</time>
+<span class="permalink"><a href="./force-sound-blaster-mode-in-antix-t4649.html#p31358" title="permalink">#2</a></span>
+
+<div class="content">This is my sound card that I use, and I'm able to access it with Jack to produce MIDI files from it. <br>
+The card is much newer than SB 16 tho. Did you try alsa-firmware-drivers? It may have the legacy driver needed.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Audio:     Card: Creative Labs SB Audigy driver: snd_emu10k1 Sound: ALSA ver: k3.7.10-antix.4-amd64-smp</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31388" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31388">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31388">
+
+<time datetime="2013-10-16T11:09">posted: 2013-10-16  &nbsp; 11:09</time>
+<span class="permalink"><a href="./force-sound-blaster-mode-in-antix-t4649.html#p31388" title="permalink">#3</a></span>
+
+<div class="content">From what I've read since posting above, Sound Blaster drivers almost never work on hardware that wasn't made by Creative Labs. <span class="emoticon"> __{{emoticon}}__ </span> Further, I don't know how to force antiX to load a driver for hardware that wasn't detected on startup. This is also slightly complicated by the fact I don't yet have a network connection to the laptop (it's been running as a bedside stereo in Win98 for years; a network connection wasn't needed and Internet connectivity positively undesirable due to insecure OS). It's appalling what sixty feet of Cat 5 cable costs these days...<br>
+<br>
+I checked from my other antiX machine (directly beneath my main desktop system) and found an alsa-firmware-loaders package, but it doesn't seem to have anything related to NeoMagic (not surprising).</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31389" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31389">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 2,238</dd>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31389">
+
+<time datetime="2013-10-16T12:29">posted: 2013-10-16  &nbsp; 12:29</time>
+<span class="permalink"><a href="./force-sound-blaster-mode-in-antix-t4649.html#p31389" title="permalink">#4</a></span>
+
+<div class="content">this guy is spoofing his system into using the magicwave 3dx. Its old info, using the 2.4 kernel, but maybe it will lead you down a new path.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.intevation.de/users/bernhard/acer_travelmate722tx_sound.txt"<br>linktext was:"http://ftp.intevation.de/users/bernhard ... _sound.txt"<br>====================================<br>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31392" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31392">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 347</dd>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31392">
+
+<time datetime="2013-10-17T02:04">posted: 2013-10-17  &nbsp; 02:04</time>
+<span class="permalink"><a href="./force-sound-blaster-mode-in-antix-t4649.html#p31392" title="permalink">#5</a></span>
+
+<div class="content">That looks like a good"proof of life" in terms of getting the MagicWave sound hardware to work in Linux, but it's using OSS, which has been replaced by ALSA, which has been partially supplanted by Pulse. My understanding here is very limited (and I hope I'm wrong, and will find that what he's doing is at a lower level than OSS and ALSA and further is still supported in the antiX 3.7.x kernel), but I don't expect much from something that far out of date.<br>
+<br>
+That said, I'm about to go boot the laptop into antiX and see if the first bits work...<br>
+<br>
+Edit: even if this doesn't work due to the kernel and sound system changes, now I can look for solutions for the Acer Travelmate, which I think is a bit more common than my Gateway Solo 2500.<br>
+<br>
+Further edit: Well, the files referenced in that article don't exist in the antiX installation on my laptop; I can only presume that isa-pnp hardware detection is no longer used and/or that the files and method in that linked article are specific to OSS (which, as far as I'm aware, doesn't exist in antiX, which uses ALSA). I can get a USB sound device on a short cord (so it won't interfere with use of the second USB port on the machine) for about $3 shipped from China, so I'm not going to worry further about trying to get the MagicWave to work in antiX -- the USB unit should detect and"just work" as long as it's plugged when I start the OS.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

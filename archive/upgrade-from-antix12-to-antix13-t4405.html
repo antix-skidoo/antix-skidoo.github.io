@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Upgrade from antix12 to antix13 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./upgrade-from-antix12-to-antix13-t4405.html">Upgrade from antix12 to antix13</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_29683" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29683">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29683">
+<time datetime="2013-06-14T21:46">posted: 2013-06-14 &nbsp; 21:46</time>
+<span class="permalink"><a href="./upgrade-from-antix12-to-antix13-t4405.html#p29683" title="permalink">#1</a></span>
+
+<div class="content">I have been using antix12 live persistence usb installation and have remastered. Can I upgrade to antix13 and keep my customizations? What about keeping my home directory?</div>
+</div>
+</div>
+<div class="back2top">
+
+</div>
+</div>
+</div>
+<div id="p_29685" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29685">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29685">
+
+<time datetime="2013-06-14T22:51">posted: 2013-06-14 &nbsp; 22:51</time>
+<span class="permalink"><a href="./upgrade-from-antix12-to-antix13-t4405.html#p29685" title="permalink">#2</a></span>
+
+<div class="content">I *think* you can upgrade via apt-get or synaptic but other people know a lot more about this than I do.<br>
+<br>
+I suggest you start using the new initrd.gz that comes inside the antiX-13 iso files. If you don't want to download an entire iso to get a file that is only a few Meg, I can email it to you if you send me a PM.<br>
+<br>
+On the vast majority of systems, the initrd.gz files are interchangeable. There are a few systems that need kernel drivers from the initrd in which case the initrd must match the kernel, but I think you would know if you needed this.<br>
+<br>
+There are three new persistence features in the initrd that may be useful to you:<br>
+<ul>
+<li><strong>1)</strong> Static root persistence<br>
+<strong>2)</strong> Fsck of ext2/3/4 filesystems at boot time<br>
+<strong>3)</strong> Cleaner shutdown</li>
+</ul>
+The root persistence you are using (now called dynamic) stores all filesystem changes in RAM. The changes only get stored in the rootfs file when you run persist-save. If you make too many changes (like with a system upgrade) and you run out of RAM then the changes don't complete. Static root persistence stores all filesystem changes directly in the rootfs persistence file. There's no need to run persist-save. This means the only size limit is the size of the rootfs file. If you use persist-makefs to resize your rootfs file then you may want to get the latest version (from antiX-13) because the previous version limited the size of the rootfs file to the size of RAM (this was the only change made to persist-makefs). The downside of static root persistence is that it can be much slower. Since you are doing fine now with dynamic root persistence, you only need to enable static root persistence if you want to do a large upgrade where the filesystem changes might not fit into RAM. Then you can go back to dynamic root persistence for day to day use. Or stick with the static if the speed is okay. <br>
+<br>
+The filesystem checks and cleaner shutdown are a bonus. They should increase reliability.<br>
+<br>
+Since you can easily bork your system by blindly changing the initrd.gz file, I suggest you add a new menu.lst entry (assuming you are using Grub) for the new initrd.gz file. For example, if you have a current entry like:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiX-12_386-full (10 October 2012)
+kernel /antiX/vmlinuz quiet antiX=MLX
+initrd /antiX/initrd.gz</code></pre></div>Then copy the new initrd.gz file to /live/bootdev/antiX/initrd.new and add a new entry:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiX-12_386-full New Initrd (14 June 2013)
+kernel /antiX/vmlinuz quiet antiX=MLX
+initrd /antiX/initrd.new</code></pre></div>The same trick works if you are using syslinux as your boot loader but the syntax of the file is slightly different.<br>
+<br>
+The antiX-13 Live bootloader has more menu options and a few other little tricks. You should be able to use it just by copying the file /boot/grub/message file from an antiX-13 iso to /live/bootdev/boot/grub/message. Unfortunately, if this goes wrong then it will make your stick unbootable. On the plus side, I don't think there is much to go wrong as long as the copy is successful. Some of the new options won't work until you upgrade to the antiX-13 Live init.d scripts.<br>
+<br>
+Someone else can probably help you with upgrading your actual system which is probably what you are mainly interested in. I'm just suggesting that you update your initrd.gz first and start using static root persistence before you do a major system update that might run out or RAM.<br>
+<br>
+BTW: to enable static root persistence, just add",static" or",s" to the"persist=..." boot parameter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29687" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29687">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29687">
+
+<time datetime="2013-06-14T23:07">posted: 2013-06-14 &nbsp; 23:07</time>
+<span class="permalink"><a href="./upgrade-from-antix12-to-antix13-t4405.html#p29687" title="permalink">#3</a></span>
+
+<div class="content">jsr - give us some more information about what you have updated when using antiX-12 with persistence.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29702" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29702">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29702">
+
+<time datetime="2013-06-15T19:13">posted: 2013-06-15 &nbsp; 19:13</time>
+<span class="permalink"><a href="./upgrade-from-antix12-to-antix13-t4405.html#p29702" title="permalink">#4</a></span>
+
+<div class="content">BitJam and anticapitalista: Thank you both for the quick replies. You have always been helpful with my previous questions.<br>
+<br>
+BitJam: Thanks for the explanation on the new root persistence - that is a real improvement. I started using antix12 late in the cycle and could never do a full dist-upgrade on even a 2gb ram computer - I had to manually select packages without exceeding a rough limit on total size for each update. I am not sure I want to do a partial change to 12, nor risk breaking 12 until I get 13 running. I realize that most distros don't provide for a simple means to upgrade a version while keeping personalization or the /home directory intact. Puppy live allows, in some cases, simply copying three main files from the new upgrade .iso to the old installed version for a seamless upgrade. Since I am using the live persistence installation of antix, I wondered if I could do something similar. You indicate that I might be able to, but the procedure might be more complicated and not provide a total upgrade to 13.<br>
+<br>
+anticapitalista: My antix12 has a current, complete dist-upgrade. I have also added a few minor games, Thunderbird (which works well with imap), printer/scanner drivers, a few other packages, and personalization. I have fiddled with enough linux distros that it does not take me too long to get them setup and personalized. As noted above, I thought I would ask if there was an easy process to upgrade 12 to 13, but do not want to ask for your and BitJam's valuable time beyond that. <br>
+<br>
+Over several years, I think I have tried all the"portable", ram-based, live linux distros that install on a usb stick, cycling through them as they have upgraded. They are amazing, creative attempts to provide a full linux distro experience in a small package. Antix, the distro and the support, is by far the best for me - thank you for what you have done.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29703" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29703">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29703">
+
+<time datetime="2013-06-15T20:05">posted: 2013-06-15 &nbsp; 20:05</time>
+<span class="permalink"><a href="./upgrade-from-antix12-to-antix13-t4405.html#p29703" title="permalink">#5</a></span>
+
+<div class="content">jsr, it was your problem upgrading a persistent system in April that sparked me to implement static persistence. The static persistence was easy. It was the clean umount and the fsck that took all the work but I didn't want to do static persistence without them.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

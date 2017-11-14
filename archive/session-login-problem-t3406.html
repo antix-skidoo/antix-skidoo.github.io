@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>session login problem - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./session-login-problem-t3406.html">session login problem</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_22531" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22531">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 23</span></div>
+
+</div>
+</div>
+<span class="username">SilverBear</span>
+</dt>
+<dd class="profile-joined">Joined: 07 May 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22531">
+<time datetime="2011-11-03T22:19">posted: 2011-11-03 &nbsp; 22:19</time>
+<span class="permalink"><a href="./session-login-problem-t3406.html#p22531" title="permalink">#1</a></span>
+
+<div class="content">I may not be a"New User" of antiX in terms of time, but i sure feel like one! So i'm posting my 2 current problems in this forum section.<br>
+<br>
+BG: after more than 2 years running the distro"EEEbuntu", i'm switching my wife's netbook [EEEpc 904 HA] to antiX 11. Most everything is working out nicely.<br>
+BUT:<br>
+<br>
+#1 When the GUI login window comes up, i MUST hit F1 and toggle down to rox-icewm <em>every time</em> in order to login to that kind of session. Just logging in with no F1 business puts me into a brief terminal display . . . then the login screen pops up again. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+I have [perhaps] muddied the picture by setting the auto-login feature, so she doesn't have to type <br>
+"jess" every time --it just come uo that by default. I don't see why this should matter --but just so you know.<br>
+<br>
+I used the Control Centre &gt; Edit Login Options to set Rox-icewm as default. That doesn't seem to help. Here is her .xinitrc file:<br>
+-------------
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#xset m 10 2
+xmodmap -e 'pointer = 1 2 3 4 5'
+
+# The following line gets changed by antiX-init.sh with the desktop= cheatcode
+XINITRC_DEFAULT="Rox-icewm"
+
+case $1 in
+icewm)
+    exec icewm-session
+    ;;
+
+lxde) 
+        exec startlxde
+        ;;
+
+xfce)
+        exec startxfce4
+        ;;
+
+dwm)
+        exec dwm
+        ;;
+
+wmii)
+        exec wmii
+        ;;
+
+fvwm-crystal)
+        exec fvwm-crystal 
+        ;;
+
+kde)
+        exec startkde
+        ;;
+
+gnome)
+        exec gnome-session
+        ;;
+
+openbox)
+        exec openbox-session
+        ;;
+
+fluxbox)
+    exec startfluxbox
+    ;;
+
+Rox-fluxbox)
+        rox --pinboard=antiX
+        exec startfluxbox
+        ;; 
+
+Rox-icewm)
+        rox --pinboard=antiX
+        exec icewm-session
+        ;;
+
+*)
+    exec $XINITRC_DEFAULT
+    ;;
+esac</code></pre></div>
+------------------------<br>
+<br>
+I don't THINK i'm senile yet, but something must be awry that i cannot spy.<br>
+<br>
+Any ideas where i'm going wrong, guys?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22533" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22533">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22533">
+
+<time datetime="2011-11-04T01:21">posted: 2011-11-04 &nbsp; 01:21</time>
+<span class="permalink"><a href="./session-login-problem-t3406.html#p22533" title="permalink">#2</a></span>
+
+<div class="content">If the suggestions below don't work, please post the /etc/slim.conf from her system.<br>
+<br>
+I suggest you change the default entry in her .xinitrc to:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    *)
+        rox --pinboard=antiX
+        exec icewm-session
+        ;;</code></pre></div>
+This problem should be fixed in the next antiX release. <br>
+<br>
+If you need to debug this problem further, you can open up a virtual console (Ctrl-Alt-Fn), and as root stop Slim:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># /etc/init.d/slim stop</code></pre></div>
+Then as the user run startx from the virtual console:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ startx</code></pre></div>
+You can also start a specific wm like this:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ startx Rox-wm</code></pre></div>
+You can then simply logout of the X session to get back to the virtual console to try again. There might be useful error messages on the virtual console.<br>
+<br>
+You can also look in ~/.xsession-errors for error messages.<br>
+<br>
+If you are booting the system use a the numeral"3" (no quotes) as a boot parameter to prevent X from starting. This saves you the step of stopping Slim as root.<br>
+<br>
+HTH</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

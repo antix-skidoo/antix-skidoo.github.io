@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Netflix and antiX 13 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./netflix-and-antix-13-t4418.html">Netflix and antiX 13</a></div>
+<div class="pagination">
+24 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./netflix-and-antix-13-t4418-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./netflix-and-antix-13-t4418-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_29790" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29790">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29790">
+<time datetime="2013-06-19T03:52">posted: 2013-06-19 &nbsp; 03:52</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p29790" title="permalink">#1</a></span>
+
+<div class="content">I'm a netflix subcriber. there, I've said it. and I've wante it to run on antiX for a long time. Thanks to the ehoover repo this is now possible. but its meant for ubuntu, not debian/antiX, so there are a few extra steps involved. I've tested this procedure twice now...<br>
+<br>
+Installing Netflix on Antix 13 (released)<br>
+<br>
+If you want netflix installed on antiX 13, here are the steps you need to follow. Please note that this will consume several hundred MB of data storage and may not be appropriate for older hardware. Your mileage may vary.<br>
+<br>
+This assumes that you are using antiX 13 final release and the default wheezy repos. <br>
+***This will not work with the Jesse/Testing repos***<br>
+<br>
+For ease of use, use the command line.<br>
+<br>
+all as root<br>
+<br>
+1. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-get update </code></pre></div>
+2. add to various.list source list the following repos. The netflix repo is obvious. You need mozilla.debian.net repo to satifsy a dependency to wine-browser-installer that comes with the netflix-desktop package.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#netflix      
+deb http://ppa.launchpad.net/ehoover/compholio/ubuntu oneiric main
+#iceweasel-release
+deb http://mozilla.debian.net/ wheezy-backports iceweasel-release</code></pre></div>
+3. issue this command
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1F691896 </code></pre></div>
+4. update package lists again<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-get update </code></pre></div>
+5. if 64 bit, issue the following.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg --add-architecture i386 </code></pre></div>
+6. update package lists again<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-get update </code></pre></div>
+7. Install Microsoft core fonts, required by netflix-desktop<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#apt-get install ttf-mscorefonts-installer </code></pre></div>
+8. accept the mscorefonts eula by issueing the following command. its one line.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sh -c"echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections"</code></pre></div>
+<br>
+10. Now the netflix-desktop package<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> apt-get install netflix-desktop </code></pre></div>
+11. exit root<br>
+12. as regular user, run netflix-desktop from terminal. It will continue to download various packages, including a windows vesion of firefox, silverlight, and some mono packages.<br>
+13. you can cancel at the point when it requests to install gecko packages. Netflix should launch when finished. I've noticed that it sometimes times-out before the page loads, especially on time warner dns servers. Its just a full-screen browser window and you can use F11 to reduce it to a normal window. cntrl-L brings up the open website dialog if you wish.<br>
+14. when finished, apt-get install libwine-gecko-1.4 just to be safe.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> #apt-get install libwine-gecko-1.4</code></pre></div>
+15. you will need to add netflix-desktop to your menu manually.<br>
+<br>
+<br>
+***edit to vastly simplify the process***</div>
+<div class="notice">
+Last edited by <b>dolphin_oracle</b> on 11 Oct 2013, 20:07, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29824" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29824">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29824">
+
+<time datetime="2013-06-20T04:02">posted: 2013-06-20 &nbsp; 04:02</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p29824" title="permalink">#2</a></span>
+
+<div class="content">edited the procedure to reflect that their is no need to remove iceweasel and libnspr4. All you need to do is enable the mozilla.debian.net repo and the missing dependencies will be satisfied.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31316" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31316">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31316">
+
+<time datetime="2013-10-11T20:06">posted: 2013-10-11 &nbsp; 20:06</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31316" title="permalink">#3</a></span>
+
+<div class="content">edited the procedue above to reflect this currently only works with the wheezy repos. Jesse's structure is changing too much and certain lib libraries no longer have the same names.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31393" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31393">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31393">
+
+<time datetime="2013-10-17T13:36">posted: 2013-10-17 &nbsp; 13:36</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31393" title="permalink">#4</a></span>
+
+<div class="content">Netflix in Jessie (testing) can be accomplished by the instructions in this thread:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://fds-team.de/cms/pipelight-installation.html"<br>linktext was:"http://fds-team.de/cms/pipelight-installation.html"<br>====================================<br>
+<br>
+<br>
+I installed the multi-pipelight version and it worked fairly well. The netbook didn't have the horsepower, but my normal laptop did.<br>
+<br>
+and its freaky to see a silverlight plug-in showing up in a linux web browser. Still relies on a custom wine implementation though, buts its a little lighter than the old netflix-desktop system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31397" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31397">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31397">
+
+<time datetime="2013-10-17T17:53">posted: 2013-10-17 &nbsp; 17:53</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31397" title="permalink">#5</a></span>
+
+<div class="content">I don't do netflicks but hulu free instead. This thread is too cool for skool.<br>
+Thanks D.O.</div>
+</div>
+</div>
+
+</div>
+</div>
+ <div id="p_31398" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31398">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31398">
+
+<time datetime="2013-10-17T18:00">posted: 2013-10-17 &nbsp; 18:00</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31398" title="permalink">#6</a></span>
+
+<div class="content">no es problemo, Roky! I like me some hulu free as well! <br>
+<br>
+I'll have a video how-to once antix goes 13.5, since 13.5 will be back to testing.</div>
+</div>
+</div>
+
+ </div>
+</div>
+<div id="p_31399" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31399">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31399">
+
+<time datetime="2013-10-17T18:04">posted: 2013-10-17 &nbsp; 18:04</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31399" title="permalink">#7</a></span>
+
+<div class="content">Doh Deee Doh De DOH<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-cache policy cclive
+cclive:
+  Installed: 0.7.9-1
+  Candidate: 0.7.9-1
+  Version table:
+ *** 0.7.9-1 0
+        500 http://ftp.us.debian.org/debian/ wheezy/main i386 Packages
+        100 /var/lib/dpkg/status
+harry@biker:~
+$ cclive http://www.youtube.com/watch?v=9kCotJWcoiE
+Checking ... ........ ...... ........done.
+Installing AntiX 13.mp4  70.68M  [video/mp4]
+[#--------------------------------------------]   4%  3.2M  131.2K/s  00:08:[#------------------------------------------]   4%  3.2M  131.3K/s  00[#------------------------------------]   4%  3.2M  131.4K/s  00:0[#----------------------------------]   4%  3.2M  131.4K/s  00:08:[#------------------------------]   4%  3.2M  132.3K/s  00:08:4[#######################------------------------------------------]  35%  25.1M  93.0K/s  00:08:21
+</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31400" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31400">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31400">
+
+<time datetime="2013-10-17T21:00">posted: 2013-10-17 &nbsp; 21:00</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31400" title="permalink">#8</a></span>
+
+<div class="content">Also one could use youtube-viewer cli app in a terminal
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> youtube-viewer http://www.youtube.com/watch?v=9kCotJWcoiE
+
+=&gt;&gt; Description
+----------------------------------------------------------------------------------------------------------------
+My first youtube video.  Here we are installing Antix 13 32bit, the latest release of AntiX. 
+ The goal here is to highlight the ease of installation fo AntiX 13 as well as to point
+out some features of the LiveCD/USB environment.
+
+AntiX is Debian-Based, with a smattering of MEPIS tools thrown in as well as their own 
+customization tools, optimized for old machines or machines with limited hardware like
+netbooks.  It absolutely sings on new hardware.
+
+You can find info at mepis.antix.org or at antix.freeforums.org.  Other links available at 
+Distrowatch.com (ranked 35 at the time of this video).
+--------------------------------------------------------------------------------------------------------------
+* URL: http://www.youtube.com/watch?v=9kCotJWcoiE
+--------------------------------------------------------------------------------------------------------------
+                                                                             =&gt;&gt; Installing AntiX 13 &lt;&lt;=
+
+** Author    : runwiththedolphin
+** Category  : Science &amp; Technology
+** Duration  : 14:26
+** Rating    : 5.00
+** Likes     : 14
+** Dislikes  : 0
+** Favorited : 0
+** Views     : 2,527
+** Published : 06 Jun 2013
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31823" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31823">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 35</span></div>
+
+</div>
+</div>
+<span class="username">leeper69</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31823">
+
+<time datetime="2013-11-16T22:18">posted: 2013-11-16 &nbsp; 22:18</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31823" title="permalink">#9</a></span>
+
+<div class="content">Hi has anyone tried XBMC? it is better than netflixs and hulu can be used in it. its a shame debian doesn't have it in there repositories. ubuntu has it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31824" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31824">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31824">
+
+<time datetime="2013-11-16T22:31">posted: 2013-11-16 &nbsp; 22:31</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31824" title="permalink">#10</a></span>
+
+<div class="content">uh, debian does have xbmc</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31825" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31825">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31825">
+
+<time datetime="2013-11-16T23:00">posted: 2013-11-16 &nbsp; 23:00</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31825" title="permalink">#11</a></span>
+
+<div class="content">I don't feel like breaking my install yet to test. Just after a dist-upgrade also.<br>
+I started adding outside repos first. oppserver threw a nkeyring error and I don't have the energy to investigate further. The week ends are party days for me. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ sudo apt-get update
+[sudo] password for harry: 
+Hit http://liquorix.net sid InRelease
+Hit http://security.debian.org testing/updates InRelease                       
+Hit http://liquorix.net sid/main amd64 Packages                                
+Hit http://antix.daveserver.info stable InRelease                    
+Hit http://security.debian.org testing/updates/main amd64 Packages             
+Hit http://antix.daveserver.info stable/main amd64 Packages          
+Hit http://ftp.gr.debian.org testing InRelease                       
+Hit http://security.debian.org testing/updates/contrib amd64 Packages          
+Hit http://security.debian.org testing/updates/non-free amd64 Packages         
+Hit http://security.debian.org testing/updates/contrib Translation-en          
+Hit http://security.debian.org testing/updates/main Translation-en             
+Hit http://ftp.gr.debian.org testing/main amd64 Packages/DiffIndex   
+Hit http://security.debian.org testing/updates/non-free Translation-en
+Ign http://liquorix.net sid/main Translation-en_US                   
+Ign http://liquorix.net sid/main Translation-en                              
+Hit http://ftp.gr.debian.org testing/contrib amd64 Packages/DiffIndex        
+Ign http://antix.daveserver.info stable/main Translation-en_US               
+Ign http://antix.daveserver.info stable/main Translation-en
+Hit http://ftp.gr.debian.org testing/non-free amd64 Packages/DiffIndex
+Hit http://ftp.gr.debian.org testing/contrib Translation-en/DiffIndex
+Hit http://ftp.gr.debian.org testing/main Translation-en/DiffIndex
+Hit http://ftp.gr.debian.org testing/non-free Translation-en/DiffIndex
+Reading package lists... Done
+harry@biker:~
+$ cat etc/apt/sources.list.d
+cat: etc/apt/sources.list.d: Is a directory
+harry@biker:~
+$ cd etc/apt/sources.list.d
+harry@biker:etc/apt/sources.list.d
+$ ls
+antix.list  debian.list  debian.list.dpkg-dist  various.list
+harry@biker:etc/apt/sources.list.d
+$ cat debian.list
+# Note:For maximum stability, the stable/wheezy repos are set as default.
+# Wheezy is the new stable release and will only recieve security 
+# updates, while Testing will be 'rolling'.
+
+# Debian Stable
+# Enabled for maximum stability.
+#deb http://ftp.gr.debian.org/debian/ wheezy main contrib non-free 
+#deb http://security.debian.org/ wheezy/updates main contrib non-free
+#deb-src http://ftp.gr.debian.org/debian/ wheezy main contrib non-free 
+#deb http://ftp.debian.org/debian/ wheezy-backports main contrib non-free 
+
+# Debian Testing. 
+# Enable for 'rolling' release.
+deb http://ftp.gr.debian.org/debian/ testing main contrib non-free
+deb http://security.debian.org/ testing/updates main contrib non-free 
+#deb-src http://ftp.gr.debian.org/debian/ testing main contrib non-free
+
+# Multimedia Stable and Testing
+# Use to install libdvdcss2 and codecs.
+#deb http://debian.oppserver.net/xbmc/ jessie main non-free contrib
+#deb http://www.deb-multimedia.org jessie main non-free
+#deb http://www.deb-multimedia.org testing main non-free
+#deb http://www.deb-multimedia.org wheezy main non-free
+
+###### Debian Unstable/Sid##########
+###### Use at your own risk! ########
+#deb http://ftp.gr.debian.org/debian/ unstable main contrib non-free
+#deb http://www.deb-multimedia.org unstable main non-free
+
+###### Debian Experimental##########
+###### Use at your own risk! ########
+#deb http://ftp.gr.debian.org/debian/ experimental main 
+harry@biker:etc/apt/sources.list.d
+$ uname -r
+3.11.5-antix.1-amd64-smp
+harry@biker:etc/apt/sources.list.d
+$ sudo apt-get dist-upgrade
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Calculating upgrade... Done
+The following packages will be REMOVED:
+  spacefm-common
+The following NEW packages will be installed:
+  apt-antix set-screen-blank-antix
+The following packages will be upgraded:
+  add-desktop-antix add-key-antix add-start-antix advert-block-antix
+  antix-cc-full-antix antix-goodies antix-libs antix-snapshot-cli
+  antix-snapshot-gui brit-icons cli-installer-antix
+  desktop-defaults-full-antix exit-antix faq-docs-antix fluxbox-themes-antix
+  gtangish-2.0a1-icons icewm-themes-antix icewmcc-antix install-meta-antix
+  inxi-gui-antix keyboard-cc-antix live-boot-docs-antix live-usb-cli-antix
+  live-usb-gui-antix menu-fluxbox-antix menu-icewm-antix menu-jwm-antix
+  mountbox-antix mouse-cc-antix phonebook-antix remaster-antix
+  screenshot-antix simplygrey-icons slim smxi-inxi-antix spacefm system-antix
+  user-management-antix wallpaper-antix
+39 upgraded, 2 newly installed, 1 to remove and 0 not upgraded.
+Need to get 11.6 MB of archives.
+After this operation, 35.2 MB disk space will be freed.
+Do you want to continue? [Y/n] n
+Abort.
+harry@biker:etc/apt/sources.list.d
+</code></pre></div>
+<blockquote class="uncited"><div>Forbidden<br>
+<br>
+You don't have permission to access /posting.php on this server.</div></blockquote>
+All / removed from etc/apt/blah blah blah because of forum bug <br>
+<blockquote class="uncited"><div>The following packages will be REMOVED:<br>
+spacefm-common</div></blockquote>
+Oh really <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<blockquote class="uncited"><div>uh, debian does have xbmc</div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker: etc/apt/sources.list.d
+$ apt-cache search xmbc
+harry@biker: etc/apt/sources.list.d
+</code></pre></div>
+I tried seeing if it would show up also if I uncommented <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#deb http://debian.oppserver.net/xbmc/ jessie main non-free contrib
+#deb http://www.deb-multimedia.org jessie main non-free
+#deb http://www.deb-multimedia.org testing main non-free
+</code></pre></div>
+Those 3 repos and no xmbc showed up either after a apt-get update as root. Like I said. I've been here so far<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.xbmc.org/index.php?title=HOW-TO:Install_XBMC_for_Linux#Debian_2"<br>linktext was:"http://wiki.xbmc.org/index.php?title=HO ... x#Debian_2"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.deb-multimedia.org/"<br>linktext was:"http://www.deb-multimedia.org/"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://debian.oppserver.net/xbmc/"<br>linktext was:"http://debian.oppserver.net/xbmc/"<br>====================================<br>
+<br>
+<br>
+But no joy yet, and, why in the heck after last night I got some more updates and gotta reinstall spacefm common afterwards?<br>
+Probably need another thread for that. Good thing I am a mod and can screw up the forum or unscrew it up. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Back to saturday night fun and games for me.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31826" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31826">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31826">
+
+<time datetime="2013-11-16T23:07">posted: 2013-11-16 &nbsp; 23:07</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31826" title="permalink">#12</a></span>
+
+<div class="content">hmm, you are right... now, where did I get it then? lol, sorry about that..<br>
+<br>
+<br>
+<br>
+<span style="color: #FF0040">Ok, on testing, with the mm repo enabled, I could instal it <span class="emoticon"> __{{emoticon}}__ </span> </span></div>
+<div class="notice">
+Last edited by <b>rust collector</b> on 16 Nov 2013, 23:09, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31827" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31827">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31827">
+
+<time datetime="2013-11-16T23:09">posted: 2013-11-16 &nbsp; 23:09</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31827" title="permalink">#13</a></span>
+
+<div class="content">uh, rok, its in debian stable main.<br>
+<br>
+here's a shot from synaptic<br>
+<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31834" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31834">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31834">
+
+<time datetime="2013-11-17T12:28">posted: 2013-11-17 &nbsp; 12:28</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31834" title="permalink">#14</a></span>
+
+<div class="content">Just went onto Synaptic and YUP!, you can find XBMC. Unfortunately, it won't work on my system (P III with 512mb at 996Mhz). Spent 13 minutes of HD running, and CPU at 100%. And it still crashes. DELETE!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31836" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31836">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31836">
+
+<time datetime="2013-11-17T12:55">posted: 2013-11-17 &nbsp; 12:55</time>
+<span class="permalink"><a href="./netflix-and-antix-13-t4418.html#p31836" title="permalink">#15</a></span>
+
+<div class="content">uh, roky, it is xbmc, not xmbc, I guess that is why you don't find it?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+24 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./netflix-and-antix-13-t4418-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./netflix-and-antix-13-t4418-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>A Fix For Disappearing Conky Within JWM - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html">A Fix For Disappearing Conky Within JWM</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_25889" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25889">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25889">
+<time datetime="2012-08-21T13:18">posted: 2012-08-21 &nbsp; 13:18</time>
+<span class="permalink"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html#p25889" title="permalink">#1</a></span>
+
+<div class="content">Occasionally, Conky does not display on the desktop at boot up. On the occasions it does, opening an app such as Terminal can make it disappear again.<br>
+<br>
+You might like to try the following simple edit of your ~.conkyrc, which does not require root privileges.<br>
+<br>
+Remove
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+own_window_transparent yes
+own_window_colour black
+own_window_type desktop
+...</code></pre></div>
+Replace with the following in the section shown. This just keeps related items together.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+# Create own window instead of using desktop (required in nautilus, pcmanfm and rox desktops)
+own_window yes
+own_window_transparent yes
+own_window_hints undecorated,sticky,skip_taskbar
+...</code></pre></div>A further value, skip_pager can be used but did not have a lasting effect when tested, so has been omitted.<br>
+<br>
+It seems that using"<em>own_window_type desktop</em>" (antiX-12 JWM default) implicitly implements many hints, but does not work correctly within JWM. Declaring the hints explicitly does work and produces the desired behaviour.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25913" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25913">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25913">
+
+<time datetime="2012-08-22T18:45">posted: 2012-08-22 &nbsp; 18:45</time>
+<span class="permalink"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html#p25913" title="permalink">#2</a></span>
+
+<div class="content">This fixes jwm (and the conky 'flicker' in icewm if you left-click on empty space on the desktop), however it causes an issue in icewm with a 'popup' opening on the taskbar that goes when you click on it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25924" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25924">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25924">
+
+<time datetime="2012-08-23T08:26">posted: 2012-08-23 &nbsp; 08:26</time>
+<span class="permalink"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html#p25924" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>This fixes jwm (and the conky 'flicker' in icewm if you left-click on empty space on the desktop), however it causes an issue in icewm with a 'popup' opening on the taskbar that goes when you click on it.</div></blockquote>By the time I found this, antiX-12-Full had been removed and replaced antiX-12-Base, As Base only provides JWM I didn't test in IceWM. I will re-install Full as a dual boot so I can also see the 'popup'.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25926" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25926">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25926">
+
+<time datetime="2012-08-23T12:29">posted: 2012-08-23 &nbsp; 12:29</time>
+<span class="permalink"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html#p25926" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>...an issue in icewm with a 'popup' opening on the taskbar that goes when you click on it.</div></blockquote>OK, I see the 'popup' now in antiX-12-Full. When researching in 12-Base running JWM a similar effect was seen and resolved by adding the"<em>skip_taskbar</em>" parameter, but it does not produce the desired result with IceWM.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25928" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25928">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25928">
+
+<time datetime="2012-08-23T14:26">posted: 2012-08-23 &nbsp; 14:26</time>
+<span class="permalink"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html#p25928" title="permalink">#5</a></span>
+
+<div class="content">There seems to be multiple layers producing IceWM issues:
+<ul><li>The use of backgrounded tasks in ~./icewm/startup</li></ul>
+<ul><li>Using <em>own_window_type desktop</em> in ~.conkyrc is only partly working</li> </ul>
+<ul><li>The fix that works for JWM works with IceWM but generates an unwanted 'popup'</li></ul>
+The following combination works here but will benefit from wider testing.<br>
+<br>
+<br>
+Do not run the following as background tasks:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>login_background.sh
+rox --pinboard=antiX-ice
+conky</code></pre></div>Note: These also appear to address the"ghost window" issue<br>
+<br>
+<br>
+Example files on antiX-12 Full<br>
+~/.conkyrc for IceWM
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+# Create own window instead of using desktop (required in nautilus, pcmanfm and rox desktops)
+own_window yes
+own_window_transparent yes
+own_window_hints undecorated,sticky,skip_taskbar
+own_window_type override
+...</code></pre></div>
+~/.icewm/startup
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Auto update menu
+auto-icewm-menu.sh &amp;
+
+#icewmtray &amp;
+
+# wicd
+#sleep 2 &amp;&amp; wicd-client -t &amp;
+
+# keyring
+gnome-keyring-daemon &amp;
+
+# Set wallpaper
+login_background.sh  
+
+# Set desktop icons
+rox --pinboard=antiX-ice 
+
+# Start the system monitor
+sleep 3 &amp;&amp; conky 
+
+# set live keyboard
+#setxkbmap
+
+(sleep 3 &amp;&amp; volumeicon) &amp;
+(sleep 5 &amp;&amp; toram-eject) &amp;
+(sleep 5 &amp;&amp; sudo persist-config --startup) &amp;</code></pre></div>
+<br>
+<br>
+~/.conkyrc for JWM
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+# Create own window instead of using desktop (required in nautilus, pcmanfm and rox desktops)
+own_window yes
+own_window_transparent yes
+own_window_hints undecorated,sticky,skip_taskbar
+...</code></pre></div>
+~/.jwm/startup
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt;JWM&gt;
+&lt;!-- Applications used in conjunction with JWM --&gt;
+&lt;StartupCommand&gt;
+  # Auto update menu
+  /usr/local/bin/auto-jwm-menu.sh &amp;
+
+  # Keyring 
+  gnome-keyring-daemon &amp;
+
+  # Set wallpaper
+  /usr/local/bin/login_background.sh 
+
+  # Set desktop icons
+  rox --pinboard=antiX-jwm 
+
+  # Start the system monitor
+  sleep 3 &amp;&amp; conky 
+
+  # Set live keyboard
+  #setxkbmap
+
+  # Uncomment to place an audio volume control in the JWM tray (taskbar)
+  volumeicon &amp;
+
+  # Unknown
+  (sleep 5 &amp;&amp; toram-eject) &amp;
+  (sleep 5 &amp;&amp; sudo persist-config --startup) &amp;
+&lt;/StartupCommand&gt;
+&lt;/JWM&gt;</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25930" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25930">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username-coloured">anticapitalista</a>  </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25930">
+
+<time datetime="2012-08-23T15:27">posted: 2012-08-23 &nbsp; 15:27</time>
+<span class="permalink"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html#p25930" title="permalink">#6</a></span>
+
+<div class="content">Thanks SamK. That really seems to work.<br>
+<br>
+It is probably best to have 2 (or 3) conkyrc files in a .conkyrc directory for each wm and change the command in each wm startup file to:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>conky -c ~/.conky/conkyrc_jwm
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25932" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25932">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25932">
+
+<time datetime="2012-08-23T17:46">posted: 2012-08-23 &nbsp; 17:46</time>
+<span class="permalink"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html#p25932" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>It is probably best to have 2 (or 3) conkyrc files in a .conkyrc directory...</div></blockquote>I haven't given this much consideration but an alternative might be possible depending on how the other (non tested WM's) work with the alternative conky configuration. If they work OK with the alternative to <em>own_window_type desktop</em>, the change to conkyrc boils down to changing a single line.<br>
+<br>
+The difference between the IceWM and JWM configs is whether <em>own_window_type override</em> is specified. If the same is true for the other WM's it might be possible to have a single conkyrc and activate or deactivate that single line.<br>
+<br>
+I'm probably not the best judge of the consequences of either approach as I am not really a user of Conky. In the rare cases where I do, it is never displayed on the desktop, rather it is in a normal window that I switch on, read what I want, then switch off again. I realize that this view is probably out-of-step with many antiX users who put a lot of effort into the cosmetic look of their Conky display.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27260" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27260">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 39</span></div>
+
+</div>
+</div>
+<span class="username">frogprince</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27260">
+
+<time datetime="2012-12-17T14:52">posted: 2012-12-17 &nbsp; 14:52</time>
+<span class="permalink"><a href="./a-fix-for-disappearing-conky-within-jwm-t3870.html#p27260" title="permalink">#8</a></span>
+
+<div class="content">SamK: editing my ~/.icewm/startup file as above (no &amp;'s) fixed my ghost window problem, thank you very much!<br>
+This link helped, and may help others:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.unix.com/shell-programming-scripting/167953-how-run-background-mode.html"<br>linktext was:"http://www.unix.com/shell-programming-s ... -mode.html"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

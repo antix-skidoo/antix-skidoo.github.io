@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Fresh reinstall, can't type in login box? - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html">Fresh reinstall, can't type in login box?</a></div>
+<div class="pagination">
+25 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./fresh-reinstall-can-t-type-in-login-box-t4931.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./fresh-reinstall-can-t-type-in-login-box-t4931.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_34254" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34254">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34254">
+<time datetime="2014-03-30T14:52">posted: 2014-03-30 &nbsp; 14:52</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34254" title="permalink">#16</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite>If you run 'apt-cache pkgnames', you will get a list of all installed packages. That will let you do a 'diff' against a fresh install. to see what you installed since the original installation. I know its probably too late for you just now, but might be something to think about for the future.</div></blockquote>
+Synaptic can do the same thing, and then import the list from the resulting text file; however, if you have a partially corrupted install and you're having to reinstall, Synaptic (or even apt utilities) may not be working. In that case, the installer may also be unable to get the list, but it's at least possible the list itself is intact though programs may not run due to corrupted libraries etc. or the system may not even fully boot. Mainly, as with my other suggestions, this is likely to be a help to those of us where are using Linux/antiX because we're moving away from Microsoft (whether due to old hardware Windows no longer supports or due to philosophical or monetary differences) and are very far from being experts, hence likely to make mistakes (especially when they're offered by the installer).<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>This is what the installer does to the root partition.<br>
+<br>
+From the installer code<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/bin/dd if=/dev/zero of=%1 bs=512 count=100"
+</code></pre></div></div></blockquote>
+But obviously, <em>not when /home is inside /</em> (i.e. not in a separate partition) and we've told the installer to preserve data in /home. This is the situation I'm suggesting doesn't work as it should. Based on my results, it appears <em>in this case</em> that the installer is failing to fully overwrite or remove the existing files outside /home. I don't know enough about Linux to know how to reliably remove folders that aren't empty, never mind detect if something prevents that method from working, but I presume there's a less wholesale method than simply wiping the entire partition.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34255" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34255">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34255">
+
+<time datetime="2014-03-30T15:30">posted: 2014-03-30 &nbsp; 15:30</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34255" title="permalink">#17</a></span>
+
+<div class="content">(Sorry, I/we diverted a little bit regarding pendrives.)<br>
+<br>
+I think the only way to preserve data in a home folder on a / partition would be to copy it out somewhere &amp; have it copied back after installing the new system as the home folder could be anywhere on the / partition, it doesn't get created at any one particular point in the system. <br>
+The other thing about home in the / partition is size, how would the installer know it has enough available space to copy it out somewhere, another disk would quite likely be needed. I can't see this being a practical option.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34260" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34260">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34260">
+
+<time datetime="2014-03-30T17:10">posted: 2014-03-30 &nbsp; 17:10</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34260" title="permalink">#18</a></span>
+
+<div class="content">"But obviously, not when /home is inside / (i.e. not in a separate partition) and we've told the installer to preserve data in /home."<br>
+<br>
+But you shouldn't ask the installer to preserve home since it says it is for an 'upgrade'. You are doing a 'downgrade'<br>
+In the same way, user should not use this preserve /home option if installing antiX (or MX) over a different OS eg MEPIS.<br>
+<br>
+Now, we should probably make this clearer to users so thanks for highlighting this issue.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34261" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34261">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34261">
+
+<time datetime="2014-03-30T17:16">posted: 2014-03-30 &nbsp; 17:16</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34261" title="permalink">#19</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite>The other thing about home in the / partition is size, how would the installer know it has enough available space to copy it out somewhere, another disk would quite likely be needed. I can't see this being a practical option.</div></blockquote>
+This is easy to solve. If we first erase everything by /home then the output of the"df" command gives us the info we need. If we don't want to erase first (which is probably a good idea) then"du /home" gives us the amount of room used by /home. We already use estimates like this in the remaster-live program.<br>
+<br>
+An easy way to save the data under /home without causing conflicts is to rename. Either home --&gt; old-home or /home/demo --&gt; home/old-demo, etc.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34263" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34263">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34263">
+
+<time datetime="2014-03-30T19:17">posted: 2014-03-30 &nbsp; 19:17</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34263" title="permalink">#20</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>An easy way to save the data under /home without causing conflicts is to rename. Either home --&gt; old-home or /home/demo --&gt; home/old-demo, etc.</div></blockquote>
+That will do nothing to preserve /home against wiping / by overwriting the first few megabytes of the partition with zeroes (i.e. destroying the directory information and marking the partition as empty).<br>
+<br>
+There has to be a way to delete the old files without just recreating the partition from scratch; alternately, perhaps the installer could prompt the user for media to copy the old /home onto, and use rsync to do that job (then rsync again to copy the data back after destroying the partition). The point being, upgrade or downgrade, it should be <em>possible</em> to successfully and cleanly reinstall the OS without erasing everything in the partition willy-nilly -- doing it the way the installer does when"format and destroy" is permitted is just a shortcut, a time saver, in place of correctly downgrading (assuming reinstall of the"same" version originally used, before ongoing updates or the repo upgrade) by removing files rather than"attempting" to overwrite them or using some copy method that may or may not replace existing files.<br>
+<br>
+If I have a computer I'm using for creative work like photography, music, or writing, there's every likelihood I'm not a Linux guru (and might be using Linux more due to paranoia about the progression of EULAs toward transferring ownership of any material stored or manipulated to the publisher of the software -- don't laugh, have you read the Yahoo! Groups EULA lately?) and would far rather get a warning that the reinstall process is likely to take a long time, and get good progress information and a good estimate of remaining time, than get an unbootable system because I tried to preserve data I might not have backed up. Linux in general is in a position to capture a lot of users who can't afford to replace their fully functional computer just because MS is dropping support for XP and most XP machines can't run Win8 -- but will do nicely with Linux, especially the light and medium-weight distros like antiX and MX. There's no reason to preserve the"you're too stupid to use Linux" attitude I've encountered more than a couple times (not from anyone here, that I recall) by making the system intentionally abstruse.<br>
+<br>
+As a bonus, a system that's easier to use correctly (especially one that does a better job of preventing errors caused by"clear" instructions that mean something different to a naive user) will reduce the support load on those volunteers who actually understand the system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34265" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34265">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34265">
+
+<time datetime="2014-03-30T20:00">posted: 2014-03-30 &nbsp; 20:00</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34265" title="permalink">#21</a></span>
+
+<div class="content">Hello bitjam, I know how to get the sizes OK, but we are talking about reinstalling the system, where Silent Obserer is trying to install into a single partition containing his original /home directory without obliterating his data, I don't think it can be done, because the home directory could be anywhere on the disk. That was why I was saying it would need to be written out somewhere &amp; written back after installation.<br>
+<br>
+This is my main reason for using separate root &amp; home paritions on all my machines.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34267" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34267">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34267">
+
+<time datetime="2014-03-30T20:48">posted: 2014-03-30 &nbsp; 20:48</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34267" title="permalink">#22</a></span>
+
+<div class="content"><strong>@fatmac</strong>, perhaps I have the wrong idea of what the situation is.<br>
+<br>
+I thought the problem was reinstalling on a root partition where we want to save data that is under /home on the root partition. ISTM we are doing this *now* because we don't erase the root partition before we do an install.<br>
+<br>
+The first suggestion (from SO) was to remove all files on the root file system before installing. This is trivial with"rm -rf $MOUNT_POINT/*" before we copy. This can also be done by using rsync with the delete option to do the copy. This will automatically delete files and will handle hidden files in the top directory correctly (which the rm command does not). The rsync command is probably a better choice, at least technically.<br>
+<br>
+The next problem was how to preserve information under /home on the root partition. For this I suggested still using rsync with delete but we exclude /home. This will prevent rsync from deleting files under /home while it still deletes files outside of /home.<br>
+<br>
+The final problem (so far) was how to save the /home data without causing conflicts with the new system. IMO copying to some other partition would be a problem as well as being massively inefficient. What if there are no other partitions and there is not enough room on the Live filesystem to hold the old /home? ISTM the simple solution is to simply rename /home to old-home on the root partition. Then we use rsync to copy files to the root partition, now excluding /old-home so the files under it are not deleted.<br>
+<br>
+Whether we want to offer this feature or not is a totally different question. I was just looking at the technical challenge. Here is the recipe:<blockquote class="uncited"><div>Use rsync with the delete option to copy files into the new root partition. This will automatically take care of deleting/modifying existing files.<br>
+<br>
+*If* we want to let the user preserve data under /home on the existing root partition then we simply move $MOUNT_POINT/home to $MOUNT_POINT/old-home and add an argument to the rsync command line to exclude /old-home so we don't erase files under it.</div></blockquote>
+If old-home already exists then look at old-home-2, old-home-3, etc until you find one that does not exist. This is just a few lines of shell script. I can give you working examples.<br>
+<br>
+If you want to use"rm" instead of rsync to delete the files then do something like:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>for dir in $(ls -a $MOUNT_POINT); do
+    ["$dir" ="$OLD_HOME_DIR" ] &amp;&amp; continue
+    [ -e"$dir" ] || continue
+    rm -rf $MOUNT_POINT/$dir
+done</code></pre></div>
+This will have to be modified if you want to exclude all /old-home directories from deletion. I'm not trying to give you a finished product, I'm just trying to convey the idea.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34271" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34271">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">Silent Observer</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34271">
+
+<time datetime="2014-03-31T01:00">posted: 2014-03-31 &nbsp; 01:00</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34271" title="permalink">#23</a></span>
+
+<div class="content">Linux doesn't have an equivalent of the DOS deltree command? That could be used, efficiently and fairly quickly, to remove the folders in / without touching /home; then it's only necessary to delete files that may be loose in the root without deleting the remaining folder. I don't think it would be necessary to rename /home; there's already an option to rename the user folder if the same user name is selected but the user elects not to reuse the same directory, all that's necessary would be to force that outcome (i.e. don't ask, just tell the user that's being done;"A folder for that user name already exists; it will be renamed to hidden folder .username"). The extensive deletion would take more time then just blanking the patition by destroying its directory structure, but the end result would be a partition containing only /home -- and no, we don't know where it is, but why do we care? Unless we're using something like dd to copy the system onto the partition, it doesn't matter where the /home folder (or any of its contents) resides.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34277" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34277">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34277">
+
+<time datetime="2014-03-31T10:16">posted: 2014-03-31 &nbsp; 10:16</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34277" title="permalink">#24</a></span>
+
+<div class="content">Hmmm, didn't know rsync was able to be used in that situation, that sounds like a good place to start for SO to get his system reinstalled.<br>
+I must admit to being an 'obliterator' when it comes to reinstalling as I have met some problems with hidden files before now.<br>
+So, this sounds like a good idea to develop for future releases.<br>
+(My apologies if I led this topic off course.)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34280" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34280">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34280">
+
+<time datetime="2014-03-31T10:33">posted: 2014-03-31 &nbsp; 10:33</time>
+<span class="permalink"><a href="./fresh-reinstall-can-t-type-in-login-box-t4931-s15.html#p34280" title="permalink">#25</a></span>
+
+<div class="content">I would also like to point out that users should be encouraged to back up regularly.. <br>
+Although the snapshot application is not a backup utility, it can be used to make an installable live iso of your running system. So if the system goes belly up, then you can 'reinstall' using either your latest backup or your latest snapshot.iso.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+25 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./fresh-reinstall-can-t-type-in-login-box-t4931.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./fresh-reinstall-can-t-type-in-login-box-t4931.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

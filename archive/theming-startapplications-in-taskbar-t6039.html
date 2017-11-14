@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>theming startapplications in taskbar - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./theming-startapplications-in-taskbar-t6039.html">theming startapplications in taskbar</a></div>
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="viewtopic_wrapper">
+<div id="p_43794" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43794">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">agitator</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43794">
+<time datetime="2015-11-13T17:41">posted: 2015-11-13 &nbsp; 17:41</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43794" title="permalink">#1</a></span>
+
+<div class="content">Hello to everybody,<br>
+<br>
+first of all, I like antiX. Everything works out of the box. Generally it's running fast on my old machine. Thanks for that.<br>
+<br>
+This is only a minor theming or customizing question, no functionality involved. Please give priority to really urgent problems, or things concerning functionality. That being said you can help me making my desktop sexy (mhm, less depressing, at least).<br>
+<br>
+I will not go into hardware details here as the problem is not hardware related. Just a theming thing which bothers me far too long now. And yes, I searched and googled a lot, and I tried to find and play with the respective files and folders on my system. But unfortunately to no avail.<br>
+<br>
+Some relevant infos:<br>
+- antiX 15 - rox-icewm<br>
+- altered theme: IceClearlooks<br>
+- copied and renamed: IceBluelooks (and set as theme)<br>
+- altered some desktop icons and put them there (Rox)<br>
+<br>
+And here's what I want to manipulate:<br>
+<br>
+<a href="http://imageshack.com/i/p8W4Ndyrj" class="postlink"><img src="http://imagizer.imageshack.com/img908/7604/W4Ndyr.th.jpg" class="postimage" alt="Image"></a><br>
+<br>
+and the tooltips as well:<br>
+<br>
+<a href="http://imageshack.com/i/p5grO3zxj" class="postlink"><img src="http://imagizer.imageshack.com/img905/672/grO3zx.th.jpg" class="postimage" alt="Image"></a><br>
+<br>
+<br>
+I failed to find the right files (and/or folders) to customize this. How do I customize the part of the taskbar which shows the startup applications? And, yes, how is the name of this part of the taskbar (as it's not modified with the rest).<br>
+<br>
+(Lots of search results mixed up terms like taskbar, toolbar and panel, which leads to confusion.)<br>
+<br>
+<br>
+Thanks for any help or hint where to find a solution.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43801" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43801">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43801">
+
+<time datetime="2015-11-14T01:51">posted: 2015-11-14 &nbsp; 01:51</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43801" title="permalink">#2</a></span>
+
+<div class="content">Each time you choose a theme via the config menu, the"default.theme" file for that theme is copied to your home directory.<br>
+If you edit that file, then later select a different theme... ouch, your customized file will get overwritten (so keep a backup copy elsewhere).<br>
+<br>
+At start of each session, icewm reads the file<br>
+~/.icewm/default.theme<br>
+and, based on the quoted string within the line ThemeDescription=, it looks for a subdirectory bearing a matching name.<br>
+IOW, if the ThemeDescription= is"mytheme1", icewm checks whether a dir ~/.icewm/mytheme exists.<br>
+If it does not exist, icewm will look for any needed theme imagefiles in /usr/share/themes/mytheme1<br>
+(or, the fallback might be /usr/share/themes/icewm/mytheme1 )<br>
+<br>
+# use these to specify background color and foreground (text) color for icewm Tooltip<br>
+ColorToolTip= <br>
+ColorToolTipText= <br>
+<br>
+# you can also specify the toolbar font properties<br>
+ToolTipFontNameXft="sans-serif:size=9:bold" <br>
+<blockquote class="uncited"><div> how is the name of this part of the taskbar (as it's not modified with the rest)</div></blockquote>I don't know a separate name. I didn't realize we could apply different properties to just that section.<br>
+A possibility: the icons you've chosen to display, they have a solid (not transparent) background color, so they are hiding/overlaying the taskbar's background color?<br>
+<br>
+A good way to learn"what makes 'em tick" is to visit<br>
+box-look.org<br>
+download a theme that appeals to you, and skim its desktop.theme file while its accompanying screenshot is still displayed in browser.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43802" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43802">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43802">
+
+<time datetime="2015-11-14T02:32">posted: 2015-11-14 &nbsp; 02:32</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43802" title="permalink">#3</a></span>
+
+<div class="content">this particular area of the taskbar is a little finicky.<br>
+<br>
+it is controlled by<br>
+<br>
+ColorDefaultTaskBar=<br>
+<br>
+but it may not show up as changed unless you log out and log back in (even restarting icewm isn't enough to change the color). <br>
+<br>
+for the tooltips in the tray, sometimes these are set by the tray app (volumeicon is always black and white I think, dropbox looks like a win98 tooltip)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43809" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43809">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">SamK</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43809">
+
+<time datetime="2015-11-14T14:41">posted: 2015-11-14 &nbsp; 14:41</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43809" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>agitator wrote:</cite>How do I customize the part of the taskbar which shows the startup applications? And, yes, how is the name of this part of the taskbar (as it's not modified with the rest)</div></blockquote>IceWM defaults to setting the look of the taskbar by using /usr/share/icewm/themes/THEME-NAME/taskbar/taskbarbg.xpm whenever the file present. In that case ColorDefaultTaskBar=... is ignored. However, the area on the taskbar used by icons such as Volume Icon does not use taskbarbg.xpm for its background. Instead it uses the value specified by ColorDefaultTaskBar in /usr/share/icewm/themes/THEME-NAME/default.theme.<br>
+<br>
+ColorDefaultTaskBar, can only specify a single, solid colour. Because of this it is never possible to get a 100% match when the taskbar uses a graduated colour scheme. By choosing the colour carefully it is possible to get acceptable results.<br>
+<br>
+To illustrate what can be done here are three screen shots of taskbars using graduated and solid colours.<br>
+<br>
+Blue-crystal theme showing as shipped and after modification. This is not an exact match as a graduated colour scheme.<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>Shipped blue-crystal theme and after manually &quot;fixing&quot;</dd>
+</dl>
+<dd>Shipped blue-crystal theme and after manually &quot;fixing&quot;</dd>
+</span><br>
+<br>
+<br>
+A private theme that again uses a graduated colour scheme and is a close match.<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>Private theme with close colour match</dd>
+</dl>
+<dd>Private theme with close colour match</dd>
+</span><br>
+<br>
+<br>
+A private theme that uses a solid colour scheme that is a 100% match.<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>A private them with an exact colour match</dd>
+</dl>
+<dd>A private them with an exact colour match</dd>
+</span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43816" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43816">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">agitator</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43816">
+
+<time datetime="2015-11-15T16:28">posted: 2015-11-15 &nbsp; 16:28</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43816" title="permalink">#5</a></span>
+
+<div class="content">Ok. Thanks for your help. Here's some info on what I ruled out so far and what took me a step further. I'll go on playing around with this problem and keep you informed about it. <br>
+<br>
+1) The taskbar is completely modified (blue) as intended. I've checked the top border (above these icons) with gcolor2's color picker and it is in fact blue.<br>
+<br>
+<a href="http://imageshack.com/i/pb7b9ItPj" class="postlink"><img src="http://imagizer.imageshack.com/img911/3306/7b9ItP.th.jpg" class="postimage" alt="Image"></a><br>
+<br>
+2) The icons do have a transparent background. As I created one of the keboard switcher's icons (stored in"usr/share/fbxkb/images") and modified others this can be ruled out also.<br>
+<br>
+<br>
+<br>
+SamK's tip made clear how to proceed. I changed the value of"ColorDefaultTaskBar" in"/usr/share/icewm/themes/THEME-NAME/default.theme". Voilà... well, at least a minor success.<br>
+<br>
+<a href="http://imageshack.com/i/hli5gl6Pj" class="postlink"><img src="http://imagizer.imageshack.com/img633/6613/i5gl6P.th.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Next I'll have to try and find the icons and make them a little darker for better visibility.<br>
+<br>
+Only the keyboard switcher icon's background refused to act on my orders. I'll teach him if I manage to find him.<br>
+<br>
+Thanks so far. I'll post if I can locate the respective files (or maybe someone comes up with an idea where to find them).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43818" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43818">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">agitator</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43818">
+
+<time datetime="2015-11-15T19:17">posted: 2015-11-15 &nbsp; 19:17</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43818" title="permalink">#6</a></span>
+
+<div class="content">Ok, found the volume icons in"usr/share/volumeicon/icons/White Gnome" and cusomized them to fit the blue background.<br>
+<br>
+<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>Volume icons fit taskbar now.</dd>
+</dl>
+<dd>Volume icons fit taskbar now.</dd>
+</span><br>
+<br>
+<br>
+Hunting the search icon now...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43821" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43821">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">agitator</span>
+</dt>
+
+<dd class="profile-joined">Joined: 08 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43821">
+
+<time datetime="2015-11-15T23:17">posted: 2015-11-15 &nbsp; 23:17</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43821" title="permalink">#7</a></span>
+
+<div class="content">Found the search icon at last (/usr/local/share/icons/search-bar/eye-icon.png) and muddled around a little bit to make it fit (well, nearly...). You have to reboot after you saved the file (restarting icewm or xterm doesn't change the icon in the taskbar). I messed up the icon totally before I learned this. Some finetuning will be neccessary... later.<br>
+<br>
+<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>Ugly search-eye, but...</dd>
+</dl>
+<dd>Ugly search-eye, but...</dd>
+</span><br>
+<br>
+Now I'll try to find the file to change the switcher's background.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43833" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43833">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">agitator</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43833">
+
+<time datetime="2015-11-16T21:15">posted: 2015-11-16 &nbsp; 21:15</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43833" title="permalink">#8</a></span>
+
+<div class="content">Unsuccessfully searching for a hint how to change fbxkb icons' background half of the day I decided to go and get some bottles of beer from the supermarket. On my way back I suddenly came up with the idea to try and change the icons themselves.<br>
+<br>
+Although I had read these icons have to be 60x40 px I decided to create 60x60 px icons filling the flags' background with the color I had chosen.<br>
+<br>
+Of course you have to backup your image files before. I chose to copy them changing their suffix to"*.old". Then you create a new bitmap file (60x60 px), fill it completely with your background color, copy the respective flag into it and export/save the file to"*.png".<br>
+<br>
+IMPORTANT: Change all needed flag-png files before rebooting otherwise your new icon will show but will not be changed to another icon when you switch to the next keyboard layout. The switcher itself will work as usually though. In this case I had to change three files before rebooting.<br>
+<br>
+<br>
+<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>Changed keyboard and typed...</dd>
+</dl>
+<dd>Changed keyboard and typed...</dd>
+</span><br>
+<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>Changed again and typed...</dd>
+</dl>
+<dd>Changed again and typed...</dd>
+</span><br>
+<br>
+You should also backup your modified png-files to easily copy them back after a fresh install <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+<br>
+NOTE: This is not a real solution to my original taskbar question. It's just a dirty trick to cheat fbxkb. Although it works under rox-icewm I'm not sure it will work on other systems. Furthermore you'll have to take all these steps again after re-installing your system (maybe even when upgrading or updating something related).<br>
+<br>
+<br>
+The taskbar looks as desired now but I won't mark the topic as solved out of two reasons:<br>
+<br>
+1) The tooltips are still not changed to look like the other ones. <br>
+2) The fbxkb"solution" is only a dirty trick.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43837" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43837">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 60</span></div>
+
+</div>
+</div>
+<span class="username">eric52</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43837">
+
+<time datetime="2015-11-17T01:31">posted: 2015-11-17 &nbsp; 01:31</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43837" title="permalink">#9</a></span>
+
+<div class="content">WOW! I'm very impressed with your specific intent and attention to detail. I also spend a lot of time playing with appearances. However, my approach runs more on lucky accidents that are appealing at the moment and are subject to immediate change for the sake of change. I'm glad that you got nearly what you want, and I admire the degree of definition your artistic vision entails.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43839" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43839">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 16</dd>
+<span class="username">agitator</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43839">
+
+<time datetime="2015-11-17T11:30">posted: 2015-11-17 &nbsp; 11:30</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43839" title="permalink">#10</a></span>
+
+<div class="content">Well. thanks for the flowers. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+SamK's information on where to find these specific settings pushed me into the right direction. Afterwards there remained a lot of searching both the web and the file system. Due to the modular concept of AntiX (using Rox and Icewm) this can be very time-consuming. And the available documentation (especially on fbxkb) is not satisfactory.<br>
+<br>
+I wonder if one of the guys who create these fantastic themes has writen a tutorial on this subject. This would be worth spending some time with.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43840" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43840">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43840">
+
+<time datetime="2015-11-17T13:56">posted: 2015-11-17 &nbsp; 13:56</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43840" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>agitator wrote:</cite>
+This is not a real solution to my original taskbar question. It's just a dirty trick to cheat fbxkb. Although it works under rox-icewm I'm not sure it will work on other systems. Furthermore you'll have to take all these steps again after re-installing your system (maybe even when upgrading or updating something related).</div></blockquote>You are correct, it is a workaround that is restricted to working with a single theme of a single window manager (WM). Unless the theme/colour scheme, of a theme for a different WM, exactly matches the above workaround it will not present the desired outcome.<br>
+<br>
+A potential alternative approach...<br>
+<br>
+I have no evidence for this, but I suspect the fbxkb icon displayed in the taskbar is of most use when antiX is run in some form of live mode without persistence e.g. when someone boots an antiX CD or USB for the very first time in order to evaluate whether it is the distro for them. In such a case, despite defaulting to the American flag, it is handy to have the flag in the taskbar to assist switching to an alternative.<br>
+<br>
+It is probably a different case once a user has decided to keep antiX and has installed it to disk, or runs it live with persistent storage. In this scenario it is highly likely the vast majority of antiX users will have no use for keyboard switching from the taskbar during a session. Once their preferred layout has been saved (probably during antiX installation) it is retained across subsequent boot-ups. Having its icon in the taskbar is redundant.<br>
+<br>
+If you have no use for keyboard switching from the taskbar during a session you might consider preventing fbxkb loading during boot-up. In turn this means its icon is not displayed in the taskbar. Your issue about matching its icon background with your taskbar is resolved for all themes and all WMs.<br>
+<br>
+To disable loading of fbxkb during boot-up<br>
+<br>
+Control Center--&gt;Session--&gt;Global Desktop Session--&gt;Startup Tab<br>
+Comment the automatic starting of fbxkb by making its line read<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#fbxkb &amp;</code></pre></div>At the next restart it will not be loaded.<br>
+<br>
+Note:<br>
+You can also handle search-bar-icon in a similar manner.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43850" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43850">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">agitator</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43850">
+
+<time datetime="2015-11-18T01:24">posted: 2015-11-18 &nbsp; 01:24</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43850" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>
+... but I suspect the fbxkb icon displayed in the taskbar is of most use when antiX is run in some form of live mode without persistence... <br>
+<br>
+...It is probably a different case once a user has decided to keep antiX and has installed it to disk, or runs it live with persistent storage. In this scenario it is highly likely the vast majority of antiX users will have no use for keyboard switching from the taskbar during a session. Once their preferred layout has been saved (probably during antiX installation) it is retained across subsequent boot-ups. Having its icon in the taskbar is redundant...</div></blockquote>
+Hmm.., I'd partly disagree here: My own system is installed to harddrive (frugal, isn't it?). And you're right, I don't need fbxkb for Czech or French or.., well, any language using latin characters. I don't use the respective keyboard layouts, I use the shortcuts to insert diacritics. But for the cyrillic characters (for Serbian, f.e.) I would have to type the utf-shortcut followed by the utf-codes. Why writing a short message in one hour if you can change the keyboard layout and write it in two minutes (if you know the keyboard layout, of course). And don't forget about some of the poor guys in South Eastern Europe. They only have old machines, they have to use a Linux distro fitting their hardware and they need both English (or German, or ...) and their respective cyrillic keyboard layout. Well, this sounds a little pathetic. And it is. But on the other hand AntiX campaigns for being an OS for old hardware.<br>
+<br>
+So.., yes, the switcher is important for many users (and can attract new ones).<br>
+<br>
+Think about tourist agencies, NGOs,.. and ex-pats, of course.<br>
+<br>
+<br>
+<br>
+EDIT: SamK: Hope, you're not offended. Different perspective on same topic. My old machines have to have a switcher.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43851" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43851">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>1,028</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43851">
+
+<time datetime="2015-11-18T05:18">posted: 2015-11-18 &nbsp; 05:18</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43851" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>agitator wrote:</cite>SamK: Hope, you're not offended. Different perspective on same topic. My old machines have to have a switcher.</div></blockquote>Not offended at all. Different opinions are fine here. Your care about avoiding offence is appreciated and welcomed.<br>
+<br>
+Perhaps you overlooked part of the important qualification made <blockquote><div><cite>SamK wrote:</cite>If you have no use for keyboard switching from the taskbar during a session...</div></blockquote>. You do and that is OK. The idea is not for you but might be helpful to someone else. antiX is all about choice, it makes it easier to have it your own way.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43856" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43856">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 16</dd>
+<span class="username">agitator</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43856">
+
+<time datetime="2015-11-18T17:03">posted: 2015-11-18 &nbsp; 17:03</time>
+<span class="permalink"><a href="./theming-startapplications-in-taskbar-t6039.html#p43856" title="permalink">#14</a></span>
+
+<div class="content">You're right. It's only useful if you have to use non-latin characters a lot.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

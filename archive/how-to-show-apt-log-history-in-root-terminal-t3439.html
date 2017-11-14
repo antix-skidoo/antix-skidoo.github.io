@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How to show apt log history in Root Terminal - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-show-apt-log-history-in-root-terminal-t3439.html">How to show apt log history in Root Terminal</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_22740" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22740">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22740">
+<time datetime="2011-11-21T20:56">posted: 2011-11-21 &nbsp; 20:56</time>
+<span class="permalink"><a href="./how-to-show-apt-log-history-in-root-terminal-t3439.html#p22740" title="permalink">#1</a></span>
+
+<div class="content">Learned a new trick today. Found this site.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linuxcommando.blogspot.com/2008/08/how-to-show-apt-log-history.html"<br>linktext was:"http://linuxcommando.blogspot.com/2008/ ... story.html"<br>====================================<br>
+<br>
+<br>
+I tried it out and it works.<br>
+<br>
+First I made a backup of my /root/.bashrc named .bashrcbk in rox file manager in case I screwed up. You need to be root in rox file manager to do any of the below.<br>
+<br>
+<br>
+<br>
+Then I made a new .bashrc and copied over my original text from my .bashrcbk into it and saved it. Then I copied the script from the webiste into my new .bashrc. What my .bashrc looks like now. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># ~/.bashrc: executed by bash(1) for non-login shells.
+
+# Note: PS1 and umask are already set in /etc/profile. You should not
+# need this unless you want different defaults for root.
+# PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
+# umask 022
+
+# You may uncomment the following lines if you want `ls' to be colorized:
+# export LS_OPTIONS='--color=auto'
+# eval"`dircolors`"
+# alias ls='ls $LS_OPTIONS'
+# alias ll='ls $LS_OPTIONS -l'
+# alias l='ls $LS_OPTIONS -lA'
+#
+# Some more alias to avoid making mistakes:
+# alias rm='rm -i'
+# alias cp='cp -i'
+# alias mv='mv -i'
+# changed by antiX
+# enable bash completion in interactive shells
+if [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+fi
+
+function apt-history(){
+      case"$1" in
+        install)
+              cat /var/log/dpkg.log | grep 'install '
+              ;;
+        upgrade|remove)
+              cat /var/log/dpkg.log | grep $1
+              ;;
+        rollback)
+              cat /var/log/dpkg.log | grep upgrade | \
+                  grep"$2" -A10000000 | \
+                  grep"$3" -B10000000 | \
+                  awk '{print $4"="$5}'
+              ;;
+        *)
+              cat /var/log/dpkg.log
+              ;;
+      esac
+}</code></pre></div>
+Then I opened root terminal and looked at the result.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-history install
+2011-11-06 04:49:03 install unrar &lt;none&gt; 1:4.0.3-1
+2011-11-06 04:57:08 install p7zip-rar &lt;none&gt; 9.20.1~ds.1-3
+2011-11-06 05:11:55 install p7zip &lt;none&gt; 9.20.1~dfsg.1-3
+2011-11-07 21:26:19 install libmtp-common &lt;none&gt; 1.1.0-4
+2011-11-07 21:26:19 install libmtp9 &lt;none&gt; 1.1.0-4
+2011-11-07 21:26:20 install libx264-118 &lt;none&gt; 2:0.118.2085+git8a62835-1
+2011-11-07 21:26:20 install libxcb-randr0 &lt;none&gt; 1.7-3
+2011-11-07 21:26:20 install liba52-0.7.4 &lt;none&gt; 0.7.4-16
+2011-11-07 21:26:20 install libdca0 &lt;none&gt; 0.0.5-5
+2011-11-07 21:26:21 install libdirac-decoder0 &lt;none&gt; 1.0.2-4
+2011-11-07 21:26:21 install libdvbpsi7 &lt;none&gt; 0.2.0-1
+2011-11-07 21:26:21 install libebml3 &lt;none&gt; 1.2.2-1
+2011-11-07 21:26:21 install libenca0 &lt;none&gt; 1.13-4
+2011-11-07 21:26:21 install libkate1 &lt;none&gt; 0.4.1-1
+2011-11-07 21:26:22 install libmatroska5 &lt;none&gt; 1.3.0-1
+2011-11-07 21:26:22 install libmpeg2-4 &lt;none&gt; 0.4.1-3
+2011-11-07 21:26:22 install libmtp-runtime &lt;none&gt; 1.1.0-4
+2011-11-07 21:26:22 install libsdl-image1.2 &lt;none&gt; 1.2.10-2.1+b1
+2011-11-07 21:26:22 install libtar0 &lt;none&gt; 1.2.11-8
+2011-11-07 21:26:22 install libva-x11-1 &lt;none&gt; 1.0.12-2
+2011-11-07 21:26:23 install vlc-data &lt;none&gt; 1.1.12-2
+2011-11-07 21:26:25 install libvlccore4 &lt;none&gt; 1.1.12-2+b1
+2011-11-07 21:26:26 install libvlc5 &lt;none&gt; 1.1.12-2+b1
+2011-11-07 21:26:26 install libass4 &lt;none&gt; 0.10.0-1
+2011-11-07 21:26:26 install libupnp3 &lt;none&gt; 1:1.6.6-5.1
+2011-11-07 21:26:26 install vlc-nox &lt;none&gt; 1.1.12-2+b1
+2011-11-07 21:26:27 install libxcb-keysyms1 &lt;none&gt; 0.3.8-1
+2011-11-07 21:26:27 install vlc &lt;none&gt; 1.1.12-2+b1
+2011-11-07 21:26:28 install mozilla-plugin-vlc &lt;none&gt; 1.1.12-2+b1
+2011-11-07 21:26:29 install vlc-plugin-notify &lt;none&gt; 1.1.12-2+b1
+2011-11-07 21:26:29 install vlc-plugin-pulse &lt;none&gt; 1.1.12-2+b1
+2011-11-09 15:09:47 install checkinstall &lt;none&gt; 1.6.2-2
+2011-11-09 15:09:47 status half-installed checkinstall 1.6.2-2
+2011-11-09 15:09:48 status half-installed checkinstall 1.6.2-2
+2011-11-09 15:09:48 status unpacked checkinstall 1.6.2-2
+2011-11-09 15:09:48 status unpacked checkinstall 1.6.2-2
+2011-11-09 15:09:53 configure checkinstall 1.6.2-2 &lt;none&gt;
+2011-11-09 15:09:53 status unpacked checkinstall 1.6.2-2
+2011-11-09 15:09:53 status unpacked checkinstall 1.6.2-2
+2011-11-09 15:09:53 status half-configured checkinstall 1.6.2-2
+2011-11-09 15:09:53 status installed checkinstall 1.6.2-2
+2011-11-09 15:28:10 install libpiano0 2011.07.09-1 2011.09.22-1
+2011-11-09 15:28:10 install pianobar &lt;none&gt; 2011.09.22-1
+2011-11-09 15:42:13 install libao-dev &lt;none&gt; 1.1.0-1+b1
+2011-11-09 15:42:48 install libfaad-dev &lt;none&gt; 2.7-7
+2011-11-09 15:45:28 install libmad0-dev &lt;none&gt; 0.15.1b-6
+2011-11-09 16:21:56 install libgnutls-openssl27 &lt;none&gt; 2.12.11-1
+2011-11-09 16:21:57 install libgnutlsxx27 &lt;none&gt; 2.12.11-1
+2011-11-09 16:21:57 install libgpg-error-dev &lt;none&gt; 1.10-1
+2011-11-09 16:21:57 install libgcrypt11-dev &lt;none&gt; 1.5.0-3
+2011-11-09 16:21:57 install zlib1g-dev &lt;none&gt; 1:1.2.3.4.dfsg-3
+2011-11-09 16:21:58 install libtasn1-3-dev &lt;none&gt; 2.9-4
+2011-11-09 16:21:58 install libp11-kit-dev &lt;none&gt; 0.7-2
+2011-11-09 16:21:58 install libgnutls-dev &lt;none&gt; 2.12.11-1
+2011-11-13 00:05:58 install qmmp-skins &lt;none&gt; 0.3-1
+2011-11-13 00:29:06 install liblzma5 &lt;none&gt; 5.1.1alpha+20110809-3
+2011-11-13 00:29:45 install libxss1 &lt;none&gt; 1:1.2.1-2
+2011-11-13 00:30:09 install libjim0debian1 &lt;none&gt; 0.72-1
+2011-11-13 00:30:44 install enchant &lt;none&gt; 1.6.0-6
+2011-11-13 00:30:47 install fonts-liberation &lt;none&gt; 1.07.0-2
+2011-11-13 00:31:19 install libjavascriptcoregtk-1.0-0 &lt;none&gt; 1.6.1-5
+2011-11-13 00:31:19 install libjavascriptcoregtk-3.0-0 &lt;none&gt; 1.6.1-5</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-history upgrade
+2011-11-09 15:20:28 upgrade libao-common 1.1.0-1 1.1.0-1+b1
+2011-11-09 15:42:12 upgrade libao4 1.1.0-1 1.1.0-1+b1
+2011-11-13 00:28:28 upgrade dpkg 1.16.1 1.16.1.1
+2011-11-13 00:28:38 upgrade diffutils 1:3.0-1 1:3.2-1
+2011-11-13 00:28:42 upgrade libcomerr2 1.42~WIP-2011-07-02-1 1.42~WIP-2011-10-16-1
+2011-11-13 00:28:45 upgrade e2fslibs 1.42~WIP-2011-07-02-1 1.42~WIP-2011-10-16-1
+2011-11-13 00:28:47 upgrade e2fsprogs 1.42~WIP-2011-07-02-1 1.42~WIP-2011-10-16-1
+2011-11-13 00:28:51 upgrade libselinux1 2.1.0-1 2.1.0-4
+2011-11-13 00:28:55 upgrade sysvinit 2.88dsf-13.11 2.88dsf-13.12
+2011-11-13 00:28:58 upgrade sysvinit-utils 2.88dsf-13.11 2.88dsf-13.12
+2011-11-13 00:29:01 upgrade apt 0.8.15.8 0.8.15.9
+2011-11-13 00:29:09 upgrade libss2 1.42~WIP-2011-07-02-1 1.42~WIP-2011-10-16-1
+2011-11-13 00:29:11 upgrade mawk 1.3.3-15 1.3.3-16
+2011-11-13 00:29:12 upgrade libk5crypto3 1.9.1+dfsg-1 1.9.1+dfsg-3
+2011-11-13 00:29:13 upgrade libgssapi-krb5-2 1.9.1+dfsg-1 1.9.1+dfsg-3
+2011-11-13 00:29:13 upgrade libkrb5-3 1.9.1+dfsg-1 1.9.1+dfsg-3
+2011-11-13 00:29:14 upgrade libkrb5support0 1.9.1+dfsg-1 1.9.1+dfsg-3
+2011-11-13 00:29:14 upgrade libtasn1-3-dev 2.9-4 2.10-1
+2011-11-13 00:29:15 upgrade libtasn1-3 2.9-4 2.10-1
+2011-11-13 00:29:16 upgrade libatm1 1:2.5.1-1.2 1:2.5.1-1.3
+2011-11-13 00:29:16 upgrade libaudio2 1.9.2-9 1.9.3-1
+2011-11-13 00:29:17 upgrade libavutil51 4:0.7.2-1 4:0.7.2-1+b1
+2011-11-13 00:29:17 upgrade libva1 1.0.12-2 1.0.14-1
+2011-11-13 00:29:18 upgrade libvpx0 0.9.7.p1-1 0.9.7.p1-2
+2011-11-13 00:29:19 upgrade libx264-118 2:0.118.2085+git8a62835-1 2:0.118.2092+git6eac7c3-1
+2011-11-13 00:29:19 upgrade libavcodec53 4:0.7.2-1 4:0.7.2-1+b1
+2011-11-13 00:29:20 upgrade libavformat53 4:0.7.2-1 4:0.7.2-1+b1
+2011-11-13 00:29:21 upgrade libavdevice53 4:0.7.2-1 4:0.7.2-1+b1
+2011-11-13 00:29:21 upgrade libswscale2 4:0.7.2-1 4:0.7.2-1+b1
+2011-11-13 00:29:21 upgrade libavfilter2 4:0.7.2-1 4:0.7.2-1+b1
+2011-11-13 00:29:22 upgrade libglib2.0-0 2.28.6-1 2.28.8-1
+2011-11-13 00:29:22 upgrade libcroco3 0.6.2-1 0.6.2-2
+2011-11-13 00:29:23 upgrade libdrm2 2.4.26-1 2.4.27-1
+2011-11-13 00:29:23 upgrade libdrm-intel1 2.4.26-1 2.4.27-1
+2011-11-13 00:29:23 upgrade libdrm-nouveau1a 2.4.26-1 2.4.27-1
+2011-11-13 00:29:24 upgrade libdrm-radeon1 2.4.26-1 2.4.27-1
+2011-11-13 00:29:24 upgrade libesd0 0.2.41-9 0.2.41-10
+2011-11-13 00:29:24 upgrade esound-common 0.2.41-9 0.2.41-10
+2011-11-13 00:29:25 upgrade libexpat1 2.0.1-7 2.0.1-7.2
+2011-11-13 00:29:25 upgrade libffi5 3.0.10-1 3.0.10-3
+2011-11-13 00:29:25 upgrade libfreetype6 2.4.6-2 2.4.7-2
+2011-11-13 00:29:26 upgrade libpango1.0-0 1.29.4-1 1.29.4-2
+2011-11-13 00:29:27 upgrade librsvg2-common 2.34.1-2 2.34.1-3
+2011-11-13 00:29:27 upgrade librsvg2-2 2.34.1-2 2.34.1-3
+2011-11-13 00:29:27 upgrade libgtk2.0-common 2.24.6-2 2.24.7-1
+2011-11-13 00:29:33 upgrade libgail18 2.24.6-2 2.24.7-1
+2011-11-13 00:29:34 upgrade libgtk2.0-0 2.24.6-2 2.24.7-1
+2011-11-13 00:29:35 upgrade libgmp10 2:5.0.2+dfsg-1 2:5.0.2+dfsg-2
+2011-11-13 00:29:35 upgrade libgmpxx4ldbl 2:5.0.2+dfsg-1 2:5.0.2+dfsg-2
+2011-11-13 00:29:36 upgrade libgnome-keyring0 3.2.0-2 3.2.0-3
+2011-11-13 00:29:36 upgrade libjasper1 1.900.1-10 1.900.1-11
+2011-11-13 00:29:37 upgrade libltdl7 2.4-4 2.4.2-1
+2011-11-13 00:29:37 upgrade libodbc1 2.2.14p2-3 2.2.14p2-4
+2011-11-13 00:29:38 upgrade libpostproc52 4:0.7.2-1 4:0.7.2-1+b1
+2011-11-13 00:29:38 upgrade libppl-c4 0.11.2-4 0.11.2-6
+2011-11-13 00:29:39 upgrade libppl9 0.11.2-4 0.11.2-6
+2011-11-13 00:29:39 upgrade libpwl5 0.11.2-4 0.11.2-6
+2011-11-13 00:29:40 upgrade libwbclient0 2:3.5.11~dfsg-2 2:3.5.11~dfsg-4
+2011-11-13 00:29:40 upgrade libsmbclient 2:3.5.11~dfsg-2 2:3.5.11~dfsg-4
+2011-11-13 00:29:41 upgrade libunistring0 0.9.3-4 0.9.3-5
+2011-11-13 00:29:41 upgrade libv4l-0 0.8.5-4 0.8.5-5
+2011-11-13 00:29:42 upgrade libv4lconvert0 0.8.5-4 0.8.5-5
+2011-11-13 00:29:42 upgrade libxmu6 2:1.1.0-2 2:1.1.0-3
+2011-11-13 00:29:42 upgrade libxpm4 1:3.5.9-1 1:3.5.9-4
+2011-11-13 00:29:44 upgrade libxaw7 2:1.0.9-2 2:1.0.9-3
+2011-11-13 00:29:45 upgrade libxmuu1 2:1.1.0-2 2:1.1.0-3
+2011-11-13 00:29:46 upgrade libxtst6 2:1.2.0-3 2:1.2.0-4
+2011-11-13 00:29:46 upgrade odbcinst 2.2.14p2-3 2.2.14p2-4
+2011-11-13 00:29:46 upgrade odbcinst1debian2 2.2.14p2-3 2.2.14p2-4
+2011-11-13 00:29:47 upgrade icedtea-6-jre-cacao 6b23~pre10-1 6b23~pre11-1
+2011-11-13 00:29:47 upgrade openjdk-6-jre-lib 6b23~pre10-1 6b23~pre11-1
+2011-11-13 00:29:49 upgrade icedtea-6-jre-jamvm 6b23~pre10-1 6b23~pre11-1
+2011-11-13 00:29:49 upgrade tzdata-java 2011l-2 2011n-1
+2011-11-13 00:29:50 upgrade tzdata 2011l-2 2011n-1
+2011-11-13 00:30:05 upgrade openjdk-6-jre-headless 6b23~pre10-1 6b23~pre11-1
+2011-11-13 00:30:10 upgrade usb-modeswitch 1.1.9-2 1.2.0+repack0-1
+2011-11-13 00:30:11 upgrade usb-modeswitch-data 20110805-1 20111023-1
+2011-11-13 00:30:13 upgrade sysv-rc 2.88dsf-13.11 2.88dsf-13.12
+2011-11-13 00:30:19 upgrade initscripts 2.88dsf-13.11 2.88dsf-13.12
+2011-11-13 00:30:27 upgrade xz-utils 5.1.1alpha+20110809-2 5.1.1alpha+20110809-3
+2011-11-13 00:30:31 upgrade apt-utils 0.8.15.8 0.8.15.9
+2011-11-13 00:30:32 upgrade dmidecode 2.11-3 2.11-4
+2011-11-13 00:30:33 upgrade ifupdown 0.7~alpha5+really0.6.15 0.7~alpha5+really0.6.16
+2011-11-13 00:30:33 upgrade netbase 4.46 4.47
+2011-11-13 00:30:34 upgrade rsyslog 5.8.5-1 5.8.6-1
+2011-11-13 00:30:35 upgrade wget 1.13-1 1.13.4-1
+2011-11-13 00:30:36 upgrade file 5.09-1 5.09-2
+2011-11-13 00:30:36 upgrade libmagic1 5.09-1 5.09-2
+2011-11-13 00:30:37 upgrade whois 5.0.11 5.0.12
+2011-11-13 00:30:37 upgrade dialog 1.1-20110707-1 1.1-20111020-1
+2011-11-13 00:30:38 upgrade alsa-utils 1.0.24.2-3 1.0.24.2-4
+2011-11-13 00:30:39 upgrade busybox 1:1.18.5-1 1:1.19.3-1
+2011-11-13 00:30:39 upgrade ca-certificates 20110502+nmu1 20111025
+2011-11-13 00:30:40 upgrade dctrl-tools 2.18 2.19
+2011-11-13 00:30:40 upgrade dictionaries-common 1.11.6 1.11.8
+2011-11-13 00:30:41 upgrade libdevmapper1.02.1 2:1.02.65-1 2:1.02.67-1
+2011-11-13 00:30:41 upgrade dmsetup 2:1.02.65-1 2:1.02.67-1
+2011-11-13 00:30:42 upgrade dosfstools 3.0.9-1 3.0.12-1
+2011-11-13 00:30:42 upgrade dpkg-dev 1.16.1 1.16.1.1
+2011-11-13 00:30:42 upgrade libdpkg-perl 1.16.1 1.16.1.1
+2011-11-13 00:30:43 upgrade libenchant1c2a 1.6.0-3+b1 1.6.0-6
+2011-11-13 00:30:44 upgrade feh 1.16.1-1 2.0-1
+2011-11-13 00:30:45 upgrade ffmpeg 4:0.7.2-1 4:0.7.2-1+b1
+2011-11-13 00:30:46 upgrade ttf-liberation 1.07.0-1 1.07.0-2
+2011-11-13 00:30:48 upgrade fuse 2.8.6-1 2.8.6-2
+2011-11-13 00:30:49 upgrade libfuse2 2.8.6-1 2.8.6-2
+2011-11-13 00:30:50 upgrade fuse-utils 2.8.6-1 2.8.6-2
+2011-11-13 00:30:50 upgrade gir1.2-pango-1.0 1.29.4-1 1.29.4-2
+2011-11-13 00:30:50 upgrade python-vte 1:0.28.1-2 1:0.28.2-1
+2011-11-13 00:30:51 upgrade libvte-2.90-9 1:0.28.1-2 1:0.28.2-1
+2011-11-13 00:30:52 upgrade libvte-common 1:0.28.1-2 1:0.28.2-1
+2011-11-13 00:30:52 upgrade libvte9 1:0.28.1-2 1:0.28.2-1
+2011-11-13 00:30:53 upgrade gir1.2-vte-2.90 1:0.28.1-2 1:0.28.2-1
+2011-11-13 00:30:53 upgrade libgksu2-0 2.0.13~pre1-4 2.0.13~pre1-5
+2011-11-13 00:30:54 upgrade sudo 1.8.2-2 1.8.3p1-1
+2011-11-13 00:30:55 upgrade gksu 2.0.2-5 2.0.2-6
+2011-11-13 00:30:55 upgrade gnome-icon-theme 3.2.0-1 3.2.1.2-1
+2011-11-13 00:31:01 upgrade openjdk-6-jre 6b23~pre10-1 6b23~pre11-1
+2011-11-13 00:31:02 upgrade jitsi 1.0-beta1-nightly.build.3689 1.0-beta1-nightly.build.3768
+2011-11-13 00:31:07 upgrade libbabl-0.0-0 0.0.22-1 0.0.22-1.1
+2011-11-13 00:31:08 upgrade libcairo-perl 1.071-1 1.081-1
+2011-11-13 00:31:09 upgrade libcanberra0 0.28-2 0.28-3
+2011-11-13 00:31:09 upgrade libcanberra-gtk3-0 0.28-2 0.28-3
+2011-11-13 00:31:10 upgrade libcanberra-gtk3-module 0.28-2 0.28-3
+2011-11-13 00:31:10 upgrade libcompress-raw-bzip2-perl 2.037-1 2.040-1
+2011-11-13 00:31:11 upgrade libcompress-raw-zlib-perl 2.037-1 2.040-1
+2011-11-13 00:31:12 upgrade libdirectfb-extra 1.2.10.0-4 1.2.10.0-4.3
+2011-11-13 00:31:12 upgrade libdirectfb-1.2-9 1.2.10.0-4 1.2.10.0-4.3
+2011-11-13 00:31:13 upgrade libelf1 0.152-1 0.152-1+b1
+2011-11-13 00:31:14 upgrade libgd2-noxpm 2.0.36~rc1~dfsg-5.1+b1 2.0.36~rc1~dfsg-6
+2011-11-13 00:31:15 upgrade libglib-perl 2:1.224-1 2:1.240-1
+2011-11-13 00:31:16 upgrade libgtk2.0-bin 2.24.6-2 2.24.7-1
+2011-11-13 00:31:17 upgrade libhtml-parser-perl 3.68-1+b1 3.69-1
+2011-11-13 00:31:17 upgrade libhyphen0 2.7.1-4 2.8.3-1
+2011-11-13 00:31:18 upgrade libio-compress-perl 2.037-2 2.040-1
+2011-11-13 00:31:20 upgrade liblucene2-java 2.9.4+ds1-2 2.9.4+ds1-4
+2011-11-13 00:31:21 upgrade libmozjs7d 7.0.1-2 7.0.1-4
+2011-11-13 00:31:21 upgrade liborbit2 1:2.14.18-0.2 1:2.14.19-0.1
+2011-11-13 00:31:22 upgrade liborc-0.4-0 1:0.4.15-2 1:0.4.16-1
+2011-11-13 00:31:22 upgrade libproxy0 0.3.1-3 0.3.1-4
+2011-11-13 00:31:23 upgrade libqmmp0 0.5.2-1 0.5.2-1+b1
+2011-11-13 00:31:23 upgrade libqmmpui0 0.5.2-1 0.5.2-1+b1
+2011-11-13 00:31:24 upgrade libqmmp-misc 0.5.2-1 0.5.2-1+b1
+2011-11-13 00:31:28 upgrade librpmio2 4.9.1.1-1 4.9.1.1-1+b1
+2011-11-13 00:31:29 upgrade rpm2cpio 4.9.1.1-1 4.9.1.1-1+b1
+2011-11-13 00:31:30 upgrade librpmbuild2 4.9.1.1-1 4.9.1.1-1+b1
+2011-11-13 00:31:30 upgrade librpmsign0 4.9.1.1-1 4.9.1.1-1+b1
+2011-11-13 00:31:31 upgrade librpm2 4.9.1.1-1 4.9.1.1-1+b1
+2011-11-13 00:31:32 upgrade rpm-common 4.9.1.1-1 4.9.1.1-1+b1
+2011-11-13 00:31:33 upgrade rpm 4.9.1.1-1 4.9.1.1-1+b1
+2011-11-13 00:31:33 upgrade libtextcat0 2.2-9 2.2-10
+2011-11-13 00:31:34 upgrade libtextcat-data 2.2-9 2.2-10
+2011-11-13 00:31:35 upgrade libva-x11-1 1.0.12-2 1.0.14-1
+2011-11-13 00:31:35 upgrade libwebkitgtk-1.0-common 1.4.2-2 1.6.1-5
+2011-11-13 00:31:36 upgrade libwebkitgtk-1.0-0 1.4.2-2 1.6.1-5
+2011-11-13 00:31:38 upgrade libwebkitgtk-3.0-common 1.4.2-2 1.6.1-5
+2011-11-13 00:31:39 upgrade libwebkitgtk-3.0-0 1.4.2-2 1.6.1-5
+2011-11-13 00:31:41 upgrade libxerces2-java 2.11.0-2 2.11.0-3
+2011-11-13 00:31:42 upgrade libxerces2-java-gcj 2.11.0-2 2.11.0-3
+2011-11-13 00:31:43 upgrade libxmmsclient6 0.7DrNo+dfsg-3+b1 0.8+dfsg-1
+2011-11-13 00:31:44 upgrade lxpanel 0.5.6-1 0.5.8-1
+2011-11-13 00:31:45 upgrade notification-daemon 0.7.2-1 0.7.3-1
+2011-11-13 00:31:46 upgrade qmmp 0.5.2-1 0.5.2-1+b1
+2011-11-13 00:31:47 upgrade qmmp-plugin-projectm 0.5.2-1 0.5.2-1+b1
+2011-11-13 00:31:47 upgrade rsync 3.0.8-1 3.0.9-1
+2011-11-13 00:31:48 upgrade smbclient 2:3.5.11~dfsg-2 2:3.5.11~dfsg-4
+2011-11-13 00:31:51 upgrade samba-common 2:3.5.11~dfsg-2 2:3.5.11~dfsg-4
+2011-11-13 00:31:51 upgrade samba-common-bin 2:3.5.11~dfsg-2 2:3.5.11~dfsg-4
+2011-11-13 00:31:53 upgrade squashfs-tools 1:4.2-4 1:4.2-4+b1
+2011-11-13 00:31:53 upgrade syslinux-common 2:4.04+dfsg-4 2:4.04+dfsg-7
+2011-11-13 00:31:54 upgrade syslinux 2:4.04+dfsg-4 2:4.04+dfsg-7
+2011-11-13 00:31:55 upgrade unattended-upgrades 0.72.3 0.73.1
+2011-11-13 00:31:55 status half-configured unattended-upgrades 0.72.3
+2011-11-13 00:31:55 status unpacked unattended-upgrades 0.72.3
+2011-11-13 00:31:55 status half-installed unattended-upgrades 0.72.3
+2011-11-13 00:31:55 status half-installed unattended-upgrades 0.72.3
+2011-11-13 00:31:55 status half-installed unattended-upgrades 0.72.3
+2011-11-13 00:31:56 status unpacked unattended-upgrades 0.73.1
+2011-11-13 00:31:56 status unpacked unattended-upgrades 0.73.1
+2011-11-13 00:31:56 upgrade unixodbc 2.2.14p2-3 2.2.14p2-4
+2011-11-13 00:31:56 upgrade wpasupplicant 0.7.3-4 0.7.3-5
+2011-11-13 00:31:57 upgrade wpagui 0.7.3-4 0.7.3-5
+2011-11-13 00:31:58 upgrade x11-utils 7.6+3 7.6+4
+2011-11-13 00:32:01 upgrade xscreensaver-data 5.14-1 5.15-2
+2011-11-13 00:32:02 upgrade xscreensaver 5.14-1 5.15-2
+2011-11-13 00:32:03 upgrade xscreensaver-data-extra 5.14-1 5.15-2
+2011-11-13 00:32:04 upgrade xserver-common 2:1.11.1-1 2:1.11.1.902-1
+2011-11-13 00:32:05 upgrade xserver-xorg-core 2:1.11.1-1 2:1.11.1.902-1
+2011-11-13 00:32:06 upgrade xserver-xorg-video-radeon 1:6.14.2-2 1:6.14.3-1
+2011-11-13 00:32:06 upgrade xserver-xorg-video-ati 1:6.14.2-2 1:6.14.3-1
+2011-11-13 00:32:07 upgrade xserver-xorg-video-geode 2.11.12-2 2.11.12-3
+2011-11-13 00:32:07 upgrade xserver-xorg-video-mga 1:1.4.13.dfsg-3+b2 1:1.4.13.dfsg-4
+2011-11-13 00:32:07 upgrade xserver-xorg-video-savage 1:2.3.2-3+b2 1:2.3.3-1
+2011-11-13 00:32:08 upgrade xserver-xorg-video-vmware 1:11.0.3-2+b2 1:11.0.99.901-1
+2011-11-13 00:32:08 upgrade alsa-tools 1.0.24.1-2 1.0.24.1-3
+2011-11-13 00:32:09 upgrade br2684ctl 1:2.5.1-1.2 1:2.5.1-1.3
+2011-11-13 00:32:09 upgrade elinks-lite 0.12~pre5-4 0.12~pre5-5
+2011-11-13 00:32:10 upgrade linuxlogo 5.10-1 5.11-1
+2011-11-13 00:32:11 upgrade min12xxw 0.0.9-4 0.0.9-5
+2011-11-13 00:32:11 upgrade youtube-dl 2011.09.27-1 2011.10.19-2
+2011-11-13 00:33:32 configure unattended-upgrades 0.73.1 &lt;none&gt;
+2011-11-13 00:33:32 status unpacked unattended-upgrades 0.73.1
+2011-11-13 00:33:32 status unpacked unattended-upgrades 0.73.1
+2011-11-13 00:33:32 status unpacked unattended-upgrades 0.73.1
+2011-11-13 00:33:32 status unpacked unattended-upgrades 0.73.1
+2011-11-13 00:33:32 status unpacked unattended-upgrades 0.73.1
+2011-11-13 00:33:32 status half-configured unattended-upgrades 0.73.1
+2011-11-13 00:33:33 status installed unattended-upgrades 0.73.1
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-history remove
+2011-11-13 00:10:37 startup packages remove
+2011-11-13 00:10:38 remove qmmp-skins 0.3-1 &lt;none&gt;
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-history rollback
+libao-common=1.1.0-1
+libao4=1.1.0-1
+dpkg=1.16.1
+diffutils=1:3.0-1
+libcomerr2=1.42~WIP-2011-07-02-1
+e2fslibs=1.42~WIP-2011-07-02-1
+e2fsprogs=1.42~WIP-2011-07-02-1
+libselinux1=2.1.0-1
+sysvinit=2.88dsf-13.11
+sysvinit-utils=2.88dsf-13.11
+apt=0.8.15.8
+libss2=1.42~WIP-2011-07-02-1
+mawk=1.3.3-15
+libk5crypto3=1.9.1+dfsg-1
+libgssapi-krb5-2=1.9.1+dfsg-1
+libkrb5-3=1.9.1+dfsg-1
+libkrb5support0=1.9.1+dfsg-1
+libtasn1-3-dev=2.9-4
+libtasn1-3=2.9-4
+libatm1=1:2.5.1-1.2
+libaudio2=1.9.2-9
+libavutil51=4:0.7.2-1
+libva1=1.0.12-2
+libvpx0=0.9.7.p1-1
+libx264-118=2:0.118.2085+git8a62835-1
+libavcodec53=4:0.7.2-1
+libavformat53=4:0.7.2-1
+libavdevice53=4:0.7.2-1
+libswscale2=4:0.7.2-1
+libavfilter2=4:0.7.2-1
+libglib2.0-0=2.28.6-1
+libcroco3=0.6.2-1
+libdrm2=2.4.26-1
+libdrm-intel1=2.4.26-1
+libdrm-nouveau1a=2.4.26-1
+libdrm-radeon1=2.4.26-1
+libesd0=0.2.41-9
+esound-common=0.2.41-9
+libexpat1=2.0.1-7
+libffi5=3.0.10-1
+libfreetype6=2.4.6-2
+libpango1.0-0=1.29.4-1
+librsvg2-common=2.34.1-2
+librsvg2-2=2.34.1-2
+libgtk2.0-common=2.24.6-2
+libgail18=2.24.6-2
+libgtk2.0-0=2.24.6-2
+libgmp10=2:5.0.2+dfsg-1
+libgmpxx4ldbl=2:5.0.2+dfsg-1
+libgnome-keyring0=3.2.0-2
+libjasper1=1.900.1-10
+libltdl7=2.4-4
+libodbc1=2.2.14p2-3
+libpostproc52=4:0.7.2-1
+libppl-c4=0.11.2-4
+libppl9=0.11.2-4
+libpwl5=0.11.2-4
+libwbclient0=2:3.5.11~dfsg-2
+libsmbclient=2:3.5.11~dfsg-2
+libunistring0=0.9.3-4
+libv4l-0=0.8.5-4
+libv4lconvert0=0.8.5-4
+libxmu6=2:1.1.0-2
+libxpm4=1:3.5.9-1
+libxaw7=2:1.0.9-2
+libxmuu1=2:1.1.0-2
+libxtst6=2:1.2.0-3
+odbcinst=2.2.14p2-3
+odbcinst1debian2=2.2.14p2-3
+icedtea-6-jre-cacao=6b23~pre10-1
+openjdk-6-jre-lib=6b23~pre10-1
+icedtea-6-jre-jamvm=6b23~pre10-1
+tzdata-java=2011l-2
+tzdata=2011l-2
+openjdk-6-jre-headless=6b23~pre10-1
+usb-modeswitch=1.1.9-2
+usb-modeswitch-data=20110805-1
+sysv-rc=2.88dsf-13.11
+initscripts=2.88dsf-13.11
+xz-utils=5.1.1alpha+20110809-2
+apt-utils=0.8.15.8
+dmidecode=2.11-3
+ifupdown=0.7~alpha5+really0.6.15
+netbase=4.46
+rsyslog=5.8.5-1
+wget=1.13-1
+file=5.09-1
+libmagic1=5.09-1
+whois=5.0.11
+dialog=1.1-20110707-1
+alsa-utils=1.0.24.2-3
+busybox=1:1.18.5-1
+ca-certificates=20110502+nmu1
+dctrl-tools=2.18
+dictionaries-common=1.11.6
+libdevmapper1.02.1=2:1.02.65-1
+dmsetup=2:1.02.65-1
+dosfstools=3.0.9-1
+dpkg-dev=1.16.1
+libdpkg-perl=1.16.1
+libenchant1c2a=1.6.0-3+b1
+feh=1.16.1-1
+ffmpeg=4:0.7.2-1
+ttf-liberation=1.07.0-1
+fuse=2.8.6-1
+libfuse2=2.8.6-1
+fuse-utils=2.8.6-1
+gir1.2-pango-1.0=1.29.4-1
+python-vte=1:0.28.1-2
+libvte-2.90-9=1:0.28.1-2
+libvte-common=1:0.28.1-2
+libvte9=1:0.28.1-2
+gir1.2-vte-2.90=1:0.28.1-2
+libgksu2-0=2.0.13~pre1-4
+sudo=1.8.2-2
+gksu=2.0.2-5
+gnome-icon-theme=3.2.0-1
+openjdk-6-jre=6b23~pre10-1
+jitsi=1.0-beta1-nightly.build.3689
+libbabl-0.0-0=0.0.22-1
+libcairo-perl=1.071-1
+libcanberra0=0.28-2
+libcanberra-gtk3-0=0.28-2
+libcanberra-gtk3-module=0.28-2
+libcompress-raw-bzip2-perl=2.037-1
+libcompress-raw-zlib-perl=2.037-1
+libdirectfb-extra=1.2.10.0-4
+libdirectfb-1.2-9=1.2.10.0-4
+libelf1=0.152-1
+libgd2-noxpm=2.0.36~rc1~dfsg-5.1+b1
+libglib-perl=2:1.224-1
+libgtk2.0-bin=2.24.6-2
+libhtml-parser-perl=3.68-1+b1
+libhyphen0=2.7.1-4
+libio-compress-perl=2.037-2
+liblucene2-java=2.9.4+ds1-2
+libmozjs7d=7.0.1-2
+liborbit2=1:2.14.18-0.2
+liborc-0.4-0=1:0.4.15-2
+libproxy0=0.3.1-3
+libqmmp0=0.5.2-1
+libqmmpui0=0.5.2-1
+libqmmp-misc=0.5.2-1
+librpmio2=4.9.1.1-1
+rpm2cpio=4.9.1.1-1
+librpmbuild2=4.9.1.1-1
+librpmsign0=4.9.1.1-1
+librpm2=4.9.1.1-1
+rpm-common=4.9.1.1-1
+rpm=4.9.1.1-1
+libtextcat0=2.2-9
+libtextcat-data=2.2-9
+libva-x11-1=1.0.12-2
+libwebkitgtk-1.0-common=1.4.2-2
+libwebkitgtk-1.0-0=1.4.2-2
+libwebkitgtk-3.0-common=1.4.2-2
+libwebkitgtk-3.0-0=1.4.2-2
+libxerces2-java=2.11.0-2
+libxerces2-java-gcj=2.11.0-2
+libxmmsclient6=0.7DrNo+dfsg-3+b1
+lxpanel=0.5.6-1
+notification-daemon=0.7.2-1
+qmmp=0.5.2-1
+qmmp-plugin-projectm=0.5.2-1
+rsync=3.0.8-1
+smbclient=2:3.5.11~dfsg-2
+samba-common=2:3.5.11~dfsg-2
+samba-common-bin=2:3.5.11~dfsg-2
+squashfs-tools=1:4.2-4
+syslinux-common=2:4.04+dfsg-4
+syslinux=2:4.04+dfsg-4
+unattended-upgrades=0.72.3
+half-configured=unattended-upgrades
+unpacked=unattended-upgrades
+half-installed=unattended-upgrades
+half-installed=unattended-upgrades
+half-installed=unattended-upgrades
+unpacked=unattended-upgrades
+unpacked=unattended-upgrades
+unixodbc=2.2.14p2-3
+wpasupplicant=0.7.3-4
+wpagui=0.7.3-4
+x11-utils=7.6+3
+xscreensaver-data=5.14-1
+xscreensaver=5.14-1
+xscreensaver-data-extra=5.14-1
+xserver-common=2:1.11.1-1
+xserver-xorg-core=2:1.11.1-1
+xserver-xorg-video-radeon=1:6.14.2-2
+xserver-xorg-video-ati=1:6.14.2-2
+xserver-xorg-video-geode=2.11.12-2
+xserver-xorg-video-mga=1:1.4.13.dfsg-3+b2
+xserver-xorg-video-savage=1:2.3.2-3+b2
+xserver-xorg-video-vmware=1:11.0.3-2+b2
+alsa-tools=1.0.24.1-2
+br2684ctl=1:2.5.1-1.2
+elinks-lite=0.12~pre5-4
+linuxlogo=5.10-1
+min12xxw=0.0.9-4
+youtube-dl=2011.09.27-1
+unattended-upgrades=0.73.1
+unpacked=unattended-upgrades
+unpacked=unattended-upgrades
+unpacked=unattended-upgrades
+unpacked=unattended-upgrades
+unpacked=unattended-upgrades
+half-configured=unattended-upgrades
+installed=unattended-upgrades
+</code></pre></div>
+Kinda useful. <span class="emoticon"> __{{emoticon}}__ </span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22792" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22792">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 106</span></div>
+
+</div>
+</div>
+<span class="username">the convert</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22792">
+
+<time datetime="2011-11-25T19:51">posted: 2011-11-25 &nbsp; 19:51</time>
+<span class="permalink"><a href="./how-to-show-apt-log-history-in-root-terminal-t3439.html#p22792" title="permalink">#2</a></span>
+
+<div class="content">i once again learned someting useful here... thx rokytnji!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

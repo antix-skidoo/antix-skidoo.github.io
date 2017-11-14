@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX 15 menu entry in fancy &quot;burg&quot; - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-15-menu-entry-in-fancy-burg-t5822.html">antiX 15 menu entry in fancy &quot;burg&quot;</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_42239" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42239">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">victorinux</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42239">
+<time datetime="2015-07-29T17:29">posted: 2015-07-29 &nbsp; 17:29</time>
+<span class="permalink"><a href="./antix-15-menu-entry-in-fancy-burg-t5822.html#p42239" title="permalink">#1</a></span>
+
+<div class="content">I know I should check grub versions first (# grub-install --version), before asking how would be AntiX 15 menu entry in burg installer (the one with a fancy graphical interface -look at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://blog.desdelinux.net/wp-content/uploads/2010/08/128929-1.png"<br>linktext was:"http://blog.desdelinux.net/wp-content/u ... 8929-1.png"<br>====================================<br>
+ ). <br>
+<br>
+I tried to put it similar to AntiX Mepis's menu entry:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry"[b]antiX mepis 14[/b]" --class mepis --class os --group group_/dev/sda11 {
+    insmod ext2
+    set root='(hd0,11)'
+    search --no-floppy --fs-uuid --set 5d6d9c5a-af42-414a-ab36-2184438e5852
+    linux /boot/vmlinuz-3.12-0.bpo.1-686-pae root=UUID=5d6d9c5a-af42-414a-ab36-2184438e5852 ro quiet
+    initrd /boot/initrd.img-3.12-0.bpo.1-686-pae
+}</code></pre></div>
+Like this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry 'antiX GNU/Linux' --class antix --class gnu-linux --class gnu --class os {
+    insmod ext2
+    set root='(hd0,12)'
+    search --no-floppy --fs-uuid --set 5949696b-1554-41d1-8ae7-71b0385d9a70
+    linux    /boot/vmlinuz-4.0.0-antix.1-486-smp
+    initrd    /boot/initrd.img-4.0.0-antix.1-486-smp
+}
+</code></pre></div>
+But this didn't do the work the original grub menu entry does:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry 'antiX GNU/Linux' --class antix --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-5949696b-1554-41d1-8ae7-71b0385d9a70' {
+    load_video
+    insmod gzio
+    if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+    insmod part_msdos
+    insmod ext2
+    set root='hd0,msdos12'
+    if [ x$feature_platform_search_hint = xy ]; then
+      search --no-floppy --fs-uuid --set=root --hint-ieee1275='ieee1275//disk@0,msdos12' --hint-bios=hd0,msdos12 --hint-efi=hd0,msdos12 --hint-baremetal=ahci0,msdos12  5949696b-1554-41d1-8ae7-71b0385d9a70
+    else
+      search --no-floppy --fs-uuid --set=root 5949696b-1554-41d1-8ae7-71b0385d9a70
+    fi
+    echo    'Loading Linux 4.0.0-antix.1-486-smp ...'
+    linux    /boot/vmlinuz-4.0.0-antix.1-486-smp root=UUID=5949696b-1554-41d1-8ae7-71b0385d9a70 ro  quiet
+    echo    'Loading initial ramdisk ...'
+    initrd    /boot/initrd.img-4.0.0-antix.1-486-smp
+}</code></pre></div>
+Any idea?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42240" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42240">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42240">
+
+<time datetime="2015-07-29 &nbsp; 17:58">posted: 2015-07-29 &nbsp; 17:58</time>
+<span class="permalink"><a href="./antix-15-menu-entry-in-fancy-burg-t5822.html#p42240" title="permalink">#2</a></span>
+
+<div class="content">the entry"antiX 15" in the GRUB menu is not from the file
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/boot/grub/grub.cfg</code></pre></div>
+reading.<br>
+<br>
+look here: viewtopic.php?f=4&amp;t=5520</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42267" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42267">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">victorinux</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42267">
+
+<p class="author">
+<a href="./antix-15-menu-entry-in-fancy-burg-t5822.html#p42267" title="Post"> 30 Jul 2015, 11:42 <span style="padding-left:10px">#3</span></a>
+<time class="hide" datetime="2015-07-30 &nbsp; 11:42">2015-07-30 &nbsp; 11:42</time>
+ </p>
+<div class="content"><strong>Oops! My solely fault!</strong><br>
+<br>
+You can see the error copying the menu entry of Mepis 14 to AntiX 15 in the original post.<br>
+<br>
+So, the elaborated menu entry of grub.cfg in AntiX 15:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry 'antiX GNU/Linux' --class antix --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-5949696b-1554-41d1-8ae7-71b0385d9a70' {
+load_video
+insmod gzio
+if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+insmod part_msdos
+insmod ext2
+set root='hd0,msdos12'
+if [ x$feature_platform_search_hint = xy ]; then
+search --no-floppy --fs-uuid --set=root --hint-ieee1275='ieee1275//disk@0,msdos12' --hint-bios=hd0,msdos12 --hint-efi=hd0,msdos12 --hint-baremetal=ahci0,msdos12 [i]UUID[/i]
+else
+search --no-floppy --fs-uuid --set=root [i]UUID[/i]
+echo 'Loading Linux 4.0.0-antix.1-486-smp ...'
+linux /boot/vmlinuz-4.0.0-antix.1-486-smp root=UUID=[i]nº[/i] ro quiet
+echo 'Loading initial ramdisk ...'
+initrd /boot/initrd.img-4.0.0-antix.1-486-smp
+}</code></pre></div>
+Can be"resumed" in burg.cfg like:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry 'antiX GNU/Linux' --class antix --class gnu-linux --class gnu --class os {
+insmod ext2
+set root='(hd0,12)'
+search --no-floppy --fs-uuid --set  UUID 
+linux /boot/vmlinuz-4.0.0-antix.1-486-smp root=UUID= [i]nº[/i]
+initrd /boot/initrd.img-4.0.0-antix.1-486-smp
+}</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

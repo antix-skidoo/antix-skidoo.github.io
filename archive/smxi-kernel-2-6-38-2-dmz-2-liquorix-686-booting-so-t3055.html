@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>smxi kernel 2.6.38-2.dmz.2-liquorix-686 booting  (SOLVED) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html">smxi kernel 2.6.38-2.dmz.2-liquorix-686 booting (SOLVED)</a></div>
+<div class="pagination">
+30 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_20145" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20145">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20145">
+<time datetime="2011-04-16T00:53">posted: 2011-04-16 &nbsp; 00:53</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20145" title="permalink">#1</a></span>
+
+<div class="content">Ok. Ran smxi. short story in code below. AntiX 11 latest full iso. Panasonic CF-48 Laptop. Stock Mepis Kernel is OK as backup. Just trying to figure out why and maybe learn something<br>
+<br>
+/var/log/boot.0 has
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Fri Apr 15 18:58:35 2011: Checking file systems...fsck from util-linux-ng 2.17.2
+Fri Apr 15 18:58:35 2011: fsck.ext3: No such file or directory while trying to open /dev/hda4
+Fri Apr 15 18:58:35 2011: /dev/hda4: 
+Fri Apr 15 18:58:35 2011: The superblock could not be read or does not describe a correct ext2
+Fri Apr 15 18:58:35 2011: filesystem.  If the device is valid and it really contains an ext2
+Fri Apr 15 18:58:35 2011: filesystem (and not swap or ufs or something else), then the superblock
+Fri Apr 15 18:58:35 2011: is corrupt, and you might try running e2fsck with an alternate superblock:
+Fri Apr 15 18:58:35 2011:     e2fsck -b 8193 &lt;device&gt;
+Fri Apr 15 18:58:35 2011: 
+Fri Apr 15 18:58:35 2011: fsck died with exit status 8
+Fri Apr 15 18:58:35 2011: ^[[31mfailed (code 8).^[[39;49m
+Fri Apr 15 18:58:35 2011: File system check failed. A log is being saved in /var/log/fsck/checkfs if that location is writable. Please repair the file system manually. ... ^[[31mfailed!^[[39;49m
+Fri Apr 15 18:58:35 2011: A maintenance shell will now be started. CONTROL-D will terminate this shell and resume system boot. ... ^[[33m(warning).^[[39;49m
+Fri Apr 15 18:58:35 2011: Give root password for maintenance
+Fri Apr 15 18:58:35 2011: (or type Control-D to continue): 
+Fri Apr 15 18:59:05 2011: ^[[01;31mroot@bikertest3^[[00m:^[[01;34m~^[[00m# reboot</code></pre></div>
+so I skippedity hop over to /var/log/fsck/checkfs and nothing of note there for this happening that I can see.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Log of fsck -C -R -A -a 
+Fri Apr 15 20:02:03 2011
+
+fsck from util-linux-ng 2.17.2
+/dev/hda4: clean, 3000/1463504 files, 234147/5853684 blocks (check after next mount)
+
+Fri Apr 15 20:02:03 2011</code></pre></div>
+also /var/log/fsck/checkroot not much help.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Log of fsck -C -a -t ext3 /dev/hda3 
+Fri Apr 15 20:02:03 2011
+
+fsck from util-linux-ng 2.17.2
+/dev/hda3: clean, 107399/408800 files, 705865/1632605 blocks (check after next mount)
+
+Fri Apr 15 20:02:03 2011</code></pre></div>
+So thinking maybe uid or something <span class="emoticon"> __{{emoticon}}__ </span>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@bikertest3:~$ ls -l /dev/disk/by-uuid
+total 0
+lrwxrwxrwx 1 root root 10 Apr 15  2011 1A20A02E20A01335 -&gt; ../../hda1
+lrwxrwxrwx 1 root root 10 Apr 15  2011 38d34375-a4c6-4fda-bcc7-736eeb487061 -&gt; ../../hda5
+lrwxrwxrwx 1 root root 10 Apr 15  2011 4135d1be-5d75-40b1-bf22-77fca31c6960 -&gt; ../../hda4
+lrwxrwxrwx 1 root root 10 Apr 15  2011 4B5F-B945 -&gt; ../../hda7
+lrwxrwxrwx 1 root root 10 Apr 15  2011 8636ecf8-4f87-4b70-94a0-5a559c4029f1 -&gt; ../../hda3
+lrwxrwxrwx 1 root root 10 Apr 15  2011 93317189-8b9c-440a-9224-0799fa567f9b -&gt; ../../hda6
+</code></pre></div>
+my /boot/grub/menu.lst just showing liqourix,mepis,and Debian boot options.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiX at hda3, kernel 2.6.32-1-mepis-smp
+root (hd0,2)
+kernel /boot/vmlinuz-2.6.32-1-mepis-smp root=/dev/hda3 nomce quiet nosplash vga=normal 
+initrd /boot/initrd.img-2.6.32-1-mepis-smp
+boot
+###UUID KERNEL ENTRIES BELOW######
+title        Debian GNU/Linux, kernel 2.6.32-1-mepis-smp
+root        (hd0,2)
+kernel        /boot/vmlinuz-2.6.32-1-mepis-smp root=UUID=8636ecf8-4f87-4b70-94a0-5a559c4029f1 ro nosplash quiet 
+initrd        /boot/initrd.img-2.6.32-1-mepis-smp
+
+title        Debian GNU/Linux, kernel 2.6.38-2.dmz.2-liquorix-686
+root        (hd0,2)
+kernel        /boot/vmlinuz-2.6.38-2.dmz.2-liquorix-686 root=UUID=8636ecf8-4f87-4b70-94a0-5a559c4029f1 ro nosplash quiet 
+initrd        /boot/initrd.img-2.6.38-2.dmz.2-liquorix-686</code></pre></div>
+Noticed that the UUID's matched including readout from <strong>ls -l /dev/disk/by-uuid</strong><br>
+<br>
+so kinda stymied with this. Older liqourix or even Stevos 2.6.34 vanilla kernel gives me the same symptoms. Am I missing the rattle snake sitting in front of me (old country boy saying when the answer in so obvious if it was a snake it would have bit ya). <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Ya know. I haven't tried booting the Debian GNU/Linux, kernel 2.6.32-1-mepis-smp UUID entries yet. <strong>Edit: Booted up OK</strong> so scratch the <em>Maybe they are no good also</em>. Because antiX at hda3, kernel 2.6.32-1-mepis-smp boots just fine. This has been a ongoing problem with me and AntiX 11 Tests I have done on this Laptop. When I ran 8.5. Stevos vanilla kernel ran OK on this laptop. But not with AntiX 11 (previous tests only).<br>
+<br>
+I don't think this is a /boot/grub/menu.lst problem. Seems more file and kernel related than anything. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20146" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20146">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20146">
+
+<time datetime="2011-04-16T02:27">posted: 2011-04-16 &nbsp; 02:27</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20146" title="permalink">#2</a></span>
+
+<div class="content">Since last post. Deleted Liqourix via smxi. Installed Debian 2.6.38-2 Kernel. No good result with it either. Same error.<br>
+<br>
+/dev/hda4 is where /home sits. /dev/hda3 is where / sits. Busting my chops. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+So uninstalled Debian 2.6.38-2. At least I am getting in some smxi practise. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Staying with Mepis 2.6.32 for now. Maybe one of you smarter guys can enlighten this Neanderthal Linux User.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20148" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20148">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner"> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20148">
+
+<time datetime="2011-04-16T08:31">posted: 2011-04-16 &nbsp; 08:31</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20148" title="permalink">#3</a></span>
+
+<div class="content">Use the MEPIS kernel, then in a root terminal<br>
+<br>
+update-initramfs -u -t -k all<br>
+<br>
+Sometimes the initrd doesn't get updated causing booting to fail.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20152" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20152">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">rokytnji</a> </span> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20152">
+
+<time datetime="2011-04-16T19:56">posted: 2011-04-16 &nbsp; 19:56</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20152" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Use the MEPIS kernel, then in a root terminal<br>
+<br>
+update-initramfs -u -t -k all<br>
+<br>
+Sometimes the initrd doesn't get updated causing booting to fail.</div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>biker@bikertest3:~$ sux
+Password: 
+root@bikertest3:/home/biker# apt-get autoremove
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  linux-headers-2.6.38-2-common linux-kbuild-2.6.38
+0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.
+After this operation, 24.1 MB disk space will be freed.
+Do you want to continue [Y/n]? y
+(Reading database ... 92906 files and directories currently installed.)
+Removing linux-headers-2.6.38-2-common ...
+Removing linux-kbuild-2.6.38 ...
+root@bikertest3:/home/harry# update-initramfs -u -t -k all
+update-initramfs: Generating /boot/initrd.img-2.6.35-10.dmz.2-liquorix-686
+update-initramfs: Generating /boot/initrd.img-2.6.32-1-mepis-smp
+root@bikertest3:/home/biker# 
+</code></pre></div>
+Tried Liqourix 2.6.35-10 today as you can tell from code readout. Still same boot error even after doing the above suggestion. Nice try, Anti. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I was laying in bed last night and right before passing out I had one of those clarity moments <span class="emoticon"> __{{emoticon}}__ </span> thinking about this. My Liqourix Kernel installs on my EEEPC 701SD and my IBM M41 Desktop does not give me no problems. The difference between them and this Laptop is that /home sits in / instead of it's own partition.<br>
+<br>
+In other words. My Full installs are on only 1 partition instead of 2 partitions where root and home are split up. You noticed in my other posts that /dev/hda4 fails the boot. Which is where /home sits. I am wondering if I do a reinstall. Use gparted during install to merge /dev/hda3 with /dev/hda4. Just simple install. Then try Liqourix. If this will rectify this situation. I can backup changes to /dev/hda7 and it won't be a hassle.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@bikertest3:~$ df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/hda3             6.2G  2.5G  3.4G  43% /
+tmpfs                 632M  4.0K  632M   1% /lib/init/rw
+udev                  628M  236K  628M   1% /dev
+tmpfs                 632M  392K  631M   1% /dev/shm
+/dev/hda4              22G  571M   21G   3% /home
+/dev/hda7              41G  2.8G   38G   7% /mnt/hda7
+
+</code></pre></div>
+<br>
+Am I thinking right? Or just poking and hoping? Sounds plausible to this Neanderthal. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20156" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20156">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">rokytnji</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20156">
+
+<time datetime="2011-04-17T03:13">posted: 2011-04-17 &nbsp; 03:13</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20156" title="permalink">#5</a></span>
+
+<div class="content">Well success. Sort of.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># inxi -F
+System:    Host bikertest3 Kernel 2.6.34-stevo i686 (32 bit) Distro antiX-M11-686 Jayaben Desai 12 April 2011
+CPU:       Single core Intel Pentium 4 Mobile (-UP-) cache 512 KB flags (sse sse2) bmips 3190.26 clocked at 1600.00 MHz 
+Graphics:  Card ATI Radeon Mobility M7 LW [Radeon Mobility 7500] X.org 1.9.5 Res: 80x24 Gfx Data: N/A for root 
+Audio:     Card Intel 82801CA/CAM AC'97 Audio Controller driver Intel ICH at ports 1c00 1880 BusID: 00:1f.5
+           Sound: Advanced Linux Sound Architecture Version 1.0.22.1
+Network:   Card-1 Intel PRO/Wireless 2915ABG [Calexico2] Network Connection BusID: 02:03.0
+           Card-2 Realtek RTL-8139/8139C/8139C+ driver 8139too v: 0.9.28 at port 4400 BusID: 02:02.0
+Disks:     HDD Total Size: 100.0GB (16.4% used) 1: /dev/hda FUJITSU MHU2100AT 100.0GB 
+Partition: ID:/ size: 6.2G used: 2.5G (43%) fs: ext3 ID:/home size: 22G used: 651M (4%) fs: ext3 
+           ID:swap-1 size: 1.55GB used: 0.00GB (0%) fs: swap 
+Info:      Processes 100 Uptime 13 min Memory 224.7/1262.6MB Runlevel 5 Client Shell inxi 1.4.23 
+</code></pre></div>
+Using 2.6.34 Stevo vanilla kernel again. Did not change/reinstall Antix. You'll notice wireless driver ipw2200 is missing.<br>
+<br>
+So I thought no biggy.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># modprobe ipw2200
+FATAL: Module ipw2200 not found.
+</code></pre></div>
+Nothing seems easy for me.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-cache policy firmware-ipw2x00 
+firmware-ipw2x00:
+  Installed: 0.29
+  Candidate: 0.29
+  Version table:
+ *** 0.29 0
+        500 http://ftp.us.debian.org/debian/ testing/non-free i386 Packages
+        100 /var/lib/dpkg/status
+</code></pre></div>
+So I go looking in smxi for ipw2200 kernel module but it does not show there either. I guess Stevo left it out of kernel. Just my dumb luck I guess. But I am closer I guess.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># uname -r
+2.6.34-stevo
+</code></pre></div>
+Sheesh.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20164" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20164">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20164">
+
+<time datetime="2011-04-17T15:24">posted: 2011-04-17 &nbsp; 15:24</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20164" title="permalink">#6</a></span>
+
+<div class="content">rok,<br>
+<br>
+I have the same wireless in my Dell 700m, I intend to put the newest antiX11 on it today, and will try the liquorix kernel and see if I get the same thing, will update here when done.<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20176" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20176">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20176">
+
+<time datetime="2011-04-18T01:19">posted: 2011-04-18 &nbsp; 01:19</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20176" title="permalink">#7</a></span>
+
+<div class="content">rok,<br>
+<br>
+I am not sure what went wrong on your rig, but as you can see from the screenshot I am running the liquorix kernel and it's working fine with my wireless<br>
+2915abg.<br>
+<br>
+<a href="http://img171.imageshack.us/i/69552c0d42e4ca521ec3e06.jpg/" class="postlink"><img src="http://img171.imageshack.us/img171/8823/69552c0d42e4ca521ec3e06.th.jpg" class="postimage" alt="Image"></a><br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20177" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20177">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20177">
+
+<time datetime="2011-04-18T01:32">posted: 2011-04-18 &nbsp; 01:32</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20177" title="permalink">#8</a></span>
+
+<div class="content">Are you running 1 partition or 2 partitions?<br>
+<br>
+Edit: Sorry for being cryptic <span class="emoticon"> __{{emoticon}}__ </span> . I had to run out while posting.<br>
+<br>
+Are you running /home inside of root or outside of root on it's own partition?<br>
+<br>
+Reason I ask is I can't swear to it (been awhile ago). But I think I ran into the same problem on my EEEPC 900 also which has Antix / on one SSD hardrive. /home on secondary SSD hardrive. I just never posted about it, is all. Same on my IBM A22m. Stevo kernel OK on it but Liqourix never booted and I run it the same with /home outside of root.<br>
+<br>
+This laptop only has one hardrive but exhibits the same booting errors with /home sitting outside of root. So that is why I ask. Your Conky image shows 14gig for root so guessing 1 partition but not sure if assumption is correct is all.<br>
+<br>
+Starting to look like a reinstall may be in order for me with just one big partition instead of splitting things up.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20179" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20179">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20179">
+
+<time datetime="2011-04-18T13:40">posted: 2011-04-18 &nbsp; 13:40</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20179" title="permalink">#9</a></span>
+
+<div class="content">Rok,<br>
+<br>
+Yes, your correct only 1 partition, I used to use separate partitions, for /home and /root, but stopped doing that some time ago.<br>
+You checked your /etc/fstab, as well as /boot/grub/device.map to make sure all was in sync?<br>
+<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20182" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20182">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20182">
+
+<time datetime="2011-04-18T14:18">posted: 2011-04-18 &nbsp; 14:18</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20182" title="permalink">#10</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+/dev/hda3 / ext3 defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+/dev/hda4 /home ext3 defaults,noatime 1 2
+# Dynamic entries below
+/dev/hda1 /mnt/hda1 ntfs-3g auto,users,gid=users,dmask=002,fmask=113,relatime 0 0
+/dev/hda5 swap swap sw,pri=1 0 0
+/dev/hda6 /mnt/hda6 ext3 auto,users,exec,relatime 0 0
+/dev/hda7 /mnt/hda7 vfat auto,users,gid=users,dmask=002,fmask=113,relatime 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/hdc /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0</code></pre></div>
+Never checked /boot/device/.map. Learn something new every day. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20184" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20184">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20184">
+
+<time datetime="2011-04-18T20:21">posted: 2011-04-18 &nbsp; 20:21</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20184" title="permalink">#11</a></span>
+
+<div class="content">Bit the bullet and reinstalled . Merged /home and / into one partition. Ran smxi and ran dist-upgrade (wasn't large). Installed Liqourix kernel and guess what. <strong>It boots</strong>. So the problem must have had to do with running 2 partitions in AntiX (does not matter if it is 8.5 or 11). At least for me.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@bikertest3:~$ inxi -F
+System:    Host bikertest3 Kernel 2.6.38-3.dmz.1-liquorix-686 i686 (32 bit) Distro antiX-M11-686 Jayaben Desai 12 April 2011
+CPU:       Single core Intel Pentium 4 Mobile (-UP-) cache 512 KB flags (sse sse2) bmips 3190.57 clocked at 1600.00 MHz 
+Graphics:  Card ATI Radeon Mobility M7 LW [Radeon Mobility 7500] X.Org 1.9.5 Res: 1024x768@60.0hz 
+           GLX Renderer Mesa DRI R100 (RV200 4C57) 20090101 x86/MMX/SSE2 TCL DRI2 GLX Version 1.3 Mesa 7.10 Direct Rendering Yes
+Audio:     Card Intel 82801CA/CAM AC'97 Audio Controller driver Intel ICH at ports 1c00 1880 BusID: 00:1f.5
+           Sound: Advanced Linux Sound Architecture Version 1.0.23
+Network:   Card-1 Intel PRO/Wireless 2915ABG [Calexico2] Network Connection driver ipw2200 v: 1.2.2kmprq BusID: 02:03.0
+           Card-2 Realtek RTL-8139/8139C/8139C+ driver 8139too v: 0.9.28 at port 4400 BusID: 02:02.0
+Disks:     HDD Total Size: 100.0GB (2.5% used) 1: /dev/sda FUJITSU_MHU2100A 100.0GB 
+Partition: ID:/ size: 29G used: 2.4G (9%) fs: ext3 ID:swap-1 size: 1.55GB used: 0.00GB (0%) fs: swap 
+Info:      Processes 97 Uptime 17 min Memory 134.2/1262.5MB Runlevel 5 Client Shell inxi 1.4.23 </code></pre></div>
+On this install. I got confused for a bit. Seems because I had the wired connection plugged in. My configuration for eth0 and eth1 got switched around. Wireless is now eth0. Wired is eth1. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Now to reconfigure menus, install some stuff like pianobar, skype, iron browser. All I saved was my Horizontal ~/.conkyrc . Never checked the /boot/grub/device.map before reinstall (got ahead of myself and forgot). Thanks for the feedback OHH. I was wondering about 2 partitions vs 1 partition earlier.<br>
+<br>
+EDIT: P.S. I did all of this as a test for anybody reading this. Just tinkering like I do on motorcycles. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20186" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20186">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20186">
+
+<time datetime="2011-04-19T01:03">posted: 2011-04-19 &nbsp; 01:03</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20186" title="permalink">#12</a></span>
+
+<div class="content">Lol. Strange stuff indeed. Try this out OHH. Do a fdisk -l in 2.6.32-1-mempis and then boot to 2.6.38 liqourix and do a fdisk -l. /dev/hdx in 2.6.32 turns into /dev/sdx in 2.6.38. At least for my install. Might have to blow away mepis kernel and run 2 liqourix kernels to get a coherent /etc/fstab/.<br>
+<br>
+Hate to do that though as the 2.6.32 kernel seems to work better (what I am posting in now).<br>
+My acpi entry in 2.6.38 in conky won't show the temp. It shows the temp in 2.6.32 though.<br>
+<br>
+2.6.38 does not like the /etc/fstab entries for 2.6.32 also. Can't win for losing <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20190" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20190">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20190">
+
+<time datetime="2011-04-19T11:14">posted: 2011-04-19 &nbsp; 11:14</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20190" title="permalink">#13</a></span>
+
+<div class="content">rok,<br>
+<br>
+You've stumbled on something that has got me scratching my head, the naming conventions are the same on my rig, ie hda on mepis, sda w/liquorix, furthermore, I could not mount partitions 1, or 4 when using liquroix. I know I ran into this a long time ago, but I can't seem to recall what I did to straighten out the mess.<br>
+plus using Mepis kernel, run inxi -F shows ext4 (which it is) and with the liquorix kernel ext2 ??? Huh. Defiantly something strange here. Probably just oldtimers disease showing itself for me <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20191" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20191">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20191">
+
+<time datetime="2011-04-19T11:39">posted: 2011-04-19 &nbsp; 11:39</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20191" title="permalink">#14</a></span>
+
+<div class="content">Post your fstab and use uuid rather than /sd or hd via blkid</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20193" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20193">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20193">
+
+<time datetime="2011-04-19T13:19">posted: 2011-04-19 &nbsp; 13:19</time>
+<span class="permalink"><a href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055.html#p20193" title="permalink">#15</a></span>
+
+<div class="content">Ok, anti, guess my notes are not too good.<br>
+Here's my fstab, with this one rox will mount hda1 &amp; hda4 Thunar will not! Also, if I boot to the liquorix kernel, no swap, no mounts on hda1 or hda4<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+/dev/hda3 / ext4 defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+# Dynamic entries below
+/dev/hda1 /mnt/hda1 ext3 noauto,users,exec,relatime 0 0
+/dev/hda2 swap swap sw,pri=1 0 0
+/dev/hda4 /mnt/hda4 ext3 noauto,users,exec,relatime 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/hdc /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+</code></pre></div>
+tried this fstab no joy<br>
+<br>
+UUID=1d646d5b-80ca-45c7-97b1-8bfee239217f /media/disk1part1 ext3 auto,users,rw,exec,noatime 0 2<br>
+<br>
+UUID=920fa68f-9927-4ff1-94d3-ad50223761ed none swap sw 0 0<br>
+<br>
+UUID= d890b0f0-0ebb-4cff-9aa4-dddedca0f036 / ext4 defaults,errors=remount-ro,noatime 0 2<br>
+<br>
+UUID=c4c70069-f194-4662-a29c-d416547aff3a /media/disk1part4 ext3 auto,users,rw,exec,noatime 0 1<br>
+<br>
+/dev/cdrom /media/cdrom udf,iso9660 noauto,ro,users 0 0<br>
+<br>
+This made no difference, Mepis kernel still booted &amp; liq kernel, but no mounting,<br>
+I'm sure that it is something simple (like my brain) <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+30 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./smxi-kernel-2-6-38-2-dmz-2-liquorix-686-booting-so-t3055-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

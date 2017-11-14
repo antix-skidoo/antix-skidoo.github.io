@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Antix boot goes to command prompt. No desktop - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-boot-goes-to-command-prompt-no-desktop-t4565.html">Antix boot goes to command prompt. No desktop</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_30827" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30827">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">lo2lo2a</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30827">
+<time datetime="2013-08-24T08:44">posted: 2013-08-24 &nbsp; 08:44</time>
+<span class="permalink"><a href="./antix-boot-goes-to-command-prompt-no-desktop-t4565.html#p30827" title="permalink">#1</a></span>
+
+<div class="content">i want to have auto login so i found this <br>
+post12322.html<br>
+<br>
+and i did what is written there .. i am a begginer and i like to try so i didnot understand what was in this article i just add the command lines<br>
+and when i restart i could not get to the normal desktop <br>
+<br>
+i have a very old computer with 265 mb ram <br>
+i tried to add slim by <br>
+apt-get install slim but that didnot help <br>
+<br>
+can any one help</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30829" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30829">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30829">
+
+<time datetime="2013-08-24T11:13">posted: 2013-08-24 &nbsp; 11:13</time>
+<span class="permalink"><a href="./antix-boot-goes-to-command-prompt-no-desktop-t4565.html#p30829" title="permalink">#2</a></span>
+
+<div class="content">Hi<br>
+<blockquote class="uncited"><div>and when i restart i could not get to the normal desktop</div></blockquote>
+I suppose you get the login prompt<br>
+login as root<br>
+then start slim
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># slim</code></pre></div>
+probably you will get an error<br>
+have a look at slim.log, maybe you get this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ more /var/log/slim.log 
+/usr/bin/xauth:  file /var/run/slim.auth does not exist
+</code></pre></div>
+Fix:<br>
+edit /etc/slim.conf<br>
+uncomment default_user and auto_login lines and change user name:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#auto_login          yes
+# default user, leave blank or remove this line
+# for avoid pre-loading the username.
+#default_user        demo
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>auto_login          yes
+# default user, leave blank or remove this line
+# for avoid pre-loading the username.
+default_user        your-user-name
+</code></pre></div>
+and restart you computer</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30832" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30832">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">lo2lo2a</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30832">
+
+<time datetime="2013-08-24T16:26">posted: 2013-08-24 &nbsp; 16:26</time>
+<span class="permalink"><a href="./antix-boot-goes-to-command-prompt-no-desktop-t4565.html#p30832" title="permalink">#3</a></span>
+
+<div class="content">thank you for your help ... but that didnot work <br>
+when i put more /var/log/slim.log i got <br>
+slim : waiting for X srever to begin accepting connection<br>
+slim: pam_authentication () : Authentication failure<br>
+slim: waiting for X server to shutdown <br>
+slim : wating .......<br>
+please help me again .. thank you</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30833" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30833">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30833">
+
+<time datetime="2013-08-24T17:38">posted: 2013-08-24 &nbsp; 17:38</time>
+<span class="permalink"><a href="./antix-boot-goes-to-command-prompt-no-desktop-t4565.html#p30833" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>lo2lo2a wrote:</cite>i want to have auto login so i found this <br>
+post12322.html</div></blockquote>
+That first post is over five years old. It is woefully out of date. The last post in that thread gives the correct instructions which I repeat here in detail:<br>
+<br>
+Undo whatever you did***. That should let you log in normally. After you do that you just need to enable auto_login in slim. Go to the antiX Control Centre, either by selecting"Control Center" in the taskbar at the bottom of the screen or by navigating the desktop menu:<br>
+<br>
+Applications --&gt; Other --&gt; antiXCC<br>
+<br>
+In the Control Centre, select: System --&gt; Edit Config Files<br>
+<br>
+Select the slim.conf file and uncomment the"auto_login" line. Make sure the default_user is set to your user name.<br>
+<br>
+***In order to undo what you did you will have to work from a virtual console. You can give yourself more resolution with the vga boot code. vga=795 will give you 1280x1024. vga=792 will give you 1024x768. It will be slightly easier if you log into the console as root. If your"apt-get install slim" worked then running:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/etc/init.d/slim start</code></pre></div>should start X-windows. If it doesn't then try installing slim again with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update
+apt-get install slim</code></pre></div>then try starting slim again via the instructions directly above.<br>
+<br>
+If that works then you have to add slim back in to the init system. This line should do it but I have not tested it here:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-rc.d slim start 19 2 5 stop 01 0 1 6</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30834" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30834">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">lagopus</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30834">
+
+<time datetime="2013-08-24T20:21">posted: 2013-08-24 &nbsp; 20:21</time>
+<span class="permalink"><a href="./antix-boot-goes-to-command-prompt-no-desktop-t4565.html#p30834" title="permalink">#5</a></span>
+
+<div class="content">@ BitJam<br>
+<br>
+I experienced a different problem on a <strong>fresh</strong> install of 13-rc1 on hard drive: slim does not start.<br>
+From slim.log:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>slim: waiting for X server to begin accepting connections.
+slim: waiting for X server to begin accepting connections.
+slim: open_session: Unable to open session: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+</code></pre></div>
+It seems that dbus is not ready when slim starts.<br>
+There is a thread about it, saying that it is no more necessary to invoke dbus-launch like this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># login_cmd exec dbus-launch /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors 2&gt;&amp;1</code></pre></div>
+slim fails to start at boot on the very first time<br>
+On successive boots, everything goes smoothly.<br>
+<br>
+Note that I got also errors/warnings at the very first boot after install, about /run not existing.<br>
+These errors disappear on subsequent boots.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30835" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30835">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">lo2lo2a</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30835">
+
+<time datetime="2013-08-25T08:19">posted: 2013-08-25 &nbsp; 08:19</time>
+<span class="permalink"><a href="./antix-boot-goes-to-command-prompt-no-desktop-t4565.html#p30835" title="permalink">#6</a></span>
+
+<div class="content">it worked .. thank you BitJam <br>
+and about the auto login what lagopus told me before made me auto login when the desktop was back ... thanks to him <br>
+<br>
+is there a list of problems about antix that i can search in it so i see it before i ask? because i tried to search about my problem in google and i didnot find an answer .</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

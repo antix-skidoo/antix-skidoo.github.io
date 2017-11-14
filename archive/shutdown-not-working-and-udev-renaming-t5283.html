@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Shutdown not working and udev renaming - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./shutdown-not-working-and-udev-renaming-t5283.html">Shutdown not working and udev renaming</a></div>
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_37094" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37094">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37094">
+<time datetime="2014-09-26T13:44">posted: 2014-09-26 &nbsp; 13:44</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37094" title="permalink">#1</a></span>
+
+<div class="content">Latest dist-upgrade last night. Then another this morning for just iceweasel and btrfs-tools.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ sux
+Password: 
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+root@biker:/home/harry# apt-get dist-upgrade
+Reading package lists... Done
+Building dependency tree        
+Reading state information... Done
+Calculating upgrade... The following package was automatically installed and is no longer required:
+  libspeechd2
+Use 'apt-get autoremove' to remove it.
+Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+</code></pre></div>
+No errors. This is going to be a long winded post. 1st. I lost all icons with a reboot. GTK was broken like bad. No text in right click in synaptic. No text in tool bar in synaptic. Icewm toolbar blank. I posted that fix here.<br>
+post37084.html#p37084<br>
+<br>
+Next problem. Shutdown quit working on extantix.sh<br>
+sudo halt stops the screen at"reboot:halt" and just sits there till the power button is pressed to kill the power.<br>
+<br>
+So I did some editing.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sux
+Password: 
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+root@biker:/ etc/sudoers.d# cat antixers
+# sudoers file.
+ 
+%users ALL=(root) NOPASSWD: /sbin/halt 
+
+%users ALL=(root) NOPASSWD: /sbin/poweroff
+
+%users ALL=(root) NOPASSWD: /sbin/shutdown
+
+%users ALL=(root) NOPASSWD: /sbin/reboot  
+
+%users ALL=(root) NOPASSWD: /sbin/blkid 
+
+%users ALL=(root) NOPASSWD: /sbin/fdisk.distrib 
+
+%users ALL=(root) NOPASSWD: /usr/bin/ceni 
+
+%users ALL=(root) NOPASSWD: /usr/bin/rox 
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-config
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-save 
+
+%users ALL=(root) NOPASSWD: /usr/sbin/minstall 
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/connectshares.sh
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/disconnectshares.sh 
+
+Defaults env_keep +="RESTARTED"
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/update-default-desktop
+root@biker:/ etc/sudoers.d# 
+</code></pre></div>
+My exitantix.sh<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash 
+# File Name: exitantiX.sh
+# Purpose: exit script from fluxbox and icewm
+# Authors: OU812 and minor modifications by anticapitalista
+# Latest Change: 20 August 2008
+# Latest Change: 02 January 2009
+# Latest Change: 24 October 2011 Localisation/internationalisation added by anticapitalista/BitJam 
+# Latest Change: 23 September 2012 ICON function
+######################################################################################################
+
+TEXTDOMAINDIR=/usr/share/locale 
+TEXTDOMAIN=exitantix.sh
+ICONS=/usr/share/icons/antiX-1
+
+export LOGOUT=$(cat &lt;&lt;End_of_Text
+
+&lt;window title="`gettext $"Log Out"`" window-position="1"&gt;
+
+&lt;vbox&gt;
+  &lt;frame&gt;
+  &lt;hbox&gt;
+    &lt;vbox&gt;
+      &lt;hbox&gt;
+        &lt;button&gt;
+        &lt;input file&gt;"$ICONS/lock.svg"&lt;/input&gt;
+        &lt;action&gt;EXIT:lock_antix&lt;/action&gt;
+        &lt;/button&gt;
+        &lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Lock Screen"`"&lt;/label&gt;&lt;/text&gt;
+      &lt;/hbox&gt;
+      &lt;hbox&gt;
+        &lt;button&gt;
+        &lt;input file&gt;"$ICONS/hibernate.svg"&lt;/input&gt;
+        &lt;action&gt;EXIT:hibernate_antix&lt;/action&gt;
+        &lt;/button&gt;
+        &lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Hibernate"`"&lt;/label&gt;&lt;/text&gt;
+      &lt;/hbox&gt;
+      &lt;hbox&gt;
+        &lt;button&gt;
+        &lt;input file&gt;"$ICONS/reboot.svg"&lt;/input&gt;
+        &lt;action&gt;EXIT:reboot_antix&lt;/action&gt;
+        &lt;/button&gt;
+        &lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Reboot"`"&lt;/label&gt;&lt;/text&gt;
+      &lt;/hbox&gt;
+    &lt;/vbox&gt;
+
+    &lt;vbox&gt;
+      &lt;hbox&gt;
+        &lt;button&gt;
+        &lt;input file&gt;"$ICONS/logout.svg"&lt;/input&gt;
+        &lt;action&gt;EXIT:logout_antix&lt;/action&gt;
+        &lt;/button&gt;
+        &lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Log Out"`"&lt;/label&gt;&lt;/text&gt;
+      &lt;/hbox&gt;
+      &lt;hbox&gt;
+        &lt;button&gt;
+        &lt;input file&gt;"$ICONS/suspend.svg"&lt;/input&gt;
+        &lt;action&gt;EXIT:suspend_antix&lt;/action&gt;
+        &lt;/button&gt;
+        &lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Suspend"`"&lt;/label&gt;&lt;/text&gt;
+      &lt;/hbox&gt;
+      &lt;hbox&gt;
+        &lt;button&gt;
+        &lt;input file&gt;"$ICONS/shutdown.svg"&lt;/input&gt;
+        &lt;action&gt;EXIT:shutdown_antix&lt;/action&gt;
+        &lt;/button&gt;
+        &lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Shutdown"`"&lt;/label&gt;&lt;/text&gt;
+      &lt;/hbox&gt;
+    &lt;/vbox&gt;
+  &lt;/hbox&gt;
+  &lt;/frame&gt;
+&lt;/vbox&gt;
+  
+&lt;/window&gt;
+End_of_Text
+)
+
+I=$IFS; IFS=""
+for STATEMENTS in  $(gtkdialog --program LOGOUT); do
+  eval $STATEMENTS
+done
+IFS=$I
+
+read_id_file() {
+    FILE_ID=
+    local file=$1:${DISPLAY%.[0-9]}
+    local pid=$(cat $file 2&gt;/dev/null)
+    test -r $file; local ret=$?
+    rm -f $file
+    if [ $ret != 0 ]; then
+        echo"Could not find/read file: $file"
+        return 1
+    fi
+
+    if [ -z"$pid" ]; then
+        echo"Empty file: $file"
+        return 1
+    fi
+    FILE_ID=$pid
+    return 0
+}
+
+kill_list() {
+    local cmd pid list=$1
+    local gdad=$(grep  ^PPid: /proc/$PPID/status | cut -f2)
+    for pid in $list; do
+        cmd=$(cat /proc/$pid/comm 2&gt;/dev/null)
+        case $pid in
+            $$|$PPID|$gdad) continue ;;
+        esac
+        ["$cmd" ] &amp;&amp; echo"kill $cmd"
+        kill $pid 2&gt;/dev/null
+    done
+}
+
+list_group() {
+    local pgid=$1  save=$2
+    ["$pgid" ] || return
+    for pid in $(pgrep -g $pgid); do
+        ["$pid" ="$save" ] &amp;&amp; continue
+        echo -n"$pid"
+    done
+}
+
+clean_logout() {
+    sdir=$HOME/.antix-session
+    
+    read_id_file $sdir/xinitrc-pid || return 1
+    local wm_pid=$FILE_ID
+
+    local wm_prog=$(cat /proc/$wm_pid/comm 2&gt;/dev/null)
+    local wm_pgid=$(cut -d"" -f5 /proc/$wm_pid/stat)
+
+    echo -e"\n----------------------------------------------------------------"
+    echo"${0##*/} ($$): clean logout from session: $wm_prog"
+
+    read_id_file $sdir/startup-pgid
+    local st_pgid=$FILE_ID
+
+    local list=$(list_group"$st_pgid""$wm_pid")
+    if [ -n"$list" -a"$st_pgid" !="$wm_pgid" ]; then
+        echo"Kill possible startup orphans ($st_pgid): $list"
+        kill_list"$list"
+    fi
+
+    ps x -o pid,ppid,pgid,user,cmd
+
+    list=$(list_group"$wm_pgid""$wm_pid")
+    if ["$list" ]; then
+        echo"Kill possible xinitrc orphans ($wm_pgid): $list"
+        kill_list"$list"
+    fi
+
+    list=$(echo $(pgrep -P $wm_pid | tac) $wm_pid)
+    if ["$list" ]; then
+        echo"Kill remaining processes: $list"
+        kill_list"$list"
+    fi
+
+    list=$(echo $(pgrep -P $wm_pid | tac) $wm_pid)
+    [ -d /proc/$wm_pid/ ] || return 0
+    sleep 1
+    [ -d /proc/$wm_pid/ ] || return 0
+    echo"Finally kill $wm_prog"
+    kill -9 $wm_pid
+    return 0
+}
+
+if ["$EXIT" ="lock_antix" ] ; then
+    xlock
+fi
+
+if ["$EXIT" ="logout_antix" ] ; then
+
+    if clean_logout &gt;&amp;2; then
+        echo"${0##*/}: exit"
+        echo -e"----------------------------------------------------------------\n"
+        exit
+
+    elif [ $USER != root -a $UID != 0 ]; then
+        echo"As a last resort, kill all \"$USER\" user processes" &gt;&amp;2
+        pkill -U $USER
+    fi
+fi
+
+if ["$EXIT" ="reboot_antix" ] ; then
+    if which persist-config &amp;&gt; /dev/null; then
+        sudo persist-config --shutdown --command reboot
+    else
+        sudo reboot
+    fi
+fi
+
+if ["$EXIT" ="hibernate_antix" ] ; then
+    dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate
+fi
+
+if ["$EXIT" ="suspend_antix" ] ; then
+    dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend
+fi
+
+if ["$EXIT" ="shutdown_antix" ] ; then
+    if which persist-config &amp;&gt; /dev/null; then
+        sudo persist-config --shutdown --command halt
+    else
+        sudo poweroff
+    fi
+fi
+</code></pre></div>
+sudo poweroff works in terminal. But in exitantix.sh. It gives the same<br>
+stop at text screen during shutdown. reboot:halt. But sudo poweroff in terminal shuts me down in just a few seconds.<br>
+<br>
+Moving on in the next post to weird udev messages while editing files like I show above. Edited in my post"root@biker:/ etc/sudoers.d#"<br>
+in code block from"root@biker<em>:/</em>etc/sudoers.d#"<br>
+(without the quotation marks) because of forum bug"Forbidden You don't have permission to access /posting.php on this server."</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37095" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37095">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37095">
+
+<time datetime="2014-09-26T13:54">posted: 2014-09-26 &nbsp; 13:54</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37095" title="permalink">#2</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ gksu spacefm
+EXEC(/usr/share/applications/leafpad.desktop)=leafpad %f
+udev changed: /dev/sdb
+&lt;snip&gt;
+udev changed: /dev/sdb
+Gtk-Message: (for origin information, set GTK_DEBUG): failed to retrieve property `GtkRange::activate-slider' of type `gboolean' from rc file value"((GString*) 0x913ea90)" of type `GString'
+EXEC(/usr/share/applications/leafpad.desktop)=leafpad %f
+udev changed: /dev/sdb
+udev changed: /dev/sdb
+&lt;snip&gt;
+udev changed: /dev/sdb
+</code></pre></div>
+I have no /dev/sdb physically plugged in or mounted<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$  lsblk -f
+NAME   FSTYPE LABEL MOUNTPOINT
+sda                 
+`-sda1              /
+harry@biker:~
+$ blkid
+bash: blkid: command not found
+harry@biker:~
+$ sux
+Password: 
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+root@biker:/home/harry# blkid
+/dev/sda1: LABEL="/" UUID="dfe6cc48-1f85-47b5-a8ce-a7ea94b42f4b" TYPE="ext2" 
+harry@biker:~
+$  ls -l /dev/disk/by-label
+total 0
+lrwxrwxrwx 1 root root 10 Sep 26 08:06 \x2f -&gt; ../../sda1
+</code></pre></div>
+As he scratches his head. I have other breakage but I don't want to overwhelm this thread. It has to do with non working antixcc&gt;system&gt;edit config files. Geany will not open up with that button.<br>
+<br>
+For right now. I am living with
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo poweroff </code></pre></div>
+in terminal to shutdown.<br>
+I am ignoring the /dev/sdb renaming bug as it does not seem to effect anything. The edit config files button in antixcc I can slip by on my own<br>
+traveling a different opath by
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>gksu geany</code></pre></div>
+What a dist-upgrade. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37096" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37096">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37096">
+
+<time datetime="2014-09-26T14:09">posted: 2014-09-26 &nbsp; 14:09</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37096" title="permalink">#3</a></span>
+
+<div class="content">As per chat using the arch wiki for system.d recommended by Anti.<br>
+I did some more editing.<br>
+exitantix.sh now says
+<blockquote class="uncited"><div>
+#!/bin/bash <br>
+# File Name: exitantiX.sh<br>
+# Purpose: exit script from fluxbox and icewm<br>
+# Authors: OU812 and minor modifications by anticapitalista<br>
+# Latest Change: 20 August 2008<br>
+# Latest Change: 02 January 2009<br>
+# Latest Change: 24 October 2011 Localisation/internationalisation added by anticapitalista/BitJam <br>
+# Latest Change: 23 September 2012 ICON function<br>
+######################################################################################################<br>
+<br>
+TEXTDOMAINDIR=/usr/share/locale <br>
+TEXTDOMAIN=exitantix.sh<br>
+ICONS=/usr/share/icons/antiX-1<br>
+<br>
+export LOGOUT=$(cat &lt;&lt;End_of_Text<br>
+<br>
+&lt;window title="`gettext $"Log Out"`" window-position="1"&gt;<br>
+<br>
+&lt;vbox&gt;<br>
+&lt;frame&gt;<br>
+&lt;hbox&gt;<br>
+&lt;vbox&gt;<br>
+&lt;hbox&gt;<br>
+&lt;button&gt;<br>
+&lt;input file&gt;"$ICONS/lock.svg"&lt;/input&gt;<br>
+&lt;action&gt;EXIT:lock_antix&lt;/action&gt;<br>
+&lt;/button&gt;<br>
+&lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Lock Screen"`"&lt;/label&gt;&lt;/text&gt;<br>
+&lt;/hbox&gt;<br>
+&lt;hbox&gt;<br>
+&lt;button&gt;<br>
+&lt;input file&gt;"$ICONS/hibernate.svg"&lt;/input&gt;<br>
+&lt;action&gt;EXIT:hibernate_antix&lt;/action&gt;<br>
+&lt;/button&gt;<br>
+&lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Hibernate"`"&lt;/label&gt;&lt;/text&gt;<br>
+&lt;/hbox&gt;<br>
+&lt;hbox&gt;<br>
+&lt;button&gt;<br>
+&lt;input file&gt;"$ICONS/reboot.svg"&lt;/input&gt;<br>
+&lt;action&gt;EXIT:reboot_antix&lt;/action&gt;<br>
+&lt;/button&gt;<br>
+&lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Reboot"`"&lt;/label&gt;&lt;/text&gt;<br>
+&lt;/hbox&gt;<br>
+&lt;/vbox&gt;<br>
+<br>
+&lt;vbox&gt;<br>
+&lt;hbox&gt;<br>
+&lt;button&gt;<br>
+&lt;input file&gt;"$ICONS/logout.svg"&lt;/input&gt;<br>
+&lt;action&gt;EXIT:logout_antix&lt;/action&gt;<br>
+&lt;/button&gt;<br>
+&lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Log Out"`"&lt;/label&gt;&lt;/text&gt;<br>
+&lt;/hbox&gt;<br>
+&lt;hbox&gt;<br>
+&lt;button&gt;<br>
+&lt;input file&gt;"$ICONS/suspend.svg"&lt;/input&gt;<br>
+&lt;action&gt;EXIT:suspend_antix&lt;/action&gt;<br>
+&lt;/button&gt;<br>
+&lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Suspend"`"&lt;/label&gt;&lt;/text&gt;<br>
+&lt;/hbox&gt;<br>
+&lt;hbox&gt;<br>
+&lt;button&gt;<br>
+&lt;input file&gt;"$ICONS/shutdown.svg"&lt;/input&gt;<br>
+&lt;action&gt;EXIT:shutdown_antix&lt;/action&gt;<br>
+&lt;/button&gt;<br>
+&lt;text use-markup="true" width-chars="15"&gt;&lt;label&gt;"`gettext $"Shutdown"`"&lt;/label&gt;&lt;/text&gt;<br>
+&lt;/hbox&gt;<br>
+&lt;/vbox&gt;<br>
+&lt;/hbox&gt;<br>
+&lt;/frame&gt;<br>
+&lt;/vbox&gt;<br>
+<br>
+&lt;/window&gt;<br>
+End_of_Text<br>
+)<br>
+<br>
+I=$IFS; IFS=""<br>
+for STATEMENTS in $(gtkdialog --program LOGOUT); do<br>
+eval $STATEMENTS<br>
+done<br>
+IFS=$I<br>
+<br>
+read_id_file() {<br>
+FILE_ID=<br>
+local file=$1:${DISPLAY%.[0-9]}<br>
+local pid=$(cat $file 2&gt;/dev/null)<br>
+test -r $file; local ret=$?<br>
+rm -f $file<br>
+if [ $ret != 0 ]; then<br>
+echo"Could not find/read file: $file"<br>
+return 1<br>
+fi<br>
+<br>
+if [ -z"$pid" ]; then<br>
+echo"Empty file: $file"<br>
+return 1<br>
+fi<br>
+FILE_ID=$pid<br>
+return 0<br>
+}<br>
+<br>
+kill_list() {<br>
+local cmd pid list=$1<br>
+local gdad=$(grep ^PPid: /proc/$PPID/status | cut -f2)<br>
+for pid in $list; do<br>
+cmd=$(cat /proc/$pid/comm 2&gt;/dev/null)<br>
+case $pid in<br>
+$$|$PPID|$gdad) continue ;;<br>
+esac<br>
+["$cmd" ] &amp;&amp; echo"kill $cmd"<br>
+kill $pid 2&gt;/dev/null<br>
+done<br>
+}<br>
+<br>
+list_group() {<br>
+local pgid=$1 save=$2<br>
+["$pgid" ] || return<br>
+for pid in $(pgrep -g $pgid); do<br>
+["$pid" ="$save" ] &amp;&amp; continue<br>
+echo -n"$pid"<br>
+done<br>
+}<br>
+<br>
+clean_logout() {<br>
+sdir=$HOME/.antix-session<br>
+<br>
+read_id_file $sdir/xinitrc-pid || return 1<br>
+local wm_pid=$FILE_ID<br>
+<br>
+local wm_prog=$(cat /proc/$wm_pid/comm 2&gt;/dev/null)<br>
+local wm_pgid=$(cut -d"" -f5 /proc/$wm_pid/stat)<br>
+<br>
+echo -e"\n----------------------------------------------------------------"<br>
+echo"${0##*/} ($$): clean logout from session: $wm_prog"<br>
+<br>
+read_id_file $sdir/startup-pgid<br>
+local st_pgid=$FILE_ID<br>
+<br>
+local list=$(list_group"$st_pgid""$wm_pid")<br>
+if [ -n"$list" -a"$st_pgid" !="$wm_pgid" ]; then<br>
+echo"Kill possible startup orphans ($st_pgid): $list"<br>
+kill_list"$list"<br>
+fi<br>
+<br>
+ps x -o pid,ppid,pgid,user,cmd<br>
+<br>
+list=$(list_group"$wm_pgid""$wm_pid")<br>
+if ["$list" ]; then<br>
+echo"Kill possible xinitrc orphans ($wm_pgid): $list"<br>
+kill_list"$list"<br>
+fi<br>
+<br>
+list=$(echo $(pgrep -P $wm_pid | tac) $wm_pid)<br>
+if ["$list" ]; then<br>
+echo"Kill remaining processes: $list"<br>
+kill_list"$list"<br>
+fi<br>
+<br>
+list=$(echo $(pgrep -P $wm_pid | tac) $wm_pid)<br>
+[ -d /proc/$wm_pid/ ] || return 0<br>
+sleep 1<br>
+[ -d /proc/$wm_pid/ ] || return 0<br>
+echo"Finally kill $wm_prog"<br>
+kill -9 $wm_pid<br>
+return 0<br>
+}<br>
+<br>
+if ["$EXIT" ="lock_antix" ] ; then<br>
+xlock<br>
+fi<br>
+<br>
+if ["$EXIT" ="logout_antix" ] ; then<br>
+<br>
+if clean_logout &gt;&amp;2; then<br>
+echo"${0##*/}: exit"<br>
+echo -e"----------------------------------------------------------------\n"<br>
+exit<br>
+<br>
+elif [ $USER != root -a $UID != 0 ]; then<br>
+echo"As a last resort, kill all \"$USER\" user processes" &gt;&amp;2<br>
+pkill -U $USER<br>
+fi<br>
+fi<br>
+<br>
+if ["$EXIT" ="reboot_antix" ] ; then<br>
+if which persist-config &amp;&gt; /dev/null; then<br>
+sudo persist-config --shutdown --command reboot<br>
+else<br>
+sudo reboot<br>
+fi<br>
+fi<br>
+<br>
+if ["$EXIT" ="hibernate_antix" ] ; then<br>
+dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate<br>
+fi<br>
+<br>
+if ["$EXIT" ="suspend_antix" ] ; then<br>
+dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend<br>
+fi<br>
+<br>
+if ["$EXIT" ="shutdown_antix" ] ; then<br>
+if which persist-config &amp;&gt; /dev/null; then<br>
+sudo persist-config --shutdown --command halt<br>
+else<br>
+<span style="text-decoration: underline">sudo systemctl poweroff</span><br>
+fi<br>
+fi</div></blockquote>
+<br>
+antixers in sudoers.d now says<br>
+<blockquote class="uncited"><div># sudoers file.<br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/halt <br>
+<span style="text-decoration: underline"><br>
+%users ALL=(root) NOPASSWD: /usr/bin/systemctl poweroff,/usr/bin/systemctl halt</span><br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/poweroff<br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/shutdown<br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/reboot <br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/blkid <br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/fdisk.distrib <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/bin/ceni <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/bin/rox <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-config<br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-save <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/sbin/minstall <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/connectshares.sh<br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/disconnectshares.sh <br>
+<br>
+Defaults env_keep +="RESTARTED"<br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/update-default-desktop</div></blockquote>
+<br>
+arch link<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/allow_users_to_shutdown"<br>linktext was:"https://wiki.archlinux.org/index.php/al ... o_shutdown"<br>====================================<br>
+<br>
+<br>
+Going to shutdown. Hope I fixed it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37097" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37097">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37097">
+
+<time datetime="2014-09-26T14:23">posted: 2014-09-26 &nbsp; 14:23</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37097" title="permalink">#4</a></span>
+
+<div class="content">Naw. No joy. Still stuck at reboot:Shutdown halt<br>
+<br>
+at text screen exiting. I was asked what I was running so to clarify<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ inxi -r
+Repos:     Active apt sources in file: / etc/apt/sources.list.d/antix.list
+           deb http://antix.daveserver.info/testing testing main
+           Active apt sources in file: / etc/apt/sources.list.d/debian.list
+           deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+           deb http://security.debian.org/ testing/updates main contrib non-free
+           Active apt sources in file: / etc/apt/sources.list.d/various.list
+           deb http://mozilla.debian.net/ experimental iceweasel-beta
+           deb http://www.duinsoft.nl/pkg debs all
+</code></pre></div>
+The machine<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ inxi -zv7
+System:    Host: biker Kernel: 3.12.1-antix.1-486-smp i686 (32 bit gcc: 4.7.3) 
+           Desktop: IceWM 1.3.7 dm: slim 
+           Distro: antiX-13_386-full Luddite 01 June 2013 
+Machine:   System: manda product: Intel powered classmate PC v: Gen 1.5L
+           Mobo: N/A model: N/A
+           Bios: American Megatrends v: CM94515A.86A.0024.2008.0715.1716 date: 07/15/2008
+CPU:       Single core Intel Core N270 (-HT-) cache: 512 KB
+           flags: (nx pae sse sse2 sse3 ssse3) bmips: 3191 
+           Clock Speeds: 1: 1600 MHz 2: 1600 MHz
+Graphics:  Card: Intel Mobile 945GSE Express Integrated Graphics Controller
+           bus-ID: 00:02.0 chip-ID: 8086:27ae
+           Display Server: X.Org 1.16.0.901 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1024x600@53.33hz
+           GLX Renderer: Mesa DRI Intel 945GME x86/MMX/SSE2
+           GLX Version: 2.1 Mesa 10.2.6 Direct Rendering: Yes
+Audio:     Card Intel NM10/ICH7 Family High Definition Audio Controller 
+           driver: snd_hda_intel bus-ID: 00:1b.0 chip-ID: 8086:27d8 
+           Sound: ALSA v: k3.12.1-antix.1-486-smp
+Network:   Card: Realtek RTL8101E/RTL8102E PCI Express Fast Ethernet controller
+           driver: r8169 v: 2.3LK-NAPI port: ec00
+           bus-ID: 01:00.0 chip-ID: 10ec:8136
+           IF: eth1 state: down mac: &lt;filter&gt;
+           WAN IP: &lt;filter&gt; IF: eth1 ip: N/A ip-v6: N/A 
+           IF: wlan1 ip: &lt;filter&gt; ip-v6: &lt;filter&gt; 
+Drives:    HDD Total Size: 63.3GB (55.8% used)
+           ID-1: /dev/sda model: KingSpec_KSD size: 63.3GB serial: ZF18613012400045
+           Optical: No optical drives detected.
+Partition: ID-1: / size: 59G used: 33G (60%) fs: ext2 dev: /dev/sda1 
+           label: / uuid: dfe6cc48-1f85-47b5-a8ce-a7ea94b42f4b
+RAID:      No RAID data: /proc/mdstat missing-is md_mod kernel module loaded?
+Unmounted: No unmounted partitions detected
+Sensors:   System Temperatures: cpu: 64.0C mobo: N/A 
+           Fan Speeds (in rpm): cpu: N/A 
+Info:      Processes: 98 Uptime: 5 min Memory: 252.9/2014.9MB 
+           Init: systemd v: 208 runlevel: 5 default: 5 
+           Gcc sys: 4.9.1 alt: 4.4/4.7/4.8 
+           Client: Shell (bash 4.3.251 running in roxterm) inxi: 2.1.29 
+</code></pre></div>
+No deal breaking going on yet. I can live with
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo poweroff</code></pre></div>
+on this netbook. I just thought I would start this thread in case any other testing or unstable users run into this grief.<br>
+<br>
+Anything with<em> /</em>etc <br>
+edited due to forum bug mentioned in previous posting. So if anyone hitch hikes into this thread and posts their stuff and gets the"Forbidden" page.<br>
+<br>
+Well, it is not like I did not warn ya.<br>
+Semper Gumby = Always Flexible<br>
+<span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37099" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37099">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37099">
+
+<time datetime="2014-09-26T22:24">posted: 2014-09-26 &nbsp; 22:24</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37099" title="permalink">#5</a></span>
+
+<div class="content">Figured I'd take a photo of where shutdown hangs no matter what I put in exitantix,sh.<br>
+Same command in terminal
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo sytemctl poweroff</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo poweroff</code></pre></div>
+works though outside of the gui shutdown buttons in terminal.<br>
+<br>
+<a href="http://postmyimage.com/img2/934_netbook.JPG" class="postlink"><img src="http://postmyimage.com/img2/934_netbook_tn.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Direct link below<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://postmyimage.com/img2/934_netbook.JPG"<br>linktext was:"http://postmyimage.com/img2/934_netbook.JPG"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37104" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37104">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37104">
+
+<time datetime="2014-09-27T10:03">posted: 2014-09-27 &nbsp; 10:03</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37104" title="permalink">#6</a></span>
+
+<div class="content">Did you not ask here for a solution?<br>
+<br>
+post36399.html#p36399<br>
+<br>
+Or, is it not?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37105" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37105">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37105">
+
+<time datetime="2014-09-27T11:07">posted: 2014-09-27 &nbsp; 11:07</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37105" title="permalink">#7</a></span>
+
+<div class="content">male - that works ok with sysvinit, but not with systemd (which roky probably got 'upgraded' to without it being his choice.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37107" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37107">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37107">
+
+<time datetime="2014-09-27T15:47">posted: 2014-09-27 &nbsp; 15:47</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37107" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite>Did you not ask here for a solution?<br>
+<br>
+post36399.html#p36399<br>
+<br>
+Or, is it not?</div></blockquote>
+@male, yeah. That was the 1st thing I thought of and tried."sudo poweroff" was the 1st edit I tried in my previous post. I can see how one can miss that <br>
+as this is a long winded, boring ass thread.<br>
+<br>
+Right now just living woth"sudo systemctl poweroff" using roxterm/urxvt to shut down. <br>
+Right now, I guess I am the bug stuck to the windsheild as far as systemd and exitantix.sh is concerned.<br>
+<br>
+At least it is nice and breezy stuck to the windshield. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37109" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37109">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37109">
+
+<time datetime="2014-09-27T17:07">posted: 2014-09-27 &nbsp; 17:07</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37109" title="permalink">#9</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># cat /var/log/apt/term.log</code></pre></div>would provide clarity
+<blockquote><div><cite>roky wrote:</cite>harry@biker:~<br>
+$ inxi -zv7<br>
+System: Host: biker Kernel: 3.12.1-antix.1-486-smp i686 (32 bit gcc: 4.7.3) <br>
+Desktop: IceWM 1.3.7 dm: slim <br>
+Distro: antiX-13_386-full Luddite 01 June 2013 ]</div></blockquote>
+Presumably, it is up to Slim<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forum.siduction.org/index.php?topic=4593.msg37978#msg37978"<br>linktext was:"http://forum.siduction.org/index.php?to ... 8#msg37978"<br>====================================<br>
+<br>
+(first part of the thread)<br>
+<br>
+That's why I hedged myself with firstonce<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>male@antiX132:~
+$ apt-mark showhold
+conky
+conky-all
+slim
+sysvinit-core</code></pre></div>I think it is always not a good idea to a running system with sisvinit to change according to systemd. <br>
+Only problems. <br>
+If systemd, then from the beginning!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37626" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37626">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37626">
+
+<time datetime="2014-10-23T08:51">posted: 2014-10-23 &nbsp; 08:51</time>
+<span class="permalink"><a href="./shutdown-not-working-and-udev-renaming-t5283.html#p37626" title="permalink">#10</a></span>
+
+<div class="content">Please, check this: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forums.debian.net/viewtopic.php?f=6&amp;t=117788"<br>linktext was:"http://forums.debian.net/viewtopic.php?f=6&amp;t=117788"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

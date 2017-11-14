@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Installing a frugal install of Antix - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html">Installing a frugal install of Antix</a></div>
+<div class="pagination">
+31 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./installing-a-frugal-install-of-antix-t4928.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./installing-a-frugal-install-of-antix-t4928.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./installing-a-frugal-install-of-antix-t4928-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./installing-a-frugal-install-of-antix-t4928-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34184" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34184">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34184">
+<time datetime="2014-03-25T15:44">posted: 2014-03-25 &nbsp; 15:44</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34184" title="permalink">#16</a></span>
+
+<div class="content">I tried both of the options you suggested. I received a file error as soon as I selected it in the grub menu on startup.<br>
+<br>
+This is where my frugal install is located:<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>randy@antiX3000:/
+$ ls
+antix13.2  boot  etc   lib         media  opt   root  sbin     sys  usr
+bin        dev   home  lost+found  mnt    proc  run   selinux  tmp  var
+randy@antiX3000:/
+$ cd antix13.2/
+randy@antiX3000:/antix13.2
+$ ls
+initrd.gz  linuxfs  vmlinuz
+randy@antiX3000:/antix13.2
+$ 
+
+</code></pre></div>
+I will try using the uuid in my grub entry as suggested and post back.<br>
+<br>
+Here is my menu.lst file:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 5
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+
+title  antiX at sda4, kernel 3.7.10-antix.5-486-smp
+root   (hd0,3)
+kernel /boot/vmlinuz-3.7.10-antix.5-486-smp root=/dev/sda4 quiet
+initrd /boot/initrd.img-3.7.10-antix.5-486-smp
+boot
+
+title AntiX Linux Frugal
+root(0,3)
+kernel /antiX-13.2/vmlinuz quiet bdir=antiX-13.2 from=hd antiX=MLX
+initrd /antiX-13.2/initrd.gz
+
+title AntiX Linux Frugal
+root(0,3)
+kernel /antiX-13.2/vmlinuz quiet bdir=antiX-13.2 bdev=sda4 antiX=MLX
+initrd /antiX-13.2/initrd.gz
+title  CrunchBang GNU/Linux, with Linux 3.2.0-4-486
+root   (hd0,1)
+kernel /boot/vmlinuz-3.2.0-4-486 root=UUID=8dd05fe1-471c-4c8e-972e-ff0549c9a810 ro quiet
+initrd /boot/initrd.img-3.2.0-4-486
+
+### BEGIN AUTOMAGIC KERNELS LIST
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified
+## by the debian update-grub script except for the default options below
+
+## DO NOT UNCOMMENT THEM, Just edit them to your needs
+
+## ## Start Default Options ##
+## default kernel options
+## default kernel options for automagic boot options
+## If you want special options for specific kernels use kopt_x_y_z
+## where x.y.z is kernel version. Minor versions can be omitted.
+## e.g. kopt=root=/dev/hda1 ro
+##      kopt_2_6_8=root=/dev/hdc1 ro
+##      kopt_2_6_8_2_686=root=/dev/hdc2 ro
+# kopt=root=UUID=b1e8c66b-048d-4bfe-9d9c-958c0b6abf68 ro
+# kopt_2_6=root=UUID=b1e8c66b-048d-4bfe-9d9c-958c0b6abf68 ro nosplash quiet
+
+## default grub root device
+## e.g. groot=(hd0,0)
+# groot=(hd0,3)
+
+## should update-grub create alternative automagic boot options
+## e.g. alternative=true
+##      alternative=false
+# alternative=true
+
+## should update-grub lock alternative automagic boot options
+## e.g. lockalternative=true
+##      lockalternative=false
+# lockalternative=false
+
+## additional options to use with the default boot option, but not with the
+## alternatives
+## e.g. defoptions=vga=791 resume=/dev/hda5
+# defoptions=
+
+## should update-grub lock old automagic boot options
+## e.g. lockold=false
+##      lockold=true
+# lockold=false
+
+## Xen hypervisor options to use with the default Xen boot option
+# xenhopt=
+
+## Xen Linux kernel options to use with the default Xen boot option
+# xenkopt=console=tty0
+
+## altoption boot targets option
+## multiple altoptions lines are allowed
+## e.g. altoptions=(extra menu suffix) extra boot options
+##      altoptions=(single-user) single
+# altoptions=(init-3) 3
+
+## controls how many kernels should be put into the menu.lst
+## only counts the first occurence of a kernel, not the
+## alternative kernel options
+## e.g. howmany=all
+##      howmany=7
+# howmany=all
+
+## should update-grub create memtest86 boot option
+## e.g. memtest86=true
+##      memtest86=false
+# memtest86=true
+
+## should update-grub adjust the value of the default booted system
+## can be true or false
+# updatedefaultentry=false
+
+## should update-grub add savedefault to the default options
+## can be true or false
+# savedefault=false
+
+## ## End Default Options ##
+
+title        antiX-13.2, kernel 3.7.10-antix.5-486-smp
+root        (hd0,3)
+kernel        /boot/vmlinuz-3.7.10-antix.5-486-smp root=UUID=b1e8c66b-048d-4bfe-9d9c-958c0b6abf68 ro 
+initrd        /boot/initrd.img-3.7.10-antix.5-486-smp
+
+title        antiX-13.2, kernel 3.7.10-antix.5-486-smp (init-3)
+root        (hd0,3)
+kernel        /boot/vmlinuz-3.7.10-antix.5-486-smp root=UUID=b1e8c66b-048d-4bfe-9d9c-958c0b6abf68 ro 3
+initrd        /boot/initrd.img-3.7.10-antix.5-486-smp
+
+title        antiX-13.2, kernel memtest86+
+root        (hd0,3)
+kernel        /boot/memtest86+.bin
+
+### END DEBIAN AUTOMAGIC KERNELS LIST
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34185" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34185">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34185">
+
+<time datetime="2014-03-25T15:49">posted: 2014-03-25 &nbsp; 15:49</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34185" title="permalink">#17</a></span>
+
+<div class="content">The folder name doesn't match the grub entry.<br>
+<br>
+antiX-13.2 is in grub<br>
+antix13.2 is the folder name.<br>
+<br>
+So change grub entry to antix13.2</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34186" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34186">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34186">
+
+<time datetime="2014-03-25T16:00">posted: 2014-03-25 &nbsp; 16:00</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34186" title="permalink">#18</a></span>
+
+<div class="content">Ya, I picked up on that as well and made the changes. Still doesn't work so I went over the grub entries line by line. Am I still missing something here?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title AntiX Linux Frugal
+root(hd0,3)
+kernel /antiX13.2/vmlinuz quiet bdir=antiX13.2 from=hd antiX=MLX
+initrd /antiX13.2/initrd.gz
+
+title AntiX Linux Frugal
+root(hd0,3)
+kernel /antiX13.2/vmlinuz quiet bdir=antiX13.2 buuid=b1e8c66b-048d-4bfe-9d9c-958c0b6abf68 antiX=MLX
+initrd /antiX13.2/initrd.gz
+</code></pre></div></div>
+</div>
+</div>
+<div class="back2top">
+
+</div>
+</div>
+</div>
+<div id="p_34187" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34187">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34187">
+
+<time datetime="2014-03-25T16:44">posted: 2014-03-25 &nbsp; 16:44</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34187" title="permalink">#19</a></span>
+
+<div class="content">Try changing from=hd to bdev=sda4<br>
+<br>
+It *might* be the case that grub is unable to boot frugal on the same partition.<br>
+<br>
+What if you copy the antix13. folder to sda2 or sda3 (and change grub entry accordingly)?</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_34188" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34188">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34188">
+
+<time datetime="2014-03-25T16:50">posted: 2014-03-25 &nbsp; 16:50</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34188" title="permalink">#20</a></span>
+
+<div class="content">Good idea. I'll try that and post back.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34189" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34189">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34189">
+
+<time datetime="2014-03-25T16:56">posted: 2014-03-25 &nbsp; 16:56</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34189" title="permalink">#21</a></span>
+
+<div class="content">I moved the antix13.2 folder to the root of sda1. What exactly do I have to change in the grub entry? Thanks!!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34190" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34190">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34190">
+
+<time datetime="2014-03-25T16:59">posted: 2014-03-25 &nbsp; 16:59</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34190" title="permalink">#22</a></span>
+
+<div class="content">title AntiX Linux Frugal<br>
+root(hd0,0)<br>
+kernel /antiX13.2/vmlinuz quiet bdir=antiX13.2 from=hd antiX=MLX<br>
+initrd /antiX13.2/initrd.gz<br>
+<br>
+OR<br>
+<br>
+title AntiX Linux Frugal<br>
+root(hd0,0)<br>
+kernel /antiX13.2/vmlinuz quiet bdir=antiX13.2 bdev=sda1 antiX=MLX<br>
+initrd /antiX13.2/initrd.gz</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34191" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34191">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34191">
+
+<time datetime="2014-03-25T17:36">posted: 2014-03-25 &nbsp; 17:36</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34191" title="permalink">#23</a></span>
+
+<div class="content">This is what I get when I click on the modified grub entry upon startup. My guess is that this error is not locating the file needed for this grub entry to work?<br>
+<br>
+Error 15 File Not Found</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34192" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34192">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34192">
+
+<time datetime="2014-03-25T17:52">posted: 2014-03-25 &nbsp; 17:52</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34192" title="permalink">#24</a></span>
+
+<div class="content">Check the folders match to the real name on sda1</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34198" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34198">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34198">
+
+<time datetime="2014-03-25T19:14">posted: 2014-03-25 &nbsp; 19:14</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34198" title="permalink">#25</a></span>
+
+<div class="content">Just a thought, but did you update grub?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34199" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34199">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34199">
+
+<time datetime="2014-03-25T19:20">posted: 2014-03-25 &nbsp; 19:20</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34199" title="permalink">#26</a></span>
+
+<div class="content">No. I just made the changes in the menu.lst file, saved them and rebooted. I will run update grub now and see what happens.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34200" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34200">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34200">
+
+<time datetime="2014-03-25T19:27">posted: 2014-03-25 &nbsp; 19:27</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34200" title="permalink">#27</a></span>
+
+<div class="content">Here is what my folder path looks like.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34201" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34201">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span>  <a href="#" class="username">BitJam</a> </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34201">
+
+<time datetime="2014-03-25T19:55">posted: 2014-03-25 &nbsp; 19:55</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34201" title="permalink">#28</a></span>
+
+<div class="content">As anticapitalista pointed out, I had given you the wrong"root" line. It should be:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root (hd0,3)</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34202" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34202">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34202">
+
+<time datetime="2014-03-25T20:13">posted: 2014-03-25 &nbsp; 20:13</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34202" title="permalink">#29</a></span>
+
+<div class="content">Thanks! So these two entries look OK?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title AntiX Linux Frugal
+root(hd0,3)
+kernel /media/sda1/frugal/vmlinuz quiet bdir=frugal from=hd antiX=MLX
+initrd /media/sda1/frugal/initrd.gz
+
+title AntiX Linux Frugal-uuid
+root(hd0,3)
+kernel /media/sda1/frugal/ quiet bdir=frugal root=UUID=827c423d-4b8e-48b1-9043-78a471251c8d antiX=MLX
+initrd /media/sda1/frugal/initrd.gz</code></pre></div>
+I changed the name of my frugal direcrory to frugal instead of antix13.2 just to keep it simple for now. Do I have to fully qualify the path (kernel and initrd lines) or is /frugal enough?<br>
+<br>
+What is bdir=frugal? Does this part look OK?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34203" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34203">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34203">
+
+<time datetime="2014-03-25T20:31">posted: 2014-03-25 &nbsp; 20:31</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s15.html#p34203" title="permalink">#30</a></span>
+
+<div class="content">I think I got it! I was able to boot into the frugal install. How can I know for sure? Where do we go from here regarding persitent boots? Is this where all the fun starts? <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+31 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./installing-a-frugal-install-of-antix-t4928.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./installing-a-frugal-install-of-antix-t4928.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./installing-a-frugal-install-of-antix-t4928-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./installing-a-frugal-install-of-antix-t4928-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

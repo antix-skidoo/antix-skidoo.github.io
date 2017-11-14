@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-17-b2-full available for public testing - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./news-f23/index.html"><span>News</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./announcements-f15/index.html"><span>Announcements</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html">antiX-17-b2-full available for public testing</a></div>
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-17-b2-full-available-for-public-testing-t7092.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-17-b2-full-available-for-public-testing-t7092.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./antix-17-b2-full-available-for-public-testing-t7092-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-17-b2-full-available-for-public-testing-t7092-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-17-b2-full-available-for-public-testing-t7092-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_52365" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52365">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52365">
+<time datetime="2017-08-04T21:18">posted: 2017-08-04 &nbsp; 21:18</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52365" title="permalink">#16</a></span>
+
+<div class="content"><strong>psalmson,</strong> please start a new thread with your problem. This thread is not for support; it is for debugging problems in antiX-17-beta-2.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52366" class="post has-profile bg1">
+<div class="inner">
+ <dl class="postprofile" id="profile52366">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52366">
+
+<time datetime="2017-08-04T21:33">posted: 2017-08-04 &nbsp; 21:33</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52366" title="permalink">#17</a></span>
+
+<div class="content">I tracked the long delay in starting the network to the 64-bit kernel. There is no delay with the 32-bit kernel. I did a diff of the configs and my guess is the problem is in the 64-bit config:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CONFIG_IPV6=y</code></pre></div>In the 32-bit config it is a module. IIRC, you can get a similar long delay if you add a line like this to /etc/networking/interfaces:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>   iface eth0 inet6 dhcp</code></pre></div>so the timescale does indicate the problem might be related to ipv6.<br>
+<br>
+I have not tested on ipv6. Has anyone? Does it suffice to default to ipv4 on the live system?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52369" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52369">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52369">
+
+<time datetime="2017-08-05T13:25">posted: 2017-08-05 &nbsp; 13:25</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52369" title="permalink">#18</a></span>
+
+<div class="content">I'm in, and it's terrific! Installed on my testing machine, switched to Space-Fluxbox (style: antiXblue-Medium, which goes better with wallpaper IMO), eliminated conky. All working well so far--will dive down later this weekend:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -F
+System:    Host: aao722 Kernel: 4.10.5-antix.1-amd64-smp x86_64 (64 bit)
+           Desktop: Fluxbox 1.3.5 Distro: antiX-17.b2_x64-full keerfa 28 July 2017
+Machine:   Device: laptop System: Acer product: AO722 v: V1.08
+           Mobo: Acer model: JE10-BZ BIOS: Acer v: V1.08 date: 12/06/2011
+Battery    BAT1: charge: 36.5 Wh 89.0% condition: 41.0/44.0 Wh (93%)
+CPU:       Dual core AMD C-60 APU with Radeon HD Graphics (-MCP-) cache: 1024 KB 
+           clock speeds: max: 1000 MHz 1: 1000 MHz 2: 1000 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] Wrestler [Radeon HD 6290]
+           Display Server: X.Org 1.19.2 drivers: ati,radeon (unloaded: modesetting,fbdev,vesa)
+           Resolution: 1366x768@60.02hz
+           GLX Renderer: Gallium 0.4 on AMD PALM (DRM 2.49.0 / 4.10.5-antix.1-amd64-smp, LLVM 3.9.1)
+           GLX Version: 3.3 Mesa 13.0.6
+Audio:     Card-1 Advanced Micro Devices [AMD/ATI] Wrestler HDMI Audio
+           driver: snd_hda_intel
+           Card-2 Advanced Micro Devices [AMD/ATI] SBx00 Azalia (Intel HDA)
+           driver: snd_hda_intel
+           Sound: Advanced Linux Sound Architecture v: k4.10.5-antix.1-amd64-smp
+Network:   Card-1: Qualcomm Atheros AR8152 v2.0 Fast Ethernet driver: atl1c
+           IF: eth0 state: down mac: b8:88:e3:02:80:53
+           Card-2: Qualcomm Atheros AR9485 Wireless Network Adapter driver: ath9k
+           IF: wlan0 state: up mac: 44:6d:57:28:e0:a3
+Drives:    HDD Total Size: 320.1GB (0.9% used)
+           ID-1: /dev/sda model: WDC_WD3200BPVT size: 320.1GB
+Partition: ID-1: / size: 72G used: 2.8G (5%) fs: ext4 dev: /dev/sda2
+Sensors:   System Temperatures: cpu: 64.0C mobo: N/A gpu: 64.0
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 132 Uptime: 14 min Memory: 442.9/3683.0MB
+           Client: Shell (bash) inxi: 2.3.21 
+</code></pre></div>Nice going, people.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52372" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52372">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52372">
+
+<time datetime="2017-08-05T14:39">posted: 2017-08-05 &nbsp; 14:39</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52372" title="permalink">#19</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>I tracked the long delay in starting the network to the 64-bit kernel. There is no delay with the 32-bit kernel. I did a diff of the configs and my guess is the problem is in the 64-bit config:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CONFIG_IPV6=y</code></pre></div>In the 32-bit config it is a module. IIRC, you can get a similar long delay if you add a line like this to /etc/networking/interfaces:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>   iface eth0 inet6 dhcp</code></pre></div>so the timescale does indicate the problem might be related to ipv6.<br>
+<br>
+I have not tested on ipv6. Has anyone? Does it suffice to default to ipv4 on the live system?</div></blockquote>
+<br>
+More problems with the 64 bit kernel: After BitJam's report above, I created a 64bit liveUSB out of beta 2. the touchpad on the lenovo s21e does not work. works with the 32 bit kernel and the debian-stretch default 4.9 kernels, as well as the default 64 bit kernel on antiX 16.2<br>
+<br>
+Given BitJam's findings on the internet issues, and my touchpad, the evidence is pointing to the 64 bit kernel having some problems.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52373" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52373">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52373">
+
+<time datetime="2017-08-05T18:19">posted: 2017-08-05 &nbsp; 18:19</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52373" title="permalink">#20</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>More problems with the 64 bit kernel: After BitJam's report above, I created a 64bit liveUSB out of beta 2. the touchpad on the lenovo s21e does not work. works with the 32 bit kernel and the debian-stretch default 4.9 kernels, as well as the default 64 bit kernel on antiX 16.2</div></blockquote>
+I diffed the kernel config files and noticed that the 64-bit kernel was lacking a lot of hardware support.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52380" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52380">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52380">
+
+<time datetime="2017-08-06T12:20">posted: 2017-08-06 &nbsp; 12:20</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52380" title="permalink">#21</a></span>
+
+<div class="content">In using this command: <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt update &amp;&amp; apt upgrade -y</code></pre></div>...there is a roughly 20-sec lag between the execution of the two commands, tried multiple times and multiple times of day. Not the machine since it works normally on the MX-16 partition; using default repo setup. Anybody else seeing this?<br>
+<br>
+BTW: I have that as a very handy alias:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>alias up="su -c 'apt update &amp;&amp; apt upgrade'"</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52381" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52381">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52381">
+
+<time datetime="2017-08-06T18:15">posted: 2017-08-06 &nbsp; 18:15</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52381" title="permalink">#22</a></span>
+
+<div class="content">Jerry, this article: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.techrepublic.com/article/how-to-fix-the-slow-apt-get-update-issue-on-linux-machines/"<br>linktext was:"How to fix the slow apt-get update issue on Linux machines"<br>====================================<br>
+ says:<blockquote class="uncited"><div>It took quite some time to figure this one out, but the problem lies in IPv6. With IPv6 enabled, the recent network stack seems to stumble at times, especially when attempting to update with apt.</div></blockquote>If you experience the delay on 64-bit but not 32-bit then that would be another clue pointing to ipv6. The article suggests a fix by creating/editing the file /etc/sysctl.conf so it contains:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>net.ipv6.conf.all.disable_ipv6 = 1
+​net.ipv6.conf.default.disable_ipv6 = 1
+​net.ipv6.conf.lo.disable_ipv6 = 1</code></pre></div>
+I will try that fix here to see if it cures my long network delays on the 64-bit system which I suspect are also related to ipv6.<br>
+<br>
+Also, you could try this command"apt update &amp;&amp; echo got here &amp;&amp; apt upgrade -y" to see if the delay is at the end of the update or at the start of the upgrade.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52382" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52382">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52382">
+
+<time datetime="2017-08-06T18:46">posted: 2017-08-06 &nbsp; 18:46</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52382" title="permalink">#23</a></span>
+
+<div class="content">The method mentioned here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://bruteforcelab.com/make-apt-get-use-ipv4-instead-ipv6.html#comment-9403"<br>linktext was:"http://bruteforcelab.com/make-apt-get-u ... mment-9403"<br>====================================<br>
+ might work too.
+<blockquote class="uncited"><div>
+<br>
+The correct way to do it is:<br>
+<br>
+Create a file in <span style="font-size: 100%; line-height: normal">/</span>etc/apt/apt.conf.d/99force-ipv4 or something with content:<br>
+<br>
+Acquire::ForceIPv4 “true”;
+</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52385" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52385">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52385">
+
+<p class="author">
+<a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52385" title="Post"> 06 Aug 2017, 23:12 <span style="padding-left:10px">#24</span></a>
+<time class="hide" datetime="2017-08-06 &nbsp; 23:12">2017-08-06 &nbsp; 23:12</time>
+ </p>
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>Jerry, this article: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.techrepublic.com/article/how-to-fix-the-slow-apt-get-update-issue-on-linux-machines/"<br>linktext was:"How to fix the slow apt-get update issue on Linux machines"<br>====================================<br>
+ says:<blockquote class="uncited"><div>It took quite some time to figure this one out, but the problem lies in IPv6. With IPv6 enabled, the recent network stack seems to stumble at times, especially when attempting to update with apt.</div></blockquote>If you experience the delay on 64-bit but not 32-bit then that would be another clue pointing to ipv6. The article suggests a fix by creating/editing the file /etc/sysctl.conf so it contains:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>net.ipv6.conf.all.disable_ipv6 = 1
+​net.ipv6.conf.default.disable_ipv6 = 1
+​net.ipv6.conf.lo.disable_ipv6 = 1</code></pre></div>
+I will try that fix here to see if it cures my long network delays on the 64-bit system which I suspect are also related to ipv6.<br>
+<br>
+Also, you could try this command"apt update &amp;&amp; echo got here &amp;&amp; apt upgrade -y" to see if the delay is at the end of the update or at the start of the upgrade.</div></blockquote>Before:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo apt update &amp;&amp; echo got here &amp;&amp; sudo apt upgrade -y
+[sudo] password for jb: 
+Hit:1 http://ftp.us.debian.org/debian stretch-updates InRelease
+Hit:2 http://security.debian.org stretch/updates InRelease
+Ign:3 http://ftp.us.debian.org/debian stretch InRelease                  
+Hit:4 http://ftp.us.debian.org/debian stretch Release                    
+Get:5 http://antix.daveserver.info/stretch stretch InRelease [20.7 kB]
+Get:7 http://antix.daveserver.info/stretch stretch/main amd64 Packages [112 kB]
+Fetched 133 kB in 2s (45.5 kB/s)   
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+All packages are up to date.
+got here
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+</code></pre></div>Added the 3 lines, rebooted, no change.<br>
+<br>
+Also tried Kent's solution, still 20 secs. <br>
+<br>
+Finally, ran reload in Synaptic: black box for ~20 secs.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52386" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52386">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52386">
+
+<time datetime="2017-08-07T00:06">posted: 2017-08-07 &nbsp; 00:06</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52386" title="permalink">#25</a></span>
+
+<div class="content"><blockquote><div><cite>Jerry wrote:</cite><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+All packages are up to date.
+got here
+Reading package lists... Done
+...</code></pre></div></div></blockquote>
+Sorry I was unclear. The idea of adding the echo was to see if the delay happened before or after"got here" was printed to the screen.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52387" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52387">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52387">
+
+<time datetime="2017-08-07T02:22">posted: 2017-08-07 &nbsp; 02:22</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52387" title="permalink">#26</a></span>
+
+<div class="content">I just tried live-kernel-updater after adding a kernel and doing a remaster. The routine fails with an"unable to mount" error after choosing the running live device.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52389" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52389">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52389">
+
+<time datetime="2017-08-07T03:01">posted: 2017-08-07 &nbsp; 03:01</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52389" title="permalink">#27</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>I just tried live-kernel-updater after adding a kernel and doing a remaster. The routine fails with an"unable to mount" error after choosing the running live device.</div></blockquote>
+I just ran into that today as well. Change line 319 to:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>        IS_ENCRYPTED=$INITRD_ENCRYPTED</code></pre></div>(add a dollar sign to the right of the equal sign).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52408" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52408">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">Jerry</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52408">
+
+<time datetime="2017-08-07T15:40">posted: 2017-08-07 &nbsp; 15:40</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52408" title="permalink">#28</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite><blockquote><div><cite>Jerry wrote:</cite><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+All packages are up to date.
+got here
+Reading package lists... Done
+...</code></pre></div></div></blockquote>
+Sorry I was unclear. The idea of adding the echo was to see if the delay happened before or after"got here" was printed to the screen.</div></blockquote>
+Before.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52410" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52410">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52410">
+
+<time datetime="2017-08-07T17:17">posted: 2017-08-07 &nbsp; 17:17</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52410" title="permalink">#29</a></span>
+
+<div class="content"><blockquote><div><cite>Jerry wrote:</cite><blockquote><div><cite>BitJam wrote:</cite>Sorry I was unclear. The idea of adding the echo was to see if the delay happened before or after"got here" was printed to the screen.</div></blockquote>Before.</div></blockquote>Oh, that's interesting! That would explain why networking changes don't fix it. I use"apt-get update" and I don't see a delay. Do you get a delay when you run"apt-get update &amp;&amp; echo got here"? I'm wondering if it is a problem with the"apt" command or if it is related to your system.<br>
+<br>
+On 2nd thought, if it is only a 20 second delay then maybe I have just been thinking it was normal and ignoring it. I will let you know.<br>
+<br>
+<strong>edit</strong>: I do *not* get a 20 second delay at the end of"apt-get update".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52415" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52415">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>1,308</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52415">
+
+<time datetime="2017-08-07T20:30">posted: 2017-08-07 &nbsp; 20:30</time>
+<span class="permalink"><a href="./antix-17-b2-full-available-for-public-testing-t7092-s15.html#p52415" title="permalink">#30</a></span>
+
+<div class="content">I've had no luck getting my wireless network to come up right away with the latest 64-bit kernels. Disabling ipv6 via /etc/sysconf.conf did not help. The latest 4.12 kernel did not help. Using the 32-bit kernel works and downgrading the kernel to 4.4.10-antix-sid.1-amd64-smp also worked. I can still test on other hardware and also see if the wired network comes up right away.<br>
+<br>
+When I install a new kernel, three modules fail to recompile: broadcom, ndiswrapper, and virtualbox-guest. The compiler is unhappy with some of the code.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-17-b2-full-available-for-public-testing-t7092.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-17-b2-full-available-for-public-testing-t7092.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./antix-17-b2-full-available-for-public-testing-t7092-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-17-b2-full-available-for-public-testing-t7092-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-17-b2-full-available-for-public-testing-t7092-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

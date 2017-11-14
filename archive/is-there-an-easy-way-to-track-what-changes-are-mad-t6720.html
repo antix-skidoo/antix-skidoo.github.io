@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Is there an easy way to track what changes are made? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html">Is there an easy way to track what changes are made?</a></div>
+<div class="pagination">
+13 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_49233" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49233">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49233">
+<time datetime="2016-11-27T03:45">posted: 2016-11-27 &nbsp; 03:45</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49233" title="permalink">#1</a></span>
+
+<div class="content">I am wanting to be able to reimplement the same changes when I install a new release down the road, so I'm trying to figure out a good way to keep track of what I changed.<br>
+<br>
+Any ideas?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49234" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49234">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49234">
+
+<time datetime="2016-11-27T07:44">posted: 2016-11-27 &nbsp; 07:44</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49234" title="permalink">#2</a></span>
+
+<div class="content">If you are tracking changes to a live antix16, you can create a manifest of all the files (and dirs) residing in the upper overlayfs layer.<br>
+I'm using"root persist" (no homefs exists) so can't speak to what else needs to be considered if homefs is in the mix.<br>
+For rootfs, all the upper layer content resides under /live/aufs-ram/upper/<br>
+sudo user, in terminal:<br>
+<span style="color: green">cd /live/aufs-ram/upper/<br>
+ls -alR&gt;&gt;/tmp/mymanifest.txt</span><br>
+could be used to generate a list, but you probably would want to use multiple ls calls from selected subdirs<br>
+and ignore, for instance, the content under /live/aufs-ram/upper/tmp/<br>
+ps: refer to"man ls" (you might wish to use different switches so that the output is formatted differently)<br>
+<br>
+The above is fairly unwieldy. Sifting through the listed files doesn't help to track"whatall packages were installed".<br>
+<br>
+Live (same when installed to disk, IIRC) a Day1"as issued" package manifest is preinstalled. See:<br>
+<span style="color: green">/usr/share/antiX/installed-packages.txt</span><br>
+On demand, you can create a"debian packages installed as of today" via a command like<br>
+<span style="color: green">sudo dpkg --list &gt;&gt;~installed-packages-detailed.txt</span><br>
+and compare/diff the 2 manifest files to determine what has changed<br>
+(see: shell commands"man diff" and"man uniq", or install a GUI diff viewer e.g."meld" or"diffuse")<br>
+<br>
+Dated logfiles are generated for package operations performed via synaptic<br>
+See: /root/.synaptic/log/*<br>
+and a comprehensive logfile (contains tranactions performed via synaptic as wells as via commandline apt)<br>
+is written to <span style="color: green">/var/log/dpkg.log</span><br>
+If logrotate is in effect (see"man logrotate") you may find multiple sequential logfiles present rather than a single logfile<br>
+<br>
+Toward automating the reconstruction, you can create a shell script and <br>
+as you make customization/changes, add steps to the script, like so:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/KERNELULTRAS/LegacyIce-antiX/blob/master/antiX-15/legacyice.sh"<br>linktext was:"https://github.com/KERNELULTRAS/LegacyI ... gacyice.sh"<br>====================================<br>
+<br>
+^----- FYI, I tested this (as a user) and it worked perfectly in reproducing the author's described outcome.<br>
+<br>
+Are you familiar with the"stat" command?<br>
+<span style="color: green">stat ~/.bashrc</span><br>
+In the output of the stat command, note that each file, each dir, bears multiple timestamps <br>
+indicating dates: Created, LastModified, and LastAccessed<br>
+-=-<br>
+Although the default configuration (antix, same as with most desktop-oriented distros) is sloppy about, or entirely skips, updating the"LastAccessed" timestamp in order to reduce disk I/O operations... we can still put the"find" command to use for time-oriented searches. Examples:<br>
+<span style="color: green">find . -mtime +30&gt;&gt;filelist.txt[/color<br>
+(List all files under current directory modified more than given number of days ago)<br>
+<span style="color: green">find . -mtime 14&gt;&gt;filelist.txt</span><br>
+(List all files under current directory modified within the past 14 days)<br>
+YMMV. You'll notice many misleading (earlier dates preserved, by dpkg installer) ctime and mtime designations<br>
+but dated find operations are still useful e.g."modified more recently than the date I installed this O/S"<br>
+<br>
+it's late. I didn't proofread this post. Hopefully these ideas will at least get ya pointed in the right direction</span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49250" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49250">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49250">
+
+<time datetime="2016-11-27T23:25">posted: 2016-11-27 &nbsp; 23:25</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49250" title="permalink">#3</a></span>
+
+<div class="content">Skidoo, thanks for putting that all down. Yes, its live antiX16-full-386 running persist-all spacefm-icewm desktop. From your answer, I can see you understand why I'd be asking this before I get the out of space message and am forced to remaster, because once I remaster, I can't see what was there separately anymore.<br>
+<blockquote><div><cite>skidoo wrote:</cite>If you are tracking changes to a live antix16, you can create a manifest of all the files (and dirs) residing in the upper overlayfs layer.<br>
+I'm using"root persist" (no homefs exists) so can't speak to what else needs to be considered if homefs is in the mix.<br>
+For rootfs, all the upper layer content resides under /live/aufs-ram/upper/<br>
+sudo user, in terminal:<br>
+<span style="color: green">cd /live/aufs-ram/upper/<br>
+ls -alR&gt;&gt;/tmp/mymanifest.txt</span><br>
+could be used to generate a list, but you probably would want to use multiple ls calls from selected subdirs<br>
+and ignore, for instance, the content under /live/aufs-ram/upper/tmp/<br>
+ps: refer to"man ls" (you might wish to use different switches so that the output is formatted differently)<br>
+<br>
+The above is fairly unwieldy. Sifting through the listed files doesn't help to track"whatall packages were installed".</div></blockquote>
+------------------<br>
+I was thinking of archiving the upper folders before each remaster, and exclude /tmp. I was thinking of just keeping the copies of the persistence files before the remaster, so I could just mount them and drill through them with ncdu and mc. Its too bad ncdu doesn't have an open or view option as that would make it easier. <br>
+------------------<br>
+<blockquote><div><cite>skidoo wrote:</cite>Live (same when installed to disk, IIRC) a Day1"as issued" package manifest is preinstalled. See:<br>
+<span style="color: green">/usr/share/antiX/installed-packages.txt</span><br>
+On demand, you can create a"debian packages installed as of today" via a command like<br>
+<span style="color: green">sudo dpkg --list &gt;&gt;~installed-packages-detailed.txt</span><br>
+and compare/diff the 2 manifest files to determine what has changed<br>
+(see: shell commands"man diff" and"man uniq", or install a GUI diff viewer e.g."meld" or"diffuse")<br>
+<br>
+Dated logfiles are generated for package operations performed via synaptic<br>
+See: /root/.synaptic/log/*<br>
+and a comprehensive logfile (contains tranactions performed via synaptic as wells as via commandline apt)<br>
+is written to <span style="color: green">/var/log/dpkg.log</span><br>
+If logrotate is in effect (see"man logrotate") you may find multiple sequential logfiles present rather than a single logfile.</div></blockquote>
+-------------------------<br>
+The history kept by synaptic is what I used to remember what packages I'd installed since creating the USB flashdrive. I generally don't use dpkg or apt-get to install packages for fear things like menus won't get updated. I am beginning to think I should try to figure out how to create packages and put my changes in them as I go, but I've never done that and would need to learn how, etc.<br>
+-------------------------<br>
+<blockquote><div><cite>skidoo wrote:</cite>Toward automating the reconstruction, you can create a shell script and <br>
+as you make customization/changes, add steps to the script, like so:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/KERNELULTRAS/LegacyIce-antiX/blob/master/antiX-15/legacyice.sh"<br>linktext was:"https://github.com/KERNELULTRAS/LegacyI ... gacyice.sh"<br>====================================<br>
+<br>
+^----- FYI, I tested this (as a user) and it worked perfectly in reproducing the author's described outcome.<br>
+<br>
+Are you familiar with the"stat" command?<br>
+<span style="color: green">stat ~/.bashrc</span><br>
+In the output of the stat command, note that each file, each dir, bears multiple timestamps <br>
+indicating dates: Created, LastModified, and LastAccessed<br>
+-=-<br>
+Although the default configuration (antix, same as with most desktop-oriented distros) is sloppy about, or entirely skips, updating the"LastAccessed" timestamp in order to reduce disk I/O operations... we can still put the"find" command to use for time-oriented searches. Examples:<br>
+<span style="color: green">find . -mtime +30&gt;&gt;filelist.txt[/color<br>
+(List all files under current directory modified more than given number of days ago)<br>
+<span style="color: green">find . -mtime 14&gt;&gt;filelist.txt</span><br>
+(List all files under current directory modified within the past 14 days)<br>
+YMMV. You'll notice many misleading (earlier dates preserved, by dpkg installer) ctime and mtime designations<br>
+but dated find operations are still useful e.g."modified more recently than the date I installed this O/S"<br>
+<br>
+it's late. I didn't proofread this post. Hopefully these ideas will at least get ya pointed in the right direction</span></div></blockquote><span style="color: green"><br>
+-------------------------<br>
+In most cases the last modified date should be ok, I think, as long as I take care to touch anything not installed by a package. I can see where I haven't done that. It would be nice if ncdu displayed the last modified dates.<br>
+<br>
+I looked at the LegacyIce install script, and yes, I have about 1/2 dozen small packages I need to install, and other default ones I could remove. Maybe if I made my other changes into package(s) it would at minimum keep them organized.<br>
+<br>
+Thanks again for the detailed reply. I could tell it was complex, but underestimated it. It shows that I really should try to keep my mods to a minimum in the first place and organize the ones I do make if I want to make migrating them a reasonably easy process.</span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49255" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49255">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49255">
+
+<time datetime="2016-11-28T03:52">posted: 2016-11-28 &nbsp; 03:52</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49255" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div>I was thinking of archiving the upper folders before each remaster, and exclude /tmp.</div></blockquote>I advise against doing so. You'd need to exclude hella more than just tmp<br>
+(<span style="color: green">sudo locate exclude</span> and peruse the paths itemized in the various *.exclude files)
+<blockquote class="uncited"><div>I was thinking of just keeping the copies of the persistence files before the remaster</div></blockquote>Yes! Although I only do it occasionally, manually...<br>
+...could add a line to the persist-save script <span style="color: green">cp blah/blah/rootfs blah/blah/rootfs</span>.time<span style="color: green">stamp</span><br>
+to automatically copy the rootfs file prior to updating its content.<br>
+<br>
+Using on-demand save (vs only at shutdown) it's forensically interesting to see"what files have changed during this session".<br>
+Interesting, as in, install packageX then immediately purge, then examine whether (usually) stray files are left behind.<br>
+You can create a"show me" script (copy and mod the line within persist-save which calls rsync), adding options <strong>vv</strong> (or <strong>vvv</strong> for super-verbose log output) and specify --logfile=/tmp/whatever.txt to have it log every file processed. Thing is, it does blab EVERY file, even those unchanged; begs followup use of a script which parses out the"interesting" lines from the logfile. If you're interested, I'll hunt down the loooong rsync string I hammered out &amp; post it. I never did bother scripting a parser because, on a given run, what was"interesting" often varied.
+<blockquote class="uncited"><div>Its too bad ncdu doesn't have an open or view option as that would make it easier.</div></blockquote>Within mc, clicking"Size" column header sorts by size and F3 commands"view file content".<br>
+The only reason(s) I wound up using ncdu instead of mc:<br>
+-- I too often wound up opening files in vim while nagivating within mc, due to fat-fingered typing<br>
+-- my terminal emulator was grabbing the"F10" keypress intended to exit mc, forcing me to Ctrl+z to exit then killall mc<br>
+<blockquote class="uncited"><div>The history kept by synaptic is what I used to remember what packages I'd installed since creating the USB flashdrive.</div></blockquote>live-remaster does preserve (does not exclude) the /root/.synaptic/log/* files,<br>
+but unless you mod the excludes, live-remaster does not preserve:<br>
+/var/log/apt/history.log<br>
+/var/log/dpkg.log<br>
+<br>
+============<br>
+(unrelated) off-the-cuff tip:<br>
+Prior to running on-demand persist-save, you should close/exit firefox.<br>
+If you do not, you'll likely lose any fresh bookmarks added this session and ff session-restore will (due to overlapping timestamps) discard today's session file(s) at next launch &amp; fallback to restoring the <strong>prior</strong> session.<br>
+============<br>
+<blockquote class="uncited"><div>I generally don't use dpkg or apt-get to install packages for fear things like menus won't get updated.</div></blockquote>In synaptic, search"desktop-session-antix" and view the list of its"Installed Files". Note the references to 'apt.conf.d' ~~ those serve as apt post-install (and post-uninstall) hooks. ALL apt install/uninstall/purge ops trigger the hook, regardless whether performed via commandline or via synaptic, causing the /usr/local/bin/desktop-menu script to be run (which performs the menu updates). Caveat: above I typed"ALL", but I can't recall whether installations performed via gdebi utility will trigger the hook.<br>
+<blockquote class="uncited"><div>Maybe if I made my other changes into package(s) it would at minimum keep them organized.</div></blockquote>stevo or asquerth over at the MX forum 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://forum.mxlinux.org"<br>linktext was:"https://forum.mxlinux.org"<br>====================================<br>
+ could probably coach you, and IIRC their packaging subforum has pinned/stickied tutorial posts. Aside from the time sink, I bristle at the overhead of the packaging files ~~ often larger than than payload being installed. Howabout: a bash script to loop mount your earlier rootfs (as you suggested in another post) which copies into place files and dirs of interest and, ala legacylyte, apt-get installs fresh packages that you have no custom config files for (and/or expect have available updated versions, vs what was installed previously). That, maintaining a simple linear bash script, seems like an easy route.
+<blockquote class="uncited"><div>I really should try to keep my mods to a minimum in the first place</div></blockquote>Well, we've only discussed the persist_all scenario. If you mount an external /home, you could choose that (same) mountpoint, or copy into place its content, into a fresh install. I avoid that (bulk copy into place, reuse same /home content across installs) because much of my"stuffs" gets filed away on external mounts rather than being saved in /home. My approach doesn't feel like I'm striving to"minimize my mods" &amp; I hope you'll arrive at suitably worry-free"recreate it" solution.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49259" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49259">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49259">
+
+<time datetime="2016-11-28T06:11">posted: 2016-11-28 &nbsp; 06:11</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49259" title="permalink">#5</a></span>
+
+<div class="content">I have to think more. I need to reread your thoughts above. Yes, packaging is probably too much effort, but maybe maintaining an archive for scripts and odd files added, like icons to go with the scripts is not unmanageable. I am not adding files daily. I only do it while I'm trying to get things setup, and generally don't mess with it again until it breaks or I need to migrate it, or add a feature I suppose.<br>
+<br>
+I should probably do the update/upgrade, but fear I'll crash it trying. Maybe I should have done the install, then update/upgrade, and then my little installs, and then remastered immediately.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49262" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49262">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49262">
+
+<time datetime="2016-11-28T07:30">posted: 2016-11-28 &nbsp; 07:30</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49262" title="permalink">#6</a></span>
+
+<div class="content">Ok, I did the update and upgrade successfully, then saved persistence, then copied the persist files to another place, then did the remaster. It ran fine. At the end it asks to save persistence files because I have it on semi-automatic, but it shows 1008 meg reported rootfs space, 907 meg total, 957 used, 336 excluded, and 905 meg for required, as though remastering didn't clear it. If I say yes to sync file changes, it will try, but gets an rsync error 11 and fails. I'm worrying that if I try to reboot it will try to copy all that to ram.<br>
+<br>
+Any ideas how to get things back to normal?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49263" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49263">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49263">
+
+<time datetime="2016-11-28T08:28">posted: 2016-11-28 &nbsp; 08:28</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49263" title="permalink">#7</a></span>
+
+<div class="content">I eventually said No and it rebooted, and seemed to come up ok. I had made copies of the persistence files before the update/upgrade, so it should have been easy to get it back to that point if it had failed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49268" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49268">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49268">
+
+<time datetime="2016-11-28T16:39">posted: 2016-11-28 &nbsp; 16:39</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49268" title="permalink">#8</a></span>
+
+<div class="content"><blockquote class="uncited"><div>At the end it asks to save persistence files because I have it on semi-automatic</div></blockquote>Hmm, I'm not sure what you're describing ~~ sounds like you're misattributing the"because" reason. The live-remaster script may ask, conditionally (if it detects persistence is in effect), ask whether you want to re-setup persistence for the remastered o/s. At that juncture, you're free to choose"no" (and I usually do so), electing to defer creation of the savefiles until @boot (setup runs automatically when you choose persist at the bootmenu and persistence has not yet been setup). Alternatively, you might defer setting up persistence until desktop session login and use the GUI tool for setup/resize persistence.<br>
+<br>
+After live-remaster runs, you should find that it has automatically preserved linuxfs, by renaming is to linuxfs<strong>.old</strong><br>
+Similarly, if rootfs exists, live-remaster preserves it (provides an opportunity for rollback) renaming it to rootfs<strong>.old</strong><br>
+If you choose to forego advance persistence setup, live-remaster does not crate a new rootfs file.
+<blockquote class="uncited"><div>I had made copies of the persistence files before the update/upgrade, so it should have been easy to get it back to that point if it had failed.</div></blockquote>Manually copying linuxfs and roofs"just in case" is fine, just understand that those copies are redundant.
+<blockquote class="uncited"><div> but it shows 1008 meg reported rootfs space, 907 meg total, 957 used, 336 excluded, and 905 meg for required, as though remastering didn't clear it. If I say yes to sync file changes, it will try, but gets an rsync error 11 and fails. I'm worrying that if I try to reboot it will try to copy all that to ram.</div></blockquote>Without a screenshot, I'm at a loss to understand what/why. The dialogbox which reported those totals, was it titled"successful" (or"succeeded")... and"rsync error 11" was displayed later?<br>
+<br>
+"907 meg total, 957 used... 905 meg for required"<br>
+Those totals are (necessarily) estimates. If the tool reports"successful", _that_ is what matters.<br>
+<br>
+edit:<br>
+fixed typos</div>
+
+<div class="notice">
+Last edited by <b>skidoo</b> on 29 Nov 2016, 06:14, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49273" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49273">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49273">
+
+<time datetime="2016-11-29T02:09">posted: 2016-11-29 &nbsp; 02:09</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49273" title="permalink">#9</a></span>
+
+<div class="content">At the end of the remaster it asked to reboot and I think I said yes, and that was when it got into trouble.<br>
+<br>
+All is ok now, it looks. Copying to ram was 0 went I just booted. <br>
+<br>
+Yes, I expected it would make backup copies, but I had oodles of space, and was willing to waste a bit of it temporarily and a couple minutes of my time to be sure I wouldn't lose my efforts to that point.<br>
+<br>
+I think I'm all ok at this point. Its been through 2 reboots now and the persistence save option looks back to normal with nothing to do now. I do appreciate you taking time to help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49631" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49631">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49631">
+
+<time datetime="2017-01-02T15:08">posted: 2017-01-02 &nbsp; 15:08</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49631" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>snip...<br>
+The above is fairly unwieldy. Sifting through the listed files doesn't help to track"whatall packages were installed".<br>
+<br>
+Live (same when installed to disk, IIRC) a Day1"as issued" package manifest is preinstalled. See:<br>
+<span style="color: green">/usr/share/antiX/installed-packages.txt</span><br>
+On demand, you can create a"debian packages installed as of today" via a command like<br>
+<span style="color: green">sudo dpkg --list &gt;&gt;~installed-packages-detailed.txt</span><br>
+and compare/diff the 2 manifest files to determine what has changed<br>
+(see: shell commands"man diff" and"man uniq", or install a GUI diff viewer e.g."meld" or"diffuse")
+</div></blockquote>
+I wrote a script that compares the original package list, a saved list (from a backup), and the current list, and creates add and remove lists for each that could be used to feed apt-get to install or purge starting from a fresh install to get to the same packages. <br>
+<br>
+Initially I was thinking to merge the lists back in with version and descriptions to make it readable, but never got there...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#
+!/bin/bash
+
+# pkgschgd.sh - compares original installed packages (saved at /usr/share/antiX/installed-packages.txt)
+#            to current packages list and generates files of pkgschgd.add.txt and pkgschgd.remove.txt
+
+# Should be able to process adds with: xargs -a pkgschgd.add.txt apt-get install
+# Should be able to process removes with: xargs -a pkgschgd.remove.txt apt-get purge
+
+# antix original install package list has no headings or states columns
+# get package names and sort to origf1s
+cp /usr/share/antiX/installed-packages.txt ./
+awk '{print $1}' installed-packages.txt | sort &gt; origf1s
+
+# package list from dpkg -l has headings and states fields in front of package name
+# delete 5 heading lines, delete 1st 4 characters from each line,
+dpkg -l &gt; current.installed-packages.txt
+sed '1,5 d' current.installed-packages.txt | sed 's/^....//g' &gt; currentf
+# get package names and sort to currentfs
+awk '{print $1}' currentf | sort &gt; currentf1s
+# compare 2 sorted files, put adds in one file and removed in another
+comm -2 -3 currentf1s origf1s &gt; pkgschgd.add.txt
+comm -1 -3 currentf1s origf1s &gt; pkgschgd.remove.txt
+
+# saved package list (from backup when system was good) from dpkg -l has headings and states fields in front of package name
+# delete 5 heading lines, delete 1st 4 characters from each line
+if [ -f saved.installed-packages.txt ]
+then
+sed '1,5 d' saved.installed-packages.txt | sed 's/^....//g' &gt; savedf
+# get package names and sort to savedf1s
+awk '{print $1}' savedf | sort &gt; savedf1s
+# compare 2 sorted files, put adds in one file and removed in another
+comm -2 -3 savedf1s origf1s &gt; pkgschgd.adduptosaved.txt
+comm -1 -3 savedf1s origf1s &gt; pkgschgd.removeuptosaved.txt
+# compare 2 sorted files, put adds in one file and removed in another
+comm -2 -3 currentf1s savedf1s &gt; pkgschgd.addedsavedtocurrent.txt
+comm -1 -3 currentf1s savedf1s &gt; pkgschgd.removesavetocurrent.txt
+else
+echo ./saved.installed-packages.txt not found...  If it exists, comparisons will be generated in 3 way mode...  
+fi
+</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49633" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49633">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49633">
+
+<time datetime="2017-01-02T18:05">posted: 2017-01-02 &nbsp; 18:05</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49633" title="permalink">#11</a></span>
+
+<div class="content">Thanks for sharing your script.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Should be able to process adds with: xargs -a pkgschgd.add.txt apt-get install
+# Should be able to process removes with: xargs -a pkgschgd.remove.txt apt-get purge</code></pre></div>Your approach of simply comparing"orig" vs"now" seems more reasonable, more practical. The prospect of munging dpkg.log, transaction by transaction, would be both tedious and would invite error ~~ potentially incomplete, if logrotate has not been in effect... and open-ended (would need to find/open all *.gz acrhived logfiles) if logrotate has been enabled. Adding to the potential confusion, across the months there have been some packages I've removed/reinstalled a dozen or more times, e.g. testing apt update speed against various mirrors.<br>
+<br>
+Instead of reinjecting description, might preserve them by deferring the awk call. Could interactively prompt to ask self during each run whether descriptions are desired in the output and conditionally strip 'em if not wanted during a given run. For my own use, my only immediate amendment to your script would be to cd /tmp atop the script rather than trusting ./ relative paths.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49636" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49636">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49636">
+
+<time datetime="2017-01-02T21:33">posted: 2017-01-02 &nbsp; 21:33</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49636" title="permalink">#12</a></span>
+
+<div class="content">Necessity is the Mother of Invention...<br>
+<br>
+Yes, I've installed and purged many packages, too, and all were"normal" from the repos and I had almost no troubles.<br>
+<br>
+I know better than to install things that don't want to work, that I haven't tried before, from old releases, that give errors, into my main system. LOL, error, error, error... The pain of needing to rebuild and writing and testing the tools to do it will help me remember why I have sacrificial machines here to test things on...<br>
+<br>
+In my attempt to correctly install emelfm from etch, I had to install debian-keyring, which is over 50mb, and it gives nasty warnings if I tell it to remove it.<br>
+<br>
+To fix it, I'm going to take my remastered flashdrive (that's the saved files list) from a month ago, and install from it again, and then add the new packages and remove a couple, and then overlay the gleaned rsync files from /etc, /usr and /lib, overlay all from /home and /root, and hopefully that will just do it.<br>
+<br>
+The reason I trimmed down to just package names was because I didn't want minor version or description differences causing the lists to get longer. I saved the files, but not sure I really need the descriptions that badly, as it doesn't look easy to get them into the other files.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49644" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49644">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49644">
+
+<time datetime="2017-01-03T04:55">posted: 2017-01-03 &nbsp; 04:55</time>
+<span class="permalink"><a href="./is-there-an-easy-way-to-track-what-changes-are-mad-t6720.html#p49644" title="permalink">#13</a></span>
+
+<div class="content">The xargs thing didn't work, but I went into synaptic, did a reload, and pasted in the main packages, and that did work.<br>
+<br>
+So believe it or not my system survived my"save the /home" install from the flashdrive<br>
+<br>
+LOL, if nothing else, I have luck on my side<br>
+<br>
+And to the dev's, kudos, because this thing is pretty darned resilient! To survive my screw-ups is pretty amazing <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Thanks Skidoo, your help and ideas made all the difference...</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+13 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

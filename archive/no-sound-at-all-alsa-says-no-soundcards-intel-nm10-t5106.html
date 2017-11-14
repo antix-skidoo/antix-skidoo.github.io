@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>No sound at all. ALSA says &quot;no soundcards&quot;. Intel NM10/ICH7. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./no-sound-at-all-alsa-says-no-soundcards-intel-nm10-t5106.html">No sound at all. ALSA says &quot;no soundcards&quot;. Intel NM10/ICH7.</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_35797" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35797">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 35</span></div>
+
+</div>
+</div>
+<span class="username">antix_forum_account</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35797">
+<time datetime="2014-05-29T19:21">posted: 2014-05-29 &nbsp; 19:21</time>
+<span class="permalink"><a href="./no-sound-at-all-alsa-says-no-soundcards-intel-nm10-t5106.html#p35797" title="permalink">#1</a></span>
+
+<div class="content">Dear forum<br>
+<br>
+I've had no sound at all in Luddite...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% aplay /usr/share/sounds/alsa/Noise.wav
+ALSA lib confmisc.c:768:(parse_card) cannot find card '0'
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_card_driver returned error: No such file or directory
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1251:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:4727:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2239:(snd_pcm_open_noupdate) Unknown PCM default
+aplay: main:722: audio open error: No such file or directory
+~%
+</code></pre></div>
+The install was done some weeks ago, but it's only now that I have some<br>
+time to think about it. It's an antiX-base...<br>
+<br>
+The <em>alsa-info.sh</em> script says this 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.alsa-project.org/db/?f=e3fdc8fbc52080dad85fe0d023f83fc5a902b11d"<br>linktext was:"http://www.alsa-project.org/db/?f=e3fdc ... c5a902b11d"<br>====================================<br>
+<br>
+<br>
+These are some infos on the system...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% inxi -z -c 15 -A
+Audio:     Card: Intel NM10/ICH7 Family High Definition Audio Controller Sound: ALSA ver: k3.7.10-antix.4-amd64-smp
+~%
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% lsmod | grep snd
+snd_seq_oss            23853  1
+snd_seq_midi_event      4509  1 snd_seq_oss
+snd_rawmidi            15803  0
+snd_seq                41867  2 snd_seq_midi_event,snd_seq_oss
+snd_seq_device          4546  3 snd_seq,snd_rawmidi,snd_seq_oss
+snd_timer              15560  1 snd_seq
+snd                    49827  5 snd_timer,snd_seq,snd_rawmidi,snd_seq_oss,snd_seq_device
+soundcore               4355  1 snd
+~%
+</code></pre></div>
+From this thread<br>
+system-can-t-find-this-laptop-s-soundcard-t4675.html<br>
+I got the idea of grepping <em>dmesg</em>...<br>
+<br>
+Both <em>dmesg|grep -i sound</em> and <em>dmesg|grep -i alsa</em> return zero results...<br>
+<br>
+<em>dmesg</em> is saying something about NM10, I have no idea if it's relevant...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% dmesg|grep NM10
+[    8.744602] iTCO_wdt: Found a NM10 TCO device (Version=2, TCOBASE=0x0860)
+~%
+</code></pre></div>
+From a few of the threads about sound in the forum I get the idea for the<br>
+following commandlines...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% sudo alsactl init
+alsactl: init:1758: No soundcards found...
+~%
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% ls -l /dev/snd/
+total 0
+crw-rw----+ 1 root audio 116,  1 May 29 12:39 seq
+crw-rw----+ 1 root audio 116, 33 May 29 12:39 timer
+~%
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% aplay -L
+null
+    Discard all samples (playback) or generate zero samples (capture)
+pulse
+    PulseAudio Sound Server
+~%
+</code></pre></div>
+I'm also running Ubuntu on this computer. There, I can see the following...<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.alsa-project.org/db/?f=c4f937be5e9a9dc253987f3ff6d2e90b5a0bfda8"<br>linktext was:"http://www.alsa-project.org/db/?f=c4f93 ... 0b5a0bfda8"<br>====================================<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dmesg | grep snd
+[    9.834448] snd_hda_intel 0000:00:1b.0: irq 41 for MSI/MSI-X
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod | grep snd
+snd_hda_codec_realtek    50931  1 
+snd_hda_intel          43326  3 
+snd_hda_codec         169608  2 snd_hda_codec_realtek,snd_hda_intel
+snd_hwdep              13276  1 snd_hda_codec
+snd_pcm                94597  2 snd_hda_intel,snd_hda_codec
+snd_seq_midi           13132  0 
+snd_rawmidi            25157  1 snd_seq_midi
+snd_seq_midi_event     14475  1 snd_seq_midi
+snd_seq                55716  2 snd_seq_midi,snd_seq_midi_event
+snd_timer              28930  2 snd_pcm,snd_seq
+snd_seq_device         14137  3 snd_seq_midi,snd_rawmidi,snd_seq
+snd                    61270  16 snd_hda_codec_realtek,snd_hda_intel,snd_hda_codec,snd_hwdep,snd_pcm,snd_seq_midi,snd_rawmidi,snd_seq,snd_timer,snd_seq_device
+soundcore              12600  1 snd
+snd_page_alloc         18398  2 snd_hda_intel,snd_pcm
+</code></pre></div>
+Finally,<br>
+it seems that perhaps a few sound-related processes are running since boot.<br>
+This is what <em>ps aux | grep snd</em> says...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root       402  0.0  0.0   4312   632 ?        S    12:39   0:00 sh -c /sbin/modprobe --ignore-install snd &amp;&amp; { /sbin/modprobe --quiet snd-ioctl32 ; /sbin/modprobe --quiet snd-seq ; : ; }
+root       413  0.0  0.0   5752   740 ?        S    12:39   0:00 /sbin/modprobe --quiet snd-seq
+root       423  0.0  0.0   4312   624 ?        S    12:39   0:00 sh -c /sbin/modprobe --ignore-install snd-rawmidi &amp;&amp; { /sbin/modprobe --quiet snd-seq-midi ; : ; }
+root       428  0.0  0.0   5804   740 ?        D    12:39   0:00 /sbin/modprobe --quiet snd-seq-midi
+root       444  0.0  0.0   5804   636 ?        S    12:39   0:00 /sbin/modprobe -q -- snd-seq-client-14
+rp       17552  0.0  0.0  43948   880 pts/1    S+   13:43   0:00 grep snd
+</code></pre></div>
+(edit1: fix first alsa-project.org link)</div>
+<div class="notice">
+Last edited by <b>antix_forum_account</b> on 30 May 2014, 03:08, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35799" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35799">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35799">
+
+<time datetime="2014-05-29T23:43">posted: 2014-05-29 &nbsp; 23:43</time>
+<span class="permalink"><a href="./no-sound-at-all-alsa-says-no-soundcards-intel-nm10-t5106.html#p35799" title="permalink">#2</a></span>
+
+<div class="content">Well. Eino is better than me on these sound issues.<br>
+<br>
+I guess speaker-test did not work out either?<br>
+<br>
+I also guess (posting from my AntiX 11Debian Sid Base install)<br>
+<br>
+antixcc&gt;hardware&gt;test sound is not working or available in your base install like mine?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~$ inxi -Fxzr
+System:    Host: biker Kernel: 3.12-5.dmz.2-liquorix-686 i686 (32 bit gcc: 4.8.2) 
+           Desktop: Fluxbox 1.3.5 
+           Distro: antiX-M11-base- Jayaben Desai 25 April 2011 
+Machine:   System: GATEWAY product: W3507 v: 500
+           Mobo: Intel model: D102GGC2 v: AAD70214-201
+           Bios: Intel v: GC11020M.15A.2010.2006.0817.0956 date: 08/17/2006
+CPU:       Single core Intel Celeron D CPU (-UP-) cache: 512 KB
+           flags: (lm nx pae sse sse2 sse3) bmips: 6400 clocked at 3200 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] RC410 [Radeon Xpress 200/1100]
+           bus-ID: 01:05.0
+           Display Server: X.Org 1.15.1 driver: radeon
+           Resolution: 1280x1024@60.0hz
+           GLX Renderer: Gallium 0.4 on ATI RC410
+           GLX Version: 2.1 Mesa 10.1.2 Direct Rendering: Yes
+Audio:     Card Advanced Micro Devices [AMD/ATI] IXP SB4x0 High Definition Audio Controller 
+           driver: snd_hda_intel bus-ID: 00:14.2 
+           Sound: ALSA v: k3.12-5.dmz.2-liquorix-686
+Network:   Card: Realtek RTL-8139/8139C/8139C+
+           driver: 8139too v: 0.9.28 port: 1000
+           bus-ID: 02:02.0
+           IF: eth0 state: unknown speed: 100 Mbps duplex: full 
+           mac: &lt;filter&gt;
+Drives:    HDD Total Size: 444.0GB (14.9% used)
+           ID-1: /dev/sda model: ST3120213A size: 120.0GB
+           ID-2: /dev/sdb model: Maxtor_5A320J0 size: 323.9GB
+           ID-1: / size: 109G used: 39G (38%) fs: ext3 dev: /dev/sda1 
+           ID-2: swap-1 size: 2.17GB used: 0.00GB (0%) fs: swap dev: /dev/sda2 
+Sensors:   System Temperatures: cpu: 49.2C mobo: 49.2C 
+           Fan Speeds (in rpm): cpu: 2698 fan-2: 1345 fan-4: 0 
+Repos:     Active apt sources in file: / etc/apt/sources.list
+           deb http://liquorix.net/debian/ sid main
+           Active apt sources in file: / etc/apt/sources.list.d/antix.list
+           deb http://antix.daveserver.info/testing testing main
+           Active apt sources in file: / etc/apt/sources.list.d/debian.list
+           deb http://ftp.us.debian.org/debian/ unstable main contrib non-free
+           deb http://www.deb-multimedia.org unstable main non-free
+Info:      Processes: 105 Uptime: 2 days Memory: 331.5/878.3MB 
+           Init: SysVinit runlevel: 5 Gcc sys: 4.8.3 
+           Client: Shell (bash 4.3.111) inxi: 2.1.20 </code></pre></div>
+<a href="http://postmyimage.com/img2/615_spkr_test.jpg" class="postlink"><img src="http://postmyimage.com/img2/615_spkr_test_tn.jpg" class="postimage" alt="Image"></a></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35802" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35802">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 35</span></div>
+
+</div>
+</div>
+<span class="username">antix_forum_account</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35802">
+
+<time datetime="2014-05-30T03:23">posted: 2014-05-30 &nbsp; 03:23</time>
+<span class="permalink"><a href="./no-sound-at-all-alsa-says-no-soundcards-intel-nm10-t5106.html#p35802" title="permalink">#3</a></span>
+
+<div class="content">Hey roky<br>
+<br>
+super thanks for your reply!<br>
+<br>
+<em>speaker-test</em> output is similar to that of <em>aplay /usr/share/sounds/alsa/Noise.wav</em><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% speaker-test
+
+speaker-test 1.0.27.2
+
+Playback device is default
+Stream parameters are 48000Hz, S16_LE, 1 channels
+Using 16 octaves of pink noise
+ALSA lib confmisc.c:768:(parse_card) cannot find card '0'
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_card_driver returned error: No such file or directory
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1251:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:4727:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2239:(snd_pcm_open_noupdate) Unknown PCM default
+Playback open error: -2,No such file or directory
+~%</code></pre></div>
+I ran some <em>antixcc.sh</em> shell script. I guess this is what you mean with <em>antixcc&gt;hardware&gt;test sound</em>? <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I'm able to click the <em>Test Sound</em> button with the speaker, but not much happens…<br>
+<br>
+<img src="http://i.imgur.com/ocCL0O3.png" class="postimage" alt="Image"><br>
+<br>
+This is my inxi…<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% inxi -Fxzr -c 15
+System:    Host: grey Kernel: 3.7.10-antix.4-amd64-smp x86_64 (64 bit, gcc: 4.7.2)
+           Desktop: dwm 6.0 Distro: antiX-13.1_x64-base Luddite 19 June 2013
+Machine:   System: Sony product: VPCM13M1E version: C6X0EKJC
+           Mobo: Sony model: VAIO Bios: American Megatrends version: R0120Z4 date: 05/12/2010
+CPU:       Single core Intel Atom CPU N470 (-HT-) cache: 512 KB flags: (lm nx sse sse2 sse3 ssse3) bmips: 3657.5
+           Clock Speeds: 1: 1834.00 MHz 2: 1834.00 MHz
+Graphics:  Card: Intel Atom Processor D4xx/D5xx/N4xx/N5xx Integrated Graphics Controller bus-ID: 00:02.0
+           Display Server: X.Org 1.15.1 drivers: intel (unloaded: fbdev,vesa) Resolution: 1024x600@60.0hz
+           GLX Renderer: Mesa DRI Intel IGD GLX Version: 2.1 Mesa 10.1.2 Direct Rendering: Yes
+Audio:     Card: Intel NM10/ICH7 Family High Definition Audio Controller bus-ID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture ver: k3.7.10-antix.4-amd64-smp
+Network:   Card: JMicron JMC260 PCI Express Fast Ethernet Controller
+           driver: jme ver: 1.0.8 ports: e100 e000 bus-ID: 02:00.5 chip-ID: -1
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card: Ralink RT3090 Wireless 802.11n 1T/1R PCIe driver: rt2800pci ver: 2.3.0 bus-ID: 01:00.0 chip-ID: -2
+           IF: wlan0 state: up mac: &lt;filter&gt;
+Drives:    HDD Total Size: 250.1GB (7.6% used) 1: id: /dev/sda model: ST9250315AS size: 250.1GB
+Partition: ID: / size: 209G used: 18G (9%) fs: ext4 ID: swap-1 size: 2.17GB used: 0.00GB (0%) fs: swap
+Sensors:   System Temperatures: cpu: 63.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Repos:     Active apt sources in file: / etc/apt/sources.list.d/antix.list
+           deb http://antix.daveserver.info/testing testing main
+           Active apt sources in file: / etc/apt/sources.list.d/debian.list
+           deb http://ftp.nl.debian.org/debian/ testing main contrib non-free
+           deb http://security.debian.org/ testing/updates main contrib non-free
+           Active apt sources in file: / etc/apt/sources.list.d/google-chrome.list
+           deb http://dl.google.com/linux/chrome/deb/ stable main
+Info:      Processes: 110 Uptime: 13 min Memory: 141.6/988.7MB Init: SysVinit runlevel: 5
+           Gcc sys: 4.8.2 Client: Shell (zsh 5.0.5) inxi: 2.0.0
+~%</code></pre></div>
+BTW an alsa-info.sh link of my first post was not correct, perhaps this is better… 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.alsa-project.org/db/?f=e3fdc8fbc52080dad85fe0d023f83fc5a902b11d"<br>linktext was:"http://www.alsa-project.org/db/?f=e3fdc ... c5a902b11d"<br>====================================<br>
+<br>
+<br>
+It seems some character got lost at the edge of a terminal… Sorry about that…</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35809" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35809">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35809">
+
+<time datetime="2014-05-30T15:59">posted: 2014-05-30 &nbsp; 15:59</time>
+<span class="permalink"><a href="./no-sound-at-all-alsa-says-no-soundcards-intel-nm10-t5106.html#p35809" title="permalink">#4</a></span>
+
+<div class="content">Arrgh, I am on my M&amp;A Netbook with a 9 inch screen so forgive me if I miss anything.<br>
+<br>
+Looks like speaker-test can't find card0 either. Damn. So just checking on this netbook which has speakers working. Full AntiX 13.2 testing install though.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -A
+Audio:     Card: Intel NM10/ICH7 Family High Definition Audio Controller driver: snd_hda_intel 
+           Sound: Advanced Linux Sound Architecture v:: k3.12.1-antix.1-486-smp
+</code></pre></div>
+Posting this because your reply below mine I can't read on this small screen.<br>
+<br>
+Hopefully Eino will see what we have posted so far and knows the fix<br>
+off the top of his head. Me, I have to dig and struggle so give me more time.<br>
+<br>
+Edit; Now that I have posted and looked at your inxi again.<br>
+Your netbook and mine are pretty close in specs.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ inxi -Fxzr
+System:    Host: biker Kernel: 3.12.1-antix.1-486-smp i686 (32 bit gcc: 4.7.3) 
+           Desktop: IceWM 1.3.7 Distro: antiX-13_386-full Luddite 01 June 2013 
+Machine:   System: manda product: Intel powered classmate PC v: Gen 1.5L
+           Mobo: N/A model: N/A
+           Bios: American Megatrends v: CM94515A.86A.0024.2008.0715.1716 date: 07/15/2008
+CPU:       Single core Intel Core CPU N270 (-HT-) cache: 512 KB
+           flags: (nx pae sse sse2 sse3 ssse3) bmips: 3192 
+           Clock Speeds: 1: 1600 MHz 2: 1600 MHz
+Graphics:  Card: Intel Mobile 945GSE Express Integrated Graphics Controller bus-ID: 00:02.0 
+           Display Server: X.Org 1.15.1 drivers: intel (unloaded: fbdev,vesa) Resolution: 1024x600@53.3hz 
+           GLX Renderer: Mesa DRI Intel 945GME x86/MMX/SSE2 GLX Version: 2.1 Mesa 10.1.2 Direct Rendering: Yes
+Audio:     Card: Intel NM10/ICH7 Family High Definition Audio Controller 
+           driver: snd_hda_intel bus-ID: 00:1b.0 
+           Sound: Advanced Linux Sound Architecture v:: k3.12.1-antix.1-486-smp
+Network:   Card: Realtek RTL8101E/RTL8102E PCI Express Fast Ethernet controller 
+           driver: r8169 v: 2.3LK-NAPI port: ec00 bus-ID: 01:00.0
+           IF: eth1 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 63.3GB (56.9% used) 1: id: /dev/sda model: KingSpec_KSD size: 63.3GB 
+Partition: ID: / size: 59G used: 34G (61%) fs: ext2 
+Sensors:   System Temperatures: cpu: 62.0C mobo: N/A 
+           Fan Speeds (in rpm): cpu: N/A 
+Repos:     Active apt sources in file: / etc/apt/sources.list.d/antix.list
+           deb http://antix.daveserver.info/testing testing main
+           Active apt sources in file: / etc/apt/sources.list.d/debian.list
+           deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+           deb http://security.debian.org/ testing/updates main contrib non-free
+           Active apt sources in file: / etc/apt/sources.list.d/siduction.list
+           deb http://packages.siduction.org/base unstable main contrib non-free
+           Active apt sources in file: / etc/apt/sources.list.d/various.list
+           deb http://liquorix.net/debian/ sid main
+           deb http://mozilla.debian.net/ experimental iceweasel-beta
+           deb http://www.duinsoft.nl/pkg debs all
+Info:      Processes: 106 Uptime: 17 min Memory: 293.4/2014.9MB 
+           Init: SysVinit runlevel: 5 Gcc sys: 4.8.2 
+           Client: Shell (bash 4.3.111) inxi: 2.1.7 
+</code></pre></div>
+But we are running different kernels from each other I see also.<br>
+The only reason I am on this netbook right now is I am <span style="text-decoration: underline">apt-get update &amp;&amp; apt-get dist-upgrade</span><br>
+it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35810" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35810">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35810">
+
+<time datetime="2014-05-30 &nbsp; 17:51">posted: 2014-05-30 &nbsp; 17:51</time>
+<span class="permalink"><a href="./no-sound-at-all-alsa-says-no-soundcards-intel-nm10-t5106.html#p35810" title="permalink">#5</a></span>
+
+<div class="content">have you tried the 32 bit kernel? You could try a liveUSB just to see if it works better. Even though the N470 is 64bit, you might want the 32 bit anyway since you only have 1gb of ram.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35818" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35818">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 35</span></div>
+
+</div>
+</div>
+<span class="username">antix_forum_account</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35818">
+
+<time datetime="2014-05-31T00:01">posted: 2014-05-31 &nbsp; 00:01</time>
+<span class="permalink"><a href="./no-sound-at-all-alsa-says-no-soundcards-intel-nm10-t5106.html#p35818" title="permalink">#6</a></span>
+
+<div class="content">Thank you dolphin_oracle and roky <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+While waiting for the download of the 32bit iso at a strange bitrate, I re-read the forum and the antiX docs.<br>
+<br>
+The antix.mepis.org <strong>frontpage</strong> says<br>
+<blockquote class="uncited"><div>It is also advisable to remove oss-compat as it causes a long delay when booting.</div></blockquote>
+I did <em>sudo aptitude purge oss-compat</em>, and now I have sound…</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35831" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35831">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35831">
+
+<time datetime="2014-05-31T11:20">posted: 2014-05-31 &nbsp; 11:20</time>
+<span class="permalink"><a href="./no-sound-at-all-alsa-says-no-soundcards-intel-nm10-t5106.html#p35831" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>antix_forum_account wrote:</cite>Thank you dolphin_oracle and roky <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+While waiting for the download of the 32bit iso at a strange bitrate, I re-read the forum and the antiX docs.<br>
+<br>
+The antix.mepis.org <strong>frontpage</strong> says<br>
+<blockquote class="uncited"><div>It is also advisable to remove oss-compat as it causes a long delay when booting.</div></blockquote>
+I did <em>sudo aptitude purge oss-compat</em>, and now I have sound…</div></blockquote>
+See, you solved the problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

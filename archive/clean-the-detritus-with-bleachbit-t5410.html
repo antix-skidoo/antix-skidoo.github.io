@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Clean the Detritus with BleachBit - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./clean-the-detritus-with-bleachbit-t5410.html">Clean the Detritus with BleachBit</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_38464" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile38464">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38464">
+<time datetime="2014-12-10T22:31">posted: 2014-12-10 &nbsp; 22:31</time>
+<span class="permalink"><a href="./clean-the-detritus-with-bleachbit-t5410.html#p38464" title="permalink">#1</a></span>
+
+<div class="content">Did you know that if you run BleachBit as superuser and select the option to remove language files, you can delete probably megabytes of files from your hard drive? You cannot do this running BleachBit as a regular user though. You should get in the habit of running BleachBit as superuser prior to shutting down your PC if you have performed any installs or updates during your session. Get cleaning... <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38472" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38472">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38472">
+
+<time datetime="2014-12-11T06:01">posted: 2014-12-11 &nbsp; 06:01</time>
+<span class="permalink"><a href="./clean-the-detritus-with-bleachbit-t5410.html#p38472" title="permalink">#2</a></span>
+
+<div class="content">Since you are interested in cleaning language files, check it out:<br>
+<br>
+bleachbit + bleachbit (as root) + localepurge<br>
+will typically miss <strong>20Mb+</strong> worth of unused language files on a typical debian-derived desktop system.<br>
+<br>
+To hunt for these, open a root-permissioned terminal and run <strong>updatedb</strong> followed by<br>
+<strong>locate zh</strong><br>
+( zh_ is a pattern common to Chinese locale files )<br>
+<br>
+localepurge is terribly outdated, and is incomplete in terms of the paths it scans<br>
+( usr/sbin/localepurge is a bash script, can examine it in text editor )<br>
+usr/share/locale<br>
+usr/share/man<br>
+usr/share/gnome/help<br>
+usr/share/omf<br>
+usr/share/doc/kde/HTM<br>
+<br>
+From memory, one biggie is the path perl5.18/Unicode/locales <br>
+<blockquote class="uncited"><div># ^^^^^^^^^^ 5.5Mb as seen in antix 13.1 Full<br>
+rm /usr/share/luckybackup/translations/luckybackup_[^e][^n]*<br>
+<br>
+# ^^^^^^^^^^ 4.3Mb as seen in antixFull<br>
+rm -Rf /usr/share/vim/vim*/lang/*
+</div></blockquote>
+(also from foggy memory) One of the paths fleshed out by using"locate zh" should not be disturbed<br>
+??? usr/share/i18n<br>
+because with it absent you'll wind up with iceweasel displaying"rectangle placeholders" for unicode chars.<br>
+<br>
+===================================<br>
+<br>
+separate from language files, here are some cleanup targets:
+<blockquote class="uncited"><div>
+# v--- these will be autogenerated at next browser launch, if absent<br>
+# from the outset (new install, browser not yet launched) 17Mb /skel cruft + 13Mb+ per user<br>
+rm <strong>/</strong>etc/skel/.mozilla/firefox/*.default/places.sqlite<br>
+rm <strong>/</strong>etc/skel/.mozilla/firefox/*.default/cookies.sqlite<br>
+rm <strong>/</strong>etc/skel/.mozilla/firefox/*.default/downloads.sqlite<br>
+rm <strong>/</strong>etc/skel/.mozilla/firefox/*.default/formhistory.sqlite<br>
+rm <strong>/</strong>etc/skel/.mozilla/firefox/*.default/webappsstore.sqlite<br>
+rm <strong>/</strong>etc/skel/.mozilla/firefox/*.default/signons.sqlite<br>
+rm <strong>/</strong>etc/skel/.mozilla/firefox/*.default/startupCache/*<br>
+rm -Rf <strong>/</strong>etc/skel/.mozilla/firefox/*.default/thumbnails/*<br>
+rm -Rf <strong>/</strong>etc/skel/.mozilla/firefox/*.default/safebrowsing/*<br>
+# ^--- this 17Mb is NOT a comprehensive list of"what all" may be safely excluded<br>
+# but it's better than complete inattention to this cruft ( ala debian mozilla packagers + remastersys )</div></blockquote>
+<blockquote class="uncited"><div>
+# note: bleachbit"vacuums" places.sqlite ...and the resulting file is still 10Mb (size on disk) (i suspect they're highly compressable for squashfs)<br>
+# v--- these will be autogenerated at next browser launch, if absent<br>
+rm /home/*/.mozilla/firefox/*.default/cookies.sqlite<br>
+rm /home/*/.mozilla/firefox/*.default/places.sqlite <br>
+rm /home/*/.mozilla/firefox/*.default/signons.sqlite<br>
+rm /home/*/.mozilla/firefox/*.default/formhistory.sqlite<br>
+# ^---- reflects my choice. Other user may wish to preserve signons+formhistory
+</div></blockquote>
+<blockquote class="uncited"><div>
+##### USERS WHO CREATE MULTIPLE BROWSER PROFILES... WIND UP MULTIPLY-CRUFTED #####<br>
+<br>
+# /home/*/.mozilla/plugins/libflashplayer.so 18Mb per user<br>
+# <strong>/</strong>etc/skel/.mozilla/plugins/libflasplayer.so 18Mb<br>
+# ^------ placing ONE instance pathed within /usr/local/share <br>
+# and symlinks to it @ home and <strong>/</strong>etc will free at least 18Mb<br>
+# THIS IS A REMASTERING DESIGN CONSIDERATION, NOT A CLEANUP ITEM<br>
+<br>
+# typically 2Mb or more<br>
+# note: separate patterns are required to handle the similarly-named<br>
+#"adblockPlus","adblockEdge"... browser addons<br>
+rm /home/*/.mozilla/firefox/*.default/adblockedge/patterns-backup*<br>
+rm /home/*/.mozilla/firefox/*.default/adblockplus/patterns-backup*.ini <br>
+<br>
+#rm /home/*/.aMule/Temp/* #======= important when remastering. These placeholders for partially-downloaded torrents can be HUGE<br>
+#rm /home/*/.aMule/logfil*<br>
+<br>
+# ==== CONSIDER: MIGHT /root -PATHED ANALOGUES OF EACH THESE MAY ALSO EXIST <br>
+# also bear in mind that these may fail if script is run on a case-sensitive fs system in which"/Home" (capital H) is used as the dirname<br>
+rm /home/*/.cache/audacious/thumbs/*<br>
+rm /home/*/.config/audacious/log<br>
+<br>
+# even when a kde-core is not installed... a K-native app may be (and may write to these paths)<br>
+rm -Rf /home/*/.kde/cache-*/*<br>
+rm -Rf /home/*/.kde/tmp-*/*<br>
+rm -Rf /root/.kde/cache-*/*<br>
+rm -Rf /root/.kde/tmp-*/*<br>
+<br>
+# 11Mb ===UNTESTED=== dunno whether this is a required file<br>
+rm /var/cache/cups/ppds.dat
+</div></blockquote>
+If you run the ncurses <strong>ncdu</strong> utility<br>
+$ cd usr/share<br>
+$ ncdu<br>
+you'll find many Mb of additional cleanable items. For instance, one of the themes (Adwaita?) installs huge wallpaper images that you'll probably never care to use.<br>
+<br>
+If you want to take an especially harsh/extreme approach to cleaning (like I do), consider nixing any 64x64... 128x128 subdirectories pathed under each iconset.<br>
+Personally, I nix all larger than 32x32 and leave the rest (diminishing returns).<br>
+I also delete the iconcache files (for gnome iconset, this file may be 60Mb+) but ...YMMV<br>
+<br>
+====================================<br>
+<br>
+My cleanup script has grown to 1000+ lines, but many of its targets aren't present in antix (by default, as shipped)<br>
+so I'll just paste snippets for a couple of the more generic target items<br>
+<blockquote class="uncited"><div>
+# terms of various licenses (GPL, Apache, OSL, etc)<br>
+# demand inclusion of"stuffs" for each item <br>
+# each time it is DISTRIBUTED.<br>
+# Once installed to your system, nothing demands<br>
+# keeping useless (to you)"stuffs" on your system,<br>
+# nor copying 'em (thousands!) to each<br>
+# backup/snapshot fileset you create.<br>
+#<br>
+# === IMPORTANT ===<br>
+# MUST cd TO THE APPROPRIATE WORKING DIR<br>
+# PRIOR TO ANY"find...rm" OPERATION<br>
+# TO LIMIT THE TARGET SCOPE<br>
+cd /usr/share/doc<br>
+find -iname AUTHORS -exec rm {} \;<br>
+find -iname COPYING -exec rm {} \;<br>
+find -iname COPYRIGHT -exec rm {} \;<br>
+find -iname LICENSE -exec rm {} \;<br>
+find -iname THANKS -exec rm {} \;<br>
+find -iname THANKS.gz -exec rm {} \;<br>
+find -iname CONTRIBUTORS -exec rm {} \;<br>
+# above reflects my personal preference to retain changelogs, READMEs, etc<br>
+#<br>
+# TIP: do not edit/save notes inside files <br>
+# residing in the"doc" path.<br>
+# These files WILL (regardless of chmod) be overwritten<br>
+# when dpkg upgrades the associated package.</div></blockquote>
+<blockquote class="uncited"><div># if the option"save downloaded package file"<br>
+# is checkmarked in synaptic preferences<br>
+# the *.deb files are stored to this path.<br>
+# During non-incremental backup/copy operations,<br>
+# this represents a HUGE potential source of bloat.<br>
+# OUTCOMMENT THE FOLLOWING LINE IF YOU<br>
+# DO, IN FACT, WISH TO PRESERVE ANY"ARCHIVED" deb packagefiles<br>
+rm -Rf /var/cache/apt/archives/*</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38476" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38476">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38476">
+
+<time datetime="2014-12-11T07:21">posted: 2014-12-11 &nbsp; 07:21</time>
+<span class="permalink"><a href="./clean-the-detritus-with-bleachbit-t5410.html#p38476" title="permalink">#3</a></span>
+
+<div class="content">Wow, that's quite extensive. Maybe I'll just reference your post and send an email to the BleachBit developer(s). It would be nice to remove <strong>all</strong> unnecessary cruft with one program instead of having to use a separate user script to take care of the leftovers.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38481" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38481">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38481">
+
+<time datetime="2014-12-11T16:23">posted: 2014-12-11 &nbsp; 16:23</time>
+<span class="permalink"><a href="./clean-the-detritus-with-bleachbit-t5410.html#p38481" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div> It would be nice to remove all unnecessary cruft </div></blockquote>That's only possible if you roll up your sleeves and examine what's on YOUR system.<br>
+<br>
+bleachbit author has been responsive to requests but he is a sole inidividual (not multiple people) <br>
+and gets overwhelmed, continually putting out fires, supporting multiple platforms.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bugs.launchpad.net/bleachbit"<br>linktext was:"https://bugs.launchpad.net/bleachbit"<br>====================================<br>
+<br>
+So, unless you submit something bundled as a plugin, don't hold your breath waiting for it to be added.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38498" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38498">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38498">
+
+<time datetime="2014-12-11T23:43">posted: 2014-12-11 &nbsp; 23:43</time>
+<span class="permalink"><a href="./clean-the-detritus-with-bleachbit-t5410.html#p38498" title="permalink">#5</a></span>
+
+<div class="content">@skidoo: I am, but it's a slow process. I much prefer just to use my system than to tinker with it. Playing around with other distros has helped.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

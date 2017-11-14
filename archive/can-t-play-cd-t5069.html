@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>can't play cd - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./can-t-play-cd-t5069.html">can't play cd</a></div>
+<div class="pagination">
+40 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./can-t-play-cd-t5069-s15.html" role="button">2</a></li>
+<li><a class="button" href="./can-t-play-cd-t5069-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./can-t-play-cd-t5069-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_35440" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35440">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35440">
+<time datetime="2014-05-14T18:39">posted: 2014-05-14 &nbsp; 18:39</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35440" title="permalink">#1</a></span>
+
+<div class="content">Hello,my pc can't read cd's anymore.It doesn't matter if they are burned or original.If i try to open them with spacefm ,there is the following output:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Warnung: Gerät /dev/sr1 wird schon von / etc/fstab verwaltet, angegebenes Label wird ignoriert
+mount: wrong fs type, bad option, bad superblock on /dev/sr1,
+       missing codepage or helper program, or other error
+       In some cases useful info is found in syslog - try
+       dmesg | tail  or so</code></pre></div>
+<br>
+The output from dmesg:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ dmesg | tail
+[11131.878261] sr 1:0:1:0: [sr1] CDB: 
+[11131.878265] Read(10): 28 00 00 00 00 00 00 00 01 00
+[11131.880111] sr 1:0:1:0: [sr1]  
+[11131.880118] Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE
+[11131.880123] sr 1:0:1:0: [sr1]  
+[11131.880127] Sense Key : Illegal Request [current] 
+[11131.880134] sr 1:0:1:0: [sr1]  
+[11131.880142] Add. Sense: Illegal mode for this track
+[11131.880147] sr 1:0:1:0: [sr1] CDB: 
+[11131.880150] Read(10): 28 00 00 00 00 01 00 00 01 00
+</code></pre></div>
+This is the output from
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>helga@freya:~
+$ file -Ls /dev/cdrom
+/dev/cdrom: writable, no read permission</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>helga@freya:~
+$ file -Ls /dev/cdrom1
+/dev/cdrom1: cannot open `/dev/cdrom1' (No such file or directory)
+</code></pre></div>
+<br>
+<br>
+<br>
+<br>
+DVD's are no problem,no matter if they are burned with windows or linux or original.<br>
+<br>
+If i command out the cdrom-lines in fstab, spacefm shows this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Can only open '/dev/sr1' as read-only
+Error reading bootsector: Eingabe-/Ausgabefehler
+Failed to mount '/dev/sr1': Eingabe-/Ausgabefehler
+NTFS is either inconsistent, or there is a hardware fault, or it's a
+SoftRAID/FakeRAID hardware. In the first case run chkdsk /f on Windows
+then reboot into Windows twice. The usage of the /f parameter is very
+important! If the device is a SoftRAID/FakeRAID then first activate
+it and mount a different device under the /dev/mapper/ directory, (e.g.
+/dev/mapper/nvidia_eahaabcc1). Please see the 'dmraid' documentation
+for more details.
+
+</code></pre></div>
+Can anyone help? In mx14 cd's are running perfect.<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>helga@freya:~
+$ inxi -F
+System:    Host: freya Kernel: 3.12.3-antix.2-486-smp i686 (32 bit) 
+           Desktop: IceWM 1.3.7 
+           Distro: antiX-13.2_386-full Luddite 4 November 2013 
+Machine:   Mobo: MSI model: MS-6590 v: 1.0
+           Bios: American Megatrends v: Version 07.00T date: 04/02/01
+CPU:       Single core AMD Athlon (-UP-) cache: 256 KB clocked at 1150 MHz 
+Graphics:  Card: NVIDIA NV11 [GeForce2 MX/MX 400]
+           Display Server: X.Org 1.15.1 drivers: nouveau (unloaded: fbdev,vesa)
+           Resolution: 1280x1024@85.0hz
+           GLX Renderer: Mesa DRI nv11 x86/MMX+/3DNow!+/SSE
+           GLX Version: 1.2 Mesa 10.1.2
+Audio:     Card C-Media CMI8738/CMI8768 PCI Audio driver: snd_cmipci 
+           Sound: ALSA v: k3.12.3-antix.2-486-smp
+Network:   Card: VIA VT6102 [Rhine-II] driver: via-rhine
+           IF: eth0 state: down mac: 00:50:ba:eb:64:1e
+Drives:    HDD Total Size: 80.0GB (6.9% used)
+           ID-1: /dev/sda model: WDC_WD800AB size: 80.0GB
+Partition: ID-1: / size: 39G used: 5.2G (15%) fs: ext4 dev: /dev/sda1 
+           ID-2: swap-1 size: 2.15GB used: 0.00GB (0%) fs: swap dev: /dev/sda6 
+Sensors:   None detected - is lm-sensors installed and configured?
+Info:      Processes: 96 Uptime: 3:25 Memory: 226.9/2023.7MB 
+           Client: Shell (bash) inxi: 2.1.18 
+</code></pre></div></div>
+<div class="notice">
+Last edited by <b>caprea</b> on 17 May 2014, 02:43, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35442" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35442">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35442">
+
+<time datetime="2014-05-14T19:20">posted: 2014-05-14 &nbsp; 19:20</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35442" title="permalink">#2</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ cat / etc/fstab
+# Pluggable devices are handled by uDev, they are not in fstab
+UUID=6011bbe8-33ac-450c-a316-2a4c3d87d960 / auto defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+UUID=bf00fd58-e1c6-45cb-8846-dc65256c8790 swap swap sw,pri=1 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+</code></pre></div>
+Mine for a reference. I am just here to PM Dave about a test he wants me to try so in gnome-mplayer in <br>
+preferences I have ,x11, default player for everything else.<br>
+<br>
+Sorry I can't help more.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35443" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35443">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35443">
+
+<time datetime="2014-05-14T19:31">posted: 2014-05-14 &nbsp; 19:31</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35443" title="permalink">#3</a></span>
+
+<div class="content">My fstab ,i forgot:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cat / etc/fstab
+# Pluggable devices are handled by uDev, they are not in fstab
+UUID=cd072697-c759-4588-a919-3dc0e680fb9f / auto defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+UUID=f471b854-1669-4877-afdb-3004a5659b11 /media/sda5 ext4 noauto,users,exec,relatime 0 0
+UUID=d5080e27-dcbd-4d63-8ad9-2b3fef406314 swap swap sw,pri=1 0 0
+UUID=3c493ed2-6ff4-4168-ac9c-912fa7125963 /media/sda7 ext4 noauto,users,exec,relatime 0 0
+/dev/sr2 /media/sr2 iso9660 noauto,users,exec,relatime 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/cdrom1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0
+/dev/cdrom3 /media/cdrom3 udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr2 /media/cdrom3 udf,iso9660 noauto,users,exec,ro 0 0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35444" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35444">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35444">
+
+<time datetime="2014-05-14T20:03">posted: 2014-05-14 &nbsp; 20:03</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35444" title="permalink">#4</a></span>
+
+<div class="content">Just as a test, insert a cd and then type in a terminal<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mplayer /dev/sr1</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35445" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35445">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35445">
+
+<time datetime="2014-05-14T20:05">posted: 2014-05-14 &nbsp; 20:05</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35445" title="permalink">#5</a></span>
+
+<div class="content">Do you actually have all those CD drives? (looks like at least 3).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35446" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35446">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35446">
+
+<time datetime="2014-05-14T20:28">posted: 2014-05-14 &nbsp; 20:28</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35446" title="permalink">#6</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>helga@freya:~
+$ mplayer /dev/sr1
+Warning unknown option stopxscreensaver at line 5
+MPlayer svn r34540 (Debian), built with gcc-4.7 (C) 2000-2012 MPlayer Team
+mplayer: could not connect to socket
+mplayer: No such file or directory
+Failed to open LIRC support. You will not be able to use your remote control.
+
+Playing /dev/sr1.
+libavformat version 53.21.1 (external)
+Mismatching header version 53.19.0
+Exiting... (End of file)</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35447" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35447">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35447">
+
+<time datetime="2014-05-14T20:34">posted: 2014-05-14 &nbsp; 20:34</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35447" title="permalink">#7</a></span>
+
+<div class="content">@dolphin<br>
+<br>
+No ,there are two CD drives. The 3. is my internetstick.It is recognised as a cdrom and a harddrive.Don't know why.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35448" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35448">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35448">
+
+<time datetime="2014-05-14T20:43">posted: 2014-05-14 &nbsp; 20:43</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35448" title="permalink">#8</a></span>
+
+<div class="content">What repos are you using?<br>
+<br>
+Have you installed anything from deb-multimedia?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35449" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35449">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35449">
+
+<time datetime="2014-05-14T20:44">posted: 2014-05-14 &nbsp; 20:44</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35449" title="permalink">#9</a></span>
+
+<div class="content">Can you give us<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cd /dev</code></pre></div>
+then <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls</code></pre></div>
+so we can see what /dev shows<br>
+<br>
+to answer Anti's question<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -r</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35450" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35450">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35450">
+
+<time datetime="2014-05-14T20:49">posted: 2014-05-14 &nbsp; 20:49</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35450" title="permalink">#10</a></span>
+
+<div class="content">Thank you for answers.<br>
+<br>
+antiX-13.2_386-full Luddite 4 November 2013 testing.<br>
+<br>
+As i remember i downloaded vlc-player and libdvdcss2.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35451" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35451">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35451">
+
+<time datetime="2014-05-14T20:51">posted: 2014-05-14 &nbsp; 20:51</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35451" title="permalink">#11</a></span>
+
+<div class="content">helga@freya:~
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cd /dev
+helga@freya:/dev
+$ ls
+agpgart          loop4               ram6      tty0   tty38  ttyS0
+autofs           loop5               ram7      tty1   tty39  ttyS1
+block            loop6               ram8      tty10  tty4   ttyS2
+bsg              loop7               ram9      tty11  tty40  ttyS3
+btrfs-control    loop-control        random    tty12  tty41  ttyUSB0
+bus              lp0                 rfkill    tty13  tty42  ttyUSB1
+cdrom            MAKEDEV             rtc       tty14  tty43  uhid
+cdrom3           mapper              rtc0      tty15  tty44  uinput
+char             mcelog              sda       tty16  tty45  urandom
+console          mem                 sda1      tty17  tty46  usb
+core             midi                sda2      tty18  tty47  vcs
+cpu_dma_latency  net                 sda5      tty19  tty48  vcs1
+disk             network_latency     sda6      tty2   tty49  vcs2
+dmfm             network_throughput  sda7      tty20  tty5   vcs3
+dmmidi           null                sdb       tty21  tty50  vcs4
+dri              parport0            serial    tty22  tty51  vcs5
+fb0              port                sg0       tty23  tty52  vcs6
+fbcondecor       ppp                 sg1       tty24  tty53  vcs7
+fd               ptmx                sg2       tty25  tty54  vcsa
+fd0              pts                 sg3       tty26  tty55  vcsa1
+full             ram0                sg4       tty27  tty56  vcsa2
+fuse             ram1                shm       tty28  tty57  vcsa3
+gpmctl           ram10               snapshot  tty29  tty58  vcsa4
+hidraw0          ram11               snd       tty3   tty59  vcsa5
+hpet             ram12               sndstat   tty30  tty6   vcsa6
+input            ram13               sr0       tty31  tty60  vcsa7
+kmsg             ram14               sr1       tty32  tty61  vga_arbiter
+log              ram15               sr2       tty33  tty62  vhost-net
+loop0            ram2                stderr    tty34  tty63  xconsole
+loop1            ram3                stdin     tty35  tty7   zero
+loop2            ram4                stdout    tty36  tty8
+loop3            ram5                tty       tty37  tty9
+helga@freya:/dev</code></pre></div>
+$</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35452" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35452">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35452">
+
+<time datetime="2014-05-14T20:57">posted: 2014-05-14 &nbsp; 20:57</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35452" title="permalink">#12</a></span>
+
+<div class="content">and this:<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>helga@freya:/dev
+$ inxi -r
+Repos:     Active apt sources in file: / etc/apt/sources.list.d/antix.list
+           deb http://antix.daveserver.info/testing/ testing main
+           Active apt sources in file: /  etc/apt/sources.list.d/debian.list
+           deb http://ftp.de.debian.org/debian/ testing main contrib non-free
+           deb http://security.debian.org/ testing/updates main contrib non-free
+           deb-src http://ftp.de.debian.org/debian/ testing non-free contrib main contrib non-free
+           Active apt sources in file: / etc/apt/sources.list.d/opera.list
+           deb http://deb.opera.com/opera/ stable non-free</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35453" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35453">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35453">
+
+<time datetime="2014-05-14T20:58">posted: 2014-05-14 &nbsp; 20:58</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35453" title="permalink">#13</a></span>
+
+<div class="content">The obvious question, what cds are you trying? data, audio?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35454" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35454">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35454">
+
+<time datetime="2014-05-14T21:17">posted: 2014-05-14 &nbsp; 21:17</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35454" title="permalink">#14</a></span>
+
+<div class="content">The problem is with audio-cds i think.<br>
+<br>
+The only datacds i have are the isocds from antix and so on .There i can open its content.<br>
+<br>
+I just looked in synaptik. I also downloaded openshot from multimedia.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35455" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35455">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35455">
+
+<time datetime="2014-05-14T21:34">posted: 2014-05-14 &nbsp; 21:34</time>
+<span class="permalink"><a href="./can-t-play-cd-t5069.html#p35455" title="permalink">#15</a></span>
+
+<div class="content">Does xmms open an audio cd ok? Is the issue only with vlc?<br>
+<br>
+If it is with vlc, you might need to set the correct device in vlc's preferences.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+40 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./can-t-play-cd-t5069-s15.html" role="button">2</a></li>
+<li><a class="button" href="./can-t-play-cd-t5069-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./can-t-play-cd-t5069-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>My fstab - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./antix-m7-5-toussaint-louverture-f20/index.html"><span>antiX-M7.5 Toussaint Louverture</span></a></span>
+</li>
+</ul>
+ 
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./my-fstab-t1084.html">My fstab</a></h2>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_6687" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6687">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6687">
+
+<time datetime="2008-09-26T17:26">posted: 2008-09-26  &nbsp; 17:26</time>
+<span class="permalink"><a href="./my-fstab-t1084.html#p6687" title="permalink">#1</a></span>
+
+<div class="content">Ok Anti, here it is.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+# /dev/sda2=root
+UUID=5404e421-0ca5-41e1-96cf-cb03ab0620bb / ext3 defaults,noatime 1 1
+# /dev/sda3=swap
+UUID=ad1bfbfe-5748-42ee-90ca-46de5591f313 swap swap sw,pri=1 0 0
+proc /proc proc defaults 0 0
+procbususb /proc/bus/usb usbfs devmode=0666 0 0
+devpts /dev/pts devpts mode=0622 0 0
+sysfs /sys sysfs defaults 0 0
+# /dev/sda1=windows
+UUID=36C473897F2419FF /home/eriefisher/Windows ntfs-3g defaults,noatime 0 0
+# Dynamic entries below
+/dev/sda1 /mnt/sda1 vfat,ext3,ext2,reiserfs noauto,users,exec 0 0
+/dev/sda2 /mnt/sda2 vfat,ext3,ext2,reiserfs noauto,users,exec 0 0
+/dev/sda3 swap swap sw,pri=1 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/scd0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0</code></pre></div>
+Do you see what I mean with a mix of the old /dev system and the uuid's. Even if I delete them the fstab will be updated on the next reboot and the /dev items will be replaced. This may be related to my burn issue but I don't know yet, I haven't dug into it yet.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6689" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6689">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,959</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6689">
+
+<time datetime="2008-09-26T17:30">posted: 2008-09-26  &nbsp; 17:30</time>
+<span class="permalink"><a href="./my-fstab-t1084.html#p6689" title="permalink">#2</a></span>
+
+<div class="content">My fstab
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+/dev/sda1 / auto defaults,noatime 1 1
+proc /proc proc defaults 0 0
+procbususb /proc/bus/usb usbfs devmode=0666 0 0
+devpts /dev/pts devpts mode=0622 0 0
+sysfs /sys sysfs defaults 0 0
+/dev/sda5 /mnt/sda5 ext3 auto,users,exec 0 0
+/dev/sda7 /mnt/sda7 ext3 auto,users,exec 0 0
+# Dynamic entries below
+/dev/sda2 swap swap sw,pri=1 0 0
+/dev/sda3 /mnt/sda3 ext3 noauto,users,exec 0 0
+/dev/sda6 /mnt/sda6 ext3 noauto,users,exec 0 0
+/dev/sdb1 /mnt/sdb1 ext3 noauto,users,exec 0 0
+/dev/sdb2 /mnt/sdb2 vfat,ext3,ext2,reiserfs noauto,users,exec 0 0
+/dev/sdb3 /mnt/sdb3 ext3 noauto,users,exec 0 0
+/dev/sdb4 /mnt/sdb4 vfat,ext3,ext2,reiserfs noauto,users,exec 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/scd0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+
+</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6690" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6690">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6690">
+
+<p class="author">
+
+<a href="./my-fstab-t1084.html#p6690" title="Post"> 26 Sep 2008, 17:37 <span style="padding-left:10px">#3</span></a>
+<time class="hide" datetime="2008-09-26T17:37">2008-09-26  &nbsp; 17:37</time>
+</p>
+<div class="content">I see you didn't move to uuids.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6692" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6692">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,959</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6692">
+
+<ul class="post-buttons">
+ </ul>
+<time datetime="2008-09-26T17:46">posted: 2008-09-26  &nbsp; 17:46</time>
+<span class="permalink"><a href="./my-fstab-t1084.html#p6692" title="permalink">#4</a></span>
+
+<div class="content">Not necessary. My /boot/grub/menu.lst uses UUID.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6693" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6693">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6693">
+
+<time datetime="2008-09-26T17:58">posted: 2008-09-26  &nbsp; 17:58</time>
+<span class="permalink"><a href="./my-fstab-t1084.html#p6693" title="permalink">#5</a></span>
+
+<div class="content">I switched both over to uuid.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

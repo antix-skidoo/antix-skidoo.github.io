@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Compressing RAM with zRam - Page 3 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./compressing-ram-with-zram-t3536-s30.html">Compressing RAM with zRam</a></div>
+<div class="pagination">
+71 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./compressing-ram-with-zram-t3536-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536.html" role="button">1</a></li>
+ <li><a class="button" href="./compressing-ram-with-zram-t3536-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s45.html" role="button">4</a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s60.html" role="button">5</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./compressing-ram-with-zram-t3536-s45.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_25137" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25137">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25137">
+<time datetime="2012-06-20T21:19">posted: 2012-06-20 &nbsp; 21:19</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25137" title="permalink">#31</a></span>
+
+<div class="content">For anyone using <strong>systemd</strong> or <strong>sysvinit</strong> (as <strong>systemd</strong> also supports init scripts) - I've updated the init script to include a <em><strong>Factor %</strong></em> I noticed today in the latest version which can be set in the script itself or by creating <strong>/etc/default/zram</strong> &amp; setting the value there (see lines 26-28):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+### BEGIN INIT INFO
+# Provides: zram
+# Required-Start:
+# Required-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Increased Performance In Linux With zRam (Virtual Swap Compressed in RAM)
+# Description: Adapted from systemd scripts at https://github.com/mystilleef/FedoraZram
+# Included as part of antix-goodies package by anticapitalista &lt;antiX@operamail.com&gt;
+# This script was written by tradetaxfree and is found at http://crunchbanglinux.org/forums/topic/15344/zram-a-good-idea/
+# Copy this script (as root) from /usr/local/bin to /etc/init.d and then #update-rc.d zram defaults
+# After booting verify the module is loaded with: lsmod | grep zram
+### END INIT INFO
+set -e
+
+start() {
+    # get the number of CPUs
+    num_cpus=$(grep -c processor /proc/cpuinfo)
+    # if something goes wrong, assume we have 1
+    ["$num_cpus" != 0 ] || num_cpus=1
+
+    # set decremented number of CPUs
+    last_cpu=$((num_cpus - 1))
+    
+    #default Factor % = 90 change this value here or create /etc/default/zram
+    FACTOR=90
+    #&amp; put the above single line in /etc/default/zram with the value you want
+     [ -f /etc/default/zram ] &amp;&amp; source /etc/default/zram || true
+     factor=$FACTOR # percentage
+
+    # get the amount of memory in the machine
+    memtotal=$(grep MemTotal /proc/meminfo | awk ' { print $2 } ')
+    mem_by_cpu=$(($memtotal/$num_cpus*$factor/100*1024))
+
+    # load dependency modules
+    modprobe zram num_devices=$num_cpus
+    echo"zram devices probed successfully"
+    
+    # initialize the devices
+    for i in $(seq 0 $last_cpu); do
+    echo $mem_by_cpu &gt; /sys/block/zram$i/disksize
+    # Creating swap filesystems
+    mkswap /dev/zram$i
+    # Switch the swaps on
+    swapon -p 100 /dev/zram$i
+    done
+}
+
+stop() {
+    # get the number of CPUs
+    num_cpus=$(grep -c processor /proc/cpuinfo)
+
+    # set decremented number of CPUs
+    last_cpu=$((num_cpus - 1))
+
+    # Switching off swap
+    for i in $(seq 0 $last_cpu); do
+    if ["$(grep /dev/zram$i /proc/swaps)" !="" ]; then
+    swapoff /dev/zram$i
+    sleep 1
+    fi
+    done
+
+    sleep 1
+    rmmod zram
+}
+
+case"$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        sleep 3
+        start
+        ;;
+    *)
+        echo"Usage: $0 {start|stop|restart}"
+        RETVAL=1
+esac
+exit $RETVAL</code></pre></div></div>
+<div class="notice">
+Last edited by <b>tradetaxfree</b> on 24 Jun 2012, 22:50, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25138" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25138">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25138">
+
+<time datetime="2012-06-21T08:54">posted: 2012-06-21 &nbsp; 08:54</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25138" title="permalink">#32</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>
+/usr/local/sbin/ doesn't exist on antiX.<br>
+<br>
+zram is in /usr/local/bin.<br>
+<br>
+But it says:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Short-Description: Increased Performance In Linux With zRam (Virtual Swap Compressed in RAM)
+# Description: Adapted from systemd scripts at https://github.com/mystilleef/FedoraZram
+# Included as part of antix-goodies package by anticapitalista &lt;antiX@operamail.com&gt;
+# This script was written by tradetaxfree and is found at http://crunchbanglinux.org/forums/topic/15344/zram-a-good-idea/
+# Copy this script (as root) from /usr/local/bin to /etc/init.d and then #update-rc.d zram defaults
+# After booting verify the module is loaded with: lsmod | grep zram
+### END INIT INFO
+</code></pre></div>
+Have you done that?</div></blockquote>
+I must say that I was wondering about that bit..<br>
+No, I didn't, as I can not find it anywhere in /usr/local/bin...<br>
+All I did was the steps listed here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/mystilleef/FedoraZram"<br>linktext was:"https://github.com/mystilleef/FedoraZram"<br>====================================<br>
+<br>
+I was a bit worried about the missing sbin, as I mentioned on the last post in the first page... but I just made an sbin file...<br>
+<br>
+Ok, so, I have to get rid of the sbin, and copy that script into /usr/local/bin, and from there to /etc/init.d?<br>
+That script is the antix version of the <br>
+zramstart and zramstop files from fedora? and it should be named"zram"?<br>
+<br>
+I am easily confused these days... <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25139" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25139">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25139">
+
+<time datetime="2012-06-21T10:01">posted: 2012-06-21 &nbsp; 10:01</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25139" title="permalink">#33</a></span>
+
+<div class="content">ok, so I went back and removed all zram stuff... I will try again!<br>
+I still wonder where that script is, as I can not find it...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25140" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25140">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25140">
+
+<time datetime="2012-06-21T10:11">posted: 2012-06-21 &nbsp; 10:11</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25140" title="permalink">#34</a></span>
+
+<div class="content">Ok, maybe it isn't uploaded yet <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Copy paste what tradtaxfree posted above into a text file, name it zram, make it executable and place it in /etc/init.d</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25141" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25141">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25141">
+
+<time datetime="2012-06-21T10:26">posted: 2012-06-21 &nbsp; 10:26</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25141" title="permalink">#35</a></span>
+
+<div class="content">Ok! <br>
+I did, and the module is loaded.<br>
+Is there an antix version of the <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/usr/local/sbin/zramstart </code></pre></div> command?<br>
+<br>
+/usr/local/bin/zram start<br>
+Or<br>
+/usr/local/bin/zram restart<br>
+Maybe?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25142" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25142">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25142">
+
+<time datetime="2012-06-21T11:58">posted: 2012-06-21 &nbsp; 11:58</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25142" title="permalink">#36</a></span>
+
+<div class="content">No. forget the fedora instructions.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Copy this script (as root) from /usr/local/bin to /etc/init.d (you have this in /etc/init.d already) and then run 
+#update-rc.d zram defaults
+# After booting verify the module is loaded with: lsmod | grep zram
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25143" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25143">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25143">
+
+<time datetime="2012-06-21T12:14">posted: 2012-06-21 &nbsp; 12:14</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25143" title="permalink">#37</a></span>
+
+<div class="content">Ok,
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiberg:/home/kberg
+# lsmod | grep zram
+zram                    8658  2 
+</code></pre></div>
+So it is loaded...<br>
+<br>
+And that is all???</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25144" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25144">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25144">
+
+<time datetime="2012-06-21T12:42">posted: 2012-06-21 &nbsp; 12:42</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25144" title="permalink">#38</a></span>
+
+<div class="content">Yes, unless tradetaxfree knows more.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25145" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25145">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25145">
+
+<time datetime="2012-06-21T12:56">posted: 2012-06-21 &nbsp; 12:56</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25145" title="permalink">#39</a></span>
+
+<div class="content">Wow! that might have been easy! if that is all.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25146" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25146">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span>  <a href="#" class="username">Dave</a> </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25146">
+
+<time datetime="2012-06-21T16:09">posted: 2012-06-21 &nbsp; 16:09</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25146" title="permalink">#40</a></span>
+
+<div class="content">Simply a great piece,<br>
+Been following this thread, decided to enable zram and after a reboot ram usage went from 90 % to 23 % according to conky.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25147" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25147">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25147">
+
+<time datetime="2012-06-21T16:14">posted: 2012-06-21 &nbsp; 16:14</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25147" title="permalink">#41</a></span>
+
+<div class="content">Hmm, I can not say I notice a difference... still at 5%...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25148" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25148">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25148">
+
+<time datetime="2012-06-21T16:32">posted: 2012-06-21 &nbsp; 16:32</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25148" title="permalink">#42</a></span>
+
+<div class="content">For some reason, I tried: dmesg zram<br>
+<br>
+And I got
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>kernelXXXXX
+blablabla
+
+umpteen lines of stuff...
+
+zram: module is from the staging directory, the quality is unknown, you have been warned.
+zram: Creating 2 devices ...
+Adding 693084k swap on /dev/zram0.  Priority:100 extents:1 across:693084k SS
+Adding 693084k swap on /dev/zram1.  Priority:100 extents:1 across:693084k SS
+
+More lines, wlan, etc.
+
+zram: module is from the staging directory, the quality is unknown, you have been warned.
+zram: Unknown parameter `zram_num_devices'
+</code></pre></div>
+So, it seems to me that it has made a pair of"swap areas"?<br>
+But I am not sure I like that last line???<br>
+<br>
+Just to ask a related question...<br>
+Should I play with the % setting in zram? I noticed it was at 90%</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25165" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25165">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25165">
+
+<time datetime="2012-06-24T23:02">posted: 2012-06-24 &nbsp; 23:02</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25165" title="permalink">#43</a></span>
+
+<div class="content">@rust collector - change the modprobe module parameter <strong>zram_num_devices</strong> to <strong>num_devices</strong> (as shown in the updated 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/post25137.html#p25137"<br>linktext was:"zram init script"<br>====================================<br>
+) so it reads as:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe zram num_devices=$num_cpus</code></pre></div>
+&amp; then run:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo update-rc.d zram defaults
+sudo service zram restart</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25173" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25173">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25173">
+
+<time datetime="2012-06-25T20:51">posted: 2012-06-25 &nbsp; 20:51</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25173" title="permalink">#44</a></span>
+
+<div class="content">I did, but nah...<br>
+<br>
+Sooooo.... I messed it up again... it works with the liqourix kernel...but I was booted into the antix one, which don't seem to like zram...sorry...<br>
+<br>
+Anyway, it creates 2 swap areas now, and probably works... in liqourix<br>
+<br>
+I would like it to work with the antix kernel too, but it is ok, I guess</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25365" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25365">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25365">
+
+<time datetime="2012-07-11T21:35">posted: 2012-07-11 &nbsp; 21:35</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s30.html#p25365" title="permalink">#45</a></span>
+
+<div class="content">I've been playing around with grsecurity &amp; building custom kernels - note for Anti to compile the kernels with ZRAM support:<br>
+<br>
+device drivers ----&gt; staging drivers ----&gt; Compressed RAM block device support (M)<br>
+<br>
+device drivers ----&gt; staging drivers ----&gt; Dynamic compression of swap pages and clean pagecache pages (*)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+71 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./compressing-ram-with-zram-t3536-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536.html" role="button">1</a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s45.html" role="button">4</a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s60.html" role="button">5</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./compressing-ram-with-zram-t3536-s45.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

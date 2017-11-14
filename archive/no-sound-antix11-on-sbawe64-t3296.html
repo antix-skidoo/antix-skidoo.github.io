@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>No Sound antiX11 on SBAWE64 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./no-sound-antix11-on-sbawe64-t3296.html">No Sound antiX11 on SBAWE64</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_21682" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21682">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">kitsuncle</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21682">
+<time datetime="2011-08-22T03:19">posted: 2011-08-22 &nbsp; 03:19</time>
+<span class="permalink"><a href="./no-sound-antix11-on-sbawe64-t3296.html#p21682" title="permalink">#1</a></span>
+
+<div class="content">I have a story, maybe not very interesting. I have an oldish pentium III (1GHz, 384 MB ram). I was ramping up with UBUNTU until 10.04 failed to function for me. I figured 'its too big and I'm too small'. I loaded Mepis 8.0, then 8.5 and started learning KDE. Very stable, very good OS. However, No sound. I managed to download and install Mepis11 (external DVD drive and Unetbootn). Aha! Sound. Alas! Crash. From pain comes knowledge. Again, I concluded 'big OS in a small bag'. I courtesy-look antiX. 'Based on Mepis11, small OS in a big bag'. Sound has to work. Not so.<br>
+<br>
+I did: DMESG | grep -i -C 5 isapnp only to discover MEPIS11 and MEPIS8.5 recognize my ISA sound card (Creative AWE64) while antiX11 does not. In fact antiX does not explore ISA PNP. The one clue in the newbie forum post suggests that ISA sound cards are archaic. I did: modprobe -l | grep -i snd-sd and found MEPIS11 had the useful module (driver in linux-speak) 'snd-SBAWE64' while MEPIS 8.5 and antiX11 do not. I suppose there is a library update somewhere that a package-manager can download that will help Mepis8.5. But what is the solution for antiX11? <br>
+<br>
+My system:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/demo# inxi -F
+System:    Host antiX1 Kernel 2.6.36-1-mepis i686 (32 bit) Distro antiX-M11-486 Jayaben Desai 01 May 2011
+CPU:       Single core Pentium III (Coppermine) (-UP-) cache 256 KB flags (sse) bmips 2004.6 clocked at 1002.301 MHz 
+Graphics:  Card: nVidia NV17 [GeForce4 MX 440] bus-ID: 01:00.0 X.org 1.9.5 Res: 98x35 Gfx Data: N/A for root 
+Audio:     Card Failed to Detect Sound Card!
+Network:   Card Realtek RTL-8139/8139C/8139C+ driver 8139too v: 0.9.28 port e800 bus-ID: 00:0d.0
+Disks:     HDD Total Size: 162.0GB (13.9% used) 1: /dev/sda WDC_WD1600AAJB 160.0GB 
+           2: USB /dev/sdb USB_SD_Reader 2.0GB 
+Partition: ID:/ size: 16M used: 105K (1%) fs: rootfs ID:swap-1 size: 0.50GB used: 0.00GB (0%) fs: swap 
+Info:      Processes 101 Uptime 1:57 Memory 121.5/375.0MB Runlevel 5 Client Shell inxi 1.4.95 
+</code></pre></div>and:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/lib/modules/2.6.36-1-mepis# pwd
+            /lib/modules/2.6.36-1-mepis</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/lib/modules/2.6.36-1-mepis# modprobe -l | grep -i snd-sb &gt; /mnt/sdb1/AntiX11_stuff/modprobe.txt
+kernel/sound/isa/sb/snd-sb16-dsp.ko
+kernel/sound/isa/sb/snd-sb-common.ko</code></pre></div>
+and:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/demo# lspci
+00:00.0 Host bridge: VIA Technologies, Inc. VT82C693A/694x [Apollo PRO133x] (rev c2)
+00:01.0 PCI bridge: VIA Technologies, Inc. VT82C598/694x [Apollo MVP3/Pro133x AGP]
+00:07.0 ISA bridge: VIA Technologies, Inc. VT82C686 [Apollo Super South] (rev 22)
+00:07.1 IDE interface: VIA Technologies, Inc. VT82C586A/B/VT82C686/A/B/VT823x/A/C PIPC Bus Master IDE (rev 10)
+00:07.4 Host bridge: VIA Technologies, Inc. VT82C686 [Apollo Super ACPI] (rev 30)
+00:0b.0 USB Controller: VIA Technologies, Inc. VT82xxxxx UHCI USB 1.1 Controller (rev 62)
+00:0b.1 USB Controller: VIA Technologies, Inc. VT82xxxxx UHCI USB 1.1 Controller (rev 62)
+00:0b.2 USB Controller: VIA Technologies, Inc. USB 2.0 (rev 65)
+00:0b.3 FireWire (IEEE 1394): VIA Technologies, Inc. VT6306/7/8 [Fire II(M)] IEEE 1394 OHCI Controller (rev 46)
+00:0d.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL-8139/8139C/8139C+ (rev 10)
+01:00.0 VGA compatible controller: nVidia Corporation NV17 [GeForce4 MX 440] (rev a3)</code></pre></div>
+From MEPIS11:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[root@proteus 2.6.36-1-mepis-smp]# pwd
+/lib/modules/2.6.36-1-mepis-smp
+[root@proteus 2.6.36-1-mepis-smp]# modprobe -l | grep snd-sb &gt; /media/disk/mepis11_stuff/modprobe.txt
+kernel/sound/isa/sb/snd-sb8-dsp.ko
+kernel/sound/isa/sb/snd-sb8.ko
+kernel/sound/isa/sb/snd-sb16-csp.ko
+kernel/sound/isa/sb/snd-sb16.ko
+kernel/sound/isa/sb/snd-sb16-dsp.ko
+kernel/sound/isa/sb/snd-sbawe.ko
+kernel/sound/isa/sb/snd-sb-common.ko</code></pre></div>
+Finally, allow me to observe you people are amazing. Awake past midnite, ON SUNDAY, and tending to the ignorundi. Don't look it up. Its us. I am also gratified to see all the really old systems kept alive by antiX and linux in general.<br>
+<br>
+Edited by rokytnji <span class="emoticon"> __{{emoticon}}__ </span> to be easier to read.</div>
+<div class="hide">
+ </div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21683" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21683">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21683">
+
+<time datetime="2011-08-22T08:57">posted: 2011-08-22 &nbsp; 08:57</time>
+<span class="permalink"><a href="./no-sound-antix11-on-sbawe64-t3296.html#p21683" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>MEPIS11 had the useful module </div></blockquote>
+Ok. Can you post the output of inxi -F while running Mepis 11 Live, (I am assuming sound works in Mepis 11 while running live). So we can see exactly what is going on with your sound chip in Mepis 11.<br>
+<br>
+I find it a little strange that it works in Mepis 11 and not AntiX 11 as my understanding is that both use kernel 2.6.36-1-mepis-smp . So same modules should be enabled at boot. Anti may enlighten us better on that though.<br>
+<br>
+Did you do a md5sum on the downloaded AntiX 11 iso before you burned a cd image. It is pretty much old habit/step for me as a step that rules out corrupted downloaded iso image. Another habit is I burn at 4x speeds or lower when possible burning a cd.<br>
+<br>
+Lastly, Howdy and Welcome from the deserts of West Texas and Happy Trails, Rok <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21687" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21687">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">kitsuncle</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21687">
+
+<time datetime="2011-08-22T14:03">posted: 2011-08-22 &nbsp; 14:03</time>
+<span class="permalink"><a href="./no-sound-antix11-on-sbawe64-t3296.html#p21687" title="permalink">#3</a></span>
+
+<div class="content">Hah! Trick question. 'inxi' is not a Mepis command. ("bash: inxi: command not found"). I rather think that the results in Mepis would be the same since the system is the same, except for the OS ID and the missing sound card. Perhaps this bit of the dmesg log from Mepis will help:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[root@proteus kitsuncle]# dmesg | grep isapnp -i -C 4
+[    1.445943] vesafb: Truecolor: size=0:5:6:5, shift=0:11:5:0
+[    1.472595] Console: switching to colour frame buffer device 100x37
+[    1.498365] fb0: VESA VGA frame buffer device
+[    1.498548] ERST: Table is not found!
+[    1.498581] isapnp: Scanning for PnP cards...
+[    1.622026] pnp 01:01.00: increased option port range from 0x388-0x388 to 0x388-0x3f8
+[    1.622035] pnp 01:01.00: increased option port range from 0x388-0x388 to 0x388-0x3f8
+[    1.622044] pnp 01:01.00: increased option port range from 0x388-0x388 to 0x388-0x3f8
+[    1.622158] pnp 01:01.02: added ioport region 0xe20-0xe20 to set 0
+[    1.622166] pnp 01:01.02: added ioport region 0xa20-0xa20 to set 0
+[    1.622174] pnp 01:01.02: added ioport region 0xe20-0xe80 to set 1
+[    1.622182] pnp 01:01.02: added ioport region 0xa20-0xa80 to set 1
+[    1.622246]  01:01: card 'Creative SB AWE64 PnP'
+[    1.622253] isapnp: 1 Plug &amp; Play card detected total
+[    1.622830] Linux agpgart interface v0.103
+[    1.623139] agpgart: Detected VIA Apollo Pro 133 chipset
+[    1.627365] agpgart-via 0000:00:00.0: AGP aperture is 64M @ 0xe0000000
+[    1.627432] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled</code></pre></div>
+Mepis8.5 has a similar segment while antiX11 does not.<br>
+<br>
+I have both Mepis11 and Mepis8.5 installed on harddrive partitions. A working antiX11 will replace one of them.<br>
+<br>
+I always check MD5sum. I believe I grabbed the distros from the ibiblio mirror. <br>
+<br>
+You know, I have the nagging suspicion that I should be using antiX11-686 instead of -486. Suppose that could be the issue?<br>
+<br>
+Been to Texas, sort of. I was impressed by how friendly everyone was. Up here in the northwest, we don't much have any desert, just sand traps. Tee time is ten. Thanks again.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21690" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21690">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21690">
+
+<time datetime="2011-08-23T00:13">posted: 2011-08-23 &nbsp; 00:13</time>
+<span class="permalink"><a href="./no-sound-antix11-on-sbawe64-t3296.html#p21690" title="permalink">#4</a></span>
+
+<div class="content">Help! I thought inxi was in Mepis 11. <span class="emoticon"> __{{emoticon}}__ </span> (I knew there was some reasons,<span style="text-decoration: underline"> that I forgot</span>, on why I would not run Mepis as far as command line tools went. <em>Kde4 was another reason</em>.)<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://kmuto.jp/debian/hcl/"<br>linktext was:"http://kmuto.jp/debian/hcl/"<br>====================================<br>
+<br>
+<br>
+Try the above link in AntiX11 and Mepis 11 and <strong>post back results links</strong> so I can see what the heck Mepis 11 is doing that AntiX11 is not doing. <br>
+<br>
+For installing inxi in Mepis.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepis.org/docs/en/index.php?title=Inxi"<br>linktext was:"http://www.mepis.org/docs/en/index.php?title=Inxi"<br>====================================<br>
+<br>
+<br>
+I am lost on interpreting your <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dmesg | grep isapnp -i -C 4</code></pre></div> command readout. Maybe one of the other forum readers is a better interpreter than I.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21694" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21694">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">kitsuncle</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21694">
+
+<time datetime="2011-08-23T05:51">posted: 2011-08-23 &nbsp; 05:51</time>
+<span class="permalink"><a href="./no-sound-antix11-on-sbawe64-t3296.html#p21694" title="permalink">#5</a></span>
+
+<div class="content">inxi--Mepis11:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[root@proteus bin]# inxi -F
+System:    Host: proteus Kernel: 2.6.36-1-mepis-smp i686 (32 bit) Desktop KDE 4.5.3 Distro: MEPIS 11.0 squeeze
+Machine:   System: VIA product: VT82C692BX                                                                               
+           Mobo: &lt;http://www.abit.com.tw&gt; model: 694X-686A(VT6X4 VA6) Bios: Award version: 6.00 PG date: 08/10/2000      
+CPU:       Single core Pentium III (Coppermine) (-UP-) cache: 256 KB flags: (sse) clocked at 1002.167 MHz                
+Graphics:  Card: nVidia NV17 [GeForce4 MX 440]                                                                           
+           X.org: 1.7.7 drivers: nv (unloaded: fbdev,vesa) tty size: 121x33 Advanced Data: N/A for root                  
+Audio:     Card: Sound Blaster 16 driver: SB AWE Sound: ALSA ver: 1.0.23                                                 
+Network:   Card: Realtek RTL-8139/8139C/8139C+ driver: 8139too                                                           
+           IF: eth0 state: down speed: 10 Mbps duplex: half mac: 00:40:f4:6e:3e:29                                       
+Drives:    HDD Total Size: 162.0GB (3.4% used) 1: /dev/sda WDC_WD1600AAJB 160.0GB                                        
+           2: USB /dev/sdb USB_SD_Reader 2.0GB                                                                           
+Partition: ID: / size: 9.2G used: 3.8G (44%) fs: ext3 ID: swap-1 size: 0.50GB used: 0.14GB (28%) fs: swap                
+Sensors:   System Temperatures: cpu: 145.5C mobo: 30.3C                                                                  
+           Fan Speeds (in rpm): cpu: 3857 fan-2: 0                                                                       
+Info:      Processes: 148 Uptime: 36 min Memory: 269.8/374.2MB Client: Shell inxi: 1.7.23    </code></pre></div> <br>
+<br>
+The kmuto results are:
+<blockquote class="uncited"><div>PCI ID    Works?    Vendor    Device    Driver    Kernel<br>
+11060691    Yes    VIA Technologies, Inc.    VT82C693A/694x [Apollo PRO133x]    agpgart    <br>
+11068598    Yes    VIA Technologies, Inc.    VT82C598/694x [Apollo MVP3/Pro133x AGP]    ignore    <br>
+11060686    Yes    VIA Technologies, Inc.    VT82C686 [Apollo Super South]    parport_pc    v2.6.25-<br>
+11060571    Yes    VIA Technologies, Inc.    VT82C586A/B/VT82C686/A/B/VT823x/A/C PIPC Bus Master IDE    pata_via    v2.6.25-<br>
+11063057    Yes    VIA Technologies, Inc.    VT82C686 [Apollo Super ACPI]    via686a,i2c-viapro    v2.6.25-<br>
+11063038    Yes    VIA Technologies, Inc.    VT82xxxxx UHCI USB 1.1 Controller    usb-uhci,uhci-hcd    <br>
+11063038    Yes    VIA Technologies, Inc.    VT82xxxxx UHCI USB 1.1 Controller    usb-uhci,uhci-hcd    <br>
+11063104    Yes    VIA Technologies, Inc.    USB 2.0    ehci-hcd    <br>
+11063044    Yes    VIA Technologies, Inc.    VT6306/7/8 [Fire II(M)] IEEE 1394 OHCI Controller    ohci1394    <br>
+10ec8139    Yes    Realtek Semiconductor Co., Ltd.    RTL-8139/8139C/8139C+    8139cp,8139too    v2.6.25-<br>
+10de0171    Yes    nVidia Corporation    NV17 [GeForce4 MX 440]    nv    </div></blockquote>
+As you might guess the results are invariant between Mepis and antiX.<br>
+The kmuto site says ISA (among other devices) are not interpreted. I believe the ISA card is VT82C598/694x and is 'ignored'.<br>
+<br>
+My ISA sound card is a"sound card" in the same way a winmodem is a"modem". Its a firmware emulation of a device, but not a device itself. At least thats how I think of it. Mepis explores my ISA card for"devices", whereas antioX (-486, at least) does not. I'm going to see if -686 acts any differently.<br>
+<br>
+Film at 11.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21703" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21703">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21703">
+
+<time datetime="2011-08-23T15:28">posted: 2011-08-23 &nbsp; 15:28</time>
+<span class="permalink"><a href="./no-sound-antix11-on-sbawe64-t3296.html#p21703" title="permalink">#6</a></span>
+
+<div class="content">I think the ignored device is your AGP port. I'm guessing you are using integrated video (nvidia based). the drivers should be in the kernel, but I am interested in how your experiment with the x686 version works out.<br>
+<br>
+you can also try running the alsa configuration routine, which will probe for legacy non-pnp ISA cards and PNP cards. You can run it from the Antix control center under hardware - configure sound system, or from the command line as root : alsaconf</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21712" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21712">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">kitsuncle</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21712">
+
+<time datetime="2011-08-24T14:53">posted: 2011-08-24 &nbsp; 14:53</time>
+<span class="permalink"><a href="./no-sound-antix11-on-sbawe64-t3296.html#p21712" title="permalink">#7</a></span>
+
+<div class="content">I think this where I go"Doh!" The -686 version seems to have done all the right things. My new antiX partition:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@Proteus:/home/kitsuncle# inxi -F
+System:    Host Proteus Kernel 2.6.36-1-mepis-smp i686 (32 bit) Distro antiX-M11-686 Jayaben Desai 01 May 2011
+CPU:       Single core Pentium III (Coppermine) (-UP-) cache 256 KB flags (sse) bmips 2004.3 clocked at 1002.150 MHz 
+Graphics:  Card: nVidia NV17 [GeForce4 MX 440] bus-ID: 01:00.0 X.org 1.9.5 Res: 126x24 Gfx Data: N/A for root 
+Audio:     Card Sound Blaster 16 driver SB AWE
+           Sound: Advanced Linux Sound Architecture Version 1.0.23
+Network:   Card Realtek RTL-8139/8139C/8139C+ driver 8139too v: 0.9.28 port e800 bus-ID: 00:0d.0
+Disks:     HDD Total Size: 162.0GB (2.2% used) 1: /dev/sda WDC_WD1600AAJB 160.0GB 
+           2: USB /dev/sdb USB_SD_Reader 2.0GB 
+Partition: ID:/ size: 9.2G used: 2.1G (24%) fs: ext3 ID:swap-1 size: 0.50GB used: 0.00GB (0%) fs: swap 
+Info:      Processes 98 Uptime 51 min Memory 95.9/374.2MB Runlevel 5 Client Shell inxi 1.4.95 </code></pre></div>
+Not sure why -486 doesn't behave the same, except that its not been designed to do so.<br>
+<br>
+By the way, I went to the ALSA CONFIGURATOR as you suggested, but with -486, it did not have the appropriate modules. With -686, it found the 'sb16' module, but had trouble configuring it. Not me. I just rebooted.<br>
+<br>
+Thanks for everything Rok. And now on to the next"Doh!"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21713" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21713">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21713">
+
+<time datetime="2011-08-24 &nbsp; 15:05">posted: 2011-08-24 &nbsp; 15:05</time>
+<span class="permalink"><a href="./no-sound-antix11-on-sbawe64-t3296.html#p21713" title="permalink">#8</a></span>
+
+<div class="content">Glad you got sound going and a welcome to antiX.<br>
+<br>
+BTW: No need to run inxi as root and you can/should update it regularly with inxi -U (as root or user)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

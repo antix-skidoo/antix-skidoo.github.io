@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Problems with cronjobs in AntiX-13.2 [SOLVED] - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problems-with-cronjobs-in-antix-13-2-solved-t6547.html">Problems with cronjobs in AntiX-13.2 [SOLVED]</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47889" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47889">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47889">
+<time datetime="2016-08-16T14:39">posted: 2016-08-16 &nbsp; 14:39</time>
+<span class="permalink"><a href="./problems-with-cronjobs-in-antix-13-2-solved-t6547.html#p47889" title="permalink">#1</a></span>
+
+<div class="content">Hi, friends... <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+I am running AntiX-13.2 on desktop PC with Intel Pentium 4 1.7 GHz processor, Nvidia GeForce2 MX/MX 400 graphics, 512 MB RAM, 1 GB swap and 13 GB HD. <br>
+<br>
+I am have a problem with crontab. I am running a bash script from user's crontab but no effect, although cron daemon execute the assigned cronjob.<br>
+<br>
+For test the crontab problem, I used two scripts that I known well function it. These scripts show a systray icon for layout keyboard used.<br>
+<br>
+The first script (xkblayout_indicator.sh) use yad --notification for create the systray icon. Then, when click on icon, the second script (sp_chr-xkb.sh) is executed, showing a dialog box with the layout keyboard. Below are screenshots: <br>
+<br>
+first: <br>
+<strong>xkblayout_indicator.sh</strong> bash script, located in $HOME directory: <br>
+<a href="http://imageshack.com/i/poXpqtElp" class="postlink"><img src="http://imagizer.imageshack.com/img924/1456/XpqtEl.th.png" class="postimage" alt="Image"></a><br>
+<br>
+second: <br>
+<strong>sp_chr-xkb.sh</strong> bash script, located in /usr/local/bin directory: <br>
+<a href="http://imageshack.com/i/plcfGAK3p" class="postlink"><img src="http://imagizer.imageshack.com/img921/9673/cfGAK3.th.png" class="postimage" alt="Image"></a><br>
+<br>
+When xkblayout_indicator.sh bash script is executed from terminal, result: <br>
+<a href="http://imageshack.com/i/plOurqYxp" class="postlink"><img src="http://imagizer.imageshack.com/img921/5944/OurqYx.th.png" class="postimage" alt="Image"></a><br>
+<br>
+This discard that script is not source problem.<br>
+<br>
+<br>
+But after add the path to script in user's crontab file: <br>
+<a href="http://imageshack.com/i/pmTa9K73p" class="postlink"><img src="http://imagizer.imageshack.com/img922/6194/Ta9K73.th.png" class="postimage" alt="Image"></a><br>
+<br>
+<br>
+and system reboot, no generate systray icon: <br>
+<a href="http://imageshack.com/i/poGJ7yiZp" class="postlink"><img src="http://imagizer.imageshack.com/img924/2012/GJ7yiZ.th.png" class="postimage" alt="Image"></a><br>
+<br>
+The permission of second script are well: <br>
+<a href="http://imageshack.com/i/poLUioytp" class="postlink"><img src="http://imagizer.imageshack.com/img924/1361/LUioyt.th.png" class="postimage" alt="Image"></a><br>
+<br>
+Here the antixers (sudoers file) in / etc/sudoers.d directory: <br>
+<a href="http://imageshack.com/i/pmUVZLRjp" class="postlink"><img src="http://imagizer.imageshack.com/img922/6633/UVZLRj.th.png" class="postimage" alt="Image"></a><br>
+<br>
+My user is added to crontab group:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ id
+uid=1000(tesistas) gid=1000(tesistas) groups=1000(tesistas),7(lp),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),100(users),102(crontab),103(fuse),109(netdev),110(mlocate),1001(storage)
+</code></pre></div>
+I tried execute these scripts with gnome-scheduler and same result.<br>
+<br>
+I searched on the internet but no I have not found solution.<br>
+I wait that you can help me..!<br>
+<br>
+Thank you for read.</div>
+<div class="notice">
+Last edited by <b>tuto</b> on 17 Aug 2016, 15:18, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47890" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47890">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 64</span></div>
+
+</div>
+</div>
+<span class="username">reverseDog</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jul 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47890">
+
+<time datetime="2016-08-16T19:06">posted: 2016-08-16 &nbsp; 19:06</time>
+<span class="permalink"><a href="./problems-with-cronjobs-in-antix-13-2-solved-t6547.html#p47890" title="permalink">#2</a></span>
+
+<div class="content">Cronjobs that evoke graphical apps usually need to be told what display to use.<br>
+<br>
+Try adding the line
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>export DISPLAY=:0.0</code></pre></div>
+at the top of your script (of course <em>not </em> before the #!/bin/bash though).<br>
+<br>
+Alternativly specifying the display within the crontab might work too:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>* * * * * export DISPLAY=:0.0 &amp;&amp; sleep 10 &amp;&amp; /home/tesistas/Portables/xkblayout_indicator.sh</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47897" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47897">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47897">
+
+<time datetime="2016-08-17T15:13">posted: 2016-08-17 &nbsp; 15:13</time>
+<span class="permalink"><a href="./problems-with-cronjobs-in-antix-13-2-solved-t6547.html#p47897" title="permalink">#3</a></span>
+
+<div class="content">Hi reverseDog. Thanks for reply.<br>
+<br>
+Is true; that line was missing... I added to within the crontab and work fine.<br>
+<br>
+Thank you very much.<br>
+<br>
+I terminate this topic.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

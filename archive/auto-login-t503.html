@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Auto Login - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./auto-login-t503.html">Auto Login</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_2653" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile2653">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 58</span></div>
+
+</div>
+</div>
+<span class="username">Urban</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content2653">
+<time datetime="2008-03-04T20:34">posted: 2008-03-04 &nbsp; 20:34</time>
+<span class="permalink"><a href="./auto-login-t503.html#p2653" title="permalink">#1</a></span>
+
+<div class="content">+ edit /etc/rc.local and add
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Start X as user if tty7 is free
+if ! fuser /dev/tty7 &gt;&amp; /dev/null; then
+    su - &lt;username&gt; -l -c 'exec startx -- vt7 &gt;&amp; ~/.xsession-errors' &amp;
+fi
+</code></pre></div>
+Replace &lt;username&gt; with your login name. From gentoo wiki.<br>
+<br>
++ apt-get remove slim<br>
+You probably do not have to do this step as long as you do the next, but if you do be warned slim is NOT in the default repos of antiX. You will have to get it from the sid repos or elsewhere. Keep the slim.conf when/if you reinstall unless you want to add fluxbox slim.conf yourself.<br>
+<br>
++ update-rc.d -f slim remove<br>
+<br>
++ In /etc/X11/Xwrapper.config add/change the line allowed_users to
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>allowed_users=anybody
+</code></pre></div>
+I'm not entirely sure how safe this is, but it is a work around to the error"user not authorized to run the x server." There has to be another way to do this, but I am only figuring this out for others since I do not even use autologin myself.<br>
+<br>
+Now you should automatically load up logged in.<br>
+Related Post: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/auto-login-live-cd-t502.html"<br>linktext was:"antix.freeforu ms.org/auto-login- ... -t502.html"<br>====================================<br>
+</div>
+<div class="notice">
+Last edited by <b>Urban</b> on 04 Mar 2008, 21:03, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+ <div id="p_2654" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile2654">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content2654">
+
+<time datetime="2008-03-04T21:01">posted: 2008-03-04 &nbsp; 21:01</time>
+<span class="permalink"><a href="./auto-login-t503.html#p2654" title="permalink">#2</a></span>
+
+<div class="content">Great stuff. Remember though this removes the first line of security as always used by Linux.<br>
+<br>
+eriefisher<br>
+<br>
+P.S. was it worth the struggle.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_2655" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile2655">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 58</span></div>
+
+</div>
+</div>
+<span class="username">Urban</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content2655">
+
+<time datetime="2008-03-04T21:04">posted: 2008-03-04 &nbsp; 21:04</time>
+<span class="permalink"><a href="./auto-login-t503.html#p2655" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>eriefisher wrote:</cite>
+P.S. was it worth the struggle.
+</div></blockquote>
+No, it was not. Especially since I believe there is a better way of doing this. Then again people who want auto login are probably not concerned about security.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3219" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3219">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">Subito Piano</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3219">
+
+<time datetime="2008-04-09T00:52">posted: 2008-04-09 &nbsp; 00:52</time>
+<span class="permalink"><a href="./auto-login-t503.html#p3219" title="permalink">#4</a></span>
+
+<div class="content">Urban - thank you! This was NOT difficult and worked great.<br>
+<br>
+FYI, our lab computers at school dual-boot, running both Linux and Mepis. I am thinking of taking an OLD console loaded with antiX to use only as a print server for anyone running Linux. Auto-login means i can set the system up and (hopefully) unplug monitor, keyboard, and mouse for good. If i have to shut down, i don't need them to restart.<br>
+<br>
+(Can you tell we are on a TIGHT budget?) <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3220" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3220">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3220">
+
+<time datetime="2008-04-09T01:04">posted: 2008-04-09 &nbsp; 01:04</time>
+<span class="permalink"><a href="./auto-login-t503.html#p3220" title="permalink">#5</a></span>
+
+<div class="content">Once the print server is set up there should be no reason to actually login to it. Once it's booted up the server stuff should be running in the back ground. <br>
+Install ssh server and you can login remotely to update/reconfigure it. Should someone actually connect a monitor up to it they would just see the login screen.<br>
+<br>
+If it has some available storage on it I would set up a share just to use as a backup point before you put it into service. Otherwise it would be wasted hard drive space.<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3221" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3221">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">Subito Piano</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3221">
+
+<time datetime="2008-04-09T01:21">posted: 2008-04-09 &nbsp; 01:21</time>
+<span class="permalink"><a href="./auto-login-t503.html#p3221" title="permalink">#6</a></span>
+
+<div class="content">AHH---IF I HAD KNOWN!! BUT learning is not a waste....<br>
+<br>
+No need to worry about HD space, we are talking like 1 GB HDs or less...! I actually plan to try it on a P1, 333MHz, 64 GB machine. I don't expect to be able to go THAT low, but i have P2's and higher if need be. Thanks to M$'s wonderful new OS we are getting fantastic machines donated and can retire our oldest units. Gee, who'da thunk it!?!?! Vista is actually helping to make our life easier!!! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_12322" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile12322">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">Fox7777</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content12322">
+
+<time datetime="2009-08-12T19:02">posted: 2009-08-12 &nbsp; 19:02</time>
+<span class="permalink"><a href="./auto-login-t503.html#p12322" title="permalink">#7</a></span>
+
+<div class="content">Apparently the easiest way for autologin is to go to /etc/slim.conf in your home directory and at the bottom change auto_login to yes, change default_user to your username.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

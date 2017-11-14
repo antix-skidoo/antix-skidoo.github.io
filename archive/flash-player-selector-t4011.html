@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Flash Player Selector - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./flash-player-selector-t4011.html">Flash Player Selector</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_26893" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26893">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26893">
+<time datetime="2012-11-15T15:00">posted: 2012-11-15 &nbsp; 15:00</time>
+<span class="permalink"><a href="./flash-player-selector-t4011.html#p26893" title="permalink">#1</a></span>
+
+<div class="content">Attached is a script (flashplayer-selector.sh.zip) which other antiX users might find useful. It is designed to simplify switching backwards and forwards between versions of Flash Player, or get and install the latest version.<br>
+<br>
+Abstract from the included help section<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>flashplayer-selector.sh --help
+
+Usage: flashplayer-selector.sh 
+The script does not use command line parameters.
+
+Information:
+   This script is used to select which version of Flash Player the system uses.
+
+   Via a menu it performs either of two main tasks:
+   1. Download and install the latest version,
+   2. Revert to an older version by re-installing a previously installed one.
+
+   flashplayer-selector.sh should be available in the path; located in either /usr/sbin 
+   or /usr/local/sbin.  It must be run with root privileges as the installation 
+   proceses requires access to areas owned by root.
+
+Requires: 
+   basename, bash, grep, select, tar, update-flashplugin-nonfree</code></pre></div>All the required apps are included in the standard antiX-12.<br>
+<br>
+To set up the script (as root):
+<ul>
+<li>Unzip the archive and place the script in /usr/sbin</li>
+<li>Set owner=root and group=root</li>
+<li>Set permissions rwx-r--r--</li></ul>
+To run the script (as an unprivileged user):<br>
+Open a terminal and enter<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo flashplayer-selector.sh</code></pre></div>When the menu is displayed, enter the number that corresponds to what you want to do.<br>
+<br>
+<br>
+<strong>Background</strong><br>
+antiX-12 is designed to run on both modern and older (less powerful) hardware. It ships with Flash Player 11.2. As noted in this post, the shipped version of Flash Player is not well suited to less powerful kit.<br>
+post25635.html?hilit=How%20I%20updated%20from%20Flash%2010%20to%20Flash%2011%20Beta#p25635<br>
+This became particularly noticeable on a laptop used to test antiX. It is the oldest laptop available here (circa 2001) and works well with antiX-12, except that Flash does not work straight out-of-the-box.<br>
+<br>
+Retracing the steps taken in the above post, both Flash Player 10.3 (the last in the series) and 11.1 were tried. Although 11.1 did work, version 10.3 worked more smoothly.<br>
+<br>
+At this point, three versions of Flash Player were available on the laptop, but swapping between them was a cumbersome process. In turn this led to the idea of simplifying the switching via script.<br>
+<br>
+Debian (and antiX) has update-flashplugin-nonfree, which can be used to download and install the latest version of Flash Player. A welcome side affect of this is that an archive of the existing version is retained on the local system. The idea of upgrading Flash Player via the script was added.<br>
+<br>
+<br>
+<strong>Example of adding an earlier version of Flash Player</strong><br>
+Much of this can be found in the topic mentioned above.<br>
+The example is based on version 10.3 but also works with 11.1 or others (simply use the filename of the version you want).<br>
+<ul>
+<li>Download Flash Player 10.3.183.43 from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://helpx.adobe.com/flash-player/kb/archived-flash-player-versions.html"<br>linktext was:"http://helpx.adobe.com/flash-player/kb/ ... sions.html"<br>====================================<br>
+</li>
+<li>In Archive Manager (File Roller), open fp_10.3.183.43_archive.zip</li>
+<li>Extract from the archive flashplayer_10.3.183.43_linux.tar.gz</li>
+<li>As root, move flashplayer_10.3.183.43_linux.tar.gz to /var/cache/flashplugin-nonfree<br>
+Note: do not extract the contents</li></ul>
+The additional Flash Player is ready to be used by flashplayer-selector.sh<br>
+<br>
+<br>
+<strong>Suggestion</strong><br>
+The newest version of Flash Player is OK for modern kit but is not suitable for older low powered kit. This may give an unsatisfactory impression of antiX on older hardware. Flash Player 10.3 or up to 11.1 may give a better out-of-the-box experience to a wider range of users. Should one of these be the default antiX version? Using the script makes it a trival task to upgrade to the newest version and switch again to the default version (or lower) if necessary.</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26895" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26895">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26895">
+
+<time datetime="2012-11-15T15:09">posted: 2012-11-15 &nbsp; 15:09</time>
+<span class="permalink"><a href="./flash-player-selector-t4011.html#p26895" title="permalink">#2</a></span>
+
+<div class="content">Excellent. Give me some time to test this out, and yes it is probably best for antiX to come with the oldest 10.3 installed. On an old PIII, I have to use 10.3 version.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26929" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26929">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26929">
+
+<time datetime="2012-11-17T08:53">posted: 2012-11-17 &nbsp; 08:53</time>
+<span class="permalink"><a href="./flash-player-selector-t4011.html#p26929" title="permalink">#3</a></span>
+
+<div class="content">Attached is an updated version of flashplayer-selector.sh. Three minor, cosmetic changes have been made to improve on-screen clarity.<br>
+<br>
+Line 40<br>
+Added a command to clear the screen.<br>
+<br>
+Line 87<br>
+Removed the word"latest"<br>
+This was done after forcing a download to fail (network not available).<br>
+<br>
+Line 114<br>
+Removed the word"now"<br>
+Consistent with the change to line 87.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

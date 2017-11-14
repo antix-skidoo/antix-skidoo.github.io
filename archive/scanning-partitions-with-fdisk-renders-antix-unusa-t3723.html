@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Scanning partitions with fdisk renders AntiX unusable - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./scanning-partitions-with-fdisk-renders-antix-unusa-t3723.html">Scanning partitions with fdisk renders AntiX unusable</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24868" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24868">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24868">
+<time datetime="2012-06-01T21:06">posted: 2012-06-01 &nbsp; 21:06</time>
+<span class="permalink"><a href="./scanning-partitions-with-fdisk-renders-antix-unusa-t3723.html#p24868" title="permalink">#1</a></span>
+
+<div class="content">Hey guys, <br>
+<br>
+recurrently I encounter different problems on my AntiX (M11 Kernel:3.2.0-1-686-pae) machine (IBM Thinkpad T21, Intel Pentium M 1,1 GHz, 512MB RAM) with USB drives. I will post one problem here, as it happened yesterday (not for the first time) and if I can exclude hardware issues as being the root of the problem, I will write about the other problems.<br>
+<br>
+Yesterday I wanted to mount an USB pendrive (NTFS file system), but before mounting it via <strong>pmount /dev/sdx Pendrive</strong> I checked if I type in the correct partition, as I had plugged in another USB stick an hour earlier and then unmounted that one. I have made the experience that in a case like that the second drive might be recognized as sdc1 instead of sdb1 (All 'internal partitions' are sda...) even if the other partition on another stick is no longer present.<br>
+<br>
+So I typed <strong>fdisk -l</strong> as ROOT. It correctly detected sda1-sda6 on my internal harddrive but when looking for other partitions it stalled and did not produce any output instead continuing scanning for other drives/partitions. I was not able to abort the operation via <strong>CTRL+C</strong>. Only closing the terminal window did help. <br>
+<br>
+Here is the output of <strong>dmesg</strong>, at least the last couple lines. In case you need more information, please let me know. I'm not a Linux expert, but I cannot see any specific problem with the hardware.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[ 7512.576067] usb 2-1: new full-speed USB device number 4 using uhci_hcd
+[ 7512.738566] usb 2-1: New USB device found, idVendor=1e3d, idProduct=2096
+[ 7512.738584] usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[ 7512.738595] usb 2-1: Product: Flash Disk      
+[ 7512.738604] usb 2-1: Manufacturer: Generic 
+[ 7512.738613] usb 2-1: SerialNumber: CCBB1202221738250105409312
+[ 7512.746718] scsi3 : usb-storage 2-1:1.0
+[ 7513.752663] scsi 3:0:0:0: Direct-Access     Generic  Flash Disk       5.00 PQ: 0 ANSI: 2
+[ 7513.763609] sd 3:0:0:0: [sdb] 1968128 512-byte logical blocks: (1.00 GB/961 MiB)
+[ 7513.769511] sd 3:0:0:0: [sdb] Write Protect is off
+[ 7513.769531] sd 3:0:0:0: [sdb] Mode Sense: 0b 00 00 08
+[ 7513.772635] sd 3:0:0:0: [sdb] No Caching mode page present
+[ 7513.772651] sd 3:0:0:0: [sdb] Assuming drive cache: write through
+[ 7817.912308] e100 0000:02:08.0: eth0: NIC Link is Up 10 Mbps Full Duplex
+[ 7825.560126] usb 2-1: USB disconnect, device number 4
+[ 7825.560301] ------------[ cut here ]------------
+[ 7825.560326] WARNING: at /build/buildd-linux-2.6_3.2.6-1-i386-Ea61XL/linux-2.6-3.2.6/debian/build/source_i386_none/fs/sysfs/inode.c:323 sysfs_hash_and_remove+0x22/0x71()
+[ 7825.560339] Hardware name: 26474MG
+[ 7825.560346] sysfs: can not remove 'bsg', no directory
+[ 7825.560353] Modules linked in: usb_storage uas savage drm i2c_core speedstep_ich speedstep_lib cpufreq_userspace cpufreq_powersave cpufreq_stats cpufreq_conservative binfmt_misc uinput fuse dm_crypt pcmcia joydev thinkpad_acpi iTCO_wdt irda rfkill iTCO_vendor_support crc_ccitt snd_seq_midi snd_intel8x0 snd_rawmidi snd_ac97_codec ac97_bus snd_seq_midi_event snd_pcm_oss yenta_socket pcmcia_rsrc pcmcia_core snd_seq snd_mixer_oss snd_pcm snd_timer snd_seq_device snd_page_alloc snd rng_core psmouse evdev serio_raw battery ac power_supply soundcore nvram shpchp pci_hotplug video parport_pc parport processor button ext4 crc16 jbd2 mbcache dm_mod usbhid hid sr_mod sd_mod crc_t10dif cdrom ata_generic ata_piix libata floppy e100 mii thermal thermal_sys scsi_mod uhci_hcd ehci_hcd usbcore usb_common [last unloaded: scsi_wait_scan]
+[ 7825.560568] Pid: 95, comm: khubd Tainted: G      D      3.2.0-1-686-pae #1
+[ 7825.560577] Call Trace:
+[ 7825.560593]  [&lt;c1038328&gt;] ? warn_slowpath_common+0x68/0x79
+[ 7825.560608]  [&lt;c110e491&gt;] ? sysfs_hash_and_remove+0x22/0x71
+[ 7825.560621]  [&lt;c10383a1&gt;] ? warn_slowpath_fmt+0x29/0x2d
+[ 7825.560635]  [&lt;c110e491&gt;] ? sysfs_hash_and_remove+0x22/0x71
+[ 7825.560652]  [&lt;c102a280&gt;] ? should_resched+0x5/0x1e
+[ 7825.560670]  [&lt;c1153f75&gt;] ? bsg_unregister_queue+0x36/0x68
+[ 7825.560714]  [&lt;e0bd0e27&gt;] ? __scsi_remove_device+0x29/0x93 [scsi_mod]
+[ 7825.560746]  [&lt;e0bd0206&gt;] ? scsi_forget_host+0x39/0x47 [scsi_mod]
+[ 7825.560776]  [&lt;e0bc9483&gt;] ? scsi_remove_host+0x65/0xcb [scsi_mod]
+[ 7825.560795]  [&lt;e0e02812&gt;] ? quiesce_and_remove_host+0x49/0x7d [usb_storage]
+[ 7825.560812]  [&lt;e0e028e0&gt;] ? usb_stor_disconnect+0x10/0x18 [usb_storage]
+[ 7825.560851]  [&lt;e0b188a9&gt;] ? usb_unbind_interface+0x3a/0xe9 [usbcore]
+[ 7825.560872]  [&lt;c11ec12a&gt;] ? __device_release_driver+0x5e/0x95
+[ 7825.560886]  [&lt;c11ec176&gt;] ? device_release_driver+0x15/0x1e
+[ 7825.560900]  [&lt;c11ebe36&gt;] ? bus_remove_device+0x5f/0x6a
+[ 7825.560913]  [&lt;c11ea42d&gt;] ? device_del+0xed/0x130
+[ 7825.560948]  [&lt;e0b17259&gt;] ? usb_disable_device+0x56/0x126 [usbcore]
+[ 7825.560980]  [&lt;e0b12142&gt;] ? usb_disconnect+0x71/0xd1 [usbcore]
+[ 7825.561011]  [&lt;e0b13445&gt;] ? hub_thread+0x420/0xbd4 [usbcore]
+[ 7825.561027]  [&lt;c1029f4b&gt;] ? __wake_up_common+0x33/0x5a
+[ 7825.561043]  [&lt;c104d4d0&gt;] ? add_wait_queue+0x30/0x30
+[ 7825.561075]  [&lt;e0b13025&gt;] ? usb_remote_wakeup+0x23/0x23 [usbcore]
+[ 7825.561088]  [&lt;c104d02f&gt;] ? kthread+0x63/0x68
+[ 7825.561101]  [&lt;c104cfcc&gt;] ? kthread_worker_fn+0x101/0x101
+[ 7825.561119]  [&lt;c12be2be&gt;] ? kernel_thread_helper+0x6/0x10
+[ 7825.561128] ---[ end trace 86735dca7d18fa23 ]---
+</code></pre></div>
+<br>
+<br>
+I thought, I might reboot my system, to see whether mounting the stick would work then. I typed"reboot" in the terminal and was informed that the system is going down for reboot. Except that after that nothing happened, it did not reboot! From that point on I could not give any input anymore to my system either via keyboard or the mouse, but the cursor on the command line kept blinking. I shortly pushed the on/off button to make the computer shut down (At least that works on other distros). Again I was told, that the system was about to shut down, but this time also nothing actually happened. Finally I resolved to do a hard reset/shutdown, as there was nothing I could do. <strong>ALT-SysReq+RSUIB</strong> did not help.<br>
+<br>
+Does anyone have an idea what I can do about this issue? This problem occured several times with NTFS formated drives as well as EXT3 or EXT4 ones for that matter.<br>
+<br>
+Thank in advance for your kind help,<br>
+<br>
+Pascal</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24870" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24870">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24870">
+
+<time datetime="2012-06-01T21:21">posted: 2012-06-01 &nbsp; 21:21</time>
+<span class="permalink"><a href="./scanning-partitions-with-fdisk-renders-antix-unusa-t3723.html#p24870" title="permalink">#2</a></span>
+
+<div class="content">Just a thought. On my IBM a22m. I run a combo firewire usb pcmcia cardbus. I quit using the onboard usb plugin because it is just plain worn out. <br>
+<br>
+Not sure why <br>
+<blockquote class="uncited"><div>I thought, I might reboot my system, to see whether mounting the stick would work then. I typed"reboot" in the terminal and was informed that the system is going down for reboot. Except that after that nothing happened, it did not reboot! From that point on I could not give any input anymore to my system either via keyboard or the mouse, but the cursor on the command line kept blinking. I shortly pushed the on/off button to make the computer shut down (At least that works on other distros). Again I was told, that the system was about to shut down, but this time also nothing actually happened. Finally I resolved to do a hard reset/shutdown, as there was nothing I could do. ALT-SysReq+RSUIB did not help.</div></blockquote>
+other than I had a similar issue kinda on my M&amp;A Companion Netbook recently. Windows XP blue screened. Then on reboot. Bios saw no boot device found. I looked in bios and no hardrive was showing/recognised. I had to take the hardrive access cover off. Pull out the 30 gig zif hardrive out a little ways. Play with the ide connector cable. Reassemble everything. Then all of a sudden bios recognized the hardrive. <br>
+<br>
+I am not saying this is your problem. Just mentioning what I ran into after my wife gave me back that netbook because I bought her a Lenovo Tablet with Android on it. I'm not sure if she dropped it or what after I gave it to her. <br>
+<br>
+If you get a grub screen. Maybe a memtest boot may be in order also.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24871" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24871">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24871">
+
+<time datetime="2012-06-01T22:18">posted: 2012-06-01 &nbsp; 22:18</time>
+<span class="permalink"><a href="./scanning-partitions-with-fdisk-renders-antix-unusa-t3723.html#p24871" title="permalink">#3</a></span>
+
+<div class="content">Hi rokytnji,<br>
+<br>
+thanks a lot for your quick response. Maybe I used a little bit too drastic an expression by stating that my system is becoming unusable after the error occured (I could not think of a better word). I can always boot my system and everything works fine after this"crash". No persistent issues I checked for memory defects and found non.<br>
+I wrote that I too suspect damaged hardware to be the root problem as I encounter problems with USB quite often on my Thinkpad: <br>
+- data transfer between USB hard drive and computer gets interrupted<br>
+- file system and partition table are destroyed when copying data to and from USB drive [That has now happened for about a dozen times] <br>
+- I receive the message from dmesg"unable to enumerate USB device on port 1"<br>
+<br>
+When looking for a solution for these issues there is always mentioned the possibility of malfunctioning hardware, but there might be other reasons as well. Since the laptop is from the year 2001, I would not be surprised if the USB ports are worn out. I will plug in a PCI card for USB 2.0 ports and see whether the problems persist. I thought, maybe someone of you guys had had a similiar problem so far and might be able to give a quick fix.<br>
+<br>
+Pascal</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24872" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24872">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24872">
+
+<time datetime="2012-06-01T22:22">posted: 2012-06-01 &nbsp; 22:22</time>
+<span class="permalink"><a href="./scanning-partitions-with-fdisk-renders-antix-unusa-t3723.html#p24872" title="permalink">#4</a></span>
+
+<div class="content">Honeypuck, I think it is a bug with fdisk and/or also with blkid as I sometimes get the same happening (and occassionally with gparted).<br>
+<br>
+I thought it might be a kernel issue ie the antiX one, but it also happened with a liquorix kernel as well.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24873" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24873">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24873">
+
+<time datetime="2012-06-01T22:43">posted: 2012-06-01 &nbsp; 22:43</time>
+<span class="permalink"><a href="./scanning-partitions-with-fdisk-renders-antix-unusa-t3723.html#p24873" title="permalink">#5</a></span>
+
+<div class="content">anticapitalista, the issues with USB are actually the only serious problems I have with antiX. But as I said my system is not damaged persistently be them, so I can live with it. I forgot to mention that I installed this kernel version (3.2.0-1-686-pae) via smxi, which worked like a charm on antiX.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

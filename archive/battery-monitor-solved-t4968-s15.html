@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Battery Monitor [SOLVED} - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./battery-monitor-solved-t4968-s15.html">Battery Monitor [SOLVED}</a></div>
+<div class="pagination">
+17 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./battery-monitor-solved-t4968.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./battery-monitor-solved-t4968.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34646" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34646">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34646">
+<time datetime="2014-04-17T22:41">posted: 2014-04-17 &nbsp; 22:41</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968-s15.html#p34646" title="permalink">#16</a></span>
+
+<div class="content">My Battery line in conky for my IBM A22M<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Batt:${color e0e0e0} .$acpiacadapter, ${color e0e0e0} ${battery_percent BAT0}% ${color e0e0e0} ${execi 300 /home/harry/.battery.sh} | ${color}BATTERY:${color e0e0e0} ${battery_bar 7,50 BAT0} ${execi 300 /home/harry/.battery.sh}</code></pre></div>
+My .battery.sh which is a hidden file I made in /home/harry and made sure it was made executable<br>
+<br>
+Be sure to change /home/harry with /home/your user name/.battery.sh<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/usr/bin/env python
+
+import os, math
+from decimal import *
+
+rate = 0.0
+batteries = os.listdir("/sys/class/power_supply")
+output ="No Data"
+
+for battery in batteries:
+    if"BAT" in battery:
+        status = open("/sys/class/power_supply/%s/status" % (battery)).read().strip("\n")
+        if"Discharging" in status:
+            energy = Decimal(open("/sys/class/power_supply/%s/energy_now" % (battery)).read())
+            power = Decimal(open("/sys/class/power_supply/%s/power_now" % (battery)).read())
+            if power &gt; 0:
+                hours = math.floor(energy / power)
+                minutes = math.floor(((energy % power) / power) * 60)
+                output ="%.0f hours %.0f minutes" % (hours, minutes)
+            else:
+                output ="Gathering"
+        else:
+            output = status
+print output</code></pre></div>
+screenshot<br>
+<br>
+<img src="http://postmyimage.com/img2/964_minilauncher.jpg" class="postimage" alt="Image"></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34691" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34691">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34691">
+
+<time datetime="2014-04-19T12:07">posted: 2014-04-19 &nbsp; 12:07</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968-s15.html#p34691" title="permalink">#17</a></span>
+
+<div class="content">Damn! Should have sorted this out months ago. <br>
+<br>
+A short 'awk' script:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/usr/bin/awk -f
+
+# Battery script for conky
+
+BEGIN {
+        while (("acpi -b" | getline) &gt; 0) {
+                print $0                }
+        close ("acpi -b")
+
+        while (("acpi -a" | getline) &gt; 0) {
+                print $0                }
+        close ("acpi -a")
+        }
+</code></pre></div>
+chmod u+x to make it executable and add the the following in conkyrc_icewm:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${color}Battery
+${Color}${exec battery.awk}
+</code></pre></div>
+and 'Bob's your Uncle'. You can, of course, use the 'acpi' options to gather all sorts of information - but what charge I've got &amp; whether I'm plugged in or not is all I need to know.<br>
+<br>
+OK, I pinched the idea off Rocky but I'm not clever enough to write stuff in Python.<br>
+<br>
+dmk<br>
+<br>
+<strong>PS:</strong> and, before anyone picks me up on it, yes, it can be written as:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>BEGIN {
+        ("acpi -b" | getline)
+        print $0
+        close ("acpi -b")
+
+        ("acpi -a" | getline)
+        print $0
+        close ("acpi -a")
+        }
+</code></pre></div> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+17 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./battery-monitor-solved-t4968.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./battery-monitor-solved-t4968.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

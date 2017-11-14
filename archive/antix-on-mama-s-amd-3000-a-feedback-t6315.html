@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX on Mama's AMD 3000: a feedback - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html">antiX on Mama's AMD 3000: a feedback</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46077" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46077">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46077">
+<time datetime="2016-03-29T21:08">posted: 2016-03-29 &nbsp; 21:08</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46077" title="permalink">#1</a></span>
+
+<div class="content">Hi, following is a feedback on antiX 15 to revive an old mama PC (AMD 3000). <br>
+Your notes or else questions are welcome.<br>
+<br>
+Place: our district « Neighbours' House » I volunteer in<br>
+PC: Geforce4 mobo 1 gb DDR Athlon 3000 with a Maxtor Diamond 9 spinning HDD, Geforce 6600 GPU. Box's full of added Sata/Firewire/USB/cards reader and DVD burners. Device is 10-11 years old (BIOS reads: 2004-10).<br>
+Persons: Old mama called Rosemonde (means"Roseworld" in French or"La vie en rose" <span class="emoticon"> __{{emoticon}}__ </span>) who came here with her Windows 7 box as fast as a scooter on an highway. 90% persuaded she needs to find the money to buy a new PC. Windosw aware colleague and the Linux aware me (ten years since I managed a Debian OS). <br>
+<br>
+Part 1<br>
+---------<br>
+<br>
+Colleague greeted her and cleaned her Windows the next couple of days (!), best he could. PC then as fast <span class="emoticon"> __{{emoticon}}__ </span> as copying 20 gig of pictures to Mama's NTFS external HDD in lots of *hours*...<br>
+He was happy to let me in. Note this is first time I can try --and be reliable for-- doing something"big" in the place.<br>
+<br>
+Part 2<br>
+---------<br>
+<br>
+That $%*#£ PC won't boot on any of my USB keys, but throwing in an external IDE-USB2 HDD did the job (tried a dozen different BIOS and IDE/SATA wires settings). Finished saving her files then wiped the Maxtor and installed antiX 15.1.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>parted /dev/sdb
+unit -s   # this ensures all partitions are optimaly aligned
+mklabel msdos</code></pre></div>
+...leading to these 4 partitions:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/boot (200 MB)   # i think antiX installer didn't care for that one
+swap (1 gig)
+/ (10 GB)
+/home rest of the disk</code></pre></div>
+Then
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt update &amp;&amp; apt upgrade &amp;&amp; apt install libreoffice vlc</code></pre></div>
+And in Settings » Network » hosts file system ads blocking ON.<br>
+<br>
+Graphics, Ethernet (Marwell + nVidia) and every needed components running fine from first boot. CPU @ 0-2% and RAM @ 190 MB with Iceweasel browsing half a dozen pages. Desktop and browser are about 25 time faster than with the Redmond OS. And I must admit, a bit faster than on my 64-bit Core i3 Arch linux with SSD and 4 gig DDR3!<br>
+<br>
+Default IceWM/Rox's not that cool for an old lady though. And removable medias don't mount nor show up anywhere for her (or my Windozw aware colleague actualy <span class="emoticon"> __{{emoticon}}__ </span>) to use it. Which leads to:<br>
+<br>
+Part 3<br>
+---------<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt install xfce4 xfce4-goodies</code></pre></div>
+vim slash etc slash lightdm slash lightdm-gtk-greeter.conf
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[SeatDefaults]
+autologin-user=&lt;MAMA&gt;
+autologin-user-timeout=0
+pam [-something]</code></pre></div>
+Note I didn't like the session manager conf easy nor well documented [1].<br>
+<br>
+Configured:<br>
+- The windows' setting with a clearer minimize/maximize/close window theme<br>
+- swapiness and vfs_cache_pressure as per [2]<br>
+- bottom bar<br>
+<br>
+Asked another colleague (computer aware especialy Mac) at the house to give it a shot: both to <em><strong>Handy linux 2.3</strong></em> and to the started <strong><em>antiX / Xfce4</em></strong>. He went for a good try, surfing web sites he knows kill his old Macbook. Result on the antiX powered old box:
+<blockquote class="uncited"><div>« WTF, this system is blazing fast! (...) Woow, this always crashes my laptop (...) Hey do you think It'd fit on my Mac? »</div></blockquote>
+Guys, Iceweasel starts in seconds and load heavy pages as my cat a fly. At six tabs of which 2 killer sites (hello airbnb) we're at 320 MB RAM total <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+anticapitalista, the antiX team and helpful users: Congrats men!<br>
+<br>
+Next<br>
+---------<br>
+<br>
+Rosemonde will give her brand *new* system a try. Next, folowing your comments if any I should:<br>
+<ul><li>upgrade <strong><em>Xfce4</em></strong> to Debian Jessie's Xfce 4.10.1 (or Testing 4.12.2 ?)</li>
+<li> Get external ntfs auto-mounted (not the case atm)</li>
+<li> Install <em>Shotwell</em> beside <em>Mirage</em> as she's got these pics by the thousands</li>
+<li> Add <em>Skype</em> (or an open source replacement that'd meet Mama's need if I find any)</li>
+<li> Add some bookmarks for her most visited sites (I saved her Chrome's)</li>
+<li> Clean the distro from unused or replaced software</li>
+<li> Get <em>conky</em> with transparency (disapeared upon installing xfce4 and we know why, but is now acting as a windowed app)</li>
+<li> Do ya know whether antiX super cool hosts file system ads blocking script <span style="text-decoration: underline">auto-updates</span> the chosen list?</li>
+<li> Anything else I should look upon you think?</li></ul>
+Sources I used:<br>
+[1]: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/LightDM"<br>linktext was:"https://wiki.debian.org/LightDM"<br>====================================<br>
+ and 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/Xfce"<br>linktext was:"https://wiki.debian.org/Xfce"<br>====================================<br>
+ on the Debian wiki as well as Arch wiki and a couple others.<br>
+[2]: viewtopic.php?f=4&amp;t=124<br>
+<br>
+PS : the server error message when posting a path to 'slash etc' is super blocking and 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.phpbb.com/community/viewtopic.php?f=46&amp;t=417546"<br>linktext was:"airon3000 hack"<br>====================================<br>
+ doesn't play nice when in code blocks.</div>
+<div class="notice">
+Last edited by <b>kozaki</b> on 31 Mar 2016, 16:55, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46081" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46081">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46081">
+
+<time datetime="2016-03-29T21:45">posted: 2016-03-29 &nbsp; 21:45</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46081" title="permalink">#2</a></span>
+
+<div class="content">Lovely story. Kudos to you for helping the old folk.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46090" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46090">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46090">
+
+<time datetime="2016-03-30T10:39">posted: 2016-03-30 &nbsp; 10:39</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46090" title="permalink">#3</a></span>
+
+<div class="content">Mission acomplished! <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+For a more polished Xfce experience maybe try installing MX-15? <br>
+Or if you don't want to reinstall add MX repo and install xfce4 version 4.12 from MX.<br>
+Another alternative would be installing LXDE with metapackage-installer.<br>
+But maybe it is already good enough which for many users means good.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46103" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46103">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46103">
+
+<time datetime="2016-03-31T10:54">posted: 2016-03-31 &nbsp; 10:54</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46103" title="permalink">#4</a></span>
+
+<div class="content">Yeah am now seeding Antix MX Fusion since I found the torrent yesterday (doing so is not that straight from AntiX main page).<br>
+<br>
+these MX and antiX, Debian repos?: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepiscommunity.org/wiki/system/repos-mx-15"<br>linktext was:"http://www.mepiscommunity.org/wiki/system/repos-mx-15"<br>====================================<br>
+<br>
+<br>
+Yesterday my"windows" colleague launched a HD video on youtube (Flash) and computer crashed. Upon restart it wouldn't go any further than the screen *before* ya can enter the BIOS settings. Power button uneffective at this step. I handled that with a bios reset, but wondering what caused this! Your thoughts welcome!<br>
+<br>
+GPU is a nVidia nv 43 geforce 6600.<br>
+Will add html5 support for videos and audios format through gstreamer and request manual activation of Flash.<br>
+<br>
+EDIT: repos and boot freeze (couldn't find how to edit on the mobile version of freeforums)</div>
+<div class="notice">
+Last edited by <b>kozaki</b> on 31 Mar 2016, 16:37, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46105" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46105">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46105">
+
+<time datetime="2016-03-31T13:14">posted: 2016-03-31 &nbsp; 13:14</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46105" title="permalink">#5</a></span>
+
+<div class="content">There are a lot of motherboards that reset to BIOS factory upon a dab shutdown.<br>
+ASUS was ral good about doing that and a BIOS reset was the answer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46108" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46108">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46108">
+
+<time datetime="2016-03-31 &nbsp; 14:16">posted: 2016-03-31 &nbsp; 14:16</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46108" title="permalink">#6</a></span>
+
+<div class="content">Some people never understand that just because it is old it is not trash. You have shown a good example where antix has helped more than hurt with these older computers. <br>
+<br>
+As shay stated, some of those older MB had a habit of resetting the BIOS themselves. But once you get everything settled down, it happens less frequently.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46109" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46109">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46109">
+
+<time datetime="2016-03-31T16:46">posted: 2016-03-31 &nbsp; 16:46</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46109" title="permalink">#7</a></span>
+
+<div class="content">Are these repos okay + enough for Mama usage on the mid term?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> # Debian Stable/Jessie repositories. Default for antiX-15.
+deb http://nl.mxrepo.com/antix/jessie jessie main nosystemd
+
+# Debian Stable. Default for antiX-15.
+# Use for maximum stability INSTEAD of the 'rolling' TESTING release concept.
+deb http://ftp.fr.debian.org/debian/ jessie main contrib non-free
+deb http://security.debian.org/ jessie/updates main contrib non-free
+
+# Multimedia Stable
+deb http://www.deb-multimedia.org jessie main non-free
+
+# Mepis Community Main Repo
+deb http://nl.mxrepo.com/mx/repo/ mx15 main non-free</code></pre></div>
+At Shay and jdmeaux a factory reset would be okay, but a freeze before ya can even enter the BIOS? Old machine did it again upon a reboot after we had an electrical powersurge yesterday.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46110" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46110">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46110">
+
+<time datetime="2016-03-31T20:50">posted: 2016-03-31 &nbsp; 20:50</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46110" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>kozaki wrote:</cite>
+<br>
+At Shay and jdmeaux a factory reset would be okay, but a freeze before ya can even enter the BIOS? Old machine did it again upon a reboot after we had an electrical powersurge yesterday.</div></blockquote>
+Time for a uninterruptible power supply. And visually inspect the Capacitors on the motherboard for damage.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46155" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46155">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46155">
+
+<time datetime="2016-04-03T20:16">posted: 2016-04-03 &nbsp; 20:16</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46155" title="permalink">#9</a></span>
+
+<div class="content">Thanks Shay, I'll check the capacitors next Thursday.<br>
+<br>
+Can I let Mama takes her box back with the source.list above please?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46161" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46161">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">eugen-b</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46161">
+
+<time datetime="2016-04-03T20:54">posted: 2016-04-03 &nbsp; 20:54</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46161" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>kozaki wrote:</cite>Can I let Mama takes her box back with the source.list above please?</div></blockquote>
+Yes, the repo is ok. I just wanted to recommend to update Xfce from the MX-15 repo, if it has a newer version. You probably know how to do it with Synaptic?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46168" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46168">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">kozaki</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46168">
+
+<time datetime="2016-04-04T10:03">posted: 2016-04-04 &nbsp; 10:03</time>
+<span class="permalink"><a href="./antix-on-mama-s-amd-3000-a-feedback-t6315.html#p46168" title="permalink">#11</a></span>
+
+<div class="content">Sure! Am more a cli guy though.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

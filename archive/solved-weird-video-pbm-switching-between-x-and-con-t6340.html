@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] Weird video pbm switching between X and console - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html">[SOLVED] Weird video pbm switching between X and console</a></div>
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46334" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46334">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46334">
+<time datetime="2016-04-22T17:53">posted: 2016-04-22 &nbsp; 17:53</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46334" title="permalink">#1</a></span>
+
+<div class="content">Pbm manifests when killing X-session, either on exit, logout, or reboot. I can chvt between X and a console using function keys or chvt #, but when shutting down, logging out of X or rebooting, instead of automatically switching to console 1 (from console 7, when rebooting/shutting down) or presenting the slim login screen (when logging out), screen remains on console 7 with current screen w/lines all over it (as if attempting to set LCD screen to a bad video mode) and keyboard and mouse LOCKED (-must powercycle!-). Non-critical when shutting down/rebooting, as it'll still reboot, but critical if trying to logout and return to slim login screen (doesn't!). Pbm manifests the same regardless of window-manager selected at login.<br>
+<br>
+Successful workaround is to map logout and shutdown/reboot to scripts that first do a"chvt 1" and sleep for 2 seconds BEFORE logging out/shutting down/rebooting, etc. In short, I must do a"chvt" away from the X session BEFORE killing X!!! Suspend and resume work properly w/o this workaround. I'm on an HP Elitebook 8440p w/Intel integrated graphics (see inxi below). <br>
+<br>
+Following things tried to no avail: <br>
+choosing different window-manager<br>
+rebuilding initramfs manually<br>
+kernel line (adding): nomodeset; kernel line: vga=355; <br>
+xorg.conf: option"LinearFramebuffer""true", option"ReprobeOutputs""true", option"XuMC""false"; <br>
+slim.conf (adding to"xserver_arguments" line:" -keeptty -novtswitch". <br>
+<br>
+Current configs:<br>
+slash etc slash initramfs-tools/modules:<br>
+intel_agp<br>
+i915<br>
+<br>
+<br>
+I can rule out hardware, as I have another Antix install on same hardware w/o issue, only"difference" must be either the fact that the failing distro is set up as a dual-boot from Win7 (initial boot screen is Win-7 bootloader into separate /boot partition - vfat) or some other configuration file difference that I can't find!<br>
+<br>
+Related warnings in dmesg (startup)<br>
+[drm] Initialized i915 1.6.0 20151218 for 0000:00:02.0 on minor 0<br>
+i915 0000:00:02.0: fb0: inteldrmfb frame buffer device<br>
+i915 0000:00:02.0: BAR 6: [??? 0x00000000 flags 0x2] has bogus alignment<br>
+<br>
+Warnings found in dmesg (when switching between X and a console):<br>
+[ 9409.156678] [drm:intel_cpu_fifo_underrun_irq_handler [i915]] *ERROR* CPU pipe B FIFO underrun<br>
+[ 9409.156791] [drm:intel_pch_fifo_underrun_irq_handler [i915]] *ERROR* PCH transcoder B FIFO underrun<br>
+[ 9409.196921] [drm:intel_cpu_fifo_underrun_irq_handler [i915]] *ERROR* CPU pipe B FIFO underrun<br>
+[ 9409.196978] [drm:intel_pch_fifo_underrun_irq_handler [i915]] *ERROR* PCH transcoder B FIFO underrun<br>
+<br>
+and in /var/log/Xorg.0.log:<br>
+<br>
+[ 9413.912] (EE) intel(0): sna_mode_shutdown_crtc: invalid state found on pipe 0, disabling CRTC:21<br>
+<br>
+Any experts that can shed some light on this?<br>
+<br>
+Thanks!<br>
+<br>
+$&gt;inxi -F<br>
+System: Host: mybox Kernel: 4.5-2.dmz.1-liquorix-686-pae i686 (32 bit)<br>
+Desktop: N/A Distro: antiX-13.2_386-full Luddite 4 November 2013<br>
+Machine: System: Hewlett-Packard (portable) product: HP EliteBook 8440p<br>
+Mobo: Hewlett-Packard model: 172A v: KBC Version 30.31<br>
+Bios: Hewlett-Packard v: 68CCU Ver. F.11 date: 11/25/2010<br>
+Battery BAT0: charge: 30.6 Wh 98.0% condition: 31.2/31.2 Wh (100%)<br>
+CPU: Dual core Intel Core i5 M 520 (-HT-MCP-) cache: 3072 KB <br>
+clock speeds: max: 2400 MHz 1: 1866 MHz 2: 2266 MHz 3: 1599 MHz<br>
+4: 1333 MHz<br>
+Graphics: Card: Intel Core Processor Integrated Graphics Controller<br>
+Display Server: X.Org 1.18.2 driver: intel<br>
+Resolution: 1920x1080@59.93hz<br>
+GLX Renderer: Mesa DRI Intel Ironlake Mobile x86/MMX/SSE2<br>
+GLX Version: 2.1 Mesa 11.1.2<br>
+Audio: Card Intel 5 Series/3400 Series High Definition Audio<br>
+driver: snd_hda_intel<br>
+Sound: ALSA v: k4.5-2.dmz.1-liquorix-686-pae<br>
+Network: Card-1: Intel 82577LM Gigabit Network Connection driver: e1000e<br>
+IF: enp0s25 state: up speed: 100 Mbps duplex: full<br>
+mac: b4:99:ba:e2:cb:7c<br>
+Card-2: Intel Centrino Advanced-N 6200<br>
+IF: N/A state: N/A mac: N/A<br>
+Drives: HDD Total Size: 1000.2GB (4.7% used)<br>
+ID-1: /dev/sda model: TOSHIBA_MQ01ABD1 size: 1000.2GB<br>
+Partition: ID-1: / size: 23G used: 6.6G (31%) fs: ext4 dev: /dev/sda6<br>
+ID-2: /boot size: 1.2G used: 149M (13%) fs: vfat dev: /dev/sda5<br>
+ID-3: /var size: 25G used: 1.5G (7%) fs: ext4 dev: /dev/sda7<br>
+ID-4: /home size: 733G used: 28G (4%) fs: ext4 dev: /dev/sda9<br>
+ID-5: swap-1 size: 8.91GB used: 0.00GB (0%) fs: swap dev: /dev/sda8<br>
+Sensors: System Temperatures: cpu: 50.0C mobo: 0.0C<br>
+Fan Speeds (in rpm): cpu: N/A<br>
+Info: Processes: 138 Uptime: 2:43 Memory: 408.6/7893.6MB<br>
+Client: Shell (bash) inxi: 2.3.0</div>
+<div class="notice">
+Last edited by <b>wildstar84</b> on 26 Aug 2016, 22:51, edited 3 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46336" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46336">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46336">
+
+<time datetime="2016-04-22T18:03">posted: 2016-04-22 &nbsp; 18:03</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46336" title="permalink">#2</a></span>
+
+<div class="content">Are you using Debian Testing? What desktop are you using? Your inxi does nt show anything. Nor does it show if you are using systemd or sysvinit</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46337" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46337">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46337">
+
+<time datetime="2016-04-22T18:09">posted: 2016-04-22 &nbsp; 18:09</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46337" title="permalink">#3</a></span>
+
+<div class="content">I'm using Debian Testing with sysvinit (nosystemd) desktop: slim, doesn't matter which windowmanager:<br>
+<br>
+$&gt;inxi -r <br>
+Repos: Active apt sources in file: / etsy /apt/sources.list.d/antix.list<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.daveserver.info/jessie/"<br>linktext was:"http://antix.daveserver.info/jessie/"<br>====================================<br>
+ jessie main nosystemd<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.daveserver.info/testing/"<br>linktext was:"http://antix.daveserver.info/testing/"<br>====================================<br>
+ testing nosystemd main<br>
+Active apt sources in file: / etsy /apt/sources.list.d/debian.list<br>
+deb ..security.debian.org/ jessie/updates main contrib non-free<br>
+deb ..ftp.gr.debian.org/debian/ testing non-free contrib main<br>
+deb ..security.debian.org/ testing/updates non-free contrib main<br>
+deb ..
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.deb-multimedia.org/"<br>linktext was:"www.deb-multimedia.org/"<br>====================================<br>
+ testing non-free main<br>
+Active apt sources in file: / etsy /apt/sources.list.d/various.list<br>
+deb ..liquorix.net/debian/ sid main</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46338" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46338">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46338">
+
+<time datetime="2016-04-22T18:14">posted: 2016-04-22 &nbsp; 18:14</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46338" title="permalink">#4</a></span>
+
+<div class="content">The desktop-session is different in antiX-13.2 to antiX-15/16.<br>
+<br>
+Post your etc/slim.conf and do you have a ~/,xinitrc? If so post it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46339" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46339">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46339">
+
+<time datetime="2016-04-22T18:18">posted: 2016-04-22 &nbsp; 18:18</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46339" title="permalink">#5</a></span>
+
+<div class="content">/ etsy /slim.conf (same on both setups - except the one line change I mentioned in the OP):<br>
+<br>
+# Path, X server and arguments (if needed)<br>
+# Note: -xauth $authfile is automatically appended<br>
+#default_path ./:/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin<br>
+default_path /usr/local/bin:/usr/bin:/bin<br>
+default_xserver /usr/bin/X<br>
+xserver_arguments -ac -nosilk -keeptty -novtswitch<br>
+<br>
+# Commands for halt, login, etc.<br>
+halt_cmd /usr/local/bin/persist-config --shutdown --command halt <br>
+reboot_cmd /usr/local/bin/persist-config --shutdown --command reboot <br>
+console_cmd /usr/bin/urxvt -C -fg white -bg black +sb -T"Console login" -e /bin/sh -c"/bin/cat / etsy /issue; exec /bin/login"<br>
+#suspend_cmd /usr/sbin/suspend<br>
+suspend_cmd /usr/local/bin/s2ram<br>
+<br>
+# Full path to the xauth binary<br>
+xauth_path /usr/bin/xauth <br>
+<br>
+# Xauth file for server<br>
+authfile /var/run/slim.auth<br>
+<br>
+<br>
+# Activate numlock when slim starts. Valid values: on|off<br>
+numlock off<br>
+<br>
+# Hide the mouse cursor (note: does not work with some WMs).<br>
+# Valid values: true|false<br>
+#hidecursor true<br>
+hidecursor false<br>
+<br>
+# This command is executed after a succesful login.<br>
+# you can place the %session and %theme variables<br>
+# to handle launching of specific commands in .xinitrc<br>
+# depending of chosen session and slim theme<br>
+#<br>
+# NOTE: if your system does not have bash you need<br>
+# to adjust the command according to your preferred shell,<br>
+# i.e. for freebsd use:<br>
+# login_cmd exec /bin/bash -login / etsy /X11/Xsession %session <br>
+#################OLD COMMAND####################<br>
+# login_cmd exec /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors$DISPLAY 2&gt;&amp;1<br>
+################################################<br>
+#LOGIN COMMAND FOR DESKTOP SESSION BELOW#<br>
+#############################################################################################<br>
+#JWT:DON'T USE - WE DON'T INSTALL/USE desktop-session-antix!!! login_cmd setsid /usr/local/bin/desktop-session %session<br>
+#############################################################################################<br>
+# login_cmd exec dbus-launch /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors 2&gt;&amp;1<br>
+login_cmd exec /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors$DISPLAY 2&gt;&amp;1<br>
+<br>
+# Commands executed when starting and exiting a session.<br>
+# They can be used for registering a X11 session with<br>
+# sessreg. You can use the %user variable<br>
+#<br>
+sessionstart_cmd /usr/bin/sessreg -a -l $DISPLAY %user<br>
+sessionstop_cmd /usr/bin/sessreg -d -l $DISPLAY %user<br>
+<br>
+# Start in daemon mode. Valid values: yes | no<br>
+# Note that this can overridden by the command line<br>
+# option"-d"<br>
+# daemon    yes<br>
+<br>
+# Available sessions (first one is the default).<br>
+# The current chosen session name is replaced in the login_cmd<br>
+# above, so your login command can handle different sessions.<br>
+# see the xinitrc.sample file shipped with slim sources<br>
+sessions afterstep,rox-fluxbox,space-fluxbox,fluxbox,rox-icewm,space-icewm,icewm,rox-jwm,space-jwm,jwm,wmii <br>
+<br>
+# Executed when pressing F11 (requires imagemagick)<br>
+screenshot_cmd scrot /tmp/slim.png<br>
+<br>
+# welcome message. Available variables: %host, %domain<br>
+welcome_msg (Press F1 to toggle sessions)<br>
+<br>
+# shutdown / reboot messages<br>
+shutdown_msg The system is shutting down...<br>
+reboot_msg The system is rebooting...<br>
+<br>
+# Focus the password field on start when default_user is set<br>
+# Set to"yes" to enable this feature<br>
+#focus_password no<br>
+<br>
+# Automatically login the default user (without entering<br>
+# the password. Set to"yes" to enable this feature<br>
+#auto_login yes<br>
+<br>
+# default user, leave blank or remove this line<br>
+# for avoid pre-loading the username.<br>
+#default_user turnerjw<br>
+<br>
+# current theme, use comma separated list to specify a set to <br>
+# randomly choose from<br>
+current_theme antiX<br>
+<br>
+# Lock file<br>
+lockfile /var/run/slim.lock<br>
+<br>
+# Log file<br>
+logfile /var/log/slim.log</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46340" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46340">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46340">
+
+<time datetime="2016-04-22T18:20">posted: 2016-04-22 &nbsp; 18:20</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46340" title="permalink">#6</a></span>
+
+<div class="content">BTW, Thank you for the quick responses, Anti!!!<br>
+<br>
+$HOME/.xinitrc:<br>
+<br>
+#----------------------------------------------------------------------<br>
+# .xinitrc <br>
+#<br>
+# Created by /usr/share/antiX/lib/make-xinitrc<br>
+# on 21 April 2014 @ 12:15:12 EDT<br>
+# Please add any modifications to .xinitrc-custom and not this file.<br>
+# This file will be re-written by update-default-desktop. The<br>
+# DEFAULT_DESKTOP line will be edited by antiX-init if you select<br>
+# a desktop via the bootloader menu or a"desktop=xxx" boot parameter.<br>
+#----------------------------------------------------------------------<br>
+<br>
+[ -x ~/.xinitrc-custom ] &amp;&amp; ~/.xinitrc-custom<br>
+<br>
+[ -f ~/.Xmodmap ] &amp;&amp; xmodmap ~/.Xmodmap<br>
+<br>
+DEFAULT_DESKTOP="afterstep"<br>
+#JWT:ADDED STOP SCREEN BLANKING (SEE 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.cyberciti.biz/tips/linux-disable-screen-blanking-screen-going-blank.html"<br>linktext was:"http://www.cyberciti.biz/tips/linux-dis ... blank.html"<br>====================================<br>
+):<br>
+setterm -blank 0 &gt;/run/shm/xinitrc.out 2&gt;&amp;1<br>
+#setterm -powersave off &gt;&gt;/run/shm/xinitrc.out 2&gt;&amp;1<br>
+setterm -powerdown 0 &gt;&gt;/run/shm/xinitrc.out 2&gt;&amp;1<br>
+xset s off<br>
+<br>
+DESKTOP_CODE="$(echo"${1:-$DEFAULT_DESKTOP}" | tr"[A-Z]""[a-z]")"<br>
+<br>
+sdir=$HOME/.antix-session<br>
+mkdir -p $sdir<br>
+display=${DISPLAY%.[0-9]}<br>
+echo"$DESKTOP_CODE" &gt; $sdir/desktop-code$DISPLAY<br>
+echo $$ &gt; $sdir/xinitrc-pid:$display<br>
+<br>
+case"$DESKTOP_CODE" in<br>
+afterstep)<br>
+# exec /usr/local/bin/afterstep.pre<br>
+[ -f ~/.afterstep/.asrc ] &amp;&amp; . ~/.afterstep/.asrc<br>
+/home/turnerjw/.afterstep/asstartuppre.pl<br>
+exec /usr/bin/afterstep<br>
+;;<br>
+rox-fluxbox)<br>
+rox --pinboard=antiX-fluxbox<br>
+exec /usr/bin/startfluxbox<br>
+;;<br>
+space-fluxbox)<br>
+spacefm --desktop &amp;<br>
+exec /usr/bin/startfluxbox<br>
+;;<br>
+fluxbox)<br>
+exec /usr/bin/startfluxbox<br>
+;;<br>
+rox-icewm)<br>
+rox --pinboard=antiX-icewm<br>
+exec /usr/bin/icewm-session<br>
+;;<br>
+space-icewm)<br>
+spacefm --desktop &amp;<br>
+exec /usr/bin/icewm-session<br>
+;;<br>
+icewm)<br>
+exec /usr/bin/icewm-session<br>
+;;<br>
+rox-jwm)<br>
+rox --pinboard=antiX-jwm<br>
+exec /usr/bin/jwm<br>
+;;<br>
+space-jwm)<br>
+spacefm --desktop &amp;<br>
+exec /usr/bin/jwm<br>
+;;<br>
+jwm)<br>
+exec /usr/bin/jwm<br>
+;;<br>
+wmii)<br>
+exec wmii<br>
+;;<br>
+*)<br>
+echo"Unknown DESKTOP_CODE: $DESKTOP_CODE" &gt;&amp;2<br>
+echo"Setting DESKTOP_CODE to rox-icewm" &gt;&amp;2<br>
+DESKTOP_CODE="rox-icewm"<br>
+echo"$DESKTOP_CODE" &gt; $HOME/.antix-session/desktop-code$DISPLAY<br>
+rox --pinboard=antiX-icewm<br>
+exec /usr/bin/icewm-session<br>
+;;<br>
+esac</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46341" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46341">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46341">
+
+<time datetime="2016-04-22T18:28">posted: 2016-04-22 &nbsp; 18:28</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46341" title="permalink">#7</a></span>
+
+<div class="content">Ok, have a look at your etc/sudoers.d/antixers file.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46342" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46342">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46342">
+
+<time datetime="2016-04-22T18:38">posted: 2016-04-22 &nbsp; 18:38</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46342" title="permalink">#8</a></span>
+
+<div class="content"># sudoers file.<br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/halt <br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/poweroff<br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/reboot <br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/blkid <br>
+<br>
+%users ALL=(root) NOPASSWD: /sbin/fdisk.distrib <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/bin/ceni <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/bin/rox <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-config<br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-save <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/sbin/minstall <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/connectshares.sh<br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/disconnectshares.sh <br>
+<br>
+%users ALL=(root) NOPASSWD: /bin/chvt <br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/menu_manager.sh <br>
+<br>
+Defaults env_keep +="RESTARTED HOME"<br>
+Defaults !requiretty<br>
+Defaults !tty_tickets<br>
+<br>
+%users ALL=(root) NOPASSWD: /usr/local/bin/update-default-desktop<br>
+<br>
+===========================================================<br>
+<br>
+Another possibly relevent thing (though I've had this forever):<br>
+/ etsy / inittab:<br>
+1:2345:respawn:/sbin/getty --noclear 38400 tty1<br>
+2:2345:respawn:/sbin/getty 38400 tty2<br>
+#JWT:DON'T NEED MORE THAN TWO, I BELIEVE! 3:2345:respawn:/sbin/getty 38400 tty3<br>
+#4:2345:respawn:/sbin/getty 38400 tty4<br>
+#5:2345:respawn:/sbin/getty 38400 tty5<br>
+#6:2345:respawn:/sbin/getty 38400 tty6<br>
+<br>
+and / etsy / defaults/console-setup has (but I haven't tried changing that yet, but have doubts it would affect anything, would it?):<br>
+<br>
+ACTIVE_CONSOLES="/dev/tty[1-6]"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46360" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46360">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46360">
+
+<time datetime="2016-04-25T02:27">posted: 2016-04-25 &nbsp; 02:27</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46360" title="permalink">#9</a></span>
+
+<div class="content">I had this same problem and found the solution.<br>
+I use xserver AccelMethod UXA for Ironlake not SNA (for Sandy Lake or newer).<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: antiX1 Kernel: 4.4.2-antix-sid.2-amd64-smp x86_64 (64 bit) Console: tty 3
+           Distro: antiX-16-a1-xorg-sid_x64-core 19 February 2016
+Machine:   Mobo: Dell model: 0G939P v: A08 Bios: Dell v: A08 date: 07/22/2010
+CPU:       Dual core Intel Core i3 M 370 (-HT-MCP-) speed/max: 1066/2399 MHz
+Graphics:  Card: Intel Core Processor Integrated Graphics Controller
+           Display Server: X.org 1.18.3 drivers: intel (unloaded: fbdev,vesa)
+           tty size: 137x38 Advanced Data: N/A out of X
+Network:   Card-1: Qualcomm Atheros AR928X Wireless Network Adapter (PCI-Express) driver: ath9k
+           Card-2: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller driver: r8169
+Drives:    HDD Total Size: 250.1GB (2.7% used)
+Info:      Processes: 152 Uptime: 28 min Memory: 261.2/3753.8MB Init: SysVinit runlevel: 5
+           Client: Shell (dash) inxi: 2.2.31
+Section"Device"
+    Identifier"card0"
+    Driver"intel"
+    Option"AccelMethod""UXA"
+    Option"Backlight""intel_backlight"
+EndSection
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46370" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46370">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">wildstar84</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46370">
+
+<time datetime="2016-04-26T06:55">posted: 2016-04-26 &nbsp; 06:55</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46370" title="permalink">#10</a></span>
+
+<div class="content">Thanks, hobbyist, <br>
+<br>
+That indeed seems to have FIXED it! Only thing is that I did lose a bit of graphic speed (glxgears went from reaching 10K to now reaching approx 8.5K. The weird thing is that SNA worked find on my older Dell D620 (also w/Intel graphics). One thing I did have to add back, in order to be able to see the console messages during shutdown or reboot was put the"-keeptty -novtswitch" options back onto my slim.conf file,"xserver_arguments" line!<br>
+<br>
+My debate now (with myself) is whether to keep my"chvt 1; sleep 2" workaround scripts in my shutdown/reboot/quit buttons/menus (and Ctrl/Alt/Backspace sequence disabled) in order to have the higher SNA throughput or keep it as-is now w/UXA!<br>
+<br>
+Jim</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46398" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46398">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46398">
+
+<time datetime="2016-04-28T19:21">posted: 2016-04-28 &nbsp; 19:21</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p46398" title="permalink">#11</a></span>
+
+<div class="content">Ok, here's the deal. Problem manifested in kernel upgrade from liquorix v4.4-6.dmz.1 (Last known Good version) - going back to that version resolves issue. There's no current Antix kernel above this version, so no way to test there. Problem also only seems to manifest when undocked (no external monitor attached). I've decided to go back to SNA for the improved video performance and use my workarounds when exiting X and undocked (add"chvt 1; sleep 2" to scripts that exit the window-manager - either to log out, shut down, or reboot) until and if a new kernel version comes along that resolves this regression. I will just avoid Ctrl+Alt+Backspace whilst undocked. It can also be ruled out that this is in any way an Antix issue rather it is upstream!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47569" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47569">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47569">
+
+<time datetime="2016-07-22T14:07">posted: 2016-07-22 &nbsp; 14:07</time>
+<span class="permalink"><a href="./solved-weird-video-pbm-switching-between-x-and-con-t6340.html#p47569" title="permalink">#12</a></span>
+
+<div class="content">This seems to be fixed in recent 4.6 kernels.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

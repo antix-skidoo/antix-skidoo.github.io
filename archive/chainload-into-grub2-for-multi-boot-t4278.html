@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Chainload into GRUB2 for multi-boot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./chainload-into-grub2-for-multi-boot-t4278.html">Chainload into GRUB2 for multi-boot</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_28779" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28779">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28779">
+<time datetime="2013-04-18T20:38">posted: 2013-04-18 &nbsp; 20:38</time>
+<span class="permalink"><a href="./chainload-into-grub2-for-multi-boot-t4278.html#p28779" title="permalink">#1</a></span>
+
+<div class="content">System: Host: sid Kernel: 3.7.10-antix.2-amd64-smp x86_64 (64 bit) Desktop: IceWM 1.3.7 Distro: antiX-13-beta2-pt1_x64-full Ahmad Sami 24 March 2013<br>
+Machine: System: LENOVO product: 0679 version: Lenovo G560 Mobo: LENOVO model: N/A Bios: LENOVO version: 29CN35WW(V2.12) date: 12/08/2010<br>
+CPU: Dual core Intel Pentium CPU P6100 (-MCP-) cache: 3072 KB flags: (lm nx sse sse2 sse3 ssse3) Clock Speeds: 1: 933.00 MHz 2: 933.00 MHz<br>
+Graphics: Card: Intel Core Processor Integrated Graphics Controller X.Org: 1.12.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 1366x768@60.0hz <br>
+Audio: Card: Intel 5 Series/3400 Series High Definition Audio driver: snd_hda_intel Sound: ALSA ver: k3.7.10-antix.2-amd64-smp<br>
+Network: Card-1: Realtek RTL8101E/RTL8102E PCI Express Fast Ethernet controller driver: r8169 <br>
+IF: eth0 state: up speed: 100 Mbps duplex: full mac:xxxx Card-2: Broadcom BCM4313 802.11b/g/n Wireless LAN Controller driver: bcma-pci-bridge <br>
+Info: Processes: 97 Uptime: 1:01 Memory: 282.6/7789.6MB Client: Shell (bash) inxi: 1.8.45 <br>
+<br>
+Need GRUB2 and get rif of Grub-Legacy -- How2<br>
+<br>
+EDIT:<br>
+I had just finished mounting sda2 on /media so that osprober and update-grub could"do their thing," using System Rescue CD fully<br>
+loaded to my new"8GB" Mushkin 2X4 RAM, when somehow a wrong key got pushed and <em>Wham!</em> my laptop went dead with black screen and, in ULH <br>
+corner, blinking underscore cursor. Had to hard boot. <br>
+<br>
+I had done this to prepare hdd for multi-boot with <em>antiX</em>-13-beta 64bit, <em>Slackware</em> 13.37 and <em>Sabayon</em>11. Long story short, after getting machine up, could not unhinge the <strong>/media/sda2</strong> mount until doing a MD55 or something (from SysResCD) to the MBR. I noticed slow performance (hipo is why I use antiX in the first place) and found more than one <em>grub/menu.lst</em> entry pointing to mount on /media.<br>
+<br>
+Tried to <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>umount /media/sda2</code></pre></div> and found could not, as root. Got both this and the fstab issues straightened out, I hope.<br>
+<br>
+Cleaned up <em>fstab</em> with those damned UUIDs, now need to get a chainload to GRUB2, I presume. I need some MEPIS repo address I've since lost track of, too, so that grub-2.0 or such can be installed when ready.<br>
+<br>
+Am I on the right path?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28785" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28785">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28785">
+
+<time datetime="2013-04-19T05:28">posted: 2013-04-19 &nbsp; 05:28</time>
+<span class="permalink"><a href="./chainload-into-grub2-for-multi-boot-t4278.html#p28785" title="permalink">#2</a></span>
+
+<div class="content">Well, on my multiboots I do the opposite. I use grub legacy instead of grub2. When I install a grub2 distro. I install grub2 to root instead of mbr and make a chainload entry of it in legacy grub.<br>
+<br>
+Update-grub when a new kernel install happens on whatever distro I am in. When I pick a chainload grub2 menu entry.<br>
+That gives me a grub2 screen next and I can pick what kernel or operating system listed in grub 2 I wanna boot into.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 10
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+title AntiX  at sda1, kernel 3.3.5-antix.1-486-smp
+kernel /boot/vmlinuz-3.3.5-antix.1-486-smp root=/dev/sda1 nomce quiet nosplash nouveau.modeset=0 vga=791
+initrd /boot/initrd.img-3.3.5-antix.1-486-smp
+boot
+
+title Semplice GNU/Linux, with Linux 3.2.0-3-486
+rootnoverify (hd1,1)
+chainloader +1
+
+title Vector STD Gold 7 at /dev/sda2
+rootnoverify (hd0,1)
+chainloader +1
+
+title Puppy Linux 529 frugal in sdb1 dir macpup529frugal
+rootnoverify (hd1,0)
+kernel /macpup529frugal/vmlinuz pmedia=atahd psubdir=macpup529frugal
+initrd /macpup529frugal/initrd.gz
+
+### BEGIN AUTOMAGIC KERNELS LIST
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified
+## by the debian update-grub script except for the default options below
+
+## DO NOT UNCOMMENT THEM, Just edit them to your needs
+
+## ## Start Default Options ##
+## default kernel options
+## default kernel options for automagic boot options
+## If you want special options for specific kernels use kopt_x_y_z
+## where x.y.z is kernel version. Minor versions can be omitted.
+## e.g. kopt=root=/dev/hda1 ro
+##      kopt_2_6_8=root=/dev/hdc1 ro
+##      kopt_2_6_8_2_686=root=/dev/hdc2 ro
+# kopt=root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro
+# kopt_2_6=root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro nosplash quiet
+
+## default grub root device
+## e.g. groot=(hd0,0)
+# groot=(hd0,0)
+
+## should update-grub create alternative automagic boot options
+## e.g. alternative=true
+##      alternative=false
+# alternative=true
+
+## should update-grub lock alternative automagic boot options
+## e.g. lockalternative=true
+##      lockalternative=false
+# lockalternative=false
+
+## additional options to use with the default boot option, but not with the
+## alternatives
+## e.g. defoptions=vga=791 resume=/dev/hda5
+# defoptions=
+
+## should update-grub lock old automagic boot options
+## e.g. lockold=false
+##      lockold=true
+# lockold=false
+
+## Xen hypervisor options to use with the default Xen boot option
+# xenhopt=
+
+## Xen Linux kernel options to use with the default Xen boot option
+# xenkopt=console=tty0
+
+## altoption boot targets option
+## multiple altoptions lines are allowed
+## e.g. altoptions=(extra menu suffix) extra boot options
+##      altoptions=(single-user) single
+# altoptions=(init-3) 3
+
+## controls how many kernels should be put into the menu.lst
+## only counts the first occurence of a kernel, not the
+## alternative kernel options
+## e.g. howmany=all
+##      howmany=7
+# howmany=all
+
+## should update-grub create memtest86 boot option
+## e.g. memtest86=true
+##      memtest86=false
+# memtest86=true
+
+## should update-grub adjust the value of the default booted system
+## can be true or false
+# updatedefaultentry=false
+
+## should update-grub add savedefault to the default options
+## can be true or false
+# savedefault=false
+
+## ## End Default Options ##
+
+title      Debian GNU/Linux, kernel 3.5.2-antix.1-486-smp
+root      (hd0,0)
+kernel      /boot/vmlinuz-3.5.2-antix.1-486-smp root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro
+initrd      /boot/initrd.img-3.5.2-antix.1-486-smp
+
+title      Debian GNU/Linux, kernel 3.5.2-antix.1-486-smp (init-3)
+root      (hd0,0)
+kernel      /boot/vmlinuz-3.5.2-antix.1-486-smp root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro 3
+initrd      /boot/initrd.img-3.5.2-antix.1-486-smp
+
+title      Debian GNU/Linux, kernel 3.3.5-antix.1-486-smp
+root      (hd0,0)
+kernel      /boot/vmlinuz-3.3.5-antix.1-486-smp root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro
+initrd      /boot/initrd.img-3.3.5-antix.1-486-smp
+
+title      Debian GNU/Linux, kernel 3.3.5-antix.1-486-smp (init-3)
+root      (hd0,0)
+kernel      /boot/vmlinuz-3.3.5-antix.1-486-smp root=UUID=009157e5-dcf1-465a-ae33-6fb9cf5c3b38 ro 3
+initrd      /boot/initrd.img-3.3.5-antix.1-486-smp
+
+title      Debian GNU/Linux, kernel memtest86+
+root      (hd0,0)
+kernel      /boot/memtest86+.bin
+
+### END DEBIAN AUTOMAGIC KERNELS LIST</code></pre></div>
+Semplice and Vector are grub2 distros. I use AntiX 11 grub legacy to boot everything. This is with 2 ide hard drives. 1 60gig. 1 40gig.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28794" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28794">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28794">
+
+<time datetime="2013-04-19T16:40">posted: 2013-04-19 &nbsp; 16:40</time>
+<span class="permalink"><a href="./chainload-into-grub2-for-multi-boot-t4278.html#p28794" title="permalink">#3</a></span>
+
+<div class="content">I decided to forego Sabayon, the root of my concern, because my IP connection is too slow for this distro, anyway, IMHO.<br>
+Got VL7 going on half the hdd, next will be antiX. LILO currently in MBR. Grub legacy did not want to see VL7 last time I tried to install antiX <em>after </em>VL7.<br>
+Grub2 did not give a problem in this regard, hence my inclination to use it. Call me a dummy, but I am still trying to figure out which procedeure would be best.<br>
+I want to use 64bit antiX. Open to suggestions on how best to proceed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28802" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28802">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">SaminBare</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28802">
+
+<time datetime="2013-04-20T03:19">posted: 2013-04-20 &nbsp; 03:19</time>
+<span class="permalink"><a href="./chainload-into-grub2-for-multi-boot-t4278.html#p28802" title="permalink">#4</a></span>
+
+<div class="content">Screw both GRUBs! I'll just use LILO.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28843" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28843">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28843">
+
+<time datetime="2013-04-22T18:32">posted: 2013-04-22 &nbsp; 18:32</time>
+<span class="permalink"><a href="./chainload-into-grub2-for-multi-boot-t4278.html#p28843" title="permalink">#5</a></span>
+
+<div class="content">To start a grub2 distro from grub-legacy helped me this Entry:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title       Chainload into GRUB v2
+root        (hd0,yx)
+kernel      /boot/grub/core.img</code></pre></div>
+(grub2 from grub 1 chainloaded)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

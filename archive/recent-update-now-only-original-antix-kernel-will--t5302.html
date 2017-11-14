@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Recent update, now only original antiX kernel will start? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html">Recent update, now only original antiX kernel will start?</a></div>
+<div class="pagination">
+21 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./recent-update-now-only-original-antix-kernel-will--t5302-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./recent-update-now-only-original-antix-kernel-will--t5302-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_37235" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37235">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37235">
+<time datetime="2014-10-11T13:22">posted: 2014-10-11 &nbsp; 13:22</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37235" title="permalink">#1</a></span>
+
+<div class="content">I did my weekly dist-upgrade last night on my Athlon XP 2000+ (1 GiB RAM, antiX 13.2 full 32-bit, non-SSE2 processor). I didn't pay much attention to what got installed; there's usually a pretty good stack as I'm running testing repos. However, the next time I started the system, I got a message well into boot that"start job is running for dev-disk-by x2duuid" -- the rest of this ended in the UUIDs for two of my partitions (root and swap, I think), switching back and forth between the two, and a countdown timer for 1 minute, 30 seconds. When the timer completes, boot finishes with"welcome to emergency mode!" and a prompt to enter my root password, whereon I can enter some non-standard seeming commands given in the emergency mode message to either attempt to continue starting (boots to root console only), reboot, shutdown, etc.<br>
+<br>
+Research suggests this is due to a mismatched UUID between GRUB, fstab, and the actual partitions, but I'm not finding that. All four partitions (Win98, root, swap, and home) have the correct UUID in fstab, and the UUID entries in menu.lst are correct for the root partition, and the same for the 3.12.6 kernel that I was running up through yesterday, as for the 3.10.7-antix.5-486 kernel that still boots correctly. Thinking there might be a problem with something that updated, I checked file dates in <em>/</em>boot and found the initrd images had been modified yesterday; I tried runinng update-initramfs -u -k &lt;version&gt; for both installed kernels, with no change -- including failing to break the one for 3.10.7, which seemingly would have happened if there was a new bug in update-initramfs.<br>
+<br>
+Since there was apparently no change to the actual vmlinuz-3.12.6-antix.1-486-smp kernel image, I don't know what could have caused this; it can't be due to unreliable disk ID assignment, since, first, there's only one hard disk on this system, and second, all the entries in fstab and menu.list use the correct UUID. Possibly related, however, is that lsblk -f shows no UUID column at all -- I'm not sure how to interpret that result.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lsblk -f
+NAME   FSTYPE LABEL       MOUNTPOINT
+fd0                       
+sda                       
+├─sda1 vfat   SEAGATE 40G 
+├─sda2 ext4               /
+├─sda3 swap               [SWAP]
+└─sda4 ext4               /home
+sr0                       
+</code></pre></div>
+I'd much prefer to get the 3.12.6 kernel back; it's a good bit faster (and faster starting) than 3.10.7, and more efficient in memory use...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37238" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37238">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37238">
+
+<time datetime="2014-10-11T14:33">posted: 2014-10-11 &nbsp; 14:33</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37238" title="permalink">#2</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blkid -c /dev/null -o list</code></pre></div> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37246" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37246">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37246">
+
+<time datetime="2014-10-11T19:35">posted: 2014-10-11 &nbsp; 19:35</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37246" title="permalink">#3</a></span>
+
+<div class="content">Well, the Athlon is busy installing antiX to the laptop's redneck SSD right now (and I'll be booting from the CF, if I can get it to work that way, and updating to testing repos on the much faster Athlon system); I'll try checking that when I get the CF card and its adapter back into the laptop and can use the Athlon from the HDD again.<br>
+<br>
+Edit: Grrr, I'd swear I prefixed every instance of leading slash to get around the bug in this board's software, but I can't get my reply (with the outplut of the blkid command, and cats of menu.lst and fstab) to post. I get the 403 Forbidden, even though I put [ before every slash (which has to be legit, it's the format of bbcode close tags). But, I swear to you, the UUIDs in fstab are the same as the real ones -- and with UUID used in both fstab and menu.lst, if they were wrong, it would fail in 3.10.7 kernel just as much as in 3.12.6.<br>
+<br>
+I do see it's the root and home folders, not root and swap, that are giving the"start job" error.<br>
+<br>
+Edit: Sorry, it's home and swap that are failing (but only when I start the 3.12.6 kernel).<br>
+<br>
+Here's fstab:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+UUID=fc2bcc4a-da37-4e43-9238-aaa0f94283a8 [/] auto defaults,noatime 1 1
+UUID=9621880f-986e-4921-8fb6-3819bf00db22 swap swap sw,pri=1 0 0
+proc [/]proc proc defaults 0 0
+devpts [/]dev/pts devpts mode=0622 0 0
+UUID=152b43d6-66d9-46bc-a560-8558950fc5be [/]home auto defaults,noatime 1 2
+UUID=201C-1901 [/]media/sda1 vfat noauto,users,gid=users,dmask=002,fmask=113,relatime 0 0
+</code></pre></div>
+and here's the blkid output:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blkid -c /dev/null -o list
+device     fs_type label    mount point    UUID
+-------------------------------------------------------------------------------
+[/]dev/sda1  vfat    SEAGATE 40G (not mounted) 201C-1901
+[/]dev/sda2  ext4             [/]              fc2bcc4a-da37-4e43-9238-aaa0f94283a8
+[/]dev/sda3  swap             &lt;swap&gt;         9621880f-986e-4921-8fb6-3819bf00db22
+[/]dev/sda4  ext4             [/]home          152b43d6-66d9-46bc-a560-8558950fc5be
+</code></pre></div>
+I've been through those UUIDs character by character; I don't see a problem (and as noted, if that were the error, it would fail under 3.10.7 also). Just for good measure, here's my GRUB menu.lst:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /boot/grub/menu.lst
+timeout 5
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu [/]boot/grub/message
+
+title  antiX at sda2, latest kernel
+root   (hd0,1)
+kernel [/]boot/vmlinuz root=UUID=fc2bcc4a-da37-4e43-9238-aaa0f94283a8 ro
+initrd [/]boot/initrd
+boot
+
+title        antiX at sda2, kernel 3.12.6-antix.1-486-smp
+root        (hd0,1)
+kernel        [/]boot/vmlinuz-3.12.6-antix.1-486-smp root=UUID=fc2bcc4a-da37-4e43-9238-aaa0f94283a8 ro 
+initrd        [/]boot/initrd.img-3.12.6-antix.1-486-smp
+boot
+
+title        antiX at sda2, kernel 3.7.10-antix.5-486-smp
+root        (hd0,1)
+kernel        [/]boot/vmlinuz-3.7.10-antix.5-486-smp root=UUID=fc2bcc4a-da37-4e43-9238-aaa0f94283a8 ro 
+initrd        [/]boot/initrd.img-3.7.10-antix.5-486-smp
+boot
+
+title        memtest86+
+root        (hd0,1)
+kernel        [/]boot/memtest86+.bin
+
+title MS-DOS 5.x/6.x/Win3.1 at sda1
+rootnoverify (hd0,0)
+chainloader +1
+</code></pre></div>
+My default start uses links akin to the ones Ubuntu uses to avoid having to change GRUB every time they issue a kernel update through their channels, but I get the same result if I use the explicit entry for the 3.12.6 kernel. The"start job" messages appear after a short pause with"generic explorer mouse" on screen, but there's quite a lot of stuff in the journal (viewed with"journalctl something-or-other" after the system enters emergency mode).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37366" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37366">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37366">
+
+<time datetime="2014-10-15T10:13">posted: 2014-10-15 &nbsp; 10:13</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37366" title="permalink">#4</a></span>
+
+<div class="content">So, no idea why one kernel would give the"start job" followed by starting in"emergency mode" while the other, with the exact same fstab entries, doesn't? I've been seeing messages during dist-upgrade installs about changing disk identifiers from the"deprecated" /sd* format to either label or UUID, but I've done that everywhere I know to change. Is there somewhere else I should look for a disk identifier that needs to be in UUID format, or a utility that can check for me (the laptop gave that message again the other day while installing the update from Wheezy to testing, and warned there were still deprecated entries, but I don't find any there, either).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37373" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37373">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37373">
+
+<time datetime="2014-10-15T12:27">posted: 2014-10-15 &nbsp; 12:27</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37373" title="permalink">#5</a></span>
+
+<div class="content">All I have to say is that on my testing box. UUID rules now in fstab, maybe udev, maybe mtab, certainily grub menu list though new testing uses<br>
+grub2 so those files that are edited are now in / etc/default/grub.<br>
+<br>
+If kernel is not booting for me. I boot into the good one using the 3 on the end to get a cli boot so slim does not start,<br>
+I smxi from there and try out other kernels from Debian or Liqourix. On your older laptop.<br>
+Older kernels are probably better than new kernels. At least that was my experience on my IBM A22M before I sold it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37409" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37409">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37409">
+
+ <time datetime="2014-10-15T23:15">posted: 2014-10-15 &nbsp; 23:15</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37409" title="permalink">#6</a></span>
+
+<div class="content">Before this past weekend's reinstall, I'd been running kernel 3.14.0.bpo1-486 (from wheezy-backports, I think) -- seems pretty up to date for a 300 MHz Pentium II. The problem I'm having with one kernel not booting is on my Athlon XP system, not the laptop; it's been running 3.12.6-antiX for months, until this last update.<br>
+<br>
+I've updated fstab and grub to UUID (which I dislike, because it's difficult for a human to be sure a long string like that has been copied correctly). I'll see if I can find mtab and udev information that might still have an old designator.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37416" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37416">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37416">
+
+<time datetime="2014-10-15T23:46">posted: 2014-10-15 &nbsp; 23:46</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37416" title="permalink">#7</a></span>
+
+<div class="content">I found something that's likely related here, but I don't know how to fix it. In examining etc/mtab, which on the Athlon XP system is a link to /proc/mounts, I find that despite /home (/sda4) being listed in fstab by UUID, it's in mtab tagged by /dev/sda4 (although root is correctly mounted as /dev/disk/by-uuid/&lt;UUID&gt;). I don't see swap in there, but I suspect the same thing is happening there: despite being listed in fstab by UUID, it's being addressed as /sda3. Since the new update over the weekend probably finished making the 3.12.6-antix kernel fully compliant with the new standard deprecating /sda* format identifiers, that would be why the 3.7.10 kernel works and the 3.12.6 doesn't.<br>
+<br>
+Now, the question becomes, how do I fix this? It's already correct in fstab; I've just rechecked against the report from <strong>blkid -c /dev/null -o list</strong>. Are there formatting issues that could allow invisible characters (spaces instead of tabs, for instance, or vice versa) to cause the UUID not to be recognized? All four partitions on that hard disk are present in /dev/disk/by-uuid, as symlinks to /sda1, etc.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37426" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37426">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37426">
+
+<time datetime="2014-10-16T09:37">posted: 2014-10-16 &nbsp; 09:37</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37426" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>SilentObserver wrote:</cite>My default start uses links akin to the ones Ubuntu uses to avoid having to change GRUB every time they issue a kernel update through their channels, but I get the same result if I use the explicit entry for the 3.12.6 kernel.</div></blockquote>
+<span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+My original (/)boot/grub/menu.lst looks different .. <br>
+Therefore, it was<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-grub</code></pre></div>executed?<br>
+<br>
+Please
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dpkg --list | grep grub
+# dpkg --list | grep os-prober</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat (/)boot/grub/device.map</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37428" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37428">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37428">
+
+<time datetime="2014-10-16T10:20">posted: 2014-10-16 &nbsp; 10:20</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37428" title="permalink">#9</a></span>
+
+<div class="content">I don't recall running update-grub; rather, I manually installed the entry for the updated kernel and the default start kernel links. When I run update-grub, it fills menu.lst with a bunch of junk -- redundant entries for start modes I never use, etc. -- that I wind up just having to manually edit out. OTOH, if there are other functions (such as updating the device.map to match an updated fstab) I've never heard of them; all the documentation I've found on grub is on how to edit the menu.lst, nothing about what's"behind the curtain."<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dpkg --list | grep grub
+ii  grub-common                          2.00-22                           i386         GRand Unified Bootloader (common files)
+ii  grub-gfxboot                         0.97-48                           i386         GRand Unified Bootloader
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dpkg --list | grep os-prober
+ii  os-prober                            1.64                              i386         utility to detect other OSes on a set of drives
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># cat /boot/grub/device.map
+(hd0)    /dev/disk/by-id/ata-ST340014A_5JX21ZB2
+(hd1)    /dev/disk/by-id/usb-Generic_Flash_Disk_YTAI1008111511211725-0:0
+</code></pre></div>
+Yes, that's a pretty antique hard disk; I've had this machine for at least eleven years. When I built it, 40 GB was plenty for a Win98 box (and XP either wasn't available yet, or required hardware upgrades I couldn't afford yet -- I had only 512 MiB RAM in this box at that time).</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37429" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37429">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37429">
+
+<time datetime="2014-10-16T12:25">posted: 2014-10-16 &nbsp; 12:25</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37429" title="permalink">#10</a></span>
+
+<div class="content">Cause of your problem is<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(hd1)   /dev/disk/by-id/usb-Generic_Flash_Disk_YTAI1008111511211725-0:0</code></pre></div>Remove this entry
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-grub</code></pre></div>is m.E. necessary for the system to work correctly. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+for the"bunch of garbage" <br>
+deprive you memtest-scripte the execute permission (lately has I move that too mv in my $HOME)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>chmod -x (/)etc/grub.d/20_memtest86+
+and
+memtest86+_multiboot.bin</code></pre></div>
+you could also do for <strong>30_os-prober</strong>. <br>
+But, so would not MS-Windows in the menu.lst be entered.<br>
+But requires you to have the original menu.lst</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37443" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37443">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37443">
+
+<time datetime="2014-10-16T23:46">posted: 2014-10-16 &nbsp; 23:46</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37443" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite>Cause of your problem is<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(hd1)   /dev/disk/by-id/usb-Generic_Flash_Disk_YTAI1008111511211725-0:0</code></pre></div>Remove this entry</div></blockquote>
+I don't have any idea why this should cause trouble. It's a leftover, a footprint, if you will, of the USB stick that was used to install antiX on the Athlon XP system. OTOH, I don't see any likelihood that removing it will cause trouble, so it's gone.<br>
+<blockquote class="uncited"><div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-grub</code></pre></div>is m.E. necessary for the system to work correctly. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+for the"bunch of garbage" <br>
+deprive you memtest-scripte the execute permission (lately has I move that too mv in my $HOME)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>chmod -x (/)etc/grub.d/20_memtest86+
+and
+memtest86+_multiboot.bin</code></pre></div>
+you could also do for <strong>30_os-prober</strong>. <br>
+But, so would not MS-Windows in the menu.lst be entered.<br>
+But requires you to have the original menu.lst</div></blockquote>
+It's not hard to remove the extra stuff that update-grub appends in menu.lst -- I just haven't seen update-grub as necesary when I manually edit my kernel entries. I'll let you know if removing the flash drive entry fixes the problem, or if I have to run update-grub to get it to behave.<br>
+<br>
+Edit: Okay, removing the spurious entry from /boot/grub/device.map didn't fix it -- but then, neither did running update-grub. As far as I can tell, all the latter accomplished was to add the usual list of"leave these commented""automagic" lines, plus the unnecessarily complete list of every possible option for every possible linux kernel and installation detected -- which is the junk I referred to above, and promptly deleted, leaving menu.lst identical to what I had before running update-grub. I don't consider the memtest or Windows entries to be"junk", they're just options that need to be in the grub menu.<br>
+<br>
+And <strong>still</strong>, I get the"start job" for /home and swap well into startup; just after the line displaying the"generic explorer mouse", followed (after a minute and a half) by"emergency mode".<br>
+<br>
+Not surprisingly, when in emergency mode, running"cat etc/mtab" results in a list that doesn't have entries for /home and swap partitions. On the other hand, fstab has all four partitions (Win98, root, /home, and swap) listed by UUID.<br>
+<br>
+I'm going to try booting the Athlon from an antiX CD and using gparted to label the /home and swap partitions, and then enter them in fstab by label -- just to see if that makes any useful change.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37446" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37446">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37446">
+
+<time datetime="2014-10-17T00:32">posted: 2014-10-17 &nbsp; 00:32</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37446" title="permalink">#12</a></span>
+
+<div class="content">Well, that was annoying. I started the Athlon XP with Parted Magic, since I had that CD handy, and used its partition manager to label all three Linux partitions -- Luddite, Swap, and Home -- then edited etc/fstab to reflect the new labels. Restarted: got the exact same start job, but this time"disk-by/x2dlabel-Swap" alternating with"disk-by/x2dlabel-Home" -- that is to say, the exact same result only using the labels instead of the UUIDs. Hmmm... fsck says Home on that machine, at least, is clean (there apparently isn't an fsck for swap formatted partitions), and it works fine when I start it with the 3.7.10-antix.5-486 kernel.<br>
+<br>
+Any more suggestions?<br>
+<br>
+Edit: interesting; after booting the 3.7.10 kernel with the updated fstab, mtab still shows root mounted by UUID, and home mounted as /sda4. How can I get mtab to update -- delete/rename it, and let the system recreate it on boot?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37477" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37477">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37477">
+
+<time datetime="2014-10-17T18:55">posted: 2014-10-17 &nbsp; 18:55</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37477" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>SilentObserver wrote:</cite>Any more suggestions?</div></blockquote>
+<blockquote><div><cite>male wrote:</cite>Cause of your problem is<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(hd1)   /dev/disk/by-id/usb-Generic_Flash_Disk_YTAI1008111511211725-0:0</code></pre></div></div></blockquote>
+If you know better ... <br>
+They are the masters of their computer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37484" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37484">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37484">
+
+<time datetime="2014-10-17T20:18">posted: 2014-10-17 &nbsp; 20:18</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37484" title="permalink">#14</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite><blockquote><div><cite>SilentObserver wrote:</cite>Any more suggestions?</div></blockquote>
+<blockquote><div><cite>male wrote:</cite>Cause of your problem is<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(hd1)   /dev/disk/by-id/usb-Generic_Flash_Disk_YTAI1008111511211725-0:0</code></pre></div></div></blockquote>
+If you know better ... <br>
+They are the masters of their computer.</div></blockquote>
+Perhaps we're having a translation problem; I removed that line from device.map, and it made no difference. That drive was connected to the machine during installation of antiX (which, on this machine, was quite a while ago), and is attached temporarily on occasion when I use the Athlon system to write an antiX USB.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37492" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37492">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37492">
+
+<time datetime="2014-10-18T15:33">posted: 2014-10-18 &nbsp; 15:33</time>
+<span class="permalink"><a href="./recent-update-now-only-original-antix-kernel-will--t5302.html#p37492" title="permalink">#15</a></span>
+
+<div class="content">yes, I have already understood, that you have deleted the entry. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Afterwards you have to execute a<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-grub</code></pre></div>If your"Grub-configuration" is not capable of doing this, then you will have to get the right version.<br>
+<br>
+Alternatively, in order for the new"kernel" to boot, you can always attach a USB Stick... <span class="emoticon"> __{{emoticon}}__ </span> <br>
+(translated by my daughter - my English is still not that good)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+21 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./recent-update-now-only-original-antix-kernel-will--t5302-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./recent-update-now-only-original-antix-kernel-will--t5302-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

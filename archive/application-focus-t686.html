@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Application Focus - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./application-focus-t686.html">Application Focus</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_3745" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3745">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 316</span></div>
+
+</div>
+</div>
+<span class="username">DJiNN</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3745">
+<time datetime="2008-05-10T13:22">posted: 2008-05-10 &nbsp; 13:22</time>
+<span class="permalink"><a href="./application-focus-t686.html#p3745" title="permalink">#1</a></span>
+
+<div class="content">All credit for this goes to 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://urukrama.wordpress.com/"<br>linktext was:"Urukrama"<br>====================================<br>
+. All that i have done is altered a few names in the original scripts to make them work with the apps i use. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+For the sake of brevity, 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://urukrama.wordpress.com/2008/05/05/focus-an-application-instead-of-re-launching-it/"<br>linktext was:"THIS"<br>====================================<br>
+ will explain what these scripts do and what <strong>"Application Focus"</strong> is all about. Once you've read it (it's only a few paragraphs) then you should know what the following scripts are and how to use them. <br>
+<br>
+The original scripts are for Thunar &amp; Terminal (gnome?) but i tend to use XFCE4-Term, RoxTerm, Thunar &amp; PCmanFM, so i've modified the scripts to work with those apps. I've included the script for each app below. All you need to do is save each one to it's own file &amp; call it whatever you like. I have prefixed all of mine with a"1" (ie: 1roxterm.sh - 1thunar.sh etc) and made the script file executable. Then it's just a case of adding the relevant code to the fluxbox menu like so:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>         [exec] (1-PCmanFM) {~/.1pcmanfm.sh}
+     [exec] (1-XFCE4-Term) {~/.1xfce4term.sh}
+     [exec] (1-Thunar) {~/.1thunar.sh}
+     [exec] (1-RoxTerm) {~/.1roxterm.sh}
+</code></pre></div>
+and that's it. Now whenever you click on, say"PCmanFM" for instance, whatever desktop you happen to be on, PCmanFM will appear on THAT desktop, and it will always be available whatever desktop you're on. As you can imagine, this is really helpful on systems with a low amount of RAM. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+So here are the scripts:<br>
+<br>
+<strong>FOR THUNAR:</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+thunar_wm_class="thunar"
+thunar_exec="thunar"
+
+# no thunar started, so start one
+if [ -z"`wmctrl -lx | grep thunar`" ]; then
+    $thunar_exec &amp;
+else
+    # search for existing thunars on current desktop
+    current_desk=`wmctrl -d | grep '*' | cut -d ' ' -f 1`
+    thunar_on_this_desk=`wmctrl -lx | grep"$current_desk[ ]*$thunar_wm_class" | cut -d ' ' -f 1`
+    if [ -n"$thunar_on_this_desk" ]; then
+        wmctrl -i -a $thunar_on_this_desk
+    else
+        # no thunars on current desktop, so open a new one
+        wmctrl -x -R $thunar_wm_class
+    fi;
+fi;
+</code></pre></div>
+<strong>FOR PCMANFM:</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+pcmanfm_wm_class="pcmanfm"
+pcmanfm_exec="pcmanfm"
+
+# no pcmanfm started, so start one
+if [ -z"`wmctrl -lx | grep pcmanfm`" ]; then
+    $pcmanfm_exec &amp;
+else
+    # search for existing pcmanfm on current desktop
+    current_desk=`wmctrl -d | grep '*' | cut -d ' ' -f 1`
+    pcmanfm_on_this_desk=`wmctrl -lx | grep"$current_desk[ ]*$pcmanfm_wm_class" | cut -d ' ' -f 1`
+    if [ -n"$pcmanfm_on_this_desk" ]; then
+        wmctrl -i -a $pcmanfm_on_this_desk
+    else
+        # no pcmanfm's on current desktop, so open a new one
+        wmctrl -x -R $pcmanfm_wm_class
+    fi;
+fi;
+</code></pre></div>
+<strong>FOR ROXTERM:</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+terminal_wm_class="roxterm"
+terminal_exec="roxterm"
+
+# no terminal started, so start one
+if [ -z"`wmctrl -lx | grep roxterm`" ]; then
+    $terminal_exec &amp;
+else
+    # search for existing terminals on current desktop
+    current_desk=`wmctrl -d | grep '*' | cut -d ' ' -f 1`
+    term_on_this_desk=`wmctrl -lx | grep"$current_desk[ ]*$terminal_wm_class" | cut -d ' ' -f 1`
+    if [ -n"$term_on_this_desk" ]; then
+        wmctrl -i -a $term_on_this_desk
+    else
+        # no terminals on current desktop, so just open a new one
+        wmctrl -x -R $terminal_wm_class
+    fi;
+fi;
+</code></pre></div>
+<strong>FOR XFCE4-TERM:</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+terminal_wm_class="Terminal"
+terminal_exec="xfce4-terminal"
+
+# no terminal started, so start one
+if [ -z"`wmctrl -lx | grep terminal`" ]; then
+    $terminal_exec &amp;
+else
+    # search for existing terminals on current desktop
+    current_desk=`wmctrl -d | grep '*' | cut -d ' ' -f 1`
+    term_on_this_desk=`wmctrl -lx | grep"$current_desk[ ]*$terminal_wm_class" | cut -d ' ' -f 1`
+    if [ -n"$term_on_this_desk" ]; then
+        wmctrl -i -a $term_on_this_desk
+    else
+        # no terminals on current desktop, so just open a new one
+        wmctrl -x -R $terminal_wm_class
+    fi;
+fi;
+</code></pre></div>
+I have tested all of these &amp; they work just fine and have made a big difference to my system and the way that i work. <br>
+<br>
+Enjoy. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3746" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3746">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3746">
+
+<time datetime="2008-05-10T14:02">posted: 2008-05-10 &nbsp; 14:02</time>
+<span class="permalink"><a href="./application-focus-t686.html#p3746" title="permalink">#2</a></span>
+
+<div class="content">Nice tip DJiNN.<br>
+<br>
+Does it work with rox-filer rather than thunar or pcmanfm?<br>
+<br>
+OK, yes it does. Here is the script.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+rox_wm_class="rox"
+rox_exec="rox"
+
+# no rox started, so start one
+if [ -z"`wmctrl -lx | grep rox`" ]; then
+    $rox_exec &amp;
+else
+    # search for existing rox on current desktop
+    current_desk=`wmctrl -d | grep '*' | cut -d ' ' -f 1`
+    rox_on_this_desk=`wmctrl -lx | grep"$current_desk[ ]*$rox_wm_class" | cut -d ' ' -f 1`
+    if [ -n"$rox_on_this_desk" ]; then
+        wmctrl -i -a $rox_on_this_desk
+    else
+        # no rox on current desktop, so open a new one
+        wmctrl -x -R $rox_wm_class
+    fi;
+fi;
+</code></pre></div>
+In some ways it might be even better to open the script via hotkey (fluxbox/keys) rather than through the fluxbox menu.<br>
+eg<br>
+Mod1 h :ExecCommand ./rox.sh</div>
+<div class="postcontent_footer">
+
+ </div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3749" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3749">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 316</span></div>
+
+</div>
+</div>
+<span class="username">DJiNN</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3749">
+
+<time datetime="2008-05-10T15:20">posted: 2008-05-10 &nbsp; 15:20</time>
+<span class="permalink"><a href="./application-focus-t686.html#p3749" title="permalink">#3</a></span>
+
+<div class="content">Thanks anti. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I would imagine that it would work with most things, which is really cool. On Urukrama's blog he does go on to say about using key bindings with the scripts. Unfortunately, i just can't get the MOD4 key to work in fluxbox on any of my machines. When ever i press the MOD4 key (Win Key?) with another key that, according to the keys file, should trigger something, nothing happens. <br>
+<br>
+Hmmm, just tried it, and actually some of them do work. MOD1 (The Alt key?) does seem to work, so something like MOD1 TAB will flip between windows (Apps) etc. It seems to be ONLY the MOD4 key that's NOT recognised. <br>
+<br>
+But yeah, the scripts are great, and i shall add that Rox one to my list. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3751" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3751">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 316</span></div>
+
+</div>
+</div>
+<span class="username">DJiNN</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3751">
+
+<time datetime="2008-05-10T15:37">posted: 2008-05-10 &nbsp; 15:37</time>
+<span class="permalink"><a href="./application-focus-t686.html#p3751" title="permalink">#4</a></span>
+
+<div class="content">Stranger still, i just added your script for Rox Filer to a MOD1 F5 keybinding, but everytime i press it, it just brings up Roxterm instead! LOL!! How odd is that? All the other scripts work fine though.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3753" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3753">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3753">
+
+<time datetime="2008-05-10T16:13">posted: 2008-05-10 &nbsp; 16:13</time>
+<span class="permalink"><a href="./application-focus-t686.html#p3753" title="permalink">#5</a></span>
+
+<div class="content">Hmm, sure you've got the name of the script file right?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3754" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3754">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 316</span></div>
+
+</div>
+</div>
+<span class="username">DJiNN</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3754">
+
+<time datetime="2008-05-10T16:52">posted: 2008-05-10 &nbsp; 16:52</time>
+<span class="permalink"><a href="./application-focus-t686.html#p3754" title="permalink">#6</a></span>
+
+<div class="content">I think so. I've checked every letter, and checked whether it's executable etc, and everything seems to be OK. I'll get to the bottom of it eventually. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+One thing you could help me with though, is the location of the xmodmap.conf file. I thought it was in /etc but it doesn't seem to be anywhere on the system. Yet when i do an xmodmap -pm it brings up the settings etc, of which there are NONE for the MOD4 key, that's why i want to add it into the xmodmap.conf, or should i be looking for another file?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3755" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3755">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3755">
+
+<time datetime="2008-05-10T17:37">posted: 2008-05-10 &nbsp; 17:37</time>
+<span class="permalink"><a href="./application-focus-t686.html#p3755" title="permalink">#7</a></span>
+
+<div class="content">I think it should be .xmodmaprc and placed in your home directory.<br>
+There isn't one by default in antiX.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://lassauge.free.fr/cygwin/.xmodmaprc"<br>linktext was:"http://lassauge.free.fr/cygwin/.xmodmaprc"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3756" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3756">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 316</span></div>
+
+</div>
+</div>
+<span class="username">DJiNN</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3756">
+
+<time datetime="2008-05-10T17:42">posted: 2008-05-10 &nbsp; 17:42</time>
+<span class="permalink"><a href="./application-focus-t686.html#p3756" title="permalink">#8</a></span>
+
+<div class="content">That's great. Thanks for that anti. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

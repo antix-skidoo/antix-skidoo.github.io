@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-16 RC1 Account Name Regression - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-16-rc1-account-name-regression-t6414.html">antiX-16 RC1 Account Name Regression</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-16-rc1-account-name-regression-t6414-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-16-rc1-account-name-regression-t6414-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_47083" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47083">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47083">
+<time datetime="2016-06-18T08:30">posted: 2016-06-18 &nbsp; 08:30</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47083" title="permalink">#1</a></span>
+
+<div class="content">As previously reported, the live media continues to disallow the use of upper and lower case letters in the account name.<br>
+<br>
+In antiX-13 (and earlier releases) the installer permitted mixed case account names. The regression was introduced in antiX-15 and remains present in antiX-16 RC1.<br>
+<br>
+After installation, via the Control Center it is possible to create a user account with mixed case letters. This indicates the issue is located in the live installer and is a wholly unnecessary restriction. It goes against the basic antiX concepts of flexibility and user choice.<br>
+<br>
+By restricting a mixed case account name to being created post installation, it prevents the carry over of pre-installation customizing to the installed system. It defeats one of the most recent innovations of antiX, thereby making it necessary to separately configure each account manually, on each individual machine.<br>
+<br>
+Additionally, the unnecessary restriction is unhelpful and confusing on existing sites where mixed case names are already employed, particularly those that provide networked resources. For example where share access and/or management is authorised using a mixed case name. It is also confusing for users in locations where antiX is used alongside other distros that do permit a mixed case name.<br>
+<br>
+antiX should continue its previous standard method of allowing a mixed case account name to be specified in the live installer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47084" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47084">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47084">
+
+<time datetime="2016-06-18T10:51">posted: 2016-06-18 &nbsp; 10:51</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47084" title="permalink">#2</a></span>
+
+<div class="content">samk, I'm not sure what is standard anymore.<br>
+<br>
+adduser reports this when I try to add Dolphin (capital D)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@littlebit:/home/dolphin# adduser Dolphin
+adduser: Please enter a username matching the regular expression configured
+via the NAME_REGEX configuration variable.  Use the `--force-badname'
+option to relax this check or reconfigure NAME_REGEX.
+</code></pre></div>
+This is also true in ubuntu. I believe this is forced by debian upstream. To get Dolphin, I had to user"useradd" which doesn't create home folders.<br>
+<br>
+the user-management app actually forces a --bad-name switch to use the mixed case username.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>function add-user {
+    USER="$1";
+    OPTIONS="$2";
+    echo"$USER" &gt; /tmp/user-setup.txt
+    echo"$USER" &gt;&gt; /tmp/user-setup.txt
+    echo"$USER" &gt;&gt; /tmp/user-setup.txt
+    echo"0" &gt;&gt; /tmp/user-setup.txt
+    echo"0" &gt;&gt; /tmp/user-setup.txt
+    echo"0" &gt;&gt; /tmp/user-setup.txt
+    echo"0" &gt;&gt; /tmp/user-setup.txt
+    echo"y" &gt;&gt; /tmp/user-setup.txt
+    adduser $USER --force-badname $OPTIONS &lt; /tmp/user-setup.txt</code></pre></div>
+so the question is, which one is wrong. the installer (with the same restrictions as adduser) or the control center app, with the --force-badname switch</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47085" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47085">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">SamK</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47085">
+
+<time datetime="2016-06-18T12:55">posted: 2016-06-18 &nbsp; 12:55</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47085" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>adduser reports this when I try to add Dolphin (capital D)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@littlebit:/home/dolphin# adduser Dolphin
+adduser: Please enter a username matching the regular expression configured
+via the NAME_REGEX configuration variable.  Use the `--force-badname'
+option to relax this check or reconfigure NAME_REGEX.
+</code></pre></div>[...]<br>
+so the question is, which one is wrong. the installer (with the same restrictions as adduser) or the control center app, with the --force-badname switch</div></blockquote>Perhaps neither, or both.<br>
+<br>
+Created 4 accounts to see the problem.<br>
+Quick, dirty and superficial test in a live no persistence environment.<br>
+As root
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>useradd TestUser1
+useradd TestUser2
+useradd testuser3
+useradd TestUser4</code></pre></div>
+Verified the accounts created
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat / etc/passwd | grep -E 'Test|test'
+Testuser1:x:1001:1001::/home/Testuser1:/bin/sh
+Testuser2:x:1002:1002::/home/Testuser2:/bin/sh
+testuser3:x:1003:1003::/home/testuser3:/bin/sh
+TestUser4:x:1004:1004::/home/TestUser4:/bin/sh</code></pre></div>
+All 4 accounts were created with case variations and alphanumeric characters without any error messages.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47086" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47086">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47086">
+
+<time datetime="2016-06-18T13:40">posted: 2016-06-18 &nbsp; 13:40</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47086" title="permalink">#4</a></span>
+
+<div class="content">And no home folders created or default groups added.<br>
+<br>
+The only thing that bugs me.is the reason for the adduser.conf. it comes from upstream and I wonder what problem it fixes. Or avoids.<br>
+<br>
+Anyway the installer does the check in this case, not adduser.. Removing the check should allow.the creation of usernames as you request.<br>
+<br>
+I still wonder about the reason for the check though. Doing some quick googling leads to a lot of recommendations to avoid mixed case but I have not found a clear reason as to why. Might possibly have to do with some sort of samba password syncing ( in samba dolphin is the same as DOlphin) but I'm really sketchy on this point.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47087" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47087">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47087">
+
+<time datetime="2016-06-18T14:12">posted: 2016-06-18 &nbsp; 14:12</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47087" title="permalink">#5</a></span>
+
+<div class="content">Yes it does get confusing with Samba and other server services but IMHO it is really not that big of a problem (I set up several server systems) and can easily be remedied in other ways than name restrictions. Upper and lower case being different in all other areas of unix/linix but then restricted to match Microsoft's ideals is not something I agree with and when I use upper and lower case for filenames I would like to use them also for usernames. The fact to me that there is an override switch to allow mixed case to me suggests there is no real system crashing problem just a handful of minor potential issues.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47088" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47088">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47088">
+
+<time datetime="2016-06-18T14:16">posted: 2016-06-18 &nbsp; 14:16</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47088" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>And no home folders created or default groups added. ...</div></blockquote>
+If I change the NAME_REGEX line in <span style="font-size: 100%; line-height: normal">/</span>etc/adduser.conf<br>
+<br>
+from<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#NAME_REGEX="^[a-z][-a-z0-9_]*\$"</code></pre></div>
+to this<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>NAME_REGEX="^[a-zA-Z][-a-zA-Z0-9_]*\$?$"</code></pre></div>
+the adduser command will let me create a new user with a mix of uppercase/lowercase and numerics in the username, it also creates the default groups and I think also the home folders.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo adduser Test1
+Adding user `Test1' ...
+Adding new group `Test1' (1001) ...
+Adding new user `Test1' (1001) with group `Test1' ...
+Creating home directory `/home/Test1' ...
+Copying files from `/ etc/skel' ...
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+Changing the user information for Test1
+Enter the new value, or press ENTER for the default
+    Full Name []: 
+    Room Number []: 
+    Work Phone []: 
+    Home Phone []: 
+    Other []: 
+Is the information correct? [Y/n] 
+Adding new user `Test1' to extra groups ...
+Adding user `Test1' to group `dialout' ...
+Adding user `Test1' to group `dip' ...
+Adding user `Test1' to group `cdrom' ...
+Adding user `Test1' to group `audio' ...
+Adding user `Test1' to group `video' ...
+Adding user `Test1' to group `plugdev' ...
+Adding user `Test1' to group `users' ...
+Adding user `Test1' to group `floppy' ...
+Adding user `Test1' to group `netdev' ...
+Adding user `Test1' to group `scanner' ...
+Adding user `Test1' to group `lp' ...
+Adding user `Test1' to group `lpadmin' ...
+Adding user `Test1' to group `sudo' ...</code></pre></div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ls -lah /home/Test1
+total 36K
+drwxr-xr-x 5 Test1 Test1 4.0K Jun 18 10:04 .
+drwxr-xr-x 4 root  root  4.0K Jun 18 10:04 ..
+-rw-r--r-- 1 Test1 Test1  220 Jun 18 10:04 .bash_logout
+-rwxr-xr-x 1 Test1 Test1 3.8K Jun 18 10:04 .bashrc
+drwxr-xr-x 9 Test1 Test1 4.0K Jun 18 10:04 .config
+drwxr-xr-x 2 Test1 Test1 4.0K Jun 18 10:04 .gtk-2.0
+drwxr-xr-x 3 Test1 Test1 4.0K Jun 18 10:04 .local
+-rw-r--r-- 1 Test1 Test1  675 Jun 18 10:04 .profile
+-rw-r--r-- 1 Test1 Test1   12 Jun 18 10:04 .xscreensaver</code></pre></div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ls -lah /home/Test1/.config/
+total 40K
+drwxr-xr-x 9 Test1 Test1 4.0K Jun 18 10:04 .
+drwxr-xr-x 5 Test1 Test1 4.0K Jun 18 10:04 ..
+drwxr-xr-x 2 Test1 Test1 4.0K Jun 18 10:04 autostart
+drwxr-xr-x 2 Test1 Test1 4.0K Jun 18 10:04 libfm
+drwxr-xr-x 2 Test1 Test1 4.0K Jun 18 10:04 menus
+drwxr-xr-x 2 Test1 Test1 4.0K Jun 18 10:04 Thunar
+-rw-r--r-- 1 Test1 Test1   24 Jun 18 10:04 Trolltech.conf
+drwxr-xr-x 2 Test1 Test1 4.0K Jun 18 10:04 vlc
+drwxr-xr-x 2 Test1 Test1 4.0K Jun 18 10:04 volumeicon
+drwxr-xr-x 6 Test1 Test1 4.0K Jun 18 10:04 xfce4</code></pre></div>
+Would there be any unintentional consequences that might come up from changing the NAME_REGEX ?<br>
+<br>
+<strong>edit:</strong> I did this as a test on my MX-15 install but I think I the results would be similar in antiX-16.<br>
+<br>
+<br>
+<strong>edit #2</strong> It also works if I copy the stock <span style="font-size: 100%; line-height: normal">/</span>etc/adduser.conf file <em>(without the NAME_REGEX changes)</em> to a /usr/share/antiX/adduser.conf file and make the NAME_REGEX changes to it instead, and then run the adduser command with it's --conf option.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo adduser --conf /usr/share/antiX/adduser.conf Test1</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47089" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47089">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47089">
+
+<time datetime="2016-06-18T17:23">posted: 2016-06-18 &nbsp; 17:23</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47089" title="permalink">#7</a></span>
+
+<div class="content"><blockquote class="uncited"><div>In antiX-13 (and earlier releases) the installer permitted</div></blockquote>First post describes the status quo as a"regression".<br>
+Idunno the minstall author's rationale for enforcing lowercase-only, but here's where it is being enforced, by design<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/antiX-installer/blob/304ec8ac479700ef5a52b174d0bc1b9b694f9ef4/minstall.cpp"<br>linktext was:"https://github.com/antiX-Linux/antiX-in ... nstall.cpp"<br>====================================<br>
+ minstall.cpp, line 1216
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>} else if (!userNameEdit-&gt;text().contains(QRegExp("^[a-z_][a-z0-9_-]*[$]?$"))) {
+    QMessageBox::critical(0, QString::null,
+                          tr("The user name needs be lower case and it\n"
+                            "cannot contain special characters or spaces\n"
+                            "please choose another name before proceeding."));
+    return false;
+}</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47090" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47090">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47090">
+
+<time datetime="2016-06-18T18:52">posted: 2016-06-18 &nbsp; 18:52</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47090" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>First post describes the status quo as a"regression".<br>
+Idunno the minstall author's rationale for enforcing lowercase-only, but here's where it is being enforced, by design</div></blockquote>It is a regression in terms of what antiX was formerly able to do.<br>
+<blockquote><div><cite>Dave wrote:</cite>...I use upper and lower case for filenames I would like to use them also for usernames. The fact to me that there is an override switch to allow mixed case to me suggests there is no real system crashing problem just a handful of minor potential issues.</div></blockquote><blockquote><div><cite>kmathern wrote:</cite>If I change the NAME_REGEX line in <em>/</em>etc/adduser.conf...</div></blockquote>I've just checked that file in antiX-13.2
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Abstract start
+# check user and group names also against this regular expression.
+#NAME_REGEX="^[a-z][-a-z0-9_]*\$"
+Abstract end</code></pre></div>So it was purposely disabled, but I don't recall any reports of it causing problems.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47093" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47093">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47093">
+
+<time datetime="2016-06-18T19:03">posted: 2016-06-18 &nbsp; 19:03</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47093" title="permalink">#9</a></span>
+
+<div class="content">As skidoo pointed out the installer does the account creation on its own. It does not use adduser but it does use the same username restrictions .</div>
+</div>
+</div>
+
+</div>
+</div>
+ <div id="p_47101" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47101">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47101">
+
+<time datetime="2016-06-19T02:52">posted: 2016-06-19 &nbsp; 02:52</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47101" title="permalink">#10</a></span>
+
+<div class="content">In the end its anti's call, but looking at the code, all that should need done is to comment out the section skidoo points out (or changing the expression to something else)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47103" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47103">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47103">
+
+<time datetime="2016-06-19T03:44">posted: 2016-06-19 &nbsp; 03:44</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47103" title="permalink">#11</a></span>
+
+<div class="content">would be quick/simple to change regex, but really need to check into why the current lowercase restriction was chosen<br>
+contains(QRegExp("^[a-z<strong><span style="color: blue">A-Z</span></strong>_][a-z<strong><span style="color: blue">A-Z</span></strong>0-9_-]*[$]?$"))<br>
+<br>
+I wouldn't have noticed, never thought to test mixed-case usernames.<br>
+<br>
+consider:<br>
+ControlCentre -} Manage Users<br>
+the prefilled example username displayed when left-side AddUser button is clicked<br>
+is <strong>antiXDemo</strong><br>
+which certainly hints that mixed-case is supported.<br>
+-=-<br>
+someone should test:<br>
+Does the installer successfully migrate such an account (username=antiXDemo) which has been created during live persistence?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47104" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47104">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47104">
+
+<time datetime="2016-06-19T10:46">posted: 2016-06-19 &nbsp; 10:46</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47104" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite><blockquote><div><cite>kmathern wrote:</cite>If I change the NAME_REGEX line in <em>/</em>etc/adduser.conf...</div></blockquote>I've just checked that file in antiX-13.2
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Abstract start
+# check user and group names also against this regular expression.
+#NAME_REGEX="^[a-z][-a-z0-9_]*\$"
+Abstract end</code></pre></div>So it was purposely disabled, but I don't recall any reports of it causing problems.</div></blockquote><blockquote><div><cite>dolphin_oracle wrote:</cite>As skidoo pointed out the installer does the account creation on its own. It does not use adduser but it does use the same username restrictions</div></blockquote>When taken together with antiX-13 and earlier employing an installer that allowed the use of mixed case account names, and the principal shipped tool for creating accounts after installation also allowing mixed case, it is an indication that there is no absolute need for the restriction. As mentioned previously, I do not recall reports of either causing problems.<br>
+<blockquote><div><cite>dolphin_oracle wrote:</cite>I still wonder about the reason for the check though.</div></blockquote><blockquote><div><cite>skidoo wrote:</cite>...but really need to check into why the current lowercase restriction was chosen</div></blockquote>The file antiX-installer/NOTICE on github contains the following
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>abstract start
+//   Copyright (C) 2003-2009 by Warren Woodford
+//   Heavily edited, with permision, by anticapitalista for antiX-Linux and MX-14 2011-2014.
+abstract end</code></pre></div>It appears to have been developed in-house which is a good indication the configuration choices have also been made in-house.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47106" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47106">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47106">
+
+<time datetime="2016-06-19T11:10">posted: 2016-06-19 &nbsp; 11:10</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47106" title="permalink">#13</a></span>
+
+<div class="content">I meant the reason debian used the restriction for adduser. Which was not done in house.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47109" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47109">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47109">
+
+<time datetime="2016-06-19T11:24">posted: 2016-06-19 &nbsp; 11:24</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47109" title="permalink">#14</a></span>
+
+<div class="content">I have uploaded new antiX-installer that should allow for capitals. It will be put in /jessie/dev (so you need to edit the ant,x,list) until users provede feedback that it works ok not just during installation, but also as user for a while. Also it should be tested with other languages.<br>
+<br>
+Also available here, for those that use dpkg -i<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://download.tuxfamily.org/antix/Testing/antiX-16/"<br>linktext was:"http://download.tuxfamily.org/antix/Testing/antiX-16/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47115" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47115">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">skidoo</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47115">
+
+<time datetime="2016-06-19T16:09">posted: 2016-06-19 &nbsp; 16:09</time>
+<span class="permalink"><a href="./antix-16-rc1-account-name-regression-t6414.html#p47115" title="permalink">#15</a></span>
+
+<div class="content">MX Adrian authored"minstall", yes? That's who/where you might inquire about the chosen restriction. <br>
+Or not {grin}<br>
+<br>
+The adduser manpage mentions POSIX compliance<br>
+so, unless I hear/read otherwise, I figger debian's default just reflects the"neckbeard-compliant way"</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-16-rc1-account-name-regression-t6414-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-16-rc1-account-name-regression-t6414-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

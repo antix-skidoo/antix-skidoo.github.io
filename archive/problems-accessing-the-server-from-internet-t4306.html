@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>problems accessing the server from internet - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problems-accessing-the-server-from-internet-t4306.html">problems accessing the server from internet</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_28987" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28987">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 7</span></div>
+
+</div>
+</div>
+<span class="username">fasulin</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28987">
+<time datetime="2013-05-03T10:38">posted: 2013-05-03 &nbsp; 10:38</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p28987" title="permalink">#1</a></span>
+
+<div class="content">hello all, I have mysql server installed at acccedo only console via SSH, but I can only logear within the intranet (192.168.1.x), if I try logear from home ports are closed. as I can open the ports for access from any IP? Thank you. I have antiX 12<br>
+<br>
+in spanish-<br>
+hola a todos, tengo instalado un servidor mysql, al que solo acccedo via consola con SSH, pero solo puedo logear dentro de la intranet (192.168.1.x), si intento logear desde mi casa los puertos estan cerrados. como puedo abrir los puertos para acceder desde cualquier IP? gracias. tengo antiX 12</div>
+<div class="hide">
+ </div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28988" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28988">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28988">
+
+<time datetime="2013-05-03T12:06">posted: 2013-05-03 &nbsp; 12:06</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p28988" title="permalink">#2</a></span>
+
+<div class="content">Try to execute the command" telnet your_host_name tcp_ip_port_number." (The default MySQL port number is 3306.) Then press Enter a couple of times. If you do not get an error message like telnet: Unable to connect to remote host: Connection refused, some other program is using the TCP/IP port that mysqld is trying to use. Track down what program this is and disable it, or tell mysqld to listen to a different port with the --port option. In this case, specify the same non-default port number for client programs when connecting to the server using TCP/IP.<br>
+<br>
+Another reason the port might be inaccessible is that you have a firewall running that blocks connections to it. If so, modify the firewall settings to permit access to the port.<br>
+<br>
+Also check your routers firewall to make sure that port 3306 is open.<br>
+<br>
+If the server starts but you cannot connect to it, make sure that you have an entry in /etc/hosts that looks like this:<br>
+<br>
+127.0.0.1 localhost</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_28994" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28994">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28994">
+
+<time datetime="2013-05-03T19:01">posted: 2013-05-03 &nbsp; 19:01</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p28994" title="permalink">#3</a></span>
+
+<div class="content">I am not really certain on the scenario you have there. to me it sounds like you have not opened the firewall on your router. with this in mind I would double check my routers firewall settings. once this has been determined, i would run nmap to determine the open ports. do this on the intranet and internet to compare. if there is an unwanted discrepancy, I would place a laptop or similar on the wan side of the router and run an nmap scan on the routers wan ip. if this works as expected your isp is blocking that kind of trafic. If the discrepancy is still there, I would powercycle the router for a bit and try again.<br>
+another possility if the laptop on wan works is your modem ( cable,fibre,DSL,etc) has a firewall configured in it. depending on the device and who supplies it this may or may not be possible.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29000" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29000">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 7</span></div>
+
+</div>
+</div>
+<span class="username">fasulin</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29000">
+
+<time datetime="2013-05-04T23:04">posted: 2013-05-04 &nbsp; 23:04</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p29000" title="permalink">#4</a></span>
+
+<div class="content">hi, i can access to server if i am into the intranet, but i can not connect to the server from internet (my house), iptables problem?, the router is ok, ip is DMZ and port is open ( i probe other machine with guindows is ok ). iptables problem?? sorry my poor english.<br>
+<br>
+in spanish<br>
+<br>
+Hola, yo puedo acceder al servidor si yo estoy dentro de la intranet, pero yo no puedo acceder desde fuera de la red (internet) desde mi casa por ejemplo, los puertos de router estan abiertos y redirigen correctamente , probe reemplazando el server por otro con guindows y funciona. creo que es problema es la IPtables y la redireccion.<br>
+<br>
+thanks</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29005" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29005">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29005">
+
+<p class="author">
+<a href="./problems-accessing-the-server-from-internet-t4306.html#p29005" title="Post"> 05 May 2013, 13:07 <span style="padding-left:10px">#5</span></a>
+<time class="hide" datetime="2013-05-05 &nbsp; 13:07">2013-05-05 &nbsp; 13:07</time>
+ </p>
+<div class="content">Check to make sure your firewalls are not blocking port=22 (SSH)<br>
+Make sure you were using the correct parameters.<br>
+<br>
+Then try this from the remote.<br>
+<br>
+mysql -h &lt;IP# of server/&gt; -u &lt;username/&gt; -p &lt;password/&gt; -P 3306<br>
+<br>
+The iptables are not usually the problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29006" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29006">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 7</span></div>
+
+</div>
+</div>
+<span class="username">fasulin</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29006">
+
+<time datetime="2013-05-05T14:02">posted: 2013-05-05 &nbsp; 14:02</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p29006" title="permalink">#6</a></span>
+
+<div class="content">hi, i can connect from remote, but only if i am in the intranet (192.168.0.x/24) with mysql , if my ip real is other, ex. 190.11.100.38 (from my house) i cannot connect <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29007" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29007">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29007">
+
+<time datetime="2013-05-05T14:55">posted: 2013-05-05 &nbsp; 14:55</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p29007" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>fasulin wrote:</cite>hi, i can connect from remote, but only if i am in the intranet (192.168.0.x/24) with mysql , if my ip real is other, ex. 190.11.100.38 (from my house) i cannot connect <span class="emoticon"> __{{emoticon}}__ </span></div></blockquote>
+At the server end make sure that port 22 for the ssh is not blocked. (your house)<br>
+<br>
+then try the below <br>
+<br>
+mysql -h &lt;190.11.100.38/&gt; -u &lt;username/&gt; -p &lt;password/&gt; -P 3306 ( via the internet )<br>
+<br>
+post the errors you get. .<br>
+<br>
+Use this link to check if your IP address it correct. 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.whatismyip.com/"<br>linktext was:"http://www.whatismyip.com/"<br>====================================<br>
+<br>
+<br>
+I just found an easy tutorial that may help. 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.rackspace.com/knowledge_center/article/mysql-connect-to-your-database-remotely#Notes"<br>linktext was:"http://www.rackspace.com/knowledge_cent ... tely#Notes"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29057" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29057">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 7</span></div>
+
+</div>
+</div>
+<span class="username">fasulin</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29057">
+
+<time datetime="2013-05-08T02:29">posted: 2013-05-08 &nbsp; 02:29</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p29057" title="permalink">#8</a></span>
+
+<div class="content">hi, i tried<br>
+<br>
+mysql -h 190.11.100.38 -u &lt;username/&gt; -p &lt;password/&gt; -P 3306 ( via the internet )<br>
+<br>
+and get error<br>
+<br>
+ERROR 2003 (HY000): Can't connect to MySQL server on '190.11.100.38' (10060)<br>
+<br>
+thanks</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29058" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29058">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29058">
+
+<time datetime="2013-05-08T11:44">posted: 2013-05-08 &nbsp; 11:44</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p29058" title="permalink">#9</a></span>
+
+<div class="content">Take the folowing steps. <br>
+<br>
+Comment bind-address in my.cnf:<br>
+<br>
+# bind-address = 192.168.1.3<br>
+<br>
+Grant privileges: GRANT ALL PRIVILEGES ON *.* TO 'username'@'%' IDENTIFIED BY PASSWORD 'xxxx';<br>
+<br>
+Set port forwarding on router (TCP and UDP, port 3306, 192.168.1.3)<br>
+<br>
+Configure iptables for firewall<br>
+<br>
+sudo iptables -I INPUT -p udp --dport 3306 -j ACCEPT<br>
+<br>
+sudo iptables -I INPUT -p tcp --dport 3306 --syn -j ACCEPT<br>
+<br>
+sudo iptables-save<br>
+<br>
+Restart mysql server<br>
+sudo /etc/init.d/mysql restart<br>
+<br>
+If you get the same error after the steps taken, it's possible that your ISP is filtering that port.<br>
+Please note The IP address above must be the local address of the server. the above may be different than shown.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29105" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29105">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 7</span></div>
+
+</div>
+</div>
+<span class="username">fasulin</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29105">
+
+<time datetime="2013-05-14T14:04">posted: 2013-05-14 &nbsp; 14:04</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p29105" title="permalink">#10</a></span>
+
+<div class="content">hi Eino, i tried but not function <span class="emoticon"> __{{emoticon}}__ </span>((<br>
+<br>
+i checked firewall and it´s ok port open and forward. i can redirect other machine in the intranet and it´s ok, but server with antiX is blocked port <span class="emoticon"> __{{emoticon}}__ </span>((<br>
+<br>
+Note: change in the iptables is not permanet changes, i used sudo iptables-save but i restart and iptable rules flushed<br>
+<br>
+thank a lot.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29106" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29106">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>630</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29106">
+
+<time datetime="2013-05-14T18:22">posted: 2013-05-14 &nbsp; 18:22</time>
+<span class="permalink"><a href="./problems-accessing-the-server-from-internet-t4306.html#p29106" title="permalink">#11</a></span>
+
+<div class="content">Use SU in the terminal instead of sudo with each line.<br>
+Do you know what port is blocked in antix? We can use another port. <br>
+<br>
+Check the UFW type in the following as root." ufw status verbose" I want to see if it active or not. <br>
+We may need to set rules if antix's firewall is active.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

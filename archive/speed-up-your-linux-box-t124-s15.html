@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Speed up your linux box - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./speed-up-your-linux-box-t124-s15.html">Speed up your linux box</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./speed-up-your-linux-box-t124.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./speed-up-your-linux-box-t124.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43450" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43450">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">MALsPa</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43450">
+<time datetime="2015-10-08T08:51">posted: 2015-10-08 &nbsp; 08:51</time>
+<span class="permalink"><a href="./speed-up-your-linux-box-t124-s15.html#p43450" title="permalink">#16</a></span>
+
+<div class="content">Nice tip! Seems to make quite a difference here (running Openbox in Debian Jessie) -- thanks!<br>
+<br>
+<br>
+$ inxi<br>
+CPU~Dual core AMD E-300 APU with Radeon HD Graphics (-MCP-) clocked at Min:780.000Mhz Max:1114.000Mhz Kernel~3.16.0-4-686-pae i686 Up~10 min Mem~308.7/1622.0MB HDD~320.1GB(2.6% used) Procs~136 Client~Shell inxi~2.1.28<br>
+<br>
+<br>
+<span style="text-decoration: underline">Edit</span>: Or was I just imagining things? I tried the test from the"Filesystem caches are more important than other caches" section of the article here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://rudd-o.com/linux-and-free-software/tales-from-responsivenessland-why-linux-feels-slow-and-how-to-fix-that"<br>linktext was:"https://rudd-o.com/linux-and-free-softw ... o-fix-that"<br>====================================<br>
+<br>
+<br>
+My results:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#  sync
+#  echo 3 &gt; /proc/sys/vm/drop_caches
+#  dd if=/dev/zero of=/tmp/testfile count=1 bs=900M
+1+0 records in
+1+0 records out
+943718400 bytes (944 MB) copied, 13.3597 s, 70.6 MB/s
+#  sysctl -w vm.vfs_cache_pressure=100
+vm.vfs_cache_pressure = 100
+#  find / &gt; /dev/null
+#  cp /tmp/testfile /tmp/testfile2
+#  time find / &gt; /dev/null
+
+real    0m2.873s
+user    0m0.844s
+sys    0m1.488s
+#  sysctl -w vm.vfs_cache_pressure=50
+vm.vfs_cache_pressure = 50
+#  find / &gt; /dev/null
+#  cp /tmp/testfile2 /tmp/testfile3
+#  time find / &gt; /dev/null
+
+real    0m3.264s
+user    0m0.880s
+sys    0m1.504s</code></pre></div>
+<br>
+So, the second run didn't take any less time, looks like.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./speed-up-your-linux-box-t124.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./speed-up-your-linux-box-t124.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>xserver-xorg-video-intel is causing me problems. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./xserver-xorg-video-intel-is-causing-me-problems-t2830.html">xserver-xorg-video-intel is causing me problems.</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_18491" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18491">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18491">
+<time datetime="2010-12-08T22:47">posted: 2010-12-08 &nbsp; 22:47</time>
+<span class="permalink"><a href="./xserver-xorg-video-intel-is-causing-me-problems-t2830.html#p18491" title="permalink">#1</a></span>
+
+<div class="content">i just updated xserver-xorg-video-intel in sid, after reboot the system wasn't booting(it drops me to tty login). i rm -f /etc/X11/xorg.conf, then on reboot the system will boot. but the graphic is slow rendering, i guess no hardware acceleration, and if i play a movie i can hear only the sound, mplayer doesn't come up. so i enabled the testing repo downgraded the driver and i put the package on hold, the graphic is all good and i have hardware acceleration. the problem for me is the monitor blanking and off time. i need them to be at a defined value, but if i create xorg.conf and add the settings to it, the system won't boot again. is there a way that i can add them to another folder or recreate xorg.conf? the old one doesn't work anymore.<br>
+<br>
+what i add to the xorg.conf
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"ServerFlags"
+
+Option"BlankTime""3"
+Option"OffTime""5"</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18493" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18493">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18493">
+
+<time datetime="2010-12-09T02:48">posted: 2010-12-09 &nbsp; 02:48</time>
+<span class="permalink"><a href="./xserver-xorg-video-intel-is-causing-me-problems-t2830.html#p18493" title="permalink">#2</a></span>
+
+<div class="content">Sorry ICE-M don't know of another file or folder to add those flags, but if I was in this situation I would run the live cd and copy that xorg.conf, modifying it for the different driver. That would be the simple solution. The next thing I would try and record the output of the commands"lspci |grep VGA"" ls /dev/input/mouse*" and"more /proc/bus/input/devices" to find all the correct devices for configuring your xorg.conf. Then take the xorg.conf from another computer or use this basic one that I used for my multiseat computer and change the bus, pointer device path, and keyboard path with the appropriate drivers to match your computer.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"InputDevice"
+    Identifier    "Keyboard0"
+    Driver        "evdev"
+    Option        "Device""/dev/input/event1"
+    Option        "XkbModel""pc105"
+    Option        "XkbLayout""us"
+    Option        "XkbOptions""compose:rwin"
+EndSection
+
+Section"InputDevice"
+    Identifier    "Mouse0"
+    Driver        "mouse"
+    Option        "Protocol""ExplorerPS/2"
+    Option        "Device""/dev/input/mouse0"
+    Option        "ZAxisMapping""6 7"
+EndSection
+
+Section"Device"
+    Identifier    "device0"
+    Driver        "nvidia"
+    VendorName    "NVIDIA Corp."
+    BoardName     "NVIDIA GeForce4 (generic)"
+    BusID         "PCI:0:13:0"
+EndSection
+
+Section"Monitor"
+    Identifier    "monitor0"
+    ModelName     "Flat Panel 1024x768"
+    HorizSync       31.5 - 48.5
+    VertRefresh     40.0 - 70.0
+    ModeLine      "768x576" 50.0 768 832 846 1000 576 590 595 630
+    ModeLine      "768x576" 63.1 768 800 960 1024 576 578 590 616
+EndSection
+
+Section"Screen"
+    Identifier    "screen0"
+    Device        "device0"
+    Monitor       "monitor0"
+    DefaultDepth    24
+    SubSection    "Display"
+        Virtual     1024 768
+        Depth       24
+    EndSubSection
+EndSection
+
+Section"ServerLayout"
+    Identifier    "seat0"
+    Screen      0 "Screen0" 0 0
+    InputDevice   "Mouse0""CorePointer"
+    InputDevice   "Keyboard0""CoreKeyboard"
+EndSection
+
+Section"ServerFlags"
+    Option"DontZap""Off"
+        Option"AllowMouseOpenFail""true"
+        Option"BlankTime""45" 
+        Option"OffTime""60"  
+EndSection
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18494" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18494">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18494">
+
+<time datetime="2010-12-09T02:52">posted: 2010-12-09 &nbsp; 02:52</time>
+<span class="permalink"><a href="./xserver-xorg-video-intel-is-causing-me-problems-t2830.html#p18494" title="permalink">#3</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> dpkg-reconfigure xserver-xorg</code></pre></div>
+I guess is out of the question Ice-M?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18495" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18495">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+ 
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18495">
+
+<time datetime="2010-12-09T03:24">posted: 2010-12-09 &nbsp; 03:24</time>
+<span class="permalink"><a href="./xserver-xorg-video-intel-is-causing-me-problems-t2830.html#p18495" title="permalink">#4</a></span>
+
+<div class="content">dave, thanks for the tips. i tried the livecd before posting this.<br>
+<br>
+i created the xorg.conf file again with only the monitor blank time and off time in it and the system boot-up just fine. i don't know why the moron didn't work the first time.<br>
+<br>
+rokytnji, man as always you give a good advice, tried it as well before posting. that command doesn't seam to work anymore, maybe they depreciated it.<br>
+<br>
+now i'm left to find out what the heck is wrong with the sid package. and i was thinking that sid became all boring on me. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18496" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18496">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18496">
+
+<time datetime="2010-12-09T03:38">posted: 2010-12-09 &nbsp; 03:38</time>
+<span class="permalink"><a href="./xserver-xorg-video-intel-is-causing-me-problems-t2830.html#p18496" title="permalink">#5</a></span>
+
+<div class="content">Maybe. Just Maybe this link will tell ya what is going on with Sid.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://edos.debian.net/weather/"<br>linktext was:"http://edos.debian.net/weather/"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://edos.debian.net/weather/weather.php?distro=grip-unstable&amp;arch=i386"<br>linktext was:"http://edos.debian.net/weather/weather. ... &amp;arch=i386"<br>====================================<br>
+
+<blockquote class="uncited"><div>xserver-xorg-video-all    29 Nov 10    1:7.5+8em1 xserver-xorg-video-all (= 1:7.5+8em1) depends on missing: - xserver-xorg-video-geode</div></blockquote>
+Take a look see Ice-M<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://edos.debian.net/edos-debcheck/results/grip-unstable/latest/i386/list.php"<br>linktext was:"http://edos.debian.net/edos-debcheck/re ... 6/list.php"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18500" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18500">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18500">
+
+<time datetime="2010-12-09T14:50">posted: 2010-12-09 &nbsp; 14:50</time>
+<span class="permalink"><a href="./xserver-xorg-video-intel-is-causing-me-problems-t2830.html#p18500" title="permalink">#6</a></span>
+
+<div class="content">nice links rok <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

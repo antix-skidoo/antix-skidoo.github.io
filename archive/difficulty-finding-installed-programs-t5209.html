@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Difficulty finding installed programs - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./difficulty-finding-installed-programs-t5209.html">Difficulty finding installed programs</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="viewtopic_wrapper">
+<div id="p_36494" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36494">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">darkestaxe</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Jul 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36494">
+<time datetime="2014-07-24T02:42">posted: 2014-07-24 &nbsp; 02:42</time>
+<span class="permalink"><a href="./difficulty-finding-installed-programs-t5209.html#p36494" title="permalink">#1</a></span>
+
+<div class="content">Edit: Using AntiX 13.2 base install with Fluxbox and SpaceFM.<br>
+<br>
+[TLDR]<br>
+I've installed 3 things using su (I couldn't figure out how to get sudo to work, but I just used su root///pass) Dosbox, VisualboyAdvance-GTK and Synaptic. I can run dosbox by typing dosbox in the terminal or in the run box but I haven't been able to run anything else.<br>
+<br>
+As best as I gather from the interwebs, linux splits a programs files up by catagory and dumps them into folders shared accross the machine by everything else. The exe's will have no .exe on them because linux doesn't use file extensions, and linux distros are built from literally thousands of distinct programs. Thus the /bin folder and the /user/bin folder both have literally thousands of files in them and probably hundreds of folders. I found a file for VisualboyAdvance in one bin folder but I have no idea where the rest of it is.<br>
+<br>
+What I've been reading is that your package manager is supposed to let you choose where to put things you install and create icons on your desktop. I didn't see any icons, and as I understand Fluxbox and JWM don't support icons and shortcuts anyway. (I don't understand how that works, there's icons from SpaceFM) As for setting where to install things, I don't yet have a GUI package manager (because I don't know where synaptic is). If su is supposed to let you choose where to put things it forgot to ask me.<br>
+<br>
+Dosbox has a couple important settings files which are supposed to be in the dosbox folder. VisualboyAdvance will likely have a storage folder for ROMs.<br>
+[/TLDR]<br>
+<br>
+My questions are: When using antiX (or linux in general) how do you find your programs, or how do you make sure programs go to where you'll be able to find them if your package manager didn't create icons and you didn't specify a location? And just out of curiosity, why isn't there a"Programs" folder or something?</div>
+<div class="notice">
+Last edited by <b>darkestaxe</b> on 24 Jul 2014, 04:12, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36495" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36495">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36495">
+
+<time datetime="2014-07-24T03:19">posted: 2014-07-24 &nbsp; 03:19</time>
+<span class="permalink"><a href="./difficulty-finding-installed-programs-t5209.html#p36495" title="permalink">#2</a></span>
+
+<div class="content">The synaptic program is in /usr/sbin. I found it with the following command:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> find / -name synaptic 2&gt;/dev/null</code></pre></div>
+The problem is in your user's PATH variable. I always include /sbin and /usr/sbin in my PATH and then I don't run into these problems. Once you fix your PATH variable then you could also find synaptic with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>which synaptic</code></pre></div>but you don't need to find it because you can just run it with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo synaptic</code></pre></div>
+Edit the .bashrc file in your home directory and add this line:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>PATH=$PATH:/sbin:/usr/sbin</code></pre></div>then start a new bash shell with the"bash" command.<br>
+<br>
+Dave and I have talked about this. For some reason, Debian defaults to leaving /sbin and /usr/sbin off of non-root users' PATHs. We can't figure out way. Maybe some security concern we don't know about. Both Dave and I keep /sbin and /usr/sbin on our PATH. Perhaps we should make this the default in the next version of antiX.<br>
+<br>
+There should be a way to update the desktop menu to include any new programs you added. In antiX-13.2, I believe there was an entry in the main desktop menu to do this. Otherwise it is under one of the submenus. I don't know much about this. If you tell us which version of antiX you are using then someone else can probably help you with updating the desktop menu.<br>
+<br>
+Your other question seem to be asking"why isn't Linux more like Windows?" Well, its not and once you get used to it you might think it is actually better. Below is a list of places where you will generally find programs. Once you get your path straightened out then you will usually not need to know where programs are because they will run when you just type their name with no directory.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/sbin          Programs only root can run that are needed to boot the system
+/bin           Other programs needed to boot the system
+/usr/sbin      Other programs that only root can run
+/usr/bin       Almost all other programs
+/usr/local/bin Programs added by the antiX devs</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36496" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36496">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36496">
+
+<time datetime="2014-07-24T04:06">posted: 2014-07-24 &nbsp; 04:06</time>
+<span class="permalink"><a href="./difficulty-finding-installed-programs-t5209.html#p36496" title="permalink">#3</a></span>
+
+<div class="content">1 l) how did you install the programs apt-get install? <br>
+2) no, .exe does not exist as this file extension typically is seen as a Windows executable. Instead executable programs are most typically referred to as binary files (and thus placed in the (bin)ary directories) . Some of these can have the binary extention".bin" but yes in general there is very little extension use as most file associations are set using headers and mime types. However not all executable files are binary files, lots of them are scripts. Just as in windows you can execute a batch file in linux you can execute files of many different scripting languages. So with this in mind if you are looking more or less for the"exe" or the"bat" files the equivelent type of file would be in the bin directories.<br>
+<br>
+Likewise there are certain things that the bin files need to run and link to. These are library files, with windows exe files you may think of"dll". Well there may not be a real specific format for the library files in linux, but you can pretty much bet that they will be in the various (lib)rary directories. <br>
+<br>
+This goes through the same pattern for shared files. These would be most likely in the (share)d directories.<br>
+<br>
+Then the above directories are normally stacked in another directory based on usage conditions. Typically a additional multiple users program is installed into the usr directory under the appropriate sub directory. Likewise for a core program used by the root system / user the program is installed into the appropriate directories under the / directory.<br>
+<br>
+For more in depth details about the linux directory structure I would suggest go ogling for a linux file system basics.<br>
+<br>
+<br>
+3) Fluxbox + jwm and no synaptic seems to me that you have installed the base version... did the full version seem to much? anyway spacefm or rox filer should handle the desktop icons where the toolbar shortcuts should be handled by fluxbox or jwm. The menu items do need a manual refresh (or just log out and back in) to get the menus to update. This is one of the limitations of using a window manager instead of a Desktop Environment. However this will be fixed in future releases. As to su (switch user iirc) installing programs in places, not possible, but apt-get / dpkg / aptitude should have installed it as stated above and as chosen by the package maintainer. You fan manually unpack the package anywhere but the package manager will only install it where it has been set by the package maintainer. Maybe you are thinking of installing from source?<br>
+<br>
+4) there sort of is a programs folder aside from the various bin folders. This is /usr/share/applications. This will show most graphical programs which when you find the one that you want you should be able to drag the file to the desktop to make a"shortcut" or in actuality a desktop file in linux case.<br>
+<br>
+Hope this helps you figure things out. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36498" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36498">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">darkestaxe</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Jul 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36498">
+
+<time datetime="2014-07-24T05:51">posted: 2014-07-24 &nbsp; 05:51</time>
+<span class="permalink"><a href="./difficulty-finding-installed-programs-t5209.html#p36498" title="permalink">#4</a></span>
+
+<div class="content">1. Yes, I was confused about su vs sudo. I originally tried to use"sudo root" so it wouldn't keep giving me errors about not being able to access things, but it didn't work. I saw someone using su and then apt-get and thought su was a variation on sudo. I'm still getting used to bash.<br>
+<br>
+2. I should have been more clear, but thankyou for the well written explination. I'm already familiar with how linux uses file extensions and how it uses permisions to make a text file into a .bat file. I took a class in linux in college and I don't think I'd be able to make sense of the rest of your response or most of the FAQ if I hadn't.<br>
+<br>
+3. Yes, I used the base version of 13.2. I was under the impression that the full version was the same just bigger, kinda like windows areo which is pretty and cool but uses RAM. <br>
+<br>
+I've re-logged and looked through the menu options. There doesn't appear to be any relevant menu options and I tried the desktop toggles (RoxPanel SpaceFM and Conky) ---- Oh I fixed it. Fluxbox &gt; Auto-Update menu -----. <br>
+<br>
+4. There are several *.desktop files for all sorts of cool stuff including my programs in /usr/share/applications, but I can't move them. (I can't move or rename much of anything) I'll have to log on as root.<br>
+<br>
+As for editing $path, it probably is a good idea to fix that if it doesn't break security. AntiX would be awesome for desktop users that want to look at furry animals and play minecraft or pokemon. It's probably easier for everyone if those users don't have to edit their environment variables. <br>
+<br>
+Also, the FAQ was saying not to log in as root,"just don't do it! It's entirely unnecessary" but if you think I'm going to su to root in a terminal window and use grup or VIM, you're wrong. I'm logged in as root and I'm Googling"setting path var on debian" right now. BTW everything is smother, more responsive and cleaner looking when I log in as root, I like it here - but I'm not getting any internet <span class="emoticon"> __{{emoticon}}__ </span>! I'll fix it later.<br>
+<br>
+I'm guessing it is security reasons, Debian devs like attack surfaces the way an NBC warhead depot likes tourist guest passes, but maybe Debian devs don't think their clients will log in as root and copy-paste internet stuff into their boot scripts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36503" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36503">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36503">
+
+<time datetime="2014-07-24T11:36">posted: 2014-07-24 &nbsp; 11:36</time>
+<span class="permalink"><a href="./difficulty-finding-installed-programs-t5209.html#p36503" title="permalink">#5</a></span>
+
+<div class="content">You do not want to move the desktop files from the applications directory rather you would want to copy them to the desktop. Moving them would put the item on the desktop but you would lose it from the menu and stuff.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36505" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36505">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">zarg2</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Jul 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36505">
+
+<time datetime="2014-07-24T12:25">posted: 2014-07-24 &nbsp; 12:25</time>
+<span class="permalink"><a href="./difficulty-finding-installed-programs-t5209.html#p36505" title="permalink">#6</a></span>
+
+<div class="content">anytime you install a new program in atix immediately afterword go to the menu and on the top level menu select"update menu" the newly installed program will then show up in the appropriate submenu 99 percent of the time.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

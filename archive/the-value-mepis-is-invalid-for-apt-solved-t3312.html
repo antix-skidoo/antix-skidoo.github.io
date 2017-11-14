@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>The value 'mepis' is invalid for APT (SOLVED) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./the-value-mepis-is-invalid-for-apt-solved-t3312.html">The value 'mepis' is invalid for APT (SOLVED)</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_21782" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21782">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21782">
+<time datetime="2011-08-28T00:24">posted: 2011-08-28 &nbsp; 00:24</time>
+<span class="permalink"><a href="./the-value-mepis-is-invalid-for-apt-solved-t3312.html#p21782" title="permalink">#1</a></span>
+
+<div class="content">nats007 and I did <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update &amp;&amp; apt-get dist-upgrade</code></pre></div>
+today in AntiX 8.5 (he on his eeepc and me on IBM Laptop)<br>
+<br>
+I did mine through smxi . /var/log/smxi don't say anything about this error<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>E: The value 'mepis' is invalid for APT::Default-Release as such a release is not available in the sources</code></pre></div>
+which gives a error 100 on dist-upgrade for the both of us.<br>
+<br>
+<br>
+<br>
+The thread where this issue came up is at<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forum.eeeuser.com/viewtopic.php?pid=768293#p768293"<br>linktext was:"http://forum.eeeuser.com/viewtopic.php? ... 93#p768293"<br>====================================<br>
+<br>
+<br>
+First time I have ever seen this error in a dist-upgrade.<br>
+<br>
+Using the apt-get -f dist-upgrade option in smxi did not rectify the error either. Here is the terminal readout<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~$ sux
+Password: 
+root@biker:/home/harry# apt-get dist-upgrade
+Reading package lists... Done
+E: The value 'mepis' is invalid for APT::Default-Release as such a release is not available in the sources
+</code></pre></div>
+And no. I don't run KDE either. <br>
+<br>
+Fixed by editing /etc/apt/apt.conf file like so<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#APT::Default-Release"mepis";
+APT::Cache-Limit 60000000;
+APT::Get::Purge;
+APT::Get::AllowUnauthenticated 0;
+Acquire::cdrom::Mount"/media/cdrom";</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@biker:/home/harry# apt-get dist-upgrade
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Calculating upgrade... Done
+The following packages have been kept back:
+  ffmpeg gstreamer0.10-ffmpeg mplayer-nogui
+0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21790" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21790">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">secipolla</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21790">
+
+<time datetime="2011-08-28T17:33">posted: 2011-08-28 &nbsp; 17:33</time>
+<span class="permalink"><a href="./the-value-mepis-is-invalid-for-apt-solved-t3312.html#p21790" title="permalink">#2</a></span>
+
+<div class="content">That's a vestige from MEPIS that needed it so its packages would be preferable to the Debian ones. You can safely remove it as it doesn't work on antiX, which uses Debian testing repos.<br>
+I would think that anti even removed that from M11.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21791" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21791">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21791">
+
+<time datetime="2011-08-28T17:46">posted: 2011-08-28 &nbsp; 17:46</time>
+<span class="permalink"><a href="./the-value-mepis-is-invalid-for-apt-solved-t3312.html#p21791" title="permalink">#3</a></span>
+
+<div class="content">Yes it was removed in antiX-M11</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

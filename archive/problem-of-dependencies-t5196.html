@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>problem of dependencies - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-mx-14-symbiosis-f50/index.html"><span>antiX MX-14 Symbiosis</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problem-of-dependencies-t5196.html">problem of dependencies</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_36383" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36383">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">franky69</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Jun 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36383">
+<time datetime="2014-07-14T11:18">posted: 2014-07-14 &nbsp; 11:18</time>
+<span class="permalink"><a href="./problem-of-dependencies-t5196.html#p36383" title="permalink">#1</a></span>
+
+<div class="content"><span style="color: #0000FF">Hello there<br>
+to use QLandkarte i 've to install gdal and I have downgrade libsqlite.</span><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@mxfranky:/home/franky/trunk/cmake/Modules# aptitude install libgdal-dev
+Les NOUVEAUX paquets suivants vont être installés : 
+  libgdal-dev libgdal1{a} libspatialite-dev{a} libsqlite3-dev{ab} 
+0 paquets mis à jour, 4 nouvellement installés, 0 à enlever et 53 non mis à jour.
+Il est nécessaire de télécharger 7 681 ko/12,5 Mo d'archives. Après dépaquetage, 39,9 Mo seront utilisés.
+Les paquets suivants ont des dépendances non satisfaites :
+ libsqlite3-dev : Dépend: libsqlite3-0 (= 3.7.13-1+deb7u1) mais 3.7.16.2-1~bpo70+1 est installé.
+Les actions suivantes permettront de résoudre ces dépendances :
+
+     Conserver les paquets suivants dans leur version actuelle :
+1)     libgdal-dev [Non installé]                               
+2)     libspatialite-dev [Non installé]                         
+3)     libsqlite3-dev [Non installé]                            
+Accepter cette solution ? [Y/n/q/?] n
+Les actions suivantes permettront de résoudre ces dépendances :
+
+     Réinstaller à une version antérieure les paquets suivants :                  
+1)     libsqlite3-0 [3.7.16.2-1~bpo70+1 (now, stable) -&gt; 3.7.13-1+deb7u1 (stable)]
+Accepter cette solution ? [Y/n/q/?] y
+Les paquets suivants vont être RÉINSTALLÉS à une VERSION ANTÉRIEURE : 
+  libsqlite3-0 
+Les NOUVEAUX paquets suivants vont être installés : 
+  libgdal-dev libgdal1{a} libspatialite-dev{a} libsqlite3-dev{a} </code></pre></div>
+<span style="color: #0000FF">but now I can not launch kmail</span><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Akonadi Server Self-Test Report
+===============================
+
+Test 1:  ERROR
+--------
+
+Database driver not found.
+Details: The QtSQL driver 'QMYSQL' is required by your current Akonadi server configuration.
+The following drivers are installed: QSQLITE, QSQLITE3.
+Make sure the required driver is installed.
+
+File content of '/home/franky/.config/akonadi/akonadiserverrc':
+[%General]
+Driver=QMYSQL
+
+Test 5:  ERROR
+--------
+
+MySQL server log contains errors.
+Details: The MySQL server error log file &amp;apos;&lt;a href='/home/franky/.local/share/akonadi/db_data/mysql.err'&gt;/home/franky/.local/share/akonadi/db_data/mysql.err&lt;/a&gt;&amp;apos; contains errors.
+
+File content of '/home/franky/.local/share/akonadi/db_data/mysql.err':
+140714 11:32:14 [Note] Plugin 'FEDERATED' is disabled.
+140714 11:32:14 [Note] Plugin 'FEDERATED' is disabled.
+140714 11:32:14140714 11:32:14 InnoDB: The InnoDB memory heap is disabled
+ InnoDB: The InnoDB memory heap is disabled
+140714 11:32:14140714 11:32:14 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+ InnoDB: Mutexes and rw_locks use GCC atomic builtins
+140714 11:32:14140714 11:32:14 InnoDB: Compressed tables use zlib 1.2.7
+ InnoDB: Compressed tables use zlib 1.2.7
+140714 11:32:14140714 11:32:14 InnoDB: Using Linux native AIO
+ InnoDB: Using Linux native AIO
+140714 11:32:14 InnoDB: Initializing buffer pool, size = 80.0M
+140714 11:32:14 InnoDB: Initializing buffer pool, size = 80.0M
+140714 11:32:14 InnoDB: Completed initialization of buffer pool
+140714 11:32:14 InnoDB: Completed initialization of buffer pool
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+140714 11:32:14  InnoDB: Retrying to lock the first data file
+140714 11:32:14 InnoDB: highest supported file format is Barracuda.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+140714 11:32:17  InnoDB: Waiting for the background threads to start
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+140714 11:32:18 InnoDB: 5.5.37 started; log sequence number 17536824
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+140714 11:32:18 [ERROR] Native table 'performance_schema'.'events_waits_history' has the wrong structure
+140714 11:32:18 [ERROR] Native table 'performance_schema'.'events_waits_history_long' has the wrong structure
+140714 11:32:18 [Note] /usr/sbin/mysqld: ready for connections.
+Version: '5.5.37-0+wheezy1'  socket: '/home/franky/.local/share/akonadi/socket-mxfranky/mysql.socket'  port: 0  (Debian)
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+140714 11:33:54  InnoDB: Unable to open the first data file
+InnoDB: Error in opening ./ibdata1
+140714 11:33:54  InnoDB: Operating system error number 11 in a file operation.
+InnoDB: Error number 11 means 'Resource temporarily unavailable'.
+InnoDB: Some operating system error numbers are described at
+InnoDB: http://dev.mysql.com/doc/refman/5.5/en/operating-system-error-codes.html
+140714 11:33:54 InnoDB: Could not open or create data files.
+140714 11:33:54 InnoDB: If you tried to add new data files, and it failed here,
+140714 11:33:54 InnoDB: you should now edit innodb_data_file_path in my.cnf back
+140714 11:33:54 InnoDB: to what it was, and remove the new ibdata files InnoDB created
+140714 11:33:54 InnoDB: in this failed attempt. InnoDB only wrote those files full of
+140714 11:33:54 InnoDB: zeros, but did not yet use them in any way. But be careful: do not
+140714 11:33:54 InnoDB: remove old data files which contain your precious data!
+140714 11:33:54 [ERROR] Plugin 'InnoDB' init function returned error.
+140714 11:33:54 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+140714 11:33:54 [ERROR] Unknown/unsupported storage engine: innodb
+140714 11:33:54 [ERROR] Aborting
+
+140714 11:33:54 [Note] /usr/sbin/mysqld: Shutdown complete
+
+Test 10:  ERROR
+--------
+
+Akonadi control process not registered at D-Bus.
+Details: The Akonadi control process is not registered at D-Bus which typically means it was not started or encountered a fatal error during startup.
+
+Test 11:  ERROR
+--------
+
+Akonadi server process not registered at D-Bus.
+Details: The Akonadi server process is not registered at D-Bus which typically means it was not started or encountered a fatal error during startup.
+
+Test 12:  ERROR
+--------
+
+Nepomuk search service not registered at D-Bus.
+Details: The Nepomuk search service is not registered at D-Bus which typically means it was not started or encountered a fatal error during startup.
+
+</code></pre></div>
+<span style="color: #0000FF">an idea ?</span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36385" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36385">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36385">
+
+<time datetime="2014-07-14T14:47">posted: 2014-07-14 &nbsp; 14:47</time>
+<span class="permalink"><a href="./problem-of-dependencies-t5196.html#p36385" title="permalink">#2</a></span>
+
+<div class="content">Might get more joy at posting this thread at<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forum.mepiscommunity.org/"<br>linktext was:"http://forum.mepiscommunity.org/"<br>====================================<br>
+<br>
+<br>
+As there are more KDE users there than here. Just a suggestion though. I have no idea as I shy away from using Anything above a Window Manager usually instead of a Desktop enviornment. <br>
+<br>
+That is not to say some other member may have a better suggestion.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36386" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36386">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">nadir</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">nadir</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content36386">
+
+<time datetime="2014-07-14T18:13">posted: 2014-07-14 &nbsp; 18:13</time>
+<span class="permalink"><a href="./problem-of-dependencies-t5196.html#p36386" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>to use QLandkarte i 've to install gdal and I have downgrade libsqlite.</div></blockquote>
+Why? iow: Are you sure?<br>
+<br>
+1) dependencies should be installed automatically, no need to install them yourself (as far gdal is concernded). .<br>
+<br>
+2)<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-cache show qlandkartegt | grep sqlite
+$ 
+</code></pre></div>
+And posting your sources.list, apt.conf or preferences for apt won't hurt. <br>
+<br>
+Fooling with downgrading apps, pinning, installing third-party apps and what not is seldom a good idea (in the long run and if you _don't run a mixed testing/unstable system, then it might make sense). Imho, of course.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36390" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36390">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36390">
+
+<time datetime="2014-07-15T13:25">posted: 2014-07-15 &nbsp; 13:25</time>
+<span class="permalink"><a href="./problem-of-dependencies-t5196.html#p36390" title="permalink">#4</a></span>
+
+<div class="content">In case it would help, we have a resource about using KDE with MX-14 based on user experience:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepiscommunity.org/doc_mx/advanced_kde.html"<br>linktext was:"http://www.mepiscommunity.org/doc_mx/advanced_kde.html"<br>====================================<br>
+<br>
+<br>
+And a dedicated forum for MX-KDE issues:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forum.mepiscommunity.org/viewforum.php?f=99"<br>linktext was:"http://forum.mepiscommunity.org/viewforum.php?f=99"<br>====================================<br>
+<br>
+<br>
+Viens nous poser tes questions!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36392" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36392">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36392">
+
+<time datetime="2014-07-15T15:48">posted: 2014-07-15 &nbsp; 15:48</time>
+<span class="permalink"><a href="./problem-of-dependencies-t5196.html#p36392" title="permalink">#5</a></span>
+
+<div class="content">It's not really a KDE problem.<br>
+<br>
+The <em>3.7.16.2-1~bpo70+1</em> version of libsqlite3-0 is currently installed (from the antix.daveserver.info repo).<br>
+<br>
+The libgdal-dev package that franky69 is trying to install has a dependency for libsqlite3-dev.<br>
+<br>
+The versions of libsqlite3-0 &amp; libsqlite3-dev need to be the same, but a <em>3.7.16.2-1~bpo70+1</em> version libsqlite3-dev package isn't available in the repos.<br>
+<br>
+The antix.daveserver.info repo only has the libsqlite3-0 package (in amd64 &amp; i386 arch), it's missing several other packages including the <em>3.7.16.2-1~bpo70+1</em> version libsqlite3-dev package (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.daveserver.info/stable/pool/main/s/sqlite3/"<br>linktext was:"http://antix.daveserver.info/stable/poo ... s/sqlite3/"<br>====================================<br>
+).<br>
+<br>
+The libsqlite3-0 package is built from the sqlite3 source package (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://packages.debian.org/source/wheezy/sqlite3"<br>linktext was:"https://packages.debian.org/source/wheezy/sqlite3"<br>====================================<br>
+).<br>
+<br>
+A full upload would have included 11 additional <em>3.7.16.2-1~bpo70+1</em> version .deb packages: <br>
+<br>
+lemon (amd64 &amp; i386)<br>
+libsqlite3-dbg (amd64 &amp; i386)<br>
+libsqlite3-dev (amd64 &amp; i386)<br>
+libsqlite3-tcl (amd64 &amp; i386)<br>
+sqlite3 (amd64 &amp; i386) <br>
+sqlite3-doc</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36394" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36394">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">nadir</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">nadir</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content36394">
+
+<time datetime="2014-07-15T17:48">posted: 2014-07-15 &nbsp; 17:48</time>
+<span class="permalink"><a href="./problem-of-dependencies-t5196.html#p36394" title="permalink">#6</a></span>
+
+<div class="content">That is right, and it is my fault, but only leads to the next question (now why libgdal-dev package is supposed to be installed):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-rdepends qlandkartegt | grep dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+  Depends: libudev1
+libudev1
+  Depends: libudev1 (&gt;= 183)
+</code></pre></div>
+To me installing on a debian (based) system means:<br>
+apt-get install packagename<br>
+and thats it. <br>
+Before discussing what went wrong when and why and what to do about it, the info is needed what is wrong with that most basic operation (In other words: One will have to look at the problem, not at possible solutions and what are the problems of the - perhaps - wrong solution ). <br>
+If one"has to do X" (for example install another package or downgrade it or whatever) to install a package, then something is wrong (either with the package or with the approach to install it). It is really just apt-get install.<br>
+<br>
+In short: <br>
+The OP said"I had to" and i still say"why?"<br>
+That is the info needed to troubleshoot a problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

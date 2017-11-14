@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Making a Debian Package - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./making-a-debian-package-t3136.html">Making a Debian Package</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_20660" class="post has-profile bg2">
+<div class="inner">
+ <dl class="postprofile" id="profile20660">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20660">
+<time datetime="2011-05-14T20:15">posted: 2011-05-14 &nbsp; 20:15</time>
+<span class="permalink"><a href="./making-a-debian-package-t3136.html#p20660" title="permalink">#1</a></span>
+
+<div class="content">I know there is a fair bit more that can be done with a debian package, but here is a basic step by step guide.<br>
+<br>
+For neatness, I always make a new directory in ~/ EG: ~/deb-files<br>
+1) once this is done make another folder in ~/deb-files with the same name as the intended package ( exclude the .deb )<br>
+EG: antix-app_1.0.0_all<br>
+2) change directories to this new folder, the folder location should now be ~/deb-files/antix-apps_1.0.0_all. From here make a folder name"DEBIAN" ( case sensitive )<br>
+3) change directories to the DEBIAN folder and make a file named"control". This file controls the package functions, here is an example of the control file.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Package: antix-apps
+Version: 1.0.0
+Section: system
+Priority: optional
+Architecture: all
+Essential: no
+Depends: zenity, gtkdialog
+Recommends: antix-cc-utils | antix-wm-utils | antix-misc-utils
+Installed-Size: 
+Maintainer: antix community (www.antix.freeforums.org)
+Description: applications developed in the antiX community for antiX
+ Included:
+ -&gt; antix-system ( system management for antix )
+ -&gt; antix2usb ( make a live install on usb )
+ -&gt; exitantix.sh ( shutdown, restart, logout, etc...)
+ -&gt; inxi-gui ( view system information, inxi included )
+ -&gt; ps_mem.py ( view memory usage )
+ -&gt; mountbox ( mounting / unmounting devices )
+ -&gt; remaster.sh ( remasters antiX .iso file )
+ -&gt; user-management ( user management for antix ) 
+ 
+ This package is included in the full version of antiX. It is meant 
+ for people who wish to have or upgrade the antix utilities. This
+ package is not included by default in the base or core versions of
+ antiX. 
+</code></pre></div>
+Control file break down<br>
+Package --&gt; this is the name of the package as shown via apt EG: apt-get install antix-apps<br>
+Version --&gt; this is the package version, this is a factor in determining an update to a package<br>
+Section --&gt; this determines in which section of your system this package is shown<br>
+Priority --&gt; this determines in which order a group of packages needs to be installed EG: package1 --&gt; package2 --&gt; package3 instead of package3 --&gt; package1 --&gt; package2<br>
+Architecture --&gt; this is where you specify which architecture the package is intended for<br>
+Essential --&gt; basically is this package essential to system operation<br>
+Depends --&gt; this is where you write the depends for your package, so they will be installed first<br>
+Recommends --&gt; this is where the recommended packages are written ( they to will be installed )<br>
+Installed-size --&gt; this is where the size of all the files is recorded. ( leave this till the package is ready to be built<br>
+Maintainer --&gt; this is where the maintainer of the package is written<br>
+Description --&gt; this is the package description, this takes a little bit of written formatting<br>
+1st line directly behind Description is the description title<br>
+2nd line ( after pressing enter, or return ) this is the beginning of the description, needs to be indented with a space<br>
+3rd line to end, all lines after the second line that are indented 1 space are part of the description. If there is a spacing line as above, there also needs to be a indenting space. ( even though the line is blank )<br>
+<br>
+That is it for a control file, there can be a little less, and there is a lot more for one, but this is the majority of control functions.<br>
+<br>
+Now from here on it is just information gathering<br>
+1) change directories to ~/deb-files/antix-apps_1.0.0_all<br>
+2) make a file structure the same as your system for all the files you wish to include. EG: for antixcc.sh, location on system /usr/local/bin/antixcc.sh, location for .deb file ~/deb-files/antix-apps_1.0.0_all/usr/local/bin/antixcc.sh. <br>
+<br>
+*NOTE: make sure that the file structure for your deb has the same ownership and permissions that you desire in the install. Leaving your username and permissions on the files will lead to your username and permissions being set on any system the deb is installed on.<br>
+<br>
+Now all the files are in their proper spot relative to your system install you are ready to start building the package. To do this:<br>
+1) open terminal and cd to ~/deb-files<br>
+2) type the command"dpkg-deb --build antix-apps_1.0.0_all"<br>
+<br>
+This will build a package by the name of antix-apps_1.0.0_all.deb in ~/deb-files, from here run dpkg-deb --contents antix-apps_1.0.0_all.deb and verify that all the required files are there. If they are, you are good to install, or send your .deb file out to others<br>
+<br>
+If you would like a bit more function other than a self installing tarball, you can add scripts to do post installation tasks and pre removal task. These scripts are located in ~/deb-files/antix-apps_1.0.0_all/DEBIAN they should be named"postinst" for post installation, and prerm for pre removal. These are shell scripts and can do functions such as restart services to enable new config files that may be in your package, or move files in your package to everyones home directory, without knowing their username.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

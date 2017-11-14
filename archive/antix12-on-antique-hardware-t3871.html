@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>AntiX12 on 'antique' hardware - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix12-on-antique-hardware-t3871.html">AntiX12 on 'antique' hardware</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_25899" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25899">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 162</span></div>
+
+</div>
+</div>
+<span class="username">drg</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Feb 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25899">
+<time datetime="2012-08-21T22:06">posted: 2012-08-21 &nbsp; 22:06</time>
+<span class="permalink"><a href="./antix12-on-antique-hardware-t3871.html#p25899" title="permalink">#1</a></span>
+
+<div class="content">AntiX12 on 'antique' hardware. <br>
+If other forum members wish, perhaps this thread could be used as a dumping place for this topic. Me, I'm just another user, self appointed old box tester, nothing “official”. Up to you to define what that 'antique' means.<br>
+If I may:<br>
+<br>
+antix-m8-5-486-on-old-hardware-t2336.html<br>
+<br>
+antix-core-486-a1-on-really-old-hardware-t2528.html<br>
+<br>
+anti-x-the-real-meaning-behind-the-name-t2755.html<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://jaredandcoralee.com/"<br>linktext was:"http://jaredandcoralee.com/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25900" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25900">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 162</span></div>
+
+</div>
+</div>
+<span class="username">drg</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Feb 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25900">
+
+<time datetime="2012-08-21T22:11">posted: 2012-08-21 &nbsp; 22:11</time>
+<span class="permalink"><a href="./antix12-on-antique-hardware-t3871.html#p25900" title="permalink">#2</a></span>
+
+<div class="content">Antix12 does install with 64M ram, with a preconfigured swap. <br>
+Also installs with 64M ram, without an active swap. <br>
+<br>
+The cli-installer is the preference here, but cfdisk has a bug making an active swap, it doesn’t. The swap partition it makes cannot be made active with the swapon/swapoff command, or with gparted. The trick is to use gparted to create that swap. <br>
+<br>
+****antiX12-base, on K6/266MHz 64M ram without an active swap partition.<br>
+Used the cli-installer, and cfdisk to create a swap partition on /dev/sda2. How long? Somewhere between 20-60 minutes, I'd gone for a walk. On bootup after the install, the console shows “swapon: /dev/sda2: swapon failed: Invalid argument”. <br>
+Also a new one for me: fstab has '/dev/sda1 /ext3 defaults o o ' and '/dev/sda2 swap swap sw,pri 0 0 '. So no UUID mentioned, but gparted can make a new UUID if needed, and gparted or the blkid command will show them. Also the slim login screen showed only the title antiX-base after the initial bootup after the install. Guess an update-grub is needed, will do it later.<br>
+<br>
+In rox-fluxbox, at startup:<br>
+inxi Memory: 32.8/57.3MB, shows no swap partitions<br>
+conky ram 26.8M/57.3M -46%, swap 0B/0B -no swap%<br>
+<br>
+There is enough ram to load gparted. Did so, now get:<br>
+inxi Memory: 41.6/57.3MB, shows no swap partitions<br>
+conky ram 39.3M/57.3M -68%, swap 0B/0B -no swap%<br>
+<br>
+Gparted sees sda2 as linux-swap, but it “Could not activate swap”. <br>
+Since it is not mounted, gparted can delete it, make a new one of 400MB and now do a swapon. Now get:<br>
+inxi ID: swap-1 size: 0.42GB used: 0.01GB (2%)<br>
+conky ram 40.1M/57.3M -70%, swap 4.63M/401M -1%<br>
+<br>
+Reboot again, and all this worked ok. Now get:<br>
+inxi ID: swap-1 size: 0.42GB used: 0.00GB (1%), Memory: 30.6M<br>
+conky ram 28.3M/57.3M -49%, swap 2.32M/401M -0%<br>
+<br>
+As to the new one for me, I thought I'd have to edit the fstab and do update-grub, but this was taken care of. Noticed in the console that the etc/fstab had been updated during this reboot to include the UUID numbers, and the /boot/grub/menu.lst as well. <br>
+<br>
+<br>
+**************<br>
+Other strategies:<br>
+<br>
+Use wmii or dwm, much lighter on ram/swap usage. <br>
+BTW, dwm uses Alt-p to open a menu to launch applications; also I can’t get it to respond to Shift-Alt-q to quit it cleanly, so I use htop in a console to kill it. Wmii is a breeze, and anti has added info in the menu at Help ---&gt; antiX ---&gt;antiX FAQ. <br>
+<br>
+Maybe use zram. Can be used with or without an active swap partition.<br>
+For this I updated antix-goodies, within which lives the current zram.<br>
+<br>
+Looked for distros with a liveCD that would boot on K6/64M ram, no swap, and has gparted. Puppylinux (version 431 was what I had on hand) worked for this purpose, partitioning.<br>
+<br>
+Maybe dsl (damnsmalllinux.org). The news is there is a new version, in RC1 now, but the CD offers cfdisk. However, dsl does offer an “extension” application called qtparted-gtk2-0.4.4.dsl plus gtk2-0705.dsl. Tried this using a plop floppy and dsl on an USB flashdisk, but couldn't get it to boot with 64M. Works with 128M ram. Maybe if one creates a bootable CD including these. <br>
+Maybe slitaz, it has gparted on its CD, but with 64M ram you'll only get to the console, not the gui.<br>
+Tried the specialized ones like Partedmagic, HirensBootCD, UltimateBootCD, SystemRescueCD. Nope, not on this machine.<br>
+<br>
+Use another computer, more ram etc, for the install then switch the hard disk, if you can. My favourite, actually.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25946" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25946">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25946">
+
+<time datetime="2012-08-24T12:42">posted: 2012-08-24 &nbsp; 12:42</time>
+<span class="permalink"><a href="./antix12-on-antique-hardware-t3871.html#p25946" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>drg wrote:</cite>Looked for distros with a liveCD that would boot on K6/64M ram... <br>
+Puppylinux...<br>
+Maybe dsl (damnsmalllinux.org). <br>
+Maybe slitaz...<br>
+Tried the specialized ones like Partedmagic, HirensBootCD, UltimateBootCD, SystemRescueCD.</div></blockquote>These might be worth a look. They boot easily in less than 64MB RAM from CD-ROM or USB flash drive and have partitioning plus file system tools either included or ready to install.<br>
+<br>
+CLI Finnix<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.finnix.org/"<br>linktext was:"http://www.finnix.org/"<br>====================================<br>
+<br>
+<br>
+GUI Tinycore<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://distro.ibiblio.org/tinycorelinux/welcome.html"<br>linktext was:"http://distro.ibiblio.org/tinycorelinux/welcome.html"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26699" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26699">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">masinick</a> </span> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26699">
+
+<time datetime="2012-11-03T18:40">posted: 2012-11-03 &nbsp; 18:40</time>
+<span class="permalink"><a href="./antix12-on-antique-hardware-t3871.html#p26699" title="permalink">#4</a></span>
+
+<div class="content">I now have *at least* five systems on my street running various instances of antiX 12. I have two systems that I own, a laptop that my mom owns, an old semi dormant desktop that my sister gave me;we set it up next to mom's laptop and it was running fine, but the monitor started getting flaky; if and when we replace either the system or the monitor, that could be another one.<br>
+<br>
+Then the BIGGIE: I've been telling the neighbor across the street that if he has some old"boat anchor" of a computer, that I could get it up and running with some free, light software at no charge to him. Having already done so with my mom, it was easy to set him up.<br>
+<br>
+There are now at least five computers within 150 feet of one another, all capable of running antiX 12. (I have base and core on one system, core on another; the others have antiX12 full; superb, new life to some otherwise slow, nearly unusable, now perfectly fine systems, half of which are from the 2000=2005 era, the other half are from the 2007=2008 era, none of them newer than four years old.<br>
+<br>
+Not bad, 'eh? I told the neighbor to get the word out, and if he hears of someone who knows about computers or needs someone who has computer skills, tell 'em how easy I put this free software in place.<br>
+<br>
+So I've gotten two or three friends from forums to try it, an unknown number of people influenced from the blogs and forums, where I've extollled antiX for the past six years, and now mom and the neighbor across the street are using it... all successfully.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

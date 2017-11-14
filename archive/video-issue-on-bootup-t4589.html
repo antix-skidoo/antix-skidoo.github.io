@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Video Issue on Bootup - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./video-issue-on-bootup-t4589.html">Video Issue on Bootup</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_30923" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30923">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">JWGuy</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30923">
+<time datetime="2013-09-05T05:08">posted: 2013-09-05 &nbsp; 05:08</time>
+<span class="permalink"><a href="./video-issue-on-bootup-t4589.html#p30923" title="permalink">#1</a></span>
+
+<div class="content">I have (the infamous) Radeon 7500 video built into a laptop. This is no longer supported on many Linux distributions / xorg to spite being a P4 with a Gig of RAM - far faster than most tablets out there and with a much larger / useable screen - yet ... Thank Goodness for AntiX, Puppy, DSL, and a few others. You Guys Rock !!<br>
+<br>
+But I still have a bit of a problem. When I start AntiX from Live-CD or Disk, after the initial Grub/Boot screen, I get the usual Linux console 'starting kernel ...' and then a temporary"white screen of death." During the White-Screen, the keyboard caps-lock *does* work - no kernel-panic happening. After going into screen-saver mode (blank screen / back-light off), when I move the mouse or click a key, I get the Login screen.<br>
+<br>
+How can I gain immediate access upon boot and avoid the 10-minute delay? <br>
+<br>
+My Xorg-log is attached, with some junk trimmed out and a few notes added. <br>
+<br>
+I have"nomodeset" in my startup, and removing that option from grub (on other Linux flavors) will *cause* a permanent white-screen of death, complimented with a non-responsive keyboard. Yet my xorg.log shows KMS is enabled at some point? Also, It also goes into Vesa and then back out later each boot? It gets the resolution right, in the end, but should I just specify this in an xorg.conf to avoid all the probing?<br>
+<br>
+Also, note the lid-switch is not working (tested and as reported in xorg.log). Perhaps I could achive the same effect as the screen-suspend with that button if it worked?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30924" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30924">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30924">
+
+<time datetime="2013-09-05T09:08">posted: 2013-09-05 &nbsp; 09:08</time>
+<span class="permalink"><a href="./video-issue-on-bootup-t4589.html#p30924" title="permalink">#2</a></span>
+
+<div class="content">I don't see an attached log file.<br>
+<br>
+If you're running the LiveCD then you can specify the X resolution with the"xres=WWWxHHH" boot option. where WWW is the width and HHH is the height. You can also specify a video driver with the"xdrvr=XXX" boot option. These option won't work on a installed system but they should carry over from the Live system when you do an install. If you specify either option then we will create an xorg.conf file for you. This is what carries those options over when you do an install.<br>
+<br>
+You will probably still need to select the"safe" video mode from the"F5 Video Mode" menu which adds the nomodeset boot parameter. You should certainly try the"very safe" option from that same menu (without specifying xdrvr or xres). We won't make an xorg.conf file in this case so you get narrower range of vertical and horizontal frequencies. It will be less likely to get the maximum resolution but if the WSoD is caused by a sync problem then this might avoid it.<br>
+<br>
+It might be helpful if you showed us the output of"inxi -F". I'd also like to see what is in the .xsession-errors* file(s) in your home directory. <br>
+<blockquote class="uncited"><div>When I start AntiX from Live-CD or Disk, after the initial Grub/Boot screen, I get the usual Linux console 'starting kernel ...' and then a temporary"white screen of death." During the White-Screen, the keyboard caps-lock *does* work - no kernel-panic happening. After going into screen-saver mode (blank screen / back-light off), when I move the mouse or click a key, I get the Login screen.</div></blockquote>
+This is very strange. It seems like there are two problems but maybe they have a common cause. <br>
+<br>
+When the WSoD occurs, you can try logging into a virtual terminal with &lt;Ctrl&gt;&lt;Alt&gt;&lt;F2&gt;. You can switch back to X-windows with &lt;Ctrl&gt;&lt;Alt&gt;&lt;F7&gt;. If you are getting dumped to a graphical login manager (SLiM) on the Live system then this means X and/or the window manager has crashed or failed to start. In this case it would be good to make a copy of the .xsession-errors file and the Xorg log file. OTOH it is normal to first get the graphical login screen when booting an installed system which means X is probably not crashing.<br>
+<br>
+You can increase the resolution of the virtual terminal with the"vga" boot option."vga=795" will give you 1280x1024 and"vga=792" will give you 1024x768.<br>
+<br>
+With a Gig of RAM you should be able to use the"toram" feature on the LiveCD which will make it run very fast. There is a delay when you boot while almost the entire LiveCD gets copied into RAM. You can either type in"toram" directly or select it from the"F4 Options" menu to make this happen.<br>
+<br>
+My guess is that it is a sync problem. You may need an xorg.conf with a custom mode line. We don't create this automatically. If you want to experiment starting X in different ways, one trick is use the"3" boot parameter which will prevent us from starting X automatically. Then log into a virtual console as the demo user (or the normal non-root user on an installed system) and run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>xint</code></pre></div>which should start X-windows with the default windows manager. When you log out of the window manager then X-windows will stop. <br>
+<br>
+You can move between virtual consoles with &lt;Ctrl&gt;&lt;Alt&gt;&lt;Fn&gt; where n can be 1 -- 6. You can also move to"adjacent" virtual consoles with &lt;Alt&gt;&lt;Left-Arrow&gt; and &lt;Alt&gt;&lt;Right-Arrow&gt;.<br>
+<br>
+It's possible that just switching to a virtual console and then switching back to X-windows will fix the sync problem without you having to wait for screen-saver mode. This is not an ideal solution but it would be a significant improvement.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30942" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30942">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">JWGuy</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30942">
+
+<time datetime="2013-09-08T12:21">posted: 2013-09-08 &nbsp; 12:21</time>
+<span class="permalink"><a href="./video-issue-on-bootup-t4589.html#p30942" title="permalink">#3</a></span>
+
+<div class="content">Thank you for the very detailed reply and suggestions. <br>
+<br>
+<br>
+I have tried the Cntl-Alt-Fn and alt-left / alt-right trick, with no response - WSoD persists. Cntl-Alt-Backspace also has no effect. The Power Button, OTOH, does initiate a clean-shutdown (single-touch, not holding it down until forced-shutdown).<br>
+<br>
+When I tried booting into level-3, I still got the WSoD. <br>
+<br>
+With the screen working, I can Cntl-Alt into the terminal windows and back, but these terminal windows are hi-res screens - not 80-column terminals. Perhaps I can change that default?<br>
+<br>
+In all cases, I can see a quick preview of the higher-resolution text-screen before the white splotch takes over the monitor. On some returns from screen-off, I also see a quick view of the screen prior to the white-splotch spreading over all.<br>
+<br>
+One quicker workaround I have found. If I hit the Fn-Sleep (F3) button, the system goes into suspend. When I press a key to 'wake' it, I get my screen back.<br>
+<br>
+I do recall that on an attempted Linux-install years ago, that toggling the lid-switch worked to remedy a WSoD. Perhaps getting that functionality would provide a cleaner work-around.<br>
+<br>
+The resulting screen-resolution is correct, though I agree with your suspicion of sync, and would like to create a modeline setting for quicker start of X. I have an old xorg.conf, which was working on CentOS before the xorg-update (to a ~2010-release, which corresponds with the time-frame of posts from old-radeon users on other flavors ). <br>
+<br>
+Yes, my log will not attach. I will paste them here:<br>
+<br>
+___________________<br>
+<br>
+inxi.log<br>
+--------------------<br>
+____________________<br>
+<br>
+System: <br>
+<br>
+Host:<br>
+CompaqEvoN800c <br>
+Kernel:<br>
+3.7.10-antix.3-486-smp i686 (32 bit) <br>
+<br>
+Desktop:<br>
+IceWM 1.3.7 <br>
+Distro:<br>
+antiX-13.1_386-full Luddite 19 June 2013<br>
+<br>
+Machine: <br>
+<br>
+System:<br>
+Compaq <br>
+product:<br>
+Evo N800c <br>
+version:<br>
+F.1D <br>
+serial:<br>
+KRD3470NK3 <br>
+<br>
+<br>
+Mobo:<br>
+Compaq <br>
+model:<br>
+07D8 <br>
+version:<br>
+H8 Version 14.20 <br>
+Bios:<br>
+Compaq <br>
+version:<br>
+68P4M Ver. F.1D <br>
+date:<br>
+04/30/2003<br>
+<br>
+CPU: <br>
+<br>
+Single core<br>
+Mobile Intel Pentium 4 - M CPU (-UP-)<br>
+<br>
+cache:<br>
+512 KB <br>
+flags:<br>
+(pae sse sse2)<br>
+<br>
+clocked at<br>
+2200.00 MHz<br>
+<br>
+<br>
+Graphics: <br>
+<br>
+Card:<br>
+Advanced Micro Devices AMD] nee ATI RV200 Mobility Radeon 7500] <br>
+<br>
+X.org:<br>
+1.12.4 <br>
+drivers:<br>
+ati,radeon (unloaded: fbdev,vesa) <br>
+tty size:<br>
+80x28 <br>
+Advanced Data:<br>
+N/A for root <br>
+<br>
+Audio: <br>
+<br>
+Card:<br>
+Intel 82801CA/CAM AC'97 Audio Controller <br>
+driver:<br>
+snd_intel8x0 <br>
+Sound:<br>
+ALSA <br>
+ver:<br>
+k3.7.10-antix.3-486-smp<br>
+<br>
+Network: <br>
+<br>
+Card:<br>
+Intel 82801CAM (ICH3) PRO/100 VE (LOM) Ethernet Controller <br>
+driver:<br>
+e100 <br>
+<br>
+IF:<br>
+eth0 <br>
+state:<br>
+up <br>
+speed:<br>
+100 Mbps <br>
+duplex:<br>
+full <br>
+mac:<br>
+00:08:02:6e:3e:cb<br>
+<br>
+Drives: <br>
+<br>
+HDD Total Size:<br>
+120.0GB (3.0% used) <br>
+1:<br>
+<br>
+id:<br>
+/dev/sda <br>
+model:<br>
+TOSHIBA_MK1234GA <br>
+size:<br>
+120.0GB <br>
+<br>
+Partition:<br>
+<br>
+ID:<br>
+/ <br>
+size:<br>
+14G <br>
+used:<br>
+2.9G (23%) <br>
+fs:<br>
+ext4 <br>
+ID:<br>
+/home <br>
+size:<br>
+53G <br>
+used:<br>
+573M (2%) <br>
+fs:<br>
+ext4 <br>
+<br>
+ID:<br>
+swap-1 <br>
+size:<br>
+2.80GB <br>
+used:<br>
+0.00GB (0%) <br>
+fs:<br>
+swap <br>
+<br>
+Sensors: <br>
+<br>
+System Temperatures: cpu:<br>
+41.0C <br>
+mobo:<br>
+39.0C <br>
+<br>
+Fan Speeds (in rpm): cpu:<br>
+N/A <br>
+<br>
+Info: <br>
+<br>
+Processes:<br>
+113 <br>
+Uptime:<br>
+5 min <br>
+Memory:<br>
+89.6/1008.1MB<br>
+<br>
+Client:<br>
+Shell (bash) <br>
+inxi:<br>
+1.9.9<br>
+<br>
+____________________<br>
+--------------------<br>
+xsession-errors<br>
+_____________________<br>
+<br>
+icewm-session: using /home/celution/.icewm for private configuration files<br>
+icewm-session: Warning: File still open: fd=3, target='/var/log/slim.log' (missing FD_CLOEXEC?)<br>
+icewm-session: Warning: Closing file descriptor: 3<br>
+icewm-session: Warning: File still open: fd=3, target='/var/log/slim.log' (missing FD_CLOEXEC?)<br>
+icewm-session: Warning: Closing file descriptor: 3<br>
+icewm-session: Warning: File still open: fd=3, target='/var/log/slim.log' (missing FD_CLOEXEC?)<br>
+icewm-session: Warning: Closing file descriptor: 3<br>
+icewm-session: Warning: File still open: fd=3, target='/var/log/slim.log' (missing FD_CLOEXEC?)<br>
+icewm-session: Warning: Closing file descriptor: 3<br>
+icewmtray: using /home/celution/.icewm for private configuration files<br>
+icewmbg: using /home/celution/.icewm for private configuration files<br>
+IceWM: using /home/celution/.icewm for private configuration files<br>
+Conky: forked to background, pid is 3720<br>
+<br>
+Conky: desktop window (8000a2) is subwindow of root window (103)<br>
+Conky: window type - override<br>
+Conky: drawing to created window (0x1200001)<br>
+Conky: drawing to double buffer<br>
+<br>
+** (roxterm:4114): WARNING **: Failed to connect to session manager: SESSION_MANAGER environment variable not defined<br>
+icewmbg: MappingNotify<br>
+IceWM: MappingNotify<br>
+icewmbg: MappingNotify<br>
+IceWM: MappingNotify<br>
+<br>
+____________________<br>
+--------------------<br>
+<br>
+[ 32.938] <br>
+X.Org X Server 1.12.4<br>
+Release Date: 2012-08-27<br>
+[ 32.938] X Protocol Version 11, Revision 0<br>
+[ 32.938] Build Operating System: Linux 2.6.32-5-686-bigmem i686 Debian<br>
+[ 32.938] Current Operating System: Linux CompaqEvoN800c 3.7.10-antix.3-486-smp #1 SMP Sat Jun 1 13:59:18 EEST 2013 i686<br>
+[ 32.939] Kernel command line: root=/dev/sda7 nomodeset quiet<br>
+[ 32.939] Build Date: 17 April 2013 11:13:16AM<br>
+[ 32.939] xorg-server 2:1.12.4-6 (Julien Cristau &lt;<a href="mailto:jcristau@debian.org">jcristau@debian.org</a>&gt;) <br>
+[ 32.939] Current version of pixman: 0.26.0<br>
+[ 32.939] Before reporting problems, check 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.x.org"<br>linktext was:"http://wiki.x.org"<br>====================================<br>
+<br>
+to make sure that you have the latest version.<br>
+[ 32.939] Markers: (--) probed, (**) from config file, (==) default setting,<br>
+(++) from command line, (!!) notice, (II) informational,<br>
+(WW) warning, (EE) error, (NI) not implemented, (??) unknown.<br>
+[ 32.939] (==) Log file:"/var/log/Xorg.0.log", Time: Thu Sep 5 11:47:42 2013<br>
+[ 33.091] (==) Using config directory:"/etc/X11/xorg.conf.d"<br>
+[ 33.091] (==) Using system config directory"/usr/share/X11/xorg.conf.d"<br>
+[ 33.149] (==) No Layout section. Using the first Screen section.<br>
+[ 33.149] (==) No screen section available. Using defaults.<br>
+[ 33.149] (**) |--&gt;Screen"Default Screen Section" (0)<br>
+[ 33.149] (**) | |--&gt;Monitor"&lt;default monitor&gt;"<br>
+[ 33.165] (==) No monitor specified for screen"Default Screen Section".<br>
+Using a default monitor configuration.<br>
+[ 33.165] (==) Automatically adding devices<br>
+[ 33.165] (==) Automatically enabling devices<br>
+[ 33.269] (WW) The directory"/usr/share/fonts/X11/cyrillic" does not exist.<br>
+[ 33.270] Entry deleted from font path.<br>
+[ 33.270] (WW) The directory"/usr/share/fonts/X11/75dpi/" does not exist.<br>
+[ 33.270] Entry deleted from font path.<br>
+[ 33.271] (WW) The directory"/usr/share/fonts/X11/75dpi" does not exist.<br>
+[ 33.271] Entry deleted from font path.<br>
+[ 33.271] (WW) The directory"/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType" does not exist.<br>
+[ 33.271] Entry deleted from font path.<br>
+[ 33.271] (==) FontPath set to:<br>
+/usr/share/fonts/X11/misc,<br>
+/usr/share/fonts/X11/100dpi/:unscaled,<br>
+/usr/share/fonts/X11/Type1,<br>
+/usr/share/fonts/X11/100dpi,<br>
+built-ins<br>
+[ 33.271] (==) ModulePath set to"/usr/lib/xorg/modules"<br>
+[ 33.271] (II) The server relies on udev to provide the list of input devices.<br>
+If no devices become available, reconfigure udev or disable AutoAddDevices.<br>
+[ 33.271] (II) Loader magic: 0xb77c95a0<br>
+[ 33.271] (II) Module ABI versions:<br>
+[ 33.271] X.Org ANSI C Emulation: 0.4<br>
+[ 33.271] X.Org Video Driver: 12.1<br>
+[ 33.271] X.Org XInput driver : 16.0<br>
+[ 33.271] X.Org Server Extension : 6.0<br>
+[ 33.273] (--) PCI:*(0:1:0:0) 1002:4c57:0e11:004a rev 0, Mem @ 0x88000000/134217728, 0x80380000/65536, I/O @ 0x00003000/256, BIOS @ 0x????????/131072<br>
+[ 33.274] (II) Open ACPI successful (/var/run/acpid.socket)<br>
+[ 33.274] (II) LoadModule:"extmod"<br>
+[ 33.285] (II) Loading /usr/lib/xorg/modules/extensions/libextmod.so<br>
+[ 33.451] (II) Module extmod: vendor="X.Org Foundation"<br>
+[ 33.451] compiled for 1.12.4, module version = 1.0.0<br>
+[ 33.451] Module class: X.Org Server Extension<br>
+[ 33.451] ABI class: X.Org Server Extension, version 6.0<br>
+[ 33.451] (II) Loading extension SELinux<br>
+[ 33.451] (II) Loading extension MIT-SCREEN-SAVER<br>
+[ 33.452] (II) Loading extension XFree86-VidModeExtension<br>
+[ 33.452] (II) Loading extension XFree86-DGA<br>
+[ 33.452] (II) Loading extension DPMS<br>
+[ 33.452] (II) Loading extension XVideo<br>
+[ 33.452] (II) Loading extension XVideo-MotionCompensation<br>
+[ 33.452] (II) Loading extension X-Resource<br>
+[ 33.452] (II) LoadModule:"dbe"<br>
+[ 33.452] (II) Loading /usr/lib/xorg/modules/extensions/libdbe.so<br>
+[ 33.488] (II) Module dbe: vendor="X.Org Foundation"<br>
+[ 33.488] compiled for 1.12.4, module version = 1.0.0<br>
+[ 33.488] Module class: X.Org Server Extension<br>
+[ 33.488] ABI class: X.Org Server Extension, version 6.0<br>
+[ 33.488] (II) Loading extension DOUBLE-BUFFER<br>
+[ 33.488] (II) LoadModule:"glx"<br>
+[ 33.489] (II) Loading /usr/lib/xorg/modules/extensions/libglx.so<br>
+[ 33.579] (II) Module glx: vendor="X.Org Foundation"<br>
+[ 33.579] compiled for 1.12.4, module version = 1.0.0<br>
+[ 33.579] ABI class: X.Org Server Extension, version 6.0<br>
+[ 33.579] (==) AIGLX enabled<br>
+[ 33.599] (II) Loading extension GLX<br>
+[ 33.599] (II) LoadModule:"record"<br>
+[ 33.599] (II) Loading /usr/lib/xorg/modules/extensions/librecord.so<br>
+[ 33.629] (II) Module record: vendor="X.Org Foundation"<br>
+[ 33.629] compiled for 1.12.4, module version = 1.13.0<br>
+[ 33.629] Module class: X.Org Server Extension<br>
+[ 33.629] ABI class: X.Org Server Extension, version 6.0<br>
+[ 33.629] (II) Loading extension RECORD<br>
+[ 33.629] (II) LoadModule:"dri"<br>
+[ 33.630] (II) Loading /usr/lib/xorg/modules/extensions/libdri.so<br>
+[ 33.670] (II) Module dri: vendor="X.Org Foundation"<br>
+[ 33.670] compiled for 1.12.4, module version = 1.0.0<br>
+[ 33.670] ABI class: X.Org Server Extension, version 6.0<br>
+[ 33.670] (II) Loading extension XFree86-DRI<br>
+[ 33.670] (II) LoadModule:"dri2"<br>
+[ 33.670] (II) Loading /usr/lib/xorg/modules/extensions/libdri2.so<br>
+[ 33.686] (II) Module dri2: vendor="X.Org Foundation"<br>
+[ 33.687] compiled for 1.12.4, module version = 1.2.0<br>
+[ 33.687] ABI class: X.Org Server Extension, version 6.0<br>
+[ 33.687] (II) Loading extension DRI2<br>
+[ 33.687] (==) Matched ati as autoconfigured driver 0<br>
+[ 33.687] (==) Matched vesa as autoconfigured driver 1<br>
+[ 33.687] (==) Matched fbdev as autoconfigured driver 2<br>
+[ 33.687] (==) Assigned the driver to the xf86ConfigLayout<br>
+[ 33.687] (II) LoadModule:"ati"<br>
+[ 33.707] (II) Loading /usr/lib/xorg/modules/drivers/ati_drv.so<br>
+[ 33.723] (II) Module ati: vendor="X.Org Foundation"<br>
+[ 33.723] compiled for 1.12.4, module version = 6.14.99<br>
+[ 33.723] Module class: X.Org Video Driver<br>
+[ 33.723] ABI class: X.Org Video Driver, version 12.1<br>
+[ 33.724] (II) LoadModule:"radeon"<br>
+[ 33.724] (II) Loading /usr/lib/xorg/modules/drivers/radeon_drv.so<br>
+[ 33.787] (II) Module radeon: vendor="X.Org Foundation"<br>
+[ 33.787] compiled for 1.12.4, module version = 6.14.99<br>
+[ 33.787] Module class: X.Org Video Driver<br>
+[ 33.787] ABI class: X.Org Video Driver, version 12.1<br>
+[ 33.795] (II) LoadModule:"vesa"<br>
+[ 33.795] (II) Loading /usr/lib/xorg/modules/drivers/vesa_drv.so<br>
+[ 33.797] (II) Module vesa: vendor="X.Org Foundation"<br>
+[ 33.797] compiled for 1.12.1, module version = 2.3.1<br>
+[ 33.797] Module class: X.Org Video Driver<br>
+[ 33.797] ABI class: X.Org Video Driver, version 12.0<br>
+[ 33.797] (II) LoadModule:"fbdev"<br>
+[ 33.798] (II) Loading /usr/lib/xorg/modules/drivers/fbdev_drv.so<br>
+[ 33.897] (II) Module fbdev: vendor="X.Org Foundation"<br>
+[ 33.897] compiled for 1.12.1, module version = 0.4.2<br>
+[ 33.897] ABI class: X.Org Video Driver, version 12.0<br>
+[ 33.897] (II) RADEON: Driver for ATI Radeon chipsets:<br>
+<br>
+... List of Cards<br>
+<br>
+[ 33.933] (II) VESA: driver for VESA chipsets: vesa<br>
+[ 33.933] (II) FBDEV: driver for framebuffer: fbdev<br>
+[ 33.933] (++) using VT number 7<br>
+<br>
+[ 33.973] (II) [KMS] Kernel modesetting enabled.<br>
+[ 33.973] (WW) Falling back to old probe method for vesa<br>
+[ 33.973] (WW) Falling back to old probe method for fbdev<br>
+[ 33.973] (II) Loading sub module"fbdevhw"<br>
+[ 33.973] (II) LoadModule:"fbdevhw"<br>
+[ 33.974] (II) Loading /usr/lib/xorg/modules/libfbdevhw.so<br>
+[ 33.983] (II) Module fbdevhw: vendor="X.Org Foundation"<br>
+[ 33.983] compiled for 1.12.4, module version = 0.0.2<br>
+[ 33.983] ABI class: X.Org Video Driver, version 12.1<br>
+[ 33.984] (II) RADEON(0): Creating default Display subsection in Screen section<br>
+"Default Screen Section" for depth/fbbpp 24/32<br>
+[ 33.984] (==) RADEON(0): Depth 24, (--) framebuffer bpp 32<br>
+[ 33.985] (II) RADEON(0): Pixel depth = 24 bits stored in 4 bytes (32 bpp pixmaps)<br>
+[ 33.985] (==) RADEON(0): Default visual is TrueColor<br>
+[ 33.985] (==) RADEON(0): RGB weight 888<br>
+[ 33.985] (II) RADEON(0): Using 8 bits per RGB (8 bit DAC)<br>
+[ 33.985] (--) RADEON(0): Chipset:"ATI Radeon Mobility M7 LW (AGP)" (ChipID = 0x4c57)<br>
+[ 33.986] (II) RADEON(0): AGP card detected<br>
+[ 33.986] drmOpenDevice: node name is /dev/dri/card0<br>
+[ 33.986] drmOpenDevice: open result is 10, (OK)<br>
+[ 33.986] drmOpenByBusid: Searching for BusID pci:0000:01:00.0<br>
+[ 33.986] drmOpenDevice: node name is /dev/dri/card0<br>
+[ 33.986] drmOpenDevice: open result is 10, (OK)<br>
+[ 33.986] drmOpenByBusid: drmOpenMinor returns 10<br>
+[ 33.986] drmOpenByBusid: drmGetBusid reports pci:0000:01:00.0<br>
+[ 33.986] (II) Loading sub module"exa"<br>
+[ 33.986] (II) LoadModule:"exa"<br>
+[ 33.988] (II) Loading /usr/lib/xorg/modules/libexa.so<br>
+[ 33.997] (II) Module exa: vendor="X.Org Foundation"<br>
+[ 33.998] compiled for 1.12.4, module version = 2.5.0<br>
+[ 33.998] ABI class: X.Org Video Driver, version 12.1<br>
+[ 33.998] (II) RADEON(0): KMS Color Tiling: disabled<br>
+[ 33.998] (II) RADEON(0): KMS Pageflipping: enabled<br>
+[ 33.998] (II) RADEON(0): SwapBuffers wait for vsync: enabled<br>
+[ 34.007] (II) RADEON(0): Output VGA-0 has no monitor section<br>
+[ 34.015] (II) RADEON(0): Output DVI-0 has no monitor section<br>
+[ 34.015] (II) RADEON(0): Output LVDS has no monitor section<br>
+[ 34.021] (II) RADEON(0): Output S-video has no monitor section<br>
+[ 34.034] (II) RADEON(0): EDID for output VGA-0<br>
+[ 34.039] (II) RADEON(0): EDID for output DVI-0<br>
+[ 34.039] (II) RADEON(0): EDID for output LVDS<br>
+[ 34.039] (II) RADEON(0): Manufacturer: HSD Model: 1505 Serial#: 687<br>
+[ 34.039] (II) RADEON(0): Year: 2003 Week: 14<br>
+[ 34.039] (II) RADEON(0): EDID Version: 1.3<br>
+[ 34.039] (II) RADEON(0): Digital Display Input<br>
+[ 34.039] (II) RADEON(0): Max Image Size [cm]: horiz.: 30 vert.: 23<br>
+[ 34.039] (II) RADEON(0): Gamma: 2.20<br>
+[ 34.039] (II) RADEON(0): No DPMS capabilities specified<br>
+[ 34.039] (II) RADEON(0): Supported color encodings: RGB 4:4:4 YCrCb 4:4:4 <br>
+[ 34.039] (II) RADEON(0): First detailed timing is preferred mode<br>
+[ 34.039] (II) RADEON(0): redX: 0.600 redY: 0.340 greenX: 0.328 greenY: 0.560<br>
+[ 34.039] (II) RADEON(0): blueX: 0.150 blueY: 0.130 whiteX: 0.329 whiteY: 0.340<br>
+[ 34.039] (II) RADEON(0): Manufacturer's mask: 0<br>
+[ 34.040] (II) RADEON(0): Supported detailed timing:<br>
+[ 34.040] (II) RADEON(0): clock: 108.0 MHz Image Size: 305 x 228 mm<br>
+[ 34.040] (II) RADEON(0): h_active: 1400 h_sync: 1432 h_sync_end 1528 h_blank_end 1688 h_border: 0<br>
+[ 34.040] (II) RADEON(0): v_active: 1050 v_sync: 1052 v_sync_end 1054 v_blanking: 1066 v_border: 0<br>
+[ 34.040] (II) RADEON(0): Unknown vendor-specific block 0<br>
+[ 34.040] (II) RADEON(0): HANNSTAR<br>
+[ 34.040] (II) RADEON(0): Monitor name: HSD150PK12-A<br>
+[ 34.040] (II) RADEON(0): EDID (in hex):<br>
+[ 34.040] (II) RADEON(0): 00ffffffffffff0022640515af020000<br>
+[ 34.040] (II) RADEON(0): 0e0d0103801e17780a81949957548f26<br>
+[ 34.040] (II) RADEON(0): 21545700000001010101010101010101<br>
+[ 34.040] (II) RADEON(0): 010101010101302a7820511a10402060<br>
+[ 34.040] (II) RADEON(0): 220031e4100000190000000000022d2f<br>
+[ 34.040] (II) RADEON(0): 44010303063348050821000000fe0048<br>
+[ 34.040] (II) RADEON(0): 414e4e535441520a00000000000000fc<br>
+[ 34.040] (II) RADEON(0): 00485344313530504b31322d410a0042<br>
+[ 34.040] (II) RADEON(0): Printing probed modes for output LVDS<br>
+[ 34.040] (II) RADEON(0): Modeline"1400x1050"x60.0 108.00 1400 1432 1528 1688 1050 1052 1054 1066 -hsync -vsync (64.0 kHz eP)<br>
+[ 34.041] (II) RADEON(0): Modeline"1280x1024"x59.9 109.00 1280 1368 1496 1712 1024 1027 1034 1063 -hsync +vsync (63.7 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"1280x960"x59.9 101.25 1280 1360 1488 1696 960 963 967 996 -hsync +vsync (59.7 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"1280x854"x59.9 89.25 1280 1352 1480 1680 854 857 867 887 -hsync +vsync (53.1 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"1280x800"x59.8 83.50 1280 1352 1480 1680 800 803 809 831 -hsync +vsync (49.7 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"1280x720"x59.9 74.50 1280 1344 1472 1664 720 723 728 748 -hsync +vsync (44.8 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"1152x768"x59.8 71.75 1152 1216 1328 1504 768 771 781 798 -hsync +vsync (47.7 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"1024x768"x59.9 63.50 1024 1072 1176 1328 768 771 775 798 -hsync +vsync (47.8 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"800x600"x59.9 38.25 800 832 912 1024 600 603 607 624 -hsync +vsync (37.4 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"848x480"x59.7 31.50 848 872 952 1056 480 483 493 500 -hsync +vsync (29.8 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"720x480"x59.7 26.75 720 744 808 896 480 483 493 500 -hsync +vsync (29.9 kHz)<br>
+[ 34.041] (II) RADEON(0): Modeline"640x480"x59.4 23.75 640 664 720 800 480 483 487 500 -hsync +vsync (29.7 kHz)<br>
+[ 34.050] (II) RADEON(0): EDID for output S-video<br>
+[ 34.050] (II) RADEON(0): Output VGA-0 disconnected<br>
+[ 34.050] (II) RADEON(0): Output DVI-0 disconnected<br>
+[ 34.050] (II) RADEON(0): Output LVDS connected<br>
+[ 34.050] (II) RADEON(0): Output S-video disconnected<br>
+[ 34.050] (II) RADEON(0): Using exact sizes for initial modes<br>
+[ 34.050] (II) RADEON(0): Output LVDS using initial mode 1400x1050<br>
+[ 34.050] (II) RADEON(0): Using default gamma of (1.0, 1.0, 1.0) unless otherwise stated.<br>
+[ 34.050] (II) RADEON(0): mem size init: gart size :fdff000 vram size: s:4000000 visible:3a1c000<br>
+[ 34.050] (II) RADEON(0): EXA: Driver will allow EXA pixmaps in VRAM<br>
+[ 34.050] (++) RADEON(0): DPI set to (96, 96)<br>
+[ 34.050] (II) Loading sub module"fb"<br>
+[ 34.050] (II) LoadModule:"fb"<br>
+[ 34.051] (II) Loading /usr/lib/xorg/modules/libfb.so<br>
+[ 34.065] (II) Module fb: vendor="X.Org Foundation"<br>
+[ 34.065] compiled for 1.12.4, module version = 1.0.0<br>
+[ 34.065] ABI class: X.Org ANSI C Emulation, version 0.4<br>
+[ 34.065] (II) Loading sub module"ramdac"<br>
+[ 34.065] (II) LoadModule:"ramdac"<br>
+[ 34.065] (II) Module"ramdac" already built-in<br>
+[ 34.065] (II) UnloadModule:"vesa"<br>
+[ 34.065] (II) Unloading vesa<br>
+[ 34.065] (II) UnloadModule:"fbdev"<br>
+[ 34.065] (II) Unloading fbdev<br>
+[ 34.065] (II) UnloadSubModule:"fbdevhw"<br>
+[ 34.065] (II) Unloading fbdevhw<br>
+[ 34.066] (--) Depth 24 pixmap format is 32 bpp<br>
+[ 34.094] (II) RADEON(0): [DRI2] Setup complete<br>
+[ 34.095] (II) RADEON(0): [DRI2] DRI driver: radeon<br>
+[ 34.095] (II) RADEON(0): [DRI2] VDPAU driver: radeon<br>
+[ 34.095] (II) RADEON(0): Front buffer size: 5776K<br>
+[ 34.095] (II) RADEON(0): VRAM usage limit set to 48355K<br>
+[ 34.109] (==) RADEON(0): Backing store disabled<br>
+[ 34.109] (II) RADEON(0): Direct rendering enabled<br>
+[ 34.122] (II) RADEON(0): Render acceleration enabled for R100 type cards.<br>
+[ 34.122] (II) RADEON(0): Setting EXA maxPitchBytes<br>
+[ 34.122] (II) EXA(0): Driver allocated offscreen pixmaps<br>
+[ 34.123] (II) EXA(0): Driver registered support for the following operations:<br>
+[ 34.123] (II) Solid<br>
+[ 34.123] (II) Copy<br>
+[ 34.123] (II) Composite (RENDER acceleration)<br>
+[ 34.123] (II) UploadToScreen<br>
+[ 34.123] (II) DownloadFromScreen<br>
+[ 34.139] (II) RADEON(0): Acceleration enabled<br>
+[ 34.139] (==) RADEON(0): DPMS enabled<br>
+[ 34.139] (==) RADEON(0): Silken mouse enabled<br>
+[ 34.141] (II) RADEON(0): Set up textured video<br>
+[ 34.142] (II) RADEON(0): [XvMC] Associated with Radeon Textured Video.<br>
+[ 34.142] (II) RADEON(0): [XvMC] Extension initialized.<br>
+[ 34.142] (II) RADEON(0): RandR 1.2 enabled, ignore the following RandR disabled message.<br>
+[ 34.142] (--) RandR disabled<br>
+[ 34.142] (II) Initializing built-in extension Generic Event Extension<br>
+[ 34.142] (II) Initializing built-in extension SHAPE<br>
+[ 34.142] (II) Initializing built-in extension MIT-SHM<br>
+[ 34.142] (II) Initializing built-in extension XInputExtension<br>
+[ 34.143] (II) Initializing built-in extension XTEST<br>
+[ 34.143] (II) Initializing built-in extension BIG-REQUESTS<br>
+[ 34.143] (II) Initializing built-in extension SYNC<br>
+[ 34.143] (II) Initializing built-in extension XKEYBOARD<br>
+[ 34.143] (II) Initializing built-in extension XC-MISC<br>
+[ 34.143] (II) Initializing built-in extension SECURITY<br>
+[ 34.143] (II) Initializing built-in extension XINERAMA<br>
+[ 34.143] (II) Initializing built-in extension XFIXES<br>
+[ 34.143] (II) Initializing built-in extension RENDER<br>
+[ 34.143] (II) Initializing built-in extension RANDR<br>
+[ 34.143] (II) Initializing built-in extension COMPOSITE<br>
+[ 34.143] (II) Initializing built-in extension DAMAGE<br>
+[ 34.143] (II) SELinux: Disabled on system<br>
+[ 34.513] (II) AIGLX: enabled GLX_MESA_copy_sub_buffer<br>
+[ 34.513] (II) AIGLX: enabled GLX_INTEL_swap_event<br>
+[ 34.513] (II) AIGLX: enabled GLX_SGI_swap_control and GLX_MESA_swap_control<br>
+[ 34.513] (II) AIGLX: GLX_EXT_texture_from_pixmap backed by buffer objects<br>
+[ 34.514] (II) AIGLX: Loaded and initialized radeon<br>
+[ 34.514] (II) GLX: Initialized DRI2 GL provider for screen 0<br>
+[ 34.516] (II) RADEON(0): Setting screen physical size to 370 x 277<br>
+[ 35.794] (II) config/udev: Adding input device Power Button (/dev/input/event7)<br>
+[ 35.794] (**) Power Button: Applying InputClass"evdev keyboard catchall"<br>
+[ 35.794] (II) LoadModule:"evdev"<br>
+[ 35.794] (II) Loading /usr/lib/xorg/modules/input/evdev_drv.so<br>
+[ 35.815] (II) Module evdev: vendor="X.Org Foundation"<br>
+[ 35.815] compiled for 1.12.1, module version = 2.7.0<br>
+[ 35.815] Module class: X.Org XInput Driver<br>
+[ 35.815] ABI class: X.Org XInput driver, version 16.0<br>
+[ 35.815] (II) Using input driver 'evdev' for 'Power Button'<br>
+[ 35.815] (**) Power Button: always reports core events<br>
+[ 35.816] (**) evdev: Power Button: Device:"/dev/input/event7"<br>
+[ 35.816] (--) evdev: Power Button: Vendor 0 Product 0x1<br>
+[ 35.816] (--) evdev: Power Button: Found keys<br>
+[ 35.816] (II) evdev: Power Button: Configuring as keyboard<br>
+[ 35.816] (**) Option"config_info""udev:/sys/devices/LNXSYSTM:00/LNXPWRBN:00/input/input7/event7"<br>
+[ 35.816] (II) XINPUT: Adding extended input device"Power Button" (type: KEYBOARD, id 6)<br>
+[ 35.816] (**) Option"xkb_rules""evdev"<br>
+[ 35.816] (**) Option"xkb_model""pc105"<br>
+[ 35.816] (**) Option"xkb_layout""us,us"<br>
+[ 35.816] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"<br>
+[ 36.007] (II) config/udev: Adding input device Power Button (/dev/input/event4)<br>
+[ 36.007] (**) Power Button: Applying InputClass"evdev keyboard catchall"<br>
+[ 36.007] (II) Using input driver 'evdev' for 'Power Button'<br>
+[ 36.007] (**) Power Button: always reports core events<br>
+[ 36.007] (**) evdev: Power Button: Device:"/dev/input/event4"<br>
+[ 36.007] (--) evdev: Power Button: Vendor 0 Product 0x1<br>
+[ 36.007] (--) evdev: Power Button: Found keys<br>
+[ 36.007] (II) evdev: Power Button: Configuring as keyboard<br>
+[ 36.007] (**) Option"config_info""udev:/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0C:00/input/input4/event4"<br>
+[ 36.007] (II) XINPUT: Adding extended input device"Power Button" (type: KEYBOARD, id 7)<br>
+[ 36.009] (**) Option"xkb_rules""evdev"<br>
+[ 36.009] (**) Option"xkb_model""pc105"<br>
+[ 36.009] (**) Option"xkb_layout""us,us"<br>
+[ 36.009] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"<br>
+[ 36.011] (II) config/udev: Adding input device Lid Switch (/dev/input/event6)<br>
+[ 36.011] (II) No input driver specified, ignoring this device.<br>
+[ 36.011] (II) This device may have been added with another device file.<br>
+[ 36.012] (II) config/udev: Adding input device Sleep Button (/dev/input/event5)<br>
+[ 36.012] (**) Sleep Button: Applying InputClass"evdev keyboard catchall"<br>
+[ 36.012] (II) Using input driver 'evdev' for 'Sleep Button'<br>
+[ 36.012] (**) Sleep Button: always reports core events<br>
+[ 36.013] (**) evdev: Sleep Button: Device:"/dev/input/event5"<br>
+[ 36.013] (--) evdev: Sleep Button: Vendor 0 Product 0x3<br>
+[ 36.013] (--) evdev: Sleep Button: Found keys<br>
+[ 36.013] (II) evdev: Sleep Button: Configuring as keyboard<br>
+[ 36.013] (**) Option"config_info""udev:/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0E:00/input/input5/event5"<br>
+[ 36.013] (II) XINPUT: Adding extended input device"Sleep Button" (type: KEYBOARD, id <span class="emoticon"> __{{emoticon}}__ </span><br>
+[ 36.013] (**) Option"xkb_rules""evdev"<br>
+[ 36.013] (**) Option"xkb_model""pc105"<br>
+[ 36.013] (**) Option"xkb_layout""us,us"<br>
+[ 36.013] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"<br>
+[ 36.016] (II) config/udev: Adding input device USB USB Keykoard (/dev/input/event1)<br>
+[ 36.017] (**) USB USB Keykoard: Applying InputClass"evdev keyboard catchall"<br>
+[ 36.017] (II) Using input driver 'evdev' for 'USB USB Keykoard'<br>
+[ 36.017] (**) USB USB Keykoard: always reports core events<br>
+[ 36.017] (**) evdev: USB USB Keykoard: Device:"/dev/input/event1"<br>
+[ 36.017] (--) evdev: USB USB Keykoard: Vendor 0x1a2c Product 0x21<br>
+[ 36.017] (--) evdev: USB USB Keykoard: Found keys<br>
+[ 36.017] (II) evdev: USB USB Keykoard: Configuring as keyboard<br>
+[ 36.017] (**) Option"config_info""udev:/sys/devices/pci0000:00/0000:00:1e.0/0000:02:0e.0/usb2/2-1/2-1:1.0/input/input1/event1"<br>
+[ 36.017] (II) XINPUT: Adding extended input device"USB USB Keykoard" (type: KEYBOARD, id 9)<br>
+[ 36.017] (**) Option"xkb_rules""evdev"<br>
+[ 36.017] (**) Option"xkb_model""pc105"<br>
+[ 36.017] (**) Option"xkb_layout""us,us"<br>
+[ 36.017] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"<br>
+[ 36.020] (II) config/udev: Adding input device USB USB Keykoard (/dev/input/event2)<br>
+[ 36.020] (**) USB USB Keykoard: Applying InputClass"evdev keyboard catchall"<br>
+[ 36.020] (II) Using input driver 'evdev' for 'USB USB Keykoard'<br>
+[ 36.021] (**) USB USB Keykoard: always reports core events<br>
+<br>
+... more keyboard and mouse, speaker ...<br>
+<br>
+[ 36.109] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"<br>
+[ 2180.694] (II) RADEON(0): EDID vendor"HSD", prod id 5381<br>
+[ 2180.694] (II) RADEON(0): Printing DDC gathered Modelines:<br>
+[ 2180.694] (II) RADEON(0): Modeline"1400x1050"x0.0 108.00 1400 1432 1528 1688 1050 1052 1054 1066 -hsync -vsync (64.0 kHz eP)<br>
+[ 2865.034] (II) config/udev: removing device USB USB Keykoard<br>
+[ 2865.035] (II) evdev: USB USB Keykoard: Close<br>
+[ 2865.035] (II) UnloadModule:"evdev"<br>
+[ 2865.041] (II) config/udev: removing device USB USB Keykoard<br>
+[ 2865.043] (II) evdev: USB USB Keykoard: Close<br>
+[ 2865.043] (II) UnloadModule:"evdev"<br>
+<br>
+<br>
+____________________</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

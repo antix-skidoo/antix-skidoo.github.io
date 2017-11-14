@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>VirtualBox Guest Additions won't build - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m11-jayaben-desai-f43/index.html"><span>antiX-M11 Jayaben Desai</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./virtualbox-guest-additions-won-t-build-t3605.html">VirtualBox Guest Additions won't build</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_23788" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23788">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">loukingjr</span>
+</dt>
+<dd class="profile-joined">Joined: 06 Nov 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23788">
+<time datetime="2012-03-06T17:24">posted: 2012-03-06 &nbsp; 17:24</time>
+<span class="permalink"><a href="./virtualbox-guest-additions-won-t-build-t3605.html#p23788" title="permalink">#1</a></span>
+
+<div class="content">I just installed antix 12 test as a guest in VirtualBox and I'm having a problem getting the guest additions to build. Here is the error message...
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Uninstalling modules from DKMS
+Attempting to install using DKMS
+
+Creating symlink /var/lib/dkms/vboxguest/4.1.8/source -&gt;
+                 /usr/src/vboxguest-4.1.8
+
+DKMS: add completed.
+
+Kernel preparation unnecessary for this kernel.  Skipping...
+
+Building module:
+cleaning build area....
+make KERNELRELEASE=3.2.9-antix.1-486-smp -C /lib/modules/3.2.9-antix.1-486-smp/build M=/var/lib/dkms/vboxguest/4.1.8/build....(bad exit status: 2)
+Error! Bad return status for module build on kernel: 3.2.9-antix.1-486-smp (i686)
+Consult /var/lib/dkms/vboxguest/4.1.8/build/make.log for more information.
+Failed to install using DKMS, attempting to install without
+make KBUILD_VERBOSE=1 CONFIG_MODULE_SIG= -C /lib/modules/3.2.9-antix.1-486-smp/build SUBDIRS=/var/tmp/vbox.0 SRCROOT=/var/tmp/vbox.0 modules
+/usr/src/linux-headers-3.2.9-antix.1-486-smp/arch/x86/Makefile:39: /usr/src/linux-headers-3.2.9-antix.1-486-smp/arch/x86/Makefile_32.cpu: No such file or directory
+make[1]: *** No rule to make target `/usr/src/linux-headers-3.2.9-antix.1-486-smp/arch/x86/Makefile_32.cpu'.  Stop.
+make: *** [vboxguest] Error 2
+Creating user for the Guest Additions.
+Creating udev rule for the Guest Additions kernel module.
+</code></pre></div>
+I ran into the same problem with another Debian spin and they had to change the headers to correct the problem. something to do with Makefile_32.cpu.<br>
+<br>
+any thoughts?<br>
+thanks.</div>
+<div class="notice">
+Last edited by <b>loukingjr</b> on 07 Mar 2012, 03:43, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23807" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23807">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23807">
+
+<time datetime="2012-03-07T00:44">posted: 2012-03-07 &nbsp; 00:44</time>
+<span class="permalink"><a href="./virtualbox-guest-additions-won-t-build-t3605.html#p23807" title="permalink">#2</a></span>
+
+<div class="content">When the 3.2 liquorix kernels came out I had to remove Virtualbox from the host system &amp; reinstall it before DKMS would build the kernel modules correctly. Perhaps this is related ? Does your host have a 3.1 kernel or older ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23809" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23809">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">loukingjr</span>
+</dt>
+<dd class="profile-joined">Joined: 06 Nov 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23809">
+
+<time datetime="2012-03-07T02:50">posted: 2012-03-07 &nbsp; 02:50</time>
+<span class="permalink"><a href="./virtualbox-guest-additions-won-t-build-t3605.html#p23809" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>tradetaxfree wrote:</cite>When the 3.2 liquorix kernels came out I had to remove Virtualbox from the host system &amp; reinstall it before DKMS would build the kernel modules correctly. Perhaps this is related ? Does your host have a 3.1 kernel or older ?</div></blockquote>
+No, my host is a Mac running OSX 10.7.3. Plus the guest builds the kernel, not the host or VirtualBox.<br>
+<br>
+edit: I forgot to mention I installed the 3.2.0 kernel and headers and the guest additions built and run just fine. I think there's something missing in the 3.2.9 headers which is what happened with the other distro.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25639" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25639">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 67</span></div>
+
+</div>
+</div>
+<span class="username">dpeirce</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25639">
+
+<time datetime="2012-08-08T00:24">posted: 2012-08-08 &nbsp; 00:24</time>
+<span class="permalink"><a href="./virtualbox-guest-additions-won-t-build-t3605.html#p25639" title="permalink">#4</a></span>
+
+<div class="content">I also am trying to install the VB Guest Additions (VB 4.1.16, Antix 12 final). I get exactly the same error messages as in the beginning of this thread. # uname -r says my kernel is 3.5.0-antix.2-486-smp. I've installed every header with the 3.5 number but Antix still can't find the header. I also made sure than gcc, make/automake, dkms, the image, and build-essentials were installed.<br>
+<br>
+I see from my search that this problem has been around for a while. Any hope for a fix?<br>
+<br>
+In faith, Dave<br>
+Viva Texas</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25640" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25640">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25640">
+
+<time datetime="2012-08-08T01:44">posted: 2012-08-08 &nbsp; 01:44</time>
+<span class="permalink"><a href="./virtualbox-guest-additions-won-t-build-t3605.html#p25640" title="permalink">#5</a></span>
+
+<div class="content">If the Antix Kernels have KVM support built in &amp; your CPU supports VT-x / AMD-V you can look at my guide 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://crunchbanglinux.org/forums/topic/21311/kvm-with-winxp-guest-virtio-drivers-working-with-grsecurity/"<br>linktext was:"here"<br>====================================<br>
+ for running a WinXP Guest.<br>
+<br>
+I've found the performance to be much better than Virtualbox which I no longer use. The other temporary solution is to run the Liquorix Kernel so the Virtualbox Kernel Modules build.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25653" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25653">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25653">
+
+<time datetime="2012-08-08T14:33">posted: 2012-08-08 &nbsp; 14:33</time>
+<span class="permalink"><a href="./virtualbox-guest-additions-won-t-build-t3605.html#p25653" title="permalink">#6</a></span>
+
+<div class="content">Run the svmi script as root (in X is ok) and install the non-free wheezy version of Virtualbox (and after the guest option.)<br>
+<br>
+The ose version doesn't seem to build, not sure why (wild guess that is uses gcc/cpp 4.6 rather than 4.7)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25654" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25654">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 67</span></div>
+
+</div>
+</div>
+<span class="username">dpeirce</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25654">
+ 
+<time datetime="2012-08-08T14:45">posted: 2012-08-08 &nbsp; 14:45</time>
+<span class="permalink"><a href="./virtualbox-guest-additions-won-t-build-t3605.html#p25654" title="permalink">#7</a></span>
+
+<div class="content">Thank you for the suggestions.<br>
+<br>
+In faith, Dave<br>
+Viva Texas</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

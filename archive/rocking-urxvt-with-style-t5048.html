@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Rocking urxvt with style! - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./rocking-urxvt-with-style-t5048.html">Rocking urxvt with style!</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_35277" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35277">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35277">
+<time datetime="2014-05-08T11:01">posted: 2014-05-08 &nbsp; 11:01</time>
+<span class="permalink"><a href="./rocking-urxvt-with-style-t5048.html#p35277" title="permalink">#1</a></span>
+
+<div class="content">Uxrvt is a fabulous, highly configurable, terminal program with many advanced features. Sometimes configuring it can be a pain so I've come up with what I hope is a decent default configuration and an easy way to change the default configuration. This is a simple command line program but I think it would be easy to write a GUI wrapper for it if people were interested.<br>
+<br>
+Everything you need is in the attached tarball. Here are the installation instructions:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tar xzf urxvt-style-0.01.tar.gz
+cd urxvt-style
+sudo cp -a xtra/* /
+cp xtra/skel/.Xresources ~
+cp -a xtra/skel/.config/* ~/.config/</code></pre></div>
+Installing on a LiveUSB is even easier:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tar xzf urxvt-style-0.01.tar.gz
+cd urxvt-style
+sudo cp -a xtra /live/boot-dev/antiX</code></pre></div>The next time you boot the files will get installed where they belong.<br>
+<br>
+Everything is done with the urxvt-style program. It lets you change the defaults and then launches a new instance of urxvt with the new defaults. You can control the font size, the background, the color scheme the starting geometry, and a couple of special features called"tabbed" and"font-size". The tabbed feature lets you have multiple tabs in a single urxvt window. The font-size feature lets you change the font size with the key combos ctrl-shift-up/down.<br>
+<br>
+The first time you run urxvt-style, the ~/.Xresources file needs to have been loaded. I hope to have this done automatically in the next release of antiX. In the meantime, just start with the"reset" style. You only need to do this the first time you run urxvt-style after X has started.<br>
+<br>
+Examples:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>urxvt-style reset zenburn transbg tabbed size16 medium</code></pre></div>This first loads the ~/.Xresources file, then sets the color-scheme to zenburn with a transparent background. Then it enables tabs, sets the font size to 16 and the window size to medium.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>urxvt-style sorbet size12 large</code></pre></div>This uses the sorbet color scheme with a size 12 font in a large window.<br>
+<br>
+Non-conflicting styles accumulate so if you run the two commands above in order then the second one will inherit the transparent background and the tabbed feature. But the font size, window size, and color scheme get overwritten with the new parameters. If you don't want to inherit what you've done previously then start with the"reset" style which starts over with a clean slate using only the parameters in the ~/.Xresources file.<br>
+<br>
+Finally, when you get a default configuration you like, use the"save" style to update the ~/.Xresources file with the new configuration you've created. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>urxvt-style save</code></pre></div>
+Use -h or --help to get usage which includes a description of all the available styles.<br>
+<br>
+I've also include three little programs: ansi-bars, ansi-colors, and ansi-tput that will show you what the current color-scheme looks like. I've attached a few screen shots which show the three existing color schemes. The little urxvt-style program is seductively easy to extend but perhaps it already has too many options. I think it is a lot of fun to play with and may serve as a gentle introduction to configuring urxvt. Of course, you are free to edit the ~/.Xresources file manually if you want. This should not conflict with the urxvt-style program. <br>
+<br>
+If you want to extend urxvt-style, simply add your own style files to the /usr/local/lib/urxvt/Xresources directory.</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35278" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35278">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35278">
+
+<time datetime="2014-05-08T11:11">posted: 2014-05-08 &nbsp; 11:11</time>
+<span class="permalink"><a href="./rocking-urxvt-with-style-t5048.html#p35278" title="permalink">#2</a></span>
+
+<div class="content">Here are screen shots of the zenburn color scheme. One of them has the standard zenburn background and the other has a darkened and blurred transparent background.<br>
+<br>
+If you want to make your own color scheme, copy one of the existing color schemes: def-colors, sorbet, or zenburn to a new file then edit that file and use the name of the file as your new style:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cd /usr/local/lib/urxvt/Xresources
+sudo cp sorbet my-colors
+sudo $EDITOR my-colors
+urxvt-style my-colors</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35315" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35315">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35315">
+
+<time datetime="2014-05-10T02:38">posted: 2014-05-10 &nbsp; 02:38</time>
+<span class="permalink"><a href="./rocking-urxvt-with-style-t5048.html#p35315" title="permalink">#3</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ tar xzf urxvt-style-0.01.tar.gz
+harry@biker:~
+$ cd urxvt-style
+harry@biker:~/urxvt-style
+$ sudo cp -a xtra/* /
+[sudo] password for harry: 
+harry@biker:~/urxvt-style
+$ cp xtra/skel/.Xresources ~
+cp: cannot stat `xtra/skel/.Xresources': No such file or directory
+harry@biker:~/urxvt-style
+$ sux                       
+Password: 
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+root@biker:/home/harry/urxvt-style# cp xtra/skel/.Xresources ~
+cp: cannot stat `xtra/skel/.Xresources': No such file or directory
+root@biker:/home/harry/urxvt-style# exit
+exit
+harry@biker:~/urxvt-style
+$ inxi -S
+System:    Host: biker Kernel: 3.11.5-antix.1-486-smp i686 (32 bit) 
+           Desktop: IceWM 1.3.7 Distro: antiX-13_386-full Luddite 01 June 2013
+$ cd ~
+harry@biker:~
+ </code></pre></div>
+I guess if it can be broke. Then I am your man. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Poking around. I downloaded it into /home/harry<br>
+<br>
+there is a .xresources text file in ~/urxvt-style/xtra/ etc/skel/.xrecources. so<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ cd urxvt-style
+harry@biker:~/urxvt-style
+$ cp xtra/ etc/skel/.Xresources ~
+harry@biker:~/urxvt-style
+$ cp -a xtra/ etc/skel/.config/* ~/.config/
+harry@biker:~/urxvt-style
+</code></pre></div>
+Now for a reboot, like as If I knew what I was doing. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Friggin forum bug made me edit etc again. Sneaky BitJam. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35319" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35319">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35319">
+
+<time datetime="2014-05-10T03:12">posted: 2014-05-10 &nbsp; 03:12</time>
+<span class="permalink"><a href="./rocking-urxvt-with-style-t5048.html#p35319" title="permalink">#4</a></span>
+
+<div class="content">OOOOOHhhhhhhhhh. Too Kool for Skool.<br>
+<br>
+<a href="http://postmyimage.com/img2/181_screenshot_thumb.jpg" class="postlink"><img src="http://postmyimage.com/img2/181_screenshot_thumb.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Still learning me.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35327" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35327">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35327">
+
+<time datetime="2014-05-10T06:06">posted: 2014-05-10 &nbsp; 06:06</time>
+<span class="permalink"><a href="./rocking-urxvt-with-style-t5048.html#p35327" title="permalink">#5</a></span>
+
+<div class="content">Thanks for trying it Roky. I don't know what happened to your .Xresources file. There is no .xresources file in the tarball. Maybe .Xresources would get converted to .xresources on fat32?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ tar tzf urxvt-style-0.01.tar.gz | grep skel
+urxvt-style/xtra/ etc/skel/
+urxvt-style/xtra/ etc/skel/.config/
+urxvt-style/xtra/ etc/skel/.config/xresources/
+urxvt-style/xtra/ etc/skel/.config/xresources/fonts
+urxvt-style/xtra/ etc/skel/.Xresources</code></pre></div>[spaces added before"etc" in code block]
+<blockquote><div><cite>rokytnji wrote:</cite>Friggin forum bug made me edit etc again. Sneaky BitJam. <span class="emoticon"> __{{emoticon}}__ </span></div></blockquote>I think Dave alluded to a non-transient solution:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[i]/[/i]etc</code></pre></div>which is what i use now: <em>/</em>etc<br>
+<br>
+Now that it is working, try: fadeXX, shadeXX, blurXX, swipeXX and wipeXX. They are all explained in the output of:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>urxvt-style --help</code></pre></div>
+It's all kind of silly but it was intended to make it easy to play around with these features. The blurring stuff may create a lot of lag when you move windows around. I have my window manager (e16) configured so windows don't get updated when they are moving so I don't have a lag problem here. The window only updates the background when I stop moving it.<br>
+<br>
+If you use a compositing window manger then you might want to enable true transparency instead of the pseudo-transparency I used in urxvt-style. Perhaps the blurring would be much faster if handled by the compositor.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35349" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35349">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35349">
+
+<time datetime="2014-05-10T14:32">posted: 2014-05-10 &nbsp; 14:32</time>
+<span class="permalink"><a href="./rocking-urxvt-with-style-t5048.html#p35349" title="permalink">#6</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Thanks for trying it Roky. I don't know what happened to your .Xresources file. There is no .xresources file in the tarball. Maybe .Xresources would get converted to .xresources on fat32?</div></blockquote>
+No. That is what happens when Rok is typing and drinking red beer on a Friday night. It was .Xresources, not .xresources. Friggin biker.<br>
+Trix is for Kids.<br>
+<br>
+Also, as you noticed. The italics code for etc does not play well inside code tags. There. I must be hung over a bit. I sounded like a Hall Monitor which makes me feel all creepy inside. Yuk.<br>
+<br>
+Last night I was on my IBM T23 laptop. I just did the basics. Nothing fancy when I picked save because of low specs running Icewm. <br>
+<br>
+I am going to give this a go now on my Atom M&amp;A Netbook with Icewm sometime today. So give me some slack as I am kinda a bit shaky bakey, not wakey,<br>
+waiting on eggs and bakey today.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35728" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35728">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content35728">
+
+<time datetime="2014-05-25T16:42">posted: 2014-05-25 &nbsp; 16:42</time>
+<span class="permalink"><a href="./rocking-urxvt-with-style-t5048.html#p35728" title="permalink">#7</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Poking around. I downloaded it into /home/harry</div></blockquote>
+Ah! I downloaded it to"Downloads". OK starting again <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

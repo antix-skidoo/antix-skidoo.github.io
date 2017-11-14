@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Custom Install (multiple partitions) &amp; optional encryption - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./custom-install-multiple-partitions-optional-encryp-t3579.html">Custom Install (multiple partitions) &amp; optional encryption</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23617" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23617">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23617">
+<time datetime="2012-02-12T02:34">posted: 2012-02-12 &nbsp; 02:34</time>
+<span class="permalink"><a href="./custom-install-multiple-partitions-optional-encryp-t3579.html#p23617" title="permalink">#1</a></span>
+
+<div class="content"><span style="text-decoration: underline">Install Script for Multiple Partitions (with optional Encryption)</span><br>
+<br>
+This script is for anyone who wishes to run a system with a separate /boot /usr or /var which is not an option with the MEPIS Installer. It will move any system from single or multiple partitions to single or multiple partitions (so would also be useful for moving a system to a new hard drive). The script is designed to be run from a terminal on a LIVE USB / CD only &amp; will not run on an installed system or outside of a terminal.<br>
+<br>
+It is also possible to optionally create LUKS Encrypted Partitions for both HOME &amp; ROOT with the option to create a keyfile for HOME (so you only enter one password while booting). Creating Encrypted Partitions will destroy any data currently held there so please <strong><span style="text-decoration: underline">backup</span></strong> any data there you intend to keep. Before creation of the LUKS Containers there are 2 options to fill the partition either with zeros (very quick to finish) or with random data (slower to finish but giving better encryption). With both methods progress % or size completed is displayed. ROOT &amp; HOME can use the same or different methods for this wiping. <br>
+<br>
+Both Legacy GRUB &amp; GRUB2 are supported &amp; the script takes care of updating fstab / menu.lst or grub.cfg / crypttab as appropriate.<br>
+<br>
+The script should be reasonably foolproof with sanity checks for the data being copied &amp; comparisons of source files &amp; destination partition sizes before copying begins. Progress of the data copying is also displayed.<br>
+<br>
+As well as moving a system to a different disk or to multiple partitions it is also possible to move /boot /usr /var (singly or any combination thereof) out of the root of an existing system (or back into root). For a brand new installation of Antix install the entire system into the partition which will become /usr for the quickest system move.<br>
+<br>
+Supported file system creation = ext2 / ext3 / ext4 / xfs / minix<br>
+<br>
+Example script configuration for this method:<br>
+<br>
+##### USER DEFINABLE VALUES ###########################<br>
+OLDBOOT=/dev/sda7<br>
+OLDROOT=/dev/sda7<br>
+OLDUSR=/dev/sda7<br>
+OLDVAR=/dev/sda7<br>
+OLDHOME=/dev/sda7<br>
+NEWBOOT=/dev/sda5<br>
+NEWROOT=/dev/sda6<br>
+NEWUSR=/dev/sda7<br>
+NEWVAR=/dev/sda8<br>
+NEWHOME=/dev/sda9<br>
+#MAPPERS - used for Encrypted Partitions only ##################<br>
+MAPPERHOME=home<br>
+MAPPERROOT=root<br>
+BOOTFS=ext2<br>
+ROOTFS=ext4<br>
+USRFS=ext4<br>
+VARFS=ext4<br>
+HOMEFS=ext4<br>
+#DESTINATION DISK (for /etc/fstab) #########################<br>
+DISK=/dev/sda<br>
+#VERSION (needed for Legacy GRUB only) #####################<br>
+VERSION=/etc/antix-version<br>
+##################################################<br>
+<br>
+Calculating disk space &amp; installing dependency pv:<br>
+<a href="http://postimage.org/image/j2ophls7n/" class="postlink"><img src="http://s13.postimage.org/j2ophls7n/screenshot1.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Confirming Source &amp; Destination Partitions:<br>
+<a href="http://postimage.org/image/ia4jenfw1/" class="postlink"><img src="http://s16.postimage.org/ia4jenfw1/screenshot2.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Choosing Standard or Encrypted HOME &amp; ROOT:<br>
+<a href="http://postimage.org/image/7uxy9we9x/" class="postlink"><img src="http://s18.postimage.org/7uxy9we9x/screenshot3.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Copying data with progress shown:<br>
+<a href="http://postimage.org/image/a76d3bvap/" class="postlink"><img src="http://s16.postimage.org/a76d3bvap/screenshot4.jpg" class="postimage" alt="Image"></a><br>
+<a href="http://postimage.org/image/t3l8enbxt/" class="postlink"><img src="http://s16.postimage.org/t3l8enbxt/screenshot6.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Updating fstab / menu.lst &amp; Legacy GRUB<br>
+<a href="http://postimage.org/image/w18ll10ed/" class="postlink"><img src="http://s18.postimage.org/w18ll10ed/screenshot5.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Final screen once system moving is complete:<br>
+<a href="http://postimage.org/image/67lb8l2c3/" class="postlink"><img src="http://s13.postimage.org/67lb8l2c3/screenshot6.jpg" class="postimage" alt="Image"></a><br>
+<br>
+<span style="text-decoration: underline">Optional Encrypted Partition screens</span><br>
+<br>
+Create LUKS partition confirmation:<br>
+<a href="http://postimage.org/image/64oivqfxt/" class="postlink"><img src="http://s16.postimage.org/64oivqfxt/screenshot1.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Checking for Bad Blocks:<br>
+<a href="http://postimage.org/image/djhkmn5t3/" class="postlink"><img src="http://s15.postimage.org/djhkmn5t3/screenshot2.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Choosing wipe method (Zeros or Random Data):<br>
+<a href="http://postimage.org/image/7d0orafmd/" class="postlink"><img src="http://s10.postimage.org/7d0orafmd/screenshot3.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Wiping with Random data<br>
+<a href="http://postimage.org/image/4dohxitxz/" class="postlink"><img src="http://s7.postimage.org/4dohxitxz/screenshot4.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Creating LUKS container (over zeros)<br>
+<a href="http://postimage.org/image/t87zrles7/" class="postlink"><img src="http://s7.postimage.org/t87zrles7/screenshot5.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Updating fstab / crypttab / menu.lst / adding crypt modules &amp; creating keyfile:<br>
+<a href="http://postimage.org/image/hyd0v6za5/" class="postlink"><img src="http://s14.postimage.org/hyd0v6za5/screenshot7.jpg" class="postimage" alt="Image"></a><br>
+<br>
+I have used this script to move Antix on my own encrypted systems without any problems &amp; have tested it extensively in Virtualbox, but perhaps also test your particular setup in Virtualbox first to become familiar with the script's workings. HOME is only formatted in the case of creating new Encrypted Partitions. The partitions for BOOT ROOT USR &amp; VAR are formatted whenever they move to their own partitions.<br>
+<br>
+The following dependencies are installed by the script as &amp; when required:<br>
+<br>
+dialog (already part of AntiX)<br>
+pv (for copying progress)<br>
+cryptsetup (for mounting / creating LUKS encrypted partitions)<br>
+dc3dd (for faster zeroing of LUKS partitions &amp; showing % completed)<br>
+dcfldd (so progress is shown while filling a LUKS partition with random data)<br>
+<br>
+A compressed archive of this script is also attached to this post:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+# -----------------------------------------------------------------------------
+# Copyright 2012 Stuart Cardall &lt;linuxisfreedom at lavabit dot com&gt;
+# All rights reserved.
+#
+#   Permission to use, copy, modify, and distribute this software for
+#   any purpose with or without fee is hereby granted, provided that
+#   the above copyright notice and this permission notice appear in all
+#   copies.
+#
+#   THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+#   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+#   IN NO EVENT SHALL THE AUTHORS AND COPYRIGHT HOLDERS AND THEIR
+#   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+#   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+#   USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+#   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+#   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+#   OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+#   SUCH DAMAGE.
+#
+##### System Moving Script for  ########################################
+##### Normal &amp; Encrypted Partitions v1.0 ###############################
+##### Designed to be run from a LIVE USB / CD ##########################
+##### USER DEFINABLE VALUES ############################################
+OLDBOOT=/dev/sda7
+OLDROOT=/dev/sda7
+OLDUSR=/dev/sda7
+OLDVAR=/dev/sda7
+OLDHOME=/dev/sda7
+NEWBOOT=/dev/sda5
+NEWROOT=/dev/sda6
+NEWUSR=/dev/sda7
+NEWVAR=/dev/sda8
+NEWHOME=/dev/sda9
+#MAPPERS - set for Encrypted Partitions only ###########################
+MAPPERHOME=home
+MAPPERROOT=root
+BOOTFS=ext2
+ROOTFS=ext4
+USRFS=ext4
+VARFS=ext4
+HOMEFS=ext4
+#DESTINATION DISK (for /etc/fstab) #####################################
+DISK=/dev/sda
+#VERSION (needed for Legacy GRUB only) #################################
+VERSION=/etc/antix-version
+########################################################################
+
+#Exit on most errors
+set -e
+#set -x
+
+[ -t 0 ] &amp;&amp; [ -t 1 ] || { zenity --warning --text="${0}: this script must be run from a terminal." ; exit 1 ;}
+
+if ["$(id -un)" !="root" ]; then
+  echo"You must be superuser to use this script" &gt;&amp;2
+  exit 1
+fi
+
+if ! cat /etc/passwd|grep"demo" 1&gt;/dev/null; then
+  echo"This script needs to be run from a Live CD / USB."
+  exit 0
+fi
+
+if ["$NEWHOME" ="$NEWROOT" ]; then
+    read -p"Both ROOT &amp; HOME are set to $NEWROOT ??? (y/n):" ANSWER
+        case $ANSWER in
+            y | yes)
+            echo"continuing............."
+            ;;
+            *)
+            exit 1
+            ;;
+        esac
+fi        
+
+#check partitions exist
+PARTCHECK="$NEWBOOT $NEWROOT $NEWUSR $NEWVAR $NEWHOME $OLDBOOT $OLDROOT $OLDUSR $OLDVAR $OLDHOME"
+for PART in $PARTCHECK
+do     
+    if ! fdisk -l | grep $PART 1&gt; /dev/null; then
+        echo"\nPartion $PART does not exist on this system." \
+       "\n\nPlease correct USER DEFINABLE values &amp; rerun this script."
+        exit 0        
+    fi
+done
+
+#check partitions have sane values
+#NEWUSR can be within OLDROOT - see line 528 for faster install of a new system
+for PART in"BOOT $NEWBOOT""ROOT $NEWROOT""VAR $NEWVAR""HOME $NEWHOME"
+do     
+    if ["$2" ="$OLDROOT" ]; then
+        echo"\n$1 is set to the same partition as OLDROOT ($OLDROOT)." \
+       "\n\nPlease correct USER DEFINABLE values &amp; rerun this script."
+        exit 0        
+    fi
+done
+
+#create DESTINATION &amp; SOURCE mount points on LIVE System
+MNTPOINTS="/mnt/newboot /mnt/newroot /mnt/newvar /mnt/newusr /mnt/newhome /mnt/oldboot /mnt/oldroot /mnt/oldusr /mnt/oldvar /mnt/oldhome"
+for POINTS in $MNTPOINTS
+do    
+    if [ ! -d"$POINTS" ]; then
+    mkdir $POINTS
+    fi
+done
+
+#mount SOURCE partition(s) &amp; calculate used disk space
+if blkid $OLDROOT|grep"crypto_LUKS" 1&gt; /dev/null; then
+    if [ ! -x"$(which cryptsetup)" ]; then
+        echo"Installing cryptsetup to mount Encrypted source root $OLDROOT"
+        apt-get update &amp;&amp; apt-get install -y cryptsetup
+    fi
+    if cryptsetup status oldroot|grep"inactive" 1&gt; /dev/null; then
+        cryptsetup luksOpen $OLDROOT oldroot
+    fi
+    echo"mounting Encrypted $OLDROOT on /mnt/oldroot"
+    mountpoint -q /mnt/oldroot || mount /dev/mapper/oldroot /mnt/oldroot
+else    
+    echo"mounting $OLDROOT on /mnt/oldroot"
+    mountpoint -q /mnt/oldroot || mount $OLDROOT /mnt/oldroot
+fi
+#check OLDROOT is a root filesystem
+MOUNTPOINTS="home proc mnt opt selinux sys boot usr var"
+DIRCHECK=0
+for DIR in $MOUNTPOINTS
+do
+    if [ -d"/mnt/oldroot/$DIR" ]; then
+        DIRCHECK=$((DIRCHECK +1))
+    fi
+done
+if [ $DIRCHECK -le 7 ]; then
+    echo"OLDROOT ($OLDROOT) does not appear to be a root filesystem" \
+   "\n\nPlease check USER DEFINED settings &amp; re-run this script." 
+    umount /mnt/oldroot
+    exit 0
+fi
+echo"Calculating used disk space on SOURCE file systems - please wait......"
+ROOT2CP=$(echo `df /mnt/oldroot` | awk '{print $10}')
+
+if ["$OLDBOOT" !="$OLDROOT" ]; then
+    echo"mounting $OLDBOOT on /mnt/oldboot"
+    mountpoint -q /mnt/oldboot || mount $OLDBOOT /mnt/oldboot
+    BOOT2CP=$(echo `df /mnt/oldboot` | awk '{print $10}')
+else
+    BOOT2CP=$(echo `du /mnt/oldroot/boot` | awk '{print $(NF-1)}')
+fi
+if ["$OLDUSR" !="$OLDROOT" ]; then
+    echo"mounting $OLDUSR on /mnt/oldusr"
+    mountpoint -q /mnt/oldusr || mount $OLDUSR /mnt/oldusr
+    USR2CP=$(echo `df /mnt/oldusr` | awk '{print $10}')
+else
+    USR2CP=$(echo `du /mnt/oldroot/usr` | awk '{print $(NF-1)}')
+fi
+if ["$OLDVAR" !="$OLDROOT" ]; then
+    echo"mounting $OLDVAR on /mnt/oldvar"
+    mountpoint -q /mnt/oldvar || mount $OLDVAR /mnt/oldvar
+    VAR2CP=$(echo `df /mnt/oldvar` | awk '{print $10}')
+else
+    VAR2CP=$(echo `du /mnt/oldroot/var` | awk '{print $(NF-1)}')
+fi
+if ["$OLDHOME" !="$OLDROOT" ]; then
+    if blkid $OLDHOME|grep"crypto_LUKS" 1&gt; /dev/null; then
+        if [ ! -x"$(which cryptsetup)" ]; then
+        echo"Installing cryptsetup to mount Encrypted source /home $OLDHOME"
+        apt-get install -y cryptsetup
+        fi
+        if cryptsetup status oldhome|grep"inactive" 1&gt; /dev/null; then
+            cryptsetup luksOpen $OLDHOME oldhome
+        fi
+        echo"mounting Encrypted $OLDHOME on /mnt/oldhome"
+        mountpoint -q /mnt/oldhome || mount /dev/mapper/oldhome /mnt/oldhome
+    else
+    echo"mounting $OLDHOME on /mnt/oldhome"
+    mountpoint -q /mnt/oldhome || mount $OLDHOME /mnt/oldhome
+    fi
+    HOME2CP=$(echo `df /mnt/oldhome` | awk '{print $10}')
+else
+    HOME2CP=$(echo `du /mnt/oldroot/home` | awk '{print $(NF-1)}')
+fi
+
+#get DESTINATION available disk space
+echo"Calculating available disk space on DESTINATION file systems - please wait......"
+ROOTX=$(sfdisk -l /dev/sda 2&gt;/dev/null | grep $NEWROOT | awk '{print $5}')
+if ["$NEWBOOT" !="$NEWROOT" ]; then
+    BOOTX=$(sfdisk -l /dev/sda 2&gt;/dev/null | grep $NEWBOOT | awk '{print $5}')
+    BOOTX=$(echo $BOOTX | tr -cd [:digit:])
+    if ["$OLDBOOT" ="$OLDROOT" ]; then
+        ROOT2CP=$(($ROOT2CP-$BOOT2CP))
+    fi
+elif ["$OLDBOOT" !="$OLDROOT" ]; then
+    ROOT2CP=$(($ROOT2CP+$BOOT2CP))
+fi
+if ["$NEWUSR" !="$NEWROOT" ]; then
+    USRX=$(sfdisk -l /dev/sda 2&gt;/dev/null | grep $NEWUSR | awk '{print $5}')
+    USRX=$(echo $USRX | tr -cd [:digit:])
+    if ["$OLDUSR" ="$OLDROOT" ]; then
+        ROOT2CP=$(($ROOT2CP-$USR2CP))
+    fi
+elif ["$OLDUSR" !="$OLDROOT" ]; then
+    ROOT2CP=$(($ROOT2CP+$USR2CP))
+fi
+if ["$NEWVAR" !="$NEWROOT" ]; then
+    VARX=$(sfdisk -l /dev/sda 2&gt;/dev/null | grep $NEWVAR | awk '{print $5}')
+    VARX=$(echo $VARX | tr -cd [:digit:])
+    if ["$OLDVAR" ="$OLDROOT" ]; then
+        ROOT2CP=$(($ROOT2CP-$VAR2CP))
+    fi
+elif ["$OLDVAR" !="$OLDROOT" ]; then
+    ROOT2CP=$(($ROOT2CP+$VAR2CP))
+fi
+if ["$NEWHOME" !="$NEWROOT" ]; then
+    HOMEX=$(sfdisk -l /dev/sda 2&gt;/dev/null | grep $NEWHOME | awk '{print $5}')
+    HOMEX=$(echo $HOMEX | tr -cd [:digit:])
+    if ["$OLDHOME" ="$OLDROOT" ]; then
+        ROOT2CP=$(($ROOT2CP-$HOME2CP))
+    fi
+elif ["$OLDHOME" !="$OLDROOT" ]; then
+    ROOT2CP=$(($ROOT2CP+$HOME2CP))
+fi
+#compare source &amp; destination sizes
+for SIZECHECK in"ROOT $ROOT2CP $ROOTX""BOOT $BOOT2CP $BOOTX""USR $USR2CP $USRX""VAR $VAR2CP $VARX""HOME $HOME2CP $HOMEX"
+do
+    set -- $SIZECHECK
+    if [ -n"$3" ]; then
+        echo"$1: OLD = $2 (used) NEW = $3 (available)"
+        if ["$2" -gt"$3" ]; then
+            echo"\nDESTINATION: $1 is smaller than SOURCE: $1 
+            \nPlease correct User Defined Values &amp; rerun this script."
+            exit 0
+        fi
+    fi
+done
+
+#install dependencies normal install
+DEBCHECK="dialog pv"
+for DEB in $DEBCHECK
+do
+    if [ ! -x"$(which $DEB)" ]; then
+            echo"This Script requires $DEB - installing......."
+            apt-get update &amp;&amp; apt-get install $DEB
+    fi
+done
+
+#confirm installation partitions
+dialog --title"Installation Partitions" \
+       --yesno"\nThe system will be moved FROM &amp; TO the following partitions: \n
+    \nFROM: OLDBOOT ($OLDBOOT)  TO: NEWBOOT ($NEWBOOT)\nFROM: OLDROOT ($OLDROOT)  TO: NEWROOT ($NEWROOT)
+    \nFROM: OLDUSR  ($OLDUSR)  TO: NEWUSR ($NEWUSR)\nFROM: OLDVAR  ($OLDVAR)  TO: NEWVAR ($NEWVAR)
+    \nFROM: OLDHOME ($OLDHOME)  TO: NEWHOME ($NEWHOME)" 14 57
+if [ $? = 1 ]; then
+   exit 0   
+fi
+             
+dialog --title"Move installation to Standard or Encrypted Partitions" \
+       --menu"Choose one of the following or press &lt;Cancel&gt; to exit" 10 70 2 \
+  "1""Move installation to Standard Partitions" \
+  "2""Move installation to ENCRYPTED HOME &amp; ROOT Partitions" 2&gt;/tmp/ans
+if [ $? = 1 ]; then
+   rm -f /tmp/ans
+   clear
+   exit 0
+fi
+
+R="`cat /tmp/ans`"
+rm -f /tmp/ans
+clear
+
+#normal install - mount / &amp; /home
+if ["$R" ="1" ]; then
+    if ["$OLDROOT" !="$NEWROOT" ]; then
+        if mount|grep"$NEWROOT" 1&gt; /dev/null; then
+            echo"unmounting $NEWROOT"; umount $NEWROOT
+        fi
+        echo"formatting DESTINATION partition /"
+        mkfs.$ROOTFS -q $NEWROOT
+    fi
+    echo"mounting"$NEWROOT" on /mnt/newroot"
+    mountpoint -q /mnt/newroot || mount $NEWROOT /mnt/newroot
+    if blkid $NEWHOME|grep"crypto_LUKS" 1&gt; /dev/null; then
+        echo"\n$NEWHOME is a LUKS Encrypted Partition \
+        \nRe-run this script &amp; chooose installation to Encrypted Partitions."
+        exit 0
+    else
+        if ["$NEWHOME" !="$NEWROOT" ]; then
+            echo"mounting"$NEWHOME" on /mnt/newhome"
+            mountpoint -q /mnt/newhome || mount $NEWHOME /mnt/newhome
+        fi
+    fi
+    
+#luks encrypted install - mount mappers for / &amp; home
+elif ["$R" ="2" ]; then
+    if ["$NEWBOOT" ="$NEWROOT" ]; then
+        echo"BOOT must be on a separate UNENCRYPTED partition 
+        \nPlease correct USER DEFINED settings &amp; rerun this script"
+        exit 0
+    fi
+    if ["$OLDROOT" ="$NEWROOT" ]; then
+        echo"Cannot Encrypt a ROOT system ($NEWROOT) that is not moving - exiting."
+        exit 0
+    fi
+    if [ ! -x"$(which cryptsetup)" ]; then
+        echo"Installing Cryptsetup into LIVE SYSTEM"
+        apt-get update &amp;&amp; apt-get install -y cryptsetup
+    fi    
+    ENCRYPTDRIVES="$NEWROOT $NEWHOME"
+    for EDRIVE in $ENCRYPTDRIVES
+    do
+        if ! blkid $EDRIVE|grep"crypto_LUKS" 1&gt; /dev/null; then
+                #create LUKS partition if not existing
+                dialog --title"Create Encrypted LUKS Partion" \
+                --yesno"\nCreate new Encrypted Partition on \n\n $EDRIVE ?" 8 38
+                if [ $? = 1 ]; then
+                    exit 0   
+                else 
+                    if mount|grep"$EDRIVE" 1&gt; /dev/null; then
+                        echo"unmounting $EDRIVE"; umount $EDRIVE
+                    fi
+                    /sbin/badblocks -c 10240 -s -w -t random -v $EDRIVE
+                    dialog --title"Fill Partition with ZEROS or RANDOM Data" \
+                    --menu"Choose one of the following or press &lt;Cancel&gt; to exit" 10 75 2 \
+                   "1""Fill $EDRIVE with ZEROS (Older machines / Celeron processors)" \
+                   "2""Fill $EDRIVE with RANDOM DATA (Slower - Better Encryption)" 2&gt;/tmp/ans
+                    EFILL="`cat /tmp/ans`"
+                    if ["$EFILL" ="1" ]; then
+                        apt-get install dc3dd
+                        echo"Filling $EDRIVE with ZEROS - please wait........"
+                        echo"$(dc3dd wipe=$EDRIVE)" 2&gt;&amp;1
+                    elif ["$EFILL" ="2" ]; then
+                        apt-get install dcfldd
+                        echo"Filling $EDRIVE with RANDOM DATA - please wait........\n"
+                        fdisk -l $EDRIVE | head -2 
+                        msg=$(dcfldd if=/dev/urandom of=$EDRIVE) || echo"$msg" 2&gt;&amp;1
+                    fi
+                    echo"Creating Encrypted LUKS container on $EDRIVE....."
+                    cryptsetup --verify-passphrase --verbose --hash=sha256 --cipher=aes-cbc-essiv:sha256 --key-size=256 luksFormat $EDRIVE
+                    if ["$EDRIVE" ="$NEWROOT" ]; then
+                        MAPPER=$MAPPERROOT
+                        ROOTFORMAT="DONE"
+                        ENCRYPTFS=$ROOTFS
+                    else
+                        MAPPER=$MAPPERHOME
+                        ENCRYPTFS=$HOMEFS
+                    fi
+                    if cryptsetup status $MAPPER|grep"inactive" 1&gt; /dev/null; then
+                        echo"Opening LUKS Encrypted container on $EDRIVE with Mapping '$MAPPER'"
+                        cryptsetup luksOpen $EDRIVE $MAPPER
+                    fi
+                    if mount|grep"/dev/mapper/$MAPPER" 1&gt; /dev/null; then
+                        echo"unmounting $/dev/mapper/$MAPPER"
+                        umount /dev/mapper/$MAPPER
+                    fi
+                    echo"Formatting Encrypted Partition $EDRIVE"
+                    mkfs.$ENCRYPTFS -q /dev/mapper/$MAPPER
+                fi
+        else
+            #open root &amp; home LUKS mappers
+            if cryptsetup status $MAPPERROOT|grep"inactive" 1&gt; /dev/null; then
+                echo"Opening LUKS Encrypted container on $NEWROOT with Mapper '$MAPPERROOT'"
+                cryptsetup luksOpen $NEWROOT $MAPPERROOT
+            elif cryptsetup status $MAPPERHOME|grep"inactive" 1&gt; /dev/null; then
+                echo"Opening LUKS Encrypted container on $NEWHOME with Mapper '$MAPPERHOME'"
+                cryptsetup luksOpen $NEWHOME $MAPPERHOME
+            fi
+        fi
+    done
+    #mount encrypted root &amp; home
+    if ["$ROOTFORMAT" !="DONE" ]; then
+        if mount|grep"/dev/mapper/$MAPPERROOT" 1&gt; /dev/null ; then
+            echo"unmounting /dev/mapper$MAPPERROOT"; umount /dev/mapper/$MAPPERROOT
+        fi
+        echo"formatting DESTINATION partition /"
+        mkfs.$ROOTFS -q /dev/mapper/$MAPPERROOT
+    fi
+    echo"mounting /dev/mapper/$MAPPERROOT on /mnt/newroot"
+    mountpoint -q /mnt/newroot || mount /dev/mapper/$MAPPERROOT /mnt/newroot
+    echo"mounting /dev/mapper/$MAPPERHOME on /mnt/newhome"
+    mountpoint -q /mnt/newhome || mount /dev/mapper/$MAPPERHOME /mnt/newhome    
+    rm -f /tmp/ans /tmp/ans2
+fi    
+    
+#create new mount points on NEWROOT
+MOUNTPOINTS="home proc mnt opt selinux sys boot usr var"
+for DIR in $MOUNTPOINTS
+do
+    if [ ! -d"/mnt/newroot/$DIR" ]; then
+        echo"Creating mount point /mnt/newroot/"$DIR
+        mkdir /mnt/newroot/$DIR
+    fi
+done
+
+# copy / format BOOT
+if ["$OLDBOOT" !="$NEWBOOT" ]; then 
+    if ["$OLDBOOT" ="$OLDROOT" ]; then
+    {    #BOOT is within root at SRC &amp; DEST
+        if ["$NEWBOOT" ="$NEWROOT" ]; then
+        {
+            if [ -d"/mnt/newboot" ]; then
+                rmdir /mnt/newboot
+            fi    
+            echo"copying $(du -hs --apparent-size /mnt/oldroot/boot) to /mnt/newroot/boot"
+            #cp -a /mnt/oldroot/boot/* /mnt/newroot/boot
+            tar cf - /mnt/oldroot/boot 2&gt; /dev/null | pv | (cd /mnt/newroot/boot;tar x -f - --strip-components=3)
+        }
+        else 
+        # BOOT is separate at DEST
+            if mount|grep"$NEWBOOT" 1&gt; /dev/null; then
+                echo"unmounting $NEWBOOT"; umount $NEWBOOT
+            fi
+            echo"formatting DESTINATION partition /BOOT"
+            mkfs.$BOOTFS -q $NEWBOOT
+            echo"mounting $NEWBOOT on /mnt/newboot"
+            mountpoint -q /mnt/newboot || mount $NEWBOOT /mnt/newboot
+            echo"mounting $NEWBOOT on /mnt/newroot/boot for CHROOT"
+            mount $NEWBOOT /mnt/newroot/boot
+            echo"copying $(du -hs --apparent-size /mnt/oldroot/boot) to /mnt/newboot"
+            #cp -a /mnt/oldroot/boot/* /mnt/newboot
+            tar cf - /mnt/oldroot/boot 2&gt; /dev/null | pv | (cd /mnt/newboot;tar x -f - --strip-components=3)
+        fi
+        }
+    else
+        #BOOT is within DEST only
+        if ["$NEWBOOT" ="$NEWROOT" ]; then
+        {
+            if [ -d"/mnt/newboot" ]; then
+                rmdir /mnt/newboot
+            fi    
+            echo"copying $(du -hs --apparent-size /mnt/oldboot) to /mnt/newroot/boot"
+            #cp -a /mnt/oldboot/* /mnt/newroot/boot
+            tar cf - /mnt/oldboot 2&gt; /dev/null | pv | (cd /mnt/newroot/boot;tar x -f - --strip-components=2)
+        }
+        else
+        # BOOT is separate at SRC &amp; DEST
+        if mount|grep"$NEWBOOT" 1&gt; /dev/null; then
+            echo"unmounting $NEWBOOT"; umount $NEWBOOT
+        fi
+        echo"formatting DESTINATION partition /BOOT"
+        mkfs.ext2 -q $NEWBOOT
+        echo"mounting"$NEWBOOT" on /mnt/newboot"
+        mountpoint -q /mnt/newboot || mount $NEWBOOT /mnt/newboot
+        echo"mounting $NEWBOOT on /mnt/newroot/boot for CHROOT"
+        mount $NEWBOOT /mnt/newroot/boot
+        echo"copying $(du -hs --apparent-size /mnt/oldboot) to /mnt/newboot"
+        #cp -a /mnt/oldboot/* /mnt/newboot
+        tar cf - /mnt/oldboot 2&gt; /dev/null | pv | (cd /mnt/newboot;tar x -f - --strip-components=2)
+        fi
+    fi
+else
+    echo"BOOT not moving - nothing to copy."
+    if ["$NEWBOOT" !="$NEWROOT" ]; then
+        echo"mounting"$NEWBOOT" on /mnt/newboot"
+        mountpoint -q /mnt/newboot || mount $NEWBOOT /mnt/newboot
+        echo"mounting $NEWBOOT on /mnt/newroot/boot for CHROOT"
+        mount $NEWBOOT /mnt/newroot/boot
+    fi
+fi
+#copy existing ROOT to new DESTINATION
+if ["$OLDROOT" !="$NEWROOT" ]; then 
+    COPYDIRS="bin dev etc lib media root sbin tmp"
+    for DIR in $COPYDIRS
+    do
+        echo"copying $(du -hs --apparent-size /mnt/oldroot/$DIR) to /mnt/newroot/$DIR"
+        #cp -a /mnt/oldroot/$DIR /mnt/newroot/$DIR
+        tar cf - /mnt/oldroot/$DIR 2&gt; /dev/null | pv | (cd /mnt/newroot;tar x -f - --strip-components=2)
+    done
+else
+    echo"ROOT not moving - nothing to copy."
+fi
+
+# copy / format VAR
+if ["$OLDVAR" !="$NEWVAR" ]; then 
+    if ["$OLDVAR" ="$OLDROOT" ]; then
+    {    #var is within root at SRC &amp; DEST
+        if ["$NEWVAR" ="$NEWROOT" ]; then
+        {
+            if [ -d"/mnt/newvar" ]; then
+                rmdir /mnt/newvar
+            fi    
+            echo"copying $(du -hs --apparent-size /mnt/oldroot/var) to /mnt/newroot/var"
+            #cp -a /mnt/oldroot/var/* /mnt/newroot/var
+            tar cf - /mnt/oldroot/var 2&gt; /dev/null | pv | (cd /mnt/newroot;tar x -f - --strip-components=2)
+        }
+        else 
+        # var is separate at DEST only
+            if mount|grep"$NEWVAR" 1&gt; /dev/null; then
+                echo"unmounting $NEWVAR"; umount $NEWVAR
+            fi
+            echo"formatting DESTINATION partition /VAR"
+            mkfs.$VARFS -q $NEWVAR
+            echo"mounting $NEWVAR on /mnt/newvar"
+            mountpoint -q /mnt/newvar || mount $NEWVAR /mnt/newvar
+            echo"mounting $NEWVAR on /mnt/newroot/var for CHROOT"
+            mount $NEWVAR /mnt/newroot/var
+            echo"copying $(du -hs --apparent-size /mnt/oldroot/var) to /mnt/newvar"
+            #cp -a /mnt/oldroot/var/* /mnt/newvar
+            tar cf - /mnt/oldroot/var 2&gt; /dev/null | pv | (cd /mnt/newvar;tar x -f - --strip-components=3)
+        fi
+        }
+    else
+        #var is separate at SRC &amp; within ROOT at DEST
+        if ["$NEWVAR" ="$NEWROOT" ]; then
+        {
+            if [ -d"/mnt/newvar" ]; then
+                rmdir /mnt/newvar
+            fi    
+            echo"copying $(du -hs --apparent-size /mnt/oldvar) to /mnt/newroot/var"
+            #cp -a /mnt/oldvar/* /mnt/newroot/var
+            tar cf - /mnt/oldvar 2&gt; /dev/null | pv | (cd /mnt/newroot/var;tar x -f - --strip-components=2)
+        }    
+        else
+        # var is separate at SRC &amp; DEST
+        if mount|grep"$NEWVAR" 1&gt; /dev/null; then
+            echo"unmounting $NEWVAR"; umount $NEWVAR
+        fi
+        echo"formatting DESTINATION partition /VAR"
+        mkfs.$VARFS -q $NEWVAR
+        echo"mounting $NEWVAR on /mnt/newvar"
+        mountpoint -q /mnt/newvar || mount $NEWVAR /mnt/newvar
+        echo"mounting $NEWVAR on /mnt/newroot/var for CHROOT"
+        mount $NEWVAR /mnt/newroot/var
+        echo"copying $(du -hs --apparent-size /mnt/oldvar) to /mnt/newvar"
+        #cp -a /mnt/oldvar/* /mnt/newvar
+        tar cf - /mnt/oldvar 2&gt; /dev/null | pv | (cd /mnt/newvar;tar x -f - --strip-components=2)
+        fi
+    fi
+else
+    echo"VAR not moving - nothing to copy."
+    if ["$NEWVAR" !="$NEWROOT" ]; then
+        echo"mounting"$NEWVAR" on /mnt/newvar"
+        mountpoint -q /mnt/newvar || mount $NEWVAR /mnt/newvar
+        echo"mounting $NEWVAR on /mnt/newroot/var for CHROOT"
+        mount $NEWVAR /mnt/newroot/var
+    fi
+fi
+
+# copy HOME to new DESTINATION
+if ["$OLDHOME" ="$OLDROOT" ]; then
+    if ["$NEWHOME" !="$NEWROOT" ]; then
+        echo"copying $(du -hs --apparent-size /mnt/oldroot/home) to /mnt/newhome"
+        #cp -a /mnt/oldroot/home/* /mnt/newhome
+        tar cf - /mnt/oldroot/home 2&gt; /dev/null | pv | (cd /mnt/newhome;tar x -f - --strip-components=3)
+    elif ["$OLDHOME" !="$NEWHOME" ]; then
+        echo"copying $(du -hs --apparent-size /mnt/oldroot/home) to /mnt/newroot/home"
+        tar cf - /mnt/oldroot/home 2&gt; /dev/null | pv | (cd /mnt/newroot/home;tar x -f - --strip-components=3)
+    else
+        echo"HOME not moving - nothing to copy"
+    fi
+elif ["$OLDHOME" !="$NEWHOME" ]; then
+    if ["$NEWHOME" !="$NEWROOT" ]; then
+        echo"copying $(du -hs --apparent-size /mnt/oldhome) to /mnt/newhome"
+        #cp -a /mnt/oldhome/* /mnt/newhome
+        tar cf - /mnt/oldhome 2&gt; /dev/null | pv | (cd /mnt/newhome;tar x -f - --strip-components=2)
+    else
+        echo"copying $(du -hs --apparent-size /mnt/oldhome) to /mnt/newroot/home"
+        tar cf - /mnt/oldhome 2&gt; /dev/null | pv | (cd /mnt/newroot/home;tar x -f - --strip-components=2)
+    fi
+fi
+
+#copy AntiX menu script
+if ["$OLDROOT" !="$NEWROOT" ]; then
+    if [ -d"/mnt/oldroot/antiX-install" ]; then
+        echo"copying $(du -hs --apparent-size /mnt/oldroot/antiX-install) to /mnt/newroot/antiX-install"
+        #cp -a /mnt/oldroot/antiX-install /mnt/newroot
+        tar cf - /mnt/oldroot/antiX-install 2&gt; /dev/null | pv | (cd /mnt/newroot;tar x -f - --strip-components=2)
+        rm -r /mnt/oldroot/antiX-install
+    fi
+fi
+
+# copy / format USR (must be done last)
+if ["$OLDUSR" ="$NEWUSR" -a"$OLDROOT" !="$NEWROOT" ]; then
+    #install NEW Antix / Mepis into the partition which will become /USR to speed things up
+    echo"Deleting directories from old install &amp; moving /USR up one level"
+    REMOVEDIRS="bin boot dev etc home lib lost+found media mnt opt proc root sbin selinux sys tmp var"
+    for DIR in $REMOVEDIRS
+    do
+    echo"removing /"$DIR
+    rm -r /mnt/oldroot/$DIR
+    done
+    echo"moving /usr up one level"
+    mv /mnt/oldroot/usr/* -t /mnt/oldroot
+    echo"removing original /usr"
+    rm -r /mnt/oldroot/usr
+    echo"mounting $OLDROOT to /mnt/newroot/usr for CHROOT"    
+    mount $OLDROOT /mnt/newroot/usr
+elif ["$OLDUSR" ="$OLDROOT" ]; then
+    #USR is within root at SRC &amp; DEST
+    if ["$NEWUSR" ="$NEWROOT" -a"$NEWUSR" !="$OLDUSR" ]; then
+        if [ -d"/mnt/newusr" ]; then
+            rmdir /mnt/newusr
+        fi    
+        echo"copying $(du -hs --apparent-size /mnt/oldroot/usr) to /mnt/newroot/usr"
+        #cp -a /mnt/oldroot/usr/* /mnt/newroot/usr
+        tar cf - /mnt/oldroot/usr 2&gt; /dev/null | pv | (cd /mnt/newroot;tar x -f - --strip-components=2)
+    elif ["$NEWUSR" !="$OLDUSR" ]; then
+        # USR is separate at DEST
+        if mount|grep"$NEWUSR" 1&gt; /dev/null; then
+            echo"unmounting $NEWUSR"; umount $NEWUSR
+        fi
+        echo"formatting DESTINATION partition /USR"
+        mkfs.$USRFS -q $NEWUSR
+        echo"mounting $NEWUSR on /mnt/newusr"
+        mountpoint -q /mnt/newusr || mount $NEWUSR /mnt/newusr
+        echo"mounting $NEWUSR on /mnt/newroot/usr for CHROOT"
+        mount $NEWUSR /mnt/newroot/usr
+        echo"copying $(du -hs --apparent-size /mnt/oldroot/usr) to /mnt/newusr"
+        #cp -a /mnt/oldroot/usr/* /mnt/newusr
+        tar cf - /mnt/oldroot/usr 2&gt; /dev/null | pv | (cd /mnt/newusr;tar x -f - --strip-components=3)
+    fi
+elif ["$OLDUSR" !="$NEWUSR" ]; then
+    #USR is within root at DEST only
+    if ["$NEWUSR" ="$NEWROOT" ]; then
+        if [ -d"/mnt/newusr" ]; then
+            rmdir /mnt/newusr
+        fi    
+    echo"copying $(du -hs --apparent-size /mnt/oldusr) to /mnt/newroot/usr"
+    #cp -a /mnt/oldusr/* /mnt/newroot/usr
+    tar cf - /mnt/oldusr 2&gt; /dev/null | pv | (cd /mnt/newroot/usr;tar x -f - --strip-components=2)
+    else    
+        # USR is separate at SRC &amp; DEST
+        if mount|grep"$NEWUSR" 1&gt; /dev/null; then
+            echo"unmounting $NEWUSR"; umount $NEWUSR
+        fi
+        echo"formatting DESTINATION partition /USR"
+        mkfs.$USRFS -q $NEWUSR
+        echo"mounting $NEWUSR on /mnt/newusr"
+        mountpoint -q /mnt/newusr || mount $NEWUSR /mnt/newusr
+        echo"mounting $NEWUSR on /mnt/newroot/usr for CHROOT"
+        mount $NEWUSR /mnt/newroot/usr
+        echo"copying $(du -hs --apparent-size /mnt/oldusr) to /mnt/newusr"
+        #cp -a /mnt/oldusr/* /mnt/newusr
+        tar cf - /mnt/oldusr 2&gt; /dev/null | pv | (cd /mnt/newusr;tar x -f - --strip-components=2)
+    fi
+else
+    echo"USR not moving - nothing to copy."
+    if ["$NEWUSR" !="$NEWROOT" ]; then
+        echo"mounting"$NEWUSR" on /mnt/newusr"
+        mountpoint -q /mnt/newusr || mount $NEWUSR /mnt/newusr
+        echo"mounting $NEWUSR on /mnt/newroot/usr for CHROOT"
+        mount $NEWUSR /mnt/newroot/usr
+    fi
+fi
+
+#update fstab &amp; clear crypttab
+echo $DISK &gt;&gt; /tmp/sedisk; SEDISK=$(sed 's,\/,\\/,g' /tmp/sedisk)
+echo"/dev/mapper" &gt;&gt; /tmp/sedmap; SEDMAP=$(sed 's,\/,\\/,g' /tmp/sedmap)
+echo"making backups /etc/fstab.bak &amp; /etc/crypttab.bak"
+sed -i.bak /$SEDISK/d /mnt/newroot/etc/fstab
+sed -i.bak /$SEDISK/d /mnt/newroot/etc/crypttab
+sed -i /$SEDMAP/d /mnt/newroot/etc/fstab
+rm /tmp/sedisk /tmp/sedmap
+echo"fstab &amp; crypttab /dev lines removed"
+if ["$R" ="1" ]; then
+    echo"$NEWROOT / $ROOTFS errors=remount-ro 0 1" &gt;&gt; /mnt/newroot/etc/fstab
+    if ["$NEWHOME" !="$NEWROOT" ]; then
+        echo"$NEWHOME /home $HOMEFS defaults 0 2" &gt;&gt; /mnt/newroot/etc/fstab
+    fi
+else
+    echo"/dev/mapper/$MAPPERROOT / $ROOTFS errors=remount-ro 0 1" &gt;&gt; /mnt/newroot/etc/fstab
+    if ["$NEWHOME" !="$NEWROOT" ]; then
+    echo"/dev/mapper/$MAPPERHOME /home $HOMEFS defaults 0 2" &gt;&gt; /mnt/newroot/etc/fstab
+    fi
+fi
+if ["$NEWBOOT" !="$NEWROOT" ]; then
+    echo"$NEWBOOT /boot $BOOTFS defaults 0 2" &gt;&gt; /mnt/newroot/etc/fstab
+fi
+if ["$NEWUSR" !="$NEWROOT" ]; then
+    echo"$NEWUSR /usr $USRFS defaults 0 2" &gt;&gt; /mnt/newroot/etc/fstab
+fi
+if ["$NEWVAR" !="$NEWROOT" ]; then
+    echo"$NEWVAR /var $VARFS defaults 0 2" &gt;&gt; /mnt/newroot/etc/fstab
+fi
+echo"/mnt/newroot/etc/fstab updated"
+ENDMSG="/etc/fstab"
+
+#update menu.lst
+echo"starting menu.lst update"
+if ["$NEWBOOT" !="$NEWROOT" ]; then
+    if [ ! -f"/mnt/newboot/grub/grub.cfg" ]; then
+        SEDMENU=\/mnt\/newboot\/grub\/menu.lst
+    fi
+else
+    if [ ! -f"/mnt/newroot/boot/grub/grub.cfg" ]; then
+        SEDMENU=\/mnt\/newroot\/boot\/grub\/menu.lst
+    fi
+fi
+#only run for Legacy GRUB 
+if ["$SEDMENU" ]; then
+    if ["$NEWBOOT" !="$NEWROOT" ]; then        
+        if ["$OLDBOOT" ="$OLDROOT" ]; then
+            echo"updating: gfxmenu /grub/message"
+            sed -i.bak ''$(sed -n '/\/grub\/message/=' $SEDMENU)' c\gfxmenu \/grub\/message' $SEDMENU
+            LINE=$(sed -n '/kernel \/boot/=' $SEDMENU)
+            KERNEL=$(sed -n ''$LINE'p' $SEDMENU)
+            echo"updating: kernel ${KERNEL#kernel /boot}" 
+            sed -i"$LINE c\kernel ${KERNEL#kernel /boot}" $SEDMENU
+            LINE=$(sed -n '/initrd \/boot/=' $SEDMENU)
+            INITRD=$(sed -n ''$LINE'p' $SEDMENU)
+            echo"updating: initrd ${INITRD#initrd /boot}"
+            sed -i"$LINE c\initrd ${INITRD#initrd /boot}" $SEDMENU
+        fi
+    else
+        if ["$OLDBOOT" !="$OLDROOT" ]; then
+            echo"updating: gfxmenu /boot/grub/message"
+            sed -i.bak ''$(sed -n '/\/grub\/message/=' $SEDMENU)' c\gfxmenu \/boot\/grub\/message' $SEDMENU
+            LINE=$(sed -n '/kernel \/vmlinuz/=' $SEDMENU)
+            KERNEL=$(sed -n ''$LINE'p' $SEDMENU)
+            echo"updating: kernel /boot/vmlinuz${KERNEL#kernel /vmlinuz}"
+            sed -i"$LINE c\kernel /boot/vmlinuz${KERNEL#kernel /vmlinuz}" $SEDMENU
+            LINE=$(sed -n '/initrd \/initrd/=' $SEDMENU)
+            INITRD=$(sed -n ''$LINE'p' $SEDMENU)
+            echo"updating: initrd /boot/initrd${INITRD#initrd /initrd}"
+            sed -i"$LINE c\initrd /boot/initrd${INITRD#initrd /initrd}" $SEDMENU
+        fi
+    fi
+    GRUBPART=$(echo $NEWBOOT | tr -cd [:digit:]);GRUBPART=$((GRUBPART -1))
+    GRUBDISK=$(echo ${DISK#???????} | tr '[a-j]' '[0-9]')
+    LINE="$(sed -n '/root (hd/=' $SEDMENU)"
+    echo"updating: root (hd$GRUBDISK,$GRUBPART)"
+    sed -i"$LINE c\root (hd$GRUBDISK,$GRUBPART)" $SEDMENU    
+    echo $OLDROOT &gt;&gt; /tmp/sedoldroot; echo $NEWROOT &gt;&gt; /tmp/sednewroot
+    SEDOLDROOT=$(sed 's,\/,\\/,g' /tmp/sedoldroot);SEDNEWROOT=$(sed 's,\/,\\/,g' /tmp/sednewroot)
+    if blkid $OLDROOT|grep"crypto_LUKS" 1&gt; /dev/null; then
+        if ["$R" ="1" ]; then
+            echo"updating: root=$NEWROOT"
+            sed -i 's/root=\/dev\/mapper\/'$MAPPERROOT'/root='$SEDNEWROOT'/g' $SEDMENU
+        fi
+    elif ["$R" ="2" ]; then
+        echo"updating: root=/dev/mapper/$MAPPERROOT"
+        sed -i 's/root='$SEDOLDROOT'/root=\/dev\/mapper\/'$MAPPERROOT'/g' $SEDMENU
+    elif ["$R" ="1" ]; then
+        echo"updating: root=$NEWROOT"
+        sed -i 's/root='$SEDOLDROOT'/root='$SEDNEWROOT'/g' $SEDMENU    
+    fi
+    LINE="$(sed -n '/title antiX/=' $SEDMENU)"; LINUX="$(cat $VERSION | awk '{print $1}')"
+    echo"updating: title $LINUX at ${NEWROOT#/dev/}, kernel $(uname -r)"
+    sed -i"$LINE c\title $LINUX at ${NEWROOT#/dev/}, kernel $(uname -r)" $SEDMENU
+    rm /tmp/sedoldroot /tmp/sednewroot
+    ENDMSG="$ENDMSG \n/boot/grub/menu.lst"
+else
+    echo"GRUB2 detected skipping menu.lst update"
+    ENDMSG="$ENDMSG \n/boot/grub/grub.cfg"
+fi 
+
+## CHROOT into new install
+echo"binding /dev /dev/pts /proc /sys for CHROOT"
+mount --bind /dev /mnt/newroot/dev
+mount -t devpts none /mnt/newroot/dev/pts
+mount --bind /proc /mnt/newroot/proc
+mount --bind /sys /mnt/newroot/sys
+
+#normal install
+if ["$R" ="1" ]; then
+    echo"chrooting into your new install &amp; updating initramfs..."
+    chroot /mnt/newroot /bin/sh -c"update-initramfs -u -t -k all"
+
+#install to encrypted partitions
+elif ["$R" ="2" ]; then
+    # Add Modules needed to mount LUKS on booting
+    echo"adding crypt modules......."
+    echo"dm_mod" &gt;&gt; /mnt/newroot/etc/initramfs-tools/modules
+    echo"dm_crypt" &gt;&gt; /mnt/newroot/etc/initramfs-tools/modules
+    echo"aes_generic" &gt;&gt; /mnt/newroot/etc/initramfs-tools/modules
+    echo"aes-i586" &gt;&gt; /mnt/newroot/etc/initramfs-tools/modules
+    echo"sha256_generic" &gt;&gt; /mnt/newroot/etc/initramfs-tools/modules
+    if [ `getconf LONG_BIT` ="64" ]; then
+        echo"aes-x86_64" &gt;&gt; /mnt/newroot/etc/initramfs-tools/modules
+    fi    
+    #if [ ! -f"/mnt/newroot/etc/keys/$MAPPERHOME" ]; then
+        read -p"Create LUKS Keyfile for HOME in /etc/keys ? (y/n):" ANSWER
+        case $ANSWER in
+            y | yes)
+            echo"creating key for $NEWHOME...."
+            if [ ! -d"/mnt/newroot/etc/keys" ]; then
+                mkdir /mnt/newroot/etc/keys
+            fi
+            dd if=/dev/random of=/mnt/newroot/etc/keys/$MAPPERHOME bs=32 count=1
+            chmod 400 /mnt/newroot/etc/keys/$MAPPERHOME
+            cryptsetup luksAddKey $NEWHOME /mnt/newroot/etc/keys/$MAPPERHOME
+            echo"updating /etc/crypttab....."
+            echo"$MAPPERROOT        $NEWROOT        none        luks" &gt;&gt; /mnt/newroot/etc/crypttab
+            echo"$MAPPERHOME        $NEWHOME        /etc/keys/$MAPPERHOME        luks" &gt;&gt; /mnt/newroot/etc/crypttab
+            ;;
+            *)
+            if [ ! cat /mnt/newroot/etc/crypttab ]; then
+                echo"updating /etc/crypttab....."
+                echo"$MAPPERROOT        $NEWROOT        none        luks" &gt;&gt; /mnt/newroot/etc/crypttab
+                echo"$MAPPERHOME        $NEWHOME        none        luks" &gt;&gt; /mnt/newroot/etc/crypttab
+            fi    
+            ;;
+        esac
+    #else
+        #echo"updating /etc/crypttab....."
+        #echo"$MAPPERROOT        $NEWROOT        none        luks" &gt;&gt; /mnt/newroot/etc/crypttab
+        #echo"$MAPPERHOME        $NEWHOME        /etc/keys/$MAPPERHOME        luks" &gt;&gt; /mnt/newroot/etc/crypttab
+    #fi
+    echo"chrooting into your new install &amp; installing Cryptsetup..."
+    chroot /mnt/newroot /bin/bash -c"apt-get update &amp;&amp; apt-get install -y cryptsetup"
+    echo"Overriding update-initramfs with -u -t -k all"
+    chroot /mnt/newroot /bin/bash -c"update-initramfs -u -t -k all"
+    ENDMSG="$ENDMSG \n/etc/crypttab"
+fi
+
+echo"chrooting into your new install &amp; running grub-install $DISK"
+chroot /mnt/newroot /bin/bash -c"grub-install $DISK"
+echo"chrooting into your new install &amp; running update-grub"
+chroot /mnt/newroot /bin/bash -c"update-grub"
+
+#tidy root if it hasn't moved anywhere
+if ["$OLDROOT" ="$NEWROOT" ]; then
+    echo"root did not move so tidying up"
+    for ROOTCLEAN in"$NEWBOOT boot $OLDBOOT""$NEWUSR usr $OLDUSR""$NEWVAR var $OLDVAR"
+    do
+        set -- $ROOTCLEAN
+        if ["$1" !="$OLDROOT" -a"$3" ="$OLDROOT" ]; then
+            if mountpoint -q"/mnt/newroot/$2"; then
+                echo"unmounting /mnt/newroot/$2"; umount"/mnt/newroot/$2"
+                echo"removing /mnt/oldroot/$2"; rm -R"/mnt/oldroot/$2"
+                echo"re-creating mount point /mnt/oldroot/$2"; mkdir"/mnt/oldroot/$2"
+            fi
+        else
+            echo"Nothing to tidy for $2"
+        fi
+    done
+fi
+
+dialog --title"System Moving Complete" \
+           --msgbox"\nYour system has been moved successfully to: \n
+           \nTO: NEWBOOT ($NEWBOOT)
+           \nTO: NEWROOT ($NEWROOT)
+        \nTO: NEWUSR  ($NEWUSR)
+        \nTO: NEWVAR  ($NEWVAR)
+        \nTO: NEWHOME ($NEWHOME)          
+           \n\nThe following files have been backed up &amp; updated:
+           \n\n$ENDMSG 
+           \n\nYou can now reboot into your system." 20 54
+</code></pre></div></div>
+<div class="notice">
+Last edited by <b>tradetaxfree</b> on 25 Jun 2012, 00:47, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23737" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23737">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23737">
+
+<time datetime="2012-03-01T11:33">posted: 2012-03-01 &nbsp; 11:33</time>
+<span class="permalink"><a href="./custom-install-multiple-partitions-optional-encryp-t3579.html#p23737" title="permalink">#2</a></span>
+
+<div class="content">WOW! Thanks for this. When I get some time, I'll try it out. Busy at the moment.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45683" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45683">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">ilde</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 23 Feb 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45683">
+
+<time datetime="2016-03-02T20:59">posted: 2016-03-02 &nbsp; 20:59</time>
+<span class="permalink"><a href="./custom-install-multiple-partitions-optional-encryp-t3579.html#p45683" title="permalink">#3</a></span>
+
+<div class="content">Why is tar the preferred method of transfering files instead of The previously used cp?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45684" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile45684">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45684">
+
+<time datetime="2016-03-03T00:19">posted: 2016-03-03 &nbsp; 00:19</time>
+<span class="permalink"><a href="./custom-install-multiple-partitions-optional-encryp-t3579.html#p45684" title="permalink">#4</a></span>
+
+<div class="content">tar was used to get progress output from pv.<br>
+<br>
+I've also written a 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/itoffshore/alpine-linux-scripts"<br>linktext was:"Partition Editor in shell"<br>====================================<br>
+ for Alpine Linux. It could be ported to Antix quite easily.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45739" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45739">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">rust collector</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45739">
+
+<time datetime="2016-03-10T02:59">posted: 2016-03-10 &nbsp; 02:59</time>
+<span class="permalink"><a href="./custom-install-multiple-partitions-optional-encryp-t3579.html#p45739" title="permalink">#5</a></span>
+
+<div class="content">I did not try all the options, I just used it to copy an install that had ran out of space, to a larger partition. <br>
+And, it did! <br>
+<br>
+Thanks, and... well, thanks</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

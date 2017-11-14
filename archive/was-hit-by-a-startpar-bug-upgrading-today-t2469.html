@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Was hit by a Startpar bug upgrading today - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./was-hit-by-a-startpar-bug-upgrading-today-t2469.html">Was hit by a Startpar bug upgrading today</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_15941" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile15941">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15941">
+<time datetime="2010-06-06T14:50">posted: 2010-06-06 &nbsp; 14:50</time>
+<span class="permalink"><a href="./was-hit-by-a-startpar-bug-upgrading-today-t2469.html#p15941" title="permalink">#1</a></span>
+
+<div class="content">I guess I am real good at breaking AntiX sometimes. I broke 8.2 once updating udev without updating the kernel first in AntiX 8.2 to 2.6.30 or above.<br>
+<br>
+Well, today I upgraded as usual. No fancy repos like sidux . Pretty much stock. After Upgrade I went to reboot and my Laptop. IBM T23. Wouldn't shut down all the way.<br>
+<br>
+So I look at my error and it basically says something about lighttpd and startpar. Leaves me at a screen that says no more to do at this runlevel at the end.<br>
+<br>
+I know. I am not giving the exact error message. That is because I think I already fixed this by googling the error. And now I reboot and logout and shutdown just fine.<br>
+<br>
+Anyhows. What I did was boot into single user mode by adding"single" to the end of kernel line at the bottom of grub screen window.<br>
+<br>
+After entering password and being root user. I did a <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>grep CONCURRENCY /etc/default/rcS
+</code></pre></div>
+what I got back was<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CONCURRENCY=startpar</code></pre></div>
+So reading up on that. I found I needed to do next was<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>nano /etc/default/rcS</code></pre></div>
+which opened up /etc/default/rcS in nano text editor<br>
+<br>
+I edited <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CONCURRENCY=startpar</code></pre></div>
+to <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CONCURRENCY=none</code></pre></div>
+Saved my editing changes and at root prompt typed in <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>reboot</code></pre></div>
+After getting back to my Desktop. Everything seems to work OK now. Just posting this for info. I was real close to thinking of doing a reinstall over this. Happy Trails, Rok</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_15942" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile15942">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15942">
+
+<time datetime="2010-06-06T14:59">posted: 2010-06-06 &nbsp; 14:59</time>
+<span class="permalink"><a href="./was-hit-by-a-startpar-bug-upgrading-today-t2469.html#p15942" title="permalink">#2</a></span>
+
+<div class="content">Thanks for that roky</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_15946" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile15946">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15946">
+
+<time datetime="2010-06-06T18:05">posted: 2010-06-06 &nbsp; 18:05</time>
+<span class="permalink"><a href="./was-hit-by-a-startpar-bug-upgrading-today-t2469.html#p15946" title="permalink">#3</a></span>
+
+<div class="content">But then if you have no concurrency you may boot and shutdown slower.<br>
+You could try 'makefile' concurrency
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>echo CONCURRENCY=makefile &gt;&gt; /etc/default/rcS</code></pre></div>
+and time the boot and the shutdown to see the improvements.<br>
+<br>
+Or better edit it by hand since the above command adds that line and you'll have two concurrency lines and I don't know the command for you to delete the CONCURRENCY=none line <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_15947" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile15947">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15947">
+
+<time datetime="2010-06-06T18:39">posted: 2010-06-06 &nbsp; 18:39</time>
+<span class="permalink"><a href="./was-hit-by-a-startpar-bug-upgrading-today-t2469.html#p15947" title="permalink">#4</a></span>
+
+<div class="content">I tried CONCURRECY=makefile first Secipolla. This didn't fix the shutdown,logout,reboot issue at all. Only by editing it again to CONCURRENCY=none was the fix for me.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#
+# /etc/default/rcS
+#
+# Default settings for the scripts in /etc/rcS.d/
+#
+# For information about these variables see the rcS(5) manual page.
+#
+# This file belongs to the"initscripts" package.
+
+TMPTIME=0
+SULOGIN=no
+DELAYLOGIN=no
+UTC=yes
+VERBOSE=no
+FSCKFIX=no
+RAMRUN=no
+RAMLOCK=no
+ASYNCMOUNTNFS=yes
+CONCURRENCY=none
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

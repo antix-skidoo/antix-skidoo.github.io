@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Upgrade script from 8.2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./upgrade-script-from-8-2-t2467.html">Upgrade script from 8.2</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_15933" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile15933">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">jjm</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Jul 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15933">
+<time datetime="2010-06-06T12:32">posted: 2010-06-06 &nbsp; 12:32</time>
+<span class="permalink"><a href="./upgrade-script-from-8-2-t2467.html#p15933" title="permalink">#1</a></span>
+
+<div class="content">Is there an upgrade script available to migrate from 8.2 to 8.5?<br>
+<br>
+Installing 8.2 works fine on my PIII 1000MHz, but installing 8.5 leaves the boot process hung on"Please wait......" <br>
+<br>
+My 8.5 image file and LiveCD seem to check out. The LiveCD starts and runs fine<br>
+<br>
+I tried <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update
+apt-get dist-upgrade</code></pre></div>
+from 8.2 and got a udev error at the end of it, and could not start up x again. <br>
+<br>
+Any ideas are appreciated.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_15934" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile15934">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15934">
+
+<time datetime="2010-06-06T12:38">posted: 2010-06-06 &nbsp; 12:38</time>
+<span class="permalink"><a href="./upgrade-script-from-8-2-t2467.html#p15934" title="permalink">#2</a></span>
+
+<div class="content">Upgrading 8.2 to 8.5 is possible, but several work arounds are needed.<br>
+<br>
+Give me a while and I'll post out the basic steps</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_15940" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile15940">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15940">
+
+<time datetime="2010-06-06T14:39">posted: 2010-06-06 &nbsp; 14:39</time>
+<span class="permalink"><a href="./upgrade-script-from-8-2-t2467.html#p15940" title="permalink">#3</a></span>
+
+<div class="content">Ok, I managed to upgrade a fresh 8.2 to latest Testing repos, but you'll need to jump through some hoops. YMMV.<br>
+<br>
+This is what I did.<br>
+<br>
+1. Edit /etc/apt/apt.conf to read like the following.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>APT::Default-Release"testing";
+APT::Cache-Limit 60000000;
+APT::Get::Purge;
+APT::Get::AllowUnauthenticated 0;
+Acquire::cdrom::Mount"/media/cdrom";
+</code></pre></div>
+2. Install latest MEPIS kernel and headers.<br>
+apt-get install linux-image-2.6.32-1-mepis-smp linux-headers-2.6.32-1-mepis-smp<br>
+<br>
+3. You need to update grub menu and boot into the new kernel. Check all is ok. Ignore uspash error on reboot.<br>
+#update-grub<br>
+<br>
+4. You need to remove some config files.<br>
+Remove/delete from /etc/init.d<br>
+ejectcd (or whatever the spelling error is) and mepis-network<br>
+Remove from /etc/udev all the config files except hdparm.rules, links.conf, logitechmouse.rules,<br>
+pcmcia.rules, udev.conf<br>
+and from /etc/udev/rules.d remove hplj10xx.rules, hpmud.rules, libmtp7.rules, libnjb.rules<br>
+<br>
+5. Comment out MEPIS repo in /etc/apt/sources.list<br>
+Remove/purge the following apps.<br>
+# apt-get update <br>
+# apt-get purge lighttpd wicd*<br>
+<br>
+6. Now time to dist-upgrade. This is huge over 500MB<br>
+#apt-get update<br>
+#apt-get dist-upgrade<br>
+<br>
+It will remove some apps like gecko-mediaplayer, mplayer and xserver-xorg. This is ok as we reinstall them later.<br>
+<br>
+7. If asked to convert to dependency based booting answer yes. If it fails, no worry.<br>
+Hit N when asked if you want to use the new config files.<br>
+<br>
+8. If there are any errors concerning ndiswrapper-dkms, just purge those apps <br>
+# apt-get purge ndiswrapper-dkms <br>
+#apt-get -f install<br>
+<br>
+9. Time to reinstall removed apps.<br>
+# apt-get install gecko-mediaplayer xorg xserver-xorg-input-all<br>
+<br>
+10. Now you should be able to reboot into an upgraded 8.2 desktop.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_15948" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile15948">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">jjm</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Jul 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15948">
+
+<time datetime="2010-06-07T01:21">posted: 2010-06-07 &nbsp; 01:21</time>
+<span class="permalink"><a href="./upgrade-script-from-8-2-t2467.html#p15948" title="permalink">#4</a></span>
+
+<div class="content">Thanks. I will see how it goes, and let you all know.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_15984" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile15984">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15984">
+
+<time datetime="2010-06-09T02:05">posted: 2010-06-09 &nbsp; 02:05</time>
+<span class="permalink"><a href="./upgrade-script-from-8-2-t2467.html#p15984" title="permalink">#5</a></span>
+
+<div class="content">How'd it go, jjm?<br>
+A clean install would be easier and more efficient. I did it twice on my PIII ! (lol)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16095" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16095">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">jjm</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Jul 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16095">
+
+<time datetime="2010-06-12">posted: 01:16</time>
+<span class="permalink"><a href="./upgrade-script-from-8-2-t2467.html#p16095" title="permalink">#6</a></span>
+
+<div class="content">Thanks, I was having trouble with a clean install. I used an image that booted fine in vbox on a Mepis box, the liveCD worked fine, but hung when booting after install. <br>
+<br>
+I downloaded a new iso, checked the md5sum and burned a new disk. All went well.<br>
+<br>
+Really great on this PIII 1000 MHz...boots in 30 secs from grub!!!<br>
+<br>
+Next challenge, is there anyway to install the nVidia driver for a GeForce2 MX/MX400 AGP video card? I think I've read the legacy driver breaks x.org and x won't start. <br>
+<br>
+Any ideas on that one?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16098" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16098">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16098">
+
+<time datetime="2010-06-12T14:36">posted: 2010-06-12 &nbsp; 14:36</time>
+<span class="permalink"><a href="./upgrade-script-from-8-2-t2467.html#p16098" title="permalink">#7</a></span>
+
+<div class="content">Theoretically you could use sgfxi to install the 71.xx.xx driver. I don't know if it's compatible with the latest xorg but sgfxi will inform you about that.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16107" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16107">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">jjm</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Jul 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16107">
+
+<time datetime="2010-06-12T17:47">posted: 2010-06-12 &nbsp; 17:47</time>
+<span class="permalink"><a href="./upgrade-script-from-8-2-t2467.html#p16107" title="permalink">#8</a></span>
+
+<div class="content">Thanks secipolla,<br>
+<br>
+After a little research, the appropriate driver is the 96.43...which installed fine via sgfxi. <br>
+<br>
+Cheers, <br>
+<br>
+Jeff</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Problems with mepis-init. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./announcements-and-news-old-f38/index.html"><span>Announcements and News (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problems-with-mepis-init-t1815.html">Problems with mepis-init.</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_11696" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile11696">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content11696">
+<time datetime="2009-07-10T14:59">posted: 2009-07-10 &nbsp; 14:59</time>
+<span class="permalink"><a href="./problems-with-mepis-init-t1815.html#p11696" title="permalink">#1</a></span>
+
+<div class="content">If you have upgraded recently, you may get an error message regarding mepis-init and/or initscripts.<br>
+<br>
+The long-term solution is to remove mepis-init, but DO NOT DO THIS UNTIL YOU HAVE BACKED UP THESE IMPORTANT FILES. Otherwise your box will not be able to boot.<br>
+<br>
+/etc/rc.local<br>
+/etc/default/rcS<br>
+/etc/init.d/sendsigs<br>
+/etc/kernel-img.conf<br>
+/usr/sbin/buildxconfig<br>
+/usr/sbin/buildfstab<br>
+/usr/sbin/scanpartitions<br>
+<br>
+Then apt-get purge mepis-init.<br>
+<br>
+Restore the backup files.<br>
+Reboot.<br>
+<br>
+I have written a script to do this. Put it in /home user folder, call it antiX-post.sh, make it executable and run as root.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+      cp /etc/rc.local /etc/rc.local.old
+      cp /etc/default/rcS /etc/default/rcS.old
+      cp /etc/init.d/sendsigs /etc/init.d/sendsigs.old
+      cp /etc/kernel-img.conf /etc/kernel-img.conf.old
+      cp /usr/sbin/buildxconfig /usr/sbin/buildxconfig.bak
+      cp /usr/sbin/buildfstab /usr/sbin/buildfstab.bak
+      cp /usr/sbin/scanpartitions /usr/sbin/scanpartitions.bak
+      apt-get remove --purge mepis-init -y -qq
+      mv /etc/rc.local.old /etc/rc.local
+      mv /etc/default/rcS.old /etc/default/rcS
+      mv /etc/init.d/sendsigs.old /etc/init.d/sendsigs
+      mv /etc/kernel-img.conf.old /etc/kernel-img.conf
+      mv /usr/sbin/buildxconfig.bak /usr/sbin/buildxconfig
+      mv /usr/sbin/buildfstab.bak /usr/sbin/buildfstab
+      mv /usr/sbin/scanpartitions.bak /usr/sbin/scanpartitions
+</code></pre></div>]<br>
+<br>
+Or if you prefer run each step line by line as root in terminal.<br>
+<br>
+<br>
+The short-term solution is to force mepis-install.<br>
+<br>
+#dpkg -i --force-all /var/cache/apt/archives/mepis-init*.deb<br>
+#apt-get -f install.<br>
+<br>
+Then keep initscripts on hold.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

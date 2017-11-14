@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Troubleshooting keyboard layout. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./troubleshooting-keyboard-layout-t1617.html">Troubleshooting keyboard layout.</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_10176" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10176">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10176">
+<time datetime="2009-04-10T19:53">posted: 2009-04-10 &nbsp; 19:53</time>
+<span class="permalink"><a href="./troubleshooting-keyboard-layout-t1617.html#p10176" title="permalink">#1</a></span>
+
+<div class="content">Hi, I'm using AntixM-8 and I chose br-abnt2 for my keyboard layout. That's what's selected in xorg.conf but it seems that the app in Control Panel overrides it (and there's no Brazilian option there). I need help solving this.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"ServerLayout"
+  Identifier"XFree86 Configured"
+  Screen 0"Screen0" 0 0
+ #Screen 0"ATIScreen" 0 0
+ #Screen 1"Screen1" RightOf"Screen0"
+ #Option"Xinerama""true"
+ #Option"Clone""true"
+  InputDevice"Keyboard0""CoreKeyboard"
+  InputDevice"PS/2 Mouse""CorePointer"
+ #InputDevice"USB Mouse""CorePointer"
+ #InputDevice"Touchpad""SendCoreEvents"
+ #InputDevice"ALPS Touchpad""SendCoreEvents"
+ #InputDevice"Appletouch""SendCoreEvents"
+ #InputDevice"Stylus""SendCoreEvents"
+ #InputDevice"Eraser""SendCoreEvents"
+ #InputDevice"Cursor""SendCoreEvents"
+ #InputDevice"Serial Mouse""CorePointer"
+EndSection
+
+Section"ServerFlags"
+  Option"AllowMouseOpenFail""true"
+EndSection
+
+Section"Files"
+# Xorg 7.0 font paths
+    FontPath    "/usr/share/fonts/X11/100dpi:unscaled"
+    FontPath    "/usr/share/fonts/X11/misc:unscaled"
+
+# Other font paths
+    FontPath    "/usr/share/fonts/truetype/arphic"
+    FontPath    "/usr/share/fonts/truetype/freefont"
+    FontPath    "/usr/share/fonts/truetype/kochi"
+    FontPath    "/usr/share/fonts/truetype/ttf-bitstream-vera"
+
+# path to defoma fonts
+    FontPath   "/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType"
+
+EndSection
+
+Section"Module"
+  Load"dbe"
+  Load"dri"
+  Load"extmod"
+  Load"freetype"
+  Load"glx"
+  Load"type1"
+  Load"v4l"
+  Load"vbe"
+EndSection
+
+Section"InputDevice"
+  Identifier"Keyboard0"
+  Driver"keyboard"
+  Option"CoreKeyboard"
+  Option"XkbModel""pc105"
+  Option"XkbLayout""br-abnt2"
+  Option"XKbOptions"""
+EndSection
+
+Section"InputDevice"
+  Identifier"Serial Mouse"
+  Driver"mouse"
+  Option "Protocol""Microsoft"
+  Option "Device""/dev/ttyS0"
+  Option "Emulate3Buttons""false"
+  Option "Emulate3Timeout""70"
+EndSection
+
+Section"InputDevice"
+  Identifier"Touchpad"
+  Driver"synaptics"
+  Option"Device""/dev/psaux"
+  Option"Protocol""auto-dev"
+  Option"LeftEdge""1700"
+  Option"RightEdge""5300"
+  Option"TopEdge""1700"
+  Option"BottomEdge""4200"
+  Option"FingerLow""25"
+  Option"FingerHigh""30"
+  Option"MaxTapTime""180"
+  Option"MaxTapMove""220"
+  Option"VertScrollDelta""100"
+  Option"HorizScrollDelta""0"
+  Option"MinSpeed""0.09"
+  Option"MaxSpeed""0.18"
+  Option"AccelFactor""0.0015"
+  Option"SHMConfig""on"
+EndSection
+
+Section"InputDevice"
+  Driver"synaptics"
+  Identifier"ALPS Touchpad"
+  Option"Device""/dev/input/mouse0"
+  Option"Protocol""event"
+  Option"LeftEdge""130"
+  Option"RightEdge""840"
+  Option"TopEdge""130"
+  Option"BottomEdge""640"
+  Option"FingerLow""7"
+  Option"FingerHigh""8"
+  Option"MaxTapTime""180"
+  Option"MaxTapMove""110"
+  Option"EmulateMidButtonTime""75"
+  Option"VertScrollDelta""20"
+  Option"HorizScrollDelta""0"
+  Option"MinSpeed""0.25"
+  Option"MaxSpeed""0.50"
+  Option"AccelFactor""0.030"
+  Option"EdgeMotionMinSpeed""200"
+  Option"EdgeMotionMaxSpeed""200"
+  Option"UpDownScrolling""1"
+  Option"CircularScrolling""1"
+  Option"CircScrollDelta""0.1"
+  Option"CircScrollTrigger""2"
+  Option"SHMConfig""on"
+EndSection
+
+Section"InputDevice"
+  Identifier"Appletouch"
+  Driver"synaptics"
+  Option"Device""/dev/psaux"
+  Option"Protocol""auto-dev"
+  Option"LeftEdge""100"
+  Option"RightEdge""1120"
+  Option"TopEdge""50"
+  Option"BottomEdge""310"
+  Option"FingerLow""25"
+  Option"FingerHigh""30"
+  Option"MaxTapMove""220"
+  Option"TapButton1""1"
+  Option"TapButton2""3"
+  Option"TapButton3""2"
+  Option"MinSpeed""0.79"
+  Option"MaxSpeed""0.88"
+  Option"AccelFactor""0.0015"
+  Option"SHMConfig""on"
+EndSection
+
+Section"InputDevice"
+  Identifier"PS/2 Mouse"
+  Driver"mouse"
+  Option"Protocol""auto"
+  Option"Device""/dev/psaux"
+  Option"Emulate3Buttons""false"
+  Option"Emulate3Timeout""70"
+  Option"ZAxisMapping""4 5"
+  Option"Buttons""5"
+EndSection
+
+Section"InputDevice"
+  Identifier"USB Mouse"
+  Driver"mouse"
+  Option"Device""/dev/input/mice"
+  Option"Protocol""ExplorerPS/2"
+  Option"ZAxisMapping""4 5"
+  Option"Buttons""5"
+EndSection
+
+Section"InputDevice"
+  Identifier"Stylus"
+  Driver"wacom"
+  Option"Mode""Absolute"
+  Option"Type""stylus"
+  Option"Device""/dev/input/wacom"
+Endsection
+
+# Settings for wacom eraser
+Section"InputDevice"
+  Identifier"Eraser"
+  Driver"wacom"
+  Option"Mode""Absolute"
+  Option"Type""eraser"
+  Option"Device""/dev/input/wacom"
+Endsection
+
+# Settings for wacom cursor (mouse)
+Section"InputDevice"
+  Identifier"Cursor"
+  Driver"wacom"
+  Option"Mode""Relative"
+  Option"Type""cursor"
+  Option"Device""/dev/input/wacom"
+Endsection
+
+Section"Monitor"
+  Identifier"Monitor0"
+  VendorName"unknown"
+  ModelName"unknown"
+  Option"DPMS""true"
+  HorizSync    30-75
+  VertRefresh  55-70
+
+EndSection
+
+Section"Monitor"
+  Identifier"Monitor1"
+  VendorName"unknown"
+  ModelName"unknown"
+  Option"DPMS""true"
+  HorizSync    30-75
+  VertRefresh  55-70
+EndSection
+
+Section"Monitor"
+  Identifier "ATIMonitor"
+  VendorName"unknown"
+  ModelName"unknown"
+  Option"DPMS""true"
+  HorizSync    30-75
+  VertRefresh  55-70
+EndSection
+
+Section"Device"
+  Identifier "Card0"
+  Driver"nv"
+  BoardName"unknown"
+
+  Screen 0
+ #Option"UseDisplayDevice""dfp"
+ #Option"MonitorLayout""crt,crt"
+ #BusID "PCI:1:0:0"
+ #Option"sw_cursor" # needed for some ati cards
+ #Option"hw_cursor"
+ #Option"NoAccel"
+ #Option"ShowCache"
+ #Option"ShadowFB"
+ #Option"UseFBDev"
+ #Option"Rotate"
+  Option"UseInternalAGPGART""no"
+
+  Option"XAANoOffscreenPixmaps""true"
+
+# savage special options, use with care
+ #Option"NoUseBios"
+ #Option"BusType""PCI"
+  Option"DmaMode""None"
+
+# nvidia special options, use with care
+  Option"CursorShadow""1"
+  Option"CursorShadowAlpha""63"
+  Option"CursorShadowYOffset""2"
+  Option"CursorShadowXOffset""4"
+  Option"FlatPanelProperties""Scaling = native"
+  Option"NoLogo""true"
+  Option"UseEDID""true"
+  Option"AddARGBGLXVisuals""true"
+  Option"RenderAccel""true"
+ #Option"AllowGLXWithComposite""true"
+EndSection
+
+Section"Device"
+  Identifier "Card1"
+  Driver"nv"
+  BoardName"unknown"
+
+  Screen 1
+ #Option"MonitorLayout""crt,crt"
+ #BusID "PCI:1:0:0"
+EndSection
+
+Section"Screen"
+  Identifier"Screen0"
+  Device"Card0"
+  Monitor"Monitor0"
+  DefaultColorDepth 16
+  
+  SubSection"Display"
+  Depth 8
+  Modes"1024x768""800x600"
+  EndSubSection
+  SubSection"Display"
+  Depth 15
+  Modes"1024x768""800x600"
+  EndSubSection
+  SubSection"Display"
+  Depth 16
+  Modes"1024x768""800x600"
+  EndSubSection
+  SubSection"Display"
+  Depth 24
+  Modes"1024x768""800x600"
+  EndSubSection
+  SubSection"Display"
+  Depth 32
+  Modes"1024x768""800x600"
+  EndSubSection
+  
+  # Only the official NVIDIA driver supports twinview
+  # these setting are an example
+  Option"TwinView""false"
+  Option"SecondMonitorVendorName""unknown"
+  Option"SecondMonitorModelName""unknown"
+  Option"SecondMonitorHorizSync""30-75"
+  Option"SecondMonitorVertRefresh""55-70"
+ #Option"MetaModes""1024x768, 1024x768"
+  Option"TwinViewOrientation""RightOf"
+  Option"ConnectedMonitor""dfp,dfp"
+EndSection
+
+Section"Screen"
+  Identifier"Screen1"
+  Device"Card1"
+  Monitor"Monitor1"
+  DefaultColorDepth 16
+  
+  SubSection"Display"
+  Depth 8
+  Modes"1024x768""800x600"
+  EndSubSection
+  SubSection"Display"
+  Depth 15
+  Modes"1024x768""800x600"
+  EndSubSection
+  SubSection"Display"
+  Depth 16
+  Modes"1024x768""800x600"
+  EndSubSection
+  SubSection"Display"
+  Depth 24
+  Modes"1024x768""800x600"
+  EndSubSection
+  SubSection"Display"
+  Depth 32
+  Modes"1024x768""800x600"
+  EndSubSection
+EndSection
+
+Section"Screen"
+  Identifier"ATIScreen"
+  Device"Card0"
+  Monitor"ATIMonitor"
+  DefaultColorDepth 24
+  
+  SubSection"Display"
+  Depth 24
+  Modes"1024x768""800x600"
+  EndSubSection
+EndSection
+
+Section"DRI"
+  Mode 0666
+EndSection
+
+Section"Extensions"
+  Option"Composite""Enable"
+EndSection
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10177" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10177">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10177">
+
+<time datetime="2009-04-10T20:21">posted: 2009-04-10 &nbsp; 20:21</time>
+<span class="permalink"><a href="./troubleshooting-keyboard-layout-t1617.html#p10177" title="permalink">#2</a></span>
+
+<div class="content">Try editing Option"XKbOptions"""<br>
+<br>
+to read<br>
+<br>
+Option"XKbOptions""br"<br>
+<br>
+You'll need to restart X</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10181" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10181">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>1,228</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10181">
+
+<time datetime="2009-04-10T22:26">posted: 2009-04-10 &nbsp; 22:26</time>
+<span class="permalink"><a href="./troubleshooting-keyboard-layout-t1617.html#p10181" title="permalink">#3</a></span>
+
+<div class="content">The solution was:<br>
+Option"XkbModel""<strong>abnt2</strong>" instead of <em>Option"XkbModel""pc105"</em><br>
+Option"XkbLayout""<strong>br</strong>" instead of <em>Option"XkbLayout""br-abnt2"</em><br>
+So if you can mend that, it's one more country (a big one) properly supported by Antix. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Another consideration: I use a GeForce4 MX460 video card (nVidia legacy driver). When I first installed Antix the graphics was awful, the monitor settings defaulted to 70Hz and squeezed the screen at the left and the right sides. My monitor operates in between 50Hz and 60Hz but when I chose 60Hz under the 'change screen resolution' in Control Panel it kept flickering even though the distortion disappeared. I couldn't imagine it would be so easy to install the nVidia proprietary driver (and the xorg.conf file was quite intimidating). I thought it was GNOME that was so much refined (there's an ubuntu install here) but no, Antix is looking good now.<br>
+You see (<em>anticapitalista</em> and the other guys that contribute with coding), it seems Antix isn't the kind of o.s. that sees your video card and pops up an advice asking if you want to install the cards prop. driver, but it's so easy and it works <strong>so much</strong> better that it should be more highlighted somewhere. I'm pretty ignorant about this but I thought it could be not so good to the monitor to work with wrong (higher) refresh rates too.<br>
+Thank you very much for all of you for this nice software!<br>
+Sergio.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10182" class="post has-profile bg1">
+ <div class="inner">
+<dl class="postprofile" id="profile10182">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10182">
+
+<time datetime="2009-04-10T22:36">posted: 2009-04-10 &nbsp; 22:36</time>
+<span class="permalink"><a href="./troubleshooting-keyboard-layout-t1617.html#p10182" title="permalink">#4</a></span>
+
+<div class="content">You are right on both points.<br>
+I hadn't read carefully about the xorg.conf settings, and, of course your solution is correct.<br>
+<br>
+For the second point about nvidia and screen, I have the same problem on 2 of the desktops I use, ie the screen doesn't centre correctly until the nvidia driver is installed and then it is perfect.<br>
+<br>
+I'll look into this for future releases.<br>
+<br>
+Have fun with antiX.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10189" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10189">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10189">
+
+<time datetime="2009-04-11T00:55">posted: 2009-04-11 &nbsp; 00:55</time>
+<span class="permalink"><a href="./troubleshooting-keyboard-layout-t1617.html#p10189" title="permalink">#5</a></span>
+
+<div class="content">Maybe a 'post install' script would be a good idea? Something that would start automatically after the first reboot. You could use it to install things like graphics drivers or locales, maybe bring it up to date or set up some customizing.<br>
+<br>
+Another addition could be a quick antiX walk through. Something that would 'explain' the control center.<br>
+<br>
+Food for thought.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Convert wav to flac - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./convert-wav-to-flac-t6823.html">Convert wav to flac</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_50086" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50086">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">Stripey</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50086">
+<time datetime="2017-02-02T07:09">posted: 2017-02-02 &nbsp; 07:09</time>
+<span class="permalink"><a href="./convert-wav-to-flac-t6823.html#p50086" title="permalink">#1</a></span>
+
+<div class="content">Here is a simple script to convert wav files to flac using SoX or avconv (both standard with antiX).<br>
+<br>
+Eases converting your wav collection to a smaller format for portable players etc...<br>
+<br>
+Script converts wav files in current directory to flac in destination folder.<br>
+<br>
+Normalization of volume is default but is configurable and optional. <br>
+Files are compared. Also a set of spectrographs can be generated.<br>
+<br>
+A small help file is included.<br>
+<br>
+Tested: works on Ubuntu, Mac (homebrew), and antiX.<br>
+<br>
+Enjoy!<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>
+
+Edited to include code as files as attachments not allowed  :| 
+#!/bin/bash
+
+# Convert WAV to FLAC -- normalize and prevent clipping, show progress
+#    Author: mo@snille.com    Date: 08 Jan 2017    (Edited: 7)
+
+test=$#; use_avconv=0; ghlp=0; nrm=0; s=0; outdir=FLAC
+
+# Can add usr path to help:  for fdir in ~/ /usr; do 
+# find $fdir -type f -regex '.*wav2flac\/readme.txt' -exec more '{}' \;; done
+["$1" ="-h" -o"$1" ="--help" ] &amp;&amp; { find ~/ -type f -iregex '.*wav2flac\/readme.txt' -exec more '{}' \; || echo"See readme.txt in wav2flac directory."; exit ; }
+
+# No arguments passed
+[ $test = 0 ] &amp;&amp; { echo -e"*** No arguments passed. ***\n
+\tUsage: [./]wav2flac [[\"]output dir[\"]]\n
+Default output subdirectory FLAC will be used.\n"
+read -p" OK? [y/N]" -n 1 svar; 
+["$svar" ="y" -o"$svar" ="Y" ] &amp;&amp; echo  || { echo -e"\n\tBailing out!\n"; exit; } 
+} 
+
+# Get arguments
+while [[ $# -gt 1 ]]; do
+
+case $1 in
+  -a | --avc*) use_avconv=$2;;
+  -d | --dir*) outdir=$2;;
+  -n | --nor*) nrm="$2";;
+  -s | --spe*) s="$2";;
+esac
+shift # past argument/value
+
+done
+
+# echo ghlp=$ghlp $outdir=$outdir nrm=$nrm avconv=$use_avconv s=$s
+# exit
+
+# Check for dest dir
+[ -e"$outdir" ] &amp;&amp; echo"
+Found directory \"$outdir\": OK" || { mkdir -p"$outdir" &amp;&amp; echo -e"\nI made \"$outdir\" directory.\n"; } 
+
+# Convert &amp; compare -- with sox not ffmpeg -i $f -o ${f/.wav/.flac} nor avconv
+
+ 
+[ -d /tmp/wav2flac ] || mkdir /tmp/wav2flac; 
+
+# find *wav and *WAV files in this directory
+
+# Allow mix of wav &amp; WAV names
+# sl="" # list of temp symbolic links
+# if both wav &amp; WAV...
+[ `ls *.WAV 2&gt;/dev/null | wc -l` != 0 -a `ls *.WAV 2&gt;/dev/null | wc -l` != 0 ] &amp;&amp; {
+  for f in *.WAV; do
+#    [ -e"${f/.WAV/.wav}" ] &amp;&amp; {
+    [ `ls"${f/.WAV/.wav}" | wc -l` != 0 ] &amp;&amp; {
+ echo -e"\n*** Converting $f to ${f/.WAV/_W.flac} to avoid naming conflict. ***\n"
+ sl="${f/.WAV/_W.wav}"; } || sl="${f/.WAV/.wav}" 
+ln -s"$f""$sl" &amp;&amp; echo $sl &gt;&gt; /tmp/wav2flac/tmplist
+  done; }
+
+# exit
+
+# Convert
+echo -e"\nBegin converting.\n"
+
+# [ -e *.wav ]  &amp;&amp; test=wav || test=WAV;
+f=`ls *.wav | wc -l 2&gt;/dev/null`; [ $f != 0 ]  &amp;&amp; test=wav || test=WAV;
+
+for f in *.$test ; do 
+    ["$f" !="*.$test" ] &amp;&amp; {
+        ["$use_avconv" !="1" ] &amp;&amp; { echo"SoX"
+        sox -S --temp"/tmp/wav2flac/" "$f""$outdir/${f/.$test/.flac}" --norm=$nrm
+# -magic not compiled?
+#       If SoX fails or use_avconv forced 
+        } || { echo avconv; avconv -i"$f""$outdir/${f/.$test/.flac}"; }
+    }
+done
+# Compare
+echo -e"\nCompare:\n"
+for f in *."$test" ; do
+["$f" !="*.$test" ] &amp;&amp; {
+# echo -n"Sample count   : `soxi -s"$f"`"
+soxi"$f";
+# echo -n"Sample count   : `soxi -s"$f"`"
+soxi"$outdir/${f/.$test/.flac}"; 
+
+[ $s = 1 ] &amp;&amp; { echo -e"Creating spectrographs...\n"
+        sox -S -G --temp=/tmp/wav2flac"$f" -n spectrogram -x 1024 -y 768\
+ -z 100 -t"$f" -c '' -o"$outdir/${f/.$test/_wav_.png}"
+        sox -S -G --temp=/tmp/wav2flac"$outdir/${f/.$test/.flac}" -n spectrogram\
+ -x 1024 -y 768 -z 100 -t"$outdir/${f/.$test/.flac}" -c '' -o"$outdir/${f/.$test/.png}"
+} # end create spectrographs
+
+} done
+
+# Tidy any temp symlinks
+touch /tmp/wav2flac/tmplist; sl=""; 
+while read sl; do rm"$sl"; done &lt; /tmp/wav2flac/tmplist 
+
+# unset slinks
+
+# Tidy temp directory
+rm -r /tmp/wav2flac
+
+echo -e"\nBye!"
+</code></pre></div>
+<blockquote class="uncited"><div>
+<br>
+Refers to: wav2flac [Friday 13 january 2017]<br>
+<br>
+<br>
+<br>
+Script converts wav files in current directory to flac in destination folder.<br>
+<br>
+Normalization of volume is default but is configurable and optional. <br>
+Files are compared. Optionally a set of spectrographs generated.<br>
+<br>
+<br>
+<br>
+Tips:<br>
+You may need to set the executable permission.<br>
+Example: chmod +x wav2flac<br>
+<br>
+For ease of use make a symbolic link to the script you prefer.<br>
+Example: ln -s [/path/].wav2flac/wav2flac /usr/bin/wav2flac<br>
+<br>
+<br>
+<br>
+Basic Usage:    cd [directory with wav files to convert]<br>
+wav2flac <br>
+<br>
+<br>
+Advanced:    wav2flac [-d ["][full path]output directory["]] [-a 0|1] [-n #] [-s 0|1]<br>
+<br>
+<br>
+Options:<br>
+<br>
+-a (0|1) Transcode with avconv if set to 1. Default: 0<br>
+Uses Sound Exchange (SoX) by default.<br>
+Also --avconv [0|1]<br>
+<br>
+<br>
+-d Output directory.<br>
+Default is FLAC subdirectory. <br>
+Use escape characters or quote marks as required. <br>
+Directory will be created if not found.<br>
+Also --directory <br>
+<br>
+<br>
+-n (#) Normalize volume to prevent clipping. SoX only, <br>
+Default is 0 dB: -n 0. Max number is 0.<br>
+Use avconv (see above) if normalization not desired.<br>
+Also --normalize (#)<br>
+<br>
+<br>
+-s (0|1) Make spectrographs. Default: -s 0 no spectrographs.<br>
+Images placed in output directory.<br>
+Also --spectrograph [0|1] <br>
+<br>
+<br>
+<br>
+More info:<br>
+<br>
+Some advice on audio transcoding<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.learndigitalaudio.com/normalize-audio"<br>linktext was:"http://www.learndigitalaudio.com/normalize-audio"<br>====================================<br>
+<br>
+<br>
+Peak normalization<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://en.wikipedia.org/wiki/Audio_normalization#Peak_normalization"<br>linktext was:"https://en.wikipedia.org/wiki/Audio_nor ... malization"<br>====================================<br>
+<br>
+<br>
+man sox<br>
+man soxi<br>
+man avconv<br>
+<br>
+<br>
+Bug reports to:"Bugs bugs bugs!" &lt;<a href="mailto:mo@snille.com">mo@snille.com</a>&gt;<br>
+<br>
+<br>
+Known issues:<br>
+<br>
+1. an error message - no ramifications:<br>
+<br>
+ls: cannot access *.wav: No such file or directory<br>
+<br>
+When looking at directories with *.WAV only filenames.<br>
+<br>
+<br>
+</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51412" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51412">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51412">
+
+<time datetime="2017-05-18T00:59">posted: 2017-05-18 &nbsp; 00:59</time>
+<span class="permalink"><a href="./convert-wav-to-flac-t6823.html#p51412" title="permalink">#2</a></span>
+
+<div class="content">How 'bout just?:<br>
+<br>
+sox [file].wav [file].flac</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51470" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51470">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">Stripey</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51470">
+
+<time datetime="2017-05-26T14:49">posted: 2017-05-26 &nbsp; 14:49</time>
+<span class="permalink"><a href="./convert-wav-to-flac-t6823.html#p51470" title="permalink">#3</a></span>
+
+<div class="content">In case it is not clear here are the files:<br>
+<br>
+Directory: wav2flac or .wav2flac somewhere in user's files<br>
+Files: wav2flav the executable<br>
+readme.txt the help<br>
+<br>
+Some users have found this script useful. You may like to give it a try. <br>
+<br>
+Have fun and do it your way, always!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51471" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51471">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51471">
+
+<time datetime="2017-05-26T16:07">posted: 2017-05-26 &nbsp; 16:07</time>
+<span class="permalink"><a href="./convert-wav-to-flac-t6823.html#p51471" title="permalink">#4</a></span>
+
+<div class="content">Hey, thanks for sharing the script, and... why might one want to generate a"specro-thingie" for each converted audiofile?<br>
+<br>
+I"looked it up", and although I'm familiar with using <em>waveform view</em> in audacity (to zoom in and mark exact splice endpoints)<br>
+not sure how I'd put an audio spectrogram to use by viewing it outside an editing context.<br>
+Hmm, by using an imageviewer, and scrolling through a directory of spectro- images... <br>
+can flesh out"this this and THIS needs to be cleaned up (normalized, or equalized)" ???<br>
+<blockquote class="uncited"><div>
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://manual.audacityteam.org/man/spectrogram_view.html"<br>linktext was:"http://manual.audacityteam.org/man/spec ... _view.html"<br>====================================<br>
+<br>
+<br>
+The Spectrogram View of an audio track provides a visual indication of how the energy in different frequency bands changes over time.<br>
+The Spectrogram can show sudden onset of a sound, so it can often be easier to see clicks and other glitches or to line up beats in this view<br>
+rather than in one of the waveform views. </div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51530" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51530">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">Stripey</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51530">
+
+<time datetime="2017-06-02T04:31">posted: 2017-06-02 &nbsp; 04:31</time>
+<span class="permalink"><a href="./convert-wav-to-flac-t6823.html#p51530" title="permalink">#5</a></span>
+
+<div class="content">Thanks for finding a use for the images! There had to be more than reassuring"looks same" <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51631" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51631">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">Stripey</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Dec 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51631">
+
+<time datetime="2017-06-17T13:05">posted: 2017-06-17 &nbsp; 13:05</time>
+<span class="permalink"><a href="./convert-wav-to-flac-t6823.html#p51631" title="permalink">#6</a></span>
+
+<div class="content">Got an interesting request to make the wav2flac script grab the folder name as it does file names.<br>
+"Sounds reasonable," I thought.<br>
+<br>
+You can do this with the pwd command. No change in script required (but you could do that if you like).<br>
+<br>
+With pwd we print the working directory to awk.<br>
+Awk parses the string into fields using the forward slash delimiter and prints the last field.<br>
+<br>
+I'll do an echo test -- if you like open a terminal and try it for yourself.<br>
+<blockquote class="uncited"><div>
+<br>
+Stripey@system:~<br>
+$ dest=/media/remDrv/Flac/"$(pwd | awk -F / '{ f=NF; print $f; }')"<br>
+Stripey@system:~<br>
+$ echo $dest<br>
+/media/remDrv/Flac/Stripey<br>
+Stripey@system:~<br>
+$ dest="$(pwd | awk -F / '{ f=NF; print $f; }')"<br>
+Stripey@system:~<br>
+$ echo $dest<br>
+Stripey<br>
+$<br>
+</div></blockquote>
+<br>
+<br>
+In the wavfile folder we wish to transcode we give"$dest" the path to our output directory.<br>
+We test with echo and call wav2flac when ready.<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>
+# destination same name as current folder
+dest="$(pwd | awk -F / '{ f=NF; print $f; }')"
+
+# add path to removable drive, relative or absolute
+dest=/media/remDrv/Flac/"$dest"
+
+# etc...
+dest=~/Music/"$dest - FLAC"
+
+# test
+echo" '$dest'"
+# When it's good to go let 'er rip
+wav2flac --directory"$dest"
+# Tip: use tab-completion to avoid typos in directory path
+
+</code></pre></div>
+<br>
+The take away.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

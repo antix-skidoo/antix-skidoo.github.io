@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>xfburn Unable to grab the drive at path '/dev/sr1' (ret=-1) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./xfburn-unable-to-grab-the-drive-at-path-dev-sr1-re-t6002.html">xfburn Unable to grab the drive at path '/dev/sr1' (ret=-1)</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43654" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43654">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">386solardrain</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43654">
+<time datetime="2015-10-26T03:36">posted: 2015-10-26 &nbsp; 03:36</time>
+<span class="permalink"><a href="./xfburn-unable-to-grab-the-drive-at-path-dev-sr1-re-t6002.html#p43654" title="permalink">#1</a></span>
+
+<div class="content">Naturally the burn button is ghosted.<br>
+It's worked before... I barely sledgehammer this machine anymore...<br>
+A look at the console shows it chucking back:<br>
+** Message: Using UDEV<br>
+libburn-FATAL : Failed to transfer command to drive<br>
+libburn-( Most recent system error: 5 'Input/output error' )<br>
+libburn-FATAL : Lost connection to drive<br>
+libburn-FATAL : Failed to transfer command to drive<br>
+libburn-( Most recent system error: 5 'Input/output error' )<br>
+libburn-FATAL : Lost connection to drive<br>
+libburn-FATAL : Failed to transfer command to drive<br>
+libburn-( Most recent system error: 5 'Input/output error' )<br>
+libburn-FATAL : Lost connection to drive<br>
+libburn-FATAL : Failed to transfer command to drive<br>
+libburn-( Most recent system error: 5 'Input/output error' )<br>
+libburn-FATAL : Lost connection to drive<br>
+** (xfburn:2889): WARNING **: Unable to grab the drive at path '/dev/sr1' (ret=-1).<br>
+** (xfburn:2889): WARNING **: Couldn't grab drive in order to update speed list.<br>
+** (xfburn:2889): WARNING **: A pipeline element could not be created<br>
+<br>
+<br>
+Somehow the drive's supposed to be busy. It's not listed in lsof -K (not as /dev/s anything) though the kernel has been whining amain about the Fedora 4 disk (ready for rewriting, maybe) in the vein of<br>
+[611471.464059] blk_update_request: I/O error, dev fd0, sector 0<br>
+[611471.464069] floppy: error -5 while reading block 0<br>
+[611476.168396] sr 4:0:1:0: [sr1] tag#0 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE<br>
+[611476.168406] sr 4:0:1:0: [sr1] tag#0 Sense Key : Medium Error [current] <br>
+[611476.168413] sr 4:0:1:0: [sr1] tag#0 Add. Sense: L-EC uncorrectable error<br>
+[611476.168420] sr 4:0:1:0: [sr1] tag#0 CDB: Read(10) 28 00 00 05 5f 0a 00 00 02 00<br>
+[611476.168425] blk_update_request: I/O error, dev sr1, sector 1408040<br>
+[611478.552312] sr 4:0:1:0: [sr1] tag#0 FAILED Result: hostbyte=DID_OK driverbyte=DRIVER_SENSE<br>
+[611478.552323] sr 4:0:1:0: [sr1] tag#0 Sense Key : Medium Error [current] <br>
+[611478.552331] sr 4:0:1:0: [sr1] tag#0 Add. Sense: L-EC uncorrectable error<br>
+[611478.552339] sr 4:0:1:0: [sr1] tag#0 CDB: Read(10) 28 00 00 05 5f 0b 00 00 01 00<br>
+[611478.552346] blk_update_request: I/O error, dev sr1, sector 1408044<br>
+[611478.552353] Buffer I/O error on dev sr1, logical block 352011, async page read<br>
+<br>
+That thing is on fstab as user mountable: /dev/sr1 /media/sr1 auto noauto,exec,users,ro 0 0<br>
+<br>
+Is it merely time for a SCSI reset (SG something) or is it time to reseat cables and perhaps pick another SATA port?<br>
+Maybe the kernel hated that disk (and/or whatever's polling drives?)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43656" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43656">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43656">
+
+<time datetime="2015-10-26T12:45">posted: 2015-10-26 &nbsp; 12:45</time>
+<span class="permalink"><a href="./xfburn-unable-to-grab-the-drive-at-path-dev-sr1-re-t6002.html#p43656" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Naturally the burn button is ghosted.<br>
+It's worked before... I barely sledgehammer this machine anymore..
+</div></blockquote>
+So it was a daily burner earlier?<br>
+<blockquote class="uncited"><div>That thing is on fstab as user mountable: /dev/sr1 /media/sr1 auto noauto,exec,users,ro 0 0<br>
+<br>
+Is it merely time for a SCSI reset (SG something) or is it time to reseat cables and perhaps pick another SATA port?<br>
+Maybe the kernel hated that disk (and/or whatever's polling drives?</div></blockquote>
+It worked before. fstab has not changed unless you changed it. The kernel does not go schitzo (hate) that I know of.<br>
+<br>
+See if your preferences are somewhat close to my working xfburn I guess. Sounds like something physically broke to me though.<br>
+<blockquote class="uncited"><div>libburn-FATAL : Lost connection to drive</div></blockquote>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43661" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43661">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43661">
+
+<time datetime="2015-10-26T18:35">posted: 2015-10-26 &nbsp; 18:35</time>
+<span class="permalink"><a href="./xfburn-unable-to-grab-the-drive-at-path-dev-sr1-re-t6002.html#p43661" title="permalink">#3</a></span>
+
+<div class="content">Check that it isn't a 'closed session' disk.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

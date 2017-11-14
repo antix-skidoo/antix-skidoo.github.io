@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Boot problem - probably something I did - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./boot-problem-probably-something-i-did-t4321.html">Boot problem - probably something I did</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_29107" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile29107">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">peregrine</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29107">
+<time datetime="2013-05-14T18:52">posted: 2013-05-14 &nbsp; 18:52</time>
+<span class="permalink"><a href="./boot-problem-probably-something-i-did-t4321.html#p29107" title="permalink">#1</a></span>
+
+<div class="content">When I tested Antix13 beta3 (with patch to RC1), I liked it so much I installed it and have been working with it. It is on an older HP AMD 64 3700 with 1GB ram. This computer had XP, Mepis 8.5, and Mepis 12 alpha already. After I installed Antix, only Antix would boot. I edited menu.lst and the XP entry boots but the others still do not. I do not have to get that working, they are not something I use. This box is for testing. <br>
+Antix is so fast using IceWM and I like the customization I have done. I installed another copy to test it with KDE. I choose root for grub. <br>
+What do I need to do to get my second Antix to boot? I already tried editing menu.lst and I ran #grub-update. Neither worked, but I am not good at working out this sort of issue. Maybe I should have gone ahead and installed grub to mbr on the second install? <br>
+Thanks for any help. <br>
+<br>
+Karen</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29108" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29108">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29108">
+
+<time datetime="2013-05-14T20:00">posted: 2013-05-14 &nbsp; 20:00</time>
+<span class="permalink"><a href="./boot-problem-probably-something-i-did-t4321.html#p29108" title="permalink">#2</a></span>
+
+<div class="content">Post the contents of /boot/grub/menu.lst (for antiX on MBR) and post results of<br>
+<br>
+#blkid<br>
+<br>
+in antiX</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29109" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29109">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29109">
+
+<time datetime="2013-05-14T20:10">posted: 2013-05-14 &nbsp; 20:10</time>
+<span class="permalink"><a href="./boot-problem-probably-something-i-did-t4321.html#p29109" title="permalink">#3</a></span>
+
+<div class="content">I realize this does not help you now, but in the future, if you already have one version of Linux installed, DO NOT let any newer versions install to the MBR. Then you only have to add the one to the many instead of the many to the one.<br>
+<br>
+I have a separate small partition (I use sda1 but it I don't know if this matters) that I reserve for booting. It contains my grub stuff and the initrd and kernel of all my installed versions of Linux. If I install a new Linux to, say, sda7 then I look in the /boot directory of sda7 and I look at the grub entry it created for itself. The entry verifies then names of the kernel and (if needed) initrd file. I copy these to /boot in my boot partition and I copy-and-paste the grub entry, usually changing the title.<br>
+<br>
+Now for your problem. If everything else was booting fine, then you just need to find the partition where all that good stuff was happening. There should be a /boot/ directory on that partition and a /boot/grub/menu.lst that looks very familiar. You then just need to use Grub to make *that* the partition you boot from. Play the trick I outlined in the 2nd paragraph to add antiX-13 to your already working menu.lst.<br>
+<br>
+I always install grub manually and I always forget the syntax so I use"info grub" and go to the"install" section to remind myself:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    Once started, GRUB will show the command-line interface (⇒
+ Command-line interface). First, set the GRUB's"root device"(1)
+ (⇒Installing GRUB natively-Footnote-1) to the partition
+ containing the boot directory, like this:
+ 
+      grub&gt; root (hd0,0)
+ 
+    If you are not sure which partition actually holds this directory,
+ use the command `find' (⇒find), like this:
+ 
+      grub&gt; find /boot/grub/stage1
+ 
+    This will search for the file name `/boot/grub/stage1' and show the
+ devices which contain the file.
+ 
+    Once you've set the root device correctly, run the command `setup'
+ (⇒setup):
+ 
+      grub&gt; setup (hd0)</code></pre></div>The only tricky thing is to remember that to add 1 to the numbers in grub so:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(hd0,0)  --&gt; sda1
+(hd0,1)  --&gt; sda2
+(hd0,2)  --&gt; sda3
+(hd1,0)  --&gt; sdb1
+etc</code></pre></div>
+WARNING: Make sure you have an alternative way to boot (LiveCD or LiveUSB) before playing with the MBR. This gives you an escape hatch in case things go all pear shaped.<br>
+<br>
+The grub"find" command is great because you don't have to have the partitions mounted. You can use it to narrow down which partitions to look at more closely to find your previous working menu.lst.<br>
+<br>
+If your memory is much better than mine then you can touch a file in your working boot directory that you can use to search for later on. The problem with this is that I will forget what I named that file so I'm back to square zero. But I can remember sda1 is my boot partition so I'm usually fine.<br>
+<br>
+Bottom line: grub needs only two pieces of information:<br>
+<ul>
+<li> which partition to boot</li>
+<li> where to put this information</li></ul>
+The first one is set with the"root" command inside of grub. The second one is set with the setup command. You can have more than one setup command because each one is like a pointer to the boot partition.<br>
+<br>
+If, like me, you have a known partition that you boot from, you can always run grub after a live install and install grub again to the mbr so it is pointing to your known good boot partition.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29110" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29110">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">peregrine</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29110">
+
+<time datetime="2013-05-14T21:16">posted: 2013-05-14 &nbsp; 21:16</time>
+<span class="permalink"><a href="./boot-problem-probably-something-i-did-t4321.html#p29110" title="permalink">#4</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX13:/home/karen# blkid
+/dev/sda1: LABEL="HP_RECOVERY" UUID="4390-8510" TYPE="vfat" 
+/dev/sda2: LABEL="HP_PAVILION" UUID="9C84D9AF84D98BE0" TYPE="ntfs" 
+/dev/sda5: UUID="DB9D-3F91" TYPE="vfat" 
+/dev/sda6: UUID="a977e177-f58a-40d6-a697-935cf27e83fb" SEC_TYPE="ext2" TYPE="ext3" 
+/dev/sda7: UUID="e40de41e-a174-40dc-a032-dd349f4f64f6" TYPE="swap" 
+/dev/sda8: UUID="666c10a9-da47-40d1-ba21-ab1188209ba9" SEC_TYPE="ext2" TYPE="ext3" 
+/dev/sda9: UUID="cf88c5ec-f4db-4bc3-a0be-a676d126ab5b" SEC_TYPE="ext2" TYPE="ext3" 
+/dev/sda10: UUID="9c58856f-1bb9-46aa-b6fd-a3ba140b8060" SEC_TYPE="ext2" TYPE="ext3" 
+/dev/sda11: UUID="08089e75-b587-45d7-8b54-30337282194e" TYPE="swap" 
+/dev/sda12: UUID="e537e5d4-02d5-431f-9f78-2984fdf73525" TYPE="ext4" 
+/dev/sda13: UUID="c81ca2dd-7346-4c76-ab2e-aa32edda3dc8" TYPE="ext4" 
+/dev/sda14: UUID="d9164736-f292-464f-b2f6-db861627db3c" TYPE="ext4" 
+/dev/sda15: UUID="8e8a4a36-f4bd-44b2-b41d-164029078903" TYPE="ext4"
+</code></pre></div>
+My bootable Antix is on sda14<br>
+The one that does not boot is on sda12
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 5
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+
+title antiX at sda14, kernel 3.6.11-antix.1-486-smp
+kernel /boot/vmlinuz-3.6.11-antix.1-486-smp root=/dev/sda14 nomodeset quiet
+initrd /boot/initrd.img-3.6.11-antix.1-486-smp
+boot
+
+title Windows NT/2000/XP at sda1
+root (hd0, 0)
+rootnoverify
+chainloader +1
+
+title Windows XP Media Center Edition at sda2
+root (hd0,1)
+rootnoverify
+chainloader +1
+
+title MEPIS at sda6, kernel 2.6.15-26-386
+root (hd0,5)
+rootnoverify
+chainloader +1
+
+title antiX at sda12, kernel 3.6.11-antix.1-486-smp
+root (hd0,11)
+rootnoverify
+chainloader +1
+
+### BEGIN AUTOMAGIC KERNELS LIST
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified
+## by the debian update-grub script except for the default options below
+
+## DO NOT UNCOMMENT THEM, Just edit them to your needs
+
+## ## Start Default Options ##
+## default kernel options
+## default kernel options for automagic boot options
+## If you want special options for specific kernels use kopt_x_y_z
+## where x.y.z is kernel version. Minor versions can be omitted.
+## e.g. kopt=root=/dev/hda1 ro
+##      kopt_2_6_8=root=/dev/hdc1 ro
+##      kopt_2_6_8_2_686=root=/dev/hdc2 ro
+# kopt=root=UUID=d9164736-f292-464f-b2f6-db861627db3c ro
+# kopt_2_6=root=UUID=d9164736-f292-464f-b2f6-db861627db3c ro nosplash quiet
+
+## default grub root device
+## e.g. groot=(hd0,0)
+# groot=(hd0,13)
+
+## should update-grub create alternative automagic boot options
+## e.g. alternative=true
+##      alternative=false
+# alternative=true
+
+## should update-grub lock alternative automagic boot options
+## e.g. lockalternative=true
+##      lockalternative=false
+# lockalternative=false
+
+## additional options to use with the default boot option, but not with the
+## alternatives
+## e.g. defoptions=vga=791 resume=/dev/hda5
+# defoptions=
+
+## should update-grub lock old automagic boot options
+## e.g. lockold=false
+##      lockold=true
+# lockold=false
+
+## Xen hypervisor options to use with the default Xen boot option
+# xenhopt=
+
+## Xen Linux kernel options to use with the default Xen boot option
+# xenkopt=console=tty0
+
+## altoption boot targets option
+## multiple altoptions lines are allowed
+## e.g. altoptions=(extra menu suffix) extra boot options
+##      altoptions=(single-user) single
+# altoptions=(init-3) 3
+
+## controls how many kernels should be put into the menu.lst
+## only counts the first occurence of a kernel, not the
+## alternative kernel options
+## e.g. howmany=all
+##      howmany=7
+# howmany=all
+
+## should update-grub create memtest86 boot option
+## e.g. memtest86=true
+##      memtest86=false
+# memtest86=true
+
+## should update-grub adjust the value of the default booted system
+## can be true or false
+# updatedefaultentry=false
+
+## should update-grub add savedefault to the default options
+## can be true or false
+# savedefault=false
+
+## ## End Default Options ##
+
+title        Debian GNU/Linux, kernel 3.6.11-antix.1-486-smp
+root        (hd0,13)
+kernel        /boot/vmlinuz-3.6.11-antix.1-486-smp root=UUID=d9164736-f292-464f-b2f6-db861627db3c ro 
+initrd        /boot/initrd.img-3.6.11-antix.1-486-smp
+
+title        Debian GNU/Linux, kernel 3.6.11-antix.1-486-smp (init-3)
+root        (hd0,13)
+kernel        /boot/vmlinuz-3.6.11-antix.1-486-smp root=UUID=d9164736-f292-464f-b2f6-db861627db3c ro 3
+initrd        /boot/initrd.img-3.6.11-antix.1-486-smp
+
+title        Debian GNU/Linux, kernel memtest86+
+root        (hd0,13)
+kernel        /boot/memtest86+.bin
+
+### END DEBIAN AUTOMAGIC KERNELS LIST
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29111" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29111">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29111">
+
+<time datetime="2013-05-14T21:28">posted: 2013-05-14 &nbsp; 21:28</time>
+<span class="permalink"><a href="./boot-problem-probably-something-i-did-t4321.html#p29111" title="permalink">#5</a></span>
+
+<div class="content">Try this for antiX- sda12<br>
+<br>
+title antiX at sda12<br>
+root (hd0,11)<br>
+kernel /boot/vmlinuz-3.6.11-antix.1-486-smp root=UUID=e537e5d4-02d5-431f-9f78-2984fdf73525 nomodeset quiet<br>
+initrd /boot/initrd.img-3.6.11-antix.1-486-smp</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29112" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29112">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">peregrine</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29112">
+
+<time datetime="2013-05-14T21:37">posted: 2013-05-14 &nbsp; 21:37</time>
+<span class="permalink"><a href="./boot-problem-probably-something-i-did-t4321.html#p29112" title="permalink">#6</a></span>
+
+<div class="content">That works, posting from it now. Thank you so much.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29113" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29113">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29113">
+
+<time datetime="2013-05-14T21:46">posted: 2013-05-14 &nbsp; 21:46</time>
+<span class="permalink"><a href="./boot-problem-probably-something-i-did-t4321.html#p29113" title="permalink">#7</a></span>
+
+<div class="content">If you want to boot the other linux installs you have just follow the same pattern<br>
+<br>
+title [whatever you like ie Mepis8.5]<br>
+root (x,y) [where the install lies ie hd0,5]<br>
+kernel /boot/vmlinuz-[kernel version] root=UUID=[uuid as shown by blkid for that partition] nomodeset quiet<br>
+initrd /boot/initrd.img-[kernel version]<br>
+<br>
+Enjoy!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

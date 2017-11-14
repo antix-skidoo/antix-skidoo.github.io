@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[Solved] No sound: here too on Acer Travelmate 240 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html">[Solved] No sound: here too on Acer Travelmate 240</a></div>
+<div class="pagination">
+13 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_32869" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32869">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32869">
+<time datetime="2014-01-14T21:05">posted: 2014-01-14 &nbsp; 21:05</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32869" title="permalink">#1</a></span>
+
+<div class="content">Like some other users I'm having trouble getting sound to work on my laptop, an Acer Travelmate 240. Following this thread 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/viewtopic.php?f=49&amp;t=4759&amp;hilit=sound"<br>linktext was:"antix.freeforu ms.org/viewtopic.p ... ilit=sound"<br>====================================<br>
+ this is what I did:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># aplay /usr/share/sounds/alsa/Noise.wav 
+ALSA lib confmisc.c:768:(parse_card) cannot find card '0'
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_card_driver returned error: Datei oder Verzeichnis nicht gefunden
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_concat returned error: Datei oder Verzeichnis nicht gefunden
+ALSA lib confmisc.c:1251:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_refer returned error: Datei oder Verzeichnis nicht gefunden
+ALSA lib conf.c:4727:(snd_config_expand) Evaluate error: Datei oder Verzeichnis nicht gefunden
+ALSA lib pcm.c:2239:(snd_pcm_open_noupdate) Unknown PCM default
+aplay: main:722: Fehler beim Öffnen des Gerätes: Datei oder Verzeichnis nicht gefunden
+</code></pre></div>
+Apparently no driver is in user for my sound card<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lspci -nnk
+...[snip]
+00:1f.5 Multimedia audio controller [0401]: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Audio Controller [8086:24c5] (rev 03)
+        Subsystem: Acer Incorporated [ALI] Device [1025:0039]
+...[snip]
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># aplay -L
+null  Discard all samples (playback) or generate zero samples (capture)
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># cat /proc/asound/cards 
+--- no soundcards ---
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># alsa force-unload
+Unloading ALSA sound driver modules: snd-seq-oss snd-seq-midi-event snd-rawmidi snd-seq snd-seq-device snd-timer (failed: modules still loaded: snd-seq-oss snd-seq-midi-event snd-seq snd-seq-device snd-timer).
+</code></pre></div>
+When trying to reload the alsa-drivers, my system doesn't get finished:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># alsa reload
+Unloading ALSA sound driver modules: snd-seq-midi snd-rawmidi snd-seq-oss snd-seq-midi-event snd-seq snd-seq-device snd-timer (failed: modules still loaded: snd-seq-oss snd-seq-midi-event snd-seq snd-seq-device snd-timer).
+Loading ALSA sound driver modules: snd-seq-midi snd-rawmidi snd-seq-oss snd-seq-midi-event snd-seq snd-seq-device snd-timer
+</code></pre></div>
+It is stuck there....<br>
+<br>
+Any suggestions?<br>
+<br>
+<br>
+I'm not sure which kernel module to load to get my sound working.<br>
+<br>
+I am member of the <em>audio</em> group:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ groups
+pascal lp dialout cdrom floppy sudo audio dip video plugdev users fuse netdev
+</code></pre></div></div>
+<div class="notice">
+Last edited by <b>Honeypuck</b> on 16 Jan 2014, 19:35, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32873" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32873">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">fatmac</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32873">
+
+<time datetime="2014-01-15T08:49">posted: 2014-01-15 &nbsp; 08:49</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32873" title="permalink">#2</a></span>
+
+<div class="content">Perhaps try looking in dmesg for any reference to sound (?), or lspci maybe.<br>
+<br>
+Edit: sudo lsmod | grep snd might also help</div>
+<div class="notice">
+Last edited by <b>fatmac</b> on 15 Jan 2014, 10:40, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32875" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32875">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32875">
+
+<time datetime="2014-01-15T10:38">posted: 2014-01-15 &nbsp; 10:38</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32875" title="permalink">#3</a></span>
+
+<div class="content">Schon mal<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-cache policy gstreamer*</code></pre></div>geprüft?<br>
+<br>
+Es sollten wohl als Minimum vorhanden sein (von der Versionsnummer nicht irritieren lassen):<br>
+<br>
+gstreamer0.10-plugins-base<br>
+gstreamer0.10-plugins-good<br>
+gstreamer0.10-plugins-bad<br>
+gstreamer0.10-plugins-ugly<br>
+gstreamer0.10-ffmpeg<br>
+gstreamer0.10-a52dec<br>
+gstreamer0.10-faad<br>
+gstreamer0.10-mpeg<br>
+gstreamer0.10-xvid<br>
+gstreamer0.10-alsa</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32876" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32876">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32876">
+
+<time datetime="2014-01-15T14:12">posted: 2014-01-15 &nbsp; 14:12</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32876" title="permalink">#4</a></span>
+
+<div class="content">Please post the results of
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># inxi -A</code></pre></div>
+Then we can check for the correct drivers.<br>
+<br>
+With your sound card, and alsa we may need to set OSS as its front end.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32884" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32884">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32884">
+
+<time datetime="2014-01-16T05:38">posted: 2014-01-16 &nbsp; 05:38</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32884" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite>Perhaps try looking in dmesg for any reference to sound (?), or lspci maybe.<br>
+<br>
+Edit: sudo lsmod | grep snd might also help</div></blockquote>
+Well, as in my original post I had already checked <em>lspci</em>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lspci -nnk | grep audio
+00:1f.5 Multimedia audio controller [0401]: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Audio Controller [8086:24c5] (rev 03) 
+</code></pre></div>
+No driver in use.. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Doing a dmesg which reloading alsa modules doesn't show anything.<br>
+<br>
+Also nothing when testing for sound with:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>aplay /usr/share/sounds/alsa/Noise.wav
+</code></pre></div>
+I only get these errors messages as stdout:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ALSA lib confmisc.c:768:(parse_card) cannot find card '0'
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_card_driver returned error: Datei oder Verzeichni
+s nicht gefunden
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_concat returned error: Datei oder Verzeichnis nic
+ht gefunden
+ALSA lib confmisc.c:1251:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_refer returned error: Datei oder Verzeichnis nich
+t gefunden
+ALSA lib conf.c:4727:(snd_config_expand) Evaluate error: Datei oder Verzeichnis nicht gefunden
+ALSA lib pcm.c:2239:(snd_pcm_open_noupdate) Unknown PCM default
+aplay: main:722: Fehler beim Öffnen des Gerätes: Datei oder Verzeichnis nicht gefunden
+</code></pre></div>
+The stuff in German means that 'file or directory could not be found'</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32885" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32885">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32885">
+
+<time datetime="2014-01-16T05:40">posted: 2014-01-16 &nbsp; 05:40</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32885" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>Eino wrote:</cite>Please post the results of
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># inxi -A</code></pre></div>
+Then we can check for the correct drivers.<br>
+<br>
+With your sound card, and alsa we may need to set OSS as its front end.</div></blockquote>
+Thanks for you help.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># inxi -A
+Audio:     Card: Intel 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Audio Controller Sound: ALSA ver: k3.7.10-antix.5-486-smp
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32886" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32886">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32886">
+
+<time datetime="2014-01-16T05:49">posted: 2014-01-16 &nbsp; 05:49</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32886" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite>Schon mal<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-cache policy gstreamer*</code></pre></div>geprüft?<br>
+<br>
+Es sollten wohl als Minimum vorhanden sein (von der Versionsnummer nicht irritieren lassen):<br>
+<br>
+gstreamer0.10-plugins-base<br>
+gstreamer0.10-plugins-good<br>
+gstreamer0.10-plugins-bad<br>
+gstreamer0.10-plugins-ugly<br>
+gstreamer0.10-ffmpeg<br>
+gstreamer0.10-a52dec<br>
+gstreamer0.10-faad<br>
+gstreamer0.10-mpeg<br>
+gstreamer0.10-xvid<br>
+gstreamer0.10-alsa</div></blockquote>
+Apparently several packages are not available and thus missing (I grep'ed for them):<br>
+<strong>gstreamer0.10-xvid, gstreamer0.10-faad, gstreamer0.10-a52dec, gstreamer0.10-mpeg</strong><br>
+<br>
+Here are the installed packages:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dpkg -l | grep gstreamer
+ii  fso-deviced-player-gstreamer               0.12.0-1                         i386         Gstreamer player module for fso-deviced
+ii  gir1.2-gstreamer-0.10                      0.10.36-1.2                      i386         Description: GObject introspection data for the GStreamer library
+ii  gir1.2-gstreamer-1.0                       1.2.2-1                          i386         Description: GObject introspection data for the GStreamer library
+ii  gstreamer-tools                            0.10.36-1.2                      i386         Tools for use with GStreamer
+ii  gstreamer0.10-alsa:i386                    0.10.36-1.1                      i386         GStreamer plugin for ALSA
+ii  gstreamer0.10-crystalhd                    1:0.0~git20110715.fdd2f19-9      i386         Crystal HD Video Decoder (GStreamer plugin)
+ii  gstreamer0.10-dvswitch                     0.0.1-1                          i386         GStreamer plugin source from DVswitch
+ii  gstreamer0.10-ffmpeg                       1:0.10.13-dmo1                   i386         FFmpeg plugin for GStreamer
+ii  gstreamer0.10-fluendo-mp3:i386             0.10.23.debian-3                 i386         Fluendo mp3 decoder GStreamer 0.10 plugin
+ii  gstreamer0.10-gconf:i386                   0.10.31-3+nmu2                   i386         GStreamer plugin for getting the sink/source information from GConf
+ii  gstreamer0.10-gnomevfs:i386                0.10.36-1.1                      i386         GStreamer plugin for GnomeVFS
+ii  gstreamer0.10-hplugins                     0.2.0-2                          i386         Holoscópio plugins for GStreamer
+ii  gstreamer0.10-nice:i386                    0.1.4-1                          i386         ICE library (GStreamer 0.10 plugin)
+ii  gstreamer0.10-packagekit                   0.8.14-2                         i386         GStreamer plugin to install codecs using PackageKit
+ii  gstreamer0.10-plugins-bad:i386             0.10.23-7.1                      i386         GStreamer plugins from the"bad" set
+ii  gstreamer0.10-plugins-base:i386            0.10.36-1.1                      i386         GStreamer plugins from the"base" set
+ii  gstreamer0.10-plugins-base-apps            0.10.36-1.1                      i386         GStreamer helper programs from the"base" set
+ii  gstreamer0.10-plugins-good:i386            0.10.31-3+nmu2                   i386         GStreamer plugins from the"good" set
+ii  gstreamer0.10-plugins-really-bad:i386      0.10.23-dmo4                     i386         GStreamer plugins from the"bad" set
+ii  gstreamer0.10-plugins-ugly:i386            0.10.19-2+b3                     i386         GStreamer plugins from the"ugly" set
+ii  gstreamer0.10-pocketsphinx:i386            0.8-3                            i386         Speech recognition tool - gstreamer plugin
+ii  gstreamer0.10-pulseaudio:i386              0.10.31-3+nmu2                   i386         GStreamer plugin for PulseAudio
+ii  gstreamer0.10-tools                        0.10.36-1.2                      i386         Tools for use with GStreamer
+ii  gstreamer0.10-x:i386                       0.10.36-1.1                      i386         GStreamer plugins for X11 and Pango
+ii  gstreamer1.0-alsa:i386                     1.2.2-1                          i386         GStreamer plugin for ALSA
+ii  gstreamer1.0-clutter                       2.0.8-1                          i386         Clutter PLugin for GStreamer 1.0
+ii  gstreamer1.0-fluendo-mp3:i386              0.10.23.debian-3                 i386         Fluendo mp3 decoder GStreamer 1.0 plugin
+ii  gstreamer1.0-libav:i386                    1:1.2.2-dmo1                     i386         FFmpeg plugin for GStreamer
+ii  gstreamer1.0-nice:i386                     0.1.4-1                          i386         ICE library (GStreamer plugin)
+ii  gstreamer1.0-plugins-bad:i386              1.2.2-1                          i386         GStreamer plugins from the"bad" set
+ii  gstreamer1.0-plugins-base:i386             1.2.2-1                          i386         GStreamer plugins from the"base" set
+ii  gstreamer1.0-plugins-base-apps             1.2.2-1                          i386         GStreamer helper programs from the"base" set
+ii  gstreamer1.0-plugins-good:i386             1.2.2-1                          i386         GStreamer plugins from the"good" set
+ii  gstreamer1.0-plugins-ugly:i386             1.2.2-1                          i386         GStreamer plugins from the"ugly" set
+ii  gstreamer1.0-pulseaudio:i386               1.2.2-1                          i386         GStreamer plugin for PulseAudio
+ii  gstreamer1.0-tools                         1.2.2-1                          i386         Tools for use with GStreamer
+ii  gstreamer1.0-x:i386                        1.2.2-1                          i386         GStreamer plugins for X11 and Pango
+ii  libcanberra-gstreamer:i386                 0.30-2                           i386         GStreamer backend for libcanberra
+ii  libghc-gstreamer-dev                       0.12.1.2-3                       i386         Binding to the GStreamer open source multimedia framework
+ii  libghc-gstreamer-prof                      0.12.1.2-3                       i386         Binding to the GStreamer open source multimedia framework; profiling libraries
+ii  libgstreamer-interfaces-perl               0.06-2+b1                        i386         Perl interface to the GStreamer Interfaces library
+ii  libgstreamer-ocaml                         0.2.0-2+b1                       i386         OCaml interface to the gstreamer library -- runtime files
+ii  libgstreamer-perl                          0.19-1                           i386         Perl interface to the GStreamer media processing framework
+ii  libgstreamer-plugins-bad0.10-0:i386        0.10.23-7.1                      i386         GStreamer development files for libraries from the"bad" set
+ii  libgstreamer-plugins-bad1.0-0:i386         1.2.2-1                          i386         GStreamer development files for libraries from the"bad" set
+ii  libgstreamer-plugins-base0.10-0:i386       0.10.36-1.1                      i386         GStreamer libraries from the"base" set
+ii  libgstreamer-plugins-base0.10-dev          0.10.36-1.1                      i386         GStreamer development files for libraries from the"base" set
+ii  libgstreamer-plugins-base1.0-0:i386        1.2.2-1                          i386         GStreamer libraries from the"base" set
+ii  libgstreamer0.10-0:i386                    0.10.36-1.2                      i386         Core GStreamer libraries and elements
+ii  libgstreamer0.10-dev                       0.10.36-1.2                      i386         GStreamer core development files
+ii  libgstreamer0.9-cil                        0.9.2-4                          i386         CLI bindings to GStreamer
+ii  libgstreamer1.0-0:i386                     1.2.2-1                          i386         Core GStreamer libraries and elements
+ii  libqtgstreamer-0.10-0:i386                 0.10.2-2.1                       i386         C++ bindings library for GStreamer with a Qt-style API
+ii  libqtgstreamerui-0.10-0:i386               0.10.2-2.1                       i386         QtGStreamerUi library
+ii  libqtgstreamerutils-0.10-0:i386            0.10.2-2.1                       i386         QtGStreamerUtils library
+ii  phonon-backend-gstreamer:i386              4:4.7.1-1                        i386         Phonon GStreamer 0.10.x backend
+</code></pre></div>
+<br>
+Here is the long complete output of <em>apt-cache policy gstreamer*</em><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-cache policy gstreamer*
+gstreamer1.0-fluendo-mp3:
+  Installiert:           0.10.23.debian-3
+  Installationskandidat: 0.10.23.debian-3
+  Versionstabelle:
+ *** 0.10.23.debian-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-audiosource:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-plugins-base-doc:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.36-1.1
+  Versionstabelle:
+     0.10.36-1.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-qapt:
+  Installiert:           (keine)
+  Installationskandidat: 1.3.0-2
+  Versionstabelle:
+     1.3.0-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-esd:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer1.0-clutter:
+  Installiert:           2.0.8-1
+  Installationskandidat: 2.0.8-1
+  Versionstabelle:
+ *** 2.0.8-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-alsa:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-videosink:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.8-tools:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer1.0-visualization:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer-codec-install:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-schroedinger:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-plugins-bad:
+  Installiert:           0.10.23-7.1
+  Installationskandidat: 0.10.23-7.1
+  Versionstabelle:
+ *** 0.10.23-7.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-plugins-good-doc:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.31-3+nmu2
+  Versionstabelle:
+     0.10.31-3+nmu2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer-tools:
+  Installiert:           0.10.36-1.2
+  Installationskandidat: 0.10.36-1.2
+  Versionstabelle:
+ *** 0.10.36-1.2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-pulseaudio:
+  Installiert:           0.10.31-3+nmu2
+  Installationskandidat: 0.10.31-3+nmu2
+  Versionstabelle:
+ *** 0.10.31-3+nmu2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-audiosource:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer1.0-plugins-base-apps:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-doc:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.36-1.2
+  Versionstabelle:
+     0.10.36-1.2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer1.0-tools:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-pulseaudio:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-plugins-ugly:
+  Installiert:           0.10.19-2+b3
+  Installationskandidat: 0.10.19-2+b3
+  Versionstabelle:
+ *** 0.10.19-2+b3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-plugins-ugly-doc:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-videosink:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer1.0-plugins-base-doc:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-gnonlin-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.17-2
+  Versionstabelle:
+     0.10.17-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer1.0-plugins-ugly:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-gnonlin:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.17-2
+  Versionstabelle:
+     0.10.17-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-audiosink:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-plugins-good:
+  Installiert:           0.10.31-3+nmu2
+  Installationskandidat: 0.10.31-3+nmu2
+  Versionstabelle:
+ *** 0.10.31-3+nmu2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-doc:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-gnomevfs:
+  Installiert:           0.10.36-1.1
+  Installationskandidat: 0.10.36-1.1
+  Versionstabelle:
+ *** 0.10.36-1.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-plugins-bad-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.23-7.1
+  Versionstabelle:
+     0.10.23-7.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-tools:
+  Installiert:           0.10.36-1.2
+  Installationskandidat: 0.10.36-1.2
+  Versionstabelle:
+ *** 0.10.36-1.2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-x264:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer1.0-libav-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 1:1.2.2-dmo1
+  Versionstabelle:
+     1:1.2.2-dmo1 0
+        500 http://www.deb-multimedia.org/ testing/main i386 Packages
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-plugins-ugly-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.19-2+b3
+  Versionstabelle:
+     0.10.19-2+b3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-plugins-farsight:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer1.0-plugins-good:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-hplugins:
+  Installiert:           0.2.0-2
+  Installationskandidat: 0.2.0-2
+  Versionstabelle:
+ *** 0.2.0-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-packagekit:
+  Installiert:           0.8.14-2
+  Installationskandidat: 0.8.14-2
+  Versionstabelle:
+ *** 0.8.14-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-ffmpeg:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer1.0-plugins-good-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer1.0-plugins-bad-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-plugins-bad-multiverse:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-gnonlin-doc:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.17-2
+  Versionstabelle:
+     0.10.17-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-ffmpeg:
+  Installiert:           1:0.10.13-dmo1
+  Installationskandidat: 1:0.10.13-dmo1
+  Versionstabelle:
+ *** 1:0.10.13-dmo1 0
+        500 http://www.deb-multimedia.org/ testing/main i386 Packages
+        500 http://www.deb-multimedia.org/ wheezy/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-ffmpeg-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 1:0.10.13-dmo1
+  Versionstabelle:
+     1:0.10.13-dmo1 0
+        500 http://www.deb-multimedia.org/ testing/main i386 Packages
+        500 http://www.deb-multimedia.org/ wheezy/main i386 Packages
+gstreamer1.0-audiosink:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-nice:
+  Installiert:           0.1.4-1
+  Installationskandidat: 0.1.4-1
+  Versionstabelle:
+ *** 0.1.4-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-videosource:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-espeak:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-visualization:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-lame:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-pocketsphinx:
+  Installiert:           0.8-3
+  Installationskandidat: 0.8-3
+  Versionstabelle:
+ *** 0.8-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-plugins-bad-doc:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.23-7.1
+  Versionstabelle:
+     0.10.23-7.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-gconf:
+  Installiert:           0.10.31-3+nmu2
+  Installationskandidat: 0.10.31-3+nmu2
+  Versionstabelle:
+ *** 0.10.31-3+nmu2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-plugins-ugly-doc:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.19-2
+  Versionstabelle:
+     0.10.19-2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-x:
+  Installiert:           0.10.36-1.1
+  Installationskandidat: 0.10.36-1.1
+  Versionstabelle:
+ *** 0.10.36-1.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-dvswitch:
+  Installiert:           0.0.1-1
+  Installationskandidat: 0.0.1-1
+  Versionstabelle:
+ *** 0.0.1-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-plugins-good-doc:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-videosource:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-plugins-really-bad:
+  Installiert:           0.10.23-dmo4
+  Installationskandidat: 0.10.23-dmo4
+  Versionstabelle:
+ *** 0.10.23-dmo4 0
+        500 http://www.deb-multimedia.org/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+     0.10.23-dmo3 0
+        500 http://www.deb-multimedia.org/ wheezy/main i386 Packages
+gstreamer1.0-plugins-bad-doc:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-fluendo-mp3:
+  Installiert:           0.10.23.debian-3
+  Installationskandidat: 0.10.23.debian-3
+  Versionstabelle:
+ *** 0.10.23.debian-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-plugins-base:
+  Installiert:           0.10.36-1.1
+  Installationskandidat: 0.10.36-1.1
+  Versionstabelle:
+ *** 0.10.36-1.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-plugins-base-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.36-1.1
+  Versionstabelle:
+     0.10.36-1.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-alsa:
+  Installiert:           0.10.36-1.1
+  Installationskandidat: 0.10.36-1.1
+  Versionstabelle:
+ *** 0.10.36-1.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-plugins-base:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-nice:
+  Installiert:           0.1.4-1
+  Installationskandidat: 0.1.4-1
+  Versionstabelle:
+ *** 0.1.4-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer0.10-plugins-good-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 0.10.31-3+nmu2
+  Versionstabelle:
+     0.10.31-3+nmu2 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-chromaprint:
+  Installiert:           (keine)
+  Installationskandidat: 0.1-3
+  Versionstabelle:
+     0.1-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-crystalhd:
+  Installiert:           1:0.0~git20110715.fdd2f19-9
+  Installationskandidat: 1:0.0~git20110715.fdd2f19-9
+  Versionstabelle:
+ *** 1:0.0~git20110715.fdd2f19-9 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-x:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-libav:
+  Installiert:           1:1.2.2-dmo1
+  Installationskandidat: 1:1.2.2-dmo1
+  Versionstabelle:
+ *** 1:1.2.2-dmo1 0
+        500 http://www.deb-multimedia.org/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer0.10-xvid:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer0.10-plugins-base-apps:
+  Installiert:           0.10.36-1.1
+  Installationskandidat: 0.10.36-1.1
+  Versionstabelle:
+ *** 0.10.36-1.1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+gstreamer1.0-plugins-ugly-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer1.0-gnomevfs:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+gstreamer1.0-plugins-base-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+     1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+gstreamer1.0-plugins-bad:
+  Installiert:           1.2.2-1
+  Installationskandidat: 1.2.2-1
+  Versionstabelle:
+ *** 1.2.2-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main i386 Packages
+        100 /var/lib/dpkg/status
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32893" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32893">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32893">
+
+<time datetime="2014-01-16T13:13">posted: 2014-01-16 &nbsp; 13:13</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32893" title="permalink">#8</a></span>
+
+<div class="content">Looks like you have the correct drivers, so we need to try to set OSS as ALSA's frontend. <br>
+Run the following as root
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># alsa  force-unload</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># apt-get update &amp;&amp; apt-get install alsa-oss</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># modprobe snd-pci-audio ; modprobe snd-pcm-oss ; modprobe snd-mixer-oss ; modprobe snd-seq-oss</code></pre></div>
+As user run
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># alsa reload</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># aplay -L </code></pre></div>
+Do you have sound now?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32900" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32900">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32900">
+
+<time datetime="2014-01-16T16:35">posted: 2014-01-16 &nbsp; 16:35</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32900" title="permalink">#9</a></span>
+
+<div class="content">Unfortunately I'm having trouble unloading the alsa modules:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># alsa force-unload
+Unloading ALSA sound driver modules: snd-seq-oss snd-seq-midi-event snd-seq snd-seq-device snd-timer (failed: modules still loaded: snd-seq-oss snd-seq-midi-event snd-seq snd-seq-device snd-timer).
+</code></pre></div>
+So I'm stuck with that:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lsmod | grep snd
+snd_seq_oss            20893  1 
+snd_seq_midi_event      3645  1 snd_seq_oss
+snd_seq                34663  2 snd_seq_midi_event,snd_seq_oss
+snd_seq_device          3890  2 snd_seq,snd_seq_oss
+snd_timer              12034  1 snd_seq
+snd                    36700  4 snd_timer,snd_seq,snd_seq_oss,snd_seq_device
+soundcore               3447  1 snd
+</code></pre></div>
+The alsa-oss package is already installed:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dpkg -l | grep alsa-oss
+ii  alsa-oss                                1.0.25-1   i386 ALSA wrapper for OSS applications
+</code></pre></div> <br>
+<br>
+Still no sound:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># aplay -L
+null    Discard all samples (playback) or generate zero samples (capture)
+</code></pre></div>
+And:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># aplay /usr/share/sounds/alsa/Noise.wav
+ALSA lib confmisc.c:768:(parse_card) cannot find card '0'
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_card_driver returned error: Datei oder Verzeichnis nicht gefunden
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_concat returned error: Datei oder Verzeichnis nicht gefunden
+ALSA lib confmisc.c:1251:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4248:(_snd_config_evaluate) function snd_func_refer returned error: Datei oder Verzeichnis nicht gefunden
+ALSA lib conf.c:4727:(snd_config_expand) Evaluate error: Datei oder Verzeichnis nicht gefunden
+ALSA lib pcm.c:2239:(snd_pcm_open_noupdate) Unknown PCM default
+aplay: main:722: Fehler beim Öffnen des Gerätes: Datei oder Verzeichnis nicht gefunden
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32901" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32901">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32901">
+
+<time datetime="2014-01-16T18:00">posted: 2014-01-16 &nbsp; 18:00</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32901" title="permalink">#10</a></span>
+
+<div class="content">I need the output of
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lspci</code></pre></div>
+This will give me more information on your sound card information. <br>
+Then try
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># modprobe snd-intel8x0</code></pre></div>
+<br>
+<br>
+I hope this works.<br>
+I’m not going to give up till, I find a solution.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32902" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32902">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32902">
+
+<time datetime="2014-01-16T19:18">posted: 2014-01-16 &nbsp; 19:18</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32902" title="permalink">#11</a></span>
+
+<div class="content">Did you have sound during your live session before the install? <br>
+Sometime things go wrong during the install process. <br>
+My need to just reinstall the AC'97 Audio Controllers. <br>
+You could always install kernel 3.2.51-1 for better hardware support.<br>
+I'm just going over the list of possibilities.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32903" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32903">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32903">
+
+<time datetime="2014-01-16T19:28">posted: 2014-01-16 &nbsp; 19:28</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32903" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>Eino wrote:</cite>I need the output of
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lspci</code></pre></div>
+This will give me more information on your sound card information. <br>
+Then try
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># modprobe snd-intel8x0</code></pre></div>
+I hope this works.<br>
+I’m not going to give up till, I find a solution.</div></blockquote>
+Here you go:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lspci                  
+00:00.0 Host bridge: Intel Corporation 82852/82855 GM/GME/PM/GMV Processor to I/O Controller (rev 02)
+00:00.1 System peripheral: Intel Corporation 82852/82855 GM/GME/PM/GMV Processor to I/O Controller (rev 02)
+00:00.3 System peripheral: Intel Corporation 82852/82855 GM/GME/PM/GMV Processor to I/O Controller (rev 02)
+00:02.0 VGA compatible controller: Intel Corporation 82852/855GM Integrated Graphics Device (rev 02)
+00:02.1 Display controller: Intel Corporation 82852/855GM Integrated Graphics Device (rev 02)
+00:1d.0 USB controller: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) USB UHCI Controller #1 (rev 03)
+00:1d.1 USB controller: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) USB UHCI Controller #2 (rev 03)
+00:1d.2 USB controller: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) USB UHCI Controller #3 (rev 03)
+00:1d.7 USB controller: Intel Corporation 82801DB/DBM (ICH4/ICH4-M) USB2 EHCI Controller (rev 03)
+00:1e.0 PCI bridge: Intel Corporation 82801 Mobile PCI Bridge (rev 83)
+00:1f.0 ISA bridge: Intel Corporation 82801DBM (ICH4-M) LPC Interface Bridge (rev 03)
+00:1f.1 IDE interface: Intel Corporation 82801DBM (ICH4-M) IDE Controller (rev 03)
+00:1f.3 SMBus: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) SMBus Controller (rev 03)
+00:1f.5 Multimedia audio controller: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Audio Controller (rev 03)
+00:1f.6 Modem: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Modem Controller (rev 03)
+02:04.0 CardBus bridge: Texas Instruments PCI1520 PC card Cardbus Controller (rev 01)
+02:04.1 CardBus bridge: Texas Instruments PCI1520 PC card Cardbus Controller (rev 01)
+02:0a.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL-8139/8139C/8139C+ (rev 10)
+07:00.0 Network controller: Ralink corp. RT2561/RT61 rev B 802.11g
+</code></pre></div>
+A more concise output:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lspci -nnk | grep audio
+00:1f.5 Multimedia audio controller [0401]: Intel Corporation 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Audio Controller [8086:24c5] (rev 03)
+</code></pre></div>
+<strong>Yeah that did it!!!!!!! Thanks a lot!!!!</strong><br>
+<span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Now I have to figure out where/which file to put that module so that it gets loaded on startup....</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32904" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32904">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32904">
+
+<time datetime="2014-01-16T19:38">posted: 2014-01-16 &nbsp; 19:38</time>
+<span class="permalink"><a href="./solved-no-sound-here-too-on-acer-travelmate-240-t4804.html#p32904" title="permalink">#13</a></span>
+
+<div class="content">Your welcome. <br>
+The modprobe will automatically set it for you.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+13 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>When to run persist-config on first persistent boot? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./when-to-run-persist-config-on-first-persistent-boo-t5345.html">When to run persist-config on first persistent boot?</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_37741" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37741">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37741">
+<time datetime="2014-10-27T19:13">posted: 2014-10-27 &nbsp; 19:13</time>
+<span class="permalink"><a href="./when-to-run-persist-config-on-first-persistent-boo-t5345.html#p37741" title="permalink">#1</a></span>
+
+<div class="content">There are two different places we can run persist-config (to select persist-save mode) on the first persistent boot:<br>
+<ol style="list-style-type: decimal">
+<li>Right after we force the user to change passwords</li>
+<li> Inside of X-windows</li></ol>
+We have been doing it inside of X-windows but if people don't mind the CLI interface (it is just one choice) then I would prefer to move it to (1). Here's why. On the first persistence boot I want to:
+<ul>
+<li> Force new passwords</li>
+<li> Have user select persist-save mode</li>
+<li> Do an immediate persist-save to save the selections just made</li></ul>
+This has a couple of benefits. It works on core systems and when people boot into run level 3 on base and full. In addition, it works without any alteration if people use a completely different window manager. Running inside of X-windows requires that we add an entry to the window manager startup file. IMO changing the passwords is a big pain. Having to answer one simple multiple choice question after that is no big deal.<br>
+<br>
+This is part of my effort to move live-system functionality out of <strong>/</strong>etc/init.d/ and out of WM startup files and into the initrd. This will help keep things consistent between systems that use sysVinit and that use systemd. In addition, it moves toward getting our Live system to work by simply using our live initrd and no changes to the file system. Such a system would, of course, be missing functionality such as remaster-live and persist-save but the idea is that it should boot into a functioning system. It might even"just work" even on non-Debian based systems.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37743" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37743">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37743">
+
+<time datetime="2014-10-27T19:57">posted: 2014-10-27 &nbsp; 19:57</time>
+<span class="permalink"><a href="./when-to-run-persist-config-on-first-persistent-boo-t5345.html#p37743" title="permalink">#2</a></span>
+
+<div class="content">i would actually PREFER it to be right after the password change before X starts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37744" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37744">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37744">
+
+<time datetime="2014-10-27T20:40">posted: 2014-10-27 &nbsp; 20:40</time>
+<span class="permalink"><a href="./when-to-run-persist-config-on-first-persistent-boo-t5345.html#p37744" title="permalink">#3</a></span>
+
+<div class="content">CLI OK by me.</div>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

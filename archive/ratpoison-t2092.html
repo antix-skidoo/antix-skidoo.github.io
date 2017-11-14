@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Ratpoison - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./ratpoison-t2092.html">Ratpoison</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_13586" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile13586">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content13586">
+<time datetime="2009-11-25T21:35">posted: 2009-11-25 &nbsp; 21:35</time>
+<span class="permalink"><a href="./ratpoison-t2092.html#p13586" title="permalink">#1</a></span>
+
+<div class="content">I've used ratpoison (rp) for a 2-3 years, together with icewm is one of my <br>
+favorites.<br>
+<br>
+INSTALLATION<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo aptitude update &amp;&amp; sudo aptitude install ratpoison
+</code></pre></div>
+It has one configuration file only, so you have to create it, it will be blank:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ touch .ratpoisonrc
+</code></pre></div>
+Then you copy/paste the following configuration:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>alias term exec urxvt
+escape F13
+warp off
+startup_message off
+set winname class
+defborder 0
+set padding 0 0 0 0
+defbarpadding 0 0
+exec xsetroot -solid"#006060" -cursor_name left_ptr
+bind semicolon colon
+set bgcolor black
+set fgcolor cyan
+set font  -xos4-terminus-*-*-*-*-16-*-*-*-*-*-iso8859-15
+set bargravity sw
+
+alias showroot exec ratpoison -c fdump; ratpoison -c 'select -' -c only
+
+alias unshowroot exec ratpoison -c"frestore at $HOME/.rpfdump"
+
+## Para mostrar el escritorio/To show your desktop
+bind B showroot
+
+### Escritorios virtuales/Virtual desktops
+exec rpws -1
+exec /usr/bin/rpws init 6 -k
+
+## bind = F13 = Caps Lock
+bind F1 exec rpws 1
+bind F2 exec rpws 2
+bind F3 exec rpws 3
+
+unbind k
+
+bind j focusdown
+
+bind h focusleft
+
+bind k focusup
+
+bind l focusright
+
+bind J exchangedown
+
+bind H exchangeleft
+
+bind K exchangeup
+
+bind L exchangeright
+
+bind C-k delete
+##Alt-tab
+definekey top M-Tab next
+definekey top M-ISO_Left_Tab prev
+
+### Atajos de teclas/Keybindings
+bind e exec pcmanfm
+bind i exec iceweasel
+bind m exec sylpheed
+bind u exec xchat
+bind r restart
+bind Pause exec sudo /sbin/shutdown -h now
+bind w exec ~/bin/windows
+bind space exec urxvt
+bind o exec xlock -mode blank
+bind a exec ratpoison -c"echo `date`"
+bind q remove
+bind p exec urxvt -e elinks
+rudeness 12
+
+# Para lanzar un Run box/To launch a Run box:
+definekey top C-space exec
+
+# Para hacer un screenshot/To make a screenshot:
+definekey top Print exec urxvt -e scrot -cd 10
+
+# Sound Volume/To increase or decrease the sound volume
+bind Next exec amixer -q set PCM 5- unmute
+bind Prior exec amixer -q set PCM 5+ unmute
+
+</code></pre></div>
+EXPLANATION of the .ratpoisonrc<br>
+<br>
+Basically, rp works like this: you press a binding key together with another you <br>
+choose and it launches the app you want or does the function you want. <br>
+<br>
+The default bind combination is C-t (Ctrl+t) but it's cumbersome and most users <br>
+use other combinations. The best i found so far is the Caps Lock key, its the <br>
+one to the left of your pinky finger. In order to do this you have to create the <br>
+.modmaprc file.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ touch .xmodmaprc
+</code></pre></div>
+put the folowing lines in it:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>remove lock = Caps_Lock
+
+keycode 66 = F13
+</code></pre></div>
+Now the binding key F13 (the old Caps Lock) is the official one<br>
+<br>
+To make this effective before entering the X system, enter the following in your .xinitrc:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>xmodmap .xmodmaprc
+</code></pre></div>
+If you don't have a .xinitrc file, just create it and add it:<br>
+<br>
+$ touch .xinitrc<br>
+<br>
+here's mine as example:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+xrdb -merge .Xdefaults
+unclutter -idle 2 &amp;
+numlockx &amp;
+xmodmap .xmodmaprc
+xsetroot -solid"#006060" 
+#icewm
+ratpoison
+</code></pre></div>
+Then get out of the X system (Ctrl+Alt+Backspace)<br>
+type 'startx' and voilÃ ! you're facing a greenish desktop. <br>
+If you're using 'slim' do what you have to do, i don't use slim <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Whenever you enter the x system, and press the F13 key bind key (caps lock) a <br>
+white X will appear, pressing the letter you assigned will launch the app you <br>
+want. Example:<br>
+<br>
+bind + i will launch iceweasel<br>
+bind + Space bar = urxvt<br>
+bind + Pause = sudo halt<br>
+bind + a = gives you the time/date<br>
+bind + r = restart ratpoison<br>
+bind + w = shows open windows<br>
+Ctrl + Space = run box<br>
+Print = takes a snapshot<br>
+etc, etc.<br>
+<br>
+bind + s = splits the screen horizontally<br>
+bind + S = splits the screen vertically<br>
+<br>
+Once you have the screen split horizontally and want and want to focus on a <br>
+specific screen, the one on top or the one down:<br>
+<br>
+bind j = focus the one at the bottom<br>
+bind k = focus the one on top<br>
+<br>
+If you split the screen vertically:<br>
+<br>
+bind h = focus the one on the left<br>
+bind l = focus the one on the right<br>
+<br>
+Now, sometimes after you split the windows you want to exchange the one at the <br>
+bottom to the top or the one on the left to the right:<br>
+<br>
+bind + J = moves the screen at the top, down<br>
+bind + K = moves the screen at the bottom, up<br>
+bind + L = moves the screen on the left, right<br>
+bind + H = moves the screen on the right, left<br>
+<br>
+To eliminate the windows split:<br>
+bind + q<br>
+<br>
+<br>
+To close an app:<br>
+bind + Ctrl + k<br>
+<br>
+Give it a day, you'll feel like a pro <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+References: Thanks to Dion Moult<br>
+An efficient and minimalist window manager<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://tinyurl.com/yl99spv"<br>linktext was:"http://tinyurl.com/yl99spv"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<a href="http://img28.imageshack.us/my.php?image=32743140.png" class="postlink"><img src="http://img28.imageshack.us/img28/9339/32743140.th.png" class="postimage" alt="Image"></a><br>
+<br>
+<a href="http://img80.imageshack.us/my.php?image=98689942.png" class="postlink"><img src="http://img80.imageshack.us/img80/1056/98689942.th.png" class="postimage" alt="Image"></a><br>
+<br>
+<br>
+PD: I forgot to mention the workspaces:<br>
+To go to them:<br>
+<br>
+bind + F1 or F2 or F3 (i only use 3, you can add as many as you need)<br>
+<br>
+For the Debian menu:<br>
+bind + period (.)<br>
+<br>
+For switching windows:<br>
+Alt-Tab or Bind-bind</div>
+<div class="notice">
+Last edited by <b>macondo</b> on 28 Nov 2009, 18:01, edited 9 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_13587" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile13587">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content13587">
+
+<time datetime="2009-11-25T21:48">posted: 2009-11-25 &nbsp; 21:48</time>
+<span class="permalink"><a href="./ratpoison-t2092.html#p13587" title="permalink">#2</a></span>
+
+<div class="content">That looks comprehensive, thanks!<br>
+<br>
+Even if you're using Icewesel you set the forum theme to look like if you're using Links2 <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_13613" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile13613">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content13613">
+
+<time datetime="2009-11-26T15:03">posted: 2009-11-26 &nbsp; 15:03</time>
+<span class="permalink"><a href="./ratpoison-t2092.html#p13613" title="permalink">#3</a></span>
+
+<div class="content">Ok, i changed my bind key back to F4, the modmap change was giving me problems. No problem <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_13619" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile13619">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content13619">
+
+<time datetime="2009-11-27T15:18">posted: 2009-11-27 &nbsp; 15:18</time>
+<span class="permalink"><a href="./ratpoison-t2092.html#p13619" title="permalink">#4</a></span>
+
+<div class="content">Ok, i switched to Squeeze and went back to original bind key (F13) explained in the article, now it's working perfectly.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_13624" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile13624">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 138</span></div>
+
+</div>
+</div>
+<span class="username">harii</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Nov 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content13624">
+
+<time datetime="2009-11-28T06:56">posted: 2009-11-28 &nbsp; 06:56</time>
+<span class="permalink"><a href="./ratpoison-t2092.html#p13624" title="permalink">#5</a></span>
+
+<div class="content">Do you use ratmenu?<br>
+if you do - how close is that to 9menu?<br>
+as in configuring.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_13631" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile13631">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+
+</dl>
+<div class="postbody">
+<div id="post_content13631">
+
+<time datetime="2009-11-28T17:56">posted: 2009-11-28 &nbsp; 17:56</time>
+<span class="permalink"><a href="./ratpoison-t2092.html#p13631" title="permalink">#6</a></span>
+
+<div class="content">hi harii, ratpoison comes with the Debian menu by default.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> 
+bind + period (.)
+</code></pre></div>
+I hope i understood your question</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

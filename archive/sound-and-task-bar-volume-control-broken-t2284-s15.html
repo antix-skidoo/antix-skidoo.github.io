@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Sound and task bar volume control broken - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./sound-and-task-bar-volume-control-broken-t2284-s15.html">Sound and task bar volume control broken</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./sound-and-task-bar-volume-control-broken-t2284.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./sound-and-task-bar-volume-control-broken-t2284.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_14956" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile14956">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 89</span></div>
+
+</div>
+</div>
+<span class="username">Stuart O'mahony</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content14956">
+<time datetime="2010-03-13T16:48">posted: 2010-03-13 &nbsp; 16:48</time>
+<span class="permalink"><a href="./sound-and-task-bar-volume-control-broken-t2284-s15.html#p14956" title="permalink">#16</a></span>
+
+<div class="content">I just ran a chmod a+xrw on the /dev directory and everything is back in order. However udev sets the rules regarding device nodes; and permissions, or my (the program!) being able to invoke the relevant dev file, are bound up with the group ownership. I did a little reading (see:"Controlling permissions and ownership"):<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://reactivated.net/writing_udev_rules.html#ownership"<br>linktext was:"http://reactivated.net/writing_udev_rul ... #ownership"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+I'm not sure which file needs changing, or assigning a different group - hence my 'recursive attack' - but I do know that unless I can single these files out i'll have to chmod after every reboot.<br>
+<br>
+Here's a list of my /dev directory if anyone can help me (please <span class="emoticon"> __{{emoticon}}__ </span> :<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>stuart@antiX1:~$ ls -l /dev/
+total 0
+crwxrwxrwx 1 root audio      14,  12 2010-03-13 17:09 adsp
+crwxrwxrwx 1 root video      10, 175 2010-03-13 17:09 agpgart
+crwxrwxrwx 1 root audio      14,   4 2010-03-13 17:09 audio
+drwxrwxrwx 2 root root           680 2010-03-13 17:09 block
+drwxrwxrwx 2 root root            60 2010-03-13 17:09 bsg
+drwxrwxrwx 3 root root            60 2010-03-13 17:09 bus
+lrwxrwxrwx 1 root root             3 2010-03-13 17:09 cdrom -&gt; hdc
+lrwxrwxrwx 1 root root             3 2010-03-13 17:09 cdrom1 -&gt; hdc
+lrwxrwxrwx 1 root root             3 2010-03-13 17:09 cdrw -&gt; hdc
+drwxrwxrwx 2 root root          3060 2010-03-13 17:09 char
+crwxrwxrwx 1 root root        5,   1 2010-03-13 17:10 console
+lrwxrwxrwx 1 root root            11 2010-03-13 17:09 core -&gt; /proc/kcore
+crwxrwxrwx 1 root root       10,  62 2010-03-13 17:09 cpu_dma_latency
+drwxrwxrwx 5 root root           100 2010-03-13 17:09 disk
+drwxrwxrwx 2 root root            80 2010-03-13 17:09 dri
+crwxrwxrwx 1 root audio      14,   3 2010-03-13 17:09 dsp
+lrwxrwxrwx 1 root root             3 2010-03-13 17:09 dvd -&gt; hdc
+lrwxrwxrwx 1 root root             3 2010-03-13 17:09 dvdrw -&gt; hdc
+crwxrwxrwx 1 root video      29,   0 2010-03-13 17:09 fb0
+lrwxrwxrwx 1 root root            13 2010-03-13 17:09 fd -&gt; /proc/self/fd
+brwxrwxrwx 1 root floppy      2,   0 2010-03-13 17:09 fd0
+crwxrwxrwx 1 root root        1,   7 2010-03-13 17:09 full
+crwxrwxrwx 1 root fuse       10, 229 2010-03-13 17:09 fuse
+srwxrwxrwx 1 root root             0 2010-03-13 17:09 gpmctl
+brwxrwxrwx 1 root disk        3,   0 2010-03-13 17:09 hda
+brwxrwxrwx 1 root disk        3,   1 2010-03-13 17:09 hda1
+brwxrwxrwx 1 root disk        3,   2 2010-03-13 17:09 hda2
+brwxrwxrwx 1 root cdrom      22,   0 2010-03-13 17:09 hdc
+brwxrwxrwx 1 root cdrom      22,  64 2010-03-13 17:09 hdd
+crwxrwxrwx 1 root root      251,   0 2010-03-13 17:09 hidraw0
+crwxrwxrwx 1 root root       10, 228 2010-03-13 17:09 hpet
+prwxrwxrwx 1 root root             0 2010-03-13 17:09 initctl
+drwxrwxrwx 4 root root           240 2010-03-13 17:09 input
+crwxrwxrwx 1 root root        1,  11 2010-03-13 17:09 kmsg
+srwxrwxrwx 1 root root             0 2010-03-13 17:09 log
+brwxrwxrwx 1 root disk        7,   0 2010-03-13 17:09 loop0
+brwxrwxrwx 1 root disk        7,   1 2010-03-13 17:09 loop1
+brwxrwxrwx 1 root disk        7,   2 2010-03-13 17:09 loop2
+brwxrwxrwx 1 root disk        7,   3 2010-03-13 17:09 loop3
+brwxrwxrwx 1 root disk        7,   4 2010-03-13 17:09 loop4
+brwxrwxrwx 1 root disk        7,   5 2010-03-13 17:09 loop5
+brwxrwxrwx 1 root disk        7,   6 2010-03-13 17:09 loop6
+brwxrwxrwx 1 root disk        7,   7 2010-03-13 17:09 loop7
+crwxrwxrwx 1 root lp          6,   0 2010-03-13 17:09 lp0
+lrwxrwxrwx 1 root root             9 2010-03-13 17:09 MAKEDEV -&gt; /bin/true
+crwxrwxrwx 1 root kmem        1,   1 2010-03-13 17:09 mem
+crwxrwxrwx 1 root audio      14,   0 2010-03-13 17:09 mixer
+drwxrwxrwx 2 root root            60 2010-03-13 17:09 net
+crwxrwxrwx 1 root root       10,  61 2010-03-13 17:09 network_latency
+crwxrwxrwx 1 root root       10,  60 2010-03-13 17:09 network_throughput
+crwxrwxrwx 1 root root        1,   3 2010-03-13 17:09 null
+crwxrwxrwx 1 root lp         99,   0 2010-03-13 17:09 parport0
+crwxrwxrwx 1 root kmem        1,   4 2010-03-13 17:09 port
+crwxrwxrwx 1 root root      108,   0 2010-03-13 17:09 ppp
+crwxrwxrwx 1 root root       10,   1 2010-03-13 17:09 psaux
+crwxrwxrwx 1 root root        5,   2 2010-03-13 17:50 ptmx
+drwxrwxrwx 2 root root             0 2010-03-13 17:09 pts
+brwxrwxrwx 1 root disk        1,   0 2010-03-13 17:09 ram0
+brwxrwxrwx 1 root disk        1,   1 2010-03-13 17:09 ram1
+brwxrwxrwx 1 root disk        1,  10 2010-03-13 17:09 ram10
+brwxrwxrwx 1 root disk        1,  11 2010-03-13 17:09 ram11
+brwxrwxrwx 1 root disk        1,  12 2010-03-13 17:09 ram12
+brwxrwxrwx 1 root disk        1,  13 2010-03-13 17:09 ram13
+brwxrwxrwx 1 root disk        1,  14 2010-03-13 17:09 ram14
+brwxrwxrwx 1 root disk        1,  15 2010-03-13 17:09 ram15
+brwxrwxrwx 1 root disk        1,   2 2010-03-13 17:09 ram2
+brwxrwxrwx 1 root disk        1,   3 2010-03-13 17:09 ram3
+brwxrwxrwx 1 root disk        1,   4 2010-03-13 17:09 ram4
+brwxrwxrwx 1 root disk        1,   5 2010-03-13 17:09 ram5
+brwxrwxrwx 1 root disk        1,   6 2010-03-13 17:09 ram6
+brwxrwxrwx 1 root disk        1,   7 2010-03-13 17:09 ram7
+brwxrwxrwx 1 root disk        1,   8 2010-03-13 17:09 ram8
+brwxrwxrwx 1 root disk        1,   9 2010-03-13 17:09 ram9
+crwxrwxrwx 1 root root        1,   8 2010-03-13 17:09 random
+crwxrwxrwx 1 root disk      171,   0 2010-03-13 17:09 raw1394
+crwxrwxrwx 1 root root       10,  59 2010-03-13 17:09 rfkill
+lrwxrwxrwx 1 root root             4 2010-03-13 17:09 root -&gt; hda1
+lrwxrwxrwx 1 root root             4 2010-03-13 17:09 rtc -&gt; rtc0
+crwxrwxrwx 1 root root      254,   0 2010-03-13 17:09 rtc0
+brwxrwxrwx 1 root floppy      8,   0 2010-03-13 17:09 sda
+brwxrwxrwx 1 root floppy      8,   1 2010-03-13 17:09 sda1
+crwxrwxrwx 1 root root       21,   0 2010-03-13 17:09 sg0
+drwxrwxrwt 3 root root            60 2010-03-13 17:16 shm
+crwxrwxrwx 1 root root       10, 231 2010-03-13 17:09 snapshot
+drwxrwxrwx 3 root root           240 2010-03-13 17:09 snd
+lrwxrwxrwx 1 root root            24 2010-03-13 17:09 sndstat -&gt; /proc/asound/oss/sndstat
+lrwxrwxrwx 1 root root            15 2010-03-13 17:09 stderr -&gt; /proc/self/fd/2
+lrwxrwxrwx 1 root root            15 2010-03-13 17:09 stdin -&gt; /proc/self/fd/0
+lrwxrwxrwx 1 root root            15 2010-03-13 17:09 stdout -&gt; /proc/self/fd/1
+crwxrwxrwx 1 root root        5,   0 2010-03-13 17:14 tty
+crwxrwxrwx 1 root root        4,   0 2010-03-13 17:09 tty0
+crwxrwxrwx 1 root root        4,   1 2010-03-13 17:10 tty1
+crwxrwxrwx 1 root root        4,  10 2010-03-13 17:09 tty10
+crwxrwxrwx 1 root root        4,  11 2010-03-13 17:09 tty11
+crwxrwxrwx 1 root root        4,  12 2010-03-13 17:09 tty12
+crwxrwxrwx 1 root root        4,  13 2010-03-13 17:09 tty13
+crwxrwxrwx 1 root root        4,  14 2010-03-13 17:09 tty14
+crwxrwxrwx 1 root root        4,  15 2010-03-13 17:09 tty15
+crwxrwxrwx 1 root root        4,  16 2010-03-13 17:09 tty16
+crwxrwxrwx 1 root root        4,  17 2010-03-13 17:09 tty17
+crwxrwxrwx 1 root root        4,  18 2010-03-13 17:09 tty18
+crwxrwxrwx 1 root root        4,  19 2010-03-13 17:09 tty19
+crwxrwxrwx 1 root root        4,   2 2010-03-13 17:10 tty2
+crwxrwxrwx 1 root root        4,  20 2010-03-13 17:09 tty20
+crwxrwxrwx 1 root root        4,  21 2010-03-13 17:09 tty21
+crwxrwxrwx 1 root root        4,  22 2010-03-13 17:09 tty22
+crwxrwxrwx 1 root root        4,  23 2010-03-13 17:09 tty23
+crwxrwxrwx 1 root root        4,  24 2010-03-13 17:09 tty24
+crwxrwxrwx 1 root root        4,  25 2010-03-13 17:09 tty25
+crwxrwxrwx 1 root root        4,  26 2010-03-13 17:09 tty26
+crwxrwxrwx 1 root root        4,  27 2010-03-13 17:09 tty27
+crwxrwxrwx 1 root root        4,  28 2010-03-13 17:09 tty28
+crwxrwxrwx 1 root root        4,  29 2010-03-13 17:09 tty29
+crwxrwxrwx 1 root root        4,   3 2010-03-13 17:10 tty3
+crwxrwxrwx 1 root root        4,  30 2010-03-13 17:09 tty30
+crwxrwxrwx 1 root root        4,  31 2010-03-13 17:09 tty31
+crwxrwxrwx 1 root root        4,  32 2010-03-13 17:09 tty32
+crwxrwxrwx 1 root root        4,  33 2010-03-13 17:09 tty33
+crwxrwxrwx 1 root root        4,  34 2010-03-13 17:09 tty34
+crwxrwxrwx 1 root root        4,  35 2010-03-13 17:09 tty35
+crwxrwxrwx 1 root root        4,  36 2010-03-13 17:09 tty36
+crwxrwxrwx 1 root root        4,  37 2010-03-13 17:09 tty37
+crwxrwxrwx 1 root root        4,  38 2010-03-13 17:09 tty38
+crwxrwxrwx 1 root root        4,  39 2010-03-13 17:09 tty39
+crwxrwxrwx 1 root root        4,   4 2010-03-13 17:09 tty4
+crwxrwxrwx 1 root root        4,  40 2010-03-13 17:09 tty40
+crwxrwxrwx 1 root root        4,  41 2010-03-13 17:09 tty41
+crwxrwxrwx 1 root root        4,  42 2010-03-13 17:09 tty42
+crwxrwxrwx 1 root root        4,  43 2010-03-13 17:09 tty43
+crwxrwxrwx 1 root root        4,  44 2010-03-13 17:09 tty44
+crwxrwxrwx 1 root root        4,  45 2010-03-13 17:09 tty45
+crwxrwxrwx 1 root root        4,  46 2010-03-13 17:09 tty46
+crwxrwxrwx 1 root root        4,  47 2010-03-13 17:09 tty47
+crwxrwxrwx 1 root root        4,  48 2010-03-13 17:09 tty48
+crwxrwxrwx 1 root root        4,  49 2010-03-13 17:09 tty49
+crwxrwxrwx 1 root root        4,   5 2010-03-13 17:09 tty5
+crwxrwxrwx 1 root root        4,  50 2010-03-13 17:09 tty50
+crwxrwxrwx 1 root root        4,  51 2010-03-13 17:09 tty51
+crwxrwxrwx 1 root root        4,  52 2010-03-13 17:09 tty52
+crwxrwxrwx 1 root root        4,  53 2010-03-13 17:09 tty53
+crwxrwxrwx 1 root root        4,  54 2010-03-13 17:09 tty54
+crwxrwxrwx 1 root root        4,  55 2010-03-13 17:09 tty55
+crwxrwxrwx 1 root root        4,  56 2010-03-13 17:09 tty56
+crwxrwxrwx 1 root root        4,  57 2010-03-13 17:09 tty57
+crwxrwxrwx 1 root root        4,  58 2010-03-13 17:09 tty58
+crwxrwxrwx 1 root root        4,  59 2010-03-13 17:09 tty59
+crwxrwxrwx 1 root root        4,   6 2010-03-13 17:09 tty6
+crwxrwxrwx 1 root root        4,  60 2010-03-13 17:09 tty60
+crwxrwxrwx 1 root root        4,  61 2010-03-13 17:09 tty61
+crwxrwxrwx 1 root root        4,  62 2010-03-13 17:09 tty62
+crwxrwxrwx 1 root root        4,  63 2010-03-13 17:09 tty63
+crwxrwxrwx 1 root root        4,   7 2010-03-13 17:09 tty7
+crwxrwxrwx 1 root root        4,   8 2010-03-13 17:09 tty8
+crwxrwxrwx 1 root root        4,   9 2010-03-13 17:09 tty9
+crwxrwxrwx 1 root dialout     4,  64 2010-03-13 17:09 ttyS0
+crwxrwxrwx 1 root dialout     4,  65 2010-03-13 17:09 ttyS1
+crwxrwxrwx 1 root dialout     4,  66 2010-03-13 17:09 ttyS2
+crwxrwxrwx 1 root dialout     4,  67 2010-03-13 17:09 ttyS3
+crwxrwxrwx 1 root root        1,   9 2010-03-13 17:09 urandom
+crwxrwxrwx 1 root root      252,   0 2010-03-13 17:09 usbmon0
+crwxrwxrwx 1 root root      252,   1 2010-03-13 17:09 usbmon1
+crwxrwxrwx 1 root root      252,   2 2010-03-13 17:09 usbmon2
+crwxrwxrwx 1 root root      252,   3 2010-03-13 17:09 usbmon3
+crwxrwxrwx 1 root root      252,   4 2010-03-13 17:09 usbmon4
+crwxrwxrwx 1 root vboxusers  10,  58 2010-03-13 17:09 vboxdrv
+crwxrwxrwx 1 root root       10,  57 2010-03-13 17:09 vboxnetctl
+crwxrwxrwx 1 root root        7,   0 2010-03-13 17:09 vcs
+crwxrwxrwx 1 root root        7,   1 2010-03-13 17:09 vcs1
+crwxrwxrwx 1 root root        7,   2 2010-03-13 17:09 vcs2
+crwxrwxrwx 1 root root        7,   3 2010-03-13 17:09 vcs3
+crwxrwxrwx 1 root root        7,   4 2010-03-13 17:09 vcs4
+crwxrwxrwx 1 root root        7,   5 2010-03-13 17:09 vcs5
+crwxrwxrwx 1 root root        7,   6 2010-03-13 17:09 vcs6
+crwxrwxrwx 1 root root        7,   7 2010-03-13 17:09 vcs7
+crwxrwxrwx 1 root root        7, 128 2010-03-13 17:09 vcsa
+crwxrwxrwx 1 root root        7, 129 2010-03-13 17:09 vcsa1
+crwxrwxrwx 1 root root        7, 130 2010-03-13 17:09 vcsa2
+crwxrwxrwx 1 root root        7, 131 2010-03-13 17:09 vcsa3
+crwxrwxrwx 1 root root        7, 132 2010-03-13 17:09 vcsa4
+crwxrwxrwx 1 root root        7, 133 2010-03-13 17:09 vcsa5
+crwxrwxrwx 1 root root        7, 134 2010-03-13 17:09 vcsa6
+crwxrwxrwx 1 root root        7, 135 2010-03-13 17:09 vcsa7
+crwxrwxrwx 1 root root       10,  63 2010-03-13 17:09 vga_arbiter
+crwxrwxrwx 1 root root       10, 130 2010-03-13 17:09 watchdog
+prwxrwxrwx 1 root adm              0 2010-03-13 17:50 xconsole
+crwxrwxrwx 1 root root        1,   5 2010-03-13 17:09 zero</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./sound-and-task-bar-volume-control-broken-t2284.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./sound-and-task-bar-volume-control-broken-t2284.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

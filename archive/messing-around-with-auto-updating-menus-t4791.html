@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>messing around with auto-updating menus - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./messing-around-with-auto-updating-menus-t4791.html">messing around with auto-updating menus</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_32772" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32772">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32772">
+<time datetime="2014-01-08T20:44">posted: 2014-01-08 &nbsp; 20:44</time>
+<span class="permalink"><a href="./messing-around-with-auto-updating-menus-t4791.html#p32772" title="permalink">#1</a></span>
+
+<div class="content">So I've been messing around in an antix 13.2 full virtual machine, trying to make the icewm menu update when new packages are installed. I tore open a bunch of .postinst files for various packages, particularly those with a gui, and noticed that most of them call"update-menus" during the post installation process.<br>
+<br>
+so....<br>
+<br>
+I created a new folder in / etc called antix-menu<br>
+<br>
+Then created a blank file called icewm-application in there.<br>
+<br>
+I then removed ~/.icewm/menu-application and replaced it with a symlink called menu-application that links back to / etc / icewm-application .<br>
+<br>
+I then replaced /usr/bin/update-menus with another symlink called update-menus that links to /usr/local/bin/auto-icewm-menu.sh <br>
+<br>
+I also edited /usr/local/bin/auto-icewm-menu.sh to make the menu file in / etc / antix-menu/icewm-application and removed cp line at the end.<br>
+<br>
+Installed a new package (gedit in this case for want of a package to install) . and lo and behold the link was in the menu without any further ado.<br>
+<br>
+downsides: I have no idea if update-menus is something that would ever get updated during a dist-upgrade, but I would expect breakage if it did.<br>
+<br>
+right now installing a new package only updates the icewm menu, but the link could be replaced with a script that updates all three supported window managers without to much hassle I would think.<br>
+<br>
+I also couldn't readily tell if xdg-menus requires the debian"update-menus" for anything. As I said I'm just messing around.<br>
+<br>
+food for thought. An auto-updating menu would be cool.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32774" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32774">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32774">
+
+<time datetime="2014-01-08T20:53">posted: 2014-01-08 &nbsp; 20:53</time>
+<span class="permalink"><a href="./messing-around-with-auto-updating-menus-t4791.html#p32774" title="permalink">#2</a></span>
+
+<div class="content">iIrc, I was sent something not too long ago for testing, that updated menus as you installed stuff.<br>
+<br>
+So... I think something is being worked on?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32776" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32776">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32776">
+
+<time datetime="2014-01-08T21:00">posted: 2014-01-08 &nbsp; 21:00</time>
+<span class="permalink"><a href="./messing-around-with-auto-updating-menus-t4791.html#p32776" title="permalink">#3</a></span>
+
+<div class="content">cool, because I was fairly sure something would break later on my system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32778" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32778">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32778">
+
+<time datetime="2014-01-08T21:08">posted: 2014-01-08 &nbsp; 21:08</time>
+<span class="permalink"><a href="./messing-around-with-auto-updating-menus-t4791.html#p32778" title="permalink">#4</a></span>
+
+<div class="content">lol, so, it would work as usual, in my case then... <br>
+<br>
+But it might be useful for someone building from core, I guess?<br>
+Where you only have 1 wm to worry about?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32809" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32809">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32809">
+
+<time datetime="2014-01-09T23:41">posted: 2014-01-09 &nbsp; 23:41</time>
+<span class="permalink"><a href="./messing-around-with-auto-updating-menus-t4791.html#p32809" title="permalink">#5</a></span>
+
+<div class="content">how many ways to skin a cat? Here are 4 python-powered updaters I've bookmarked:<br>
+<br>
+Automatically generated and self updating menu system for Fluxbox<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/kendalltristan/fm3"<br>linktext was:"https://github.com/kendalltristan/fm3"<br>====================================<br>
+<br>
+<br>
+XFCE -&gt; FluxBox automatic menu updater daemon<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/evilsocket/BBFlux"<br>linktext was:"https://github.com/evilsocket/BBFlux"<br>====================================<br>
+<br>
+<br>
+Algorithm for updating the IceWM menu<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/swiftlinux/z-antix-menu-update"<br>linktext was:"https://github.com/swiftlinux/z-antix-menu-update"<br>====================================<br>
+<br>
+<br>
+auto-updated applications menu for Openbox<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/ansdor/nekomenu"<br>linktext was:"https://github.com/ansdor/nekomenu"<br>====================================<br>
+<br>
+<blockquote class="uncited"><div>couldn't readily tell if xdg-menus requires the debian"update-menus"</div></blockquote>requires? no. Including a call to the latter will catch .desktop files for which a debian maintainer has specified a"Debian-specific, extended" category. <br>
+There are relatively few extended categories, though, and few if any menu-managing apps are saavy enough to detect and remove duplicates.<br>
+(what==duplicate? [Exec] may point to same path, but different/multiple categories... )<br>
+<blockquote class="uncited"><div>if update-menus is something that would ever get updated during a dist-upgrade</div></blockquote>Check the changelog for update-menus package. It's mature/stable.<br>
+Unlikely to change significantly + I trust the maintainer would strive to assure backward compatibility.<br>
+<blockquote class="uncited"><div>script that updates all three supported window managers</div></blockquote>
+three? more like"eleventeen ...and counting"<br>
+A separate, dedicated script for each WM seems like a more reasonable (perhaps necessary) approach.<br>
+<br>
+Not holdin' my breath, but what I'd like to see is (regardless which WM I'm using) is a launcher for each of the most recent<br>
+(4?6? configurable)"recently installed" applications displayed to the menu's topmost level. A reduntant categorized copy may be autocreated (or not), but allow me to drag the entry into the category/subcategory _I_ feel is appropriate. Also, empower me to drag/delete/hide entries from within the menu ui (xfce's latest menu is providing the latter)(drag to a 'favorites' category + checkmark to hide an entry). Although I've seen nothing to suggest the forthcoming lxde-qt menu will offer these (draggable reordering) features, I'm hopeful that it will.<br>
+<br>
+edit:<br>
+the problem with a"dock" or"panel" containing custom launchers with ability to drag/reorder <br>
+is that it's"always loaded" and each launcher item is"always listening for click event"<br>
+(tested: each item placed to a custom xfce panel adds 1Mb+ RAM overhead to your session!)<br>
+(due to caching the bitmapped content of the icon associated with each launcher?)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32810" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32810">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32810">
+
+<time datetime="2014-01-10T02:37">posted: 2014-01-10 &nbsp; 02:37</time>
+<span class="permalink"><a href="./messing-around-with-auto-updating-menus-t4791.html#p32810" title="permalink">#6</a></span>
+
+<div class="content">I was just trying to make the existing menu updating system for jwm, fluxbox, and icewm to automatically update when installing a package. My method is a little ugly because of the symlink between update-menus (debian's system) and the auto-icewm-menu.sh script. The three scripts already exist, so a master script would just need to call each of the three in turn. Then all three wm's would have up to date application menus. The way the scripts work, the wm's don't need to be running to have their menu's updated.<br>
+<br>
+My concern is that I since I make a fake"update-menus", that an upgrade of the actual package that contains it would break the symlink. If we were actually using"update-menus" for anything, my ugly tweak wouldn't work.<br>
+<br>
+Mostly just playing around though. <br>
+<br>
+I like your wishlist of"recently installed". I also like"recently used". Its one of the things I like about the whisker xfce menu. <br>
+<br>
+The nice thing about the plain text menu files in fluxbox and icewm is they are so bone simple to customize.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32812" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32812">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32812">
+
+<time datetime="2014-01-10T04:44">posted: 2014-01-10 &nbsp; 04:44</time>
+<span class="permalink"><a href="./messing-around-with-auto-updating-menus-t4791.html#p32812" title="permalink">#7</a></span>
+
+<div class="content">Hmm, yes a recently installed section would be nice! <br>
+I will see what can be done, should be easily achieved with the apt hook mechanism I am currently favouring / testing / finalizing.....<br>
+<br>
+Recently used may prove a bit more difficult, would it be acceptable to have this recent.... as in the last session login / log out? If so that might be able to be incorporated into the new way of starting /stopping sessions that is currently under development.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

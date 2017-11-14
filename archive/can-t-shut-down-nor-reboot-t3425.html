@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Can't shut down nor reboot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m11-jayaben-desai-f43/index.html"><span>antiX-M11 Jayaben Desai</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./can-t-shut-down-nor-reboot-t3425.html">Can't shut down nor reboot</a></div>
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_22642" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22642">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">M_Mynaardt</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22642">
+<time datetime="2011-11-17T03:55">posted: 2011-11-17 &nbsp; 03:55</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22642" title="permalink">#1</a></span>
+
+<div class="content">Hi there!<br>
+<br>
+After using Synaptic to install a lot of upgrades, the log off menu doesn't work properly. Suspend and Log Out seem to work fine, but there's no response to Shut-Down nor Reboot. Suspend sort of seems to work to shut the computer down.<br>
+<br>
+Is there some setting file that needs to be tinkered with for this?<br>
+<br>
+Thanks...</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22644" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22644">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22644">
+
+<time datetime="2011-11-17T05:52">posted: 2011-11-17 &nbsp; 05:52</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22644" title="permalink">#2</a></span>
+
+<div class="content"><strong><span style="color: blue">See the new instructions below</span></strong><br>
+<br>
+<br>
+The sudoers file will need to be fixed even if you told Synapatic that you wanted to keep your old file. Here is how I fixed the problem on my system.<br>
+<br>
+Your /etc/sudoers file should look like:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># sudoers file.
+#
+# This file MUST be edited with the"visudo" command as root.
+#
+# See the man page for details on how to write a sudoers file.
+#
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+Defaults   env_reset
+Defaults   secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# User privilege specification
+root   ALL=(ALL) ALL
+
+%users ALL=(root) NOPASSWD: /sbin/halt
+
+%users ALL=(root) NOPASSWD: /sbin/reboot
+
+%users ALL= /usr/sbin/pppoeconf 
+
+%users ALL=(root) NOPASSWD: /sbin/fdisk
+
+%users ALL=(root) NOPASSWD: /usr/bin/rox
+
+</code></pre></div>
+You can't even read this file as a normal user so you will have to get root. <br>
+<br>
+Open a terminal and use sux to get root (use the root password). Change directories to /etc/, make TWO copies of sudoers:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sux
+password:
+# cd /etc
+# cp sudoers sudoers.backup
+# cp sudoers sudoers.new</code></pre></div>
+Open sudoers.new file in leafpad, launched in background:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># leafpad sudoers.new &amp;</code></pre></div>
+Clear the new file by using select-all and then cut in leafpad (or however you want). Copy-and-paste the sudoers text above into the blank file. Make sure you have an extra blank line at the end. Save the file with Ctrl-s or via the menus. In the terminal, use cp to over-write the original file with the new one:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># cp sudoers.new sudoers</code></pre></div>
+Now test this by opening up a new terminal windows (as your normal user) and run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo /sbin/fdisk -h</code></pre></div>
+If you see the fdisk usage then the new sudoers file should be working. If all goes well, you won't ever need to use the backup copy of the sudoers file.<br>
+<br>
+<strong>Edit:</strong> Re-wrote most of this post after I had to fix this problem on my own system.</div>
+<div class="notice">
+Last edited by <b>BitJam</b> on 18 Nov 2011, 21:08, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22651" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22651">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">M_Mynaardt</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 11 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22651">
+
+<time datetime="2011-11-17T18:03">posted: 2011-11-17 &nbsp; 18:03</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22651" title="permalink">#3</a></span>
+
+<div class="content">Thanks for all that, <strong>BitJam</strong>.<br>
+<br>
+I'll try to give that a go later today and see how it goes.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22692" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22692">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22692">
+
+<time datetime="2011-11-18T22:17">posted: 2011-11-18 &nbsp; 22:17</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22692" title="permalink">#4</a></span>
+
+<div class="content">I updated my instructions after running into this problem myself.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22694" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22694">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">M_Mynaardt</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22694">
+
+<time datetime="2011-11-19T02:24">posted: 2011-11-19 &nbsp; 02:24</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22694" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>I updated my instructions after running into this problem myself.</div></blockquote>
+Right on, thanks...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22726" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22726">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22726">
+
+<time datetime="2011-11-21T01:30">posted: 2011-11-21 &nbsp; 01:30</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22726" title="permalink">#6</a></span>
+
+<div class="content">You should also edit /usr/local/bin/shutdown.sh and /usr/local/bin/reboot.sh. Change the sudo line so there is a full path the the command. For example:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo reboot
+--&gt;
+sudo /sbin/reboot</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22728" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22728">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">M_Mynaardt</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22728">
+
+<time datetime="2011-11-21T04:32">posted: 2011-11-21 &nbsp; 04:32</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22728" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>You should also edit /usr/local/bin/shutdown.sh and /usr/local/bin/reboot.sh. Change the sudo line so there is a full path the the command. For example:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo reboot
+--&gt;
+sudo /sbin/reboot</code></pre></div></div></blockquote>
+Okay, I'll look at that too...<br>
+<br>
+Thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22751" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22751">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22751">
+
+<time datetime="2011-11-22T20:41">posted: 2011-11-22 &nbsp; 20:41</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22751" title="permalink">#8</a></span>
+
+<div class="content">Hi BitJam<br>
+<br>
+I have the same problem, using a fresh installed an upgraded M11. <br>
+I can't logout using exitantix.sh (from icewm toolbar)<br>
+Pressing the Shutdown button does nothing.<br>
+<br>
+I had a look to the /etc/sudoers file; looks like the upgrade saved a copy of the sudoers file in sudoers.dpkg-old.<br>
+I fixed the file<br>
+<br>
+$ sudo /sbin/halt <br>
+stops the system<br>
+<br>
+Ok, but pressing the Shutdown button still does nothing.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22753" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22753">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22753">
+
+<time datetime="2011-11-22T21:00">posted: 2011-11-22 &nbsp; 21:00</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22753" title="permalink">#9</a></span>
+
+<div class="content">Ok, I have two users on my system:<br>
+<strong>yves</strong> (that's me): I can shutdown using the dialog from the icewm toolbag<br>
+<strong>anne</strong>: she can't, nothing happens --and I won't ask her to open a terminal, enter /sbin/halt <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Investigation:<br>
+exitantix.sh calls /usr/local/bin/shutdown, which invokes:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dbus-send --system --print-reply --dest="org.freedesktop.Hal" /org/freedesktop/Hal/devices/computer org.freedesktop.Hal.Device.SystemPowerManagement.Shutdown</code></pre></div>
+this dbus command, from a terminal under yves account, turns off the system, OK<br>
+same dbus invocation, from a terminal under anne's account, gets the error:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Error org.freedesktop.DBus.Error.Spawn.ChildExited: Launch helper exited with unknown return code 1</code></pre></div>
+Going to try my solution: call: <br>
+sudo /sbin/halt <br>
+from shutdown.sh (replacing dbus-send stuff)<br>
+<br>
+<strong>Update</strong><br>
+I solved my problem by editing /etc/passwd and /etc/group:<br>
+<br>
+adduser created user: anne with id 1001, in a new group: anne, gid 1000, and added anne to group: users, id 100, in /etc/group<br>
+(user yves, created at install, has uid 1000, gid 100)<br>
+Removed group anne, moved user anne to group users.<br>
+Now the dbus-send command works. Looks like a access' rights problem to dbus ?</div>
+<div class="notice">
+Last edited by <b>lagopus</b> on 22 Nov 2011, 22:00, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22754" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22754">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22754">
+
+<time datetime="2011-11-22T21:17">posted: 2011-11-22 &nbsp; 21:17</time>
+<span class="permalink"><a href="./can-t-shut-down-nor-reboot-t3425.html#p22754" title="permalink">#10</a></span>
+
+<div class="content">Das Verhalten wird über die Datei<br>
+<br>
+~/.icewm/preferences<br>
+<br>
+gesteuert.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...#  Menu Settings
+################
+MenuMouseTracking=1
+
+AutoReloadMenus=1
+
+ShowProgramsMenu=0
+ShowSettingsMenu=1
+ShowFocusModeMenu=1
+ShowThemesMenu=1
+ShowHelp=0
+ShowRun=1
+ShowWindowList=0
+
+ShowLogoutMenu=1
+ShowLogoutSubMenu=1
+LogoutCommand="exitantix.sh"
+ConfirmLogout=0 # Change to 0 if you add a logout command
+ShutdownCommand="dbus-send --system --print-reply --dest="org.freedesktop.Hal" /org/freedesktop/Hal/devices/computer org.freedesktop.Hal.Device.SystemPowerManagement.Shutdown"
+RebootCommand="dbus-send --system --print-reply --dest="org.freedesktop.Hal" /org/freedesktop/Hal/devices/computer org.freedesktop.Hal.Device.SystemPowerManagement.Reboot"
+LockCommand="xlock"
+
+#  Task Bar Settings
+####################...</code></pre></div>Die Datei sieht hier so aus (funktioniert)<br>
+<br>
+The behavior of the file<br>
+~ / .icewm / preferences<br>
+<br>
+controlled.<br>
+<br>
+The file looks here like this (work).</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

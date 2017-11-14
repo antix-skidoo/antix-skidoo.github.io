@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] antix-15.1 Live installer can't see partitions - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html">[SOLVED] antix-15.1 Live installer can't see partitions</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47178" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47178">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47178">
+<time datetime="2016-06-24T05:49">posted: 2016-06-24 &nbsp; 05:49</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47178" title="permalink">#1</a></span>
+
+<div class="content">The antix-15.1_x64-full.iso Live installer won't let me choose a root partition...<br>
+<br>
+I don't get it. I downloaded the iso, and the iso.md5 which matched what I got with<br>
+md5sum. Then I thought I'd start with a liveUSB so that I could experiment with some<br>
+persistent tweaks (Mostly installing openbox and my own ~/.config/openbox/rc.xml file<br>
+so that the keybindings I depend on will work. (I just don't do well with a mouse.)<br>
+And then I'd have a little fun learning how to save such changes...<br>
+<br>
+At least that was the plan. Somebody mentioned unetbootin, when I'd asked about it in a<br>
+previous thread, So since Opensuse has unetbootin, I installed that to my Opensuse<br>
+installation and used it to make a theoretically bootable flashdrive.<br>
+<br>
+But my HP Pavilion said it wasn't bootable. So I mounted it and took a peek and it looks<br>
+like it was set up for EFI with grub2 and syslinux...<br>
+<br>
+But the grub2 part and/or I think the syslinux should still work with a legacy bios<br>
+set up right? <br>
+<br>
+I mean it isn't that my PC can't boot from a flashdrive because I've booted a few old Puppy<br>
+Linux flash drives in it. Though to be honest, neither the Slacko 5.6, nor the<br>
+Quirky 5.7.1 booted correctly. Both said they were loading. but melted down when the<br>
+gui should have kicked in. But the Fatdog flashdrive gets all the way to a working<br>
+desktop... The antiX flashdrive got an instant response that said it wasn't bootable<br>
+and that I should insert a bootable floppy?!?<br>
+<br>
+Actually my Pavilion is capable of using EFI boot methods, but I disabled that because<br>
+I already know how to work with legacy bios, and my stand alone boot partition is grub<br>
+legacy too.I also heard it was a bad idea to mix EFI and bios methods on the same<br>
+machine. <br>
+<br>
+Oh well, since the liveUSB isn't booting, it's time for plan B. Which was to burn a live dvd.<br>
+Brasero said it was successful. And the live dvd does boot. But I don't like the available<br>
+window managers enough to play with it. So my plan was to use the menu to test a couple<br>
+applications and then install it to the preformatted 100 Gig partition on the Pavilion's<br>
+primary hard drive. Once it would be installed there, I'd use apt-get from a virtual console<br>
+to install the things I need to be comfortable with the GUI...<br>
+<br>
+The problem is that when I start the installer, I get stuck at the select root<br>
+partition field. When I get there it says"none" but there's an arrow that should<br>
+open a list of several partitions. Including the ext3 partition sda5 with the LABEL<br>
+of"MyAntix-5"... But when I click on the arrow it doesn't list any partitions at all.<br>
+The swap partition sees the swap partition on sda4 {labeled"MySwap"}...<br>
+That's when I noticed that there was a field a little further down that was preset to<br>
+a default value of ext4. That field let me set it to ext3. But the root partition<br>
+field still won't find any of the 6 ext3 partitions on /dev/sda... <br>
+<br>
+{many politically incorrect expletives deleted}<br>
+<br>
+It took me 3 hours to download antix-15.1_x64-full.iso from the mirror. It occurs to<br>
+me that <strong><span style="text-decoration: underline">ANY</span></strong> install that get's me far enough along for me to use apt-get from a<br>
+virtual console can be modified into what I want. I don't have to start with"full".<br>
+<br>
+So I gotta ask if the installer from any of the other 64 bit iso versions is any<br>
+better at seeing preexisting ext3 partitions???<br>
+<br>
+Or is there a"trick" to get the one I got to see the ext3 on sda5???</div>
+<div class="notice">
+Last edited by <b>jtwdyp</b> on 26 Jun 2016, 23:07, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47180" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47180">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47180">
+
+<time datetime="2016-06-24T06:14">posted: 2016-06-24 &nbsp; 06:14</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47180" title="permalink">#2</a></span>
+
+<div class="content">does your machine happen to have a eMMC style SSD inside? The antiX 15 installer can't see those, but the one in antiX-16 (coming this weekend) can.<br>
+<br>
+a legacy boot usb should be using syslinux for the bootloader. depending on what version of syslinux was installed on your opensuse setup, its possible for unetbootin to complete but not fully install the syslinux bootloader. thank the syslinux guys for making the later versions of syslinux incompatible with earlier versions.<br>
+<br>
+however, you could use the liveDVD/CD you made to use the antiX unetbootin to make a liveUSB.<br>
+<br>
+a uefi boot usb should be using grub2.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47184" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47184">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47184">
+
+<time datetime="2016-06-24T12:19">posted: 2016-06-24 &nbsp; 12:19</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47184" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>does your machine happen to have a eMMC style SSD inside? The antiX 15 installer can't see those, but the one in antiX-16 (coming this weekend) can.</div></blockquote>
+Nah, the closest thing to a solid state drive I've ever had my hands on is a couple 32 Gig flashdrives. This Pavilion came with a one terabyte sata drive that looked just like the 200 Gig one I added to it when my brother in law gave me the Pavilion's"tower" after his win7 OS self destructed...<br>
+<br>
+Besides, it sees the drive well enough for the other field to show me the swap partition. It only seems to be the root partition selection field that refuses to populate with anything...<br>
+<br>
+I don't suppose it could be ignoring the preformatted ext3 partitions because it wants ext4??? I mean has anyone actually tested installing that iso to a preformatted ext3 partition yet?<br>
+<blockquote class="uncited"><div>a legacy boot usb should be using syslinux for the bootloader. depending on what version of syslinux was installed on your opensuse setup, its possible for unetbootin to complete but not fully install the syslinux bootloader. thank the syslinux guys for making the later versions of syslinux incompatible with earlier versions.<br>
+<br>
+however, you could use the liveDVD/CD you made to use the antiX unetbootin to make a liveUSB.
+</div></blockquote>
+Well I'll certainly try that before I spend another 3 hours downloading a different iso version... But unless the hard drive installer on a liveUSB based on the same ISO, will populate the home partition selection field, it won't help much. Having a portable antiX liveUSB all configured to run"<span style="text-decoration: underline">my way</span>" would be a nice bonus. But my goal is a long term rolling release hard drive installation of antiX on /dev/sda5...<br>
+<br>
+By the way, is the recommended way to turn antiX-15 into a rolling release version still just a matter of using Debian testing instead of any Debian stable repos in the sources list?
+<blockquote class="uncited"><div>
+a uefi boot usb should be using grub2.</div></blockquote>
+That would actually be the <strong><span style="text-decoration: underline">SAME</span></strong> liveUSB, being booted by the PC's EFI <strong><span style="text-decoration: underline">OR</span></strong> legacy bios right?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47185" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47185">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47185">
+
+<time datetime="2016-06-24T12:30">posted: 2016-06-24 &nbsp; 12:30</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47185" title="permalink">#4</a></span>
+
+<div class="content">I mean has anyone actually tested installing that iso to a preformatted ext3 partition yet?<br>
+<br>
+Yes - works fine with antiX-15.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47186" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47186">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47186">
+
+<time datetime="2016-06-24T12:34">posted: 2016-06-24 &nbsp; 12:34</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47186" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>jtwdyp wrote:</cite><blockquote><div><cite>dolphin_oracle wrote:</cite>does your machine happen to have a eMMC style SSD inside? The antiX 15 installer can't see those, but the one in antiX-16 (coming this weekend) can.</div></blockquote>
+Nah, the closest thing to a solid state drive I've ever had my hands on is a couple 32 Gig flashdrives. This Pavilion came with a one terabyte sata drive that looked just like the 200 Gig one I added to it when my brother in law gave me the Pavilion's"tower" after his win7 OS self destructed...<br>
+<br>
+Besides, it sees the drive well enough for the other field to show me the swap partition. It only seems to be the root partition selection field that refuses to populate with anything...<br>
+<br>
+I don't suppose it could be ignoring the preformatted ext3 partitions because it wants ext4??? I mean has anyone actually tested installing that iso to a preformatted ext3 partition yet?
+</div></blockquote>
+it shouldn't matter. Mine even shows ntfs and fat32 partitions, although I admit I don't have any ext3 partitions.<br>
+<blockquote class="uncited"><div>
+By the way, is the recommended way to turn antiX-15 into a rolling release version still just a matter of using Debian testing instead of any Debian stable repos in the sources list?
+</div></blockquote>
+pretty much, and using the antiX testing sources instead of the stable ones.<br>
+<blockquote class="uncited"><div>
+a uefi boot usb should be using grub2.<br>
+<br>
+That would actually be the <strong><span style="text-decoration: underline">SAME</span></strong> liveUSB, being booted by the PC's EFI <strong><span style="text-decoration: underline">OR</span></strong> legacy bios right?
+</div></blockquote>
+same stick.<br>
+<br>
+<br>
+there is one type of partition that the installer filters out...partitions that are too small. stupid question, are you sure you made a 100 GB partition and not a 100mb partition? you can check with gparted, on the antix liveMEDIA already.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47192" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47192">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47192">
+
+<time datetime="2016-06-25T00:55">posted: 2016-06-25 &nbsp; 00:55</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47192" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite><blockquote><div><cite>jtwdyp wrote:</cite>I don't suppose it could be ignoring the preformatted ext3 partitions because it wants ext4??? I mean has anyone actually tested installing that iso to a preformatted ext3 partition yet?
+</div></blockquote>
+it shouldn't matter. Mine even shows ntfs and fat32 partitions, although I admit I don't have any ext3 partitions.<br>
+<blockquote class="uncited"><div>
+By the way, is the recommended way to turn antiX-15 into a rolling release version still just a matter of using Debian testing instead of any Debian stable repos in the sources list?
+</div></blockquote>
+pretty much, and using the antiX testing sources instead of the stable ones.<br>
+<br>
+there is one type of partition that the installer filters out...partitions that are too small. stupid question, are you sure you made a 100 GB partition and not a 100mb partition? you can check with gparted, on the antix liveMEDIA already.</div></blockquote>
+No there's nothing stupid about that question. But I'm very sure, I used gparted to repartition the hard drive to multi-boot 3 linux (complete with another empty ext3 in case I want to test some new distro someday.<br>
+<br>
+<strong>HOWEVER</strong> I can confirm that the liveUSB made with the unetbootin on the live-dvd not only boots, but I checked and it's installer does show me all my partitions in the root partition section field. At which point I backed out and started configuring my liveUSB. I had selected a persistent option that required me to change both root's and demo's passwd.and I added a few tools I'd miss if I had to use the liveUSB as a rescue"disk". And a few more just to make it fun to use.<br>
+<br>
+That included installing openbox. Unfortunately I can't figure out how to get the liveUSB to let me actually use openbox on it. I wasn't planning on trying to get the liveUSB to boot to runnlevel 3 so that I could use startx instead of a display manager. But I can't get it listed in the liveUSB's boot menu's selectable list of window managers...<br>
+<br>
+If I was booting to runlevel 3 then I could put a few things in my ~/.xinitrc, including a last instruction of:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>exec openbox-session
+</code></pre></div>
+I've only ever booted openbox that way. But I was under the impression that if I put that same exec command in a file called ~/.xsession<br>
+than it would become my"default session type" when booting with a graphical login manager. So I did that, and selected"default" as my window manager type in the boot menu... But it's still not starting openbox.<br>
+<br>
+<strong><span style="color: #0080FF">Anybody know how to get a liveUSB to start up a different window manager from any of the default boot loader selectable ones???</span></strong></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47193" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47193">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47193">
+
+<time datetime="2016-06-25T01:44">posted: 2016-06-25 &nbsp; 01:44</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47193" title="permalink">#7</a></span>
+
+<div class="content">1. I created a liveUSB with unetbootin.<br>
+<br>
+2. I selected persist_all in the boot options to get persistence set up.<br>
+<br>
+3. after boot up, I installed openbox.<br>
+<br>
+4. Openbox should now appear in the"Other Desktops" menu of the start menu. select that and openbox starts up.<br>
+<br>
+5. antiX will remember the last desktop used and use that as the default. So as long as you select persistence again on the next boot of the liveUSB, you should get openbox. (at least I did).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47194" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47194">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47194">
+
+<time datetime="2016-06-25T09:39">posted: 2016-06-25 &nbsp; 09:39</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47194" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>
+4. Openbox should now appear in the"Other Desktops" menu of the start menu. select that and openbox starts up.</div></blockquote>
+AhHa! That's what I was missing... Since I don't generally use any Display Manager, I didn't know where to look for that. When you run startx from a virtual console after booting to runlevel 3, if you want a different Window Manager you"log out" {of the WM} which {since no DM is running} drops you back in the virtual console where your still logged in{to a command shell}. Then you do something to change which WM startx points at {in my case I use a wrapper script which copies the selected pre-edited file to ~/.xinitrc and calls startx for me. }<br>
+<blockquote class="uncited"><div>
+5. antiX will remember the last desktop used and use that as the default. So as long as you select persistence again on the next boot of the liveUSB, you should get openbox. (at least I did).</div></blockquote>
+Yes that part worked perfect... Though everytime I start openbox that way I get a pop-up {sudo based} password prompt to give wicd access...<br>
+<br>
+I say it's sudo based because it wanted demo's password until I put"targetpw" in the"Defaults" of the suduers file. Now it wants the root password, like admin functions should want...<br>
+<br>
+Now my problem is that <strong><span style="text-decoration: underline">NONE</span></strong> of my window managers show the install icon anymore ??????<br>
+<br>
+<strong>Does anybody know what command line I could type into a roxterm {presumably while running a root shell} to start up the hard drive installer???</strong></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47196" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47196">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47196">
+
+<time datetime="2016-06-25T11:37">posted: 2016-06-25 &nbsp; 11:37</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47196" title="permalink">#9</a></span>
+
+<div class="content">minstall will start the installer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47201" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47201">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>1,445</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47201">
+
+<time datetime="2016-06-25T17:40">posted: 2016-06-25 &nbsp; 17:40</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47201" title="permalink">#10</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Though everytime I start openbox that way I get a pop-up {sudo based} password prompt to give wicd access...</div></blockquote>
+wicd permission box is triggered by the freedesktops.org"xdg autostarts" built into debian.<br>
+By default, antix session management suppresses (or silently handles) details such as this<br>
+and by insisting on square-pegging a round hole, you're choosing to forego one of great benefits antix provides -- easily customizeble session management.<br>
+<br>
+So, after installing openbox (and obconf? and lxpanel?) ...yeah, you have your work cut out for ya.<br>
+Yep, no install icon on the desktop. Yep, no customized autostarts applied, and after you've installed additional debian packages...<br>
+...possibly unwanted extra apps autostarting each session unless you weed them out<br>
+(weed, meaning, check post-install whether installation of a given package has created ~/.config/autostart/ and populated it with a .desktop file)<br>
+along with a dozen or so other details you'll need to configure (and monitor, on an ongoing basis).<br>
+<br>
+==================<br>
+<br>
+You can setup for your favorite keybinds to be recognized in iceWM and/or in fluxbox and/or in JWM, so I (still) can't understand the merit in opting to roll openbox.<br>
+If doing so were a"for fun" or"simply academic" excercise, that's fine. (That's great!)... but obviously that's not the case.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47206" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47206">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47206">
+
+<time datetime="2016-06-26T04:08">posted: 2016-06-26 &nbsp; 04:08</time>
+<span class="permalink"><a href="./solved-antix-15-1-live-installer-can-t-see-partiti-t6426.html#p47206" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite><blockquote class="uncited"><div>Though everytime I start openbox that way I get a pop-up {sudo based} password prompt to give wicd access...</div></blockquote>
+wicd permission box is triggered by the freedesktops.org"xdg autostarts" built into debian.<br>
+By default, antix session management suppresses (or silently handles) details such as this<br>
+and by insisting on square-pegging a round hole, you're choosing to forego one of great benefits antix provides -- easily customizeble session management.
+</div></blockquote>
+Nope, I'm square pegging a square hole... It's just that ANY Display manager will try to redirect me to the round hole... Once the {expletive deleted} DM is properly disabled, I don't have any problems with session management. Xorg knows how to listen to what I want it to do. (Once I get that durned DM to stop telling it to do something else.) Incidentally I only get that wicd pop-up when I use the liveUSB's DM to start openbox. I don't get it with the antiX I just installed to the hard drive.
+<blockquote class="uncited"><div> <br>
+So, after installing openbox (and obconf? and lxpanel?) ...yeah, you have your work cut out for ya.<br>
+Yep, no install icon on the desktop. Yep, no customized autostarts applied, and after you've installed additional debian packages...<br>
+...possibly unwanted extra apps autostarting each session unless you weed them out<br>
+(weed, meaning, check post-install whether installation of a given package has created ~/.config/autostart/ and populated it with a .desktop file)<br>
+along with a dozen or so other details you'll need to configure (and monitor, on an ongoing basis).
+</div></blockquote>
+I've been using openbox this way for years now, I've never needed to fuss with obconf<br>
+I add lxpanel because it adds a reasonable task bar. And it comes with another menu, which can be handy if I'm using a distro that won't auto-update openbox's menu. Though I seldom use the menu for anything other than logging out. I occasionally use it to figure out the command names of anything I don't have keybindings for.<br>
+But then I usually call it from the command line anyway<br>
+Once I'm booting to runlevel 3 and using startx, I've never had any problems with any installed applications starting themselves. Not on opensuse, not on mageia, and not on my old rolling release configured antix-11 which was using the debian testing repos to stay up to date until I switched to a new PC and decided I wanted antix on it.<br>
+Though I will admit I occasionally have to set Xorg back to setuid after a system update, so regular user accounts can startx. <br>
+<br>
+Losing the install icon on the liveUSB wasn't convenient... But once I knew the command name, I was all set on that.<br>
+<br>
+I was a bit surprised that just setting up openbox could interfere with the icons on the other WM sessions though.
+<blockquote class="uncited"><div>
+<br>
+==================<br>
+<br>
+You can setup for your favorite keybinds to be recognized in iceWM and/or in fluxbox and/or in JWM, so I (still) can't understand the merit in opting to roll openbox.</div></blockquote>
+I'd like to think so... I knew it could be done in JWM, Puppy Linux taught me that. Though I no longer remember exactly how, I just have a vague memory of finding it a pain to do. I never learned how to do that with iceWM or fluxbox. So since my goal is to get back to using my computer, instead of learning to configure unfamiliar window managers...nuff said...<br>
+<blockquote class="uncited"><div>If doing so were a"for fun" or"simply academic" excercise, that's fine. (That's great!)... but obviously that's not the case.</div></blockquote>
+I'm using essentially the same openbox configuration on 3 different distros on each of my computers. I occasionally fire up a different WM or even a DE for a change of pace. But I like openbox better. <br>
+<br>
+But actually I <span style="text-decoration: underline"><strong>AM</strong></span> doing so for fun. I find it fun making my computer do things the way I want. And for some reason graphical login screens always bugged me. And avoiding them is"fun".<br>
+<br>
+It was a bit of a pain disabling the installed DM {aka slim} because this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-rc.d -f slim remove
+update-rc.d slim stop 20 2 3 4 5 .
+</code></pre></div> <br>
+doesn't work anymore, and the new syntax, that the error message informed me of, sounded like something was changed to work with systemd. But whether that's the case or not. I wasn't going to waste time learning the new syntax of a command I most likely won't need again for years. It wasn't all that hard to manually create the"stop" symlinks. and purge any remaining start symlinks... In fact it was fun. Because I'm tired of just changing the default target symlink, for one that points at the runlevel3 target. <br>
+<br>
+Anyway, what's installed is working well enough. But since it's my goal to convert this antiX-15 into a rolling release by reconfiguring the sources to use testing. I think I'd be better off doing that before I install the kitchen sink. <span class="emoticon"> __{{emoticon}}__ </span><br>
+I mean I might be adding a few big packages. Or perhaps I should say packages with big dependency lists. So rather than installing everything I want, and then make apt-get reinstall the testing versions, my next task is the sources lists<br>
+<br>
+After which I suspect I should use:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update &amp;&amp; apt-get dist-upgrade
+</code></pre></div>
+instead of just:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update &amp;&amp; apt-get upgrade
+</code></pre></div>
+Then I can add the rest of my preferred applications...<br>
+<br>
+In any case I'd like to thank you for the helpful suggestions. I did get that you don't see the point of my using openbox. But I noticed that didn't stop you from helping me do it.<br>
+<br>
+<strong><span style="text-decoration: underline">THANK YOU!</span></strong></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

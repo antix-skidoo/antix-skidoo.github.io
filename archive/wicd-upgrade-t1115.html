@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>wicd upgrade - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./announcements-and-news-old-f38/index.html"><span>Announcements and News (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./wicd-upgrade-t1115.html">wicd upgrade</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./wicd-upgrade-t1115-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./wicd-upgrade-t1115-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_6874" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6874">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6874">
+<time datetime="2008-10-06T20:57">posted: 2008-10-06 &nbsp; 20:57</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6874" title="permalink">#1</a></span>
+
+<div class="content">If you have upgraded (by choice or otherwise) wicd, you'll find that it will no longer open in the antix control centre.<br>
+<br>
+This is what you should do.<br>
+<br>
+1. Remove all instances of wicd.<br>
+#rm /var/lib/dpkg/info/wicd.prerm<br>
+#apt-get remove --purge wicd<br>
+<br>
+Also remove the files that are left behind.<br>
+<br>
+2. Remove the wicd folder and contents from /opt folder<br>
+<br>
+3. Install new (Debian) version of wicd<br>
+#apt-get install wicd<br>
+Hit y to accept new changes if asked.<br>
+<br>
+4. Edit antiX control centre settings (2 files)<br>
+<br>
+Go to /usr/local/bin <br>
+a) edit wicdtrayicon.sh lines 9 and 10 to read:<br>
+echo"wicd-client &amp;" &gt;&gt; ~/.icewm/startup<br>
+echo"wicd-client &amp;" &gt;&gt; ~/.fluxbox/startup<br>
+<br>
+b) edit controlcenter.sh<br>
+line 190 to read &lt;action&gt;wicd-client -n &amp;&lt;/action&gt;<br>
+<br>
+5. Remove from .fluxbox/startup and .icewm/startup all references to /opt/wicd<br>
+<br>
+6. You will probably need to reboot.<br>
+<br>
+7. Make sure the /etc/init.d/wicd is the same as the one here, post 8:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wicd.sourceforge.net/punbb/viewtopic.php?id=187"<br>linktext was:"http://wicd.sourceforge.net/punbb/viewtopic.php?id=187"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+This is taken from here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wicd.net/punbb/viewtopic.php?id=209"<br>linktext was:"http://wicd.net/punbb/viewtopic.php?id=209"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+Thanks to eriefisher.<br>
+<br>
+Please add if there are any mistakes.<br>
+<br>
+Edit: For step 4, I have uploaded the new files.<br>
+1. Make backup copies of controlcenter.sh and wicdtrayicon.sh in /usr/local/bin<br>
+2.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#cd /usr/local/bin; wget -Nc http://www.mepisimo.com/antix/wicd-1.5-3/controlcenter.sh; chmod +x controlcenter.sh</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># cd /usr/local/bin; wget -Nc http://www.mepisimo.com/antix/wicd-1.5-3/wicdtrayicon.sh; chmod +x wicdtrayicon.sh </code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6875" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6875">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6875">
+
+<time datetime="2008-10-06T21:12">posted: 2008-10-06 &nbsp; 21:12</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6875" title="permalink">#2</a></span>
+
+<div class="content">Please post if you have trouble. we covered a lot in a short time in chat and may have missed something in the step by step. I think everything may have been ok if you accept the authors scripts instead of keeping the old during the upgrade other than the control center of course.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6877" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6877">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 12</span></div>
+
+</div>
+</div>
+<span class="username">flammen</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6877">
+
+<time datetime="2008-10-06T22:29">posted: 2008-10-06 &nbsp; 22:29</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6877" title="permalink">#3</a></span>
+
+<div class="content">Haha, actually I run into a problem during the first step. It won't let me remove wicd.<br>
+<br>
+root@kellen-desktop:/home/kellen# apt-get remove --purge wicd<br>
+Reading package lists... Done<br>
+Building dependency tree <br>
+Reading state information... Done<br>
+The following packages were automatically installed and are no longer require<br>
+libparted1.8-9<br>
+Use 'apt-get autoremove' to remove them.<br>
+The following packages will be REMOVED:<br>
+wicd*<br>
+0 upgraded, 0 newly installed, 1 to remove and 1 not upgraded.<br>
+After this operation, 1774kB disk space will be freed.<br>
+Do you want to continue [Y/n]? y<br>
+(Reading database ... 61388 files and directories currently installed.)<br>
+Removing wicd ...<br>
+Stopping wicd daemon...<br>
+invoke-rc.d: initscript wicd, action"stop" failed.<br>
+dpkg: error processing wicd (--purge):<br>
+subprocess pre-removal script returned error exit status 1<br>
+update-rc.d: warning: /etc/init.d/wicd missing LSB information<br>
+update-rc.d: see &lt;
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/LSBInitScripts"<br>linktext was:"http://wiki.debian.org/LSBInitScripts"<br>====================================<br>
+&gt;<br>
+Stopping any running daemons...<br>
+Starting wicd daemon...<br>
+Errors were encountered while processing:<br>
+wicd<br>
+E: Sub-process /usr/bin/dpkg returned an error code (1)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6878" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6878">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6878">
+
+<time datetime="2008-10-06T22:38">posted: 2008-10-06 &nbsp; 22:38</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6878" title="permalink">#4</a></span>
+
+<div class="content">Try from here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wicd.net/punbb/viewtopic.php?id=187"<br>linktext was:"http://wicd.net/punbb/viewtopic.php?id=187"<br>====================================<br>
+" onclick="window.open(this.href);return false</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6879" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6879">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">eriefisher</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6879">
+
+<time datetime="2008-10-06T23:16">posted: 2008-10-06 &nbsp; 23:16</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6879" title="permalink">#5</a></span>
+
+<div class="content">As root:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>rm /var/lib/dpkg/info/wicd.prerm</code></pre></div>
+Then:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get remove --purge wicd
+apt-get install wicd</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6888" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6888">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 12</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">flammen</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 04 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6888">
+
+<time datetime="2008-10-07T15:01">posted: 2008-10-07 &nbsp; 15:01</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6888" title="permalink">#6</a></span>
+
+<div class="content">That did the trick. Thanks guys. Wicd is working now, tray icon and all. I'm impressed with how quickly a solution was found and put out for others. Great work!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6889" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6889">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6889">
+
+<time datetime="2008-10-07T21:15">posted: 2008-10-07 &nbsp; 21:15</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6889" title="permalink">#7</a></span>
+
+<div class="content">So I guess we didn't miss too much then. Good stuff.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6890" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6890">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">sleepyEDB</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 18 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6890">
+
+<time datetime="2008-10-08T01:11">posted: 2008-10-08 &nbsp; 01:11</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6890" title="permalink">#8</a></span>
+
+<div class="content">Worked perfectly for me as well. <br>
+<br>
+Many thanks to both anticapitalista and eriefisher! <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+<br>
+sleepy</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6962" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6962">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">sleepyEDB</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6962">
+
+<time datetime="2008-10-13T18:05">posted: 2008-10-13 &nbsp; 18:05</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6962" title="permalink">#9</a></span>
+
+<div class="content">-Update-<br>
+<br>
+I went back into antiX on my laptop yesterday for the first time since my above post, and wicd has reverted back to its pre-fix behavior...the daemon is not starting on bootup and the small black application window appears in the upper-left corner of the screen and cannot be closed, killed, etc.<br>
+<br>
+I'm not posting this as a 'hey you, fix this!', or anything like that. <span class="emoticon"> __{{emoticon}}__ </span> I can live with having to manually start wicd if that's what it takes. I just thought I'd report back my findings in case this issue comes back on a larger scale. I didn't really have time to troubleshoot much, so if anyone would like me to check anything specific and post back, just let me know.<br>
+<br>
+<br>
+sleepy</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6963" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6963">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6963">
+
+<time datetime="2008-10-13T18:23">posted: 2008-10-13 &nbsp; 18:23</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6963" title="permalink">#10</a></span>
+
+<div class="content">I would try running through the steps again. Make sure all the old stuff is gone and reinstall wicd.<br>
+<br>
+I have seen this"black window" on my desktop a couple of times. I don't think it's related to wicd because I did not use it there. I think it may be something in the fluxbox startup.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6966" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6966">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner"> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6966">
+
+<time datetime="2008-10-13T18:42">posted: 2008-10-13 &nbsp; 18:42</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6966" title="permalink">#11</a></span>
+
+<div class="content">I agree with eriefisher. The black box seems to be a fluxbox issue.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6967" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6967">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">sleepyEDB</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6967">
+
+<time datetime="2008-10-13T19:27">posted: 2008-10-13 &nbsp; 19:27</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6967" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>eriefisher wrote:</cite>I would try running through the steps again. Make sure all the old stuff is gone and reinstall wicd.</div></blockquote>
+Will do.<br>
+<blockquote><div><cite>eriefisher wrote:</cite>I have seen this"black window" on my desktop a couple of times. I don't think it's related to wicd because I did not use it there. I think it may be something in the fluxbox startup.</div></blockquote>
+That may be true, but if that is the case it must also be due to something in Icewm, because that is all I've been using for the past few weeks...I even made it my default window manager! <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+<br>
+sleepy</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6968" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6968">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">sleepyEDB</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6968">
+
+<time datetime="2008-10-13T22:13">posted: 2008-10-13 &nbsp; 22:13</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p6968" title="permalink">#13</a></span>
+
+<div class="content">Well, it looks like wicd has made a liar out of me. <br>
+<br>
+I booted up my laptop, noticed that wicd was mentioned in the boot process, logged into IceWM...and wicd is not only running in the system tray, but has also automatically connected my to the wireless network, and the 'little black application window' is nowhere to be found. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+<br>
+I hate computers. <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+<br>
+sleepy</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7120" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7120">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+ <dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7120">
+
+<time datetime="2008-10-23T17:21">posted: 2008-10-23 &nbsp; 17:21</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p7120" title="permalink">#14</a></span>
+
+<div class="content">Just wanted to say thank you anticapitalista, eriefisher for the resolution to this problem, had noticed it a while back, but was able to circumvent no wicd by opening control centre &gt; mepis network tool ,&gt;wireless tab&gt;manually entering the essid, apply,&gt;interfaces&gt;start/restart on apply&gt;apply, not very elegant and a pita, this is much better!!! <br>
+<br>
+antiX just lean and mean<br>
+<br>
+cheers<br>
+oldhoghead <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9638" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9638">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">gychang</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9638">
+
+<time datetime="2009-03-13T00:18">posted: 2009-03-13 &nbsp; 00:18</time>
+<span class="permalink"><a href="./wicd-upgrade-t1115.html#p9638" title="permalink">#15</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>If you have upgraded (by choice or otherwise) wicd, you'll find that it will no longer open in the antix control centre.<br>
+<br>
+This is what you should do.<br>
+<br>
+1. Remove all instances of wicd.<br>
+#rm /var/lib/dpkg/info/wicd.prerm<br>
+#apt-get remove --purge wicd<br>
+<br>
+Also remove the files that are left behind.<br>
+<br>
+2. Remove the wicd folder and contents from /opt folder<br>
+<br>
+3. Install new (Debian) version of wicd<br>
+#apt-get install wicd<br>
+Hit y to accept new changes if asked.<br>
+<br>
+4. Edit antiX control centre settings (2 files)<br>
+<br>
+Go to /usr/local/bin <br>
+a) edit wicdtrayicon.sh lines 9 and 10 to read:<br>
+echo"wicd-client &amp;" &gt;&gt; ~/.icewm/startup<br>
+echo"wicd-client &amp;" &gt;&gt; ~/.fluxbox/startup<br>
+<br>
+b) edit controlcenter.sh<br>
+line 190 to read &lt;action&gt;wicd-client -n &amp;&lt;/action&gt;<br>
+<br>
+5. Remove from .fluxbox/startup and .icewm/startup all references to /opt/wicd<br>
+<br>
+6. You will probably need to reboot.<br>
+<br>
+7. Make sure the /etc/init.d/wicd is the same as the one here, post 8:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wicd.sourceforge.net/punbb/viewtopic.php?id=187"<br>linktext was:"http://wicd.sourceforge.net/punbb/viewtopic.php?id=187"<br>====================================<br>
+" onclick="window.open(this.href);return false
+</div></blockquote>
+I have followed the guidline and suceeded in getting the wicd back but now there is"no wireless that can be found". Before I uploaded the packages, i.e. right after installation of 7.5, it worked fine, finding the my router wireless etc.<br>
+<br>
+on"lspci" my PCI card is seen, now how do I trouble shoot and get it working?<br>
+<br>
+thanks in advance.<br>
+<br>
+gychang</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./wicd-upgrade-t1115-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./wicd-upgrade-t1115-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

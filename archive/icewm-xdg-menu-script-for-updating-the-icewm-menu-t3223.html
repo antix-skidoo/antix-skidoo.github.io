@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>icewm-xdg-menu script for updating the IceWM menu - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./welcome-to-antix-f1/index.html"><span>Welcome to antiX</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./icewm-xdg-menu-script-for-updating-the-icewm-menu-t3223.html">icewm-xdg-menu script for updating the IceWM menu</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_21161" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21161">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">swiftlinuxcreator</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21161">
+<time datetime="2011-07-03T22:08">posted: 2011-07-03 &nbsp; 22:08</time>
+<span class="permalink"><a href="./icewm-xdg-menu-script-for-updating-the-icewm-menu-t3223.html#p21161" title="permalink">#1</a></span>
+
+<div class="content">I'm trying to improve this script for Swift Linux, and I think antiX Linux could use the improvements I plan to make. (I want to make the menu look and feel more like that of Puppy Linux.)<br>
+<br>
+Somehow, the script pulls up the various categories of programs in the OS (System, Office, Multimedia, etc.). But I can't for the life of me figure out how it's doing so. The old script went through all of the *.desktop files in the /usr/share/applications directory. For the life of me, I can't figure out what the new script is doing. My questions:<br>
+1. Exactly where is the list of various categories of programs?<br>
+2. Exactly how is this list accessed or created?<br>
+3. Exactly where is the list of programs to be included in the menu?<br>
+4. Exactly how is this list accessed or created?<br>
+<br>
+Two of the critical steps in the process are:<br>
+menu = xdg.Menu.parse()<br>
+process_menu(menu)<br>
+<br>
+def parse(filename=None):<br>
+# conver to absolute path<br>
+if filename and not os.path.isabs(filename):<br>
+filename = __getFileName(filename)<br>
+<br>
+# use default if no filename given<br>
+if not filename:<br>
+candidate = os.environ.get('XDG_MENU_PREFIX', '') +<br>
+"applications.menu"<br>
+filename = __getFileName(candidate)<br>
+<br>
+if not filename:<br>
+raise ParsingError('File not found',"/etc/xdg/menus/%s" %<br>
+candidate)<br>
+<br>
+# check if it is a .menu file<br>
+if not os.path.splitext(filename)[1] ==".menu":<br>
+raise ParsingError('Not a .menu file', filename)<br>
+<br>
+# create xml parser<br>
+try:<br>
+doc = xml.dom.minidom.parse(filename)<br>
+except xml.parsers.expat.ExpatError:<br>
+raise ParsingError('Not a valid .menu file', filename)<br>
+<br>
+# parse menufile<br>
+tmp["Root"] =""<br>
+tmp["mergeFiles"] = []<br>
+tmp["DirectoryDirs"] = []<br>
+tmp["cache"] = MenuEntryCache()<br>
+<br>
+__parse(doc, filename, tmp["Root"])<br>
+__parsemove(tmp["Root"])<br>
+__postparse(tmp["Root"])<br>
+<br>
+tmp["Root"].Doc = doc<br>
+tmp["Root"].Filename = filename<br>
+<br>
+# generate the menu<br>
+__genmenuNotOnlyAllocated(tmp["Root"])<br>
+__genmenuOnlyAllocated(tmp["Root"])<br>
+<br>
+# and finally sort<br>
+sort(tmp["Root"])<br>
+<br>
+return tmp["Root"]<br>
+<br>
+The process_menu function is:<br>
+def process_menu(menu):<br>
+for entry in menu.getEntries():<br>
+if isinstance(entry, xdg.Menu.Menu):<br>
+name = entry.getName() or entry.DesktopFileID<br>
+icon = find_icon(entry) or default_folder_icon<br>
+<br>
+if entire_menu:<br>
+print ("menu \"%s\" \"%s\" {" % (name, icon)).encode(encoding)<br>
+process_menu(entry)<br>
+print"}".encode(encoding)<br>
+else:<br>
+print (("menuprog \"%s\" \"%s\" %s" % (name, icon,<br>
+sys.argv[0])) +<br>
+(" --root-folder \"%s\"" % entry.getPath(org=True)) +<br>
+(" --terminal \"%s\"" % terminal) +<br>
+(" --default-folder-icon \"%s\"" % default_folder_icon) +<br>
+(" --default-entry-icon \"%s\"" % default_entry_icon) +<br>
+(" --theme \"%s\"" % xdg.Config.icon_theme) +<br>
+(" --icon-size \"%d\"" % icon_size) +<br>
+(with_theme_paths and" --with-theme-paths" or<br>
+"")).encode(encoding),<br>
+if locale_str:<br>
+print (" --locale \"%s\"" % locale_str).encode(encoding),<br>
+print<br>
+elif isinstance(entry, xdg.Menu.MenuEntry):<br>
+de = entry.DesktopEntry<br>
+name = de.getName() or entry.DesktopFileID<br>
+icon = find_icon(de) or default_entry_icon<br>
+execute = exec_clean2_re.sub('%', exec_clean1_re.sub('',<br>
+de.getExec()))<br>
+if de.getTerminal(): execute = terminal % execute<br>
+print ("prog \"%s\" \"%s\" %s" % (name, icon,<br>
+execute)).encode(encoding)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21163" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21163">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21163">
+
+<time datetime="2011-07-04T05:09">posted: 2011-07-04 &nbsp; 05:09</time>
+<span class="permalink"><a href="./icewm-xdg-menu-script-for-updating-the-icewm-menu-t3223.html#p21163" title="permalink">#2</a></span>
+
+<div class="content">Hello. I believe it uses /etc/xdg/menus/lxde-applications.menu. The actual script that uses lxde-applications.menu has a pointer /etc/xdg/menus/applications.menu that points to the lxde menu. Also look for /usr/local/bin/auto-fluxbox-menu which is the script that does the work and references the data in lxde-applications.menu.<br>
+<br>
+This way of doing things is better than the old script as it can find apps installed on your system - even if they don't have .desktop files. Good luck.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21166" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21166">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21166">
+
+<time datetime="2011-07-04T11:26">posted: 2011-07-04 &nbsp; 11:26</time>
+<span class="permalink"><a href="./icewm-xdg-menu-script-for-updating-the-icewm-menu-t3223.html#p21166" title="permalink">#3</a></span>
+
+<div class="content">As OU812 said, it uses the LXDE menu (package lxmenu-data), which generates the menu listing from desktop files.<br>
+It needs the desktop files for that (as any freedesktop compatible menu generator), but it's more complete than the older script as it includes all the proper locations (/usr/share/applications, /usr/local/share/applications and ~/.local/share/applications) and the entries are localized.<br>
+<br>
+So I'm not a programmer but I can tell you that the desktop file parsing is done by lxmenu-data, which generates the menu file /etc/xdg/menus/lxde-applications.menu. It's symlinked to /etc/xdg/menus/applications.menu which is read by icewm-xdg-menu to create ~/.icewm/menu.<br>
+icewm-xdg-menu is an IceWM menu generator that has some options like setting the icon theme to be used and the default terminal emulator (and anticapitalista tweaked it to create a Fluxbox menu generator too).<br>
+<br>
+So if you intend on tweaking the categories, for instance, you should look into lxmenu-data and the freedesktop.org menu specs.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

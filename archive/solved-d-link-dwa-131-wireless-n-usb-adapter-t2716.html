@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] D-Link DWA-131 Wireless N USB Adapter - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html">[SOLVED] D-Link DWA-131 Wireless N USB Adapter</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_17739" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17739">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 27</span></div>
+
+</div>
+</div>
+<span class="username">benji</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Nov 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17739">
+<time datetime="2010-10-13T20:24">posted: 2010-10-13 &nbsp; 20:24</time>
+<span class="permalink"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html#p17739" title="permalink">#1</a></span>
+
+<div class="content">Please help me out with an advise<br>
+I got an usb dongle with rtl8192s chip, but its driver isn't in the 2.6.32-1 kernel<br>
+Please take a look at this:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/rtl819x"<br>linktext was:"http://wiki.debian.org/rtl819x"<br>====================================<br>
+<br>
+Is it safe to follow the tutorial in the Installation-Lenny section for a kernel upgrade?<br>
+TIA<br>
+benji</div>
+<div class="notice">
+Last edited by <b>benji</b> on 22 Oct 2010, 06:51, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17741" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17741">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17741">
+
+<time datetime="2010-10-13T21:07">posted: 2010-10-13 &nbsp; 21:07</time>
+<span class="permalink"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html#p17741" title="permalink">#2</a></span>
+
+<div class="content">I just looked in the config for the 2/.6.32-1-mepis-smp and it shows the <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CONFIG_RTL8192SU=m</code></pre></div>
+and then I looked in<br>
+/lib/modules/2.6.32-1-mepis-smp/kernel/drivers/staging/rtl8192su<br>
+<br>
+and there is<br>
+<br>
+r8192s_usb.ko<br>
+<br>
+so the driver is there <br>
+<br>
+since wireless-tools is already installed<br>
+how about trying as root in terminal<br>
+<br>
+modprobe r8192s_usb<br>
+<br>
+then iwconfig<br>
+<br>
+edit: If that does not work, then you should be able to follow the wiki link you supplied and install the firmware-realtek<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17742" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17742">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 27</span></div>
+
+</div>
+</div>
+<span class="username">benji</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Nov 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17742">
+
+<time datetime="2010-10-13T21:57">posted: 2010-10-13 &nbsp; 21:57</time>
+<span class="permalink"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html#p17742" title="permalink">#3</a></span>
+
+<div class="content">Thank you, you are right, it's really there, I have read that it is"Enabled in linux-2.6 2.6.32-10", sorry.<br>
+<br>
+But unfortunately it still doesn't work.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># modprobe r8192s_usb
+# iwconfig 
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+</code></pre></div>
+And rutilt says:<br>
+Critical error :<br>
+Can't find any wireless network interface.<br>
+Code : -3<br>
+<br>
+Previously I removed wicd, could that be the problem?<br>
+Or should I edit /etc/network/interfaces?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17743" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17743">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17743">
+
+<time datetime="2010-10-13T22:24">posted: 2010-10-13 &nbsp; 22:24</time>
+<span class="permalink"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html#p17743" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div>
+edit: If that does not work, then you should be able to follow the wiki link you supplied and install the firmware-realtek</div></blockquote>
+<br>
+firmware-realtek should be in your synaptic package manager or can be installed using apt-get install firmware-realtek as root through terminal.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>biker@antiX1:~$ apt-cache policy firmware-realtek
+firmware-realtek:
+  Installed: (none)
+  Candidate: 0.26
+  Version table:
+     0.26 0
+        500 http://ftp.us.debian.org/debian/ testing/non-free i386 Packages
+biker@antiX1:~$ 
+</code></pre></div>
+After installing firmware-realtek. Try ifconfig or iwconfig again. If wireless is then detected. rutilt should pick it up then.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17753" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17753">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 27</span></div>
+
+</div>
+</div>
+<span class="username">benji</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Nov 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17753">
+
+<time datetime="2010-10-14T09:37">posted: 2010-10-14 &nbsp; 09:37</time>
+<span class="permalink"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html#p17753" title="permalink">#5</a></span>
+
+<div class="content"><span class="emoticon"> __{{emoticon}}__ </span> Doesn't work... but thanks anyway.<br>
+<br>
+May somebody use this thing successfully or something else with this chip?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17800" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17800">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 27</span></div>
+
+</div>
+</div>
+<span class="username">benji</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Nov 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17800">
+
+<time datetime="2010-10-18T15:05">posted: 2010-10-18 &nbsp; 15:05</time>
+<span class="permalink"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html#p17800" title="permalink">#6</a></span>
+
+<div class="content">Okay, it works with ndiswrapper,<br>
+and natively too, could be useful for someone, so here is the solution: <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ubuntuforums.org/archive/index.php/t-1451484.html"<br>linktext was:"http://ubuntuforums.org/archive/index.p ... 51484.html"<br>====================================<br>
+ (chili555 May 6th, 2010, 09:32 AM)
+<blockquote class="uncited"><div>Please remove the device, open a terminal and do:sudo gedit /etc/udev/rules.d/network_drivers.rules<br>
+The text editor gedit will open ready for you to write a new file. Add one long line:ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0bda", ATTR{idProduct}=="8171", RUN+="/sbin/modprobe -qba r8192s_usb"<br>
+Proofread carefully. Save and close gedit. Now do:sudo gedit /etc/modprobe.d/network_drivers.confAdd one long line:install r8192s_usb /sbin/modprobe --ignore-install r8192s_usb $CMDLINE_OPTS; /bin/echo"0bda 8171" &gt; /sys/bus/usb/drivers/rtl819xU/new_id<br>
+Proofread, save and close gedit. Re-insert the device.</div></blockquote>
+I only had to change the device ID 0bda:8171 to mine, that I found out with <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#lsusb</code></pre></div>
+Thanks, chili555!
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># iwconfig 
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+
+wlan0     802.11b/g  link  ESSID:"***"  
+          Mode:Managed  Frequency=2.462 GHz  Access Point: ***   
+          Bit Rate=54 Mb/s   
+          Retry min limit:7   RTS thr:off   Fragment thr:off
+          Encryption key:***   Security mode:open
+          Power Management:off
+          Link Quality=86/100  Signal level=-54 dBm  Noise level=-113 dBm
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+</code></pre></div>
+<span class="emoticon"> __{{emoticon}}__ </span><br>
+Now antiX is completely fully functional for me! Thank you!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17801" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17801">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17801">
+
+<time datetime="2010-10-18T15:21">posted: 2010-10-18 &nbsp; 15:21</time>
+<span class="permalink"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html#p17801" title="permalink">#7</a></span>
+
+<div class="content">and thanks for posting the fix.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17802" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17802">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+ <div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17802">
+
+<time datetime="2010-10-18T15:22">posted: 2010-10-18 &nbsp; 15:22</time>
+<span class="permalink"><a href="./solved-d-link-dwa-131-wireless-n-usb-adapter-t2716.html#p17802" title="permalink">#8</a></span>
+
+<div class="content">Excellent post benji, <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+It's great to see someone persevere and be successful in tackling a problem, and very good of you to post your solution so others with the same problem will be able to resolve it due to your diligence.<br>
+<br>
+<br>
+<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

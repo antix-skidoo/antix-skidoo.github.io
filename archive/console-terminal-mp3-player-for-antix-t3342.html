@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Console/Terminal MP3 Player for antiX - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./console-terminal-mp3-player-for-antix-t3342.html">Console/Terminal MP3 Player for antiX</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_22027" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22027">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22027">
+<time datetime="2011-09-17T14:04">posted: 2011-09-17 &nbsp; 14:04</time>
+<span class="permalink"><a href="./console-terminal-mp3-player-for-antix-t3342.html#p22027" title="permalink">#1</a></span>
+
+<div class="content">As antiX is lightweight by design in its use of system resources, offering both GUI and equivalent console/terminal apps is a good idea. A non GUI app is often able to offer similar functionality with fewer demands on system resources than a GUI version. This becomes especially important when the useful life of low spec (older) machines is being extended.<br>
+<br>
+For such machines it is reasonably commonplace, and sometimes relatively inexpensive, to increase the capacity of disk storage or RAM (e.g. reusing second-hand parts). It is much less common to replace the CPU and this often becomes the limiting factor on the system.<br>
+<br>
+With the above in mind I have conducted a superficial comparison of the following audio playing apps:
+<ul><li>GNOME MPlayer - an antiX-M11 player, widely recognized to be an exceptionally lightweight GUI app<br>
+MOCP - the antiX-M11 text based player that runs in a terminal <br>
+MP3Blaster - a text based player that runs in a terminal (from the repo)</li></ul>
+The comparison was done using:
+<ul><li>A re-booted machine running IceWM<br>
+Only the app being monitored was running in addition Htop<br>
+A ROX-Term for Console/Terminal<br>
+Percentages as a relative indicator</li></ul>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>HTOP         GNOME MPlayer     MOCP     MP3Blaster
+CPU Total       7-10%          7-9%        3-4%
+CPU App         3.0%           3.0%        1-2%
+RAM App         2.7%           0.6%        0.3%
+</code></pre></div>
+The results for GNOME MPlayer v MOCP are quite surprising as they are almost identical. I had expected the non GUI app to use fewer resources than the GUI app.<br>
+<br>
+Comparing the results for MOCP with MP3Blaster indicate the latter uses approximately 50% fewer resources. This will be of greater significance on older, less powerful machines and seems to represent a worthwhile improvement.<br>
+<br>
+This is not to be interpreted as denigrating MOCP which is a good app. It is simply that it uses more resources than mp3blaster to produce a similar result in a similar way.<br>
+<br>
+<br>
+<br>
+In case anyone is interested in repeating the experiment the configuration steps for antiX-M11 are as follows:<br>
+<ul><li>Install mp3blaster from the repo<br>
+<br>
+I preferred to arrange it so everyone shared the same configuration:<br>
+As root create /usr/share/mp3blaster<br>
+Uncompress the attached mp3blaster.zip in /usr/share/mp3blaster<br>
+<br>
+Uncompress /usr/share/doc/mp3blaster/commands.txt.gz in /usr/share/doc/mp3blaster<br>
+<br>
+In your home directory edit .icewm/menu and add the following line in the Terminal Apps - Multimedia subsection:<br>
+prog"MP3 Player" /usr/share/icons/gTangish-2.0a1/32x32/mimetypes/audio-x-generic.png roxterm --hide-menubar --title=MP3Blaster --execute mp3blaster --config-file=/usr/share/mp3blaster/mp3blasterrc<br>
+Note: from prog... to ...mp3blasterrc is on the same line<br>
+<br>
+Menu--&gt;Desktop--&gt;IceWM--&gt;Update Menu (Auto)<br>
+<br>
+Menu--&gt;Terminal Apps--&gt;Multimedia--MP3 Player<br>
+I found the best presentation was obtained by a single time configuration of the terminal window<br>
+Right click in the mp3blaster window--&gt;Preferences--&gt;Configuration Manager<br>
+Profile--&gt;Default--&gt;Properties<br>
+Appearance--&gt;Font=Liberation Mono, Style=Bold, Size=11<br>
+Profile--&gt;Default--&gt;Properties<br>
+Colour scheme--&gt;Default--&gt;Properties; Untick"Set text and backgroud colours"<br>
+<br>
+Close the app and restart it to initialize the new settings</li></ul>
+To read the user manual use Shift+?<br>
+<br>
+The application also provides a console/terminal mp3 tagger called mp3tag which I have not tested.</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22071" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22071">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22071">
+
+<time datetime="2011-09-20T17:42">posted: 2011-09-20 &nbsp; 17:42</time>
+<span class="permalink"><a href="./console-terminal-mp3-player-for-antix-t3342.html#p22071" title="permalink">#2</a></span>
+
+<div class="content">In case anyone might want to have a menu entry for MP3Tag, here's how to do it in IceWM. Add an entry in .icewm/menu in the Multimedia sub-section as follows:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>prog"MP3 Tagger - MP3Tag" /usr/share/icons/gTangish-2.0a1/32x32/mimetypes/text-x-generic.png roxterm --hide-menubar --title=MP3Tag --execute bash -c"mp3tag; echo; echo; bash"
+</code></pre></div>Note: the entire entry is on a single line.<br>
+<br>
+This will open the app in a terminal, display it's help info, then wait for a command to be entered.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

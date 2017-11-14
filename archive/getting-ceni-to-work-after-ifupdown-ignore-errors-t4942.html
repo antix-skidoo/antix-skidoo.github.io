@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Getting ceni to work after ifupdown --ignore-errors - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./getting-ceni-to-work-after-ifupdown-ignore-errors-t4942.html">Getting ceni to work after ifupdown --ignore-errors</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_34348" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34348">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 35</span></div>
+
+</div>
+</div>
+<span class="username">antix_forum_account</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34348">
+<time datetime="2014-04-06T15:17">posted: 2014-04-06 &nbsp; 15:17</time>
+<span class="permalink"><a href="./getting-ceni-to-work-after-ifupdown-ignore-errors-t4942.html#p34348" title="permalink">#1</a></span>
+
+<div class="content">Dear forum<br>
+<br>
+How can I get ceni to work again?<br>
+<br>
+Since last night, I can't get it to work. I get errors like the following...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>run-parts --exit-on-error --verbose / etc/network/if-pre-up.d
+run-parts: executing / etc/network/if-pre-up.d/linux-wlan-ng-pre-up
+modprobe: FATAL: Module p80211 not found.
+Failed to load p80211.ko.
+run-parts: / etc/network/if-pre-up.d/linux-wlan-ng-pre-up exited with return code 1
+Failed to bring up wlan0.
+
+Press Enter key to continue ...
+</code></pre></div>
+As far as I can remember the <em>Module p80211 not found</em> warnings have always been there. I think they were even there in Edelweisspiraten, and things were OK <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+If I'm reading <em>/var/log/apt/history.log</em> correctly, I see that yesterday <em>ifupdown:amd64</em> was updated via <em>dist-upgrade</em>...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Start-Date: 2014-04-04  17:28:14
+Commandline: apt-get dist-upgrade
+Install: libplist2:amd64 (1.11-3, automatic), liblogging-stdlog0:amd64 (1.0.3-1, automatic)
+Upgrade: libreadline6:amd64 (6.3-4, 6.3-5), upower:amd64 (0.9.23-2+b1, 0.9.23-2+b2), ifupdown:amd64 (0.7.47.2, 0.7.48.1), libgpod4:amd64 (0.8.3-1.1, 0.8.3-1.1+b1), libimobiledevice4:amd64 (1.1.5-2+b1, 1.1.5-2+b2), libsecret-common:amd64 (0.15-2, 0.18-1), libreadline6-dev:amd64 (6.3-4, 6.3-5), bash:amd64 (4.3-4, 4.3-5), libreadline-dev:amd64 (6.3-4, 6.3-5), libsecret-1-0:amd64 (0.15-2, 0.18-1), libupower-glib1:amd64 (0.9.23-2+b1, 0.9.23-2+b2), readline-common:amd64 (6.3-4, 6.3-5), rsyslog:amd64 (7.4.8-1, 7.6.3-1)
+End-Date: 2014-04-04  17:29:14
+</code></pre></div>
+The file <em>/usr/share/doc/ifupdown/changelog.gz</em> says...<br>
+<blockquote class="uncited"><div>
+ifupdown (0.7.48.1) unstable; urgency=low<br>
+<br>
+* Add --ignore-errors option.<br>
+* Handle errors correctly during interface deconfiguration.<br>
+<br>
+-- Andrew Shadura &lt;<a href="mailto:andrewsh@debian.org">andrewsh@debian.org</a>&gt; Sun, 23 Mar 2014 18:50:08 +0100
+</div></blockquote>
+Perhaps I would be happier if the <em>--ignore-errors</em> option had not been added.<br>
+<br>
+Now, in order to connect to some wireless access point I have to do <em>sudo ifup --ignore-errors wlan0</em> or similar. And I can't use ceni...<br>
+<br>
+Hope this makes some sense. These are some of my specs...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -z -n
+Network:   Card: JMicron JMC260 PCI Express Fast Ethernet Controller driver: jme -1
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: &lt;filter&gt;
+           Card: Ralink RT3090 Wireless 802.11n 1T/1R PCIe driver: rt2800pci -2
+           IF: wlan0 state: down mac: &lt;filter&gt;
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -z
+CPU~Single core Intel Atom CPU N470 (-HT-) clocked at 1000.000 Mhz Kernel~3.7.10-antix.4-amd64-smp x86_64 Up~37 min Mem~159.8/988.7MB HDD~250.1GB(2.9% used) Procs~106 Client~Shell inxi~2.0.0
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Debian Testing. Default for antiX.
+# Testing enabled for 'rolling' release.
+deb http://ftp.nl.debian.org/debian/ testing main contrib non-free
+deb http://security.debian.org/ testing/updates main contrib non-free
+#deb-src http://ftp.uk.debian.org/debian/ testing main contrib non-free
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Use with Debian Testing (or Sid) repositories.
+deb http://antix.daveserver.info/testing testing main
+</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34365" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34365">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 35</span></div>
+
+</div>
+</div>
+<span class="username">antix_forum_account</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34365">
+
+<time datetime="2014-04-08T00:05">posted: 2014-04-08 &nbsp; 00:05</time>
+<span class="permalink"><a href="./getting-ceni-to-work-after-ifupdown-ignore-errors-t4942.html#p34365" title="permalink">#2</a></span>
+
+<div class="content">For now, I've tweaked the Ceni::Backend Perl module...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~% diff ~/Backend_backup.pm / usr/share/perl5/Ceni/Backend.pm
+422c422
+&lt;               @cmd = ("/ sbin/if" . $action, $iface,"-i", $self-&gt;{'file'},"-v");
+---
+&gt;               @cmd = ("/ sbin/if" . $action, $iface,"--ignore-errors","-i", $self-&gt;{'file'},"-v");
+~%
+</code></pre></div>
+This seems to perhaps be a fix for the networks / AP's that I've tried so far.<br>
+Let's see...<br>
+<br>
+Any more / different suggestions are welcome.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How do I stop the screen blanking when there's no activity? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html">How do I stop the screen blanking when there's no activity?</a></div>
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_30449" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30449">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 39</span></div>
+
+</div>
+</div>
+<span class="username">drghughes</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Mar 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30449">
+<time datetime="2013-07-26T20:27">posted: 2013-07-26 &nbsp; 20:27</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30449" title="permalink">#1</a></span>
+
+<div class="content">In previous versions of antiX I've been able to stop the screen from blanking (after about 10 minutes inactivity) by adding the following lines to /etc/X11/xorg.conf.in<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"ServerFlags"
+      Option"AllowMouseOpenFail""true"
+      Option"BlankTime""0"
+      Option"StandbyTime""0"
+      Option"SuspendTime""0"
+      Option"OffTime""0"
+EndSection</code></pre></div>
+That's not working in this version.<br>
+<br>
+Any ideas what I need to change so that the screen always stays on?<br>
+<br>
+Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30450" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30450">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30450">
+
+<time datetime="2013-07-26T20:40">posted: 2013-07-26 &nbsp; 20:40</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30450" title="permalink">#2</a></span>
+
+<div class="content">I use the following script:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+minutes=16
+seconds=$((minutes * 60))
+
+if xset q | grep -q"Standby: [1-9]"; then
+    xset  dpms 0 0 0 s 0 0  
+    echo"Sleep disabled"
+else
+    xset  dpms $seconds $seconds $seconds s $seconds $seconds  
+    echo"Sleep enabled.  Delay: $minutes minutes"
+fi</code></pre></div>
+Actually, the version I use has GUI notifications but they are specific to my window manager. It should be easy to make a version that uses yad or something similar for the notifications.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30451" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30451">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30451">
+
+<time datetime="2013-07-27T13:01">posted: 2013-07-27 &nbsp; 13:01</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30451" title="permalink">#3</a></span>
+
+<div class="content">To turn off screen blanking temporally just do the following in the terminal. Great for watching movies, or anytime you don't want the screen to blank. <br>
+xset -dpms; xset s off<br>
+<br>
+To permanently turn off DPMS use bitjam's script.</div>
+<div class="postcontent_footer">
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30453" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30453">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 39</span></div>
+
+</div>
+</div>
+<span class="username">drghughes</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Mar 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30453">
+
+<time datetime="2013-07-27T22:52">posted: 2013-07-27 &nbsp; 22:52</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30453" title="permalink">#4</a></span>
+
+<div class="content">Thanks guys! That fixed it.<br>
+<br>
+I actually added Eino's code to the $HOME/.fluxbox/startup file so that it's applied all the time.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_30469" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30469">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30469">
+
+<time datetime="2013-07-29T13:46">posted: 2013-07-29 &nbsp; 13:46</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30469" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>I use the following script...<br>
+...It should be easy to make a version that uses yad or something similar for the notifications.</div></blockquote><blockquote><div><cite>Eino wrote:</cite>To turn off screen blanking temporally...</div></blockquote>
+Might control of screen blanking be a good candidate for adding to the Control Center? It seems an obvious place for a useful improvement.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30473" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30473">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30473">
+
+<time datetime="2013-07-29T18:35">posted: 2013-07-29 &nbsp; 18:35</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30473" title="permalink">#6</a></span>
+
+<div class="content">Good suggestion SamK,<br>
+Would you mind giving this a go?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+function checkcancel {
+    CANOK="$?";
+    if ["$CANOK" ="1" ]; then
+    echo"Ok Closing";
+    exit;
+    fi
+}
+CURRENT_BLANK_TIME_S=$(xset q |grep"Standby:" |cut -d"" -f4)
+CURRENT_BLANK_TIME_M=$(($CURRENT_BLANK_TIME_S / 60))
+TimeScale=$(yad --title="Screen Blanking" \
+ --text="Set the screen blank time\nValue is in minutes" \
+ --scale --min-value=0 \
+ --max-value=60 \
+ --value=$CURRENT_BLANK_TIME_M \
+ --mark="Off:0" \
+ --mark="1 Hour:60" \
+ --width=300 \
+ --height=200 \
+ --button="gtk-ok:0"  \
+ --button="gtk-close:1"  \
+  );
+checkcancel;
+minutes=$TimeScale
+if ["$minutes" !="" ]; then
+    seconds=$((minutes * 60))
+    xset  dpms $seconds $seconds $seconds s $seconds $seconds &amp;&amp; 
+    if ["$minutes" ="0" ]; then
+        yad --title="Screen Blanking" --image="info" --text="Screen set to never blank";
+    else
+        yad --title="Screen Blanking" --image="info" --text="Screen set to blank after $minutes minute(s)";
+    fi
+else
+    yad --title="Screen Blanking" --image="error" --text="There was no valid amount of time set.";
+fi
+</code></pre></div></div>
+<div class="notice">
+Last edited by <b>Dave</b> on 30 Jul 2013, 18:48, edited 3 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30476" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30476">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30476">
+
+<time datetime="2013-07-29T19:57">posted: 2013-07-29 &nbsp; 19:57</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30476" title="permalink">#7</a></span>
+
+<div class="content">Dave, you need spaces before the line continuations:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/usr/local/bin/set-sleep-yad
+Unable to parse command line: Cannot parse integer value '0--max-value=60--value=16--mark=Off:0--mark=1 Hour:60--width=300--height=200--button=gtk-ok:0' for --min-value</code></pre></div>
+I did a global s/\\$/ \/ and then it worked just fine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30478" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30478">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30478">
+
+<time datetime="2013-07-29T22:03">posted: 2013-07-29 &nbsp; 22:03</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30478" title="permalink">#8</a></span>
+
+<div class="content">hmm the spaces are in the script on my computer, I guess they were lost when I copied it here <span class="emoticon"> __{{emoticon}}__ </span> <br>
+Thanks for catching that bitjam</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30480" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30480">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">SamK</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30480">
+
+<time datetime="2013-07-30T07:29">posted: 2013-07-30 &nbsp; 07:29</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30480" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>
+Would you mind giving this a go?</div></blockquote><blockquote><div><cite>BitJam wrote:</cite>...it worked just fine.</div></blockquote>As I have been beaten to the test it seems there is little to be gained from repeating it.<br>
+<br>
+One very minor suggestion for a marginal improvement.<br>
+From the foot of the script, <em>"There was no valid amount of minutes set."</em> <br>
+<br>
+Might this be better as:<br>
+<em>"There was no valid amount of <span style="color: #0000FF">time</span> set."</em><br>
+or<br>
+<em>"There was no valid <span style="color: #0000FF">number</span> of minutes set."</em></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30486" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30486">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30486">
+
+<time datetime="2013-07-30T16:41">posted: 2013-07-30 &nbsp; 16:41</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30486" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>As I have been beaten to the test it seems there is little to be gained from repeating it.</div></blockquote>
+I only checked out the UI. I did not verify that it affects the sleep time as advertised.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30522" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30522">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30522">
+
+<time datetime="2013-07-31T19:04">posted: 2013-07-31 &nbsp; 19:04</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30522" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Would you mind giving this a go?</div></blockquote>Tested intervals of 0, 1, 11, 31 minutes. All work as expected.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30536" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30536">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30536">
+
+<time datetime="2013-08-02T18:48">posted: 2013-08-02 &nbsp; 18:48</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30536" title="permalink">#12</a></span>
+
+<div class="content">Thanks. Mate desktop has an"automatic energy saving on/off" applet .. wich doesn't work for me. According to 'xset -q' DPMS features are on, all timings are 0, but the screen still goes blank after 10 minutes.<br>
+'xset -q' output when energy saving is off:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Screen Saver:
+  prefer blanking:  yes    allow exposures:  yes
+  timeout:  0    cycle:  0
+...
+DPMS (Energy Star):
+  Standby: 0    Suspend: 0    Off: 0
+  DPMS is Enabled
+  Monitor is On
+</code></pre></div>
+Now I'm trying out 'xset -dpms' .<br>
+<br>
+** Update: I have doublechecked, and power saving is switched off in the on screen menu of the TV, dpms is off, bios powersaving is off, and it still switches to blank after 10 minutes.<br>
+<br>
+I guess I need a script to toggle the Scroll lock, pause or numlock button in every 5 minutes for watching movies.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30660" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30660">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30660">
+
+<time datetime="2013-08-09T19:52">posted: 2013-08-09 &nbsp; 19:52</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30660" title="permalink">#13</a></span>
+
+<div class="content">Since everything else failed for me, I have searched the web, and just installed xautomation. This package includes xdotool and xte.<br>
+I will try to write a"numlock swith in every 1 minute" script.<br>
+<br>
+<span style="font-size: 85%; line-height: normal">OFF: During the search also found this: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://code.google.com/p/autokey/"<br>linktext was:"autokey"<br>====================================<br>
+. Not related to this thread, but interesting.</span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30661" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30661">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30661">
+
+<time datetime="2013-08-09T22:29">posted: 2013-08-09 &nbsp; 22:29</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30661" title="permalink">#14</a></span>
+
+<div class="content">hmm, are you sure it is power saving as such, and not a"blank" screensaver?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30689" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30689">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30689">
+
+<time datetime="2013-08-11T09:10">posted: 2013-08-11 &nbsp; 09:10</time>
+<span class="permalink"><a href="./how-do-i-stop-the-screen-blanking-when-there-s-no--t4506.html#p30689" title="permalink">#15</a></span>
+
+<div class="content">I have switched off energy saving features with the mate applet, configured to run a blank screensaver after 2 billion seconds of delay, in dconf editor disabled the screensaver, screen blanking and monitor dpms features for AC, UPS &amp; battery mode (I have a desktop without ups). Switched off dpms features of the monitor in the on-screen menue, and also in pc bios.<br>
+After that I switched off the screensaver service with boot up manager, run terminal commands like 'xset -dpms s 0 s noblank s noexpose<br>
+' , 'xset dpms 0 0 0 s 0 0 &amp;&amp; xset -dpms' and the screen went blank after 10 minutes.<br>
+<br>
+As a temporary solution, I have this script:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh 
+while [ 1 ]; do 
+    sleep 60
+    xte"key Num_Lock"
+done</code></pre></div>
+It works. Tested for 17 minutes. But i would prefer the normal way to switch off dpms features while watching movies. I will ask it on the mate desktop forum.<br>
+<br>
+** Update: i added a menu icon to start the script with 'roxterm -e /home/common/no_blank/noblank.sh'. So it runs in a terminal, and i can"switch on" dpms features by closing the terminal.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

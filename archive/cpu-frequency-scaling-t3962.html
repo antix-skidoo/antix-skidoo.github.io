@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>CPU Frequency Scaling - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./cpu-frequency-scaling-t3962.html">CPU Frequency Scaling</a></div>
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./cpu-frequency-scaling-t3962-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./cpu-frequency-scaling-t3962-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_26535" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26535">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26535">
+<time datetime="2012-10-18T12:20">posted: 2012-10-18 &nbsp; 12:20</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p26535" title="permalink">#1</a></span>
+
+<div class="content">I'm trying to get a grip on CPU frequency scaling in antiX-12-Full. There are a few forum posts relating to M-11. There seems to be nothing that helps much with the standard antiX-12 and kernel. A couple of wiki articles from Debian and Arch add to the confusion.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/CPU_Frequency_Scaling"<br>linktext was:"https://wiki.archlinux.org/index.php/CP ... cy_Scaling"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/HowTo/CpuFrequencyScaling"<br>linktext was:"http://wiki.debian.org/HowTo/CpuFrequencyScaling"<br>====================================<br>
+<br>
+<br>
+Is anyone able to throw any light on this topic? Hopefully someone might offer a thumbnail or outine of the steps required.<br>
+<br>
+The Arch wiki suggests that a frequency scaling driver is required at an early stage. It goes on to note that since v3.4 it is now included in the kernel. Is this also the case for antiX-12? If so is it acpi_cpufreq?<br>
+<br>
+Both the Arch and Debian wikis describe the use of scaling governors. This particular laptop reports<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod | grep cpufreq
+cpufreq_userspace      1364  0
+cpufreq_stats          2014  0
+cpufreq_powersave       574  0</code></pre></div>The wikis mention govenors named"ondemand" and"conservative". Neither of these are able to be loaded via modprobe. The Arch wiki states that"ondemand" and"performance" governors are now built into the kernel. Is the the case with antiX-12?<br>
+<br>
+Loading looks to be conducted via / etc/init.d/cpufrequtils.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/ etc/init.d/cpufrequtils start
+[ ok ] CPUFreq Utilities: Setting ondemand CPUFreq governor...disabled, governor not available...done.</code></pre></div>A similar message is seen at each bootup. Internally the file references a non-existant path<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+# Which governor to use. Must be one of the governors listed in:
+#   cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors
+#
+# and which limits to set. Both MIN_SPEED and MAX_SPEED must be values
+# listed in:
+#   cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+# a value of 0 for any of the two variables will disabling the use of 
+# that limit variable.
+#
+# WARNING: the correct kernel module must already be loaded or compiled in.
+# 
+# Set ENABLE to"true" to let the script run at boot time.
+# 
+# eg:   ENABLE="true"
+#       GOVERNOR="ondemand"
+#       MAX_SPEED=1000
+#       MIN_SPEED=500
+
+ENABLE="true"
+GOVERNOR="ondemand"
+MAX_SPEED="0"
+MIN_SPEED="0"
+
+check_governor_avail() {
+        info="/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"
+        if [ -f $info ] &amp;&amp; grep -q"\&lt;$GOVERNOR\&gt;" $info ; then
+                return 0;
+        fi
+        return 1;
+}
+...</code></pre></div>The path is OK upto /sys/devices/system/cpu/cpu0 but invalid thereafter, so the scaling_available_govenors cannot be found and scaling_available_frequencies cannot be obtained.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26543" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26543">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26543">
+
+<time datetime="2012-10-18T19:03">posted: 2012-10-18 &nbsp; 19:03</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p26543" title="permalink">#2</a></span>
+
+<div class="content">I don't have a complete answer for you but I do have a tip. Answers to most questions about the kernel configuration can be found in the file /proc/config.gz. For example:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ zgrep CPU_FREQ /proc/config.gz
+CONFIG_CPU_FREQ=y
+CONFIG_CPU_FREQ_TABLE=y
+CONFIG_CPU_FREQ_STAT=m
+# CONFIG_CPU_FREQ_STAT_DETAILS is not set
+# CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE is not set
+# CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE is not set
+# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND is not set
+CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE=y
+CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
+CONFIG_CPU_FREQ_GOV_POWERSAVE=m
+CONFIG_CPU_FREQ_GOV_USERSPACE=m
+CONFIG_CPU_FREQ_GOV_ONDEMAND=y
+CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y</code></pre></div>Both"ondemand" and"conservative" are built into the kernel which is why they don't show up as modules. I don't know why frequency scaling does not work for you. I don't even know if the problem is specific to your machine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26549" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26549">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26549">
+
+<time datetime="2012-10-19T08:50">posted: 2012-10-19 &nbsp; 08:50</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p26549" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>Answers to most questions about the kernel configuration can be found in the file /proc/config.g</div></blockquote>Thanks that is helpful to know.<br>
+<br>
+Confirming the kernel configuration here:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>zgrep CPU_FREQ /proc/config.gz
+CONFIG_CPU_FREQ=y
+CONFIG_CPU_FREQ_TABLE=y
+CONFIG_CPU_FREQ_STAT=m
+# CONFIG_CPU_FREQ_STAT_DETAILS is not set
+# CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE is not set
+# CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE is not set
+# CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND is not set
+CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE=y
+CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
+CONFIG_CPU_FREQ_GOV_POWERSAVE=m
+CONFIG_CPU_FREQ_GOV_USERSPACE=m
+CONFIG_CPU_FREQ_GOV_ONDEMAND=y
+CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y</code></pre></div>A frequency scaling driver is not listed.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>zgrep ACPI_CPUFREQ /proc/config.gz
+CONFIG_X86_ACPI_CPUFREQ=m</code></pre></div>Presuming this indicates a module is available, check if it is already loaded<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod | grep acpi
+returns blank</code></pre></div>Attempt to load the module<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe --verbose --dry-run acpi_cpufreq
+insmod /lib/modules/3.5.0-antix.2-486-smp/kernel/drivers/cpufreq/acpi-cpufreq.ko 
+modprobe --verbose acpi_cpufreq
+insmod /lib/modules/3.5.0-antix.2-486-smp/kernel/drivers/cpufreq/acpi-cpufreq.ko 
+ERROR: could not insert 'acpi_cpufreq': No such device
+Try again using hyphen rather than underscore in module name
+modprobe --verbose acpi-cpufreq
+insmod /lib/modules/3.5.0-antix.2-486-smp/kernel/drivers/cpufreq/acpi-cpufreq.ko 
+ERROR: could not insert 'acpi_cpufreq': No such device</code></pre></div>Verify what is present in directory<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls -1 /lib/modules/3.5.0-antix.2-486-smp/kernel/drivers/cpufreq
+acpi-cpufreq.ko
+cpufreq-nforce2.ko
+cpufreq_powersave.ko
+cpufreq_stats.ko
+cpufreq_userspace.ko
+e_powersaver.ko
+gx-suspmod.ko
+longhaul.ko
+longrun.ko
+mperf.ko
+p4-clockmod.ko
+pcc-cpufreq.ko
+powernow-k6.ko
+powernow-k7.ko
+powernow-k8.ko
+speedstep-centrino.ko
+speedstep-ich.ko
+speedstep-lib.ko
+speedstep-smi.ko</code></pre></div>So the module is present but modprobe does not load it.<br>
+Attempt to force loading<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> modprobe --verbose --force acpi_cpufreq
+insmod /lib/modules/3.5.0-antix.2-486-smp/kernel/drivers/cpufreq/acpi-cpufreq.ko 
+ERROR: could not insert 'acpi_cpufreq': Exec format error</code></pre></div>
+Is there a simple means of definitively establishing if this is a software issue, incorrect use, or one of hardware incompatibilty (which I suspect in this case)?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27157" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27157">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+ <table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content27157">
+
+<time datetime="2012-12-05T08:18">posted: 2012-12-05 &nbsp; 08:18</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27157" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Is there a simple means of definitively establishing if this is a software issue, incorrect use, or one of hardware incompatibilty (which I suspect in this case)?</div></blockquote>
+As in, if you have an older CPU it is never going to work? <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27163" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27163">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27163">
+
+<time datetime="2012-12-06T10:33">posted: 2012-12-06 &nbsp; 10:33</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27163" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>Alanarchy wrote:</cite>As in, if you have an older CPU it is never going to work? <span class="emoticon"> __{{emoticon}}__ </span></div></blockquote>I intended to feed back on this a while ago, but real life sometimes gets in the way.<br>
+<br>
+The most ancient of machines may have a CPU that does not support frequency scaling. The machine under test is old and does support it. The defaults used by antiX-12 appear to suit modern kit but not older hardware.<br>
+<br>
+Some of the following is based on my fallible recall...<br>
+<br>
+antiX-12 attempts to use the acpi-cpufreq driver by default. This is not appropriate for the test laptop and is therefore not loaded. Despite the failure to load the driver, antiX-12 continues to load some governors. In this mixed condition it is easy to misinterpret CPU frequency scaling as operational. It is not transparent why error messages are obtained reporting governors are unavailable when governors are loaded.<br>
+<br>
+CPU frequency scaling works OK on the laptop when one of the various alternative drivers provided by antiX-12 is loaded.<br>
+<br>
+To get to a working condition may be an iterative process involving some trial and error. It involves three discrete but related elements.<br>
+<ul><li> Ensure a suitable CPU driver is loaded. <br>
+This is the part that conducts the switching to a different frequency. Driver suitability depends on the type of CPU. The links in the opening post are useful. The Archlinux link has helpful information on CPU drivers in the referenced page. antiX-12 has various CPU drivers and scaling governors in /lib/modules/3.5.0-antix.2-486-smp/kernel/drivers/cpufreq</li></ul>
+<ul><li> Ensure a suitable governor module is loaded. <br>
+This is the part that passes the instruction to switch to a different frequency to the CPU driver. The stock antiX-12 kernel includes conservative, ondemand, and powersave. An alternative scaling governor module may need to be explicitly loaded.</li></ul>
+<ul><li> Ensure a suitable configuration is used to start CPU frequency scaling. <br>
+This is the part that instructs the governor when and how to switch frequency. For this, antiX-12 uses / etc/init.d/cpufrequtils in order to have it automatically start at bootup. This file should be edited to indicate the governor to which the configuration is sent, and the parameters the governor is to use.</li></ul>
+<br>
+Suggestions
+<ul><li>As antiX is aimed at both modern and older hardware, it would be preferable if it's out-of-the-box defaults for CPU frequency scaling were able to automatically accommodate more than the single driver, acpi-cpufreq.</li>
+<li>Additionally, in cases where loading the CPU driver fails, it would be preferable for no governors to be loaded.</li>
+<li>Hopefully not a sore point, some guidance documentation on the topic might become available.</li></ul></div>
+<div class="notice">
+Last edited by <b>SamK</b> on 13 Dec 2012, 09:43, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27171" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27171">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27171">
+
+<time datetime="2012-12-09T01:09">posted: 2012-12-09 &nbsp; 01:09</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27171" title="permalink">#6</a></span>
+
+<div class="content">SamK, if you don't mind me asking, which cpu/laptop were you using?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27173" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27173">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27173">
+
+<time datetime="2012-12-09T15:57">posted: 2012-12-09 &nbsp; 15:57</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27173" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>SamK, if you don't mind me asking, which cpu/laptop were you using?</div></blockquote>I don't mind at all. This was post may be what you're after. post26459.html?hilit=Starbook#p26459</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27204" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27204">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27204">
+
+<time datetime="2012-12-13T09:53">posted: 2012-12-13 &nbsp; 09:53</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27204" title="permalink">#8</a></span>
+
+<div class="content">Remembered some more infomation so added it to this post post27163.html?hilit=cpufreq#p27163 to keep it together, in the hope that it might help other antiX-12 users.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27206" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27206">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content27206">
+
+<time datetime="2012-12-13T14:50">posted: 2012-12-13 &nbsp; 14:50</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27206" title="permalink">#9</a></span>
+
+<div class="content">So how do we with an Aphlon, or Duron, K7 processor, disable it completely so the error messages go away?<br>
+<br>
+And what if we are more inclined to overclock the processor? As in, having spent ages tweaking the BIOS to give maximum performance why would I want the OS reducing performance? Especially considering that I originally switched to Linux because it gives better performance, and I switched to AntiX because it gives the best performance of any OS I've tried, including Arch.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27218" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27218">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content27218">
+
+<time datetime="2012-12-14T12:53">posted: 2012-12-14 &nbsp; 12:53</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27218" title="permalink">#10</a></span>
+
+<div class="content">After all Anticapitalista described AntiX as the Triumph Bonneville of the computing world. Now I don't know anybody who ever fitted a governor to his Bonnie, while I do know a guy who spent nine months in hospital and has three steel pins in his leg to this day through trying to make it go faster.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27220" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27220">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27220">
+
+<time datetime="2012-12-14T13:45">posted: 2012-12-14 &nbsp; 13:45</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27220" title="permalink">#11</a></span>
+
+<div class="content">I dusted off (literally) a 900 mhz AMD duron sony laptop. I forgot how heavy laptops used to be. At any rate, during boot, the sony/duron automatically skips the acpi-cpufreq driver module and uses the powernow-k7 driver instead. the governors in the kernel will also work with that driver.<br>
+<br>
+Perhaps there is some sort of issue with detecting the hardware for that clevo/starbook?<br>
+<br>
+I'm not an expert with modprobe, but I would think that you could load manually one of the other cpu freq drivers and once you know which one is correct modify the startup script to do load during boot. rc.local maybe?<br>
+<br>
+i tested with the current antix M12 full iso.<br>
+<br>
+***edit*** actually we can specify a cpu freq driver by placing a special .conf file in etc / modules-load.d . The arch wiki you mention has the details.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27228" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27228">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27228">
+
+<time datetime="2012-12-14T16:49">posted: 2012-12-14 &nbsp; 16:49</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27228" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>Alanarchy wrote:</cite>So how do we with an Aphlon, or Duron, K7 processor, disable it completely so the error messages go away?</div></blockquote>I have not tested any of those CPUs and as you haven't indicated the actual error messages only generic suggestions are offered.<br>
+<br>
+You may want to investigate preventing the automatic startup and configuration script (/ etc/init.d/cpufrequtils) from running at bootup. This is done with the command update-rc.d. Have a look at the man page as it contains some examples of it use (man update-rc.d).<br>
+<br>
+The system may still try and load kernel modules. If so it might be worth investigating preventing this by blacklisting them.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27229" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27229">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27229">
+
+<time datetime="2012-12-14 &nbsp; 17:01">posted: 2012-12-14 &nbsp; 17:01</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27229" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>I dusted off (literally) a 900 mhz AMD duron sony laptop. I forgot how heavy laptops used to be. At any rate, during boot, the sony/duron automatically skips the acpi-cpufreq driver module and uses the powernow-k7 driver instead. the governors in the kernel will also work with that driver.</div></blockquote>That is good to hear.
+<blockquote><div><cite>dolphin_oracle wrote:</cite>I'm not an expert with modprobe, but I would think that you could load manually one of the other cpu freq drivers and once you know which one is correct modify the startup script to do load during boot.</div></blockquote>Thanks for this idea. If you refer back to the earlier post post27163.html?hilit=cpufreq#p27163 you will see that I mentined that I did get it to work with an alternative driver and although it is not mentioned also had it automatically starting at bootup.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27230" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27230">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27230">
+
+<time datetime="2012-12-14T17:07">posted: 2012-12-14 &nbsp; 17:07</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27230" title="permalink">#14</a></span>
+
+<div class="content">@SamK - I suspected you had it running. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27231" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27231">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27231">
+
+<time datetime="2012-12-14T17:28">posted: 2012-12-14 &nbsp; 17:28</time>
+<span class="permalink"><a href="./cpu-frequency-scaling-t3962.html#p27231" title="permalink">#15</a></span>
+
+<div class="content">Minor point.<br>
+When installing antiX to hard drive via gui installer, you have the option to disable cpufrequtils.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./cpu-frequency-scaling-t3962-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./cpu-frequency-scaling-t3962-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

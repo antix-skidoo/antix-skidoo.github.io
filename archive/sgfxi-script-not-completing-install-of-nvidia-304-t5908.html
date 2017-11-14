@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>sgfxi script not completing install of nvidia 304 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./sgfxi-script-not-completing-install-of-nvidia-304-t5908.html">sgfxi script not completing install of nvidia 304</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_42922" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42922">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">galenthurber@gmx.com</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42922">
+<time datetime="2015-09-02T16:05">posted: 2015-09-02 &nbsp; 16:05</time>
+<span class="permalink"><a href="./sgfxi-script-not-completing-install-of-nvidia-304-t5908.html#p42922" title="permalink">#1</a></span>
+
+<div class="content">script did nicely blacklist nouveau, with nomodeset<br>
+but on reboots<br>
+sgfxi failed to build properly<br>
+<br>
+/var/log/nvidia-installer.log<br>
+contains
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>   NVIDIA: calling KBUILD...
+   test -e include/generated/autoconf.h -a -e include/config/auto.conf || (        \
+   echo &gt;&amp;2;                            \
+   echo &gt;&amp;2"  ERROR: Kernel configuration is invalid.";
+...
+   /usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-304.125/kernel/nv.c:2039:1: warning: control reaches end of non-void function [-Wreturn-type]
+    }
+    ^
+   scripts/Makefile.build:258: recipe for target '/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-304.125/kernel/nv.o' failed
+   make[3]: *** [/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-304.125/kernel/nv.o] Error 1
+   Makefile:1405: recipe for target '_module_/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-304.125/kernel' failed
+   make[2]: *** [_module_/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-304.125/kernel] Error 2
+   NVIDIA: left KBUILD.
+   nvidia.ko failed to build!
+   Makefile:250: recipe for target 'module' failed
+   make[1]: *** [module] Error 1
+   makefile:59: recipe for target 'module' failed
+   make: *** [module] Error 2
+-&gt; Error.
+ERROR: Unable to build the NVIDIA kernel module.
+</code></pre></div>
+/var/log/sgfxi/sgfxi.log
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>make[2]: *** [_module_/usr/src/sgfxi-downloads/NVIDIA-Linux-x86_64-304.125/kernel] Error 2
+   NVIDIA: left KBUILD.
+   nvidia.ko failed to build!
+   Makefile:250: recipe for target 'module' failed
+   make[1]: *** [module] Error 1
+   makefile:59: recipe for target 'module' failed
+   make: *** [module] Error 2
+-&gt; Error.
+ERROR: Unable to build the NVIDIA kernel module.</code></pre></div>
+<br>
+any ideas?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42937" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42937">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42937">
+
+<time datetime="2015-09-03T13:05">posted: 2015-09-03 &nbsp; 13:05</time>
+<span class="permalink"><a href="./sgfxi-script-not-completing-install-of-nvidia-304-t5908.html#p42937" title="permalink">#2</a></span>
+
+<div class="content">I don't think the 304.125 nvidia driver supports the 4.0.5 kernel that antiX-15 is using without some patches. <em>(sgfxi's"-L n" command says it does, but I think it's wrong)</em><br>
+<br>
+You can enable the siduction fixes repo and then use sgfxi's"-d" option to have it install Siduction's Debian packaged nvidia driver instead of using the NVIDIA-Linux-x86_64-304.125 .run installer.<br>
+The siduction packages have been patched to support a 4.0.x kernel<br>
+There's some more details in this post here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/post42555.html#p42555"<br>linktext was:"antix.freeforu ms.org/post42555.html#p42555"<br>====================================<br>
+<br>
+<br>
+<br>
+You can also maybe wait a day or two for h2 to update sgfxi, and install the driver in the regular manner <em>(not using the"-d" option)</em>.<br>
+The 304 series driver was just updated a couple days ago from the 304.125 version to the 304.128 version. (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://devtalk.nvidia.com/default/topic/873016/unix-graphics-announcements-and-news/linux-solaris-and-freebsd-driver-304-128-legacy-for-geforce-6-and-7-series-/"<br>linktext was:"https://devtalk.nvidia.com/default/topi ... 7-series-/"<br>====================================<br>
+)<br>
+The 304.128 version should support the 4.0.5 kernel.<br>
+I posted a message earlier today about the 304.128 update at the sgfxi support forum: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://techpatterns.com/forums/about2489.html"<br>linktext was:"http://techpatterns.com/forums/about2489.html"<br>====================================<br>
+<br>
+<br>
+<br>
+<strong>edit:</strong> h2 replied to the post at his forum that he's updated sgfxi, so I would try running it again. <em>(just the 'sgfxi' command by itself, no options)</em></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42947" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42947">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">galenthurber@gmx.com</span>
+</dt>
+
+<dd class="profile-joined">Joined: 13 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42947">
+
+<time datetime="2015-09-03T20:05">posted: 2015-09-03 &nbsp; 20:05</time>
+<span class="permalink"><a href="./sgfxi-script-not-completing-install-of-nvidia-304-t5908.html#p42947" title="permalink">#3</a></span>
+
+<div class="content">ty will do</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42949" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42949">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">galenthurber@gmx.com</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42949">
+
+<time datetime="2015-09-03T20:33">posted: 2015-09-03 &nbsp; 20:33</time>
+<span class="permalink"><a href="./sgfxi-script-not-completing-install-of-nvidia-304-t5908.html#p42949" title="permalink">#4</a></span>
+
+<div class="content">success!<br>
+It puked some errors, but on second go<br>
+<br>
+glxinfo reports<br>
+direct rendering = yes<br>
+!! yeah<br>
+<br>
+nvidia 7900 rocking openGL direct once again. Faith has been restored; bows head<br>
+<br>
+a 4.x kernel <br>
+antix1 4.0.5-antix.2-amd64-smp<br>
+with 304 drivers<br>
+and xorg 17<br>
+actually works,<br>
+<br>
+I AM IMPRESSED !</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

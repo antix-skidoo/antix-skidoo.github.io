@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>DHCP failing on old P3 with AntiX-M11-486 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html">DHCP failing on old P3 with AntiX-M11-486</a></div>
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24216" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24216">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24216">
+<time datetime="2012-04-09T00:49">posted: 2012-04-09 &nbsp; 00:49</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24216" title="permalink">#1</a></span>
+
+<div class="content"><span style="color: #4040FF">Note: reguarding the"</span><span style="color: #FF0000">repetitive error text on tty1: <br>
+S. H. Engine unavailable</span><br>
+<span style="color: #4040FF">side issue below... <br>
+Thanks to </span>masinick's reply (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/post24495.html#p24495"<br>linktext was:"antix.freeforu ms.org/post24495.html#p24495"<br>====================================<br>
+)<span style="color: #4040FF"> I found when the same error message happened in the console(s) with a subsequent antiX install to my gateway (amd_64) laptop I could at least eliminate the error messages from the consoles via:</span>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> update-rc.d acpi-support stop 3 . 
+update-rc.d acpid stop 3 . </code></pre></div>
+and rebooting... Don't really understand acpi well enough to be sure which of them I needed to turn off, so I did both.<br>
+<br>
+So far no complications that I've found with turning it off for runlevel3... <br>
+But if some future update turns it back on or some such, I'll have to try adding acpi=off to my kernel options[/color] <br>
+<br>
+<br>
+My Fairpoint Communications DSL modem/router (westell 7500 gateway) sees the laptop: Or at least it sees the ethernet connector itself...<br>
+Each of the 4 hard wired ethernet connector ports on the westell 7500 has it's own indicator light. During the boot process the indicator light comes on. And when I look at the router's"my network" page from my desktop. The laptop is listed as having a wired connection, but it says it's not online.<br>
+<br>
+This old win98 era Toshiba Satelite laptop has:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>pentium III 234.3MHz
+L1 16k
+L2 256k
+memory 192M
+chipset Intel i440BX
+</code></pre></div>
+It doesn't have a built in Ethernet connector (though they did build in a phone jack for some internal modem that I don't use) And it has only one built in usb port into which I've got an usb splitter on which I have a sabrent NT-usb20 usb to ethernet adapter plugged in.<br>
+<br>
+This laptop was given to me by my Brother in law {a dedicated windows guy} who was about to throw it out the window because he couldn't figure out the Ubuntu that his buddy put on it for him. I thought It might make a good emergency backup computer to reach web help if I should crash my Desktop... Or if the deskto is busy with a dist-upgrade when I need to check my email. etc...<br>
+The Ubuntu (I forget which release) was all bogged down with gnome. but it was able to connect to the internet via the same usb/ethernet adapter connection that's failing me with antiX. It was so slow however that I thought I might as well try a different distribution, and selected antiX based on a review that said it was specifically designed to be usable on older slower hardware.<br>
+<br>
+I should mention that I don't really know much about how to set up a DHCP connection because all I've ever had to do was let the Linux installer set it up for me... But there are a few things I know to try...<br>
+<br>
+I type ifconfig and it lists eth0 (Manually recreated here so pardon any typo's)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eth0    Link encap:Ethernet  HWaddr 00:60:6e:00:18:89
+                inet addr:192.160.1.45  Bcast:192.168.1.255 Mask:255.255.255.0
+                UP BROADCAST RUNNING MULTICAST  MTU:1500  METRIC:1
+                RX packets:32 errors:0 dropped:0 overruns:0 frame:0
+                TX packets:65 errors:0 dropped:0 overruns:0 carrier:0
+                collisions:0 txqueuelen:1000
+                RX bytes:2610 (2.5 KiB)   TX bytes:6452 (6.3 KiB)
+</code></pre></div>
+It seams to me that if DHCP was working there would have been more lines in that output, right?<br>
+So I try"ifup eth0"
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ifup: interface already configured</code></pre></div>
+Then for the heck of it I try"ifdown eth0"<br>
+<br>
+{And skipping the DHCP Client copyright stuff}<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Listening on LPF/eth0/00:60:6e:00:18:89
+Sending on   LPF/eth0/00:60:6e:00:18:89
+Sending on   Socket/fallback
+DHCPRELEASE on eth0 to 192.168.1.1 port 67
+</code></pre></div>
+This time when I did a"ifup eth0" I got:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Listening on LPF/eth0/00:60:6e:00:18:89
+Sending on   LPF/eth0/00:60:6e:00:18:89
+Sending on   Socket/fallback
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 8
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 15
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 13
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 16
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 9
+No DHCPOFFERS received.
+No working leases in persistent database - sleeping
+</code></pre></div>
+I saw in another thread a suggestion to try dhclient...<br>
+So I try"dhclient eth0"<br>
+After a few minutes I get a new root prompt without any console output...<br>
+<br>
+literally:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:~# dhclient eth0
+root@antiX1:~# 
+</code></pre></div>
+I don't know if it's relevant but since I was going to be working from the console I booted the 3rd grub choice, listed as:<br>
+antiX-M11, kernel 2.6.36-1-mepis (init-3)<br>
+And as I suspected it booted to runlevel 3 but there was a repetitive error text on tty1: <br>
+S. H. Engine unavailable<br>
+<br>
+Any suggestions???</div>
+<div class="notice">
+Last edited by <b>jtwdyp</b> on 12 Apr 2014, 07:57, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24218" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24218">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24218">
+
+<time datetime="2012-04-09T11:34">posted: 2012-04-09 &nbsp; 11:34</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24218" title="permalink">#2</a></span>
+
+<div class="content">In antiX control centre, try one of the network options especially ceni.<br>
+Or type ceniwrapper in a terminal or ceni as root.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_24220" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24220">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24220">
+
+<time datetime="2012-04-09T15:06">posted: 2012-04-09 &nbsp; 15:06</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24220" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>In antiX control centre, try one of the network options especially ceni.<br>
+Or type ceniwrapper in a terminal or ceni as root.</div></blockquote>
+Thanks for the reply. I used &lt;ctrl&gt;+&lt;alt&gt;+&lt;F1&gt; to login to a console as root &amp; typed"ceni"<br>
+Then I selected the eth0 interface and chose to reconfigure:"&lt;o&gt; dhcp" &amp;"&lt;o&gt; allow-hotplug". which resulted in 6 DHCPDISCOVER attemps with 5 intervals, (the last one being repeated, then it said"No DHCPOFFERS recieved","No working leases...". <br>
+Then it listed run-parts lines for if-up.d... &lt;sigh&gt;</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24221" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24221">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24221">
+
+<time datetime="2012-04-09T15:34">posted: 2012-04-09 &nbsp; 15:34</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24221" title="permalink">#4</a></span>
+
+ <div class="content">you may be a little different, but all my problem was the dhcp server in the router would hang. Rebooting the router (unplug and plug back in) would always fix the problem. It came to a point that I would leave the router unplugged until I needed it. This was especially true with the all in one devices (modem / router). I had tried updating the router firmware, which had allowed it to last a couple more months before it needed to be replaced.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24232" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24232">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24232">
+
+<time datetime="2012-04-10T11:52">posted: 2012-04-10 &nbsp; 11:52</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24232" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>you may be a little different, but all my problem was the dhcp server in the router would hang. Rebooting the router (unplug and plug back in) would always fix the problem. It came to a point that I would leave the router unplugged until I needed it. This was especially true with the all in one devices (modem / router). I had tried updating the router firmware, which had allowed it to last a couple more months before it needed to be replaced.</div></blockquote>
+Thanks for the suggestion Dave. However I'm fairly sure that my router isn't the problem because not only did the previous Ubuntu {ugg gnome} installation on this same exact {laptop, usb/Ethernet-adapter, etc...} succeed in connecting to the internet via my router's dhcp server, but the hard wired ethernet connections to the livingroom {ugg winbox}, and my multi-linux booting desktop successfully get a dhcp connection every time they boot up. <br>
+<br>
+I also note that while dhcp also fails with the antiX live cd itself, when I boot a Bodhi Linux live cd on this laptop, it does get an a working dhcp connection to the internet. Truth be told, Since it runs E17 (my preferred desktop/wm) by default, I wanted to install it instead of antiX but unfortunately it's installer kept crashing half way through the installation. So I decided to give antiX a shot. But if I can't get a handle on the DHCP problem soon, I'm going to have to try something else. Which would be a shame since everything else works well on this laptop...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24233" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24233">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24233">
+
+<time datetime="2012-04-10T12:00">posted: 2012-04-10 &nbsp; 12:00</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24233" title="permalink">#6</a></span>
+
+<div class="content">by the first post you have made it looks like you may have tried this. <br>
+<br>
+Did you try setting up a static ip for testing reasons?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24234" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24234">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24234">
+
+<time datetime="2012-04-10T12:43">posted: 2012-04-10 &nbsp; 12:43</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24234" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>by the first post you have made it looks like you may have tried this. <br>
+<br>
+Did you try setting up a static ip for testing reasons?</div></blockquote>
+Static IP? No that I haven't. I've depended on DHCP for so long that I'm not even sure I even remember how to set up static ip. And frankly I don't see the point. The fact that the Bodhi live cd can still connect via dhcp tells me the problem is an antiX thing. And I'm beginning to think it's going to take more time to solve it than I'm willing to spend on this"emergency back-up" laptop.<br>
+<br>
+What I might do though, is test if the antiX live-cd can connect if I boot it on my desktop, instead of this moldy-oldie toshiba, which would indicate that it's a hardware compatibility issue, rather than just a bad a configuration.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24250" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24250">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24250">
+
+<time datetime="2012-04-13T13:27">posted: 2012-04-13 &nbsp; 13:27</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24250" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>jtwdyp wrote:</cite>What I might do though, is test if the antiX live-cd can connect if I boot it on my desktop, instead of this moldy-oldie toshiba, which would indicate that it's a hardware compatibility issue, rather than just a bad a configuration.</div></blockquote>
+Turns out this is hardware related. I don't know why, but the same Live CD that couldn't establish a DHCP lease from my router, via the usb/ethernet adaptor had no problem going online on my desktop which is connected to the same router. {sigh} Oh well, But I liked enough of what I saw that I think I'll give antiX a go as one of the 5 linux distros I keep installed on my desktop. It will likely replace OpenSuSE which has been giving me problems lately... <br>
+<br>
+But as far as this old laptop goes, I got motivated enough to find the magic combination of cheat codes and partition configuration choices to keep bodhi's installer from crashing during the partition configuration process. And I now have a working bodhi installation on the Toshiba Satelite. So while I can't consider this problem solved. the issue is for me"Closed"<br>
+Thanks for the suggestions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24495" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24495">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24495">
+
+<time datetime="2012-04-28T04:42">posted: 2012-04-28 &nbsp; 04:42</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24495" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>jtwdyp wrote:</cite>
+I don't know if it's relevant but since I was going to be working from the console I booted the 3rd grub choice, listed as:<br>
+antiX-M11, kernel 2.6.36-1-mepis (init-3)<br>
+And as I suspected it booted to runlevel 3 but there was a repetitive error text on tty1: <br>
+<strong>S. H. Engine unavailable</strong><br>
+<br>
+Any suggestions???</div></blockquote>
+Regarding the matter concerning <strong>S. H. Engine unavailable</strong>, I at least found out where this message is coming from:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1007788.html"<br>linktext was:"http://www.mail-archive.com/debian-bugs ... 07788.html"<br>====================================<br>
+ indicates that the message comes from Package: eeepc-acpi-scripts in the shell script shengine.sh. I wonder if that needs to be running in init 3?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24496" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24496">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">nadir</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">nadir</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content24496">
+
+<time datetime="2012-04-28">posted: 07:20</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24496" title="permalink">#10</a></span>
+
+<div class="content">One of my nearly dead PC's gets the same IP via dhcp like the one of the server<br>
+(which means it has got an IP, but hard times to connect to the net). <br>
+Why that is is beyond me.<br>
+At the Debian wiki is an very easy how-to set it static:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/NetworkConfiguration"<br>linktext was:"https://wiki.debian.org/NetworkConfiguration"<br>====================================<br>
+<br>
+(rather an example code, right at the top). <br>
+In my case it didn't help. Whatever i do, it sticks to the"wrong" address. <br>
+<br>
+Doesn't addresses assigned by dhcp usually start at x.x.x.2 ?<br>
+Cause yours says x.x.x.45<br>
+I would compare it with the other PCs addresses. Also open the webinterface of the router and check if it is set there<br>
+(to whatever...). <br>
+<br>
+The -v argument of the command dhclient will give verbose output. <br>
+<br>
+You say the router ain't the problem, and that might well be. Still i often start troubleshooting by shutting down the router, waiting a bit, and restarting it (and it works often. My router is crap, and can easily be confused -for example by adding a new machine to the LAN).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24543" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24543">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24543">
+
+<time datetime="2012-04-30T16:06">posted: 2012-04-30 &nbsp; 16:06</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24543" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>nadir wrote:</cite>One of my nearly dead PC's gets the same IP via dhcp like the one of the server<br>
+(which means it has got an IP, but hard times to connect to the net). <br>
+Why that is is beyond me.<br>
+At the Debian wiki is an very easy how-to set it static:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/NetworkConfiguration"<br>linktext was:"https://wiki.debian.org/NetworkConfiguration"<br>====================================<br>
+<br>
+(rather an example code, right at the top). <br>
+In my case it didn't help. Whatever i do, it sticks to the"wrong" address. </div></blockquote>Well in any case thanks for the link... I bookmarked it in case of future need. But if I understood it that describes how to set up Linux in general (or at least any debian derived Linux distro) to use a stitic IP. But of course the IP itself in the example might need to be edited to suit my router. which, in my case, has no provision for me to reserve a static ip for a particular device. The default {private lan} ip distribution for my router is from 192.168.1.15 to 192.168.1.47 Which even though the total number of physical devices consist of 1 VOIP device, &amp; 4 computers (only one of which is allowed to connect wirelessly {secured via a hidden network with WPA2 preshared key &amp;&amp; Wireless MAC authentication"on"} 3 of those computers multi-boot so the router does cycle the leases into the"x.x.x.40(s)" Which means that unless I want to do static on each and every one of the 11 installed linux distributions and 3 windows installations I could bump into the configured static ip address being currently assigned to one of the other devices. And that doesn't even factor in the fact that the first device that comes back on when the power fuctuates is the voip device (which is incappable of using static IP)... <br>
+<br>
+All of which is why I didn't want to bother with static ip.
+<blockquote><div><cite>nadir wrote:</cite>Doesn't addresses assigned by dhcp usually start at x.x.x.2 ?<br>
+Cause yours says x.x.x.45<br>
+I would compare it with the other PCs addresses. Also open the webinterface of the router and check if it is set there<br>
+(to whatever...). </div></blockquote>As I said above..."the default {private lan} ip distribution for my router is from 192.168.1.15 to 192.168.1.47" And I think the high volume of OS installed to the 2 desktops &amp; 2 laptops might have something to do with the routers DHCP server cycling through the available ip numbers untill, at times, a device gets an IP in the x.x.x.40(s)
+<blockquote><div><cite>nadir wrote:</cite>The -v argument of the command dhclient will give verbose output. </div></blockquote> That too, is good to know.
+<blockquote><div><cite>nadir wrote:</cite>You say the router ain't the problem, and that might well be. Still i often start troubleshooting by shutting down the router, waiting a bit, and restarting it (and it works often. My router is crap, and can easily be confused -for example by adding a new machine to the LAN).</div></blockquote>
+About the only time I need to reset my router to make things work again is if the power goes out while something is being installed to one of the windows installations the &amp;@$#%in winbox sometimes can't find the router unless I power cycle the router while the winbox is running, and then reboot the affected winbox (in that order) Otherwise if I'm talking on the voip device when the power fluctuates, I sometimes need to powercycle the router, then the nettalk duo, And then verrify that the duo's current IP still matches the ip asiogned to what my router calls a DMZ (which allows one device to completely bypass the firewall) before incomming calls make it to the nettalk voip device... If it weren't for those two scenarios, I wouldn't remember where the router's power switch was... <br>
+<br>
+And like I said previously, once I installed Bodhi on the troublesome antique of a p3 that antix couldn't go online with, that same physical hardware config just worked {with Bodhi Linux}... <br>
+<br>
+On the other hand when I tested that same antiX live cd on my AMD_64 desktop it connected to the internet with ease. So I downloaded the 686 version of antiX and installed that on the amd_64 desktop. And I must say it works well on the amd, and I think it's the fastest booting of all 5 llinux currently installed on that machine. So while the fact that I couldn't get it working on the old p3 means I can't in good consiencem mark the thread as"solved", It is for me no longer a problem. I'm just using antiX on a different PC... (And Liking it!)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24555" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24555">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">nadir</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">nadir</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content24555">
+
+<time datetime="2012-05-01T05:25">posted: 2012-05-01 &nbsp; 05:25</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24555" title="permalink">#12</a></span>
+
+<div class="content">The amount of installations don't matter the much for te IP. <br>
+The amount of machines (mac addresses) does matter more (and if you are running all of them at the same time).<br>
+<br>
+If i edit /etc/network/interfaces to a certain IP it usually will use that IP (no matter what the router wants or doesn't want). <br>
+<br>
+The most easy solution is probably to take a distro which works out of box, sure<br>
+(and that is what i would do too)<br>
+<br>
+What i don't understand is if you did restart the router, and if you didn't from where you know that it won't help (it probably won't, but it doesn't look like that much of trouble, at least less than explaining in detail why it won't help).<br>
+<br>
+nmap -sP 192.160.1.0/24 <br>
+will tell you which machines are up and running, and what IP's they got.<br>
+ifconfig <br>
+will tell you the IP of the actual machine.<br>
+Again i doubt that is the problem, but that are the things i do check.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24564" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24564">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24564">
+
+<time datetime="2012-05-01T18:18">posted: 2012-05-01 &nbsp; 18:18</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24564" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>nadir wrote:</cite>The amount of installations don't matter the much for te IP. <br>
+The amount of machines (mac addresses) does matter more (and if you are running all of them at the same time).</div></blockquote>
+That was my origianal opinion too... But I'm wondering if it might have something to do with each installation having different"names" for themselves, {like"antiXme2012" &amp;"Sabayonish" etc...} These names do show up in the routers list of connected devices. But in any case, for some reason my router's DHCP server scrolls through all 30+ available IP addresses even though no more than 5 connections are possible at any one time. (4 physical ethernet ports, and only one allowed MAC address for wireless connections)...
+<blockquote><div><cite>nadir wrote:</cite>If i edit /etc/network/interfaces to a certain IP it usually will use that IP (no matter what the router wants or doesn't want). </div></blockquote>
+<blockquote><div><cite>nadir wrote:</cite>The most easy solution is probably to take a distro which works out of box, sure<br>
+(and that is what i would do too)</div></blockquote>
+Yup, but it musta been at least partially a hardware issue cause the same antiX worked with the desktop...
+<blockquote><div><cite>nadir wrote:</cite>What i don't understand is if you did restart the router, and if you didn't from where you know that it won't help (it probably won't, but it doesn't look like that much of trouble, at least less than explaining in detail why it won't help).</div></blockquote>
+Yeah, but one of the devices is somewhat mobile, and then there is the over used livingroom computer... Before I can reset the router, {without starting a family feud} I need to wait till nobody is actively using the internet. And by then I'm usually wanting to power down and go spend a little time with my Lady before she forgets what I look like...
+<blockquote><div><cite>nadir wrote:</cite>nmap -sP 192.160.1.0/24 <br>
+will tell you which machines are up and running, and what IP's they got.<br>
+ifconfig <br>
+will tell you the IP of the actual machine.<br>
+Again i doubt that is the problem, but that are the things i do check.</div></blockquote>
+And those are usefull commands.... one of which I'm not familier with... But given the range of IP addresses my router uses, I'm thinking I'd want to use:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> nmap -sP 192.160.1.15/47</code></pre></div>instead right?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24577" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24577">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">nadir</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">nadir</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content24577">
+
+<time datetime="2012-05-02T09:32">posted: 2012-05-02 &nbsp; 09:32</time>
+<span class="permalink"><a href="./dhcp-failing-on-old-p3-with-antix-m11-486-t3653.html#p24577" title="permalink">#14</a></span>
+
+<div class="content">Not sure, to be honest.<br>
+I think the syntax 0/24 at the end doesn't refer to the available IP number, but to the netmask:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://superuser.com/questions/158291/whats-the-meaning-of-10-0-0-1-24-address-of-my-computer-ip-addr-command"<br>linktext was:"http://superuser.com/questions/158291/w ... dr-command"<br>====================================<br>
+<br>
+second post gives examples, third goes in detail. More results here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://duckduckgo.com/?q=what+means+0%2F24+in+an+IP+address"<br>linktext was:"https://duckduckgo.com/?q=what+means+0% ... IP+address"<br>====================================<br>
+<br>
+<br>
+I was astonished that it worked, but never investigated why.<br>
+If you go to your iceweasel/firefox menu, preferences, advanced, network<br>
+you will find the same example for excluding IP's from the proxy usage<br>
+(probably cause IP's with 192.168.1.* and netmask 255.255.255.0 is not unusual for private computers/networks).</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

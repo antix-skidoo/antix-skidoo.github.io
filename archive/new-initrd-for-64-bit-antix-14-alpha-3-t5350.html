@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>New initrd for 64-bit antiX-14-alpha-3 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html">New initrd for 64-bit antiX-14-alpha-3</a></div>
+<div class="pagination">
+21 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_37766" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37766">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37766">
+<time datetime="2014-10-28T22:20">posted: 2014-10-28 &nbsp; 22:20</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37766" title="permalink">#1</a></span>
+
+<div class="content">Everything can be downloaded from my 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.dropbox.com/sh/53mwi5nhllsc952/AAB1gs_j44WkvkCSEsDRRn7Wa"<br>linktext was:"antiX-14-a3.1 dropbox folder"<br>====================================<br>
+.<br>
+<br>
+<strong>FIX-1:</strong> initrd-2014-10-28a.gz had no modules. Replaced with initrd.gz which does contain modules.<br>
+<br>
+This is designed for testing on LiveUSBs that use an ext2/3/4 filesystem. There will be problems with the xtra tarball on LiveUSBs that use fat32. I could provide a workaround.<br>
+<br>
+I'm not interested in tests on the 32-bit version. I am mostly interested in how loading the video drivers earlier<br>
+works, the earlier running live init.d scripts and any outstanding/new problems with persistence.<br>
+<br>
+I hope this fixes all reported issues with persistence. <br>
+<br>
+Here is the contents of the README:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>The xdelta3 patch is designed to modify antiX-14-a3-RV_x64-full.iso
+
+The other files work with any 64-bit version of antiX-14-alpha-3.
+The were tested with the full RV (sysVinit) version.  They should
+work with the systemd versions but the Live shutdown is not perfect.
+It relies on the systemd shutdown so there is no pause for you to
+eject the LiveCD and their will probably be umount problems on
+LiveUSB/Frugal on ntfs filesystems.
+
+Instructions
+------------
+To create an iso file (suitable for booting in Virtual Box):
+
+xdelta3 -d -s /antiX-14-a3-RV_x64-full.iso antiX-14-a3.1-RV-x64.xd3 new.iso
+
+For an existing 64-bit LiveUSB:
+
+  1) copy new initrd-2014-10-28a.gz to LiveUSB
+     cp initrd.gz /live/boot-dev/antiX/initrd.gz
+
+  2) unpack xtra tarball
+     tar -C /live/boot-dev/antiX -xzf  xtra-2014-10-28a.tgz
+
+  3) copy the gfxboot init:
+     cp gfxboot-init /live/boot-dev/syslinux/init
+
+Fixes:
+  o Persist-save should only run once
+
+  o Entering passwords and so forth on first persistent boot
+    should work much better
+
+  o A lot of little fixes
+
+  o No changes have been made to the desktop menu or to
+    desktop-session (alternative desktops) except the startup
+    has been bumped from 1 second to 2.
+
+Changes:
+  o The biggest change is that video drivers have been added
+    to the initrd so they should load much earlier in the
+    boot process
+
+  o Even without persistence, your current desktop selection is
+    saved on the liveUSB by running"/ etc/init.d/live-init stop" as
+    root.
+
+  o If you use the new gfxboot-init then the default is to have
+    no vga= boot parameter. This is the only change even though
+    there are outstanding bugs.  The change is meant to go along
+    with loading video drivers earlier.
+
+  o This comes with the newer version of .conkyrc
+
+  o Set the default width of the persistence and remaster-live
+    GUIs to 680.
+
+Additions:
+  o Added search-bar applications for doing internet searches from
+    the command line and via the X clipboard. See:
+    https://github.com/BitJam/Search-Bar
+
+  o splash-select will let you change the background theme in the
+    virtual consoles
+
+  o uxrvt-style makes it easy to customize the urxvt terminal
+    emulator.  See --help for details.</code></pre></div>
+I'm sure I've forgotten some things.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37769" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37769">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37769">
+
+<time datetime="2014-10-29T03:24">posted: 2014-10-29 &nbsp; 03:24</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37769" title="permalink">#2</a></span>
+
+<div class="content"><strong>Note:</strong> I now use the root and demo passwords to trigger persist-config (to set up the persistence save mode) and persist-save during the live boot.<br>
+<br>
+You can test this after you already have root-persistence enabled just be changing the root password to"root" (or the demo password to"demo"). Likewise if you make one or both of these changes before doing a remaster-live then the first time you (or anyone downstream) boots with root persistence there will be a prompt to change the passwords and set up the persistence save mode. Those selections will be immediately saved with a persist-save.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37785" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37785">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+ </div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37785">
+
+<time datetime="2014-10-29T20:56">posted: 2014-10-29 &nbsp; 20:56</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37785" title="permalink">#3</a></span>
+
+<div class="content">**** crickets ****<br>
+<br>
+**** crickets ****</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37787" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37787">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37787">
+
+<time datetime="2014-10-29T21:03">posted: 2014-10-29 &nbsp; 21:03</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37787" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>**** crickets ****<br>
+<br>
+**** crickets ****</div></blockquote>
+<br>
+Give me a day or 2 BitJam. My Dual Core Dell is in the mail right now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37791" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37791">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37791">
+
+<time datetime="2014-10-30T01:16">posted: 2014-10-30 &nbsp; 01:16</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37791" title="permalink">#5</a></span>
+
+<div class="content">I didn't get very far. I used the delta file to make a new iso and made a bootable usb on an ext4 usbstick. boot completes and slim starts, but login fails.<br>
+<br>
+Here's a screen shot of some perhaps pertinent error messages.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37792" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37792">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37792">
+
+<time datetime="2014-10-30T01:49">posted: 2014-10-30 &nbsp; 01:49</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37792" title="permalink">#6</a></span>
+
+<div class="content">Thanks D.O.!
+<blockquote><div><cite>dolphin_oracle wrote:</cite>I didn't get very far. I used the delta file to make a new iso and made a bootable usb on an ext4 usbstick. boot completes and slim starts, but login fails.</div></blockquote>
+Please make the LiveUSB the normal way and then follow the instructions for copying initrd.gz and unpacking the xtra tar file. I provided the iso xdelta3 patch *only* for booting into Virtual Box.<br>
+<br>
+You can probably fix this by unpacking the xtra tarball in the /live/boot-dev/antiX/ directory. For some reason I don't understand, your way of making a LiveUSB caused some file in the xtra/ directory to lose their execute permission.<br>
+<br>
+I'm surprised the xtra/ directory got copied at all by whatever you used to make the LiveUSB. Maybe it did a copy that does not preserve execute permission. <br>
+<br>
+I'm sorry I was unclear in the original instructions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37793" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37793">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37793">
+
+<time datetime="2014-10-30T02:25">posted: 2014-10-30 &nbsp; 02:25</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37793" title="permalink">#7</a></span>
+
+<div class="content">I probably didn't read it close enough... <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+However, it appears the xtra directory got copied (unetbootin) but as you suspected the executable scripts had lost their x bit. so I fixed that and here we are, new conky (with dynamic network monitors,nice...) and earlier loading graphics driver. no problem on the hp, and I had the antiX theming on the console nearly the whole boot. much less jarring. password and username prompts on live were very fast as they should be. <br>
+<br>
+as suggested I am running on an ext(4) formated usb stick, although I can see where we really will need fat to work in the future. so we will drive this around a while and see what happens.<br>
+<br>
+***edit*** also, persist-save is only running once. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>emo@antix1:~
+$ inxi -F
+System:    Host: antix1 Kernel: 3.17.0-antix.1-amd64-smp x86_64 (64 bit) 
+           Desktop: IceWM 1.3.8 
+           Distro: antiX-14-a3-RV_x64-full Killah P 11 October 2014 
+Machine:   System: Hewlett-Packard product: HP Pavilion dm4 Notebook PC v: 0587110002242B10000022100
+           Mobo: Hewlett-Packard model: 146A v: 58.28
+           Bios: Hewlett-Packard v: F.26 date: 02/14/2011
+CPU:       Dual core Intel Core i5 M 460 (-HT-MCP-) cache: 3072 KB 
+           Clock Speeds: 1: 1199 MHz 2: 1866 MHz 3: 1199 MHz 4: 1199 MHz
+Graphics:  Card: Intel Core Processor Integrated Graphics Controller
+           Display Server: X.Org 1.16.1 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1366x768@60.03hz
+           GLX Renderer: Mesa DRI Intel Ironlake Mobile
+           GLX Version: 2.1 Mesa 10.2.6
+Audio:     Card Intel 5 Series/3400 Series High Definition Audio 
+           driver: snd_hda_intel 
+           Sound: ALSA v: k3.17.0-antix.1-amd64-smp
+Network:   Card-1: Intel Centrino Advanced-N + WiMAX 6250 [Kilmer Peak]
+           driver: iwlwifi
+           IF: wlan0 state: up mac: 00:23:15:7b:a8:14
+           Card-2: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+           driver: r8169
+           IF: eth0 state: down mac: 64:31:50:6d:81:b4
+Drives:    HDD Total Size: 352.1GB (12.3% used)
+           ID-1: /dev/sda model: WDC_WD3200BPVT size: 320.1GB
+           ID-2: USB /dev/sdb model: Cruzer_Glide size: 32.0GB
+Partition: ID-1: /home size: 969M used: 79M (9%) fs: ext4 dev: /dev/loop2 
+Sensors:   System Temperatures: cpu: 46.0C mobo: 44.0C 
+           Fan Speeds (in rpm): cpu: N/A 
+Info:      Processes: 170 Uptime: 17 min Memory: 597.2/7786.8MB 
+           Client: Shell (bash) inxi: 2.1.28 
+demo@antix1:~
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37794" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37794">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37794">
+
+<time datetime="2014-10-30T03:32">posted: 2014-10-30 &nbsp; 03:32</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37794" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>as suggested I am running on an ext(4) formated usb stick, although I can see where we really will need fat to work in the future. so we will drive this around a while and see what happens.</div></blockquote>
+Fat32 works but not with the xtra/ directory for development. I actually have a workaround for that. You can put an xtra.tgz file in the /antiX/ directory and I will unpack it in the root file system. The problem is that it can't have the top-level /xtra/ directory in it so this requires I provide 2 different xtra tarballs, one with the top-level /xtra/ directory and one without it. I thought it would be easier all around to only provide the one xtra file which is already a part of my standard development process. Also, creating the rootfs and homefs files on fat32 can take an annoyingly long time.<br>
+<br>
+<br>
+Please try the search apps. From the command line:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>amz           Amazon
+antix         antiX Linux forums
+ddg           DuckDuckGo
+dict-search   Dictionary Lookup
+g             Google
+gf            Gentoo Linux Forums
+imdb          Internet Movie Database
+imdb-disc     Search IMDb for labels on bluray and dvd discs
+imdbe         Internet Movie Database Episodes
+mx            MX Linux Forums
+stp           Start Page
+wiki          Wikipedia</code></pre></div>
+In X-windows, either launch search-bar:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>search-bar&amp;</code></pre></div>Or copy some of the search .desktop files in /usr/share/applications/search-bar/ so the show up as desktop icons. Highlight text anywhere on the screen and then hit a search-bar button (or click on one of the search desktop icons) and a new browser window/tab should open up with your search results.<br>
+<br>
+I find both the buttons and the CLI applications to be incredibly useful. I often use"Alt-F2" in Fluxbox to open up a run box and use that for typing in a search.<br>
+<br>
+<strong>Known bug:</strong> Selecting"Nederlands" from the"F2 Language" menu causes a crash early in the boot process. I'm working on a fix.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37816" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37816">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37816">
+
+<time datetime="2014-10-31T19:05">posted: 2014-10-31 &nbsp; 19:05</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37816" title="permalink">#9</a></span>
+
+<div class="content">I'm really digging the search-bar type functionality. I like the run box searches. My monitor is small, so the search-bar itself if of limited usefullness cause it gets covered up. Now, if that thing was an autohiding dock that popped up when you scroll to the edge of the screen... the dictionary search is particularly useful when using in conjuction with the browser. select the word, hit a button.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37817" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37817">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37817">
+
+<time datetime="2014-10-31T19:10">posted: 2014-10-31 &nbsp; 19:10</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37817" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>I'm really digging the search-bar type functionality. I like the run box searches. My monitor is small, so the search-bar itself if of limited usefullness cause it gets covered up. Now, if that thing was an autohiding dock that popped up when you scroll to the edge of the screen... the dictionary search is particularly useful when using in conjuction with the browser. select the word, hit a button.</div></blockquote>
+maybe give it a go with a wbar configuration?<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://code.google.com/p/wbar/downloads/list"<br>linktext was:"http://code.google.com/p/wbar/downloads/list"<br>====================================<br>
+<br>
+I used to have it in the repo... maybe it is still there I don't know...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37818" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37818">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37818">
+
+<time datetime="2014-10-31T19:25">posted: 2014-10-31 &nbsp; 19:25</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37818" title="permalink">#11</a></span>
+
+<div class="content">? what is <strong>/usr/local/lib/antiX/.antiX-common.sh.swo</strong><br>
+<br>
+--------------------<br>
+<br>
+regarding search-bar:<br>
+Because its dialog window opens to such a narrow width, titlebar drag is difficult (impossible?) until window is resized wider.<br>
+I'm suggesting it should open to a slightly wider width. User can resize narrower, if desired.<br>
+<br>
+--------------------<br>
+<br>
+regarding cli"search apps":<br>
+Works fine, is pretty nifty ~~ will save a me LOT of clicks!<br>
+On the downside, though, it's pretty unsettling to know that a fat-fingered cli typo could send the content of my system clipboard to google.<br>
+Preferably IMO, a custom"single character" executable ("g") would be acheived via (and editable via) .bashrc alias<br>
+and the actual files on disk would bear filenames like"search-bar-g", search-bar-mx" etc.<br>
+-=-<br>
+Aliased or not, any convenient-but-too-short (too ambiguous?) command names will probably invite typing"man wiki" or"man antix"<br>
+<br>
+Consider: gExec --} roxterm (as root)<br>
+# g linux rootkit<br>
+<br>
+user is now searching the web for rootkits... using a root-permissioned browser. How"insanely convenient" is that?<br>
+<br>
+Not just pecific to search-bar, but across the board:<br>
+the pre-installed browser executable should be aliased to a script which drops root permissions prior to launching the browser.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37820" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37820">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37820">
+
+<time datetime="2014-10-31T19:47">posted: 2014-10-31 &nbsp; 19:47</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37820" title="permalink">#12</a></span>
+
+<div class="content">semi-automatic root persistence. Startup, video detection and shutdown seem pretty smooth so far. <br>
+<br>
+When attempting to launch roxterm,<br>
+4x dialog pops up: [Error from ROXTerm]"Unable to save options file /home/demo/.config/roxterm.sourceforge.net/Shortcuts/Default"<br>
+<br>
+--------------------------------<br>
+<br>
+I haven't messed with any settings nor made any choices regarding"splash", but found this:<br>
+/var/log/spash-all.log
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>FBIOCONDECOR_SETSTATE failed, error code 22.
+FBIOCONDECOR_SETSTATE failed, error code 22.
+FBIOCONDECOR_SETSTATE failed, error code 22.
+FBIOCONDECOR_SETSTATE failed, error code 22.
+FBIOCONDECOR_SETSTATE failed, error code 22.
+FBIOCONDECOR_SETSTATE failed, error code 22.
+splash-term 2 -&gt; antiX-blue-purple
+FBIOCONDECOR_SETSTATE failed, error code 22.
+splash-term 3 -&gt; antiX-rev-neutral
+FBIOCONDECOR_SETSTATE failed, error code 22.
+splash-term 4 -&gt; antiX-purple
+FBIOCONDECOR_SETSTATE failed, error code 22.
+splash-term 5 -&gt; antiX-rev-blue
+FBIOCONDECOR_SETSTATE failed, error code 22.
+splash-term 6 -&gt; antiX-neutral-purple
+FBIOCONDECOR_SETSTATE failed, error code 22.
+splash-term 2 -&gt; antiX-blue-purple
+splash-term 3 -&gt; antiX-rev-neutral
+splash-term 4 -&gt; antiX-purple
+splash-term 5 -&gt; antiX-rev-blue
+splash-term 6 -&gt; antiX-neutral-purple
+splash-term 2 -&gt; antiX-blue-purple
+splash-term 3 -&gt; antiX-rev-neutral
+splash-term 4 -&gt; antiX-purple
+splash-term 5 -&gt; antiX-rev-blue
+splash-term 6 -&gt; antiX-neutral-purple</code></pre></div>
+--------------------------<br>
+<br>
+issues probably not specific to the updated initrd:<br>
+<br>
+gExec --} rox-filer (as root)<br>
+the"edit as root" and"open as text" commands<br>
+<br>
+gExec --} spacefm (as root)<br>
+OpenWith handlers are unassigned. Need to wait 15secs or so while the"choose applications: all applications" populates<br>
+to select leafpad, or geany or whatever</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37821" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37821">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37821">
+
+<time datetime="2014-10-31T20:21">posted: 2014-10-31 &nbsp; 20:21</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37821" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite> My monitor is small, so the search-bar itself if of limited usefullness cause it gets covered up. Now, if that thing was an autohiding dock that popped up when you scroll to the edge of the screen...</div></blockquote>
+We could use"yad --notification" to create an icon in the system tray that would give you a menu of search options when you right click on it. Would that work for you? <br>
+<br>
+A left click on the icon could do a $DEFAULT search. A left click would open up a little menu that allows a variety of searches.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37822" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37822">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37822">
+
+<time datetime="2014-10-31T20:54">posted: 2014-10-31 &nbsp; 20:54</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37822" title="permalink">#14</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite><blockquote><div><cite>dolphin_oracle wrote:</cite> My monitor is small, so the search-bar itself if of limited usefullness cause it gets covered up. Now, if that thing was an autohiding dock that popped up when you scroll to the edge of the screen...</div></blockquote>
+We could use"yad --notification" to create an icon in the system tray that would give you a menu of search options when you right click on it. Would that work for you? <br>
+<br>
+A left click on the icon could do a $DEFAULT search. A left click would open up a little menu that allows a variety of searches.</div></blockquote>
+That would work too.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37823" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37823">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37823">
+
+<time datetime="2014-10-31T20:56">posted: 2014-10-31 &nbsp; 20:56</time>
+<span class="permalink"><a href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350.html#p37823" title="permalink">#15</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>? what is <strong>/usr/local/lib/antiX/.antiX-common.sh.swo</strong></div></blockquote>Search(.swo file). It is leftover from a vim editing session.<br>
+<blockquote class="uncited"><div>regarding search-bar:<br>
+Because its dialog window opens to such a narrow width, titlebar drag is difficult (impossible?) until window is resized wider.</div></blockquote>We could set the default orientation to horizontal. Try:"search-bar -o h" to see what it's like.<br>
+<blockquote class="uncited"><div>Preferably IMO, a custom"single character" executable ("g") would be acheived via (and editable via) .bashrc alias and the actual files on disk would bear filenames like"search-bar-g", search-bar-mx" etc.</div></blockquote>This is what I had done originally. The problem was that unless everyone has those bash aliases then the shorter versions of the commands break mysteriously.  Making them actual commands seemed more robust. I also had longer commands for the clipboard searches but this polluted /usr/local/bin and was confusing.<br>
+<br>
+One quick fix might be to require a command line parameter (perhaps"--" or even"--clipboard") to activate the clipboard search. So"g" alone does nothing."g skidoo" searches for"skidoo". and"g --" searches for what is in the clipboard. I have never wanted to do a clipboard search from the CLI. Although that may be because I have two copies of the search-bar on my screens. Do you think"--" or"--clipboard" is better? I guess it depends on how often you want to do a clipboard search from the CLI.<br>
+<blockquote class="uncited"><div>Aliased or not, any convenient-but-too-short (too ambiguous?) command names will probably invite typing"man wiki" or"man antix"</div></blockquote>Thanks for the reminder. I was planning one man page for all of them with symlinks so doing a man on any of the commands will get you to the same page. This lets you quickly see all the different search commands.<br>
+<br>
+Perhaps"gg" would be better than"g". The command"gs" is already taken by ghostscript.<br>
+<blockquote class="uncited"><div>Consider: gExec --} roxterm (as root)<br>
+# g linux rootkit</div></blockquote> Good point. I don't have a good solution.<br>
+<br>
+Re the all-splash log. What is the output of"inxi -G"? Do you get background colors on the virtual terminals? <br>
+<br>
+Re: non-initrd issues. They should be posted in 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/viewtopic.php?f=6&amp;t=5305"<br>linktext was:"antiX-14R alpha3 available for testing"<br>====================================<br>
+.<br>
+<br>
+Thank you for your testing and suggestions.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+21 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./new-initrd-for-64-bit-antix-14-alpha-3-t5350-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

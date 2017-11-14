@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>System to RAM - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./system-to-ram-t4811.html">System to RAM</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./system-to-ram-t4811-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./system-to-ram-t4811-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_32914" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32914">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32914">
+<time datetime="2014-01-18T19:37">posted: 2014-01-18 &nbsp; 19:37</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32914" title="permalink">#1</a></span>
+
+<div class="content">After my webserver issues are solved I would like to request your help in the following topic:<br>
+<br>
+As I mentioned I use an SSD in the BRIO. Yes, you are right, I solved the"mechanical damage to spinning HDD plates" possibility by this move but introduced the"SSD write endurance" fear. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+What I want: a system that lasts.<br>
+<br>
+How long?<br>
+<br>
+Say for another 10 years, possibly without any hardware part servicing.<br>
+<br>
+Is it ludicrous?<br>
+<br>
+I think it is possible. Should be possible. I ran an old P-1 233MMX for 7 years 24/7 (except maybe a few days of cummulated off-time due to mains outages and ONCE a processor cooling fan replace) before the original 3,5" HDD failed. It was between 1998 and 2005. It was a lightly stressed machine.<br>
+So I assume that after I removed the processor cooling fan from the BRIO (and put a big heatsink on it), reduced the power supply cooling fan spinning by reducing its supply voltage and substituted the mechanical HDD with the SSD I can achieve this - in a similarly lightly stressed system with adequate cooling.<br>
+<br>
+But for this goal I should eliminate as much SSD writing as possible!<br>
+<br>
+What I did so far:<br>
+<br>
+I introduced tmpfs and mounted /var/log onto it. Moreover the webserver document root and ftp server root and rrdtool's rrd databases are also placed on tmpfs. At startup the rc.local script populates these directories with the appropriate files and sets the permissions to be OK. When I want to reboot or eventually power off the machine I call my"graceful" reboot.sh and shutdown.sh scripts which do things in the reversed order. I also bought an APC UPS and installed apcupsd so -in theory- I have a chance to save the most important things if a mains outage occurs. I set up apcupsd to call the gracefull shutdown script when the power outage is too long and the battery in the UPS is almost empty.<br>
+<br>
+What I want is<br>
+<br>
+1, to know how much SSD writing is still occuring in other parts of the filesystem and,<br>
+2, how could I minimize or entirely stop them.<br>
+<br>
+The SSD was formatted to ext2 and noatime is set in fstab.<br>
+<br>
+Is it too much what I want?</div>
+<div class="notice">
+Last edited by <b>Pumukli</b> on 18 Jan 2014, 19:46, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32915" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32915">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32915">
+
+<time datetime="2014-01-18T19:46">posted: 2014-01-18 &nbsp; 19:46</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32915" title="permalink">#2</a></span>
+
+<div class="content">On my ssd's, I set them to ext4, noatime, discard <br>
+<br>
+The discard is to enable trim, which I think is a good idea</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32916" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32916">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32916">
+
+<time datetime="2014-01-18T19:48">posted: 2014-01-18 &nbsp; 19:48</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32916" title="permalink">#3</a></span>
+
+<div class="content">Trim is not supported on this SSD.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32917" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32917">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32917">
+
+<time datetime="2014-01-18T20:19">posted: 2014-01-18 &nbsp; 20:19</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32917" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>Pumukli wrote:</cite>Trim is not supported on this SSD.</div></blockquote>
+I sold my eeepc's that I had for years. They had the cheapo low budget Phison SSD drives.<br>
+<br>
+They are still running as ext2 file systems running Linux to the people I sold them to.<br>
+It's a small town so if anything went wrong. I'd hear about it.<br>
+<br>
+So just format and install as ext2. No /swap on the SSD. Then forget about it.<br>
+Or not. Up to you. Just mentioning how I roll when paranoid about SSD failure<br>
+on aging early model ssd drives.<br>
+<br>
+I am not up to date/hip yet of what F2FS is capable of yet with the newer kernels and booting<br>
+a Linux operating system or using F2FS file system for /home instead of root. I made a lame attempt once ssd-antix-13beta2-32bit-jfs-f2fs-home-t4271.html<br>
+<br>
+rc cheered me on but I dove for the mat on the 1st round. That install is still pumping and up to <br>
+date and takes punishment in my motorcycle saddlebags in the extreme desert heat6.<br>
+<br>
+I figure when I need to hear about it. It'll be all over the forums I belong to.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32918" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32918">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32918">
+
+<time datetime="2014-01-18T20:33">posted: 2014-01-18 &nbsp; 20:33</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32918" title="permalink">#5</a></span>
+
+<div class="content">I also noticed btrfs seems to have a ssd-mode? I think I saw that in the boot text</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32920" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32920">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Neil</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Oct 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32920">
+
+<time datetime="2014-01-18T21:18">posted: 2014-01-18 &nbsp; 21:18</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32920" title="permalink">#6</a></span>
+
+<div class="content">I wonder if a frugal install would meet your needs. As I understand it, a frugal install boots from an SSD, or HDD, just like it does from a LiveCD/USB, and runs in RAM only saving changes and such when needed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32932" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32932">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32932">
+
+<time datetime="2014-01-20T17:31">posted: 2014-01-20 &nbsp; 17:31</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32932" title="permalink">#7</a></span>
+
+<div class="content">Thanks Neil, my next question would have been"what's this frugal stuff anyhow?" <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Is it basically:<br>
+<br>
+- copied .iso file from install media to hdd<br>
+- run as if a live CD ?<br>
+<br>
+OK, but what if I want to install extra apps which are not part of the core-iso? Can I apt-get install them as normal? (I mean in another directory on HDD) and load them into memory when I call them say in rc.local?<br>
+Then I gracefuly quit before power off and save everything what is important (database, logs, whatnot) and restore them on following reboot?<br>
+<br>
+Hmm, is that so simple? Where's the catch?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32933" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32933">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">dolphin_oracle</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32933">
+
+<time datetime="2014-01-20T18:43">posted: 2014-01-20 &nbsp; 18:43</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32933" title="permalink">#8</a></span>
+
+<div class="content">for a small server like that I would be sore-tempted to boot a live-persistent usb key with the"toram" boot option. A frugal install would work too. The good part about this is that all the system stuff writes to ram instead of the ssd, which is now available for hosting up your files (all read I presume).<br>
+<br>
+I've got some videos on this at my youtube board (see my sig below). I personnally set up a persistent usb key everytime a new antix comes out, test with that, install all my usual apps, and then run the installer from the liveusb. Its one of my favorite features.<br>
+<br>
+I think the frugal install can work the same way. I've never set one up though.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32952" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32952">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32952">
+
+<time datetime="2014-01-21T16:03">posted: 2014-01-21 &nbsp; 16:03</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32952" title="permalink">#9</a></span>
+
+<div class="content">Thanks dolphin!<br>
+<br>
+Actually I've seen two or three of your Youtube videos earlier, not the one you mentioned though.<br>
+The boot from an USB Pendrive is tempting, especially with the coming second generation home server! The base hardware is ready, booted antiX 13.2 from a bootable pendrive flawlessly, I could even run the built-in benchmarks!<br>
+The only showstopper with this pendrive approach is that I feel a kind of unease about the reliability of such el-cheapo hardware. This is why I wait for the SSD module to arrive. The datasheet talks about some insanely large numbers regarding its write endurance and MTBF, if half (or even quarter) of that is true than I'll be a happy man! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32956" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32956">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32956">
+
+<time datetime="2014-01-21T16:31">posted: 2014-01-21 &nbsp; 16:31</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32956" title="permalink">#10</a></span>
+
+<div class="content">The nice thing about el-cheapo hardware is that you can easily have more than one! I've got a kingston data traveler (1GB!)that I've been using for about 7 years. Its been through my washing machine twice, and survived several camping trips. Its rock solid, and still kicking.<br>
+<br>
+but I see your point, and the frugal install, which will still do the"toram" thing, may be for you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32979" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32979">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Neil</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Oct 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32979">
+
+<time datetime="2014-01-22T19:10">posted: 2014-01-22 &nbsp; 19:10</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32979" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>Pumukli wrote:</cite>Is it basically:<br>
+- copied .iso file from install media to hdd<br>
+- run as if a live CD ?</div></blockquote>Well...not quite that simple, but close. Here is the Wiki article about it:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.mepis.org/index.php?title=Frugal_install"<br>linktext was:"http://antix.mepis.org/index.php?title=Frugal_install"<br>====================================<br>
+<blockquote><div><cite>Pumukli wrote:</cite>OK, but what if I want to install extra apps which are not part of the core-iso? Can I apt-get install them as normal?</div></blockquote>Yes, changes and updates you make will be saved and loaded to RAM again should you have to reboot.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32982" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32982">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32982">
+
+<time datetime="2014-01-22T20:55">posted: 2014-01-22 &nbsp; 20:55</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32982" title="permalink">#12</a></span>
+
+<div class="content">To minimize writes and still customize your system, I suggest you do a frugal-install (or live-usb)with live remastering and possibly (if needed) root persistence.<br>
+<br>
+On these systems if you install/remove packages then those changes are stored in RAM and will be lost on the next reboot unless you either have root persistence enabled or do a remaster-live. With root persistence you can choose when to do the writes and the will be done all at once via rsync which is both fast and efficient. The problem is that root persistence does not get the changes out of RAM. This is where remaster-live comes in. It creates a new compressed filesystem that contains all of your changes thus moving the changes out of RAM.<br>
+<br>
+So do all the package install/remove that you want (as long as you don't run out of RAM). If you want to save intermediate results between reboots then use root persistence. When you have the system tweaked the way you want then do a remaster-live. On the next reboot all the changes that were being saved in RAM will be moved to a read-only compressed filesystem on disk. Every time you remaster-live the entire filesystem will get compressed and stored on disk so you don't want to do this every day. But once it is set up you can disable the root persistence and run with NO disk writes and minimal use of RAM. If there is info you do want to store then put it on a partition that is mounted separately.<br>
+<br>
+I suggest using ext3 or ext4 instead of ext2.<br>
+<br>
+Now I'm going back to my vacation.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32997" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32997">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32997">
+
+<time datetime="2014-01-23T17:02">posted: 2014-01-23 &nbsp; 17:02</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p32997" title="permalink">#13</a></span>
+
+<div class="content">Thanks BitJam,<br>
+<br>
+Your suggestions seems very promising.<br>
+Can I do a remaster-live without the graphic interface? I'm sure I can because X is just a disguise for command line but I don't know the exact commands to type in a terminal to do that!<br>
+Remember, I use antiX core-libre and a few extra packages installed later! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33001" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33001">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33001">
+
+<time datetime="2014-01-23T17:09">posted: 2014-01-23 &nbsp; 17:09</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p33001" title="permalink">#14</a></span>
+
+<div class="content">antix core includes the cli version of antixsnapshot, which may do what you want.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33002" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33002">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33002">
+
+<time datetime="2014-01-23T17:13">posted: 2014-01-23 &nbsp; 17:13</time>
+<span class="permalink"><a href="./system-to-ram-t4811.html#p33002" title="permalink">#15</a></span>
+
+ <div class="content">Hi dolphin,<br>
+<br>
+So"antixsnapshot" ="remaster-live" ?<br>
+<br>
+It gets better and better! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./system-to-ram-t4811-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./system-to-ram-t4811-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

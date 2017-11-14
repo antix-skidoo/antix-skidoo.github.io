@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>No root passwd &amp; not in sudoers list - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html">No root passwd &amp; not in sudoers list</a></div>
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./no-root-passwd-not-in-sudoers-list-t2589-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./no-root-passwd-not-in-sudoers-list-t2589-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_16767" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16767">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16767">
+<time datetime="2010-08-06T14:30">posted: 2010-08-06 &nbsp; 14:30</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16767" title="permalink">#1</a></span>
+
+<div class="content">User logs in but cannot access root (forgot passwd) and gets the message"Sorry, user ______ is not allowed to execute '/bin/bash' as root on localhost" when using sudo to, say, change sudoers list. <br>
+<br>
+Any options since there exists no failsafe I am aware of?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16768" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16768">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16768">
+
+<time datetime="2010-08-06T15:03">posted: 2010-08-06 &nbsp; 15:03</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16768" title="permalink">#2</a></span>
+
+<div class="content">I don't think sudo is set up by default except for a few key commands. When you installed you should have set up a root account. You access the root account by type"su" at the command line, and entering the root password. Your normal user password won't work.<br>
+<br>
+Someone who knows the internals better might be able to tell you how to reset the password from a boot disk, but I don't know how to do that.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16770" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16770">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16770">
+
+<time datetime="2010-08-06T15:28">posted: 2010-08-06 &nbsp; 15:28</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16770" title="permalink">#3</a></span>
+
+<div class="content">Try this at grub menu.<br>
+<br>
+1. Append ‘init=/bin/bash’ at the end of line (no ' ')<br>
+2. Press Enter<br>
+3. Type mount -n -o remount,rw / (at prompt)<br>
+4. passwd<br>
+5. Follow steps to give yourself a new root password<br>
+5. reboot</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16771" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16771">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+
+</dl>
+<div class="postbody">
+<div id="post_content16771">
+
+<time datetime="2010-08-06T15:37">posted: 2010-08-06 &nbsp; 15:37</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16771" title="permalink">#4</a></span>
+
+<div class="content">I just googled around. you can try this procedure.<br>
+<br>
+1. boot from livecd<br>
+2. mount the root partition for your installed system from the livecd command line.<br>
+3. go root (su at command line) and enter livecd root password (root in this case).<br>
+4. use chroot /mnt/hda1/ at the command line (use your own mount point in the command, this was mine).<br>
+5. you will get a new root prompt.<br>
+6. type passwd and enter the new root password when asked.<br>
+7. type exit, you will now be back in the livecd root environment.<br>
+8. reboot and try your new root password. you cannot log in as root from the slim login manager, you will need to"su" from the terminal command line once you are booted.<br>
+<br>
+Just tried this on my system, and seems to work fine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16772" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16772">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">dolphin_oracle</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16772">
+
+<time datetime="2010-08-06T15:38">posted: 2010-08-06 &nbsp; 15:38</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16772" title="permalink">#5</a></span>
+
+<div class="content">ah, I see anti has a more direct procedure. great!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16774" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16774">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16774">
+
+<time datetime="2010-08-06T17:06">posted: 2010-08-06 &nbsp; 17:06</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16774" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Try this at grub menu.<br>
+<br>
+1. Append ‘init=/bin/bash’ at the end of line (no ' ')<br>
+2. Press Enter<br>
+3. Type mount -n -o remount,rw / (at prompt)<br>
+4. passwd<br>
+5. Follow steps to give yourself a new root password<br>
+5. reboot</div></blockquote>
+Since I received two replies, I will atempt to solve the first one first!<br>
+Please tell me how to get to the GRUB menu (menu.lst?). If I cannot logon as root, how am I to edit it? Also, to which line are you referring when you say EOL? <br>
+I have Super Grub Disk 0.9673 but have not figured out how to make use of it very well. (This is from my initial shotgun approach to Linux). Perhaps it can prove useful in this instance?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16775" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16775">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner"> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16775">
+
+<time datetime="2010-08-06T17:17">posted: 2010-08-06 &nbsp; 17:17</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16775" title="permalink">#7</a></span>
+
+<div class="content">Reboot and do it at boot menu. Just type init=/bin/bash and press enter</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16776" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16776">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 54</dd>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16776">
+
+<time datetime="2010-08-06T17:41">posted: 2010-08-06 &nbsp; 17:41</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16776" title="permalink">#8</a></span>
+
+<div class="content">I did as you said, anticapitalista, and after &lt;mount -n -o remount,rw&gt; a help type menu appeared (not listing the -n switch); I went ahead with the &lt;passwd&gt; command, which returned <br>
+Enter new UNIX password:<br>
+then<br>
+passwd: Authentication token manipulation error<br>
+passwd: password unchanged<br>
+<br>
+Prompt said"root@xxxx" but would not behave as root, e.g. &lt;init 6&gt; did not a thing.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16777" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16777">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16777">
+
+<time datetime="2010-08-06T17:43">posted: 2010-08-06 &nbsp; 17:43</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16777" title="permalink">#9</a></span>
+
+<div class="content">You need (note the / at the end)<br>
+mount -n -o remount,rw /</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16780" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16780">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16780">
+
+<time datetime="2010-08-06T18:48">posted: 2010-08-06 &nbsp; 18:48</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16780" title="permalink">#10</a></span>
+
+<div class="content">Cool! Finally got 'er working. Thanks! Mark this SOLVED.<br>
+<br>
+Now, I need a functional sources.list that will include the likes of <br>
+libdvdcss, vlc &amp;<br>
+the GIMP (or a good substitute),<br>
+please . My current list has been corrupted by mistakes in the past including sidux repositories,<br>
+missing gpg keys, and debian sources that do nothing. Should I post this separately?<br>
+<br>
+NOTE: the last time I tried smxi, I had to reload the OS because a solution to the ensuing problems was beyond my expertise. I obviously did something incorrectly after the wifi stuff returned errors (I didn't need that in the first place)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16781" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16781">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16781">
+
+<time datetime="2010-08-06T19:22">posted: 2010-08-06 &nbsp; 19:22</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16781" title="permalink">#11</a></span>
+
+<div class="content">Here's another easy way to reset the user password: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forums.debian.net/viewtopic.php?p=313539#p313539"<br>linktext was:"http://forums.debian.net/viewtopic.php?p=313539#p313539"<br>====================================<br>
+<br>
+<br>
+As for /etc/apt/sources.list, here's mine in a Squeeze install (the first lines are mirrors in Brazil, you can get a list for your country at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian.org/mirror/list"<br>linktext was:"http://www.debian.org/mirror/list"<br>====================================<br>
+ , put two of them - leaving one commented out - so you have an alternative in case one of them is slow or something like that)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#############################################################
+################### OFFICIAL DEBIAN REPOS ###################
+#############################################################
+
+###### Debian Main Repos
+#deb http://ftp.br.debian.org/debian/ squeeze main contrib non-free
+deb http://sft.if.usp.br/debian/ squeeze main contrib non-free
+#deb-src http://sft.if.usp.br/debian/ squeeze main contrib non-free
+
+###### Debian Security Update Repos
+deb http://security.debian.org/ squeeze/updates main contrib non-free
+#deb-src http://security.debian.org/ squeeze/updates main contrib non-free
+
+##############################################################
+##################### UNOFFICIAL  REPOS ######################
+##############################################################
+
+###### 3rd Party Binary Repos
+
+#### Debian Multimedia - http://www.debian-multimedia.org/
+## Run this command: apt-get update &amp;&amp; apt-get install debian-multimedia-keyring &amp;&amp; apt-get update
+deb http://www.debian-multimedia.org/ squeeze main non-free
+
+#### E17 - http://enlightenment.org
+## Run this command: wget -q http://packages.enlightenment.org/repo.key -O- | apt-key add -
+deb http://packages.enlightenment.org/debian squeeze main extras
+
+#### Google Linux Software Repositories - http://www.google.com
+## Run this command: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - &amp;&amp; apt-get update  
+deb http://dl.google.com/linux/deb/ stable non-free main
+
+#### Google Linux Software Repositories (testing) - http://www.google.com
+## Run this command: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - &amp;&amp; apt-get update  
+deb http://dl.google.com/linux/deb/ testing non-free
+
+#### VirtualBox - http://www.virtualbox.org
+## Run this command: wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | apt-key add -
+deb http://download.virtualbox.org/virtualbox/debian lenny non-free
+
+#### sidux
+#deb http://sidux.c3sl.ufpr.br/debian/ sid main  
+
+</code></pre></div>
+You should have what you need. The Google testing repo even has Picasa and if you want GIMP to paint you can try mypaint (from regular Debian). As you see it's for"squeeze" but you can change that for"testing" if you want to keep rolling.<br>
+Also the last line is the sidux mirror in Brazil, you get a full list of them at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://sidux.com/index.php?module=Content&amp;func=view&amp;pid=2"<br>linktext was:"http://sidux.com/index.php?module=Conte ... view&amp;pid=2"<br>====================================<br>
+<br>
+You can copy from the antiX live-CD too if you like.<br>
+For the sidux keyring, enable its repo, apt-get update (ignore the missing keyring) and then
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install sidux-keyring</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16782" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16782">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16782">
+
+<time datetime="2010-08-06T19:43">posted: 2010-08-06 &nbsp; 19:43</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16782" title="permalink">#12</a></span>
+
+<div class="content">This is the current sources.list for antiX-M8.5-upgrade (USA)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># See sources.list(5) for more information
+
+# Note:If you want maximum stability, only use the stable repos.
+
+# MEPIS 8 series. 
+# Uncomment all MEPIS repos shown here to install headers and linux-kbuild
+# from MEPIS repo for MEPIS kernel. Then comment back once installed.
+#deb ftp://ftp.mepis.com/mepis/ mepis-8.5 main
+#deb http://fr1.mepis-deb.org/mepis/ mepis-8.0 main
+#deb http://www.mirrorservice.org/sites/ftp.mepis.org/mepis/ mepis-8.0 main 
+
+# Debian Testing. Default for antiX.
+# Testing enabled for 'rolling' release.
+deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+deb http://security.debian.org/ testing/updates main contrib non-free 
+#deb-src http://ftp.de.debian.org/debian/ testing main contrib non-free
+
+# Debian Stable.
+# This will 'soon' be"Squeeze". Use for maximum stability INSTEAD of
+# the 'rolling' TESTING release concept.
+# So, for max stability, UNCOMMENT the next two 'deb' lines and
+# COMMENT-OUT the corresponding 'deb' lines in TESTING above.
+#deb http://ftp.gr.debian.org/debian/ squeeze main contrib non-free 
+#deb http://security.debian.org/ squeeze/updates main contrib non-free
+#deb-src http://ftp.de.debian.org/debian/ squeeze main contrib non-free 
+
+# Multimedia Stable and Testing
+deb http://www.debian-multimedia.org testing main non-free
+#deb http://www.debian-multimedia.org stable main non-free
+
+# Goggles music manager
+deb http://apt.progchild.de stable main
+
+# opera
+#deb http://deb.opera.com/opera/ lenny non-free
+
+# virtualbox
+#deb http://download.virtualbox.org/virtualbox/debian lenny non-free
+
+# liquorix kernels
+deb http://liquorix.net/debian/ sid main
+deb http://ftp.belnet.be/mirror/liquorix.net/debian sid main
+# bleeding edge kernel. If used comment out the 2 entries above.
+#deb http://liquorix.net/debian/ sid main future
+
+###### Debian Unstable/Sid##########
+###### Use at your own risk! ########
+#deb http://ftp.us.debian.org/debian/ unstable main contrib non-free
+#deb http://www.debian-multimedia.org unstable main non-free
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16783" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16783">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16783">
+
+<time datetime="2010-08-06T23:14">posted: 2010-08-06 &nbsp; 23:14</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16783" title="permalink">#13</a></span>
+
+<div class="content">SOLVED &amp; More!<br>
+<br>
+Thank you, gentlemen, for outstanding assistance! anticapitalista, dolphin_oracle &amp; secipolla -- my hat's off.<br>
+<br>
+May you all and the Linux distro antiX continue indefinitely! I will continue to recommend it every chance I get (and I see it is gaining recognition in other US fora. Very good.)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16784" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16784">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16784">
+
+<p class="author">
+<a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16784" title="Post"> 07 Aug 2010, 00:25 <span style="padding-left:10px">#14</span></a>
+<time class="hide" datetime="2010-08-07 &nbsp; 00:25">2010-08-07 &nbsp; 00:25</time>
+ </p>
+<div class="content">You're welcome SaminBare.<br>
+There's an automatic sources.list generator for Debian at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://debgen.simplylinux.ch/"<br>linktext was:"http://debgen.simplylinux.ch/"<br>====================================<br>
+ and you'll see that I based mine on it. A few things weren't correct (like the Google repo or the VirtualBox keyring that is a new one now) but it has links to the homepages of the repos and so one can check the updated info from there and correct whatever needs to be corrected.<br>
+Also, are you being able to 'apt-get update' with no errors now? Because if you still have some broken package you can open Synaptic package manager and it will pop up an alert for it, then you can mark it for 'complete removal' and click <em>Apply</em>. Then you can open the state (or status) filter on Synaptic's bottom-left column and select 'auto-removable' packages (you will have that only if you have removed something before that has left unneeded dependencies) and completely remove them as well. This last step can be done on a terminal with the command 'apt-get autoremove --purge', but only if you don't have Synaptic open (otherwise it blocks apt-get).<br>
+Then just 'apt-get update' to update the package list (or click <em>Reload</em> in Synaptic).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16786" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16786">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 54</span></div>
+
+</div>
+</div>
+<span class="username">SaminBare</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16786">
+
+<time datetime="2010-08-07T00:39">posted: 2010-08-07 &nbsp; 00:39</time>
+<span class="permalink"><a href="./no-root-passwd-not-in-sudoers-list-t2589.html#p16786" title="permalink">#15</a></span>
+
+<div class="content">Errors were returned for sidux-keyring (could not find)<br>
+public key not available for virtualbox and google;<br>
+<br>
+apt-get build-dep vlc &amp;&amp; apt-get build-dep perl-tk<br>
+both returned message indicating necessity to 'add sourc URIs to list'<br>
+<br>
+Will check out synaptic as you indicated.<br>
+<br>
+Have to go to dinner now, though. <br>
+Later, friend.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./no-root-passwd-not-in-sudoers-list-t2589-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./no-root-passwd-not-in-sudoers-list-t2589-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

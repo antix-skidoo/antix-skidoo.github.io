@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Installing from a partition on the hard drive - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html">Installing from a partition on the hard drive</a></div>
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_6930" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6930">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">pjohnson</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6930">
+<time datetime="2008-10-12T11:17">posted: 2008-10-12 &nbsp; 11:17</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6930" title="permalink">#1</a></span>
+
+<div class="content">Hi<br>
+<br>
+I'm a noobie with Linux so please forgive my ignorance. I am trying to install AntiX 7.5 onto a Toshiba Portege 3110CT (192Mb RAM, 8Gb HD) which won't boot properly from a CD (external PCMCIA drive). I can start the CD but when I select any startup option it scrolls a whole load text saying it cannot find the CD drive. I have found a couple of posts on this website about installing from a partition on the hard drive, however, I cannot make it work.<br>
+<br>
+My first attempt was to run the LiveCD from another computer and install to the laptops hard drive using a FireWire drive caddy, and then edit Grub's menu.lst and AntiX's fstab files to point at the right drive and partition. However this just bails at the point of starting X.<br>
+<br>
+My second attempt was to copy the contents of the ISO image to an ext2 partition and re-configure the Grub menu.lst file to start from there. However I just get an error everytime saying:"Kernel panic -- not syncing. Try using init= with the kernel"<br>
+<br>
+If someone could please point me in the right direction, maybe some other posts I haven't found or better instructions on how to set up booting the LiveCD from a HD partition, that would be fantastic.<br>
+<br>
+Thanks in advance,<br>
+<br>
+Peter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6931" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6931">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6931">
+
+<time datetime="2008-10-12T11:42">posted: 2008-10-12 &nbsp; 11:42</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6931" title="permalink">#2</a></span>
+
+<div class="content">To install from a partition on hard drive, you need the antiX.iso and the vmlinuz and initrd.gz files from the 'live' side of the cd, not the ones in the 'normal' boot and an already working grub.<br>
+<br>
+I have a partition sda5 with an antiX folder containing, the antiX.iso, vmlinuz and initrd.gz. here is my menu.lst from a working linux.<br>
+<br>
+###fromiso<br>
+title antiX-M7.5<br>
+kernel (hd0,4)/antiX/vmlinuz splash vga=791 fromhd=/dev/sda5 fromiso=/antiX/antiX-M7.5.iso en xres=1024x768 aufs drvr=vesa<br>
+initrd (hd0,4)/antiX/initrd.gz<br>
+boot</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6933" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6933">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">pjohnson</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6933">
+
+<time datetime="2008-10-12T12:57">posted: 2008-10-12 &nbsp; 12:57</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6933" title="permalink">#3</a></span>
+
+<div class="content">Many Thanks!!! I've managed to get it to work.<br>
+<br>
+Now its a matter of setting up my Cisco 350 wireless adapter!! I normally use these cards with Windows CE (and jLime) handheld PCs (like HP Jornada 680, 720, etc). AntiX picks it up and I can configure them through the Wired Network Connection settings program, but it doesn't seem to matter what settings I enter it won't work, is there anything special? My wireless network is currently visible and not encrypted.<br>
+<br>
+Thanks again,<br>
+<br>
+Peter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6934" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6934">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6934">
+
+<time datetime="2008-10-12T13:02">posted: 2008-10-12 &nbsp; 13:02</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6934" title="permalink">#4</a></span>
+
+<div class="content">I don't have wireless, but have you tried wicd or Mepis Network Tools?<br>
+You might need to try the various options.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_6942" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6942">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">pjohnson</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6942">
+
+<time datetime="2008-10-12T18:04">posted: 2008-10-12 &nbsp; 18:04</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6942" title="permalink">#5</a></span>
+
+<div class="content">Hi<br>
+<br>
+wicd doesn't seem to work, it locks the CPU at 100% and I have to kill the program. MEPIS Network Tool and Wired Network Connection set up programs also do not seem to work properly either. I have managed to get connected from the command line using wiconfig and dhclient.<br>
+<br>
+Thanks,<br>
+<br>
+Peter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6943" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6943">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6943">
+
+<time datetime="2008-10-12T18:28">posted: 2008-10-12 &nbsp; 18:28</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6943" title="permalink">#6</a></span>
+
+<div class="content">Well, glad you managed to get connected, but wicd shouldn't lock up.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6946" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6946">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6946">
+
+<time datetime="2008-10-12T21:17">posted: 2008-10-12 &nbsp; 21:17</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6946" title="permalink">#7</a></span>
+
+<div class="content"><blockquote class="uncited"><div>My first attempt was to run the LiveCD from another computer and install to the laptops hard drive using a FireWire drive caddy, and then edit Grub's menu.lst and AntiX's fstab files to point at the right drive and partition. However this just bails at the point of starting X.</div></blockquote>
+This would have worked if you reset x. CTL-ALT-F1 would have taken you to a text login where you could have logged in as a user then su to root. Once you are root:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg-reconfigure xserver-xorg</code></pre></div>
+This would have asked some questions about your hardware and then generated an xorg.conf. You then should have been able to log in to x.<br>
+<br>
+Glad you up and running now. This is just an option for next time.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6948" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6948">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">pjohnson</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6948">
+
+<time datetime="2008-10-12T22:46">posted: 2008-10-12 &nbsp; 22:46</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6948" title="permalink">#8</a></span>
+
+<div class="content">Thanks Eriefisher &amp; Anticapitalista. Well you live and learn! I am really happy with AntiX, it works brilliantly on this ancient hardware. I have removed wicd and installed wifi-radar which works perfectly, I suspect the problem is my machine rather than the software. I now have IceWM running, I just need to tweak it to get the most out of the machine and solve my USB problem... Expect more posts! <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Thank you so much for the help,<br>
+<br>
+Peter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6951" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6951">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 253</span></div>
+
+</div>
+</div>
+<span class="username">mariel77</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6951">
+
+<time datetime="2008-10-13">posted: 00:27</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6951" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>To install from a partition on hard drive, you need the antiX.iso and the vmlinuz and initrd.gz files from the 'live' side of the cd, not the ones in the 'normal' boot and an already working grub.</div></blockquote>
+I may need to try this; at least I want to set it up in case I need it, if an install on the drive using another computer doesn't work. What do you mean by"from the 'live' side of the cd, not the ones in the 'normal' boot"? Do you mean to just copy them from the boot folder on the live cd? Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6953" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6953">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">pjohnson</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6953">
+
+<time datetime="2008-10-13T08:01">posted: 2008-10-13 &nbsp; 08:01</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6953" title="permalink">#10</a></span>
+
+<div class="content">From the 'Live' side means when you're actually running the CD. So boot the CD and take a copy of the files. To be honest if you can use another computer to run the Live CD and can install the drive you wish to install to into that computer it would be far easier.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6958" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6958">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 253</span></div>
+
+</div>
+</div>
+<span class="username">mariel77</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6958">
+
+ <time datetime="2008-10-13T15:22">posted: 2008-10-13 &nbsp; 15:22</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6958" title="permalink">#11</a></span>
+
+<div class="content">OK, thanks. That makes more sense to me now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6960" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6960">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6960">
+
+<time datetime="2008-10-13T17:46">posted: 2008-10-13 &nbsp; 17:46</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6960" title="permalink">#12</a></span>
+
+<div class="content">If you have the image already on your hard drive you could just mount it and copy the needed files off the image. The easiest way is to install fuseiso and use it as a user not root.<br>
+<br>
+In your /home create a folder and call it Antix. Now open a terminal where the iso is and as user:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>fuseiso antix.iso /home/username/Antix</code></pre></div>
+Now open /home/username/Antix and you should see all the files on the iso, copy what you need to outside of the Antix folder and your done.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6965" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile6965">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6965">
+
+<time datetime="2008-10-13T18:37">posted: 2008-10-13 &nbsp; 18:37</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6965" title="permalink">#13</a></span>
+
+<div class="content">You can also use MC (midnightCommander)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_6974" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile6974">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 253</span></div>
+
+</div>
+</div>
+<span class="username">mariel77</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content6974">
+
+<time datetime="2008-10-14T05:44">posted: 2008-10-14 &nbsp; 05:44</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p6974" title="permalink">#14</a></span>
+
+<div class="content">Thank you!<br>
+I used mc because I had the aniX iso in my M7 desktop and fuseiso wasn't in the repos, and I didn't want to compile it.<br>
+I'll let you know how it goes if I end up doing the hd-iso install; it won't be for a couple of days though.<br>
+<br>
+Edit: Since I was using M7 I could have also used the Wiki method here, although I think the fuseiso and mc methods seem easier:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepis.org/docs/en/index.php/Boot_from_ISO"<br>linktext was:"http://www.mepis.org/docs/en/index.php/Boot_from_ISO"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7347" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7347">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 253</span></div>
+
+</div>
+</div>
+<span class="username">mariel77</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7347">
+
+<time datetime="2008-11-06T04:38">posted: 2008-11-06 &nbsp; 04:38</time>
+<span class="permalink"><a href="./installing-from-a-partition-on-the-hard-drive-t1125.html#p7347" title="permalink">#15</a></span>
+
+<div class="content">I pulled the hd from the new laptop and installed antiX, but I don't think I want to do that again; the pins were a bit bent and too much handling will break them. <br>
+<br>
+So I set up a partition to boot fromiso for the next install. It boots well, but I have some questions. If I add the lines from the live cd grub to my installed grub, especially the default boot choice, will I be able to try booting with the different install options from the cd? I used vesa for the install because I installed in a different machine, but then I had to deal with a 600x480 display. LOL! What I am really asking is whether all the /boot folder files in my installed antiX are the same as the /boot files on the live cd or are they different? And if they are different, can I just copy them over from the cd and use them instead?<br>
+<br>
+Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

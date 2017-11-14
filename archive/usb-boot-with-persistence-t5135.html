@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>usb boot with persistence - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./usb-boot-with-persistence-t5135.html">usb boot with persistence</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_35941" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35941">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">zpimp</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35941">
+<time datetime="2014-06-05T22:09">posted: 2014-06-05 &nbsp; 22:09</time>
+<span class="permalink"><a href="./usb-boot-with-persistence-t5135.html#p35941" title="permalink">#1</a></span>
+
+<div class="content">i am new to linux and want to try a lot of stuff, but first<br>
+would like to boot antix from usb with persistence<br>
+<br>
+using easy2boot, 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.easy2boot.com/"<br>linktext was:"http://www.easy2boot.com/"<br>====================================<br>
+, which seems to be a collection of grub4dos scripts that makes it possible to boot iso's directly without unpacking<br>
+<br>
+achieving persistence is done by a different script for each distro, this is for kali<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># For persistence, create an ext2 file called persistence in the root of the boot drive using RMPrepUSB Create ext2 FS button
+# Then rename the file to kali64-rw  (do NOT create a file called kali64-rw - you MUST create a file called persistence and then rename it to kali64-rw!)
+# (i.e. File Name=kali64-rw  Volume Name=persistence)
+# Place ISO in \_ISO\MAINMENU\Linux or \_ISO\LINUX\Linux (and this .mnu file too)
+# DOES NOT WORK UNDER NORMAL VM!!!
+# IMPORTANT: you MUST run WinContig (Ctrl+F2) before booting E2B.
+# Boot to kali and then type following 5 lines to enable persistence - then reboot
+#    mkdir /mnt/usb
+#    ls /dev/                                                (to see which is the USB device - normally sdb)
+#    mount /dev/sdb3 /mnt/usb
+#    echo"/ union" &gt;&gt; /mnt/usb/persistence.conf
+#    umount /mnt/usb
+
+#The persistent 'volume' needs the persistence.conf file in it!
+
+iftitle [if exist %MFOLDER%/Linux/kali-linux-1.0.5-amd64.iso] Kali Persistent\n kali-linux-1.0.5-amd64 using /kali64-rw persistence file
+if exist CD echo WARNING: Cannot use partnew command! &amp;&amp; pause &amp;&amp; configfile (bd)/menu.lst
+set ISO=kali-linux-1.0.5-amd64.iso
+#enable parttype output
+partnew (hd0,3) 0x0 %MFOLDER%/Linux/%ISO%
+# make empty table entry in 3rd position in ptn table
+debug 1
+parttype (hd0,2) | set check=
+debug off
+set check=%check:~-5,4%
+if"%check%"=="0x00" partnew (hd0,2) 0 0 0
+if not"%check%"=="0x00" echo WARNING: PTN TABLE 3 IS ALREADY IN USE! &amp;&amp; pause
+debug 1
+if not exist /kali64-rw echo WARNING: /kali64-rw persistence file not found! &amp;&amp; pause
+errorcheck off
+if"%check%"=="0x00" partnew (hd0,2) 0x0 /kali64-rw
+errorcheck on
+map %MFOLDER%/Linux/%ISO% (0xff)
+map --hook
+root (0xff)
+# use next line if want username and pwd prompt
+# kernel /live/vmlinuz boot=live config live-config.username=root persistence
+kernel /live/vmlinuz boot=live noconfig=sudo username=root hostname=kali persistence
+initrd /live/initrd.img
+</code></pre></div>
+from what i understand it involves making a ext2fs partition file on the usb which is layed over the contents of the iso<br>
+<br>
+i read in the wiki 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.mepis.org/index.php?title=Using_liveusb_with_persistence"<br>linktext was:"http://antix.mepis.org/index.php?title= ... ersistence"<br>====================================<br>
+<br>
+but i have no idea how to do it<br>
+<br>
+i would also like to make a respin, to replace iceweasel with chromium (it just feels faster), and remove libreoffice<br>
+am trying that as im posting this <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35944" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35944">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+ <div id="post_content35944">
+
+<time datetime="2014-06-05T23:45">posted: 2014-06-05 &nbsp; 23:45</time>
+<span class="permalink"><a href="./usb-boot-with-persistence-t5135.html#p35944" title="permalink">#2</a></span>
+
+<div class="content">If you want to make an antiX LiveUSB with persistence please follow our directions, not someone else's. If you want to use someone else's code then you need to get support from them. We offer very advanced LiveUSB persistence and remaster features. You will probably not be able to access them if you bypass our software.<br>
+<br>
+On an existing antiX or MX system, I suggest you create a LiveUSB with the antix2usb application. If you are starting from another Linux distribution or from Windows then I suggest you use Unetbootin to create the LiveUSB. Some things will will go much faster if you use an ext2 or ext3 partition for the LiveUSB instead of fat32 (which is what Windows normally uses) but fat32 will work.<br>
+<br>
+If you use our official software then making your own respin is trivially easy. We also allow you to boot iso files without unpacking but this is deprecated precisely because it makes the creation of respins much more difficult. IMO installing without unpacking iso files is stupid. You save about 30 seconds and then hobble the LiveUSB for the rest of its life. It is penny-wise and pound-foolish.<br>
+<br>
+I've attached a screenshot of the antix2usb application. You just click on the check boxes to enable persistence. In the next iteration of antiX (antiX-14), we plan to make the file creation automatic on the first boot, but until that is released, using antix2usb is the easiest way to make an antiX LiveUSB with persistence.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35946" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35946">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35946">
+
+<time datetime="2014-06-06T02:25">posted: 2014-06-06 &nbsp; 02:25</time>
+<span class="permalink"><a href="./usb-boot-with-persistence-t5135.html#p35946" title="permalink">#3</a></span>
+
+<div class="content">Just want to point out that if you've already installed antix onto pendrive, from within the LiveUSB session<br>
+you can setup persistence and it'll take effect next boot. IOW, recreating iso+persistence via antix2usb is optional, not a requirement.<br>
+<br>
+how to:<br>
+Within the fluxbox desktop environment, right-click on desktop raises a menu.<br>
+Choose menu item"Control Centre" then click the"Live" tab, then click Setup Persistence.<br>
+(controlCentre should be accessible from within any of the desktop environments; mentioning fluxbox b/c that's what I'm most familiar with.)<br>
+Afterward, each time you boot, selecting the Root Persistence (or Home Persistence, if that's what you've setup) boot menu line will activate the persistence feature.<br>
+If for some reason you want to forego persistence during a given boot, you can choose the first boot line instead.<br>
+<br>
+Also, note that when you setup persistence you'll be asked to choose a"persistence <strong>mode</strong>"<br>
+so, in advance, it's probably advisable to refer to the antix documentation regarding modes.<br>
+If you elect dynamic root persistence and choose"semi automatic mode", at each shutdown you'll be prompted (asked) whether or not to save changes.<br>
+(works for me: nearly always choose the"Root Persistence" boot line, then decide at shutdown whether to commit the changes)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35950" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35950">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">zpimp</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35950">
+
+<time datetime="2014-06-06T05:10">posted: 2014-06-06 &nbsp; 05:10</time>
+<span class="permalink"><a href="./usb-boot-with-persistence-t5135.html#p35950" title="permalink">#4</a></span>
+
+<div class="content">thank you for the fast replies<br>
+<br>
+thats what i was looking at last night but it was late<br>
+i will reinstall</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35956" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35956">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35956">
+
+<time datetime="2014-06-06T11:09">posted: 2014-06-06 &nbsp; 11:09</time>
+<span class="permalink"><a href="./usb-boot-with-persistence-t5135.html#p35956" title="permalink">#5</a></span>
+
+<div class="content">Famous words of encouragement:"Never give up. Never surrender."</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

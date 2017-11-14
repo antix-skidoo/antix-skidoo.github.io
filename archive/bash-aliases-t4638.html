@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Bash Aliases - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./bash-aliases-t4638.html">Bash Aliases</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_31265" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31265">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content31265">
+<time datetime="2013-10-07T12:32">posted: 2013-10-07 &nbsp; 12:32</time>
+<span class="permalink"><a href="./bash-aliases-t4638.html#p31265" title="permalink">#1</a></span>
+
+<div class="content">I knocked up a '.bash_aliases' file to make life easier and I thought I'd share.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># ~/.bashr_aliases: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+#
+# some more ls aliases
+alias upd8='sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade'
+alias aclean='sudo apt-get autoclean'
+alias arem='sudo apt-get autoremove'
+alias grubup='sudo update-grub'
+alias initup='sudo update-initramfs -k all -u -t'</code></pre></div>
+It uses sudo, which you might not like.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33391" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33391">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 18</span></div>
+
+</div>
+</div>
+<span class="username">greywolf</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Feb 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33391">
+
+<time datetime="2014-02-17T01:13">posted: 2014-02-17 &nbsp; 01:13</time>
+<span class="permalink"><a href="./bash-aliases-t4638.html#p33391" title="permalink">#2</a></span>
+
+<div class="content">Here is mine, just to add more food for thought:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>## Colorize the grep command output for ease of use (good for log files)##
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# install  colordiff package :)
+alias diff='colordiff'
+
+alias mount='mount |column -t'
+
+## pass options to free ##
+alias meminfo='free -m -l -t'
+ 
+## get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+ 
+## get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+ 
+## Get server cpu info ##
+alias cpuinfo='lscpu'
+ 
+## older system use /proc/cpuinfo ##
+##alias cpuinfo='less /proc/cpuinfo' ##
+ 
+## get GPU ram on desktop / laptop##
+alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
+ 
+# some more ls aliases
+alias ls='ls --color=auto'
+alias lx='ls -lXB'        # sort by extension
+alias lk='ls -lSr'        # sort by size
+alias la='ls -Al'        # show hidden files
+alias lr='ls -lR'        # recursice ls
+alias lt='ls -ltr'        # sort by date
+alias lm='ls -al |more'        # pipe through 'more'
+alias tree='tree -Cs'        # nice alternative to 'ls'
+alias ll='ls -l'        # long listing
+alias l='ls -hF --color'    # quick listing
+alias lsize='ls --sort=size -lhr' # list by size
+alias lsd='ls -l | grep"^d"'   #list only directories
+
+#Command substiution
+alias ff='sudo find / -name $1'
+alias df='df -h -x tmpfs -x usbfs'
+alias psg='ps -ef | grep $1'
+alias h='history | grep $1'
+#alias rm='rm -i'
+#alias cp='cp -i'
+#alias mv='mv -i'
+alias mkdir='mkdir -p -v'
+alias which='type -all'
+alias path='echo -e ${PATH//:/\\n}'
+alias vi='vim'
+alias du='du -h -c --max-depth=1'
+alias reload='source ~/.bashrc'
+#alias dupgrd='sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade -d'
+alias c='clear'
+
+#Personal Help
+#alias dn='OPTIONS=$(\ls -F | grep /$); select s in $OPTIONS; do cd $PWD/$s; break;done'
+#alias help='OPTIONS=$(\ls ~/.tips -F);select s in $OPTIONS; do less ~/.tips/$s; break;done' 
+
+#show most popular commands
+alias top-commands='history | awk"{print $2}" | awk"BEGIN {FS="|"} {print $1}" |sort|uniq -c | sort -rn | head -10'
+
+# search for a package
+alias acs="apt-cache search"
+
+# empty trash
+alias trash="rm -fr ~/.Trash"
+
+## Moving around &amp; all that jazz
+alias back='cd"$OLDPWD"'
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+
+## Dir shortcuts
+alias home='cd ~/'
+alias documents='cd ~/Documents'
+alias downloads='cd ~/downloads'
+alias images='cd ~/images'
+alias videos='cd ~/videos'
+alias music='cd ~/music'
+
+## App-specific
+alias wget='wget -c'
+alias scrot='scrot -cd 5'
+
+## Sudo fixes
+alias install='sudo apt-get install'
+alias acp='apt-cache policy'
+alias remove='sudo apt-get remove'
+alias orphand='sudo deborphan | xargs sudo apt-get -y remove --purge'
+alias cleanup='sudo apt-get autoclean &amp;&amp; sudo apt-get autoremove &amp;&amp; sudo apt-get clean &amp;&amp; sudo apt-get remove &amp;&amp; orphand'
+alias updatedb='sudo updatedb'
+alias htop='sudo htop'
+alias swapclear='sudo swapoff -a &amp;&amp; sleep 2s &amp;&amp; sudo swapon -a'
+
+</code></pre></div>
+cheers,<br>
+greywolf.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33396" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33396">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33396">
+
+<time datetime="2014-02-17T06:45">posted: 2014-02-17 &nbsp; 06:45</time>
+<span class="permalink"><a href="./bash-aliases-t4638.html#p33396" title="permalink">#3</a></span>
+
+<div class="content">Some nice ones there greywolf. Thanks. Does your"mount" alias cause problems when you actually try to mount things?<br>
+<br>
+Here are some of mine:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>psg() {
+    content=$(ps -ef | tail -n +2 | grep"$@" | grep -v grep)
+    echo"$content" | grep -q . || return
+    printf"\e[1;36m"
+    ps -f | head -n 1
+    printf"\e[0;39m%s\n""$content"
+}
+
+li(){
+    if [[ $# -gt 1 ]]; then
+        ls --color -F $@
+    elif [[ -d $1 ]]; then
+        ls --color -F $1/
+    elif [[ -f $1 ]]; then
+        vimpager -c :AnsiEsc $1
+    else
+        ls --color -F $1
+    fi
+}
+
+lst() { ls --color -tr $@ | tail -n 30 }
+alias lstd="ls -tr ~/Downloads/ | tail -n 30"
+
+}</code></pre></div>
+My psg is like your but fancied up a little. The"li" command is used for poking around. It sort of combines"ls" with"less". If there is more than one argument or if the argument is a directory then it does"ls" but if the argument is a single file then it does the equivalent of running"less" on the file. Maybe I should do a"file $1" before viewing the file to handle binary files better but so far (many years) this has been fine. It is incredibly handy. <br>
+<br>
+My"lst" lists only the 30 most recent files in a directory. This is handy for directories with a lot of entries when I am only interested in what is recent.<br>
+<br>
+These are from my .zshrc so for Bash you may need to add more double quotes around variables that might contain spaces. I tried adding some back in.<br>
+<br>
+Assuming you are using a recent version of antiX, you could also try adding this to the end of your .bashrc:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>source /usr/local/bin/fancy-prompts.bash
+prompt-fancy</code></pre></div>
+If you want to test drive it first then at the command line run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>source /usr/local/bin/fancy-prompts.bash
+prompt-fancy -h
+prompt-fancy</code></pre></div>
+I've attached a screenshot of what prompt-curl looks like. There are about a dozen different prompts to choose from and they can all be easily customized with command line parameters. Even more customization is available via a config file. I use urxvt with my own color definitions so the colors you get will probably be a little different.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33458" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33458">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 18</span></div>
+
+</div>
+</div>
+<span class="username">greywolf</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Feb 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33458">
+
+<time datetime="2014-02-19T22:03">posted: 2014-02-19 &nbsp; 22:03</time>
+<span class="permalink"><a href="./bash-aliases-t4638.html#p33458" title="permalink">#4</a></span>
+
+<div class="content">Thanks for the interesting additions @BitJam. I will look at them in some detail.<br>
+<br>
+The 'mount' alias has not given me any trouble. However, you have prompted me to do some overdue maintainance on all this generic config stuff I have. I now use"mount binds" and udev devices in / etc/fstab so manual mounting is almost a dodo!. I run multiple distros/desktops as I support a couple of hundred folk, so I need to get this stuff a little less generic &amp; sorted.<br>
+<br>
+Without wanting to drift OT, can you briefly advise what advantages you find in zsh over bash. I have often thought of trying it out on a test user but wasn't sure what I would gain.<br>
+<br>
+BTW, I tried 3 times to post this reply until I found the forum bug posts on etc stuff!! How obscure?!<br>
+<br>
+greywolf.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33460" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33460">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33460">
+
+<time datetime="2014-02-19T22:42">posted: 2014-02-19 &nbsp; 22:42</time>
+<span class="permalink"><a href="./bash-aliases-t4638.html#p33460" title="permalink">#5</a></span>
+
+<div class="content">For starters, I like the tab completion and history in Zsh. Another cool thing is that you can just type in the name of a directory to cd to it. Then with"alias ...=../../.." and so on you can just type in"..." to move up two directories. This combines well with the history mechanism. You can also alias directories, for example:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>hash -d LiveUSB=~/Projects/antiX/LiveUSB</code></pre></div>This allows my to type either"cd ~LiveUSB" or just"~LiveUSB" or even just"~L&lt;tab&gt;" to get to that specific directory. I try to design my aliases and functions to make the command history as useful as possible. I'm constantly using tab completion and history. For example I have an isomount function for mounting iso files. I had originally named it"mountiso" but by naming it"isomount" instead,"mo&lt;up-arrow&gt;" gets me my most recent"mount" command while"iso&lt;up-arrow&gt;" gets me my most recent isomount command and further up-arrows cycle through just the isomount commands instead of mixing mount and mountiso commands. Usually 2 or 3 letters suffice to specify a command. To help this along I added aliases"sucp" and"sumv" and maybe some others. This keeps"sudo .." separate from"sucp" and"sumv" in the command history. <br>
+<br>
+Of course, you can also do history searches that include parameters as well as commands. I have these bound to &lt;pg-up&gt; and &lt;pg-dn&gt; while the command history is bound to &lt;up-arrow&gt; and &lt;dn-arrow&gt;.<br>
+<br>
+I'm sure I've only scratched the surface. Here is a user's guide: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://zsh.sourceforge.net/Guide/zshguide.html"<br>linktext was:"http://zsh.sourceforge.net/Guide/zshguide.html"<br>====================================<br>
+<br>
+<br>
+Depending on your users, it might cause more trouble that it's worth, mostly because there is a ubiquitous assumption that everyone runs Bash. For example, online instructions often tell people to edit their .bashrc regardless of which shell is being used. You would certainly need to provide them with a good default .zshrc.<br>
+<br>
+IMO, for someone who does not spend a lot of time at the command line, it is not worth it but for someone who spends hours per day at the command line then it is a good investment. BTW: I got started with antiX development because I wanted to add Zsh to the antiX LiveCD/USB. The SysRescueCD was brain-dead at that time. It had very long boot times and high resolution (&gt;640-x580) virtual consoles were not available. The antiX LiveCD had everything I wanted except Zsh.<br>
+<br>
+The reason I mentioned Zsh is that some of your aliases seemed to be reaching in the direction of the convenience of Zsh. IMO Zsh would let you take what you are doing in some of your aliases to the next step.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33763" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33763">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 18</span></div>
+
+</div>
+</div>
+<span class="username">greywolf</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Feb 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33763">
+
+<time datetime="2014-03-05T16:37">posted: 2014-03-05 &nbsp; 16:37</time>
+<span class="permalink"><a href="./bash-aliases-t4638.html#p33763" title="permalink">#6</a></span>
+
+<div class="content">Thanks again @BitJam.<br>
+<br>
+I would not move my"tribe" untilI was very comfortable with Zsh myself; I'm not a sadist!! <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I will definitely do some study though and create a user on my test machine with that shell to practice &amp; learn with.<br>
+<br>
+It is not just aliases either; I have many many many....... bash scripts sitting around that I have created/collected over the years.<br>
+<br>
+Hmm, time to make a plan.. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+cheers,<br>
+greywolf</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

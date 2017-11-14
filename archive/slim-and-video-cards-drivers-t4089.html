@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>SLiM and video cards/drivers - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./slim-and-video-cards-drivers-t4089.html">SLiM and video cards/drivers</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+ <div id="p_27374" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27374">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">dpilot83</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27374">
+<time datetime="2012-12-29T16:56">posted: 2012-12-29 &nbsp; 16:56</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27374" title="permalink">#1</a></span>
+
+<div class="content">My last thread was very unfocused because I had no idea what I was doing. I still have no idea what I'm doing but I know more so i thought I would start a new thread that was focused a bit more on what I now believe to be my primary problem.<br>
+<br>
+First of all, I'm running a Dell D600. It has a Pentium M 1.6 Ghz processor, 512MB RAM and a 40 GB hard drive. The problem hardware (I believe) is the AMD nee ATI Radeon RV250 Mobility FireGL 9000 video card.<br>
+<br>
+I am running the latest stable version of antiX with iceWM.<br>
+<br>
+I've spent enough time on this that I am getting stubborn about seeing it through to completion. My objective is to either determine that SLiM will not work with my video card for whatever reason, or to get it to work.<br>
+<br>
+My hypothesis is that the reason SLiM does not work is because there are no drivers available for my video card other than the open source drivers. I am imagining that the open source drivers do not get loaded until you startx. Therefore, SLiM would have nothing to go off of until SLiM is no longer needed.<br>
+<br>
+I can find precious little documentation on SLiM and how it figures out how to work with a video card. Is there some way I can point it towards the open source drivers for x? Is there some information resource on SLiM that I don't know about? The site for SLiM seems to leave a lot to be desired in terms of comprehensive information. If anyone can point me in the right direction I'd greatly appreciate it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27375" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27375">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27375">
+
+<time datetime="2012-12-29T17:12">posted: 2012-12-29 &nbsp; 17:12</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27375" title="permalink">#2</a></span>
+
+<div class="content">boot into init 3 by adding 3 to the end of the grub boot line.<br>
+log in as root<br>
+type: sgfxi (press enter)<br>
+run through to see if that finds a good driver to use, if it does not there is a good chance the opensource driver is already in antiX just not being initialized<br>
+<br>
+again in init 3 as root<br>
+type: service slim stop (press enter)<br>
+type: killall Xorg (press enter ) this is to verify x is not running<br>
+type: X -configure (press enter)<br>
+when that is done<br>
+type: cp /root/xorg.conf.new etc/X11/xorg.conf (press enter) please not due to forum issues there needs to be a / in front of etc that I cannot write there<br>
+type: service slim start (press enter) or type: reboot (press enter)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27376" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27376">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">dpilot83</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27376">
+
+<time datetime="2012-12-29T17:28">posted: 2012-12-29 &nbsp; 17:28</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27376" title="permalink">#3</a></span>
+
+<div class="content">Alright, thanks.<br>
+<br>
+I got ERROR: (253) No supported fglrx card found!<br>
+You can use this script to install the native Xorg drivers: sgfxi -n</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27377" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27377">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27377">
+
+<time datetime="2012-12-29T17:32">posted: 2012-12-29 &nbsp; 17:32</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27377" title="permalink">#4</a></span>
+
+<div class="content">ok run sgfxi -n<br>
+if that does not work do the seccond half of my first post</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27378" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27378">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">dpilot83</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27378">
+
+<time datetime="2012-12-29T17:36">posted: 2012-12-29 &nbsp; 17:36</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27378" title="permalink">#5</a></span>
+
+<div class="content">It seems to me like my lack of knowledge is killing me big time. I'm sure this would be a very simple fix for most of you. All I knew was that if I could get to a graphical user interface, it must have figured out some sort of drivers for the card. Apparently not though?<br>
+<br>
+It's working on installing the drivers now. I'll update when it's done. Thanks again.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27379" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27379">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">dpilot83</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27379">
+
+<time datetime="2012-12-29T17:41">posted: 2012-12-29 &nbsp; 17:41</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27379" title="permalink">#6</a></span>
+
+<div class="content">I'm not sure how to tell if it installed drivers. It went through an installation process and did not give me any errors. Then I still had to login and startx to get to a graphical environment. I restarted and the same thing happened. Also, where it says it's loading SLiM it still does not put an [OK] next to it during the boot process.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27380" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27380">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">dpilot83</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27380">
+
+<time datetime="2012-12-29T17:52">posted: 2012-12-29 &nbsp; 17:52</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27380" title="permalink">#7</a></span>
+
+<div class="content">Alright, after"X-configure" I get the following:<br>
+<br>
+Number of created screens does not match number of detected devices.<br>
+Configuration failed.<br>
+Server terminated with error (2). Closing log file</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27381" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27381">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">dpilot83</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27381">
+
+<time datetime="2012-12-29T18:47">posted: 2012-12-29 &nbsp; 18:47</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27381" title="permalink">#8</a></span>
+
+<div class="content">I guess it created an xorg.conf.new file. I copied and moved it to the / etc/x11 folder and named it xorg.conf in the process. Then on a whim I deleted:<br>
+<br>
+Screen 1"Screen1" RightOf"Screen0"<br>
+Screen 2"Screen2" RightOf"Screen1"<br>
+<br>
+<br>
+This left:<br>
+<br>
+Screen 0"Screen0" 0 0 <br>
+<br>
+in the Section"ServerLayour" portion of the file.<br>
+<br>
+Restarted, everything is the same. Not sure where to go from here. Back to Google until someone else has time to point me in the right direction.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27386" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27386">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">dpilot83</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27386">
+
+<time datetime="2012-12-29T19:54">posted: 2012-12-29 &nbsp; 19:54</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27386" title="permalink">#9</a></span>
+
+<div class="content">Alright, I made some sort of progress.<br>
+<br>
+I booted into init3 as root. Then I typed:<br>
+<br>
+sgfxi -N radeon<br>
+<br>
+This forced the radeon install. Not sure if it was the free or non-free drivers. Whatever it did though, when it got done I selected 1 to load the desktop and it took me to SLiM. iceWM doesn't look any better or worse, but SLiM now works.<br>
+<br>
+Dave, thanks for pointing me in the right direction. I was getting pretty down. I've probably spent 14 hours Googling and studying this deal. If anyone wants to explain to me what happened and whether I have free or non-free drivers now and why this worked, etc, I'd appreciate it. I still feel like the man holding the tail of an elephant and saying"elephants must be very much like snakes!".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27389" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27389">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27389">
+
+<time datetime="2012-12-29T23:03">posted: 2012-12-29 &nbsp; 23:03</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27389" title="permalink">#10</a></span>
+
+<div class="content">i would run inxi -F or inxi -g to find more information on the graphics card and drive.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27390" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27390">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 34</span></div>
+
+</div>
+</div>
+<span class="username">dpilot83</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27390">
+
+<time datetime="2012-12-29T23:21">posted: 2012-12-29 &nbsp; 23:21</time>
+<span class="permalink"><a href="./slim-and-video-cards-drivers-t4089.html#p27390" title="permalink">#11</a></span>
+
+<div class="content">inxi -F says this about the Video card<br>
+<br>
+Graphics: Card: Advanced Micro Devices [AMD] nee ATI Radeon RV250 [Mobility FireGL 9000] <br>
+X.Org: 1.12.4 driver: radeon Resolution: 1024x768@60.0hz <br>
+GLX Renderer: Mesa DRI R200 (RV250 4C66) x86/MMX/SSE2 TCL DRI2 GLX Version: 1.3 Mesa 8.0.5</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

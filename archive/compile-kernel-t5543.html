@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Compile kernel - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./compile-kernel-t5543.html">Compile kernel</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_39787" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39787">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 17</span></div>
+
+</div>
+</div>
+<span class="username">luker</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Oct 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39787">
+<time datetime="2015-02-24T20:47">posted: 2015-02-24 &nbsp; 20:47</time>
+<span class="permalink"><a href="./compile-kernel-t5543.html#p39787" title="permalink">#1</a></span>
+
+<div class="content">Hi fellow Antixers,<br>
+<br>
+it seems that I need to have ISA support in order for my Yamaha Opl3Sa2 sound chip to work. And it seems that ISA has been kicked out of the kernel.<br>
+<br>
+Is there a step-by-step instruction on how to compile the exact same kernel that antix uses now, with just the bit"Include ISA" changed?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39788" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39788">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39788">
+
+<time datetime="2015-02-25T03:18">posted: 2015-02-25 &nbsp; 03:18</time>
+<span class="permalink"><a href="./compile-kernel-t5543.html#p39788" title="permalink">#2</a></span>
+
+<div class="content">Hmmmm, I have 2 otherwise capable machines with ISA sound cards, so it will be good to know if there is a reasonably reasonable way...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39789" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39789">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39789">
+
+<time datetime="2015-02-25T04:10">posted: 2015-02-25 &nbsp; 04:10</time>
+<span class="permalink"><a href="./compile-kernel-t5543.html#p39789" title="permalink">#3</a></span>
+
+<div class="content">Here are 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://kernelnewbies.org/KernelBuild"<br>linktext was:"Instructions for building a kernel"<br>====================================<br>
+.<br>
+<br>
+One key thing is to clone the git repo for the kernel. Then checkout the version that matches the kernel you want to build. The config file for your current system should be at /boot/config* on your system.<br>
+<br>
+The trickiest part might be applying patches. I think our kernel uses at least the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepiscommunity.org/fbcondecor"<br>linktext was:"fbcondecor patch"<br>====================================<br>
+, which should be easy to apply, and the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forum.lemaker.org/thread-442-1-1-.html"<br>linktext was:"aufs patch"<br>====================================<br>
+ which can be a little more tricky.<br>
+<br>
+So:<ul>
+<li> Install the tools you will need (see first link)</li>
+<li> Clone the linux git repo</li>
+<li> Checkout the version you want with git</li>
+<li> Download (and/or git checkout) the patches for your kernel version</li>
+<li> Apply the patches</li>
+<li> Copy in the config file to .config</li>
+<li> Run"make oldconfig" just to be sure</li>
+<li> Run"make menuconfig" to change the configuration</li>
+<li> Build the kernel (see first link)</li></ul>
+If you don't want to boot your kernel live then you don't need the aufs patch. You probably don't need the fbcondecor patch. But without these patches there might be some trouble with the config file. Running a new kernel on an existing system is probably a little easier than building an iso file or LiveUSB that uses the new kernel. More steps are involved.<br>
+<br>
+If you are new to this sort of thing then it may take you a few days to put all of the pieces together. Think of it as a little hobby project like building a model plane or something. Read the instructions over several times. Work on it a few hours then set it aside and pick it up again the next day.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39791" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39791">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39791">
+
+<time datetime="2015-02-25T19:12">posted: 2015-02-25 &nbsp; 19:12</time>
+<span class="permalink"><a href="./compile-kernel-t5543.html#p39791" title="permalink">#4</a></span>
+
+<div class="content">Its not my thread, but thanks for the detailed reply, bitjam. <br>
+<br>
+I was thinking of how would I go about doing something this major. It would seem rational to me that if I had all the correct pieces in place, that I should be able to regenerate the same kernel I have now if I use the same input pieces and current config file. Then, once that works, THEN I could change the config file, and redo the process from that point forward to a new kernel to try.<br>
+<br>
+How does that sound?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40539" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40539">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 192</span></div>
+
+</div>
+</div>
+<span class="username">coyotito</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40539">
+
+<time datetime="2015-04-24T12:31">posted: 2015-04-24 &nbsp; 12:31</time>
+<span class="permalink"><a href="./compile-kernel-t5543.html#p40539" title="permalink">#5</a></span>
+
+<div class="content">I simply compiled 3.19 following some basic Slackware instructions. Get some complaints about firmware etc but everything works. <br>
+this is an AMD 2kernel desktop X2 6000 or smth about 5 years old.<br>
+<br>
+on a simple setup with old hardware this should be ok. copy old config and then enable what you need.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

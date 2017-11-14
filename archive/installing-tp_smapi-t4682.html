@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Installing tp_smapi - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installing-tp_smapi-t4682.html">Installing tp_smapi</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_31685" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31685">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Neil</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Oct 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31685">
+<time datetime="2013-11-10T01:23">posted: 2013-11-10 &nbsp; 01:23</time>
+<span class="permalink"><a href="./installing-tp_smapi-t4682.html#p31685" title="permalink">#1</a></span>
+
+<div class="content">Hi folks, I'm back...<br>
+<br>
+After messing up my last install of AntiX, loosing the applications menu, I finally decided to wipe that drive and do a fresh install of AntiX 13.2. Went with the full install this time, again set to follow the Sid repo.<br>
+<br>
+I had installed tp_smapi-dkms on my previous setup, and it was working great. But now, with this new 13.2 installation, I have once again installed using apt, then removed it, and re-installed using Synaptic, removed that install and used apt again, but the installation doesn't seem to take. There should be battery configuration files in sys/devices/platform/smapi/BATO/start_charge_thresh and stop_charge_thresh but there is not a smapi directory in the platform directory.<br>
+<br>
+What am I doing wrong? It was so easy on the 13.1 base install.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31706" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31706">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31706">
+
+<time datetime="2013-11-10T19:44">posted: 2013-11-10 &nbsp; 19:44</time>
+<span class="permalink"><a href="./installing-tp_smapi-t4682.html#p31706" title="permalink">#2</a></span>
+
+<div class="content">antiX13.2 I have not been on a laptop ...<br>
+<blockquote class="uncited"><div>male@antiX1:~$ apt-cache policy tp-smapi-dkms<br>
+tp-smapi-dkms:<br>
+Installiert: 0.41-1<br>
+Installationskandidat: 0.41-1<br>
+Versionstabelle:<br>
+*** 0.41-1 0<br>
+500 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.cz.debian.org/debian/"<br>linktext was:"http://ftp.cz.debian.org/debian/"<br>====================================<br>
+ testing/main i386 Packages<br>
+100 /var/lib/dpkg/status<br>
+<br>
+male@antiX1:~$ uname -r<br>
+3.9-8.dmz.1-liquorix-686</div></blockquote>
+You've performed (all as root):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update
+apt-get install tp-smapi-dkms
+m-a-a-i tp-smapi
+modprobe -v tp_smapi</code></pre></div>
+What if successful shows:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>insmod /lib/modules/KERNELVERSION/updates/dkms/thinkpad_ec.ko
+insmod /lib/modules/KERNELVERSION/updates/dkms/tp_smapi.ko</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31709" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31709">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Neil</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Oct 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31709">
+
+<time datetime="2013-11-10T20:00">posted: 2013-11-10 &nbsp; 20:00</time>
+<span class="permalink"><a href="./installing-tp_smapi-t4682.html#p31709" title="permalink">#3</a></span>
+
+<div class="content">Hi <strong>male</strong>,<br>
+<br>
+Thanks for the bit of info I needed.<blockquote><div><cite>male wrote:</cite>You've performed (all as root):</div></blockquote>Yes...with the exception of"sudo m-a-a-i tp-smapi" which replies"command not found", but the"modprobe -v tp_smapi" command was what I had been missing. Seems I had forgotten to add"-v" when I ran modprobe before, and was getting a"modprobe command not found" error.<br>
+<br>
+Got it all sorted out and working well now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31710" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31710">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31710">
+
+<time datetime="2013-11-10T20:42">posted: 2013-11-10 &nbsp; 20:42</time>
+<span class="permalink"><a href="./installing-tp_smapi-t4682.html#p31710" title="permalink">#4</a></span>
+
+<div class="content">Congratulations!<br>
+<br>
+Maybe Suitable for conky .. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+TEXT
+${color blue}${font gentium:size=15}${time %a %d %b %Y %k:%M}${font}
+${color}antiX-M11-686 
+${color}$sysname $kernel
+${color}Uptime: $uptime
+${color}Wlan: ${color white}${addr eth2}
+${color}down: ${downspeed eth2}${alignr}up: ${upspeed eth2}
+${color}LAN:   ${color white}${addr eth1}
+${color}down: ${downspeed eth1}${alignr}up: ${upspeed eth1}
+${color}ram:  ${color} $mem${color} /${color}$memmax ${color}- ${color}$memperc%
+${color}CycleCount:  ${exec cat /sys/devices/platform/smapi/BAT0/cycle_count}
+${color}Capacity:       ${exec cat /sys/devices/platform/smapi/BAT0/design_capacity}${alignr}${color red}${exec cat /sys/devices/platform/smapi/BAT0/remaining_capacity} mWh
+${color}BAT0-temp:  ${exec cat /sys/devices/platform/smapi/BAT0/temperature} °C/1000
+${color}FAN:   ${ibm_fan} rpm
+${color}CPU:   ${acpitemp}C°
+${color}Battery: ${alignr}${if_match ${battery_percent BAT0} &gt;= 100}${color white}${battery_bar 10,60 BAT0}${else}${if_match ${battery_percent BAT0} &lt; 99}${color green}${battery_bar 10,60 BAT0}${else}${if_match ${battery_percent BAT0} &lt; 55}${color yellow}${battery_bar 10,60 BAT0}${else}${if_match ${battery_percent BAT0} &lt;= 32}${color red}${battery_bar 10,60 BAT0}${endif}${endif}${endif}${endif}
+${voffset -22}${alignr 12}${font :size=7}${color black}${battery_percent BAT0}%${font}
+${voffset -5}${color}Root: ${color} ${fs_free /} ${color}= ${fs_free_perc /}%
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

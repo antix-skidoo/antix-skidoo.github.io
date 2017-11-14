@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Acer Aspire 5534 SD flash install - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./acer-aspire-5534-sd-flash-install-t3573.html">Acer Aspire 5534 SD flash install</a></h2>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_23600" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23600">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23600">
+
+<time datetime="2012-02-10T01:50">posted: 2012-02-10  &nbsp; 01:50</time>
+<span class="permalink"><a href="./acer-aspire-5534-sd-flash-install-t3573.html#p23600" title="permalink">#1</a></span>
+
+<div class="content">I have a 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://support.acer.com/acerpanam/notebook/2009/acer/aspire/Aspire5534/Aspire5534sp2.shtml"<br>linktext was:"Acer Aspire 5534"<br>====================================<br>
+ and a 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.google.com/products/catalog?hl=en&amp;client=iceweasel-a&amp;rls=org.mozilla:en-US:unofficial&amp;biw=1022&amp;bih=605&amp;q=kingston+16gb+sdhc&amp;gs_upl=&amp;bav=on.2,or.r_gc.r_pw.r_qf.,cf.osb&amp;noj=1&amp;um=1&amp;ie=UTF-8&amp;tbm=shop&amp;cid=4461228101516516893&amp;sa=X&amp;ei=Jm80T9qEKtPJsQLQ5eiwAg&amp;sqi=2&amp;ved=0CF4Q8wIwAQ"<br>linktext was:"16 gig Kingston SDHC"<br>====================================<br>
+ ,(yeah it is a cheapo model with slow read and write speeds). Got it for my Birthday present from wife.<br>
+<br>
+I tried using remastercc to make a frugal AntiX Beta 12 install but running my live 2 gig Pendrive to do the install would freeze the laptop after a few minutes with SD card inserted into internal Laptop SD card slot.<br>
+<br>
+Leaving in SD card while booting up AntiX live pendrive would freeze up the desktop even faster. I would get a hard lock up while connecting to internet with wicd before I was done. So remastercc did not seem to be the culprit. I tried different ways to fight this but eventually figured out to use my USB to SD adapter I have for my older laptops that don't have a internal SD card slot. <br>
+<br>
+I went ahead and did a conventional AntiX Beta 12 Full Iso install to the SD flash card in case a Delta file shows up later or in case I install a newer kernel later. That way I don't have to remaster the /live partition in frugal install if I would have went that route. I did a full <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update &amp;&amp; apt-get dist-upgrade</code></pre></div>
+today with it. I had to comment out <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># antiX
+#deb http://www.daveserver.info/antiX/debs testing full main</code></pre></div>
+in /etc/apt/sources.list.d/antix.list to get rid of connection 404 errors in apt-get update before I ran it again.<br>
+Also Iceweasel broke with a xml error parsing object Line ? ,(I can't remember exact error since I fixed it), so Iceweasel wouldn't open till I used in terminal<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>iceweasel --safe-mode</code></pre></div>
+and disabled everything and then opened synaptic and uninstalled all Language pack ext. except for english USA (for me). <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -z -F
+System:    Host: biker Kernel: 3.2.2-antix.1-486-smp i686 (32 bit) Desktop: JWM 2.1.0 Distro: antiX-full 01 February 2012
+Machine:   Mobo: Acer model: Aspire 5534 version: V1.10 Bios: Acer version: V1.10 date: 08/26/2009
+CPU:       Dual core AMD Athlon X2 L310 (-MCP-) cache: 1024 KB flags: (lm nx sse sse2 sse3 svm) 
+           Clock Speeds: 1: 1196.992 MHz 2: 1196.992 MHz
+Graphics:  Card: ATI RS780M/RS780MN [Mobility Radeon HD 3200 Graphics] 
+           X.Org: 1.11.3.901 driver: vesa Resolution: 1024x768@71.0hz 
+           GLX Renderer: N/A GLX Version: N/A
+Audio:     Card: ATI SBx00 Azalia (Intel HDA) driver: snd_hda_intel Sound: ALSA ver: 1.0.24
+Network:   Card-1: Atheros AR928X Wireless Network Adapter (PCI-Express) driver: ath9k 
+           IF: wlan0 state: up mac: &lt;filter&gt;
+           Card-2: Realtek RTL8111/8168B PCI Express Gigabit Ethernet controller driver: r8169 
+           IF: eth0 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 266.1GB (-) 1: /dev/sda TOSHIBA_MK2555GS 250.1GB 
+           2: USB /dev/sdb Multi 16.0GB 
+Partition: ID: / size: 15G used: 2.5G (18%) fs: rootfs ID: / size: 15G used: 2.5G (18%) fs: ext2 
+Sensors:   System Temperatures: cpu: 55.0C mobo: 0.0C 
+           Fan Speeds (in rpm): cpu: N/A 
+Info:      Processes: 87 Uptime: 1:49 Memory: 279.3/3545.9MB Client: Shell inxi: 1.7.28 </code></pre></div>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ompldr.org/vY3FjZA/KingstonSD.jpg"<br>linktext was:"http://ompldr.org/vY3FjZA/KingstonSD.jpg"<br>====================================<br>
+<br>
+~/.conkyrc
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># maintain spacing between certain elements
+use_spacer right
+
+# set to yes if you want conky to be forked in the background
+background no
+
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont Bitstream Vera Sans Mono-7
+#xftfont Andale Mono-9
+#xftfont Clean-8
+#xftfont cubicfive10:pixelsize=8
+#xftfont squaredance10:pixelsize=14
+#xftfont swf!t_v02:pixelsize=10
+
+# Text alpha when using Xft
+xftalpha 1
+mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 4.0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window no
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 280 5
+
+# Draw shades?
+draw_shades yes
+
+# Draw outlines?
+draw_outline no # amplifies text
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+# border_margin 9
+
+# border width
+border_width 1
+
+# Default colors and also border colors, grey90 == #e5e5e5
+default_color grey90
+default_shade_color black
+default_outline_color DarkGrey
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+gap_x 24
+gap_y 24
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+
+${color #ff0000}Processing$color
+
+   ${color #98c2c7}CPU1:$color     ${color #a3a3a3}${cpubar cpu1 5,200}
+   ${color #98c2c7}CPU2:$color     ${color #a3a3a3}${cpubar cpu2 5,200}
+
+   ${color #98c2c7}Name             PID       CPU%      MEM%
+   ${color #e5e5e5}${top name 1} ${top pid 1}   ${top cpu 1}    ${top mem 1}
+   ${color #c4c4c4}${top name 2} ${top pid 2}   ${top cpu 2}    ${top mem 2}
+   ${color #a3a3a3}${top name 3} ${top pid 3}   ${top cpu 3}    ${top mem 3}
+   ${color #828282}${top name 4} ${top pid 4}   ${top cpu 4}    ${top mem 4}$color
+
+   ${color #98c2c7}Processes:$color $processes ${color #98c2c7}Running:$color $running_processes
+
+${color #ff0000}Data$color
+
+   ${color #98c2c7}RAM:$color      ${color #a3a3a3}${membar 5,200}${color}
+   #${color #98c2c7}Swap:$color     ${color #a3a3a3}${swapbar 5,200}$color
+   ${color #98c2c7}HDD:$color      ${color #a3a3a3}${fs_bar 5,200 /}$color
+
+${color #ff0000}Wlan$color
+
+   ${color #98c2c7}Upload:$color   ${upspeed wlan0}${color #98c2c7} 
+   Download:$color ${downspeed wlan0}
+
+${color #ff0000}System$color
+
+   ${color #98c2c7}Uptime:  $color $uptime
+   ${color #98c2c7}Sysname: $color $sysname
+   ${color #98c2c7}Kernel:  $color $kernel
+   ${color #98c2c7}Machine: $color $machine
+   ${color #98c2c7}BatStat: $color ${battery BAT1}
+   ${color #98c2c7}BatTime: $color ${battery_time BAT1}
+
+${color #ff0000}General$color
+   
+   ${color #98c2c7}Date:    $color ${time %a, %e %B %G}</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23601" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23601">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="avatar-container">
+
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23601">
+
+<time datetime="2012-02-10T02:12">posted: 2012-02-10  &nbsp; 02:12</time>
+<span class="permalink"><a href="./acer-aspire-5534-sd-flash-install-t3573.html#p23601" title="permalink">#2</a></span>
+
+<div class="content">To fix tap on this Acer. Make a new text file in /etc/modeprobe.d and name it <br>
+<blockquote class="uncited"><div>touchpad.conf</div></blockquote>
+and inside of text file type in <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>options psmouse proto=imps</code></pre></div>
+Save file. Log out and back in. Tap works on mousepad.</div>
+
+</div>
+</div>
+<div class="back2top">
+ </div>
+</div>
+</div>
+<div id="p_23603" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23603">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23603">
+
+<time datetime="2012-02-10T03:49">posted: 2012-02-10  &nbsp; 03:49</time>
+<span class="permalink"><a href="./acer-aspire-5534-sd-flash-install-t3573.html#p23603" title="permalink">#3</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> inxi -G
+Graphics:  Card: ATI RS780M/RS780MN [Mobility Radeon HD 3200 Graphics] 
+           X.Org: 1.11.3.901 driver: fglrx Resolution: 1366x768@60.0hz 
+           GLX Renderer: N/A GLX Version: N/A
+</code></pre></div>
+I ran sgfxi to install fglrx driver but it errored out during install. My /usr/share/ati/fglrx-install.log states<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Uninstalling any previously installed drivers.
+
+Creating symlink /var/lib/dkms/fglrx/8.93/source -&gt;
+                 /usr/src/fglrx-8.93
+
+DKMS: add completed.
+
+Kernel preparation unnecessary for this kernel.  Skipping...
+
+Building module:
+cleaning build area....
+cd /var/lib/dkms/fglrx/8.93/build; sh make.sh --nohints --uname_r=3.2.2-antix.1-486-smp --norootcheck.....(bad exit status: 1)
+[Error] Kernel Module : Failed to build fglrx-8.93 with DKMS
+[Error] Kernel Module : Removing fglrx-8.93 from DKMS
+
+------------------------------
+Deleting module version: 8.93
+completely from the DKMS tree.
+------------------------------
+Done.
+[Reboot] Kernel Module : update-initramfs
+</code></pre></div>
+Though Inxi shows that fglrx is running and installed. But <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ glxgears
+X Error of failed request:  BadRequest (invalid request code or no such operation)
+  Major opcode of failed request:  139 (ATIFGLEXTENSION)
+  Minor opcode of failed request:  66 ()
+  Serial number of failed request:  13
+  Current serial number in output stream:  13
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>:~$ glxgears -info
+X Error of failed request:  BadRequest (invalid request code or no such operation)
+  Major opcode of failed request:  139 (ATIFGLEXTENSION)
+  Minor opcode of failed request:  66 ()
+  Serial number of failed request:  13
+  Current serial number in output stream:  13
+:~$ glxgears info
+Usage:
+  -display &lt;displayname&gt;  set the display to run on
+  -stereo                 run in stereo mode
+  -fullscreen             run in fullscreen mode
+  -info                   display OpenGL renderer info
+  -geometry WxH+X+Y       window geometry
+</code></pre></div>
+Just posting this for notes later when I do a internal Dual Boot Install later , on the internal hardrive on this laptop. <span class="emoticon"> __{{emoticon}}__ </span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23609" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23609">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23609">
+
+<time datetime="2012-02-10T23:32">posted: 2012-02-10  &nbsp; 23:32</time>
+<span class="permalink"><a href="./acer-aspire-5534-sd-flash-install-t3573.html#p23609" title="permalink">#4</a></span>
+
+<div class="content">Trying something in my /etc/fstab<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+UUID= / auto defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+# Dynamic entries below
+UUID=84C0247FC0247996 /media/sda1 ntfs-3g noauto,users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0
+UUID=9C2425202424FF40 /media/sda2 ntfs-3g noauto,users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0
+UUID=6AC2CA02C2C9D28D /media/sda3 ntfs-3g noauto,users,noexec,uid=1000,gid=users,dmask=002,fmask=113,relatime 0 0
+UUID=28E5-89E3 /media/sda5 vfat noauto,users,gid=users,dmask=002,fmask=113,relatime 0 0
+UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 /media/sdb1 ext2 noauto,users,exec,relatime 0 0
+tmpfs /tmp tmpfs defaults,noexec,nosuid 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0</code></pre></div>
+The change i made to run tmp in ram<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tmpfs /tmp tmpfs defaults,noexec,nosuid 0 0</code></pre></div>
+Will see how it goes.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23655" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23655">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23655">
+
+<time datetime="2012-02-16T04:06">posted: 2012-02-16  &nbsp; 04:06</time>
+<span class="permalink"><a href="./acer-aspire-5534-sd-flash-install-t3573.html#p23655" title="permalink">#5</a></span>
+
+<div class="content">Installed new testing kernel<br>
+viewtopic.php?f=15&amp;t=3570<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: biker Kernel: 3.2.5-antix.1-486-smp i686 (32 bit) Desktop: IceWM 1.3.7 Distro: antiX-full 01 February 2012
+Machine:   Mobo: Acer model: Aspire 5534 version: V1.10 Bios: Acer version: V1.10 date: 08/26/2009
+CPU:       Dual core AMD Athlon X2 L310 (-MCP-) cache: 1024 KB flags: (lm nx sse sse2 sse3 svm) 
+           Clock Speeds: 1: 1196.921 MHz 2: 1196.921 MHz
+Graphics:  Card: ATI RS780M/RS780MN [Mobility Radeon HD 3200 Graphics] 
+           X.Org: 1.11.3.901 driver: fglrx Resolution: 1366x768@60.0hz 
+           GLX Renderer: N/A GLX Version: N/A
+Audio:     Card: ATI SBx00 Azalia (Intel HDA) driver: snd_hda_intel Sound: ALSA ver: 1.0.24
+Network:   Card-1: Atheros AR928X Wireless Network Adapter (PCI-Express) driver: ath9k 
+           IF: wlan0 state: up mac: &lt;filter&gt;
+           Card-2: Realtek RTL8111/8168B PCI Express Gigabit Ethernet controller driver: r8169 
+           IF: eth0 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 266.1GB (-) 1: /dev/sda TOSHIBA_MK2555GS 250.1GB 
+           2: USB /dev/sdb Multi 16.0GB 
+Partition: ID: / size: 15G used: 3.1G (23%) fs: rootfs ID: / size: 15G used: 3.1G (23%) fs: ext2 
+Sensors:   System Temperatures: cpu: 55.0C mobo: 0.0C 
+           Fan Speeds (in rpm): cpu: N/A 
+Info:      Processes: 91 Uptime: 5 min Memory: 241.5/3545.8MB Client: Shell inxi: 1.7.28 
+</code></pre></div>
+Had to edit /boot/grub/menu.lst after update-grub command<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 10
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+
+title antiX at sdb1, kernel 3.2.2-antix.1-486-smp
+kernel /boot/vmlinuz-3.2.2-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 nomce quiet nosplash nouveau.modeset=0 vga=791  nomodeset
+initrd /boot/initrd.img-3.2.2-antix.1-486-smp
+boot
+
+title        Debian GNU/Linux, kernel 3.2.5-antix.1-486-smp
+kernel        /boot/vmlinuz-3.2.5-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0 vga=791  nomodeset
+initrd        /boot/initrd.img-3.2.5-antix.1-486-smp
+
+title        Debian GNU/Linux, kernel 3.2.5-antix.1-486-smp (init-3)
+kernel        /boot/vmlinuz-3.2.5-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0 3 vga=791  nomodeset
+initrd        /boot/initrd.img-3.2.5-antix.1-486-smp
+
+title Windows Recovery Environment (loader) at sda1
+rootnoverify (hd0,0)
+chainloader +1
+
+title Windows 7 (loader) at sda2
+rootnoverify (hd0,0)
+chainloader +1
+
+### BEGIN AUTOMAGIC KERNELS LIST
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified
+## by the debian update-grub script except for the default options below
+
+## DO NOT UNCOMMENT THEM, Just edit them to your needs
+
+## ## Start Default Options ##
+## default kernel options
+## default kernel options for automagic boot options
+## If you want special options for specific kernels use kopt_x_y_z
+## where x.y.z is kernel version. Minor versions can be omitted.
+## e.g. kopt=root=/dev/hda1 ro
+##      kopt_2_6_8=root=/dev/hdc1 ro
+##      kopt_2_6_8_2_686=root=/dev/hdc2 ro
+# kopt=root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0
+# kopt_2_6=root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nosplash quiet nomodeset radeon.modeset=0
+
+## default grub root device
+## e.g. groot=(hd0,0)
+# groot=(/dev/sdb,0)
+
+## should update-grub create alternative automagic boot options
+## e.g. alternative=true
+##      alternative=false
+# alternative=true
+
+## should update-grub lock alternative automagic boot options
+## e.g. lockalternative=true
+##      lockalternative=false
+# lockalternative=false
+
+## additional options to use with the default boot option, but not with the
+## alternatives
+## e.g. defoptions=vga=791 resume=/dev/hda5
+# defoptions=
+
+## should update-grub lock old automagic boot options
+## e.g. lockold=false
+##      lockold=true
+# lockold=false
+
+## Xen hypervisor options to use with the default Xen boot option
+# xenhopt=
+
+## Xen Linux kernel options to use with the default Xen boot option
+# xenkopt=console=tty0
+
+## altoption boot targets option
+## multiple altoptions lines are allowed
+## e.g. altoptions=(extra menu suffix) extra boot options
+##      altoptions=(single-user) single
+# altoptions=(init-3) 3
+
+## controls how many kernels should be put into the menu.lst
+## only counts the first occurence of a kernel, not the
+## alternative kernel options
+## e.g. howmany=all
+##      howmany=7
+# howmany=all
+
+## should update-grub create memtest86 boot option
+## e.g. memtest86=true
+##      memtest86=false
+# memtest86=true
+
+## should update-grub adjust the value of the default booted system
+## can be true or false
+# updatedefaultentry=false
+
+## should update-grub add savedefault to the default options
+## can be true or false
+# savedefault=false
+
+## ## End Default Options ##
+
+title        Debian GNU/Linux, kernel 3.2.5-antix.1-486-smp
+kernel        /boot/vmlinuz-3.2.5-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0 
+initrd        /boot/initrd.img-3.2.5-antix.1-486-smp
+
+title        Debian GNU/Linux, kernel 3.2.5-antix.1-486-smp (init-3)
+kernel        /boot/vmlinuz-3.2.5-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0 3
+initrd        /boot/initrd.img-3.2.5-antix.1-486-smp
+
+title        Debian GNU/Linux, kernel 3.2.2-antix.1-486-smp
+kernel        /boot/vmlinuz-3.2.2-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0 
+initrd        /boot/initrd.img-3.2.2-antix.1-486-smp
+
+title        Debian GNU/Linux, kernel 3.2.2-antix.1-486-smp (init-3)
+kernel        /boot/vmlinuz-3.2.2-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0 3
+initrd        /boot/initrd.img-3.2.2-antix.1-486-smp
+
+title        Debian GNU/Linux, kernel memtest86+
+kernel        /boot/memtest86+.bin
+
+### END DEBIAN AUTOMAGIC KERNELS LIST
+</code></pre></div>
+I had to take out root (/dev/sdb1) line out . It was in between title and kernel lines. <br>
+<br>
+Presently fighting grub error 13 for <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title Windows Recovery Environment (loader) at sda1
+rootnoverify (hd0,0)
+chainloader +1
+
+title Windows 7 (loader) at sda2
+rootnoverify (hd0,0)
+chainloader +1</code></pre></div>
+changing to <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title Windows Recovery Environment (loader) at sda1
+rootnoverify (hd0,1)
+chainloader +1
+
+title Windows 7 (loader) at sda2
+rootnoverify (hd0,2)
+chainloader +1</code></pre></div>
+Just throws a grub 22 error so far.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> fdisk -l
+
+Disk /dev/sda: 250 GB, 250056737280 bytes
+255 heads, 63 sectors/track, 30401 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sda1               1        1567    12586896   27  (null)
+/dev/sda2   *        1568        1580       96390    7  HPFS/NTFS
+/dev/sda3            1635       29880   226877962    7  HPFS/NTFS
+Warning: Partition 3 does not end on cylinder boundary.
+/dev/sda4           29880       30402     4192965    5  Extended
+Warning: Partition 4 does not end on cylinder boundary.
+/dev/sda5           29880       30402     4192965    b  FAT32
+Warning: Partition 5 does not end on cylinder boundary.
+
+Disk /dev/sdb: 15 GB, 15998169600 bytes
+255 heads, 63 sectors/track, 1945 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sdb1   *           1        1946    15631213   83  Linux
+Warning: Partition 1 does not end on cylinder boundary.
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># blkid
+/dev/sda1: LABEL="PQSERVICE" UUID="84C0247FC0247996" TYPE="ntfs" 
+/dev/sda2: LABEL="SYSTEM RESERVED" UUID="9C2425202424FF40" TYPE="ntfs" 
+/dev/sda3: LABEL="Acer" UUID="6AC2CA02C2C9D28D" TYPE="ntfs" 
+/dev/sda5: UUID="28E5-89E3" TYPE="vfat" 
+/dev/sdb1: LABEL="/" UUID="d2c859c1-ec51-44d6-a0b6-2a0d85533976" TYPE="ext2"</code></pre></div>
+Both AntiX kernels boot OK though. I use my modified top entries<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiX at sdb1, kernel 3.2.2-antix.1-486-smp
+kernel /boot/vmlinuz-3.2.2-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 nomce quiet nosplash nouveau.modeset=0 vga=791  nomodeset
+initrd /boot/initrd.img-3.2.2-antix.1-486-smp
+boot
+
+title        Debian GNU/Linux, kernel 3.2.5-antix.1-486-smp
+kernel        /boot/vmlinuz-3.2.5-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0 vga=791  nomodeset
+initrd        /boot/initrd.img-3.2.5-antix.1-486-smp
+
+title        Debian GNU/Linux, kernel 3.2.5-antix.1-486-smp (init-3)
+kernel        /boot/vmlinuz-3.2.5-antix.1-486-smp root=UUID=d2c859c1-ec51-44d6-a0b6-2a0d85533976 ro nomodeset radeon.modeset=0 3 vga=791  nomodeset
+initrd        /boot/initrd.img-3.2.5-antix.1-486-smp</code></pre></div>
+to boot Antix off of this 16 gig external SD flash card for now. The Windows snafu is not a real big deal breaker because I can pull the SD card and boot Windows 7 off the internal drive if need be (which I hardly do on this Laptop). The grub 13 and 22 error is just a learning experience for now. <br>
+<br>
+~/.conkyrc<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># maintain spacing between certain elements
+use_spacer right
+
+# set to yes if you want conky to be forked in the background
+background no
+
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont Bitstream Vera Sans Mono-7
+#xftfont Andale Mono-9
+#xftfont Clean-8
+#xftfont cubicfive10:pixelsize=8
+#xftfont squaredance10:pixelsize=14
+#xftfont swf!t_v02:pixelsize=10
+
+# Text alpha when using Xft
+xftalpha 1
+mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 4.0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window no
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 280 5
+
+# Draw shades?
+draw_shades yes
+
+# Draw outlines?
+draw_outline no # amplifies text
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+# border_margin 9
+
+# border width
+border_width 1
+
+# Default colors and also border colors, grey90 == #e5e5e5
+default_color grey90
+default_shade_color black
+default_outline_color DarkGrey
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+gap_x 24
+gap_y 24
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+
+${color #ff0000}Processing$color
+
+   ${color #98c2c7}CPU1:$color     ${color #a3a3a3}${cpubar cpu1 5,200}
+   ${color #98c2c7}CPU2:$color     ${color #a3a3a3}${cpubar cpu2 5,200}
+
+   ${color #98c2c7}Name             PID       CPU%      MEM%
+   ${color #e5e5e5}${top name 1} ${top pid 1}   ${top cpu 1}    ${top mem 1}
+   ${color #c4c4c4}${top name 2} ${top pid 2}   ${top cpu 2}    ${top mem 2}
+   ${color #a3a3a3}${top name 3} ${top pid 3}   ${top cpu 3}    ${top mem 3}
+   ${color #828282}${top name 4} ${top pid 4}   ${top cpu 4}    ${top mem 4}$color
+
+   ${color #98c2c7}Processes:$color $processes ${color #98c2c7}Running:$color $running_processes
+
+${color #ff0000}Data$color
+
+  ${color yellow}Hard Drive Temperature F ${exec sensors | grep 'temp1' | cut -c15-16 | awk '{print ($1*9)/5+32}'}
+     ${color white}${exec sensors | grep 'RPM'}
+     ${execi 300 sensors | grep Core}
+  ${color}cpu: ${color}${cpu}%
+  ${color}ram : ${color}$mem${color}/${color}$memmax ${color}- ${color}$memperc%
+    ${color #98c2c7}RAM:$color      ${color #a3a3a3}${membar 5,200}${color}
+   #${color #98c2c7}Swap:$color     ${color #a3a3a3}${swapbar 5,200}$color
+ ${color #98c2c7}HDD:$color      ${color #a3a3a3}${fs_bar 5,200 /}$color
+
+${color #ff0000}Wlan$color
+
+   ${color #98c2c7}Upload:$color   ${upspeed wlan0}${color #98c2c7} 
+   Download:$color ${downspeed wlan0}
+
+${color #ff0000}System$color
+
+   ${color #98c2c7}Uptime:  $color $uptime
+   ${color #98c2c7}Sysname: $color $sysname
+   ${color #98c2c7}Kernel:  $color $kernel
+   ${color #98c2c7}Machine: $color $machine
+   ${color #98c2c7}BatStat: $color ${battery BAT1}
+   ${color #98c2c7}BatTime: $color ${battery_time BAT1}
+
+${color #ff0000}General$color
+   
+   ${color #98c2c7}Date:    $color ${time %a, %e %B %G}</code></pre></div>
+Latest Desktop Shot<br>
+<br>
+<br>
+<br>
+Time to fire one up and put me to bed. <span class="emoticon"> __{{emoticon}}__ </span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

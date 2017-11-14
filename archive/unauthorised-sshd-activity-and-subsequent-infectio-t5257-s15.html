@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Unauthorised sshd Activity and Subsequent Infection - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html">Unauthorised sshd Activity and Subsequent Infection</a></div>
+<div class="pagination">
+26 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_36930" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36930">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36930">
+<time datetime="2014-09-11T12:12">posted: 2014-09-11 &nbsp; 12:12</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36930" title="permalink">#16</a></span>
+
+<div class="content">Thanks SamK. Hopefully you'll find the culprit.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36932" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36932">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36932">
+
+<time datetime="2014-09-11T13:30">posted: 2014-09-11 &nbsp; 13:30</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36932" title="permalink">#17</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>In my view this topic is a good example of the benefit of having lots of eyes on a problem.</div></blockquote>
+Here is a solution (unfortunately only in German) <span class="emoticon"> __{{emoticon}}__ </span> <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.thomas-krenn.com/de/wiki/SSH_Login_unter_Debian_mit_fail2ban_absichern"<br>linktext was:"http://www.thomas-krenn.com/de/wiki/SSH ... _absichern"<br>====================================<br>
+<br>
+<blockquote class="uncited"><div>Problem<br>
+<br>
+In the log file<br>
+<br>
+/var/log/auth.log<br>
+<br>
+occur several failed login attempts to the SSH protocol, which do not originate from you.<br>
+<br>
+February 19 09:21:15 servername sshd [22796]: pam_unix (sshd: auth): authentication failure; logname = uid = 0 euid = 0 tty = ssh ruser = rhost 218.207.xx.xx = user = root<br>
+February 19 09:21:17 servername sshd [22796]: Failed password for root from 218.207.xx.xx port 22 ssh2<br>
+<br>
+Explanation<br>
+<br>
+The remote user has (accidentally) uses an incorrect server IP and mistakenly tried to log on to your server. The number of login attempts is usually low here.<br>
+They are victims of a brute force attack, in which an automatic root login with user and different passwords (for example, from so-called dictionary files) can be tried. The number of login attempts is recognizable high. <br>
+<br>
+Solution<br>
+<br>
+Secure your SSH login with the tool from fail2ban, you prohibit direct root login or sign up only with SSH Key on.<br>
+What is Fail2Ban<br>
+<br>
+Fail2Ban is a program written in Python program that can protect various server services against unauthorized access. In the configuration example below, an IP address is blocked for 1 hour, after there have been four of these failed Anmeledeversuche for SSH.<br>
+Installation of Fail2Ban<br>
+<br>
+apt-get install fail2ban<br>
+<br>
+Configuration Fail2Ban<br>
+<br>
+Edit the following file:<br>
+<br>
+<em> /</em>etc/fail2ban/jail.conf<br>
+<br>
+Set local IP address of your server, the time how long an IP should be blocked and the number of attempts to be blocked according to which:<br>
+<br>
+ignoreip = 127.0.0.1<br>
+bantime = 3600<br>
+maxretry = 3<br>
+<br>
+You can adjust the parameters then separately for individual services (such as here in the article, the SSH daemon).<br>
+<br>
+Now define the necessary parameters for the SSH daemon to monitor:<br>
+<br>
+enabled = true<br>
+port = ssh<br>
+filter = sshd<br>
+logpath = /var/log/auth.log<br>
+maxretry = 4<br>
+<br>
+Then restart fail2ban in order for the changes to take effect.<br>
+<br>
+<em>/</em>etc/init.d/fail2ban restart
+</div></blockquote>
+Hope you do not mind the help male, Rok. I bypassed the / etc forum bug by using the italics/offset button on the /.<br>
+It only works outside of using the code button. In other words. Use code button. The italics/offset button trick does not work. Hope I made sense.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36934" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36934">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36934">
+
+<time datetime="2014-09-11T15:13">posted: 2014-09-11 &nbsp; 15:13</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36934" title="permalink">#18</a></span>
+
+<div class="content">+1 for male's post<br>
+I am running fail 2 ban on some of my servers.<br>
+It is set up how the article says denying access for a certain amount of time. Then I have an script analyze the fail 2 ban log to permanently lock out a address if the time period is happening 3 times for the same address. There is other precautions as well but those in the article are definitely good steps to do. <br>
+<br>
+Regardless of the lan config being an issue it is obviously one of several issues IMHO. <br>
+If we need ssh installed in the iso it should definitely be disabled by default as most people probably do not need to use ssh. Or given another case where there is no lan but the computer is connected straight to the modem (wireless sticks / cellphone tethering as an example)....</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36935" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36935">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36935">
+
+<time datetime="2014-09-11T17:19">posted: 2014-09-11 &nbsp; 17:19</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36935" title="permalink">#19</a></span>
+
+<div class="content">@Roky,<br>
+excellent! <img src="http://www.en.kolobok.us/smiles/big_standart/clapping.gif" class="postimage" alt="Image"></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36936" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36936">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36936">
+
+<time datetime="2014-09-12T09:20">posted: 2014-09-12 &nbsp; 09:20</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36936" title="permalink">#20</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite>Hope you do not mind the help...</div></blockquote>I do not mind at all. Even though I was aware of Fail2Ban your tip is appreciated along with the translation. It is a good fit for server-type-machines that are frequently accessed to provide resources to remote systems.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36938" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36938">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36938">
+
+<time datetime="2014-09-12T12:53">posted: 2014-09-12 &nbsp; 12:53</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36938" title="permalink">#21</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>If we need ssh installed in the iso it should definitely be disabled by default as most people probably do not need to use ssh.</div></blockquote>The following are not arguments in favour of lax security, just some things to think about when considering such a change.<br>
+<br>
+Booting the antiX ISO is predominately for:
+<ul>
+<li> Previewing it to help decide whether it is appealing or not</li>
+<li> Installing it</li></ul>Within those parameters, it is unlikely that starting an SSH server session will be wanted, so not having a running sshd seems a reasonable choice. Once the distro has been installed (conventionally to a disk) the usage parameters change. It becomes more likely that an SSH server session will be wanted which might be the reason it is a Debian default set up.<br>
+<br>
+Debian is not generally known as being insecure. Notwithstanding that, any system can be made more secure, right up to the point where it is never powered up, although such a state might be deemed slightly inconvenient. The question becomes at what point does a system reach a state which can be reasonably described as adequately secure? Beyond that point additional security measures become increasingly marginal.<br>
+<br>
+The circumstances that prompted the opening post in this topic have been tracked down. Someone here did not revert changes to the LAN firewall, made during an investigation. This left the machine in question vulnerable to attack from outside the firewall. Even so, when rebuilding the system, a weak and easily guessed root password was required before the vulnerability could be exploited. Together, these point towards using better controls and procedures here, but there is the eternal problem of competing demands on time. In short, both conditions had to be present concurrently and neither of them were caused by antiX.<br>
+<br>
+The lack of reports in the antiX forum of systems being compromised via SSH is probably a reasonable indication of how often it happens. In such circumstances, one might ask whether the value of adding a third layer of security to SSH (by disabling it entirely) goes beyond the point of marginal gains mentioned above.<br>
+<br>
+While accepting that antiX is a successful distro in its own right, moving too far from what are expected as Debian defaults might lead to some disappointment. By way of examples, a user wants to allow access to their local system to someone providing remote support, or wants to provide some form of file transfer direct to remote systems. In both cases it is highly likely that a secure and encrypted connection will be wanted. If the SSH server element is present but disabled it might lead to confusion because on-line guides might reasonably assume that it is started during boot-up and therefore be difficult to follow. There probably are other more relevant and obvious examples than those.<br>
+<br>
+Off Topic<br>
+This is not related to security but one area where disabling it might be marginally beneficial is in reducing the demand for RAM, however the difference is so small as to be negligible.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36944" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36944">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36944">
+
+<time datetime="2014-09-12T17:06">posted: 2014-09-12 &nbsp; 17:06</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36944" title="permalink">#22</a></span>
+
+ <div class="content"><blockquote class="uncited"><div>If we need ssh installed in the iso it should definitely be disabled by default as most people probably do not need to use ssh.</div></blockquote>
+I heartily agree. Further, if the shipped default configuration permits remote root ssh login (I was stunned to read that's the case)<br>
+a bolded, red-bordered, cautionary statement should be displayed in the user docs ~~ along with a quick"howto disable root ssh login" explanation for editing the config file.<br>
+<br>
+IMO,"worrying about inconveniencing users" is a non-issue here. <br>
+For me, the issue is that users (me) <strong>TRUST</strong> that distro maintainers have chose sane defaults.<br>
+Wherever a shipped default setting(s) may be problematic ~~ deviates from expected convention, or (as in this case) represents a potential security hazard ~~ <br>
+distro maintainers have a responsibility to provide adequate documentation in order to achieve <strong>informed consent</strong>.<br>
+Otherwise, they're essentially shipping (naively? intentionally?) a"backdoored" O/S.<br>
+<br>
+=================<br>
+<br>
+When I read Sam's report, I wondered whether any of the pre-installed (from trusted-clean debian sources) applications had been launched.<br>
+Too often nowadays, with (misplaced) attention toward"worrying about inconveniencing users", apps are designed<br>
+(and/or preconfigured, by the author or package maintainer) to callout/check for updates during first launch (or eternally, during each launch!).<br>
+With each of these <strong>wget</strong> calls, the app is retrieving content from <strong>non</strong> Debian servers... and many opensource app projects are hosted on shared webservers.<br>
+This scenario represents a huge"from Day1" exploitation vector.<br>
+<br>
+Idunno whether any of the apps preinstalled in antiX full are preconfigured to"perform automatic update checks". Some probably are ~~ likely candidates are:<br>
+web browser and music player app(s). When I discover (have, repeatedly) that a music player app, for instance, is preconfigured to immediately callout<br>
+(without my consent, or even knowledge) to various"app partner" webservers... dammit, that really chaps my hide! Some distros are even shipping (amaroK? player)<br>
+preconfigured to churn your drive, indexing your hard-won torrented plunder, then ("for your convenience" cough, cough) callout to CBS -owned last.fm and"retrieve missing cover art".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36951" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36951">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36951">
+
+<time datetime="2014-09-12T18:49">posted: 2014-09-12 &nbsp; 18:49</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36951" title="permalink">#23</a></span>
+
+<div class="content">The Debian default is that ssh is enabled.<br>
+The live antiX default comes with ssh disabled (through the cheat codes LMX).<br>
+During installation, user is asked to disable some services. Default is to allow ssh (ie to follow the Debian default). User can choose to disable.(Maybe this should be more up front as an option).<br>
+<br>
+antiX is one of the few Debian-based distros with ssh disabled running live and offers the option to enable/disable it on install. (IIRC siduction does the same)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36952" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36952">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36952">
+
+<time datetime="2014-09-12T20:27">posted: 2014-09-12 &nbsp; 20:27</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36952" title="permalink">#24</a></span>
+
+<div class="content">Yep, I guess I am one of the few that disables cups, ssh, and others for default startup during a install.<br>
+I have o need for printing or file sharing on my biker shop computers.<br>
+I have a Windows Biker tuner laptop that does not go online for printing.<br>
+<br>
+Edit: I recall there was also a cli thingy for disabling startup services also in antixcc.<br>
+I opened it a couple of times to just poke around in it.<br>
+My new 64gig Kingspec 1.8" zif ssd hard drive just came in the mail.<br>
+So i can't elaborate more on this as I am going to play with the spare M&amp;A Companion Netbook.<br>
+<br>
+My old IBM A22M sell off payed for this hard drive as well as for the fix on the Panasonic and a 4 gig tam stick also.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36953" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36953">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36953">
+
+<time datetime="2014-09-13T01:21">posted: 2014-09-13 &nbsp; 01:21</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36953" title="permalink">#25</a></span>
+
+<div class="content">Dolphin explained in his videos some about the services you could disable. I used the docs to learn more, and even made myself a list of what I don't want to use both in antiX and MX-14. I read someplace about setting up a VPN which does great to stop lots of this stuff happening. All I can do is learn. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36955" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36955">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36955">
+
+<time datetime="2014-09-13T10:11">posted: 2014-09-13 &nbsp; 10:11</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html#p36955" title="permalink">#26</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>During installation, user is asked to disable some services.</div></blockquote><blockquote class="uncited"><div>I recall there was also a cli thingy for disabling startup services also in antixcc.</div></blockquote>Building on those the following might be helpful to anyone wanting to adjust the antiX services when running in a GUI environment.<br>
+<br>
+<br>
+<strong>During installation</strong> the following is automatically displayed<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>Adjust antiX services during installation</dd>
+</dl>
+<dd>Adjust antiX services during installation</dd>
+</span><br>
+<br>
+<strong>Post installation</strong> antiX-menu--&gt;Control Center--&gt;System--&gt;Choose Startup Services, displays<span class="inline-attachment">
+<dl class="fileimage">
+
+<dd>Adjust antiX services post installation</dd>
+</dl>
+<dd>Adjust antiX services post installation</dd>
+</span><br>
+<br>
+<strong>Post installation</strong> run a command as root in a terminal to manage SSH
+<blockquote class="uncited"><div>service ssh [start|status|stop]<br>
+or<br>
+<em>/</em>etc/init.d/ssh [start|status|stop]</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+26 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

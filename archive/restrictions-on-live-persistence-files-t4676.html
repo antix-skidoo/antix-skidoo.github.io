@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Restrictions on live-persistence files? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./restrictions-on-live-persistence-files-t4676.html">Restrictions on live-persistence files?</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_31633" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31633">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 19</span></div>
+
+</div>
+</div>
+<span class="username">pcpavnz</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31633">
+<time datetime="2013-11-06T06:58">posted: 2013-11-06 &nbsp; 06:58</time>
+<span class="permalink"><a href="./restrictions-on-live-persistence-files-t4676.html#p31633" title="permalink">#1</a></span>
+
+<div class="content">Using the control panel to make a fresh Live-USB, I inserted an 8GB drive and quickly discovered the live-persistence limited the total size of the combined persistence files to 3328MB and it made no difference if I chose ext2 or ext3. I didn't bother with selecting fat because by default, I try to keep away from such limited file system types wherever possible and I already know there is a 2GB limit and a dirty work-around to attain 4GB.<br>
+<br>
+Is there a reason for such a limitation? I am wondering if the script has 4GB as the absolute limit for creating a live-USB, minus file size of the iso file and leaving 3328MB as the closest block of 64Mb chunks available remaining for persistence files.<br>
+<br>
+I may be wrong, but certainly curious to know.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31634" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31634">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31634">
+
+<time datetime="2013-11-06T08:44">posted: 2013-11-06 &nbsp; 08:44</time>
+<span class="permalink"><a href="./restrictions-on-live-persistence-files-t4676.html#p31634" title="permalink">#2</a></span>
+
+<div class="content">At one time I imposed a limit on the size of the root persistence file to be smaller than the amount of RAM on the system. I looked at the persist-makefs code and the limit is still there.<br>
+<br>
+You should be able to remove the RAM limit by changing one line in /usr/local/bin/persist-makefs:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>--- persist-makefs.orig    2013-11-06 01:12:24.352101828 -0700
++++ persist-makefs    2013-11-06 01:14:13.882733916 -0700
+@@ -540,7 +540,7 @@
+     TOTAL_RAM=$(ram_total)
+     SAFE_RAM=$(($TOTAL_RAM + $SAFETY_MARGIN))
+ 
+-    MAX_SIZE=$(min_of $SAFE_RAM $SAFE_AVAIL)
++    MAX_SIZE=$SAFE_AVAIL
+ 
+     DEVICE_TEXT=(                                                    \
+        "[fixed]"                                                    \</code></pre></div>
+I've also attached the patch as a gzipped file. It may be just as easy to edit that line by hand.<br>
+<br>
+If you plan to install or remove packages then I suggest you run"remaster-live" when you are done installing/removing. This will put all of the file system changes stored in the rootfs file (or in RAM) into the squashfs file.<br>
+<br>
+NOTE: Static root persistence will immediately store file system changes in the rootfs file. Dynamic root persistence stores file system changes in RAM (just like the normal LiveCD/USB) and then copies these changes to the rootfs file right before shutdown. This is done by the persist-save program which eventually calls rsync to do the copy/update. When the persist-save program was written we only had dynamic root persistence which is why I limited the size of the rootfs file to something under the total amount of RAM.<br>
+<br>
+Oh yes, ideally you should save enough empty space on the LiveUSB partition to have enough room to make a new squashfs file. This is what the remaster-live program does. We automatically switch to the new squashfs file on the next reboot. If something goes horribly wrong then use the"rollback" boot parameter to go back to the orignal squashfs file. About 1 Gig could suffice but it entirely depends on how much you want to install. The average compression ration is for antiX-13.2 3:1 so 2.1 Gig of files fits in a 682 Meg squashfs file.<br>
+<br>
+For maximum speed, once everything is installed, use the"toram" option and either no root persistence or only dynamic root persistence. The"toram" will copy the squashfs file into RAM. It eats up a lot of RAM and there is a wait at boot-time when the file gets read into RAM but after that , the system really flies. Of course, if you end up swapping then that would totally defeat the purpose and ruin the speed. For maximum security, disable persistence after you are done with tuning and installs. This makes it extremely difficult to make permanent changes to the system so on every reboot you get back to the same known system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31647" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31647">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 19</span></div>
+
+</div>
+</div>
+<span class="username">pcpavnz</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31647">
+
+<time datetime="2013-11-06T23:07">posted: 2013-11-06 &nbsp; 23:07</time>
+<span class="permalink"><a href="./restrictions-on-live-persistence-files-t4676.html#p31647" title="permalink">#3</a></span>
+
+<div class="content">Thanks BitJam.<br>
+<br>
+My server has 8GB RAM and I am using the 64-bit version of antiX. I have moved to a full hard disk install and am just plumbing it in now, I basically had to because I thought I would simply roll the system back to an earlier backup to tide me over until I was ready to roll with antiX full time, but the backup was from my build prior to the latest build, which couldn't handle the hardware on my system and in doing so, I killed my other backups - oops <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+My salesman has called one of our nationwide television stations about a news article on the TV last night concerning Windows XP's end of life and what I call scare-mongering (though I won't tell them that) to get them to do buy more windows. He's trying to get them to come and interview me about the missing pieces in their article.<br>
+<br>
+I had better hurry up and finish the server build then hadn't I.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31893" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31893">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">jdmeaux1952</a> </span> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31893">
+
+<time datetime="2013-11-21T13:36">posted: 2013-11-21 &nbsp; 13:36</time>
+<span class="permalink"><a href="./restrictions-on-live-persistence-files-t4676.html#p31893" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>pcpavnz wrote:</cite>My salesman has called one of our nationwide television stations about a news article on the TV last night concerning Windows XP's end of life and what I call scare-mongering (though I won't tell them that) to get them to do buy more windows.</div></blockquote>
+Makes me wonder if Microsoft isn't working with Intel to sell more Windows products and more higher end machines. I had to try to explain to everyone at the church that this just means Microsoft isn't going to SUPPORT Windows XP anymore, not that XP will die and leave their computer dead with no OS.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

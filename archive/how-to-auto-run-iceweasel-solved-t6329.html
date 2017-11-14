@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How to auto run Iceweasel [SOLVED] - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-auto-run-iceweasel-solved-t6329.html">How to auto run Iceweasel [SOLVED]</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46193" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46193">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">Reljoy</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46193">
+<time datetime="2016-04-11T10:35">posted: 2016-04-11 &nbsp; 10:35</time>
+<span class="permalink"><a href="./how-to-auto-run-iceweasel-solved-t6329.html#p46193" title="permalink">#1</a></span>
+
+<div class="content">I want Iceweasel to start up automatically when I log in.<br>
+I found a thread here<br>
+forums.debian.net/viewtopic.php?f=5&amp;t=120158<br>
+and I did (had to use sudo to make it work)<br>
+(I have had to put an extra space between the / and the etc everywhere to be able to post)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cp /usr/share/applications/iceweasel.desktop / etc/xdg/autostart/</code></pre></div>
+Since I did not want to force Iceweasel to start at the page google, I did not do the next bit
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sed -i 's/%u/google.com/g' / etc/xdg/autostart/iceweasel.desktop</code></pre></div>
+I restarted the computer but it did not run Iceweasel.<br>
+<br>
+So I tried the second command leaving out
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>-i 's/%u/google.com/g'</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo sed / etc/xdg/autostart/iceweasel.desktop
+</code></pre></div>
+but that did not work. It gave me an error.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sed: -e expression #1, char 7: extra characters after command</code></pre></div>
+I tried a few variations of putting in -i or putting in -e but I always got an error.<br>
+<br>
+So now I'm turning to you guys as you probably know where I mucked it up.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -zv7
+System:    Host: antixDell Kernel: 4.0.5-antix.1-486-smp i686 (32 bit gcc: 4.9.2)
+           Desktop: IceWM 1.3.8 dm: slim
+           Distro: antiX-15-V_386-full Killah P 30 June 2015
+Machine:   System: Dell product: Latitude D610 Chassis: type: 8
+           Mobo: Dell model: 0D4571 Bios: Dell v: A05 date: 08/11/2005
+CPU:       Single core Intel Pentium M (-UP-) cache: 2048 KB
+           flags: (nx pae sse sse2) bmips: 3724 speed/min/max: 1867/800/1867 MHz
+Memory:    Using dmidecode: you must be root to run dmidecode
+Graphics:  Card: Intel Mobile 915GM/GMS/910GML Express Graphics Controller
+           bus-ID: 00:02.0 chip-ID: 8086:2592
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1024x768@60.00hz, 1024x768@60.00hz
+           GLX Renderer: Mesa DRI Intel 915GM x86/MMX/SSE2
+           GLX Version: 2.1 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Intel 82801FB/FBM/FR/FW/FRW (ICH6 Family) AC'97 Audio Controller
+           driver: snd_intel8x0 ports: ed00 ec40 bus-ID: 00:1e.2 chip-ID: 8086:266e
+           Sound: Advanced Linux Sound Architecture v: k4.0.5-antix.1-486-smp
+Network:   Card-1: Broadcom NetXtreme BCM5751 Gigabit Ethernet PCI Express
+           driver: tg3 v: 3.137 bus-ID: 02:00.0 chip-ID: 14e4:1677
+           IF: eth0 state: up speed: 1000 Mbps duplex: full mac: &lt;filter&gt;
+           Card-2: Broadcom BCM4318 [AirForce 54g] 802.11a/b/g PCI Express Transceiver
+           driver: b43-pci-bridge bus-ID: 03:03.0 chip-ID: 14e4:4319
+           IF: wlan0 state: down mac: &lt;filter&gt;
+           WAN IP: &lt;filter&gt; IF: eth0 ip: &lt;filter&gt; ip-v6: &lt;filter&gt;
+           IF: wlan0 ip: N/A ip-v6: N/A
+Drives:    HDD Total Size: 160.0GB (12.6% used)
+           ID-1: /dev/sda model: SAMSUNG_HM160HC size: 160.0GB serial: S12TJF0SB67597
+           Optical: /dev/sr0 model: TSST CDRW/DVD TSL462C
+           rev: DE01 dev-links: cdrom,cdrw,dvd
+           Features: speed: 24x multisession: yes
+           audio: yes dvd: yes rw: cd-r,cd-rw state: running
+Partition: ID-1: / size: 145G used: 17G (13%) fs: ext4 dev: /dev/sda1
+           label: antiX15root uuid: 3fa4ac23-5ac5-42bd-b626-e4197624b303
+           ID-2: swap-1 size: 2.17GB used: 0.00GB (0%) fs: swap dev: /dev/sda2
+           label: swap uuid: f0ca727d-cc51-4e99-885d-88a98475267a
+RAID:      No RAID data: /proc/mdstat missing-is md_mod kernel module loaded?
+Unmounted: ID-1: /dev/ram0 size: 0.02G label: N/A uuid: N/A
+           ID-2: /dev/ram1 size: 0.02G label: N/A uuid: N/A
+           ID-3: /dev/ram2 size: 0.02G label: N/A uuid: N/A
+           ID-4: /dev/ram3 size: 0.02G label: N/A uuid: N/A
+           ID-5: /dev/ram4 size: 0.02G label: N/A uuid: N/A
+           ID-6: /dev/ram5 size: 0.02G label: N/A uuid: N/A
+           ID-7: /dev/ram6 size: 0.02G label: N/A uuid: N/A
+           ID-8: /dev/ram7 size: 0.02G label: N/A uuid: N/A
+           ID-9: /dev/ram8 size: 0.02G label: N/A uuid: N/A
+           ID-10: /dev/ram9 size: 0.02G label: N/A uuid: N/A
+           ID-11: /dev/ram10 size: 0.02G label: N/A uuid: N/A
+           ID-12: /dev/ram11 size: 0.02G label: N/A uuid: N/A
+           ID-13: /dev/ram12 size: 0.02G label: N/A uuid: N/A
+           ID-14: /dev/ram13 size: 0.02G label: N/A uuid: N/A
+           ID-15: /dev/ram14 size: 0.02G label: N/A uuid: N/A
+           ID-16: /dev/ram15 size: 0.02G label: N/A uuid: N/A
+Sensors:   System Temperatures: cpu: 49.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 102 Uptime: 13 min Memory: 167.5/997.2MB
+           Init: SysVinit v: 2.88 runlevel: 5 default: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301 running in roxterm) inxi: 2.2.31</code></pre></div></div>
+<div class="notice">
+Last edited by <b>Reljoy</b> on 12 Apr 2016, 04:16, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46196" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46196">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46196">
+
+<time datetime="2016-04-11T11:39">posted: 2016-04-11 &nbsp; 11:39</time>
+<span class="permalink"><a href="./how-to-auto-run-iceweasel-solved-t6329.html#p46196" title="permalink">#2</a></span>
+
+<div class="content">welcome to antiX<br>
+<br>
+and to the land of no-desktop-environment. window managers like icewm (the antiX default) don't use xdg-autostart by default. You need to put your startup command in a sessions startup file.<br>
+<br>
+open control center<br>
+<br>
+click on session then"global-desktop-session settings" (I forget exact title). type your startup command into the text editor tab labeled"startup". I believe there are existing entries already so you can see the format. For iceweasel<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>iceweasel &amp;
+
+</code></pre></div>
+the &amp; is important. it tells the system to split the new app away from the process that started it. That way things don't hang waiting for other apps to finish up.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46199" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46199">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46199">
+
+<time datetime="2016-04-11T13:14">posted: 2016-04-11 &nbsp; 13:14</time>
+<span class="permalink"><a href="./how-to-auto-run-iceweasel-solved-t6329.html#p46199" title="permalink">#3</a></span>
+
+<div class="content">You might want to add a sleep delay <br>
+<br>
+sleep3 &amp;&amp; iceweasel &amp;</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46214" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46214">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">Reljoy</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46214">
+
+<time datetime="2016-04-12T04:13">posted: 2016-04-12 &nbsp; 04:13</time>
+<span class="permalink"><a href="./how-to-auto-run-iceweasel-solved-t6329.html#p46214" title="permalink">#4</a></span>
+
+<div class="content">Thanks very much guys.<br>
+I tried lots of different delays but it didn't work.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sleep15 &amp;&amp; iceweasel &amp;</code></pre></div>
+(I'm assuming that sleep15 means 15 seconds).<br>
+<br>
+So I tried it without a delay and it did work!
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>iceweasel &amp;</code></pre></div>
+Very pleasing.<br>
+As always, I find forums give good advice and help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46215" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46215">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">Reljoy</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46215">
+
+<time datetime="2016-04-12T04:15">posted: 2016-04-12 &nbsp; 04:15</time>
+<span class="permalink"><a href="./how-to-auto-run-iceweasel-solved-t6329.html#p46215" title="permalink">#5</a></span>
+
+<div class="content">Actually I think it should be sleep 3 with a space from a quick google.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

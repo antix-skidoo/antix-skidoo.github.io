@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>VMware player 6 can't compile kernel modules - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html">VMware player 6 can't compile kernel modules</a></div>
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_42185" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42185">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42185">
+<time datetime="2015-07-26T08:04">posted: 2015-07-26 &nbsp; 08:04</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42185" title="permalink">#1</a></span>
+
+<div class="content">Since I have only 4Gb ram installed I chose for the 32 bit version of Antix. To my dismay, I found out yesterday that VMware no longer offers its player software for 32 bit architecture. So I decided to install the .bundle package of VMware Player 6 (I saved a local copy of it one or two years ago). That version ran fine on Ubuntu, on an older kernel.<br>
+<br>
+Installation went smooth, but before running it, it must compile some extra modules into the kernel (that's what it says in a dialog box). On ubuntu, this procedure was often repeated after an ubuntu update. On Antix something goes wrong. I tried to make sense of the log file, but it's way above my head. Any suggestions?<br>
+<br>
+Here's both the console output and the log-file produced when starting vmplayer:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@dokux:/home/dd# vmplayer
+Logging to /tmp/vmware-root/vmware-modconfig-12653.log
+Stopping VMware services:
+   VMware Authentication Daemon                                        done
+   VM communication interface socket family                            done
+   Virtual machine communication interface                             done
+   Virtual machine monitor                                             done
+   Blocking file system                                                done
+make: Entering directory '/var/tmp/modconfig-e9J3pt/vmnet-only'
+Using 2.6.x kernel build system.
+/usr/bin/make -C /lib/modules/4.0.5-antix.1-486-smp/build/include/.. SUBDIRS=$PWD SRCROOT=$PWD/. \
+  MODULEBUILDDIR= modules
+make[1]: Entering directory '/usr/src/linux-headers-4.0.5-antix.1-486-smp'
+  CC [M]  /var/tmp/modconfig-e9J3pt/vmnet-only/driver.o
+  CC [M]  /var/tmp/modconfig-e9J3pt/vmnet-only/hub.o
+In file included from /var/tmp/modconfig-e9J3pt/vmnet-only/monitorAction_exported.h:31:0,
+                 from /var/tmp/modconfig-e9J3pt/vmnet-only/vnet.h:29,
+                 from /var/tmp/modconfig-e9J3pt/vmnet-only/vnetInt.h:24,
+                 from /var/tmp/modconfig-e9J3pt/vmnet-only/driver.c:51:
+/var/tmp/modconfig-e9J3pt/vmnet-only/vm_assert.h:259:0: warning:"DEPRECATED" redefined
+    #define DEPRECATED(_fix) do {} while (0)
+ ^
+In file included from include/linux/kernel.h:13:0,
+                 from /var/tmp/modconfig-e9J3pt/vmnet-only/driver.c:23:
+include/linux/printk.h:103:0: note: this is the location of the previous definition
+ #define DEPRECATED"[Deprecated]:"
+ ^
+/var/tmp/modconfig-e9J3pt/vmnet-only/driver.c: In function ‘VNetFileOpUnlockedIoctl’:
+/var/tmp/modconfig-e9J3pt/vmnet-only/driver.c:1239:20: error: ‘struct file’ has no member named ‘f_dentry’
+    if (filp &amp;&amp; filp-&gt;f_dentry) {
+                    ^
+/var/tmp/modconfig-e9J3pt/vmnet-only/driver.c:1240:19: error: ‘struct file’ has no member named ‘f_dentry’
+       inode = filp-&gt;f_dentry-&gt;d_inode;
+                   ^
+scripts/Makefile.build:258: recipe for target '/var/tmp/modconfig-e9J3pt/vmnet-only/driver.o' failed
+make[2]: *** [/var/tmp/modconfig-e9J3pt/vmnet-only/driver.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+In file included from /var/tmp/modconfig-e9J3pt/vmnet-only/monitorAction_exported.h:31:0,
+                 from /var/tmp/modconfig-e9J3pt/vmnet-only/vnet.h:29,
+                 from /var/tmp/modconfig-e9J3pt/vmnet-only/vnetInt.h:24,
+                 from /var/tmp/modconfig-e9J3pt/vmnet-only/hub.c:43:
+/var/tmp/modconfig-e9J3pt/vmnet-only/vm_assert.h:259:0: warning:"DEPRECATED" redefined
+    #define DEPRECATED(_fix) do {} while (0)
+ ^
+In file included from include/linux/kernel.h:13:0,
+                 from /var/tmp/modconfig-e9J3pt/vmnet-only/hub.c:23:
+include/linux/printk.h:103:0: note: this is the location of the previous definition
+ #define DEPRECATED"[Deprecated]:"
+ ^
+Makefile:1405: recipe for target '_module_/var/tmp/modconfig-e9J3pt/vmnet-only' failed
+make[1]: *** [_module_/var/tmp/modconfig-e9J3pt/vmnet-only] Error 2
+make[1]: Leaving directory '/usr/src/linux-headers-4.0.5-antix.1-486-smp'
+Makefile:130: recipe for target 'vmnet.ko' failed
+make: *** [vmnet.ko] Error 2
+make: Leaving directory '/var/tmp/modconfig-e9J3pt/vmnet-only'
+Failed to build vmnet.  Failed to execute the build command.
+Starting VMware services:
+   Virtual machine monitor                                             done
+   Virtual machine communication interface                             done
+   VM communication interface socket family                            done
+   Blocking file system                                                done
+   Virtual ethernet                                                   failed
+   VMware Authentication Daemon                                        done
+root@dokux:/home/dd# 
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: Log for VMware Workstation pid=12653 version=10.0.3 build=build-1895310 option=Release
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: The process is 32-bit.
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: Host codepage=UTF-8 encoding=UTF-8
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: Host is Linux 4.0.5-antix.1-486-smp antiX 15
+2015-07-26 &nbsp; 09:58:59.053+01:00| vthread-3| I120: Msg_Reset:
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: [msg.dictionary.load.openFailed] Cannot open file"/usr/lib/vmware/settings": No such file or directory.
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: ----------------------------------------
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: PREF Optional preferences file not found at /usr/lib/vmware/settings. Using default values.
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: Msg_Reset:
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: [msg.dictionary.load.openFailed] Cannot open file"/root/.vmware/config": No such file or directory.
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: ----------------------------------------
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: PREF Optional preferences file not found at /root/.vmware/config. Using default values.
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: PREF Unable to check permissions for preferences file.
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: Msg_Reset:
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: [msg.dictionary.load.openFailed] Cannot open file"/root/.vmware/preferences": No such file or directory.
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: ----------------------------------------
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| I120: PREF Failed to load user preferences.
+2015-07-26 &nbsp; 09:58:59.054+01:00| vthread-3| W110: Logging to /tmp/vmware-root/vmware-modconfig-12653.log
+2015-07-26 &nbsp; 09:58:59.104+01:00| vthread-3| I120: Obtaining info using the running kernel.
+2015-07-26 &nbsp; 09:58:59.104+01:00| vthread-3| I120: Created new pathsHash.
+2015-07-26 &nbsp; 09:58:59.104+01:00| vthread-3| I120: Setting header path for 4.0.5-antix.1-486-smp to"/lib/modules/4.0.5-antix.1-486-smp/build/include".
+2015-07-26 &nbsp; 09:58:59.104+01:00| vthread-3| I120: Validating path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for kernel release"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.104+01:00| vthread-3| I120: Failed to find /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h
+2015-07-26 &nbsp; 09:58:59.104+01:00| vthread-3| I120: /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h not found, looking for generated/uapi/linux/version.h instead.
+2015-07-26 &nbsp; 09:58:59.104+01:00| vthread-3| I120: using /usr/bin/gcc-4.9 for preprocess check
+2015-07-26 &nbsp; 09:58:59.110+01:00| vthread-3| I120: Preprocessed UTS_RELEASE, got value"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.110+01:00| vthread-3| I120: The header path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for the kernel"4.0.5-antix.1-486-smp" is valid.  Whoohoo!
+2015-07-26 &nbsp; 09:58:59.162+01:00| vthread-3| I120: Reading in info for the vmmon module.
+2015-07-26 &nbsp; 09:58:59.162+01:00| vthread-3| I120: Reading in info for the vmnet module.
+2015-07-26 &nbsp; 09:58:59.162+01:00| vthread-3| I120: Reading in info for the vmblock module.
+2015-07-26 &nbsp; 09:58:59.162+01:00| vthread-3| I120: Reading in info for the vmci module.
+2015-07-26 &nbsp; 09:58:59.162+01:00| vthread-3| I120: Reading in info for the vsock module.
+2015-07-26 &nbsp; 09:58:59.162+01:00| vthread-3| I120: Setting vsock to depend on vmci.
+2015-07-26 &nbsp; 09:58:59.162+01:00| vthread-3| I120: Invoking modinfo on"vmmon".
+2015-07-26 &nbsp; 09:58:59.163+01:00| vthread-3| I120:"/sbin/modinfo" exited with status 0.
+2015-07-26 &nbsp; 09:58:59.163+01:00| vthread-3| I120: Invoking modinfo on"vmnet".
+2015-07-26 &nbsp; 09:58:59.164+01:00| vthread-3| I120:"/sbin/modinfo" exited with status 256.
+2015-07-26 &nbsp; 09:58:59.164+01:00| vthread-3| I120: Invoking modinfo on"vmblock".
+2015-07-26 &nbsp; 09:58:59.165+01:00| vthread-3| I120:"/sbin/modinfo" exited with status 256.
+2015-07-26 &nbsp; 09:58:59.165+01:00| vthread-3| I120: Invoking modinfo on"vmci".
+2015-07-26 &nbsp; 09:58:59.166+01:00| vthread-3| I120:"/sbin/modinfo" exited with status 256.
+2015-07-26 &nbsp; 09:58:59.166+01:00| vthread-3| I120: Invoking modinfo on"vsock".
+2015-07-26 &nbsp; 09:58:59.167+01:00| vthread-3| I120:"/sbin/modinfo" exited with status 0.
+2015-07-26 &nbsp; 09:58:59.184+01:00| vthread-3| I120: to be installed: vmnet status: 0
+2015-07-26 &nbsp; 09:58:59.195+01:00| vthread-3| I120: Obtaining info using the running kernel.
+2015-07-26 &nbsp; 09:58:59.195+01:00| vthread-3| I120: Setting header path for 4.0.5-antix.1-486-smp to"/lib/modules/4.0.5-antix.1-486-smp/build/include".
+2015-07-26 &nbsp; 09:58:59.195+01:00| vthread-3| I120: Validating path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for kernel release"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.195+01:00| vthread-3| I120: Failed to find /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h
+2015-07-26 &nbsp; 09:58:59.195+01:00| vthread-3| I120: /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h not found, looking for generated/uapi/linux/version.h instead.
+2015-07-26 &nbsp; 09:58:59.195+01:00| vthread-3| I120: using /usr/bin/gcc-4.9 for preprocess check
+2015-07-26 &nbsp; 09:58:59.203+01:00| vthread-3| I120: Preprocessed UTS_RELEASE, got value"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.203+01:00| vthread-3| I120: The header path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for the kernel"4.0.5-antix.1-486-smp" is valid.  Whoohoo!
+2015-07-26 &nbsp; 09:58:59.254+01:00| vthread-3| I120: Kernel header path retrieved from FileEntry: /lib/modules/4.0.5-antix.1-486-smp/build/include
+2015-07-26 &nbsp; 09:58:59.254+01:00| vthread-3| I120: Update kernel header path to /lib/modules/4.0.5-antix.1-486-smp/build/include
+2015-07-26 &nbsp; 09:58:59.254+01:00| vthread-3| I120: Validating path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for kernel release"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.254+01:00| vthread-3| I120: Failed to find /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h
+2015-07-26 &nbsp; 09:58:59.254+01:00| vthread-3| I120: /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h not found, looking for generated/uapi/linux/version.h instead.
+2015-07-26 &nbsp; 09:58:59.254+01:00| vthread-3| I120: using /usr/bin/gcc-4.9 for preprocess check
+2015-07-26 &nbsp; 09:58:59.260+01:00| vthread-3| I120: Preprocessed UTS_RELEASE, got value"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.260+01:00| vthread-3| I120: The header path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for the kernel"4.0.5-antix.1-486-smp" is valid.  Whoohoo!
+2015-07-26 &nbsp; 09:58:59.261+01:00| vthread-3| I120: Found compiler at"/usr/bin/gcc"
+2015-07-26 &nbsp; 09:58:59.263+01:00| vthread-3| I120: Got gcc version"4.9.2".
+2015-07-26 &nbsp; 09:58:59.263+01:00| vthread-3| I120: The GCC version matches the kernel GCC minor version like a glove.
+2015-07-26 &nbsp; 09:58:59.263+01:00| vthread-3| I120: Using user supplied compiler"/usr/bin/gcc".
+2015-07-26 &nbsp; 09:58:59.265+01:00| vthread-3| I120: Got gcc version"4.9.2".
+2015-07-26 &nbsp; 09:58:59.265+01:00| vthread-3| I120: The GCC version matches the kernel GCC minor version like a glove.
+2015-07-26 &nbsp; 09:58:59.269+01:00| vthread-3| I120: Trying to find a suitable PBM set for kernel"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.269+01:00| vthread-3| I120: No matching PBM set was found for kernel"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.269+01:00| vthread-3| I120: The GCC version matches the kernel GCC minor version like a glove.
+2015-07-26 &nbsp; 09:58:59.269+01:00| vthread-3| I120: Validating path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for kernel release"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.269+01:00| vthread-3| I120: Failed to find /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h
+2015-07-26 &nbsp; 09:58:59.269+01:00| vthread-3| I120: /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h not found, looking for generated/uapi/linux/version.h instead.
+2015-07-26 &nbsp; 09:58:59.269+01:00| vthread-3| I120: using /usr/bin/gcc-4.9 for preprocess check
+2015-07-26 &nbsp; 09:58:59.275+01:00| vthread-3| I120: Preprocessed UTS_RELEASE, got value"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.275+01:00| vthread-3| I120: The header path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for the kernel"4.0.5-antix.1-486-smp" is valid.  Whoohoo!
+2015-07-26 &nbsp; 09:58:59.276+01:00| vthread-3| I120: The GCC version matches the kernel GCC minor version like a glove.
+2015-07-26 &nbsp; 09:58:59.276+01:00| vthread-3| I120: Validating path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for kernel release"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.276+01:00| vthread-3| I120: Failed to find /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h
+2015-07-26 &nbsp; 09:58:59.276+01:00| vthread-3| I120: /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h not found, looking for generated/uapi/linux/version.h instead.
+2015-07-26 &nbsp; 09:58:59.276+01:00| vthread-3| I120: using /usr/bin/gcc-4.9 for preprocess check
+2015-07-26 &nbsp; 09:58:59.282+01:00| vthread-3| I120: Preprocessed UTS_RELEASE, got value"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.282+01:00| vthread-3| I120: The header path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for the kernel"4.0.5-antix.1-486-smp" is valid.  Whoohoo!
+2015-07-26 &nbsp; 09:58:59.282+01:00| vthread-3| I120: Using temp dir"/tmp".
+2015-07-26 &nbsp; 09:58:59.283+01:00| vthread-3| I120: Obtaining info using the running kernel.
+2015-07-26 &nbsp; 09:58:59.283+01:00| vthread-3| I120: Setting header path for 4.0.5-antix.1-486-smp to"/lib/modules/4.0.5-antix.1-486-smp/build/include".
+2015-07-26 &nbsp; 09:58:59.283+01:00| vthread-3| I120: Validating path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for kernel release"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.283+01:00| vthread-3| I120: Failed to find /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h
+2015-07-26 &nbsp; 09:58:59.283+01:00| vthread-3| I120: /lib/modules/4.0.5-antix.1-486-smp/build/include/linux/version.h not found, looking for generated/uapi/linux/version.h instead.
+2015-07-26 &nbsp; 09:58:59.283+01:00| vthread-3| I120: using /usr/bin/gcc-4.9 for preprocess check
+2015-07-26 &nbsp; 09:58:59.290+01:00| vthread-3| I120: Preprocessed UTS_RELEASE, got value"4.0.5-antix.1-486-smp".
+2015-07-26 &nbsp; 09:58:59.290+01:00| vthread-3| I120: The header path"/lib/modules/4.0.5-antix.1-486-smp/build/include" for the kernel"4.0.5-antix.1-486-smp" is valid.  Whoohoo!
+2015-07-26 &nbsp; 09:58:59.342+01:00| vthread-3| I120: Invoking modinfo on"vmnet".
+2015-07-26 &nbsp; 09:58:59.344+01:00| vthread-3| I120:"/sbin/modinfo" exited with status 256.
+2015-07-26 &nbsp; 09:58:59.658+01:00| vthread-3| I120: Setting destination path for vmnet to"/lib/modules/4.0.5-antix.1-486-smp/misc/vmnet.ko".
+2015-07-26 &nbsp; 09:58:59.659+01:00| vthread-3| I120: Extracting the vmnet source from"/usr/lib/vmware/modules/source/vmnet.tar".
+2015-07-26 &nbsp; 09:58:59.664+01:00| vthread-3| I120: Successfully extracted the vmnet source.
+2015-07-26 &nbsp; 09:58:59.664+01:00| vthread-3| I120: Building module with command"/usr/bin/make -j2 -C /tmp/modconfig-e9J3pt/vmnet-only auto-build HEADER_DIR=/lib/modules/4.0.5-antix.1-486-smp/build/include CC=/usr/bin/gcc IS_GCC_3=no"
+2015-07-26 &nbsp; 09:59:01.160+01:00| vthread-3| W110: Failed to build vmnet.  Failed to execute the build command.
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42207" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42207">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+ </div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42207">
+
+<time datetime="2015-07-28T08:36">posted: 2015-07-28 &nbsp; 08:36</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42207" title="permalink">#2</a></span>
+
+<div class="content">SOLVED. I had to google around, and it took me some time, but I got it fixed.<br>
+<br>
+I now have VMware-player 6.0.6 (32 bits version) running under Antix15 (32 bits). The installer was downloaded from the VMware website 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/6_0%7CPLAYER-606%7Cproduct_downloads"<br>linktext was:"https://my.vmware.com/web/vmware/free#d ... _downloads"<br>====================================<br>
+ (choose the appropriate major and minor version in the two dropdownlists).<br>
+<br>
+95% of the solution can be found in the Arch Wiki vor VMware, section Configuration, subsection VMware module patches and installation:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/VMware"<br>linktext was:"https://wiki.archlinux.org/index.php/VMware"<br>====================================<br>
+.<br>
+<br>
+To make it work, however, you need an extra step, as explained in 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://rglinuxtech.com/?p=1184"<br>linktext was:"http://rglinuxtech.com/?p=1184"<br>====================================<br>
+:<br>
+<br>
+after issuing the patch command and before recreating the patched archive with tar, descend into the folder /usr/lib/vmware/modules/source/vmnet-only and edit the file netif.c. Change line 152<br>
+dev = alloc_netdev(sizeof *netIf, deviceName, VNetNetIfSetup);<br>
+to <br>
+dev = alloc_netdev(sizeof *netIf, deviceName, NET_NAME_UNKNOWN, VNetNetIfSetup);<br>
+<br>
+then follow the rest of the instructions in the Arch Wiki. Test by issuing the command vmplayer from the console.<br>
+<br>
+This is the console output that I got by following the above procedure. The only thing you can't see is the edit-session (with leafpad) of the netif.c file.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@dokux:/home/dd# curl http://pastie.org/pastes/9934018/download -o /tmp/vmnet-3.19.patch
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1596  100  1596    0     0   1410      0  0:00:01  0:00:01 --:--:--  1409
+root@dokux:/home/dd# cd /usr/lib/vmware/modules/source
+root@dokux:/usr/lib/vmware/modules/source# tar -xf vmnet.tar
+root@dokux:/usr/lib/vmware/modules/source# patch -p0 -i /tmp/vmnet-3.19.patch
+patching file vmnet-only/driver.c
+patching file vmnet-only/userif.c
+root@dokux:/usr/lib/vmware/modules/source# ls
+vmblock.tar  vmci.tar  vmmon.tar  vmnet-only  vmnet.tar  vsock.tar
+root@dokux:/usr/lib/vmware/modules/source# cd vmnet-only
+root@dokux:/usr/lib/vmware/modules/source/vmnet-only# ls
+bridge.c        monitorAction_exported.h  vm_basic_defs.h
+community_source.h  netdev_has_dev_net.c      vm_basic_types.h
+compat_autoconf.h   netdev_has_net.c          vm_device_version.h
+compat_module.h     net.h              vmnetInt.h
+compat_netdevice.h  netif.c              vm_oui.h
+compat_skbuff.h     nfhook_uses_skb.c          vmware_pack_begin.h
+compat_sock.h        procfs.c              vmware_pack_end.h
+compat_version.h    skblin.c              vmware_pack_init.h
+COPYING            smac.c              vnetEvent.c
+driver.c        smac_compat.c          vnetEvent.h
+driver-config.h     smac_compat.h          vnetFilter.h
+filter.c        smac.h              vnetFilterInt.h
+geninclude.c        userif.c              vnet.h
+hub.c            vm_assert.h              vnetInt.h
+includeCheck.h        vm_atomic.h              vnetKernel.h
+Makefile        vm_basic_asm.h          vnetUserListener.c
+Makefile.kernel     vm_basic_asm_x86_64.h     x86cpuid.h
+Makefile.normal     vm_basic_asm_x86.h
+root@dokux:/usr/lib/vmware/modules/source/vmnet-only# leafpad netif.c
+Gtk-Message: (for origin information, set GTK_DEBUG): failed to retrieve property `GtkRange::activate-slider' of type `gboolean' from rc file value"((GString*) 0xb7b610c0)" of type `GString'
+root@dokux:/usr/lib/vmware/modules/source/vmnet-only# cd ..
+root@dokux:/usr/lib/vmware/modules/source# tar -cf vmnet.tar vmnet-only
+root@dokux:/usr/lib/vmware/modules/source# rm -r *-only
+root@dokux:/usr/lib/vmware/modules/source# vmware-modconfig --console --install-all
+Stopping VMware services:
+   VMware Authentication Daemon                                        done
+   VM communication interface socket family                            done
+   Virtual machine communication interface                             done
+   Virtual machine monitor                                             done
+   Blocking file system                                                done
+make: Entering directory '/var/tmp/modconfig-1XM1tp/vmmon-only'
+Using 2.6.x kernel build system.
+/usr/bin/make -C /lib/modules/4.0.5-antix.1-486-smp/build/include/.. SUBDIRS=$PWD SRCROOT=$PWD/. \
+  MODULEBUILDDIR= modules
+make[1]: Entering directory '/usr/src/linux-headers-4.0.5-antix.1-486-smp'
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/linux/driver.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/linux/hostif.o
+/var/tmp/modconfig-1XM1tp/vmmon-only/linux/driver.c:1342:1: warning: always_inline function might not be inlinable [-Wattributes]
+ LinuxDriverSyncReadTSCs(uint64 *delta) // OUT: TSC max - TSC min
+ ^
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/linux/driverLog.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/common/memtrack.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/common/apic.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/common/vmx86.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/common/cpuid.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/common/task.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/common/hashFunc.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/common/comport.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/common/phystrack.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/vmcore/moduleloop.o
+  LD [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/vmmon.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /var/tmp/modconfig-1XM1tp/vmmon-only/vmmon.mod.o
+  LD [M]  /var/tmp/modconfig-1XM1tp/vmmon-only/vmmon.ko
+make[1]: Leaving directory '/usr/src/linux-headers-4.0.5-antix.1-486-smp'
+/usr/bin/make -C $PWD SRCROOT=$PWD/. \
+  MODULEBUILDDIR= postbuild
+make[1]: Entering directory '/var/tmp/modconfig-1XM1tp/vmmon-only'
+make[1]: 'postbuild' is up to date.
+make[1]: Leaving directory '/var/tmp/modconfig-1XM1tp/vmmon-only'
+cp -f vmmon.ko ./../vmmon.o
+make: Leaving directory '/var/tmp/modconfig-1XM1tp/vmmon-only'
+make: Entering directory '/var/tmp/modconfig-1XM1tp/vmnet-only'
+Using 2.6.x kernel build system.
+/usr/bin/make -C /lib/modules/4.0.5-antix.1-486-smp/build/include/.. SUBDIRS=$PWD SRCROOT=$PWD/. \
+  MODULEBUILDDIR= modules
+make[1]: Entering directory '/usr/src/linux-headers-4.0.5-antix.1-486-smp'
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/driver.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/hub.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/userif.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/netif.o
+In file included from include/linux/pci.h:35:0,
+                 from /var/tmp/modconfig-1XM1tp/vmnet-only/compat_netdevice.h:27,
+                 from /var/tmp/modconfig-1XM1tp/vmnet-only/netif.c:43:
+include/linux/pci_ids.h:2251:0: warning:"PCI_VENDOR_ID_VMWARE" redefined
+ #define PCI_VENDOR_ID_VMWARE  0x15ad
+ ^
+In file included from /var/tmp/modconfig-1XM1tp/vmnet-only/net.h:38:0,
+                 from /var/tmp/modconfig-1XM1tp/vmnet-only/vnetInt.h:26,
+                 from /var/tmp/modconfig-1XM1tp/vmnet-only/netif.c:42:
+/var/tmp/modconfig-1XM1tp/vmnet-only/vm_device_version.h:56:0: note: this is the location of the previous definition
+ #define PCI_VENDOR_ID_VMWARE                    0x15AD
+ ^
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/bridge.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/procfs.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/smac_compat.o
+In file included from /var/tmp/modconfig-1XM1tp/vmnet-only/net.h:38:0,
+                 from /var/tmp/modconfig-1XM1tp/vmnet-only/vnetInt.h:26,
+                 from /var/tmp/modconfig-1XM1tp/vmnet-only/bridge.c:52:
+/var/tmp/modconfig-1XM1tp/vmnet-only/vm_device_version.h:56:0: warning:"PCI_VENDOR_ID_VMWARE" redefined
+ #define PCI_VENDOR_ID_VMWARE                    0x15AD
+ ^
+In file included from include/linux/pci.h:35:0,
+                 from /var/tmp/modconfig-1XM1tp/vmnet-only/compat_netdevice.h:27,
+                 from /var/tmp/modconfig-1XM1tp/vmnet-only/bridge.c:51:
+include/linux/pci_ids.h:2251:0: note: this is the location of the previous definition
+ #define PCI_VENDOR_ID_VMWARE  0x15ad
+ ^
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/smac.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/vnetEvent.o
+  CC [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/vnetUserListener.o
+  LD [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/vmnet.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /var/tmp/modconfig-1XM1tp/vmnet-only/vmnet.mod.o
+  LD [M]  /var/tmp/modconfig-1XM1tp/vmnet-only/vmnet.ko
+make[1]: Leaving directory '/usr/src/linux-headers-4.0.5-antix.1-486-smp'
+/usr/bin/make -C $PWD SRCROOT=$PWD/. \
+  MODULEBUILDDIR= postbuild
+make[1]: Entering directory '/var/tmp/modconfig-1XM1tp/vmnet-only'
+make[1]: 'postbuild' is up to date.
+make[1]: Leaving directory '/var/tmp/modconfig-1XM1tp/vmnet-only'
+cp -f vmnet.ko ./../vmnet.o
+make: Leaving directory '/var/tmp/modconfig-1XM1tp/vmnet-only'
+Starting VMware services:
+   Virtual machine monitor                                             done
+   Virtual machine communication interface                             done
+   VM communication interface socket family                            done
+   Blocking file system                                                done
+   Virtual ethernet                                                    done
+   VMware Authentication Daemon                                        done
+   Shared Memory Available                                             done
+root@dokux:/usr/lib/vmware/modules/source# vmplayer
+Logging to /tmp/vmware-root/vmware-modconfig-9773.log
+root@dokux:/usr/lib/vmware/modules/source# 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42210" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42210">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42210">
+
+<time datetime="2015-07-28T12:13">posted: 2015-07-28 &nbsp; 12:13</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42210" title="permalink">#3</a></span>
+
+<div class="content">Great!, and thanks for posting the solution!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42242" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42242">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42242">
+
+<time datetime="2015-07-29T19:23">posted: 2015-07-29 &nbsp; 19:23</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42242" title="permalink">#4</a></span>
+
+<div class="content">It seems there is a (small?) problem still. I can run old VM's and create and run new ones, but only in one session. After reboot, I can still start VMplayer, but trying to run a VM results in an error message:<br>
+<br>
+Could not open /dev/vmmon: No such file or directory.<br>
+Please make sure that the kernel module `vmmon' is loaded.<br>
+<br>
+I can then recover by opening a terminal window and issuing the command<br>
+<br>
+sudo vmware-modconfig --console --install-all<br>
+<br>
+which rebuilds VMplayer and starts 7 services. From then on, operating VMplayer seems normal, until the next reboot.<br>
+<br>
+It occurred to me that maybe I could fix things in Antix CC/Choose Startup Services, but found that part of the CC broken. I'm starting a new thread about that, since I don't know if there's a connection with my flawed VMplayer installation.</div>
+<div class="notice">
+Last edited by <b>dirkd</b> on 29 Jul 2015, 21:48, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42246" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42246">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42246">
+
+<time datetime="2015-07-29T20:14">posted: 2015-07-29 &nbsp; 20:14</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42246" title="permalink">#5</a></span>
+
+<div class="content">try issuing a"depmod" in a root terminal after you have a working vmware.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42250" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42250">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42250">
+
+<time datetime="2015-07-29T20:39">posted: 2015-07-29 &nbsp; 20:39</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42250" title="permalink">#6</a></span>
+
+<div class="content">If I issue the command sudo / etc/init.d/vmware start, all vmware services start, and vmplayer runs normally:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dd@dokux:~
+$ sudo / etc/init.d/vmware start
+Starting VMware services:
+   Virtual machine monitor                                             done
+   Virtual machine communication interface                             done
+   VM communication interface socket family                            done
+   Blocking file system                                                done
+   Virtual ethernet                                                    done
+   VMware Authentication Daemon                                        done
+   Shared Memory Available                                             done
+dd@dokux:~
+$ depmod
+bash: depmod: command not found
+dd@dokux:~
+</code></pre></div>
+So it's just a a matter of getting this command to run at startup. Since it's a sudo command, I can't just put it in the init section of fluxbox, or can I?<br>
+<br>
+I tried depmod in a root terminal too. It just returned without any output whatsoever.<br>
+<br>
+I also started sysv-rc-conf but I don't dare to make changes in it. It seems all vmware services are started in runlevels 2 through 5. Maybe it's just a matter of wrong permissions on one file or another. I noticed the .vmware configuration file in my home directory was owned by root exclusively. I had to correct that too.<br>
+<br>
+</div>
+<div class="notice">
+Last edited by <b>dirkd</b> on 29 Jul 2015, 21:49, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42253" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42253">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 2,238</dd>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42253">
+
+<time datetime="2015-07-29T20:57">posted: 2015-07-29 &nbsp; 20:57</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42253" title="permalink">#7</a></span>
+
+<div class="content">I think its just not set up correctly for the current way debian handles init scripts. Since you used an older vmware, its probably set up to use the older method. try running this<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo update-rc.d vmware defaults
+</code></pre></div>
+and reboot, and see if that works.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42254" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42254">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42254">
+
+<time datetime="2015-07-29T21:13">posted: 2015-07-29 &nbsp; 21:13</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42254" title="permalink">#8</a></span>
+
+<div class="content">Alas, it didn't... <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Any simple way to add this sudo command at start-up? (Without asking for a password, preferably)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42255" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42255">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42255">
+
+<time datetime="2015-07-29T21:17">posted: 2015-07-29 &nbsp; 21:17</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42255" title="permalink">#9</a></span>
+
+<div class="content">try putting:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/ etc/init.d/vmware start
+</code></pre></div>
+in / etc/rc.local . rc.local is a script that runs just before user login.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42256" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42256">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42256">
+
+<time datetime="2015-07-29T21:39">posted: 2015-07-29 &nbsp; 21:39</time>
+<span class="permalink"><a href="./vmware-player-6-can-t-compile-kernel-modules-t5807.html#p42256" title="permalink">#10</a></span>
+
+<div class="content">Haha! That worked like a charm! You guys are <span class="emoticon"> __{{emoticon}}__ </span> geniuses <span class="emoticon"> __{{emoticon}}__ </span> ! Thank you, thank you...<br>
+<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Making Live USB w/ persistence from antixsnapshot remaster - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./making-live-usb-w-persistence-from-antixsnapshot-r-t3746.html">Making Live USB w/ persistence from antixsnapshot remaster</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_25070" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25070">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25070">
+<time datetime="2012-06-13T23:39">posted: 2012-06-13 &nbsp; 23:39</time>
+<span class="permalink"><a href="./making-live-usb-w-persistence-from-antixsnapshot-r-t3746.html#p25070" title="permalink">#1</a></span>
+
+<div class="content">How to make a live USB with persistence from a antixsnapshot remaster:<br>
+<br>
+You need to install live-init for your version before remastering.<br>
+Create the Live USB using the new_usb.sh script.<br>
+<br>
+After remastering, and creating your new USB, booting live usb without persistence should work ok. You will have to create a menu.lst first though before booting the USB and place it inside the /boot/grub/ directory on the USB. Contents as follows:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>default 0
+timeout 10
+color cyan/blue white/blue
+foreground ffffff
+background 003f7d
+gfxmenu /boot/grub/message
+
+## ISO boot
+title antiX (LiveUSB)
+kernel /antiX/vmlinuz quiet lean noxorg vga=791 
+initrd /antiX/initrd.gz
+
+## ISO boot
+title antiX (Home Persistence)
+kernel /antiX/vmlinuz quiet lean noxorg vga=791 persist=home
+initrd /antiX/initrd.gz
+
+## ISO boot
+title antiX (Root Persistence)
+kernel /antiX/vmlinuz quiet lean noxorg vga=791 persist
+initrd /antiX/initrd.gz
+
+title antiX-memtest (test system memory)
+kernel /boot/memtest</code></pre></div>
+Now, make the persist files rootfs and homefs. Make your homefs large enough to hold the entire contents of your home directory or the process will fail.<br>
+Reboot using persist option and also init 3 (add 3 to boot line) otherwise you can't login as the<br>
+home/username folder hasn't yet been created. Login as root with your root password. Open Midnight Commander(mc), copying the correct user folder from /live/aufs/home/ to /home/ and then make the correct ownership changes from root, root to username, users.<br>
+<br>
+Then you should be able to login and changes will stick on subsequent reboot with persist.<br>
+<br>
+This information is from a PM that anti sent me.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25250" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25250">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25250">
+
+<time datetime="2012-07-02T21:30">posted: 2012-07-02 &nbsp; 21:30</time>
+<span class="permalink"><a href="./making-live-usb-w-persistence-from-antixsnapshot-r-t3746.html#p25250" title="permalink">#2</a></span>
+
+<div class="content">This may seem a clumsy way to get live persistence running from a snapshot remaster of an installed system, but it does work even though we hadn't planned on using persistence for snapshot isos.<br>
+At some point in the future, we'll get the process automated. The steps would be something like this.<br>
+<br>
+1. antixsnapshot app (gui/cli) asks if user wants to include persistence to the iso.<br>
+2. If yes, install live-init for the correct version ie full/base/core.<br>
+3. Proceed with antixsnapshot.<br>
+4. On first boot with the new snapshot iso (or in its frugal mode), boot normally without persist cheat.<br>
+5. Set up persistence for root/home.<br>
+6. Reboot<br>
+7. If persist option is chosen, run a script that copies the user folder in /live/aufs/home to the new /home/ directory and sets the correct permissions.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

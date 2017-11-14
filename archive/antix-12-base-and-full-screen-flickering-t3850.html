@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-12-Base and Full Screen Flickering - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-12-base-and-full-screen-flickering-t3850.html">antiX-12-Base and Full Screen Flickering</a></div>
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_25798" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25798">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25798">
+<time datetime="2012-08-14T19:01">posted: 2012-08-14 &nbsp; 19:01</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25798" title="permalink">#1</a></span>
+
+<div class="content">I thought I had resolved this by changing the boot codes but sadly this is not the case.<br>
+<br>
+After login the screen flickers for 1-2 seconds then stabilizes. This process also flashes on and off the Conky display and ends with it not being shown. I have found that by manually switching Conky off then back on it displays OK thereafter.<br>
+<br>
+The condition is seen in the only two WMs I use, IceWM and JWM.<br>
+<br>
+An identical machine has been running antiX-M11-Full for about a year without seeing the problem. Both the 11 &amp; 12 systems are based on the Testing repo, however the 11 machine uses a Liqorix kernel, the 12 uses the antiX kernel. <br>
+<br>
+I have tried using the boot codes which work on the 11-Full system (ro noxorg vga=788) on the 12 system without success. None of the of the other boot screen options seem to stop the flickering. I have also tried commenting out various entries in the startup file for each WM but again the symptoms persist.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25801" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25801">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25801">
+
+<time datetime="2012-08-14T19:58">posted: 2012-08-14 &nbsp; 19:58</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25801" title="permalink">#2</a></span>
+
+<div class="content">I think I solved this by editing the .conkyrc file by removing
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${color}Desktop: ${color}${exec cat ~/.wallpaper/session}
+</code></pre></div>
+or changing it to<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${color}Desktop: ${color}$Rox-jwm
+</code></pre></div>
+The second does not 'auto-detect' if you switch windows manager though.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25807" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25807">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25807">
+
+<time datetime="2012-08-15T08:16">posted: 2012-08-15 &nbsp; 08:16</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25807" title="permalink">#3</a></span>
+
+<div class="content">It seem that there are at least two issues happening here. The following was done with a reboot after each change to the configuration.<br>
+<br>
+Commented out entries in ~/.jwm/startup<br>
+/usr/bin/login_background.sh &amp;<br>
+/usr/local/bin/auto-jwm-menu.sh &amp;<br>
+(sleep 5 &amp;&amp; toram-eject) &amp;<br>
+(sleep 5 &amp;&amp; sudo persist-config --startup) &amp;<br>
+sleep 3 &amp;&amp; conky &amp;<br>
+<br>
+Result<br>
+No screen flicker<br>
+Conky desktop window not displayed<br>
+<br>
+<br>
+<br>
+Uncommented<br>
+(sleep 5 &amp;&amp; toram-eject) &amp;<br>
+(sleep 5 &amp;&amp; sudo persist-config --startup) &amp;<br>
+sleep 3 &amp;&amp; conky &amp;<br>
+<br>
+Result<br>
+No screen flicker<br>
+Conky desktop window displays as a featureless black rectangle<br>
+<br>
+<br>
+<br>
+In the above condition tried both the suggested amendments to .conkyrc<br>
+<br>
+Result<br>
+No screen flicker<br>
+Conky desktop window displays as a featureless black rectangle<br>
+<br>
+<br>
+<br>
+Uncommented<br>
+(sleep 5 &amp;&amp; toram-eject) &amp;<br>
+(sleep 5 &amp;&amp; sudo persist-config --startup) &amp;<br>
+sleep 3 &amp;&amp; conky &amp;<br>
+/usr/local/bin/auto-jwm-menu.sh &amp;<br>
+<br>
+Result<br>
+A single screen flash<br>
+Conky desktop window displays as a featureless black rectangle<br>
+<br>
+I assume this flash is the screen-refresh resulting from auto-jwm-menu.sh restarting JWM. If correct this flash is probably unavoidable.<br>
+<br>
+<br>
+<br>
+Uncommented<br>
+(sleep 5 &amp;&amp; toram-eject) &amp;<br>
+(sleep 5 &amp;&amp; sudo persist-config --startup) &amp;<br>
+sleep 3 &amp;&amp; conky &amp;<br>
+/usr/local/bin/login_background.sh &amp;<br>
+<br>
+Commented<br>
+/usr/local/bin/auto-jwm-menu.sh &amp;<br>
+<br>
+Result<br>
+A double screen flash<br>
+Conky desktop window displays initially correctly then disappears after the second flash<br>
+<br>
+Examining /usr/local/bin/login-background.sh (rox-jwm section)<br>
+It seems this is using the value assigned to $wallpaper_type to set the background. On this system, the distro installation default has not been changed i.e. it displays refreshing.jpg.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>echo $wallpaper_type
+
+</code></pre></div>i.e. the variable is empty. Is it expecting to find a default value of"static" and ultimately use the default refreshing.jpg? Does this account for the double flash?</div>
+<div class="notice">
+Last edited by <b>SamK</b> on 21 Aug 2012, 13:26, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25890" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25890">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25890">
+
+<time datetime="2012-08-21T13:22">posted: 2012-08-21 &nbsp; 13:22</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25890" title="permalink">#4</a></span>
+
+<div class="content">I have had an opportunity to return to this and investigate it further.<br>
+<br>
+Correction to previous post<br>
+The last test in the preceding post referred to a file at an incorrect location:
+<blockquote class="uncited"><div>Examining /usr/local/bin/auto-jwm-menu.sh (rox-jwm section)</div></blockquote>
+Corrected to:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/usr/local/bin/login-background.sh</code></pre></div>
+The last test is false and therefore the result is invalid. The variable vaules are used within the script but no longer exist (as tested) after login-background.sh has ended.<br>
+<br>
+As far as I can tell, the combination of JWM and the scripts used in ~/.jwm/startup inevitably produce some screen flickering. This is however is limited to 1-2 seconds at boot up. In my view this is both minor and acceptable when compared to the gain of partnering antiX-12 with JWM.<br>
+<br>
+On the upside, a fix for the Conky issue mentioned in the opening post can be found here:<br>
+a-fix-for-disappearing-conky-within-jwm-t3870.html</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25894" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25894">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25894">
+
+<time datetime="2012-08-21T15:21">posted: 2012-08-21 &nbsp; 15:21</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25894" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>
+<br>
+Uncommented<br>
+(sleep 5 &amp;&amp; toram-eject) &amp;<br>
+(sleep 5 &amp;&amp; sudo persist-config --startup) &amp;<br>
+sleep 3 &amp;&amp; conky &amp;<br>
+/usr/local/bin/auto-jwm-menu.sh &amp;<br>
+<br>
+Result<br>
+A single screen flash<br>
+Conky desktop window displays as a featureless black rectangle<br>
+<br>
+I assume this flash is the screen-refresh resulting from auto-jwm-menu.sh restarting JWM. If correct this flash is probably unavoidable.
+</div></blockquote>
+Yes the JWM restarting is causing the flash, and yes it is unavoidable. If you wish to have no flash, then you will need to comment out the restart of JWM in the auto-jwm-menu.sh, however then you will not see the contents of the updated menu till the next time you use JWM. You can also keep this removed from startup, however you must remember to run the script after you install a new application or make a new .desktop file.<br>
+<br>
+<blockquote><div><cite>SamK wrote:</cite>
+Uncommented<br>
+(sleep 5 &amp;&amp; toram-eject) &amp;<br>
+(sleep 5 &amp;&amp; sudo persist-config --startup) &amp;<br>
+sleep 3 &amp;&amp; conky &amp;<br>
+/usr/local/bin/login_background.sh &amp;<br>
+<br>
+Commented<br>
+/usr/local/bin/auto-jwm-menu.sh &amp;<br>
+<br>
+Result<br>
+A double screen flash<br>
+Conky desktop window displays initially correctly then disappears after the second flash
+</div></blockquote>
+Are you using rox-jwm? <br>
+A single flash should be from the wallpaper setting in the background (ie: JWM without rox) the seccond flash should be the wallpaper setting in the foreground (ie: rox). However this can change on some slow machines, because the wallpaper may be set only once but there will be 2 flashes, first flash is when the wallpaper is set, and then the seccond flash when X is refreshed.<br>
+<br>
+The way that the current version of wallpaper.py / login_background.sh/etc... set the wallpaper mean that the flash is also unavoidable, however in the new version of wallpaper.py / login-background.sh it is minimized<br>
+<br>
+Hope this helps <span class="emoticon"> __{{emoticon}}__ </span><br>
+Dave</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25897" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25897">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25897">
+
+<ul class="post-buttons">
+ </ul>
+<time datetime="2012-08-21T18:05">posted: 2012-08-21 &nbsp; 18:05</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25897" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Are you using rox-jwm?</div></blockquote>Yes.<br>
+<br>
+I haven't investigated it but suspect the way in which the WM and/or background is handled at start-up has changed between antiX-M11 and antiX-12. If this is correct I suspect it is accountable for the flickering.<br>
+<br>
+I still have JWM installed in an identical antiX-M11 system from the time when I was working on the file structure for JWM in preparation for it's inclusion in antiX-12. This starts without any flashes or flickering of any kind. The smooth start of 11 compared to the stuttering start of 12 surpirsed me when I first encountered it which motivated me to open this thread.<br>
+<blockquote><div><cite>Dave wrote:</cite>
+...in the new version of wallpaper.py / login-background.sh it is minimized</div></blockquote>Does this imply that it will not be eliminated entirely and operate as well as in antiX-M11?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25898" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25898">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">Dave</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25898">
+
+<time datetime="2012-08-21T19:20">posted: 2012-08-21 &nbsp; 19:20</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25898" title="permalink">#7</a></span>
+
+<div class="content">sorry my last part of the post does seem to imply that.<br>
+<br>
+For the wallpaper scripts the flash should / will be eliminated. Overall ( the whole startup )the flash will still be there, unless you comment out the automatic menu building as said before. Therfore with the default settings the flash is minimized <br>
+<br>
+since your m11 does not flicker does it have the automatif menu building on startup as 12 does</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25901" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25901">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25901">
+
+<time datetime="2012-08-22T06:28">posted: 2012-08-22 &nbsp; 06:28</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25901" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>since your m11 does not flicker does it have the automatif menu building on startup as 12 does</div></blockquote>Yes, although (of course) the building does not include JWM as this was added in antiX-12. This is the reason for my comment in an earlier post in this thread:
+<blockquote><div><cite>SamK wrote:</cite>I assume this flash is the screen-refresh resulting from auto-jwm-menu.sh restarting JWM. If correct this flash is probably unavoidable.</div></blockquote>I don't know of a way around this one.<br>
+<br>
+If the revised wallpaper scripts do eliminate the flashes related to them, it will be a worthwhile and welcome improvement. When are they likely to be available? Will they be obtained via apt-get upgrade?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25910" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25910">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25910">
+
+<time datetime="2012-08-22T13:20">posted: 2012-08-22 &nbsp; 13:20</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p25910" title="permalink">#9</a></span>
+
+<div class="content">yes they should be available through apt-get, and hopefully i will be done the final rewrite for the next version by the end of the week</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26194" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26194">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26194">
+
+<time datetime="2012-09-14T15:05">posted: 2012-09-14 &nbsp; 15:05</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p26194" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>...the new version of wallpaper.py / login-background.sh it is minimized
+</div></blockquote>Has this new version been released yet? I am wondering as the flashing still occurs at boot-up on a recently created system on which all antiX updates have been applied.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26198" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26198">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26198">
+
+<time datetime="2012-09-14T17:13">posted: 2012-09-14 &nbsp; 17:13</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p26198" title="permalink">#11</a></span>
+
+<div class="content">not officially, thus it is not in the repos. I can give you the current copy and the system changes needed if you would like. It will require a good chunk of manual instalation / editing text files but it is fully functional. however there is still a single flash if running rox pinboard as the pinboard refreshes / restarts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26199" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26199">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26199">
+
+<time datetime="2012-09-14T17:46">posted: 2012-09-14 &nbsp; 17:46</time>
+<span class="permalink"><a href="./antix-12-base-and-full-screen-flickering-t3850.html#p26199" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>not officially, thus it is not in the repos. I can give you the current copy and the system changes needed if you would like. It will require a good chunk of manual instalation / editing text files but it is fully functional.</div></blockquote>Thanks for the offer but I am happy to wait for the fix to become official. Generally, I prefer to stick close to the official distro wherever possible as this route requires less support/maintenance and rememebering.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

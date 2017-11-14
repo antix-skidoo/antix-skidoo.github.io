@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>LiveCD persistence in antiX-13 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./livecd-persistence-in-antix-13-t4392.html">LiveCD persistence in antiX-13</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_29572" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29572">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29572">
+<time datetime="2013-06-09T07:01">posted: 2013-06-09 &nbsp; 07:01</time>
+<span class="permalink"><a href="./livecd-persistence-in-antix-13-t4392.html#p29572" title="permalink">#1</a></span>
+
+<div class="content"><strong>TL;DR:</strong> Label one of your partitions"antiX-Persist" and then use persist-makefs to create persistence files on that partition.<br>
+<br>
+The LiveCD has persistence boot options in the main bootloader menu but it is not obvious how to use them. Normally (and with past antiX releases) you would have to specify a read-write persistence partition by typing in one of these boot options:<br>
+<ul><li>persistdev=</li>
+<li>persistlabel=</li>
+<li>persistuuid=</li></ul>
+You would then make an /antiX directory on that partition and create rootfs and/or homefs files in that directory. The persist-makefs program will make that directory and create the files for you.<br>
+<br>
+On the antiX-13 LiveCD, if we detect you are running from a LiveCD and if you have selected one of the persistence options but no persistence device was specified then we will assume <strong>persistlabel=antiX-Persist</strong>. This means, you just have to label a read-write partition"antiX-Persist" (for example with the gparted program) then run persist-makefs and choose that partition and then go ahead and use it to make a rootfs and/or homefs file. The next time you boot the antiX-13 LiveCD on that system, choose one of the persistence options from the main bootloader menu and it should just work.<br>
+<br>
+I used this feature a lot when I was testing inside of VirtualBox. My tests usually involved making a new iso file and I would boot from that file in VirtualBox (btw VirtualBox obeys symlinks so I just have one generic"test-antiX.iso" symlink that I point to whatever iso I'm currently using). Inside of VirtualBox I set up a partition with the label"antiX-Persist" and ran persist-makefs to create the rootfs and homefs files on that partition.<br>
+<br>
+Yes, this should be further automated but for non-beginners this should be very easy. Run gparted to simply label one of your paritions"antiX-Persist" and then run persist-makefs to create rootfs and/or homefs files on that partition.<br>
+<br>
+<strong>PS:</strong>If you are booting from a LiveCD, we will first look at usb devices for the /antiX/linuxfs file (which contains the squashfs filesystem). This means that if you create an antiX LiveUSB and it is plugged in when you boot from an antiX LiveCD we will try to do the rest of the boot from the LiveUSB. If we do find a valid /antiX/linuxfs file on a usb partition then we will look in that same directory for the rootfs and/or homefs persistence files (if you selected persistence in the bootloader menu). This might be useful on older hardware that doesn't let you boot directly from a usb device.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

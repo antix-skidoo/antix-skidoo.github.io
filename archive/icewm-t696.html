@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>icewm - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./icewm-t696.html">icewm</a></div>
+<div class="pagination">
+125 posts
+<ul>
+
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./icewm-t696-s15.html" role="button">2</a></li>
+<li><a class="button" href="./icewm-t696-s30.html" role="button">3</a></li>
+<li><a class="button" href="./icewm-t696-s45.html" role="button">4</a></li>
+<li><a class="button" href="./icewm-t696-s60.html" role="button">5</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./icewm-t696-s120.html" role="button">9</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./icewm-t696-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_3815" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3815">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">OU812</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3815">
+<time datetime="2008-05-12T16:07">posted: 2008-05-12 &nbsp; 16:07</time>
+<span class="permalink"><a href="./icewm-t696.html#p3815" title="permalink">#1</a></span>
+
+<div class="content">Hello. I know there is a wiki being developed and I have also offered to help anti customize the icewm part of antix, so I see this as a way to get my ideas out there for everyone to share in. Here's what I have so far:<br>
+<br>
+1. There are 3 missing config files. Copy them from /usr/share/icewm to ~/.icewm as user:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cp /usr/share/icewm/keys ~/.icewm
+cp /usr/share/icewm/preferences ~/.icewm
+cp /usr/share/icewm/winoptions ~/.icewm</code></pre></div>
+2. To make icewm a little more usable, I suggest editing ~/.icewm/preferences as follows:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>leafpad ~/.icewm/preferences</code></pre></div>
+MenuMouseTracking=1<br>
+TaskBarShowCollapseButton=1<br>
+<br>
+ClockCommand="osmo"<br>
+RunCommand="fbrun"<br>
+ShutdownCommand="sudo halt"<br>
+RebootCommand="sudo reboot"<br>
+MailCommand="claws-mail"<br>
+CPUStatusCommand="wterm -tr +sb -fg white -T"Htop" -e htop"<br>
+NetStatusCommand="/opt/wicd/gui.py"<br>
+<br>
+Just find the lines, uncomment them, and edit as suggested.<br>
+<br>
+3. If you would like to add themes, create the folder ~/.icewm/themes and extract the tarballs to that directory.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir ~/.icewm/themes</code></pre></div>
+Most themes have an icon for xterm, but not for wterm. So the result is a"wterm" button on your toolbar instead of the terminal icon from your theme. Here's a fix:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>leafpad ~/.icewm/toolbar</code></pre></div>
+Edit it as follows:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>prog wterm xterm wterm -tr +sb -fg white -T"antiX"</code></pre></div>
+4. Add a mixer to your toolbar. Add the following to ~/.icewm/toolbar:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>prog"Mixer" /usr/share/pixmaps/icon_aumix.xpm aumix</code></pre></div>
+Or you could just use your keyboard with some predefined keys. Look in ~/.icewm/keys and you will see that there are some keys already defined for raising/lowering the volume using aumix.<br>
+<br>
+5. Now would be a good time to log out and try your new icewm settings.<br>
+<br>
+Some items for the future:<br>
+1. editing the menu (for this project I will use icemc from the repos)<br>
+2. porting config-user to icewm<br>
+3. additional tweaks as I learn more (for example, the absolute project found a way to include a volume slider on the taskbar. that's cool)<br>
+<br>
+Peace Out.<br>
+<br>
+john</div>
+<div class="notice">
+Last edited by <b>OU812</b> on 29 May 2008, 14:49, edited 5 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3818" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3818">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3818">
+
+<time datetime="2008-05-12T20:24">posted: 2008-05-12 &nbsp; 20:24</time>
+<span class="permalink"><a href="./icewm-t696.html#p3818" title="permalink">#2</a></span>
+
+<div class="content">One suggestion, since it's already installed why not use fbrun?<br>
+<br>
+RunCommand="fbrun"<br>
+<br>
+Why add another app?<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3821" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3821">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3821">
+
+<time datetime="2008-05-12T22:24">posted: 2008-05-12 &nbsp; 22:24</time>
+<span class="permalink"><a href="./icewm-t696.html#p3821" title="permalink">#3</a></span>
+
+<div class="content">Thanks! I forgot about that. I just replaced"gmrun" with"fbrun" and it works fine. I'm glad I started this thread!<br>
+<br>
+BTW: Would you prefer that I keep a dark theme to compliment the fb theme or go in a different direction such as milk, blue, vista, etc.? Thanks.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3822" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3822">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3822">
+
+<time datetime="2008-05-12T22:29">posted: 2008-05-12 &nbsp; 22:29</time>
+<span class="permalink"><a href="./icewm-t696.html#p3822" title="permalink">#4</a></span>
+
+<div class="content">Thanks for starting this thread OU812.<br>
+<br>
+I suppose it would be good to have a different theme to the fluxbox one to make it stand out as separate work. <br>
+But please, no Vista. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3825" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3825">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3825">
+
+<time datetime="2008-05-12T23:59">posted: 2008-05-12 &nbsp; 23:59</time>
+<span class="permalink"><a href="./icewm-t696.html#p3825" title="permalink">#5</a></span>
+
+<div class="content">I thought there were a few themes geared towards IceWM? I forget what they were called.<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4402" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile4402">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4402">
+
+<time datetime="2008-05-26T23:08">posted: 2008-05-26 &nbsp; 23:08</time>
+<span class="permalink"><a href="./icewm-t696.html#p4402" title="permalink">#6</a></span>
+
+<div class="content">Bump - just wanted to let folks know that I've made some improvements. Thanks.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4404" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile4404">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4404">
+
+<time datetime="2008-05-26T23:25">posted: 2008-05-26 &nbsp; 23:25</time>
+<span class="permalink"><a href="./icewm-t696.html#p4404" title="permalink">#7</a></span>
+
+<div class="content">macondo posted some great tips on mepilovers. some of them I'm sure were for ICEWM.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://mepislovers.org/forums/showthread.php?t=8954"<br>linktext was:"http://mepislovers.org/forums/showthread.php?t=8954"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4419" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile4419">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4419">
+
+<time datetime="2008-05-27T02:43">posted: 2008-05-27 &nbsp; 02:43</time>
+<span class="permalink"><a href="./icewm-t696.html#p4419" title="permalink">#8</a></span>
+
+<div class="content">Thanks. I found a few cool things, but I'll need more time to explore.<br>
+<br>
+- edit - I have a bad install? so the following is based on this install<br>
+<br>
+I just found a problem - from my perspective anyway - with icewm: trayicons. Icewm doesn't seem to have a lot of support for this. I did find a couple of workarounds:<br>
+<br>
+1. Right-click on the window title bar and choose tray icon.<br>
+2. For some apps - like osmo - it is critical that you remember to do this since it doesn't quit just because you close the window. So if you edit ~/.icewm/winoptions with something like<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>osmo.icon:/usr/share/pixmaps/osmo.png
+osmo.tray:Exclusive</code></pre></div>
+then a tray icon will appear when osmo is launched. But this trick didn't work so well with vlc - an app that can be controlled with the tray icon.<br>
+<br>
+So here's my solution: use lxpanel (remember, lxde was originally paired with icewm). Here's how:<br>
+<br>
+1. Edit your /etc/apt/sources.list as described here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://lxde.sourceforge.net/download.html"<br>linktext was:"http://lxde.sourceforge.net/download.html"<br>====================================<br>
+<br>
+Then do<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update
+apt-get install lxpanel
+</code></pre></div>
+2. Edit ~/.icewm/preferences to turn off the panel:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ShowTaskBar=0 # 0/1</code></pre></div>
+3. Install and use the lxice theme (optional, but it looks nice). Get it from here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://freshmeat.net/projects/lxice/"<br>linktext was:"http://freshmeat.net/projects/lxice/"<br>====================================<br>
+<br>
+<br>
+4. Now make a startup file to launch programs at startup and save it as ~/.icewm/startup. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+conky &amp;
+lxpanel &amp;
+eval `cat ~/.fehbg` &amp;</code></pre></div>
+The first and last lines are optional. Now make it executable.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>chmod +x ~/.icewm/startup</code></pre></div>
+Now edit ~/.xinitrc so that the startup file will launch during startup.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>exec icewm-session</code></pre></div>
+5. Here's a nice little theme that I think goes well with lxice and lxpanel:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://freshmeat.net/projects/jswatercolor/"<br>linktext was:"http://freshmeat.net/projects/jswatercolor/"<br>====================================<br>
+<br>
+You will also need to install the package"gtk2-engines-pixbuf" from the repos if you want to use it. You will also have to unpack it to ~/.themes (and create the directory if you haven't already). And finally launch switch and switch2 to choose the new gtk and gtk2 js-watercolor themes.<br>
+<br>
+6. Now logout/login to see what happens. Hopefully, it's all good.<br>
+<br>
+john[/code]</div>
+<div class="notice">
+Last edited by <b>OU812</b> on 27 May 2008, 18:48, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4424" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile4424">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4424">
+
+<time datetime="2008-05-27T03:54">posted: 2008-05-27 &nbsp; 03:54</time>
+<span class="permalink"><a href="./icewm-t696.html#p4424" title="permalink">#9</a></span>
+
+<div class="content">If you're using my suggestion of using lxpanel and the lxice theme, then I suggest some more modifications:<br>
+<br>
+1. Enable the logout command from the start menu (this will launch the logout dialog from the fluxbox menu). See this thread:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/configure-lxpanel-t780.html#4423"<br>linktext was:"antix.freeforu ms.org/configure-l ... .html#4423"<br>====================================<br>
+<br>
+<br>
+2. Edit the look of lxpanel to better match lxice.<br>
+a. Right-click on the panel and choose panel-settings.<br>
+b. Click the radio button background&gt;none<br>
+c. Uncheck font&gt;custom color<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4432" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile4432">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4432">
+
+<time datetime="2008-05-27T12:06">posted: 2008-05-27 &nbsp; 12:06</time>
+<span class="permalink"><a href="./icewm-t696.html#p4432" title="permalink">#10</a></span>
+
+<div class="content">Here's a tip I found at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.psychocats.net"<br>linktext was:"www.psychocats.net"<br>====================================<br>
+<br>
+<br>
+Hit [windows key] + [space bar] and a run dialog box will appear in the task bar. Pretty cool.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4434" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile4434">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4434">
+
+<time datetime="2008-05-27T12:40">posted: 2008-05-27 &nbsp; 12:40</time>
+<span class="permalink"><a href="./icewm-t696.html#p4434" title="permalink">#11</a></span>
+
+<div class="content">I think I was at the wicd site looking for a way to get a tray icon for wicd. They had some code which created startup file. However, I couldn't get it to execute. More recently, I found a nice icewm piece at psychocats: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.psychocats.net/ubuntu/icewm"<br>linktext was:"http://www.psychocats.net/ubuntu/icewm"<br>====================================<br>
+ and this provided the extra info I needed. Formerly I edited ~/.xinitrc to get programs to launch for icewm, but of course they launched while starting other wm's as well. So the startup file fixed all that. See the above post for info:<br>
+<blockquote class="uncited"><div>4. Now make a startup file to launch programs at startup.<br>
+<br>
+Code:<br>
+#!/bin/bash<br>
+<br>
+conky &amp;<br>
+lxpanel &amp;<br>
+eval `cat ~/.fehbg` &amp;<br>
+<br>
+The first and last lines are optional. Now make it executable.<br>
+<br>
+Code:<br>
+chmod +x ~/.icewm/startup<br>
+<br>
+Now edit ~/.xinitrc so that the startup file will launch during startup.<br>
+<br>
+Code:<br>
+exec icewm-session
+</div></blockquote>
+john</div>
+<div class="postcontent_footer">
+ 
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4437" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile4437">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4437">
+
+<time datetime="2008-05-27T14:44">posted: 2008-05-27 &nbsp; 14:44</time>
+<span class="permalink"><a href="./icewm-t696.html#p4437" title="permalink">#12</a></span>
+
+<div class="content">Well, as it turns out I must have hosed my installation - tray icons are working just fine on my other antix box. (Also, on the hosed box I can't get the net load monitor to appear - so a second indication that something's wrong.) However, if you love lxpanel, then the above post will guide you through it. Or you can keep the minimalist feel of icewm and use their panel, which is quite good - when it's not hosed.<br>
+<br>
+john</div>
+<div class="postcontent_footer">
+ 
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4457" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile4457">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4457">
+
+<time datetime="2008-05-27T20:24">posted: 2008-05-27 &nbsp; 20:24</time>
+<span class="permalink"><a href="./icewm-t696.html#p4457" title="permalink">#13</a></span>
+
+<div class="content"><blockquote class="uncited"><div>1. Right-click on the window title bar and choose tray icon.<br>
+2. For some apps - like osmo - it is critical that you remember to do this since it doesn't quit just because you close the window. So if you edit ~/.icewm/winoptions with something like<br>
+<br>
+Code:<br>
+osmo.icon:/usr/share/pixmaps/osmo.png<br>
+osmo.tray:Exclusive<br>
+<br>
+then a tray icon will appear when osmo is launched. But this trick didn't work so well with vlc - an app that can be controlled with the tray icon. </div></blockquote>
+In osmo's preferences there is a way to enable/diable a tray icon. I don't know if this affects icewm or not.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4530" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile4530">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4530">
+
+<time datetime="2008-05-29T14:51">posted: 2008-05-29 &nbsp; 14:51</time>
+<span class="permalink"><a href="./icewm-t696.html#p4530" title="permalink">#14</a></span>
+
+<div class="content">Bump - I did some looking around and found that most themes have a terminal icon included - usually called"xterm". So I edited ~/.icewm/toolbar to point to the xterm icon instead of the non-existent wterm icon. Please see the first post for details.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4545" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile4545">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4545">
+
+<time datetime="2008-05-30T01:59">posted: 2008-05-30 &nbsp; 01:59</time>
+<span class="permalink"><a href="./icewm-t696.html#p4545" title="permalink">#15</a></span>
+
+<div class="content">Using PcmanFM to display icons on the desktop of IceWM.<br>
+<br>
+<a href="http://www.imageposter.com/uploads/get/404011" class="postlink"><img src="http://www.imageposter.com/storage/t99/83148icewm_w-icons.png" class="postimage" alt="Image"></a></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+125 posts
+<ul>
+
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./icewm-t696-s15.html" role="button">2</a></li>
+<li><a class="button" href="./icewm-t696-s30.html" role="button">3</a></li>
+<li><a class="button" href="./icewm-t696-s45.html" role="button">4</a></li>
+<li><a class="button" href="./icewm-t696-s60.html" role="button">5</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./icewm-t696-s120.html" role="button">9</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./icewm-t696-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

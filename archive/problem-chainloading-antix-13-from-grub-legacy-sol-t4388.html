@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Problem chainloading antix 13 from grub legacy(solved) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problem-chainloading-antix-13-from-grub-legacy-sol-t4388.html">Problem chainloading antix 13 from grub legacy(solved)</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_29505" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29505">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">jiminid</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29505">
+<time datetime="2013-06-08T15:07">posted: 2013-06-08 &nbsp; 15:07</time>
+<span class="permalink"><a href="./problem-chainloading-antix-13-from-grub-legacy-sol-t4388.html#p29505" title="permalink">#1</a></span>
+
+<div class="content">Hi everybody,<br>
+I usually have no problem chainloading my distros from my menu.lst on the mbr but antix won't boot. My entry looks like this:<br>
+title AntiX 13<br>
+root (hd1,2)<br>
+chainloader +1<br>
+Antix grub is installed to the root on sdb3. What am I doing wrong? All the other distros I have on this machine(14 of them)<br>
+work fine with chainloading. Please help.</div>
+<div class="notice">
+Last edited by <b>jiminid</b> on 09 Jun 2013, 03:01, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29508" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29508">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29508">
+
+<time datetime="2013-06-08T15:31">posted: 2013-06-08 &nbsp; 15:31</time>
+<span class="permalink"><a href="./problem-chainloading-antix-13-from-grub-legacy-sol-t4388.html#p29508" title="permalink">#2</a></span>
+
+<div class="content">Try this instead.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title AntiX 13
+root (hd1,2)
+kernel /boot/vmlinuz-3.7.10-antix.3-486-smp root=/dev/sdb3 ro nomodeset nouveau.modeset=0 
+initrd     /boot/initrd.img-3.7.10-antix.3-486-smp 
+</code></pre></div>
+If you are using 64 bit version change the 486 to amd64 and I'm guessing it is on /dev/sdb3</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29569" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29569">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">jiminid</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29569">
+
+<time datetime="2013-06-09T02:34">posted: 2013-06-09 &nbsp; 02:34</time>
+<span class="permalink"><a href="./problem-chainloading-antix-13-from-grub-legacy-sol-t4388.html#p29569" title="permalink">#3</a></span>
+
+<div class="content">Thanks anticapitalista,<br>
+will do and yes it is on sdb3.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29570" class="post has-profile bg1">
+ <div class="inner">
+<dl class="postprofile" id="profile29570">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">jiminid</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29570">
+
+<time datetime="2013-06-09T02:58">posted: 2013-06-09 &nbsp; 02:58</time>
+<span class="permalink"><a href="./problem-chainloading-antix-13-from-grub-legacy-sol-t4388.html#p29570" title="permalink">#4</a></span>
+
+<div class="content">Thanks anticapitalista,<br>
+worked perfectly. <br>
+I am rockin the antix right now!<br>
+Thanks again...</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

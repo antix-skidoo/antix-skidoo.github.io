@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Mounting usb devices in rox. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./mounting-usb-devices-in-rox-t3048.html">Mounting usb devices in rox.</a></div>
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_20056" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile20056">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20056">
+<time datetime="2011-04-10T13:37">posted: 2011-04-10 &nbsp; 13:37</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p20056" title="permalink">#1</a></span>
+
+<div class="content">In my quest to find a replacement for halevt to auto-mount usb devices in rox, I have found a way to do it.<br>
+<br>
+This works on my box, it should work on yours. Make sure you have pmount installed. <br>
+<br>
+If you use thunar or pcmanfm, do not use this method, or edit it accordingly.<br>
+<br>
+Thanks to arch wiki for information.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>KERNEL!="sd*[1-9]*", GOTO="exit"
+
+# Import FS infos
+SUBSYSTEMS=="usb", IMPORT{program}="/sbin/blkid -o udev -p %N"
+
+# Get a label if present, otherwise specify one
+SUBSYSTEMS=="usb", ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+SUBSYSTEMS=="usb", ENV{ID_FS_LABEL}=="", ENV{dir_name}="usb-%k"
+
+# Global mount options
+SUBSYSTEMS=="usb", ACTION=="add", ENV{pmount_options}="--noatime"
+
+# File system specific mount options to avoid auto probing
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs|vfat", ENV{pmount_options}="%E{pmount_options} --umask 007 --charset utf8"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", ENV{pmount_options}="%E{pmount_options} -t ntfs-3g"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="vfat", ENV{pmount_options}="%E{pmount_options} -t vfat"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext2", ENV{pmount_options}="%E{pmount_options} -t ext2"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext3", ENV{pmount_options}="%E{pmount_options} -t ext3"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext4", ENV{pmount_options}="%E{pmount_options} -t ext4"
+
+# Mount the device
+SUBSYSTEMS=="usb", ACTION=="add", RUN+="/bin/su antiX -c '/usr/bin/pmount $env{pmount_options} /dev/%k /media/%E{dir_name}'"
+
+# Clean up after removal
+SUBSYSTEMS=="usb", ACTION=="remove", ENV{dir_name}!="", RUN+="/usr/bin/pumount /dev/%k"
+
+# Exit
+LABEL="exit"
+</code></pre></div>
+You need to make one change to the above. Change /bin/su antiX -c to your username. eg /bin/su kostas -c <br>
+<br>
+Copy/paste into a file, save as 99-usbstorage.rules and put in /etc/udev/rules.d<br>
+<br>
+Next time you plug in a usb device it should auto-mount in rox/media. To unmount, right-click on folder and choose Unmount.<br>
+Make sure rox uses pmount/pumount rather than mount/umount. (Options-Action window in rox via right click.)<br>
+<br>
+If you get an error when trying to open the folder, right-click on folder, Properties, and click entries for Group and World.<br>
+<br>
+If you have a testing version of antiX-M11-base, remove usbmount.<br>
+<br>
+I have also changed mountbox in antiXcc to mount usb devices as user.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20057" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20057">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20057">
+
+<time datetime="2011-04-10T14:15">posted: 2011-04-10 &nbsp; 14:15</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p20057" title="permalink">#2</a></span>
+
+<div class="content">Hello anti, have just tried the above and found to work great with rox. However, when using pcmanfm or thunar it will not unmount with default. There is a work around for thunar, adding a custom command to use pumount EX:"pumount %f". I think this is a great find anti, works great.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20058" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20058">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20058">
+
+<time datetime="2011-04-10T14:21">posted: 2011-04-10 &nbsp; 14:21</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p20058" title="permalink">#3</a></span>
+
+<div class="content">I have found another one.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://igurublog.wordpress.com/downloads/script-devmon/"<br>linktext was:"http://igurublog.wordpress.com/downloads/script-devmon/"<br>====================================<br>
+<br>
+<br>
+This can be set to auto-open rox once a device is plugged in.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20059" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20059">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20059">
+
+<time datetime="2011-04-10T14:45">posted: 2011-04-10 &nbsp; 14:45</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p20059" title="permalink">#4</a></span>
+
+<div class="content">anti, I have noticed that with thunars volume management you can automount usb devices by adding thunar --daemon &amp; to startup. I works well for me, and no conflicts with rox. It is also configurable via edit --&gt; prefferances --&gt; advanced, to open a file manager or to just simply mount. <br>
+<br>
+information found here<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://crunchbanglinux.org/forums/topic/3622/automount-of-external-usb-drives/"<br>linktext was:"http://crunchbanglinux.org/forums/topic ... sb-drives/"<br>====================================<br>
+<br>
+<br>
+P.S. looking at the other script as well, but I think thunar will complain because it is mounted via the command line</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20061" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20061">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20061">
+
+<time datetime="2011-04-10T15:11">posted: 2011-04-10 &nbsp; 15:11</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p20061" title="permalink">#5</a></span>
+
+<div class="content">Dave, I'll edit my first post to make it clear that the tip is for those not using thunar nor pcmanfm. It is for rox.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20063" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20063">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20063">
+
+<time datetime="2011-04-10T18:24">posted: 2011-04-10 &nbsp; 18:24</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p20063" title="permalink">#6</a></span>
+
+<div class="content">good find anti. it works for me, i tested it on three usb sticks 2 with one partition on them and one with two partitions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21051" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21051">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 18</span></div>
+
+</div>
+</div>
+<span class="username">pbachert</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21051">
+
+<time datetime="2011-06-12T17:13">posted: 2011-06-12 &nbsp; 17:13</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21051" title="permalink">#7</a></span>
+
+<div class="content">Anti,<br>
+<br>
+no offense to you, I am sticking happily to antiX though I have recently bought a current laptop. <br>
+<br>
+However, I think it is quite a mediocre impression Linux gives in this respect. What is so hard just to recognize a usb-drive and to show it properly in the file manager? I am using pcmanfm and I find it quite difficult to mount an sd-card let alone automount it when plugged in. I am no expert and I feel I have to become root just to access the files on the card in the /media folder.<br>
+<br>
+Cheers and thanks for the good work,<br>
+pbachert</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21060" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21060">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21060">
+
+<time datetime="2011-06-16T03:20">posted: 2011-06-16 &nbsp; 03:20</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21060" title="permalink">#8</a></span>
+
+<div class="content">Nice tip. I tried using pcmanfm in ctkarch, but it crashed quite a bit (this is on my desktop). So I installed rox and followed the same arch wiki to get things working. The only difference is that I only have udev and pmount installed.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21120" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21120">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21120">
+
+<time datetime="2011-06-22T05:12">posted: 2011-06-22 &nbsp; 05:12</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21120" title="permalink">#9</a></span>
+
+<div class="content">Worked for me in latest install of AntiX 11 base. Only using rox-file for file manager. No thunar or pcmanfm for this install. <br>
+<br>
+Believe it or not. I got it to mount a XD flash card using a Vivitar 50 in 1 pendrive adapter. The file structure is raw. But I was able to pull the pictures off of it in /media. It is a 1 gig camera XD flash drive.<br>
+<br>
+Too Cool. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21361" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21361">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21361">
+
+<time datetime="2011-07-26T03:54">posted: 2011-07-26 &nbsp; 03:54</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21361" title="permalink">#10</a></span>
+
+<div class="content"><blockquote class="uncited"><div>you can automount usb devices by adding thunar --daemon &amp; to startup</div></blockquote>
+Which startup file Dave?<br>
+<br>
+~/.xinitrc<br>
+~/.fluxbox/startup<br>
+~/.icewm/startup<br>
+/usr/local/bin/add-start<br>
+<br>
+Where did you put it and how in a file, (location_beginning_end_middle), for us inept users who want to know (like yours truly <span class="emoticon"> __{{emoticon}}__ </span> ). <br>
+<br>
+From your favorite pest.  <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21362" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21362">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21362">
+
+<time datetime="2011-07-26 &nbsp; 04:02">posted: 2011-07-26 &nbsp; 04:02</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21362" title="permalink">#11</a></span>
+
+<div class="content">Just caught this before I went to my cave for the night <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+You can use add-start to add it to startup, all you would need to do is select the WM you are using and then where it autofills"roxterm" just type thunar --daemon and press ok.<br>
+<br>
+If you would like to do what add-start does, just add thunar --daemon &amp; close to the beginning of ~/.fluxbox/startup or ~/.icewm/startup, but after the #!/bin/bash line</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21363" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21363">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21363">
+
+<time datetime="2011-07-26T04:07">posted: 2011-07-26 &nbsp; 04:07</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21363" title="permalink">#12</a></span>
+
+<div class="content">Thanks Bro.<br>
+<br>
+Edit: thunar --daemon &amp; was already present on ~/.icewm/startup and ~/.fluxbox/startup. <br>
+<br>
+~/.icewm/startup below<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Auto-mount usb devices in rox /media. Do not use with /etc/udev/rules.d/99-usbstorage.rules
+# Do not use if you use Thunar or pcmanfm file managers.
+#sleep 5 &amp;&amp; devmon --exec-on-drive"rox /media" &amp;
+thunar --daemon &amp;
+
+## Set wallpaper via nitrogen
+#rm $HOME/.config/nitrogen/bg-saved.cfg
+#ln -s $HOME/.config/nitrogen/bg-saved-icewm.cfg $HOME/.config/nitrogen/bg-saved.cfg 
+#nitrogen --restore &amp;
+
+sleep 5 &amp;&amp; volumeicon &amp;</code></pre></div>
+~/.fluxbox/startup below<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>
+# Auto-mount usb devices in rox /media. Do not use with /etc/udev/rules.d/99-usbstorage.rules
+# Do not use if you use Thunar or pcmanfm file managers.
+#sleep 5 &amp;&amp; devmon --exec-on-drive"rox /media" &amp;
+
+volumeicon &amp;
+thunar --daemon &amp;
+
+# And last but not least we start fluxbox.
+</code></pre></div>
+Must be suffering from Old Timers Disease as I don't remember adding it on this AntiX 11 Full Iso Install on this IBM A22M I have. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -F
+System:    Host: Biker Kernel: 2.6.36-1-mepis-smp i686 (32 bit) 
+           Desktop IceWM 1.3.7 Distro: antiX-M11-686 Jayaben Desai 01 May 2011
+Machine:   Mobo: IBM model: 2628TWU Bios: IBM version: KXET33WW (1.06 ) date: 09/05/2001
+CPU:       Single core Pentium III (Coppermine) (-UP-) cache: 256 KB flags: (sse) clocked at 1000.00 MHz 
+Graphics:  Card: ATI Rage Mobility P/M AGP 2x 
+           X.Org: 1.10.2.902 drivers: ati,mach64 (unloaded: fbdev,vesa) Resolution: 1024x768@87.0hz 
+           GLX Renderer: Rasterizer GLX Version: 2.1 Mesa 7.10.3
+Audio:     Card: Cirrus Logic CS 4614/22/24/30 [CrystalClear SoundFusion Audio Accelerator] driver: Sound Fusion CS46xx
+           Sound: Advanced Linux Sound Architecture ver: 1.0.23
+Network:   Card-1: 3Com 3c556B CardBus [Tornado] driver: 3c59x 
+           IF: eth0 state: down speed: 10 Mbps duplex: half mac: 
+           Card-2: Ralink RT2561/RT61 802.11g PCI driver: rt61pci 
+           IF: wlan0 state: up mac:
+Drives:    HDD Total Size: 20.0GB (21.9% used) 1: /dev/sda IC25N020ATCS04 20.0GB 
+Partition: ID: / size: 6.3G used: 3.0G (49%) fs: ext4 ID: /home size: 12G used: 1.2G (11%) fs: ext4 
+           ID: swap-1 size: 0.76GB used: 0.00GB (0%) fs: swap 
+Sensors:   System Temperatures: cpu: 59.0C mobo: 47.0C 
+           Fan Speeds (in rpm): cpu: 0 
+Info:      Processes: 106 Uptime: 2:11 Memory: 280.8/501.2MB Client: Shell inxi: 1.7.20-2 
+</code></pre></div>
+I only mention this as I inserted a USB drive tonight and it showed up in thunars side pane file tree but gave me a permission denied in thunar. I ended up using Slitaz Mountbox to get to it in /media in rox. Of course anything I put on USB was as root user using Mountbox.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21364" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21364">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21364">
+
+<time datetime="2011-07-26T17:50">posted: 2011-07-26 &nbsp; 17:50</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21364" title="permalink">#13</a></span>
+
+<div class="content">If you have 99-usbstorage.rules enabled on your machine, it will cause that error. Other than that I am not sure. I have seen the same error countless times with pcmanfm, I have yet to see it with thunar ( aside from when I had 99-usbstorage.rules enabled <span class="emoticon"> __{{emoticon}}__ </span> )</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21365" class="post has-profile bg1">
+<div class="inner">
+ <dl class="postprofile" id="profile21365">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21365">
+
+<time datetime="2011-07-26T18:25">posted: 2011-07-26 &nbsp; 18:25</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21365" title="permalink">#14</a></span>
+
+<div class="content"><blockquote class="uncited"><div>If you have 99-usbstorage.rules enabled on your machine</div></blockquote>
+As usual. You hit the crux of the biscuit. I did have a 99-usbstorage.rules enabled in /etc/udev/rules.d/ . <br>
+<br>
+My bad as usual. <span class="emoticon"> __{{emoticon}}__ </span> I thought it could co-exist. Sometimes my tinkering is done in ignorance.<br>
+<br>
+Funny thing was. When I checked it out again after I had made the file and read your post. It renamed itself to 99-usbstorage.rules.unused<br>
+<br>
+I have deleted it since then. Haven't tested yet. Thanks for the heads up.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_21369" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21369">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21369">
+
+<time datetime="2011-07-26T21:41">posted: 2011-07-26 &nbsp; 21:41</time>
+<span class="permalink"><a href="./mounting-usb-devices-in-rox-t3048.html#p21369" title="permalink">#15</a></span>
+
+<div class="content">roky, in the first post in this thread I did write 'If you use thunar or pcmanfm, do not use this method, or edit it accordingly.' <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

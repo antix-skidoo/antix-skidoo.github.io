@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Cannot install mysql-server - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./cannot-install-mysql-server-t6318.html">Cannot install mysql-server</a></div>
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46111" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46111">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">frank</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Mar 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46111">
+<time datetime="2016-03-31T23:46">posted: 2016-03-31 &nbsp; 23:46</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46111" title="permalink">#1</a></span>
+
+<div class="content">I have a fresh live usb stick of Antix 15 I am using with a dell inspiron 5100. I wanted to use this old machine as a development web server and was trying to use it with a live usb with LAMP on it and then load development website files as they are available for testing. I've chosen the live usb stick so that it can be transported to other machines as may be needed from time to time. I have apache2 up and running and went to install mysql-server, but the install will not complete. I've tried it as su using synaptic and the teminal apt-get commands with the same result. After being prompted for the administrator password an error is thrown saying that the password could not be set. Then the configuration stops. I cannot access the server to do anything manually with it. I attempted to install phpmyadmin and it could not communicate with the mysql-server either. Any ideas on what may be done to move forward?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46112" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46112">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46112">
+
+<time datetime="2016-04-01T00:19">posted: 2016-04-01 &nbsp; 00:19</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46112" title="permalink">#2</a></span>
+
+<div class="content">As root in terminal <br>
+Apt-get update &amp;&amp; apt-get -f install apache2 php5 mysql-server php5-mysql <br>
+The administration password is not as K for the password to the machine it is asking for you to make a password for the administrator user of the mysql shell. You can make it whatever you wish however, but I have always felt uncomfortable making it the same as the normal root user. <br>
+<br>
+If you get an error with the above commands could have post the output of terminal ? Either copy and paste or screenshot.<br>
+<br>
+Once successful you can install phpmyadmin, my personal preference is to use webmin.<br>
+If you Google webmin the webmin site should give you instructions on how to install it. Follow the instructions for Debian.<br>
+<br>
+You may also want to install some other lib packages for apache2. For example to install WordPress, drupal, etc.<br>
+Along with that you may also like to install a mail service. I like postfix / dovecot myself <br>
+Apt-get update &amp;&amp; apt-get -f install postfix dovecot-imapd dovecot-pop3d spamassasin clamav clamsmtpd procmail</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46113" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46113">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">frank</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Mar 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46113">
+
+<time datetime="2016-04-01T09:37">posted: 2016-04-01 &nbsp; 09:37</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46113" title="permalink">#3</a></span>
+
+<div class="content">I followed your instructions and got the same results. It seems like the mysql-server could not be configured for some reason. Below is the output of the terminal. I used a text editor to insert spaces after the slashes since I could not post the original output. I chose to do a global search and replace on the slashes to make it a simple job.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update &amp;&amp; apt-get -f install apache2 php5 mysql-server php5-mysql
+Ign http:/ / ftp.us.debian.org jessie InRelease
+Get:1 http:/ / security.debian.org jessie/ updates InRelease [63.1 kB]
+Get:2 http:/ / ftp.us.debian.org jessie Release.gpg [2,373 B]                    
+Get:3 http:/ / ftp.us.debian.org jessie Release [148 kB]                         
+Get:4 http:/ / antix.daveserver.info jessie InRelease [25.8 kB]                  
+Get:5 http:/ / security.debian.org jessie/ updates/ main i386 Packages [228 kB]    
+Get:6 http:/ / antix.daveserver.info jessie/ main i386 Packages [121 kB]          
+Get:7 http:/ / ftp.us.debian.org jessie/ main i386 Packages [6,768 kB]            
+Get:8 http:/ / security.debian.org jessie/ updates/ contrib i386 Packages [2,526 B]
+Get:9 http:/ / security.debian.org jessie/ updates/ non-free i386 Packages [14 B]  
+Get:10 http:/ / security.debian.org jessie/ updates/ contrib Translation-en [1,211 B]
+Get:11 http:/ / security.debian.org jessie/ updates/ main Translation-en [125 kB]  
+Get:12 http:/ / antix.daveserver.info jessie/ nosystemd i386 Packages [32.6 kB]   
+Get:13 http:/ / security.debian.org jessie/ updates/ non-free Translation-en [14 B]
+Ign http:/ / antix.daveserver.info jessie/ main Translation-en_US                 
+Ign http:/ / antix.daveserver.info jessie/ main Translation-en                    
+Ign http:/ / antix.daveserver.info jessie/ nosystemd Translation-en_US            
+Ign http:/ / antix.daveserver.info jessie/ nosystemd Translation-en               
+Get:14 http:/ / ftp.us.debian.org jessie/ contrib i386 Packages [49.7 kB]         
+Get:15 http:/ / ftp.us.debian.org jessie/ non-free i386 Packages [80.2 kB]        
+Get:16 http:/ / ftp.us.debian.org jessie/ contrib Translation-en [38.5 kB]        
+Get:17 http:/ / ftp.us.debian.org jessie/ main Translation-en [4,582 kB]          
+Get:18 http:/ / ftp.us.debian.org jessie/ non-free Translation-en [72.5 kB]       
+Fetched 12.3 MB in 21s (584 kB/ s)                                              
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+apache2 is already the newest version.
+The following extra packages will be installed:
+  libaio1 libapache2-mod-php5 libdbd-mysql-perl libdbi-perl libmysqlclient18
+  libonig2 libqdbm14 mysql-client-5.5 mysql-common mysql-server-5.5
+  mysql-server-core-5.5 php5-cli php5-common php5-json
+Suggested packages:
+  php-pear libclone-perl libmldbm-perl libnet-daemon-perl
+  libsql-statement-perl mailx tinyca php5-user-cache
+Recommended packages:
+  libhtml-template-perl php5-readline
+The following NEW packages will be installed:
+  libaio1 libapache2-mod-php5 libdbd-mysql-perl libdbi-perl libmysqlclient18
+  libonig2 libqdbm14 mysql-client-5.5 mysql-common mysql-server
+  mysql-server-5.5 mysql-server-core-5.5 php5 php5-cli php5-common php5-json
+  php5-mysql
+0 upgraded, 17 newly installed, 0 to remove and 210 not upgraded.
+Need to get 14.6 MB of archives.
+After this operation, 116 MB of additional disk space will be used.
+Do you want to continue? [Y/ n] y
+Get:1 http:/ / ftp.us.debian.org/ debian/  jessie/ main libaio1 i386 0.3.110-1 [9,634 B]
+Get:2 http:/ / ftp.us.debian.org/ debian/  jessie/ main libonig2 i386 5.9.5-3.2 [120 kB]
+Get:3 http:/ / ftp.us.debian.org/ debian/  jessie/ main libdbi-perl i386 1.631-3+b1 [818 kB]
+Get:4 http:/ / security.debian.org/  jessie/ updates/ main mysql-common all 5.5.47-0+deb8u1 [82.6 kB]
+Get:5 http:/ / ftp.us.debian.org/ debian/  jessie/ main libdbd-mysql-perl i386 4.028-2+b1 [124 kB]
+Get:6 http:/ / security.debian.org/  jessie/ updates/ main libmysqlclient18 i386 5.5.47-0+deb8u1 [692 kB]
+Get:7 http:/ / ftp.us.debian.org/ debian/  jessie/ main libqdbm14 i386 1.8.78-5+b1 [124 kB]
+Get:8 http:/ / ftp.us.debian.org/ debian/  jessie/ main php5-common i386 5.6.17+dfsg-0+deb8u1 [718 kB]
+Get:9 http:/ / ftp.us.debian.org/ debian/  jessie/ main php5-json i386 1.3.6-1 [19.4 kB]
+Get:10 http:/ / ftp.us.debian.org/ debian/  jessie/ main php5-cli i386 5.6.17+dfsg-0+deb8u1 [2,342 kB]
+Get:11 http:/ / security.debian.org/  jessie/ updates/ main mysql-client-5.5 i386 5.5.47-0+deb8u1 [1,705 kB]
+Get:12 http:/ / ftp.us.debian.org/ debian/  jessie/ main libapache2-mod-php5 i386 5.6.17+dfsg-0+deb8u1 [2,321 kB]
+Get:13 http:/ / security.debian.org/  jessie/ updates/ main mysql-server-core-5.5 i386 5.5.47-0+deb8u1 [3,508 kB]
+Get:14 http:/ / ftp.us.debian.org/ debian/  jessie/ main php5 all 5.6.17+dfsg-0+deb8u1 [1,314 B]
+Get:15 http:/ / ftp.us.debian.org/ debian/  jessie/ main php5-mysql i386 5.6.17+dfsg-0+deb8u1 [68.0 kB]
+Get:16 http:/ / security.debian.org/  jessie/ updates/ main mysql-server-5.5 i386 5.5.47-0+deb8u1 [1,828 kB]
+Get:17 http:/ / security.debian.org/  jessie/ updates/ main mysql-server all 5.5.47-0+deb8u1 [80.9 kB]
+Fetched 14.6 MB in 16s (873 kB/ s)                                              
+Preconfiguring packages ...
+Selecting previously unselected package libaio1:i386.
+(Reading database ... 110645 files and directories currently installed.)
+Preparing to unpack .../ libaio1_0.3.110-1_i386.deb ...
+Unpacking libaio1:i386 (0.3.110-1) ...
+Selecting previously unselected package mysql-common.
+Preparing to unpack .../ mysql-common_5.5.47-0+deb8u1_all.deb ...
+Unpacking mysql-common (5.5.47-0+deb8u1) ...
+Selecting previously unselected package libmysqlclient18:i386.
+Preparing to unpack .../ libmysqlclient18_5.5.47-0+deb8u1_i386.deb ...
+Unpacking libmysqlclient18:i386 (5.5.47-0+deb8u1) ...
+Selecting previously unselected package libonig2:i386.
+Preparing to unpack .../ libonig2_5.9.5-3.2_i386.deb ...
+Unpacking libonig2:i386 (5.9.5-3.2) ...
+Selecting previously unselected package libdbi-perl.
+Preparing to unpack .../ libdbi-perl_1.631-3+b1_i386.deb ...
+Unpacking libdbi-perl (1.631-3+b1) ...
+Selecting previously unselected package libdbd-mysql-perl.
+Preparing to unpack .../ libdbd-mysql-perl_4.028-2+b1_i386.deb ...
+Unpacking libdbd-mysql-perl (4.028-2+b1) ...
+Selecting previously unselected package mysql-client-5.5.
+Preparing to unpack .../ mysql-client-5.5_5.5.47-0+deb8u1_i386.deb ...
+Unpacking mysql-client-5.5 (5.5.47-0+deb8u1) ...
+Selecting previously unselected package mysql-server-core-5.5.
+Preparing to unpack .../ mysql-server-core-5.5_5.5.47-0+deb8u1_i386.deb ...
+Unpacking mysql-server-core-5.5 (5.5.47-0+deb8u1) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up mysql-common (5.5.47-0+deb8u1) ...
+Selecting previously unselected package mysql-server-5.5.
+(Reading database ... 111007 files and directories currently installed.)
+Preparing to unpack .../ mysql-server-5.5_5.5.47-0+deb8u1_i386.deb ...
+Unpacking mysql-server-5.5 (5.5.47-0+deb8u1) ...
+Selecting previously unselected package libqdbm14.
+Preparing to unpack .../ libqdbm14_1.8.78-5+b1_i386.deb ...
+Unpacking libqdbm14 (1.8.78-5+b1) ...
+Selecting previously unselected package php5-common.
+Preparing to unpack .../ php5-common_5.6.17+dfsg-0+deb8u1_i386.deb ...
+Unpacking php5-common (5.6.17+dfsg-0+deb8u1) ...
+Selecting previously unselected package php5-json.
+Preparing to unpack .../ php5-json_1.3.6-1_i386.deb ...
+Unpacking php5-json (1.3.6-1) ...
+Selecting previously unselected package php5-cli.
+Preparing to unpack .../ php5-cli_5.6.17+dfsg-0+deb8u1_i386.deb ...
+Unpacking php5-cli (5.6.17+dfsg-0+deb8u1) ...
+Selecting previously unselected package libapache2-mod-php5.
+Preparing to unpack .../ libapache2-mod-php5_5.6.17+dfsg-0+deb8u1_i386.deb ...
+Unpacking libapache2-mod-php5 (5.6.17+dfsg-0+deb8u1) ...
+Selecting previously unselected package mysql-server.
+Preparing to unpack .../ mysql-server_5.5.47-0+deb8u1_all.deb ...
+Unpacking mysql-server (5.5.47-0+deb8u1) ...
+Selecting previously unselected package php5.
+Preparing to unpack .../ php5_5.6.17+dfsg-0+deb8u1_all.deb ...
+Unpacking php5 (5.6.17+dfsg-0+deb8u1) ...
+Selecting previously unselected package php5-mysql.
+Preparing to unpack .../ php5-mysql_5.6.17+dfsg-0+deb8u1_i386.deb ...
+Unpacking php5-mysql (5.6.17+dfsg-0+deb8u1) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up libaio1:i386 (0.3.110-1) ...
+Setting up libmysqlclient18:i386 (5.5.47-0+deb8u1) ...
+Setting up libonig2:i386 (5.9.5-3.2) ...
+Setting up libdbi-perl (1.631-3+b1) ...
+Setting up libdbd-mysql-perl (4.028-2+b1) ...
+Setting up mysql-client-5.5 (5.5.47-0+deb8u1) ...
+Setting up mysql-server-core-5.5 (5.5.47-0+deb8u1) ...
+Setting up mysql-server-5.5 (5.5.47-0+deb8u1) ...
+[ ok ] Stopping MySQL database server: mysqld.
+160401  3:02:14 [Warning] Using unique option prefix key_buffer instead of key_buffer_size is deprecated and will be removed in a future release. Please use the full name instead.
+160401  3:02:14 [Note] / usr/ sbin/ mysqld (mysqld 5.5.47-0+deb8u1) starting as process 7094 ...
+[....] Starting MySQL database server: mysqld . . . . . . . . . . . . . . . . . [FAIL . . . . . . . . . . failed!
+invoke-rc.d: initscript mysql, action"start" failed.
+dpkg: error processing package mysql-server-5.5 (--configure):
+ subprocess installed post-installation script returned error exit status 1
+Setting up libqdbm14 (1.8.78-5+b1) ...
+Setting up php5-common (5.6.17+dfsg-0+deb8u1) ...
+
+Creating config file / etc/ php5/ mods-available/ pdo.ini with new version
+php5_invoke: Enable module pdo for apache2 SAPI
+php5_invoke: Enable module pdo for cli SAPI
+
+Creating config file / etc/ php5/ mods-available/ opcache.ini with new version
+php5_invoke: Enable module opcache for apache2 SAPI
+php5_invoke: Enable module opcache for cli SAPI
+Setting up php5-json (1.3.6-1) ...
+php5_invoke: Enable module json for apache2 SAPI
+php5_invoke: Enable module json for cli SAPI
+Setting up php5-cli (5.6.17+dfsg-0+deb8u1) ...
+update-alternatives: using / usr/ bin/ php5 to provide / usr/ bin/ php (php) in auto mode
+update-alternatives: using / usr/ bin/ phar5 to provide / usr/ bin/ phar (phar) in auto mode
+
+Creating config file / etc/ php5/ cli/ php.ini with new version
+Setting up libapache2-mod-php5 (5.6.17+dfsg-0+deb8u1) ...
+
+Creating config file / etc/ php5/ apache2/ php.ini with new version
+Module mpm_event disabled.
+Enabling module mpm_prefork.
+apache2_switch_mpm Switch to prefork
+[....] Restarting web server: apache2AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+. ok 
+apache2_invoke: Enable module php5
+[....] Restarting web server: apache2AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+. ok 
+dpkg: dependency problems prevent configuration of mysql-server:
+ mysql-server depends on mysql-server-5.5; however:
+  Package mysql-server-5.5 is not configured yet.
+
+dpkg: error processing package mysql-server (--configure):
+ dependency problems - leaving unconfigured
+Setting up php5 (5.6.17+dfsg-0+deb8u1) ...
+Setting up php5-mysql (5.6.17+dfsg-0+deb8u1) ...
+
+Creating config file / etc/ php5/ mods-available/ mysql.ini with new version
+php5_invoke: Enable module mysql for apache2 SAPI
+php5_invoke: Enable module mysql for cli SAPI
+
+Creating config file / etc/ php5/ mods-available/ mysqli.ini with new version
+php5_invoke: Enable module mysqli for apache2 SAPI
+php5_invoke: Enable module mysqli for cli SAPI
+
+Creating config file / etc/ php5/ mods-available/ pdo_mysql.ini with new version
+php5_invoke: Enable module pdo_mysql for apache2 SAPI
+php5_invoke: Enable module pdo_mysql for cli SAPI
+Processing triggers for libc-bin (2.19-18) ...
+Processing triggers for libapache2-mod-php5 (5.6.17+dfsg-0+deb8u1) ...
+Errors were encountered while processing:
+ mysql-server-5.5
+ mysql-server
+E: Sub-process / usr/ bin/ dpkg returned an error code (1)
+root@antiX1:/ home/ demo# 
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46114" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46114">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46114">
+
+<time datetime="2016-04-01T09:57">posted: 2016-04-01 &nbsp; 09:57</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46114" title="permalink">#4</a></span>
+
+<div class="content">Does apt-get -f install solve the problem?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46115" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46115">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">Dave</a> </span> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46115">
+
+<time datetime="2016-04-01T11:05">posted: 2016-04-01 &nbsp; 11:05</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46115" title="permalink">#5</a></span>
+
+<div class="content">Try looking into /var/log/mysql to see why the server cannot start. My guess is that it is going to be related in some way to systemd not being installed but that is a very biased guess.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46118" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46118">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">frank</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Mar 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46118">
+
+<time datetime="2016-04-01T22:52">posted: 2016-04-01 &nbsp; 22:52</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46118" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Does apt-get -f install solve the problem?</div></blockquote>
+No, it didn't seem to.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46119" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46119">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46119">
+
+<time datetime="2016-04-01T23:43">posted: 2016-04-01 &nbsp; 23:43</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46119" title="permalink">#7</a></span>
+
+<div class="content">What is the output of apt-get -f install?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46120" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46120">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46120">
+
+<time datetime="2016-04-02T00:02">posted: 2016-04-02 &nbsp; 00:02</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46120" title="permalink">#8</a></span>
+
+<div class="content">The postinst script does not seem to be able to successfully complete. Likely due to it attempting to start the mysql server. As it cannot start the server it becomes a dependency error as apt thinks it cannot be installed. Likely because the postinst script is trying to start the service in a way that is no longer sysvinit compatible as systemd is now the default in Debian. So the solution in such a case would be to unpack the mysql-server-5.5 package and return it to the sysvinit type of postinst script or remove the call to starting the server from that script. Then repackage the deb and install it manually with dpkg -i. After which run the installation command again to install all the server stuff, in which the mysql-server dependency will be solved.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46121" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46121">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">frank</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Mar 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46121">
+
+<time datetime="2016-04-02T00:14">posted: 2016-04-02 &nbsp; 00:14</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46121" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Try looking into /var/log/mysql to see why the server cannot start. My guess is that it is going to be related in some way to systemd not being installed but that is a very biased guess.</div></blockquote>
+Thanks for the lead. I've included the error log below. According to the log, it seems it couldn't allocate the buffer area. RAM stats show 498M total with 114M used. Any ideas on how to fix?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>160401  3:02:13 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401  3:02:13 [Note] Plugin 'FEDERATED' is disabled.
+160401  3:02:13 InnoDB: The InnoDB memory heap is disabled
+160401  3:02:13 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401  3:02:13 InnoDB: Compressed tables use zlib 1.2.8
+160401  3:02:13 InnoDB: Using Linux native AIO
+160401  3:02:13 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401  3:02:13 InnoDB: Completed initialization of buffer pool
+160401  3:02:13 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401  3:02:13 [ERROR] Plugin 'InnoDB' init function returned error.
+160401  3:02:13 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401  3:02:13 [ERROR] Unknown/unsupported storage engine: InnoDB
+160401  3:02:13 [ERROR] Aborting
+
+160401  3:02:13 [Note] /usr/sbin/mysqld: Shutdown complete
+
+160401  3:02:14 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401  3:02:14 [Note] Plugin 'FEDERATED' is disabled.
+160401  3:02:14 InnoDB: The InnoDB memory heap is disabled
+160401  3:02:14 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401  3:02:14 InnoDB: Compressed tables use zlib 1.2.8
+160401  3:02:14 InnoDB: Using Linux native AIO
+160401  3:02:14 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401  3:02:14 InnoDB: Completed initialization of buffer pool
+160401  3:02:14 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401  3:02:14 [ERROR] Plugin 'InnoDB' init function returned error.
+160401  3:02:14 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401  3:02:14 [ERROR] Unknown/unsupported storage engine: InnoDB
+160401  3:02:14 [ERROR] Aborting
+
+160401  3:02:14 [Note] /usr/sbin/mysqld: Shutdown complete
+
+160401  3:02:14 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401  3:02:14 [Note] Plugin 'FEDERATED' is disabled.
+160401  3:02:14 InnoDB: The InnoDB memory heap is disabled
+160401  3:02:14 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401  3:02:14 InnoDB: Compressed tables use zlib 1.2.8
+160401  3:02:14 InnoDB: Using Linux native AIO
+160401  3:02:14 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401  3:02:14 InnoDB: Completed initialization of buffer pool
+160401  3:02:14 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401  3:02:14 [ERROR] Plugin 'InnoDB' init function returned error.
+160401  3:02:14 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401  3:02:14 [ERROR] Unknown/unsupported storage engine: InnoDB
+160401  3:02:14 [ERROR] Aborting
+
+160401  3:02:14 [Note] /usr/sbin/mysqld: Shutdown complete
+
+160401  3:02:14 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401  3:02:14 [Note] Plugin 'FEDERATED' is disabled.
+160401  3:02:14 InnoDB: The InnoDB memory heap is disabled
+160401  3:02:14 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401  3:02:14 InnoDB: Compressed tables use zlib 1.2.8
+160401  3:02:14 InnoDB: Using Linux native AIO
+160401  3:02:14 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401  3:02:14 InnoDB: Completed initialization of buffer pool
+160401  3:02:14 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401  3:02:14 [ERROR] Plugin 'InnoDB' init function returned error.
+160401  3:02:14 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401  3:02:14 [ERROR] Unknown/unsupported storage engine: InnoDB
+160401  3:02:14 [ERROR] Aborting
+
+160401  3:02:14 [Note] /usr/sbin/mysqld: Shutdown complete
+
+160401  3:02:15 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401  3:02:15 [Note] Plugin 'FEDERATED' is disabled.
+160401  3:02:15 InnoDB: The InnoDB memory heap is disabled
+160401  3:02:15 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401  3:02:15 InnoDB: Compressed tables use zlib 1.2.8
+160401  3:02:15 InnoDB: Using Linux native AIO
+160401  3:02:15 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401  3:02:15 InnoDB: Completed initialization of buffer pool
+160401  3:02:15 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401  3:02:15 [ERROR] Plugin 'InnoDB' init function returned error.
+160401  3:02:15 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401  3:02:15 [ERROR] Unknown/unsupported storage engine: InnoDB
+160401  3:02:15 [ERROR] Aborting
+
+160401  3:02:15 [Note] /usr/sbin/mysqld: Shutdown complete
+
+160401 03:02:32 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+160401  3:02:32 [Warning] Using unique option prefix key_buffer instead of key_buffer_size is deprecated and will be removed in a future release. Please use the full name instead.
+160401  3:02:32 [Note] /usr/sbin/mysqld (mysqld 5.5.47-0+deb8u1) starting as process 7561 ...
+160401  3:02:32 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401  3:02:32 [Note] Plugin 'FEDERATED' is disabled.
+160401  3:02:32 InnoDB: The InnoDB memory heap is disabled
+160401  3:02:32 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401  3:02:32 InnoDB: Compressed tables use zlib 1.2.8
+160401  3:02:32 InnoDB: Using Linux native AIO
+160401  3:02:32 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401  3:02:32 InnoDB: Completed initialization of buffer pool
+160401  3:02:32 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401  3:02:32 [ERROR] Plugin 'InnoDB' init function returned error.
+160401  3:02:32 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401  3:02:32 [ERROR] Unknown/unsupported storage engine: InnoDB
+160401  3:02:32 [ERROR] Aborting
+
+160401  3:02:32 [Note] /usr/sbin/mysqld: Shutdown complete
+
+160401 03:02:32 mysqld_safe mysqld from pid file /var/run/mysqld/mysqld.pid ended
+160401  5:44:08 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401  5:44:08 [Note] Plugin 'FEDERATED' is disabled.
+160401  5:44:08 InnoDB: The InnoDB memory heap is disabled
+160401  5:44:08 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401  5:44:08 InnoDB: Compressed tables use zlib 1.2.8
+160401  5:44:08 InnoDB: Using Linux native AIO
+160401  5:44:09 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401  5:44:09 InnoDB: Completed initialization of buffer pool
+160401  5:44:09 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401  5:44:09 [ERROR] Plugin 'InnoDB' init function returned error.
+160401  5:44:09 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401  5:44:09 [ERROR] Unknown/unsupported storage engine: InnoDB
+160401  5:44:09 [ERROR] Aborting
+
+160401  5:44:09 [Note] mysqld: Shutdown complete
+
+root@antiX1:/var/log/mysql# 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46122" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46122">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46122">
+
+<time datetime="2016-04-02T00:31">posted: 2016-04-02 &nbsp; 00:31</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46122" title="permalink">#10</a></span>
+
+<div class="content">From: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.webtrafficexchange.com/solved-mysql-crash-fatal-error-cannot-allocate-memory-buffer-pool"<br>linktext was:"http://www.webtrafficexchange.com/solve ... uffer-pool"<br>====================================<br>
+<br>
+<blockquote class="uncited"><div> <br>
+Solution:<br>
+<br>
+The problem is that the server does not have enough memory to allocate for MySQL process. There are a few solutions to this problem.<br>
+<br>
+(1) Increase the physical RAM. Adding 1GB of additional RAM will solve the problem.<br>
+(2) Allocate SWAP space. Digital Ocean VPS instance is not configured to use swap space by default. By allocating 512MB of swap space, we were able to solve this problem. To add swap space to your server, please follow the following steps:<br>
+<br>
+## As a root user, perform the following:<br>
+# dd if=/dev/zero of=/swap.dat bs=1024 count=512M<br>
+# mkswap /swap.dat<br>
+# swapon /swap.dat<br>
+## Edit the / etc/fstab, and the following entry.<br>
+/swap.dat none swap sw 0 0 <br>
+(3) Reduce the size of MySQL buffer pool size<br>
+<br>
+## Edit / etc/my.cnf, and add the following line under the [mysqld] heading.<br>
+[mysqld]<br>
+innodb_buffer_pool_size=64M
+</div></blockquote>
+Likely the last option would work the best on live usb, but also could add a swap file on the usb stick to increase the memory available (would be slow). So maybe after changing the configuration file try reinstalling or try reinstalling on a machine with more memory and then fix the configuration file for low memory machines.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46123" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46123">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">frank</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Mar 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46123">
+
+<time datetime="2016-04-02T01:26">posted: 2016-04-02 &nbsp; 01:26</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46123" title="permalink">#11</a></span>
+
+<div class="content">I found these links, but they did not resolve the issue for me<br>
+<br>
+http:/ / onaxer.com/blog/blog/ 2010/ 07/ 29/ … -disabled/ <br>
+http:/ / dev.mysql.com/doc/ innodb-plugin/ … alloc.html<br>
+<br>
+I installed a file in the mysql/conf.d/ directory with the lines<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[mysqld]
+innodb_use_sys_malloc=0
+</code></pre></div>
+Then I ran <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get -f install mysql-server
+</code></pre></div>
+The terminal results are:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get -f install mysql-server
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+mysql-server is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 210 not upgraded.
+2 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+Do you want to continue? [Y/ n] y
+Setting up mysql-server-5.5 (5.5.47-0+deb8u1) ...
+[ ok ] Stopping MySQL database server: mysqld.
+160401 20:50:19 [Warning] Using unique option prefix key_buffer instead of key_buffer_size is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:50:19 [Note] / usr/ sbin/ mysqld (mysqld 5.5.47-0+deb8u1) starting as process 7493 ...
+[....] Starting MySQL database server: mysqld . . . . . . . . . . . . . . . . . [FAIL . . . . . . . . . . failed!
+invoke-rc.d: initscript mysql, action"start" failed.
+dpkg: error processing package mysql-server-5.5 (--configure):
+ subprocess installed post-installation script returned error exit status 1
+dpkg: dependency problems prevent configuration of mysql-server:
+ mysql-server depends on mysql-server-5.5; however:
+  Package mysql-server-5.5 is not configured yet.
+
+dpkg: error processing package mysql-server (--configure):
+ dependency problems - leaving unconfigured
+Errors were encountered while processing:
+ mysql-server-5.5
+ mysql-server
+E: Sub-process / usr/ bin/ dpkg returned an error code (1)
+</code></pre></div>
+The error log results are:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>160401 20:46:05 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:46:05 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:46:05 InnoDB: The InnoDB memory heap is disabled
+160401 20:46:05 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:46:05 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:46:05 InnoDB: Using Linux native AIO
+160401 20:46:05 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:46:05 InnoDB: Completed initialization of buffer pool
+160401 20:46:05 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:46:05 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:46:05 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:46:05 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:46:05 [ERROR] Aborting
+
+160401 20:46:05 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:46:06 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:46:06 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:46:06 InnoDB: The InnoDB memory heap is disabled
+160401 20:46:06 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:46:06 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:46:06 InnoDB: Using Linux native AIO
+160401 20:46:06 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:46:06 InnoDB: Completed initialization of buffer pool
+160401 20:46:06 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:46:06 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:46:06 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:46:06 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:46:06 [ERROR] Aborting
+
+160401 20:46:06 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:46:06 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:46:06 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:46:06 InnoDB: The InnoDB memory heap is disabled
+160401 20:46:06 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:46:06 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:46:06 InnoDB: Using Linux native AIO
+160401 20:46:06 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:46:06 InnoDB: Completed initialization of buffer pool
+160401 20:46:06 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:46:06 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:46:06 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:46:06 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:46:06 [ERROR] Aborting
+
+160401 20:46:06 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:46:06 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:46:06 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:46:06 InnoDB: The InnoDB memory heap is disabled
+160401 20:46:06 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:46:06 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:46:06 InnoDB: Using Linux native AIO
+160401 20:46:06 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:46:06 InnoDB: Completed initialization of buffer pool
+160401 20:46:06 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:46:06 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:46:06 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:46:06 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:46:06 [ERROR] Aborting
+
+160401 20:46:06 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:46:08 mysqld_safe Starting mysqld daemon with databases from / var/ lib/ mysql
+error: Found option without preceding group in config file: / etc/ mysql/ conf.d/ install_error.cnf at line: 1
+160401 20:46:08 [Warning] Using unique option prefix key_buffer instead of key_buffer_size is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:46:08 [Note] / usr/ sbin/ mysqld (mysqld 5.5.47-0+deb8u1) starting as process 6183 ...
+160401 20:46:08 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:46:08 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:46:08 InnoDB: The InnoDB memory heap is disabled
+160401 20:46:08 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:46:08 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:46:08 InnoDB: Using Linux native AIO
+160401 20:46:08 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:46:08 InnoDB: Completed initialization of buffer pool
+160401 20:46:08 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:46:08 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:46:08 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:46:08 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:46:08 [ERROR] Aborting
+
+160401 20:46:08 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:46:08 mysqld_safe mysqld from pid file / var/ run/ mysqld/ mysqld.pid ended
+160401 20:50:18 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:50:18 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:50:18 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:50:18 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:50:18 InnoDB: Using Linux native AIO
+160401 20:50:19 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:50:19 InnoDB: Completed initialization of buffer pool
+160401 20:50:19 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:50:19 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:50:19 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:50:19 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:50:19 [ERROR] Aborting
+
+160401 20:50:19 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:50:19 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:50:19 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:50:19 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:50:19 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:50:19 InnoDB: Using Linux native AIO
+160401 20:50:19 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:50:19 InnoDB: Completed initialization of buffer pool
+160401 20:50:19 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:50:19 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:50:19 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:50:19 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:50:19 [ERROR] Aborting
+
+160401 20:50:19 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:50:19 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:50:19 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:50:19 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:50:19 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:50:19 InnoDB: Using Linux native AIO
+160401 20:50:19 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:50:19 InnoDB: Completed initialization of buffer pool
+160401 20:50:19 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:50:19 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:50:19 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:50:19 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:50:19 [ERROR] Aborting
+
+160401 20:50:19 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:50:19 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:50:19 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:50:19 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:50:19 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:50:19 InnoDB: Using Linux native AIO
+160401 20:50:19 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:50:19 InnoDB: Completed initialization of buffer pool
+160401 20:50:19 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:50:19 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:50:19 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:50:19 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:50:19 [ERROR] Aborting
+
+160401 20:50:19 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:50:20 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:50:20 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:50:20 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:50:20 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:50:20 InnoDB: Using Linux native AIO
+160401 20:50:20 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:50:20 InnoDB: Completed initialization of buffer pool
+160401 20:50:20 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:50:20 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:50:20 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:50:20 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:50:20 [ERROR] Aborting
+
+160401 20:50:20 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:50:28 mysqld_safe Starting mysqld daemon with databases from / var/ lib/ mysql
+160401 20:50:29 [Warning] Using unique option prefix key_buffer instead of key_buffer_size is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:50:29 [Note] / usr/ sbin/ mysqld (mysqld 5.5.47-0+deb8u1) starting as process 7957 ...
+160401 20:50:29 [Warning] Using unique option prefix myisam-recover instead of myisam-recover-options is deprecated and will be removed in a future release. Please use the full name instead.
+160401 20:50:29 [Note] Plugin 'FEDERATED' is disabled.
+160401 20:50:29 InnoDB: Mutexes and rw_locks use GCC atomic builtins
+160401 20:50:29 InnoDB: Compressed tables use zlib 1.2.8
+160401 20:50:29 InnoDB: Using Linux native AIO
+160401 20:50:29 InnoDB: Initializing buffer pool, size = 128.0M
+InnoDB: mmap(135987200 bytes) failed; errno 12
+160401 20:50:29 InnoDB: Completed initialization of buffer pool
+160401 20:50:29 InnoDB: Fatal error: cannot allocate memory for the buffer pool
+160401 20:50:29 [ERROR] Plugin 'InnoDB' init function returned error.
+160401 20:50:29 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+160401 20:50:29 [ERROR] Unknown/ unsupported storage engine: InnoDB
+160401 20:50:29 [ERROR] Aborting
+
+160401 20:50:29 [Note] / usr/ sbin/ mysqld: Shutdown complete
+
+160401 20:50:29 mysqld_safe mysqld from pid file / var/ run/ mysqld/ mysqld.pid ended
+</code></pre></div>
+I hope these are helpful in moving forward. Thanks to all for your help!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46124" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46124">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">frank</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Mar 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46124">
+
+<ul class="post-buttons">
+ </ul>
+<time datetime="2016-04-02T07:14">posted: 2016-04-02 &nbsp; 07:14</time>
+<span class="permalink"><a href="./cannot-install-mysql-server-t6318.html#p46124" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>From: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.webtrafficexchange.com/solved-mysql-crash-fatal-error-cannot-allocate-memory-buffer-pool"<br>linktext was:"http://www.webtrafficexchange.com/solve ... uffer-pool"<br>====================================<br>
+<br>
+<blockquote class="uncited"><div> <br>
+Solution:<br>
+<br>
+The problem is that the server does not have enough memory to allocate for MySQL process. There are a few solutions to this problem.<br>
+<br>
+(1) Increase the physical RAM. Adding 1GB of additional RAM will solve the problem.<br>
+(2) Allocate SWAP space. Digital Ocean VPS instance is not configured to use swap space by default. By allocating 512MB of swap space, we were able to solve this problem. To add swap space to your server, please follow the following steps:<br>
+<br>
+## As a root user, perform the following:<br>
+# dd if=/dev/zero of=/swap.dat bs=1024 count=512M<br>
+# mkswap /swap.dat<br>
+# swapon /swap.dat<br>
+## Edit the / etc/fstab, and the following entry.<br>
+/swap.dat none swap sw 0 0 <br>
+(3) Reduce the size of MySQL buffer pool size<br>
+<br>
+## Edit / etc/my.cnf, and add the following line under the [mysqld] heading.<br>
+[mysqld]<br>
+innodb_buffer_pool_size=64M
+</div></blockquote>
+Likely the last option would work the best on live usb, but also could add a swap file on the usb stick to increase the memory available (would be slow). So maybe after changing the configuration file try reinstalling or try reinstalling on a machine with more memory and then fix the configuration file for low memory machines.</div></blockquote>
+Thanks Dave!! I used the last option and was able to complete the installation. I used mysql to set the root password and hopefully that will do it. <br>
+<br>
+I rebooted to persist the changes and now when I try to install the next package I find that the system is running VERY slowly. The stats show that the CPU is at 88%, Freq 2658, RAM is 171M / 498M, swap 0 / 0 and disk 297M / 385 M. Any idea what may be the cause? I have the terminal open and synaptic running from root in the terminal. It has been running for 1hour and 20 minutes to prepare the packages for the install of one application!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

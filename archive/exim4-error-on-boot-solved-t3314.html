@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Exim4 error on Boot (solved) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./exim4-error-on-boot-solved-t3314.html">Exim4 error on Boot (solved)</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_21785" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21785">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21785">
+<time datetime="2011-08-28T13:01">posted: 2011-08-28 &nbsp; 13:01</time>
+<span class="permalink"><a href="./exim4-error-on-boot-solved-t3314.html#p21785" title="permalink">#1</a></span>
+
+<div class="content">Maybe SamK can figure this one out too. From bootlog:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ALERT: exim paniclog /var/log/exim4/paniclog has non-zero size, mail system possibly broken ...]</code></pre></div>
+and from the /var/log/exim4/paniclog<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>2011-08-28 07:47:43 socket bind() to port 25 for address ::1 failed: Cannot assign requested address: daemon abandoned</code></pre></div>
+Deleting the"paniclog' file stops the error message temporarily. The issue here from what I have read is port 25 being blocked by some internet providers resulting in the error message. After so many instances of failure to connect to port 25 a paniclog is written.<br>
+<br>
+So how to keep port 25 from being scanned ?</div>
+ <div class="notice">
+Last edited by <b>afab4</b> on 31 Aug 2011, 10:20, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21803" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21803">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21803">
+
+<time datetime="2011-08-29T08:42">posted: 2011-08-29 &nbsp; 08:42</time>
+<span class="permalink"><a href="./exim4-error-on-boot-solved-t3314.html#p21803" title="permalink">#2</a></span>
+
+<div class="content">Hi afab4,<br>
+Thanks for the vote of confidence but I will probably be of very little help as the symptoms are not present here. This pretty much rules out reliably diagnosing and testing the issue.
+<blockquote><div><cite>afab4 wrote:</cite>
+...From bootlog:...<br>
+...from the /var/log/exim4/paniclog...</div></blockquote>These entries do not appear on my test-rig machine. In my case I do not even have a /var/log/exim4/paniclog. My installation is still pretty much a stock antiX-M11; the above suggests that yours has a different configuration of apps.<br>
+<br>
+From some superficial research it seems there may be more than one cause of the problem, but blocking of port 25 by your ISP is the most likely culprit. Have you confirmed this to be the case? This link may help your diagnosis:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://kb.siteground.com/article/How_to_check_whether_SMTP_port_25_is_blocked.html"<br>linktext was:"http://kb.siteground.com/article/How_to ... ocked.html"<br>====================================<br>
+<br>
+If this is the cause, a search on Google turns up some suggested ways of tackling it.<br>
+<br>
+If blocking of port 25 is ruled out you might then try to identify a local cause:
+<ul><li>* Booting using a live CD from an alternative distro are the symptoms present?</li></ul><ul><li>* Booting using an antiX CD are the symptoms present?</li></ul><ul><li>* Adding which app produces the symtoms - does it offer configuration options?</li></ul><ul><li>* Is there some form of contention between your kernel and network adaptor? Try substituting alternatives.</li></ul>etc...<br>
+<br>
+Not much real help but the best I can offer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21822" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21822">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21822">
+
+<time datetime="2011-08-30T02:44">posted: 2011-08-30 &nbsp; 02:44</time>
+<span class="permalink"><a href="./exim4-error-on-boot-solved-t3314.html#p21822" title="permalink">#3</a></span>
+
+<div class="content">After some further research, i did this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> apt-get install ssmtp </code></pre></div>
+<br>
+and configured it (edit /etc/ssmtp/ssmtp.conf) to use my Google Mail server:<br>
+<br>
+root=<a href="mailto:noreply@yourdomain.com">noreply@yourdomain.com</a><br>
+mailhub=smtp.gmail.com:587<br>
+UseSTARTTLS=yes<br>
+UseTLS=yes<br>
+AuthUser=<a href="mailto:youremail@yourdomain.com">youremail@yourdomain.com</a><br>
+AuthPass=password<br>
+FromLineOverride=YES<br>
+<br>
+Can't take the credit for this though. It came from here.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://serverfault.com/questions/54069/how-to-setup-ubuntu-mail-server-with-google-apps"<br>linktext was:"http://serverfault.com/questions/54069/ ... oogle-apps"<br>====================================<br>
+<br>
+<br>
+Installing ssmtp takes out exim4 but I also went into the antixcc and edited the startup services, removing exim4.<br>
+<br>
+Everything works and no more error messages.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED]xorg configuration: Desktop gone, only CLI left - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html">[SOLVED]xorg configuration: Desktop gone, only CLI left</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_42519" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42519">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">Moby</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42519">
+<time datetime="2015-08-15T19:37">posted: 2015-08-15 &nbsp; 19:37</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42519" title="permalink">#1</a></span>
+
+<div class="content">Hello, <br>
+I've experienced trouble waking up the machine from"Suspend (to RAM)" so I decided to install and configure the Nvidia drivers on AntiX 15 for my 32-bit processor HP laptop, dating back to 2007, with Win7 in dual-boot. <br>
+<br>
+I've followed a guide based on 64-bit Debian Jessie (Antix is based off of Debian, after all) but the installation didn't go as expected and on reboot I lost the GUI desktop, now I'm left with a CLI AntiX and…I'm not comfortable with it! Can you please show me a more specific guide, tailored to AntiX 15, that can help me recover the GUI desktop and configure the Nvidia drivers, please? <br>
+<br>
+This is what happened in the Terminal while installing the Nvidia drivers, when I still had the desktop i.e. ROX-fluxbox:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ lspci -nn | grep VGA
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation G72M [GeForce Go 7400] [10de:01d8] (rev a1)
+$ sudo nano / etc / apt / sources.list
+</code></pre></div>
+The content of the <strong>sources.list</strong> file is this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#Debian 8 Jessie
+deb http://http.debian.net/debian/ jessie main contrib non-free</code></pre></div>
+Then I updated the list of packages available for install and installed the Nvidia drivers:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo apt-get update
+
+$ sudo apt-get install nvidia-driver
+
+$ sudo apt-get install nvidia-xconfig 
+</code></pre></div>
+When I installed the nvidia-xconfig pkg I got back some warnings so I took some screenshots of the Terminal. I've numbered and included them in the zip file (see attachment). They're in Italian but basically they say:
+<ul style="list-style-type: 3">
+<li>This system has an out-dated Nvidia graph card but you can use Nouveau instead. To use Nouveau you first need to remove Nvidia's configuration from xorg.config. Install Nvidia drivers even if they're not supported? Yes </li>
+<li>There's a conflict between the free kernel of Nouveau and the proprietary kernel for Nvidia. To correct this conflict reboot the system once the install is completed</li>
+<li>You need to MANUALLY configure the Nvidia drivers in <span style="text-decoration: underline">xorg.config</span>, see the package's manual (← how do I manually configure it?)</li>
+</ul>
+I attempted to start the nvidia-xconfig but I got this response from Terminal:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo nvidia-xconfig
+WARNING: Unable to locate/open X configuration file.
+
+Package xorg-server was not found in the pkg-config search path.
+Perhaps you should add the directory containing `xorg-server.pc'
+to the PKG_CONFIG_PATH environment variable
+ No package 'xorg-server' found
+ New X configuration file written to '/ etc / X11 / xorg.conf'</code></pre></div>
+What do I do now? How do I MANUALLY configure xorg now that Antix only boots to CLI? Can someone please point me towards a guide or explain it to me step by step, please?</div>
+</div>
+<div class="notice">
+Last edited by <b>Moby</b> on 20 Aug 2015, 14:11, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42520" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42520">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42520">
+
+<time datetime="2015-08-15T20:46">posted: 2015-08-15 &nbsp; 20:46</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42520" title="permalink">#2</a></span>
+
+<div class="content">For your GeForce Go 7400 nvidia card you need to install the 'nvidia-legacy-304xx-driver' package instead of the 'nvidia-driver' package.<br>
+nvidia-legacy-304xx-driver supports GeForce 6xxx &amp; 7xxx cards, nvidia-driver doesn't. <br>
+<br>
+There's also another possible problem, the Debian Jessie 'nvidia-legacy-304xx-driver' package might not support the 4.0.5 kernel that antiX-15 is using.<br>
+I think if you enable the Siduction fixes repo that it's 'nvidia-legacy-304xx-driver' package does support the 4.0.5 kernel, anti suggested the same here: post41658.html#p41658</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42529" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42529">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42529">
+
+<time datetime="2015-08-16T02:16">posted: 2015-08-16 &nbsp; 02:16</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42529" title="permalink">#3</a></span>
+
+<div class="content">Maybe apt-get purge the Nvidia packages that you have installed and run sgfxi as root. That is what I have been running for my graphics card driver installation. You may need to run it, reboot and run again depending on if you are running a conflicting driver or not.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42536" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42536">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">Moby</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42536">
+
+<time datetime="2015-08-16T16:26">posted: 2015-08-16 &nbsp; 16:26</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42536" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Maybe apt-get purge the Nvidia packages that you have installed and run sgfxi as root. […]<br>
+You may need to run it, reboot and run again depending on if you are running a conflicting driver or not.</div></blockquote>
+I've tried running sgfxi as root ("su -" followed by root password) but it didn't work out. The script tries to install the Nvidia driver 304.125 by extracting and installing the contents of package"NVIDIA-Linux-x86-304.125"; it ended with error '1' and a very lengthy log file was created in var/log/sgfxi/sgfxi.log (it looks like Greek to me, no pun intended). <br>
+<br>
+I think now I should install the"nvidia-detect" package and get the exact name of the package I need. I suppose it's what <strong>kmathern</strong> suggested I should do.<br>
+<blockquote><div><cite>kmathern wrote:</cite>For your GeForce Go 7400 nvidia card you need to install the 'nvidia-legacy-304xx-driver' package instead of the 'nvidia-driver' package.<br>
+nvidia-legacy-304xx-driver supports GeForce 6xxx &amp; 7xxx cards, nvidia-driver doesn't. <br>
+<br>
+There's also another possible problem, the Debian Jessie 'nvidia-legacy-304xx-driver' package might not support the 4.0.5 kernel that antiX-15 is using.<br>
+I think if you enable the Siduction fixes repo that it's 'nvidia-legacy-304xx-driver' package does support the 4.0.5 kernel, […]
+</div></blockquote>
+<strong>@kmathern</strong> I've read the link you gave me, but I didn't quite understand how I should enable the Siduction fixes repo. What is the file I'm going to modify in AntiX? source.list?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42555" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42555">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42555">
+
+<time datetime="2015-08-16T22:35">posted: 2015-08-16 &nbsp; 22:35</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42555" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>Moby wrote:</cite>...<strong>@kmathern</strong> I've read the link you gave me, but I didn't quite understand how I should enable the Siduction fixes repo. <span style="color: #BF0000">What is the file I'm going to modify in AntiX? source.list?</span></div></blockquote>The <span style="font-size: 100%; line-height: normal">/</span>etc/apt/sources.list.d/siduction.list file.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#siduction 
+#deb ftp://ftp.spline.de/pub/siduction/base unstable main contrib non-free
+#deb ftp://ftp.spline.de/pub/siduction/fixes unstable main contrib non-free
+#deb-src ftp://ftp.spline.de/pub/siduction/base unstable main contrib non-free
+#deb-src ftp://ftp.spline.de/pub/siduction/fixes unstable main contrib non-free</code></pre></div>
+Remove the # at start of the 2nd repo line.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#siduction 
+#deb ftp://ftp.spline.de/pub/siduction/base unstable main contrib non-free
+deb ftp://ftp.spline.de/pub/siduction/fixes unstable main contrib non-free
+#deb-src ftp://ftp.spline.de/pub/siduction/base unstable main contrib non-free
+#deb-src ftp://ftp.spline.de/pub/siduction/fixes unstable main contrib non-free</code></pre></div>
+Reload repo lists with a 'apt-get update'.<br>
+When you reload there will probably be GPG error, installing the Siduction repo's keyring package, 'apt-get install siduction-archive-keyring', will fix the GPG error.<br>
+I would only enable the Siduction repo just long enough to install the nvidia related packages from it, I'd disable it afterward.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42566" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42566">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">Moby</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42566">
+
+<time datetime="2015-08-17T11:49">posted: 2015-08-17 &nbsp; 11:49</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42566" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>kmathern wrote:</cite>
+The <span style="font-size: 100%; line-height: normal">/</span>etc/apt/sources.list.d/siduction.list file.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#siduction 
+#deb ftp://ftp.spline.de/pub/siduction/base unstable main contrib non-free
+#deb ftp://ftp.spline.de/pub/siduction/fixes unstable main contrib non-free
+#deb-src ftp://ftp.spline.de/pub/siduction/base unstable main contrib non-free
+#deb-src ftp://ftp.spline.de/pub/siduction/fixes unstable main contrib non-free</code></pre></div>
+Remove the # at start of the 2nd repo line.<br>
+[…]<br>
+Reload repo lists with a 'apt-get update'.<br>
+When you reload there will probably be GPG error […]<br>
+<span style="color: #FF0000">I would only enable the Siduction repo just long enough to install the nvidia related packages from it, I'd disable it afterward.</span></div></blockquote>
+I got my desktop back! I've tried putting the machine to sleep and waking it up from RAM– it works fine now! It's the correct Nvidia drivers that I was missing. <br>
+<br>
+Do I have to still manually edit the xorg file in <span style="font-size: 100%; line-height: normal">/</span>etc/X11/...? <br>
+I'm still getting the YouTube video buttons mixed up, one over the other (see screenshot in attachment, please). Does that depend on some other fixes that I must download from Siduction before I disable it again?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42570" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42570">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42570">
+
+<time datetime="2015-08-17T13:55">posted: 2015-08-17 &nbsp; 13:55</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42570" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>Moby wrote:</cite>...I got my desktop back! I've tried putting the machine to sleep and waking it up from RAM– it works fine now! It's the correct Nvidia drivers that I was missing. <br>
+<br>
+Do I have to still manually edit the xorg file in <span style="font-size: 100%; line-height: normal">/</span>etc/X11/...? <br>
+I'm still getting the YouTube video buttons mixed up, one over the other (see screenshot in attachment, please). Does that depend on some other fixes that I must download from Siduction before I disable it again?</div></blockquote>
+First post a 'inxi -Fxxx' report and maybe also your <span style="font-size: 100%; line-height: normal">/</span>etc/X11/xorg.conf file.<br>
+<br>
+In the past I've used a very simple xorg.conf, like the one from the Debian wiki: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/NvidiaGraphicsDrivers#Configuration"<br>linktext was:"https://wiki.debian.org/NvidiaGraphicsD ... figuration"<br>====================================<br>
+
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"Device"
+        Identifier"My GPU"
+        Driver"nvidia"
+EndSection</code></pre></div>
+You can then use nvidia-settings to 'tweak' it a bit.<br>
+If you're going to do that, install the <em>nvidia-settings-legacy-304xx</em> package instead of the <em>nvidia-settings</em> package.<br>
+I'm not exactly sure what the differences are, but I think the legacy-304xx package should be used instead of the non legacy one.<br>
+The <em>nvidia-settings-legacy-304xx</em> package is in the Debian Jessie repo, so you don't need to re-enable the Siduction repo to install it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42579" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42579">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">Moby</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42579">
+
+<time datetime="2015-08-18T08:25">posted: 2015-08-18 &nbsp; 08:25</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42579" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>kmathern wrote:</cite>
+First post a 'inxi -Fxxx' report and maybe also your <span style="font-size: 100%; line-height: normal">/</span>etc/X11/xorg.conf file.<br>
+You can then use nvidia-settings to 'tweak' it a bit.<br>
+If you're going to do that, install the <em>nvidia-settings-legacy-304xx</em> package instead of the <em>nvidia-settings</em> package.<br>
+[…]<br>
+The <em>nvidia-settings-legacy-304xx</em> package is in the Debian Jessie repo, so you don't need to re-enable the Siduction repo to install it.</div></blockquote>
+@<strong>kmathern</strong>, here are the 2 reports/files you requested. I haven't installed any package nor edited any file, not yet.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxxx
+System:    Host: aliquis Kernel: 4.0.5-antix.1-486-smp i686 (32 bit gcc: 4.9.2) Desktop: Fluxbox 1.3.5 dm: slim
+           Distro: antiX-15-V_386-full Killah P 30 June 2015
+Machine:   System: Hewlett-Packard product: HP Pavilion dv6000 (GH881EA#ABZ) v: Rev 1 Chassis: Quanta type: 10
+           Mobo: Quanta model: 30BC v: 66.37 Bios: Hewlett-Packard v: F.16 date: 02/02/2007
+CPU:       Dual core Intel Core2 T5600 (-MCP-) cache: 2048 KB
+           flags: (lm nx pae sse sse2 sse3 ssse3 vmx) bmips: 7317
+           clock speeds: min/max: 1000/1833 MHz 1: 1833 MHz 2: 1833 MHz
+Graphics:  Card: NVIDIA G72M [GeForce Go 7400] bus-ID: 01:00.0 chip-ID: 10de:01d8
+           Display Server: X.Org 1.16.4 driver: nvidia Resolution: 1280x800@59.98hz
+           GLX Renderer: GeForce Go 7400/PCIe/SSE2 GLX Version: 2.1.2 NVIDIA 304.125 Direct Rendering: Yes
+Audio:     Card Intel NM10/ICH7 Family High Definition Audio Controller
+           driver: snd_hda_intel bus-ID: 00:1b.0 chip-ID: 8086:27d8
+           Sound: Advanced Linux Sound Architecture v: k4.0.5-antix.1-486-smp
+Network:   Card-1: Intel PRO/Wireless 3945ABG [Golan] Network Connection
+           driver: iwl3945 v: in-tree:s bus-ID: 02:00.0 chip-ID: 8086:4222
+           IF: wlan0 state: up mac: 00:19:d2:99:db:cf
+           Card-2: Intel 82573L Gigabit Ethernet Controller
+           driver: e1000e v: 2.3.2-k port: 4000 bus-ID: 05:00.0 chip-ID: 8086:109a
+           IF: eth0 state: down mac: 00:1b:24:13:3b:10
+Drives:    HDD Total Size: 160.0GB (4.6% used) ID-1: /dev/sda model: ST9160821AS size: 160.0GB serial: 5MA1KAX9
+Partition: ID-1: / size: 18G used: 3.1G (19%) fs: ext4 dev: /dev/sda5
+           ID-2: swap-1 size: 4.19GB used: 0.00GB (0%) fs: swap dev: /dev/sda6
+Sensors:   System Temperatures: cpu: 39.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 112 Uptime: 13 min Memory: 250.8/2018.8MB
+           Init: SysVinit v: 2.88 runlevel: 5 default: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301 running in roxterm) inxi: 2.2.25 
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># nvidia-xconfig: X configuration file generated by nvidia-xconfig
+# nvidia-xconfig:  version 340.46  (buildd@binet)  Tue Oct  7 08:03:22 UTC 2014
+
+Section"ServerLayout"
+    Identifier    "Layout0"
+    Screen      0 "Screen0"
+    InputDevice   "Keyboard0""CoreKeyboard"
+    InputDevice   "Mouse0""CorePointer"
+EndSection
+
+Section"Files"
+EndSection
+
+Section"InputDevice"
+    # generated from default
+    Identifier    "Mouse0"
+    Driver        "mouse"
+    Option        "Protocol""auto"
+    Option        "Device""/dev/psaux"
+    Option        "Emulate3Buttons""no"
+    Option        "ZAxisMapping""4 5"
+EndSection
+
+Section"InputDevice"
+    # generated from default
+    Identifier    "Keyboard0"
+    Driver        "kbd"
+EndSection
+
+Section"Monitor"
+    Identifier    "Monitor0"
+    VendorName    "Unknown"
+    ModelName     "Unknown"
+    HorizSync       28.0 - 33.0
+    VertRefresh     43.0 - 72.0
+    Option        "DPMS"
+
+Section"Device"
+    Identifier    "Device0"
+    Driver        "nvidia"
+    VendorName    "NVIDIA Corporation"
+EndSection
+
+Section"Screen"
+    Identifier    "Screen0"
+    Device        "Device0"
+    Monitor       "Monitor0"
+    DefaultDepth    24
+    SubSection    "Display"
+        Depth       24
+    EndSubSection
+EndSection
+
+</code></pre></div>
+Do you think I should type a more intuitive label for"Driver" and"Identifier" in the"Device" section, in this last file? <br>
+Do you think it is the Adobe flash player that causes the control buttons of YT to pile up on each other? <br>
+Also, the combination of 'Fn' key + [F1–F12] doesn't work. I'd like to decrease the screen brightness with these keys so I can save some battery power and keep the CPU low. Can that be done by tweaking Nvidia with nvidia-settings?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42587" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42587">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 88</span></div>
+
+</div>
+</div>
+<span class="username">kmathern</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42587">
+
+<time datetime="2015-08-18T16:26">posted: 2015-08-18 &nbsp; 16:26</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42587" title="permalink">#9</a></span>
+
+<div class="content">Your inxi report and xorg.conf look okay to me.<br>
+<br>
+<br>
+<blockquote class="uncited"><div>Also, the combination of 'Fn' key + [F1–F12] doesn't work. I'd like to decrease the screen brightness with these keys so I can save some battery power and keep the CPU low. Can that be done by tweaking Nvidia with nvidia-settings?</div></blockquote>You might be able turn the brightness down some in nvidia-setting's gamma related settings, but I think there's some other (better) tools for that. <br>
+Maybe someone else can help with that.<br>
+<br>
+<br>
+<blockquote class="uncited"><div>Do you think it is the Adobe flash player that causes the control buttons of YT to pile up on each other?</div></blockquote>I don't know what's causing the buttons to overlap. Are you sure that Adobe flash player is even being used to play videos on Youtube?<br>
+Youtube now uses html5 on my installs, but I haven't had any problem with the buttons overlapping with it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42608" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42608">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 16</span></div>
+
+</div>
+</div>
+<span class="username">Moby</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jul 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42608">
+
+<time datetime="2015-08-19T20:01">posted: 2015-08-19 &nbsp; 20:01</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p42608" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>kmathern wrote:</cite>
+<br>
+Are you sure that Adobe flash player is even being used to play videos on Youtube?<br>
+Youtube now uses html5 on my installs, […]</div></blockquote>
+How do I see if Adobe flash is being used or whether YT is using html5? Maybe that's exactly the problem…</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43096" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43096">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43096">
+
+<time datetime="2015-09-13T18:48">posted: 2015-09-13 &nbsp; 18:48</time>
+<span class="permalink"><a href="./solved-xorg-configuration-desktop-gone-only-cli-le-t5865.html#p43096" title="permalink">#11</a></span>
+
+<div class="content">I have that same overlapping buttons on the left side on youtube with mine running the nvidia 304 legacy stuff. I wonder if its nvidia 304 driver related?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

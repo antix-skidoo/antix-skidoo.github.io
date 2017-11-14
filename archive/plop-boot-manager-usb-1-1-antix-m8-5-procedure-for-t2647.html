@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Plop boot manager, usb 1.1, antiX M8.5 procedure for install - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-development-f24/index.html"><span>antiX-development</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./documentation-f18/index.html"><span>Documentation</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html">Plop boot manager, usb 1.1, antiX M8.5 procedure for install</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_17181" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17181">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17181">
+<time datetime="2010-09-03T15:14">posted: 2010-09-03 &nbsp; 15:14</time>
+<span class="permalink"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html#p17181" title="permalink">#1</a></span>
+
+<div class="content">Procedure for installing AntiX M8.5 on computer with no bootable CD and only usb 1.1 utilizing the plop boot manager boot floppy.<br>
+<br>
+<br>
+1. Create the plop bootmanger floppy. Instructions are here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.plop.at/en/bootmanager.html"<br>linktext was:"http://www.plop.at/en/bootmanager.html"<br>====================================<br>
+<br>
+<br>
+2. Create unetbootin usb sticks for antiX. I think my previous procedure for creating manual boot sticks will also work.<br>
+<br>
+3. download"system rescue cd" 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.sysresccd.org/Download"<br>linktext was:"http://www.sysresccd.org/Download"<br>====================================<br>
+ (SRCD) and create another unetbootin usb stick for that.<br>
+<br>
+4. Insert the SRCD stick into a usb slot and the plop floppy in the floppy drive. With the plop floppy in set as the first bootable drive, start your computer.<br>
+<br>
+5. Select the usb boot option from the menu. On my machine this is a little finicky, and sometimes I have to reboot the machine a couple of times to get this menu up.<br>
+<br>
+6. go through the startup process for SRCD. I selected the alternate 32 kernel as it worked best on my machine.<br>
+<br>
+7. use gparted to create a"scratch" parition on your computer's internal drive. On my machine, I keep a"fat32" parition handy as a univeral data drive, so I used that. The partition you create cannot be used as your final installation destination. Make a note of the device name (/dev/sda5 for my machine).<br>
+<br>
+8. from a terminal prompt, issue the following command.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir /mnt/disk</code></pre></div>
+and
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir /mnt/disk2</code></pre></div>
+9. insert your anitX usb stick into a port. issue the following command
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mount /dev/sdc1 /mnt/disk (assuming sdc is the device name for your antiX stick) </code></pre></div>
+and<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mount /dev/sdaX /mnt/disk2</code></pre></div> (replace sdaX with the name of your scratch parition you created)<br>
+<br>
+10. copy the /antiX directory from the stick to the scratch parition. I used Midnight commander (mc) for this as its dual pane and I've never been very good with terminal copy commands for some reason. MC is included with SRCD.<br>
+<br>
+11. shutdown SRCD, remove the SRCD stick.<br>
+<br>
+12. reboot with the plop floppy and the antiX usb stick inserted. Select USB as before.<br>
+<br>
+13. When antix boots, for some reason on a usb 1.1 port it will not find the filesystem. However, it will search the internal drive for the file system. The system finds mine /antiX directory on my /dev/sda5.<br>
+<br>
+14. Assuming the antiX boot finds the file system, the liveCD should boot. You can then install as normal. Remember you can't install to the scratch directory. After your install is done you can clean up your paritions if you want.<br>
+<br>
+I've tested this on my old Sony, and it works for me (I'm posting from the machine now). Hopefully it will be of help to someone else.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17183" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17183">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17183">
+
+<time datetime="2010-09-03T17:06">posted: 2010-09-03 &nbsp; 17:06</time>
+<span class="permalink"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html#p17183" title="permalink">#2</a></span>
+
+<div class="content">Good work dolphin_oracle. Kudos. <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17184" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17184">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17184">
+
+<time datetime="2010-09-03T17:14">posted: 2010-09-03 &nbsp; 17:14</time>
+<span class="permalink"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html#p17184" title="permalink">#3</a></span>
+
+<div class="content">Thanks rok...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17187" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17187">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17187">
+
+<time datetime="2010-09-03T18:06">posted: 2010-09-03 &nbsp; 18:06</time>
+<span class="permalink"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html#p17187" title="permalink">#4</a></span>
+
+<div class="content">Good to know.<br>
+We know that the rootfs= delay never worked for us but in initrd.gz, about in the end of the file there's a delay command (sleep maybe, 6 seconds, I think) and a comment about this being needed because of old systems.<br>
+It could be interesting to increase that and see if it would work"out of the box".<br>
+<br>
+Bitjam put that initrd.gz in a thread at mepislovers and I peeked at it but it needs some knowledge to compress it the right way to create a new one.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17193" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17193">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17193">
+
+<time datetime="2010-09-04T17:11">posted: 2010-09-04 &nbsp; 17:11</time>
+<span class="permalink"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html#p17193" title="permalink">#5</a></span>
+
+<div class="content">Added to Wiki<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.mepis.com/index.php/Howto_articles#Installation_Tips"<br>linktext was:"http://antix.mepis.com/index.php/Howto_ ... ation_Tips"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17626" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17626">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">lorue</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Sep 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17626">
+
+<time datetime="2010-10-03T22:18">posted: 2010-10-03 &nbsp; 22:18</time>
+<span class="permalink"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html#p17626" title="permalink">#6</a></span>
+
+<div class="content">Hi DO<br>
+on SystemRescueCd<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.sysresccd.org/Sysresccd-manual-en_How_to_install_SystemRescueCd_on_an_USB-stick#Introduction"<br>linktext was:"http://www.sysresccd.org/Sysresccd-manu ... troduction"<br>====================================<br>
+<br>
+second paragraph comments:<br>
+""There are programs such as unetbootin or linuxliveusb that provide graphical installation programs that can be used to install SystemRescueCD to a USB stick. Unfortunately unetbootin fails to install SystemRescueCD-1.5.x to a USB stick so you should not use it. There is now an official SystemRescueCD USB installer for Windows that you should use.""<br>
+I verifyed and right now unetbootin (linux and windows) is not working for SystemRescueCd, but linuxliveusb is working very good.<br>
+Regards<br>
+Lorue</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17630" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17630">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17630">
+
+<time datetime="2010-10-04T01:34">posted: 2010-10-04 &nbsp; 01:34</time>
+<span class="permalink"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html#p17630" title="permalink">#7</a></span>
+
+<div class="content">Good to know, thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17632" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17632">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">lorue</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Sep 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17632">
+
+<time datetime="2010-10-04T01:58">posted: 2010-10-04 &nbsp; 01:58</time>
+<span class="permalink"><a href="./plop-boot-manager-usb-1-1-antix-m8-5-procedure-for-t2647.html#p17632" title="permalink">#8</a></span>
+
+<div class="content">Hi DO<br>
+I have just try to use your procedure, but it do not work for me.<br>
+I have just recieve some information from Roky to use and I hope will help me.<br>
+The topic is post17550.html<br>
+thank you and regards<br>
+Lorue</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

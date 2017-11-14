@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>error updating wicd - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./antix-m7-5-toussaint-louverture-f20/index.html"><span>antiX-M7.5 Toussaint Louverture</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./error-updating-wicd-t1469.html">error updating wicd</a></h2>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_9333" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9333">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 61</dd>
+<span class="username">thinkpada21</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9333">
+
+<time datetime="2009-02-27T23:53">posted: 2009-02-27  &nbsp; 23:53</time>
+<span class="permalink"><a href="./error-updating-wicd-t1469.html#p9333" title="permalink">#1</a></span>
+
+<div class="content">When a did an"apt-get update ; apt-get upgrade", I got the following errors for wicd:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>invoke-rc.d: initscript wicd, action"stop" failed.
+dpkg: error processing wicd (--remove):
+ subprocess pre-removal script returned error exit status 1
+update-rc.d: warning: /etc/init.d/wicd missing LSB information
+</code></pre></div>
+I then tried to do"apt-get remove wicd" and got the same errors.<br>
+<br>
+Since it appeared to be complaining that wicd was not running, I tried manually starting wicd, but it just silently failed to run.<br>
+<br>
+Before I go digging through and trying to hack wicd into submission, is there anyway I can force the wicd package to be removed?<br>
+<br>
+I can still update / install / remove over packages, but wicd is currently stuck.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9334" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile9334">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9334">
+
+<time datetime="2009-02-28T00:47">posted: 2009-02-28  &nbsp; 00:47</time>
+<span class="permalink"><a href="./error-updating-wicd-t1469.html#p9334" title="permalink">#2</a></span>
+
+<div class="content">I notice your using 7.5. I wonder if you didn't get caught in the big change up with wicd from a while back. Have you kept up to date since install? If not, do a forum search here and you will find a detailed fix for wicd. If you are up to date the fix still may work to get it removed if it is a problem.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9346" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9346">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,959</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9346">
+
+<time datetime="2009-02-28T12:59">posted: 2009-02-28  &nbsp; 12:59</time>
+<span class="permalink"><a href="./error-updating-wicd-t1469.html#p9346" title="permalink">#3</a></span>
+
+<div class="content">I got this on an old antiX-M7.5 ugrade too.<br>
+The way I fixed it, is to remove these 3 files<br>
+wicd.postinst, wicd.postrm, wicd.prerm, <br>
+from /var/lib/dpkg/info<br>
+<br>
+Then apt-get -f install<br>
+<br>
+(You may need)<br>
+apt-get install --reinstall wicd</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9361" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile9361">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 61</dd>
+<span class="username">thinkpada21</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9361">
+
+<time datetime="2009-02-28T23:14">posted: 2009-02-28  &nbsp; 23:14</time>
+<span class="permalink"><a href="./error-updating-wicd-t1469.html#p9361" title="permalink">#4</a></span>
+
+<div class="content">Thanks to both of you. I was able to purge the old wicd, then install thenew one.<br>
+<br>
+I then edited the control centre to invoke"wicd-client -n".<br>
+<br>
+I did not touch the tray icon part, since I have never used the wicd tray icon. Is there much benefit to using it?</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9595" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9595">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 10</dd>
+<span class="username">gychang</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9595">
+
+<time datetime="2009-03-10T15:15">posted: 2009-03-10  &nbsp; 15:15</time>
+<span class="permalink"><a href="./error-updating-wicd-t1469.html#p9595" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>thinkpada21 wrote:</cite>Thanks to both of you. I was able to purge the old wicd, then install thenew one.<br>
+<br>
+I then edited the control centre to invoke"wicd-client -n".<br>
+<br>
+I did not touch the tray icon part, since I have never used the wicd tray icon. Is there much benefit to using it?</div></blockquote>
+I seemed to have a same problem, was able to connect fine before I upgraded the package via wireless connection, now after rebooting, wicd does not work.<br>
+<br>
+1. How did you pure the old wicd?<br>
+2. install the new one?<br>
+3. edit the control centre to invoke"wicd-clinent -n"?<br>
+<br>
+I am a newbie.<br>
+<br>
+thanks in advance.<br>
+<br>
+gychang</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9597" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile9597">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,959</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9597">
+
+<time datetime="2009-03-10T16:52">posted: 2009-03-10  &nbsp; 16:52</time>
+<span class="permalink"><a href="./error-updating-wicd-t1469.html#p9597" title="permalink">#6</a></span>
+
+<div class="content">Follow the steps here:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.freeforu ms.org/wicd-upgrade-t1115.html"<br>linktext was:"http://antix.freeforu ms.org/wicd-upgrade-t1115.html"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+you should really only need to do step4 b</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9598" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9598">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 10</dd>
+<span class="username">gychang</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9598">
+
+<time datetime="2009-03-10T17:36">posted: 2009-03-10  &nbsp; 17:36</time>
+<span class="permalink"><a href="./error-updating-wicd-t1469.html#p9598" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Follow the steps here:<br>
+<br>
+wicd-upgrade-t1115.html<br>
+<br>
+you should really only need to do step4 b</div></blockquote>
+great, will try it when I get home, thanks,<br>
+<br>
+gychang</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

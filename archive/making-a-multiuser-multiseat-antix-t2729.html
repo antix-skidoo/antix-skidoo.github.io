@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Making a multiuser / multiseat antiX - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./making-a-multiuser-multiseat-antix-t2729.html">Making a multiuser / multiseat antiX</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_17795" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17795">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17795">
+<time datetime="2010-10-17T22:12">posted: 2010-10-17 &nbsp; 22:12</time>
+<span class="permalink"><a href="./making-a-multiuser-multiseat-antix-t2729.html#p17795" title="permalink">#1</a></span>
+
+<div class="content">Been working on this as a sort of"project", basically it is were several people have their own computer setup ( 1 moniter, 1 keyboard, and 1 mouse ) and login running on the same machine. <br>
+<br>
+here is my procedure thus far<br>
+<br>
+#1 attach all devices to the computer<br>
+#2 make a fresh install of antix<br>
+#3 if using a nvidia video card, download the video card drivers from nvidia's site and change permissions to allow to run<br>
+#4 download automseat<br>
+#5 using synaptic search ( ...<br>
+"libc6-dev" and install libc6-dev ( this is to be able to run the driver installation )<br>
+"gdm" and install setting as default <br>
+"xserver" find the nv driver and completely remove it<br>
+#6 type as root in terminal ( DISABLED_MODULES="nv nvidia_new" )<br>
+#7 change start up services turning off gdm at startup <br>
+#8 reboot and become root in the comand line interface<br>
+#9 cd to the directory where the drivers were downloaded and run them<br>
+#10 dpkg the automseat file<br>
+#11 cd to ( /usr/bin ) and edit the file automseat, find the nvidia driver nv and change it to nvidia (geany line 351 ), then find the resolution sets and change it to the resolutions you desire ( geany line 599 )<br>
+#12 save and close, then type automseat -v ( this will show the output and configure X )<br>
+#13 type lspci |grep VGA and record the output<br>
+#14 cd to /etc/gdm/ and edit gdm.conf, in the servers section add
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> 
+0=Standard0
+1=Standard1
+
+[server-Standard0]
+name=Standard server
+command=/usr/bin/X -nolisten tcp -isolateDevice PCI:1:0:0 -layout layout0 :0
+flexible=false
+
+[server-Standard1]
+name=Standard server
+command=/usr/bin/X -nolisten tcp -isolateDevice PCI:4:0:0 -novtswitch -sharevts -layout layout1 :1
+flexible=false
+</code></pre></div>
+changing PCI:1:0:0 and PCI:4:0:0 to your video card address from lspci |grep VGA<br>
+<br>
+#15 cd /boot/grub and edit menu.lst at the end of one of the entries type vmalloc=256M max should be around 512M<br>
+#16 reboot and become root. <br>
+#17 type gdm and login <br>
+#18 add another user by typing in the terminal muser<br>
+#19 login second moniter to the new user<br>
+<br>
+This is how I have gotten the multi user system to work with antix, and it takes a while to do. Have not worked out all the problems, will post when I figure them out.<br>
+<br>
+Problem:<br>
+the mice and keyboards work on both screens instead of on one the one it is meant to. if anyone else tries this and finds a solution post back, till then will keep trying.<br>
+<br>
+PS. once this is done reset gdm to start on startup</div>
+<div class="notice">
+Last edited by <b>Dave</b> on 21 Oct 2010, 00:32, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17796" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile17796">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,062</dd>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17796">
+
+<time datetime="2010-10-17T22:15">posted: 2010-10-17 &nbsp; 22:15</time>
+<span class="permalink"><a href="./making-a-multiuser-multiseat-antix-t2729.html#p17796" title="permalink">#2</a></span>
+
+<div class="content">My Xorg.conf<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#Generated by automseat at 2010-10-17.15-44-07
+
+Section"InputDevice"
+    Identifier    "mouse0"
+    Driver        "mouse"
+    Option        "Device""/dev/input/mouse1"
+    Option        "CorePointer"
+    Option        "ZAxisMapping""4 5"
+    Option        "Emulate3Buttons""true"
+EndSection
+Section"InputDevice"
+    Identifier    "mouse1"
+    Driver        "mouse"
+    Option        "Device""/dev/input/mouse2"
+    Option        "CorePointer"
+    Option        "ZAxisMapping""4 5"
+    Option        "Emulate3Buttons""true"
+EndSection
+Section"InputDevice"
+    Identifier    "keyboard0"
+    Driver        "evdev"
+    Option        "Device""/dev/input/event1"
+    Option        "CoreKeyboard"
+    Option        "XkbRules""xorg"
+    Option        "XkbModel""evdev"
+    Option        "XkbLayout""us"
+EndSection
+Section"InputDevice"
+    Identifier    "keyboard1"
+    Driver        "evdev"
+    Option        "Device""/dev/input/event6"
+    Option        "CoreKeyboard"
+    Option        "XkbRules""xorg"
+    Option        "XkbModel""evdev"
+    Option        "XkbLayout""us"
+EndSection
+Section"Device"
+    Identifier    "device0"
+    Driver        "nv"
+    Busid        "PCI:1:0:0"
+    Option        "NoInt10""Yes"
+    #Option       "NoAccel"   "true"
+    #Option       "SWCursor"   "true"
+EndSection
+Section"Monitor"
+    Identifier    "monitor0"
+    Option        "DPMS"
+EndSection
+Section"Screen"
+    Identifier    "screen0"
+    Device        "device0"
+    Monitor    "monitor0"
+    Defaultdepth     24
+    SubSection"Display"
+        Modes"1360x768""1280x1024""1024x768"
+    EndSubSection
+EndSection
+Section"ServerLayout"
+    Identifier    "layout0"
+    screen        "screen0"
+    Inputdevice    "keyboard0"
+    Inputdevice    "mouse0"
+    Option        "IsolateDevice""PCI:1:0:0"
+EndSection
+Section"Device"
+    Identifier    "device1"
+    Driver        "nv"
+    Busid        "PCI:4:0:0"
+    Option        "NoInt10""Yes"
+    #Option       "NoAccel"   "true"
+    #Option       "SWCursor"   "true"
+EndSection
+Section"Monitor"
+    Identifier    "monitor1"
+    Option        "DPMS"
+EndSection
+Section"Screen"
+    Identifier    "screen1"
+    Device        "device1"
+    Monitor    "monitor1"
+    Defaultdepth     24
+    SubSection"Display"
+        Modes"1360x768""1280x1024""1024x768"
+    EndSubSection
+EndSection
+Section"ServerLayout"
+    Identifier    "layout1"
+    screen        "screen1"
+    Inputdevice    "keyboard1"
+    Inputdevice    "mouse1"
+    Option        "IsolateDevice""PCI:4:0:0"
+EndSection
+Section"ServerFlags"
+    Option"DontZap"        "true"
+    Option"DontVTSwitch"        "true"
+    Option"HandleSpecialKeys"    "Always"
+    Option"BlankTime"        "0"
+    Option"StandbyTime"        "0"
+    Option"SuspendTime"        "0"
+    Option"OffTime"        "0"
+    Option"AllowMouseOpenFail"    "true"
+    Option"AIGLX"            "true"
+EndSection
+
+Section"Extensions"
+        Option "Composite"            "true"
+EndSection
+
+Section"DRI"
+        mode    0666
+EndSection
+
+</code></pre></div>
+and my gdm.conf <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#Generated by automseat at 2010-10-17.15-44-07
+
+Section"InputDevice"
+    Identifier    "mouse0"
+    Driver        "mouse"
+    Option        "Device""/dev/input/mouse1"
+    Option        "CorePointer"
+    Option        "ZAxisMapping""4 5"
+    Option        "Emulate3Buttons""true"
+EndSection
+Section"InputDevice"
+    Identifier    "mouse1"
+    Driver        "mouse"
+    Option        "Device""/dev/input/mouse2"
+    Option        "CorePointer"
+    Option        "ZAxisMapping""4 5"
+    Option        "Emulate3Buttons""true"
+EndSection
+Section"InputDevice"
+    Identifier    "keyboard0"
+    Driver        "evdev"
+    Option        "Device""/dev/input/event1"
+    Option        "CoreKeyboard"
+    Option        "XkbRules""xorg"
+    Option        "XkbModel""evdev"
+    Option        "XkbLayout""us"
+EndSection
+Section"InputDevice"
+    Identifier    "keyboard1"
+    Driver        "evdev"
+    Option        "Device""/dev/input/event6"
+    Option        "CoreKeyboard"
+    Option        "XkbRules""xorg"
+    Option        "XkbModel""evdev"
+    Option        "XkbLayout""us"
+EndSection
+Section"Device"
+    Identifier    "device0"
+    Driver        "nv"
+    Busid        "PCI:1:0:0"
+    Option        "NoInt10""Yes"
+    #Option       "NoAccel"   "true"
+    #Option       "SWCursor"   "true"
+EndSection
+Section"Monitor"
+    Identifier    "monitor0"
+    Option        "DPMS"
+EndSection
+Section"Screen"
+    Identifier    "screen0"
+    Device        "device0"
+    Monitor    "monitor0"
+    Defaultdepth     24
+    SubSection"Display"
+        Modes"1360x768""1280x1024""1024x768"
+    EndSubSection
+EndSection
+Section"ServerLayout"
+    Identifier    "layout0"
+    screen        "screen0"
+    Inputdevice    "keyboard0"
+    Inputdevice    "mouse0"
+    Option        "IsolateDevice""PCI:1:0:0"
+EndSection
+Section"Device"
+    Identifier    "device1"
+    Driver        "nv"
+    Busid        "PCI:4:0:0"
+    Option        "NoInt10""Yes"
+    #Option       "NoAccel"   "true"
+    #Option       "SWCursor"   "true"
+EndSection
+Section"Monitor"
+    Identifier    "monitor1"
+    Option        "DPMS"
+EndSection
+Section"Screen"
+    Identifier    "screen1"
+    Device        "device1"
+    Monitor    "monitor1"
+    Defaultdepth     24
+    SubSection"Display"
+        Modes"1360x768""1280x1024""1024x768"
+    EndSubSection
+EndSection
+Section"ServerLayout"
+    Identifier    "layout1"
+    screen        "screen1"
+    Inputdevice    "keyboard1"
+    Inputdevice    "mouse1"
+    Option        "IsolateDevice""PCI:4:0:0"
+EndSection
+Section"ServerFlags"
+    Option"DontZap"        "true"
+    Option"DontVTSwitch"        "true"
+    Option"HandleSpecialKeys"    "Always"
+    Option"BlankTime"        "0"
+    Option"StandbyTime"        "0"
+    Option"SuspendTime"        "0"
+    Option"OffTime"        "0"
+    Option"AllowMouseOpenFail"    "true"
+    Option"AIGLX"            "true"
+EndSection
+
+Section"Extensions"
+        Option "Composite"            "true"
+EndSection
+
+Section"DRI"
+        mode    0666
+EndSection
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17836" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17836">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17836">
+
+<time datetime="2010-10-21T00:31">posted: 2010-10-21 &nbsp; 00:31</time>
+<span class="permalink"><a href="./making-a-multiuser-multiseat-antix-t2729.html#p17836" title="permalink">#3</a></span>
+
+<div class="content">I have Figured out the problem to the mice and keyboards working on both screens, the key to fix this is once again by editing the /usr/bin/automseat file.<br>
+Open this file as root with geany and on lines 603-612 there will be a section called"layout section" at the bottom of this section add this chunk of code
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    Option     "AutoEnableDevices"    "false"
+    Option     "AutoAddDevices"       "true"
+    Option     "AllowEmptyInput"      "false"
+</code></pre></div>
+<br>
+Save and reboot and the mouse and keyboard problem should be fixed</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22873" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22873">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22873">
+
+<time datetime="2011-12-03T19:36">posted: 2011-12-03 &nbsp; 19:36</time>
+<span class="permalink"><a href="./making-a-multiuser-multiseat-antix-t2729.html#p22873" title="permalink">#4</a></span>
+
+<div class="content">Posting an update that the latest testing (wheezy) xserver-xorg-core does not work with this meathod of multiseat configuration, however it still can be achieved using the stable (squeeze) package. <br>
+On top of the stable (squeeze) package adding the following option to the mouse section in /usr/bin/automseat will allow for mouse wheel scrolling.<br>
+[code[<br>
+Option"Protocol""IMPS/2"<br>
+[/code]<br>
+<br>
+I am working on a way to have multiseat in a testing (wheezy) situation. Currently it looks like replacing automseat with MDM will be the solution, I have not yet tried this. From a little digging it appears that multiseat will be included in a future release of Xorg with an added switch, maybe this will be released before wheezy goes stable.<br>
+<br>
+EDIT<br>
+after attempting to use mdm for 1/2 a day I could not get it to work, final solution for now was to hold all xserver related packages in stable, upgrade the rest to testing. <br>
+<br>
+I also decided to give kdm a try rather than gdm. I would say this is a much better display manager to use for multiseat configuration, one big reason for this is that it allows for user specific options per seat. EG: seat 1 has User1 as the default user set to autologin, seat 2 has User2 as the default user and no autologin.<br>
+<br>
+To do this you will need to edit /etc/kde4/kdm/kdmrc as follows:<br>
+change <br>
+StaticServers=:0 to StaticServers=:0,:1<br>
+ReserveServers=:1,:2,:3 to ReserveServers=:2,:3<br>
+serverVTs=-7 to serverVTs=7,8<br>
+<br>
+in the [X-:0-Core] section change<br>
+#ServerVT= to ServerVT=7<br>
+and change the server arguments line to a server command line similar to this<br>
+ServerCmd=/usr/bin/X :0 vt07 -audit 0 -isolateDevice PCI:1:0:0 -nolisten tcp -layout layout0<br>
+<br>
+copy the [X-:0-Core] and [X-:0-Greeter] sections and rename the copied parts to [X-:1-Core] and [X-:1-Greeter]<br>
+change all referances to the :0 xserver to the :1 xserver on the servercmd line, it should be similar to the following<br>
+ServerCmd=/usr/bin/X :1 vt07 -audit 0 -isolateDevice PCI:4:0:0 -nolisten tcp -layout layout1<br>
+<br>
+*NOTE the vt referances between the two sessions should remain the same (EG: vt7), as running them on separate VT's ( vt7 + vt8 ) will mean switching between the vts for each user.<br>
+EG: user 1 = vt7 , user2 = vt8, user 1 will function properly however user 2 will need to press CONTROL + ALT + F8. This will make user2 function correctly however user 1 will need to press CONTROL + ALT + F7. User 1 will then function properly however user 2 will need to press CONTROL + ALT + F8 again, and it will continue to be this way.<br>
+<br>
+Setting up autologin, default user, etc... are the same a standard computer setup with kdm.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26679" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26679">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26679">
+
+<time datetime="2012-11-01T23:53">posted: 2012-11-01 &nbsp; 23:53</time>
+<span class="permalink"><a href="./making-a-multiuser-multiseat-antix-t2729.html#p26679" title="permalink">#5</a></span>
+
+<div class="content">Update on the topic,<br>
+<br>
+My multiseat computer's hard drive started to loose some sectors. As a result it is time to do a reinstall using antix core V12 and updating into sid.<br>
+<br>
+I modified the above version of automseat quite a bit, mostly to go allong with the new Xorg and KDM. It can be found at<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://daveserver.info/antiX/dev/automseat_0.4_all.deb"<br>linktext was:"http://daveserver.info/antiX/dev/automseat_0.4_all.deb"<br>====================================<br>
+<br>
+or you can use the antix repo, but you will need to dev stream instead of main and core. However do not leave it in the dev stream, remember to change it back after installation of automseat.<br>
+<br>
+Unlike before, there is no longer a need for the nvidia proprietary driver as the nouveau driver works just fine.<br>
+<br>
+After alot of messing around, my steps from a clean install are as follows.<br>
+#1 attach all devices to the computer<br>
+#2 make a fresh install of antix core<br>
+#3 download and install automseat (this should pull in all needed parts minus a window manager, here is a list though to be sure)<br>
+- xserver-xorg<br>
+- xserver-xorg-video-all<br>
+- xserver-xorg-input-all<br>
+- xserver-xorg-input-mouse (not sure why it is left out of xserver-xorg-input-all)<br>
+- kdm<br>
+#4 install the window manager of your choice<br>
+#5 reboot adding a 1 to the end of the grub boot line<br>
+#6 Login with root password<br>
+#7 view / etc/kde4/kdm/kdmrc-custom and verify it is correct, it should be similar to the following
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#Multiseat kdm configuration file auto generated by automseat on 2012-11-01.19:25:22
+[General]
+ConfigVersion=2.4
+StaticServers=:0,:1
+ReserveServers=:2,:3
+ServerVTs=7,8
+ConsoleTTYs=tty1,tty2,tty3,tty4,tty5,tty6
+PidFile=/var/run/kdm.pid
+GreeterUID=kdm
+[Xdmcp]
+Enable=false
+Willing=/ etc/kde4/kdm/Xwilling
+[Shutdown]
+[X-*-Core]
+Setup=/ etc/kde4/kdm/Xsetup
+Startup=/ etc/kde4/kdm/Xstartup
+Reset=/ etc/kde4/kdm/Xreset
+Session=/ etc/kde4/kdm/Xsession
+AllowRootLogin=false
+AllowNullPasswd=false
+AllowShutdown=Root
+ClientLogFile=.xsession-errors-%d
+[X-*-Greeter]
+LogoArea=Clock
+MinShowUID=1000
+MaxShowUID=29999
+Preloader=/usr/bin/preloadkde
+UseTheme=true
+Theme=/usr/share/kde4/apps/kdm/themes/oxygen
+[X-:*-Core]
+ServerCmd=/usr/bin/X 
+TerminateServer=true
+AllowNullPasswd=true
+AllowShutdown=All
+[X-:*-Greeter]
+PreselectUser=Previous
+FocusPasswd=true
+LoginMode=DefaultLocal
+AllowClose=true
+
+[X-:0-Core]
+ServerVT=7
+ClientLogFile=.xsession-errors
+ServerCmd=/usr/bin/X :0 -config / etc/X11/xorg.conf-4 -layout layout0 
+[X-:0-Greeter]
+PreselectUser=Default
+[X-:1-Core]
+ServerVT=7
+ClientLogFile=.xsession-errors
+ServerCmd=/usr/bin/X :1 -config / etc/X11/xorg.conf-4 -layout layout1 
+[X-:0-Greeter]
+PreselectUser=Default
+</code></pre></div>
+#8 make a backup of the current kdmrc and move the custom one to take it's place<br>
+mv / etc/kde4/kdm/kdmrc / etc/kde4/kdm/kdmrc.bk<br>
+mv / etc/kde4/kdm/kdmrc-custom / etc/kde4/kdm/kdmrc <br>
+#9 add another user <br>
+adduser user2<br>
+#10 Reboot without the added 1 on the grub line<br>
+#11 kdm should start and be ready for login</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

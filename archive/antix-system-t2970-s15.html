@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antix-system - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-system-t2970-s15.html">antix-system</a></div>
+<div class="pagination">
+29 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-system-t2970.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-system-t2970.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_19628" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19628">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19628">
+<time datetime="2011-02-27T23:26">posted: 2011-02-27 &nbsp; 23:26</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19628" title="permalink">#16</a></span>
+
+<div class="content">Tested again the latest with your changes, much better, but still some issues which I think we can resolve, see below.<br>
+<br>
+1. We need to set the keymap as well as making the changes to /etc/default/keyboard.<br>
+MEPIS does it in msystem like this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>// keyboard
+  system("ls -1 /usr/share/keymaps/i386/azerty &gt; /tmp/mlocale");
+  system("ls -1 /usr/share/keymaps/i386/qwerty &gt;&gt; /tmp/mlocale");
+  system("ls -1 /usr/share/keymaps/i386/qwertz &gt;&gt; /tmp/mlocale");
+  system("ls -1 /usr/share/keymaps/i386/dvorak &gt;&gt; /tmp/mlocale");
+  system("ls -1 /usr/share/keymaps/i386/fgGIod &gt;&gt; /tmp/mlocale");
+  keyboardCombo-&gt;clear();
+  keyboardCombo-&gt;insertItem(-1,"no change");
+  fp = popen("sort /tmp/mlocale","r");
+  if (fp != NULL) {
+    while (fgets(line, sizeof line, fp) != NULL) {
+      i = strlen(line) - 9;
+      line[i] = '\0';
+     if (line != NULL &amp;&amp; strlen(line) &gt; 1) {
+        keyboardCombo-&gt;addItem(line);
+      }
+    }
+    pclose(fp);
+  }
+
+//keyboard
+  if (checkKeyboardLayout-&gt;isChecked()) {
+    QString kb = keyboardCombo-&gt;currentText();
+    cmd = QString("/usr/sbin/install-keymap \"%1\"").arg(kb);
+    system(cmd.toAscii());
+    if (kb =="uk") {
+      kb ="gb";
+    }
+    cmd = QString("sed -i 's/XKBLAYOUT.*/XKBLAYOUT=\"%1\"/g' /etc/default/keyboard").arg(kb);
+    system(cmd.toAscii());
+    cmd = QString("sed -i 's/LayoutList.*/LayoutList=%1/g' /etc/skel/.kde/share/config/kxkbrc").arg(kb);
+    system(cmd.toAscii());
+    cmd = QString("sed -i 's/LayoutList.*/LayoutList=%1/g' /root/.kde/share/config/kxkbrc").arg(kb);
+    system(cmd.toAscii());
+  }
+</code></pre></div>
+The interesting bit is how the keymap is set ie for qwerty, qwertz, azerty etc. and the name of the keymap. <br>
+From antiX-init, the KEYTABLE is the one we want.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>case"$LANGUAGE" in
+    de|de_DE)
+        ## German
+        #LANGUAGE="de_DE:de"
+        LANG="de_DE.UTF-8"
+        KEYTABLE="de-latin1-nodeadkeys"
+        XKBLAYOUT="de,us"
+        TZ="Europe/Berlin"
+                FLUX="de"
+        COUNTRY="German"
+                MIRROR="ftp.de.debian.org"
+        ;;
+        ar|ar_SA)
+        ## Arabic
+        #LANGUAGE="ar_SA:ar"
+        LANG="ar_SA.UTF-8"
+        KEYTABLE="ar"
+                XKBLAYOUT="ar,us"
+        TZ="Saudi Arabia/Riyadh"
+                FLUX="ar"
+        COUNTRY="Arabic"
+                MIRROR="ftp.us.debian.org"
+        ;;
+    au|en_AU)
+        ## Australian
+        #LANGUAGE="en_AU:en"
+        LANG="en_AU.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="us"
+        TZ="Australia/Sydney"
+                FLUX="en"
+        COUNTRY="AUS-English"
+                MIRROR="ftp.au.debian.org"
+        ;;
+    be-fr|fr_BE)
+        ## Belgian-French
+        #LANGUAGE="fr_BE:be-fr"
+        LANG="fr_BE.UTF-8"
+        KEYTABLE="be2-latin1"
+        XKBLAYOUT="be,fr,us"
+        TZ="Europe/Brussels"
+                FLUX="fr"
+        COUNTRY="Belgian-French"
+                MIRROR="ftp.be.debian.org"
+        ;;
+        be-nl|nl_BE)
+        ## Belgian-Dutch
+        #LANGUAGE="nl_BE:be-nl"
+        LANG="nl_BE.UTF-8"
+        KEYTABLE="be2-latin1"
+        XKBLAYOUT="be,fr,us"
+        TZ="Europe/Brussels"
+                FLUX="nl"
+        COUNTRY="Belgian-Dutch"
+                MIRROR="ftp.be.debian.org"
+        ;;
+        by|be_BY)
+        ## Belarus
+        #LANGUAGE="be_BY:by"
+        LANG="be_BY.UTF-8"
+        KEYTABLE="by"
+        XKBLAYOUT="by,us"
+        TZ="Europe/Minsk"
+                FLUX="en"
+        COUNTRY="Belarus"
+                MIRROR="ftp.ru.debian.org"
+        ;;
+    bg|bg_BG)
+        ## Bulgarian
+        #LANGUAGE="bg_BG:bg"
+        LANG="bg_BG.UTF-8"
+        KEYTABLE="bg"
+        XKBLAYOUT="bg,us"
+        TZ="Europe/Sofia"
+                FLUX="bg"
+        COUNTRY="Bulgarian"
+                MIRROR="ftp.bg.debian.org"
+        ;;
+    br|pt_BR)
+        ## Brazilian
+        #LANGUAGE="pt_BR:pt"
+        LANG="pt_BR.UTF-8"
+        KEYTABLE="br-abnt2"
+        XKBLAYOUT="br,us"
+        TZ="America/Sao_Paulo"
+                FLUX="pt-br"
+        COUNTRY="Brazilian"
+                MIRROR="ftp.br.debian.org"
+        ;;
+        ca|ca_ES)
+        ## Catalan
+        #LANGUAGE="ca_ES:es"
+        LANG="ca_ES.UTF-8"
+        KEYTABLE="es"
+                XKBLAYOUT="es,us"
+        TZ="Europe/Madrid"
+                FLUX="ca"
+        COUNTRY="Catalan"
+                MIRROR="ftp.es.debian.org"
+        ;;
+    ch|de_CH)
+        ## Swiss
+        #LANGUAGE="de_CH:de"
+        LANG="de_CH.UTF-8"
+        KEYTABLE="sg-latin1"
+        XKBLAYOUT="ch,de,fr,us"
+        TZ="Europe/Zurich"
+                FLUX="de"
+        COUNTRY="Swiss-German"
+                MIRROR="ftp.ch.debian.org"
+        ;;
+    cn|zh_CN)
+        ## Chinese
+                #LANGUAGE="zh_CN:cn"
+        LANG="zh_CN.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="us"
+        TZ="Asia/Shanghai"
+                FLUX="cn"
+        COUNTRY="Chinese"
+                MIRROR="ftp.hk.debian.org"
+        ;;
+    cs|cz|cs_CZ)
+        ## Czech
+        #LANGUAGE="cs_CZ:cs"
+        LANG="cs_CZ.UTF-8"
+        KEYTABLE="cz-lat2"
+        XKBLAYOUT="cz,us"
+        TZ="Europe/Prague"
+                FLUX="cs"
+        COUNTRY="Czech"
+                MIRROR="ftp.cz.debian.org"
+        ;;
+    dk|da|da_DK)
+        ## Danish
+                #LANGUAGE="da_DK:dk"
+        LANG="da_DK.UTF-8"
+        KEYTABLE="dk"
+        XKBLAYOUT="dk,us"
+        TZ="Europe/Copenhagen"
+                FLUX="da"
+        COUNTRY="Danish"
+                MIRROR="ftp.dk.debian.org"
+        ;;
+    el|gr|el_GR)
+        ## Greek
+        #LANGUAGE="el_GR:el"
+        LANG="el_GR.UTF-8"
+        KEYTABLE="gr"
+        XKBLAYOUT="gr,us"
+        TZ="Europe/Athens"
+                FLUX="el"
+        COUNTRY="Greek"
+                MIRROR="ftp.gr.debian.org"
+        ;;
+    es|es_ES)
+        ## Spanish
+        #LANGUAGE="es_ES:es"
+        LANG="es_ES.UTF-8"
+        KEYTABLE="es"
+        XKBLAYOUT="es,us"
+        TZ="Europe/Madrid"
+                FLUX="es"
+        COUNTRY="Spanish"
+                MIRROR="ftp.es.debian.org"
+        ;;
+        et|et_EE)
+        ## Estonian
+        #LANGUAGE="et_EE:et"
+        LANG="et_EE.UTF-8"
+        KEYTABLE="et-nodeadkeys"
+                XKBLAYOUT="et,us"
+        TZ="Europe/Tallinn"
+                FLUX="et"
+        COUNTRY="Estonian"
+                MIRROR="ftp.ee.debian.org"
+        ;;
+        eu|eu_ES)
+        ## Basque
+        #LANGUAGE="eu_ES:eu"
+        LANG="eu_ES.UTF-8"
+        KEYTABLE="es"
+        XKBLAYOUT="es,us"
+        TZ="Europe/Madrid"
+                FLUX="eu"
+        COUNTRY="Basque"
+                MIRROR="ftp.es.debian.org"
+        ;;
+        fa|fa_IR)
+        ## Farsi-Iranian
+        #LANGUAGE="fa_IR:fa"
+        LANG="fa_IR.UTF-8"
+        KEYTABLE="fa"
+                XKBLAYOUT="ir,us"
+        TZ="Asia/Tehran"
+                FLUX="fa"
+        COUNTRY="Iranian"
+                MIRROR="ftp.de.debian.org"
+        ;;
+    fi|fi_FI)
+        ## Finnish
+        #LANGUAGE="fi_FI:fi"
+        LANG="fi_FI.UTF-8"
+        KEYTABLE="fi-latin1"
+        XKBLAYOUT="fi,us"
+        TZ="Europe/Helsinki"
+                FLUX="fi"
+        COUNTRY="Finnish"
+                MIRROR="ftp.fi.debian.org"
+        ;;
+    fr|fr_FR)
+        ## French
+        #LANGUAGE="fr_FR:fr"
+        LANG="fr_FR.UTF-8"
+        KEYTABLE="fr"
+        XKBLAYOUT="fr,us"
+        TZ="Europe/Paris"
+                FLUX="fr"
+        COUNTRY="French"
+                MIRROR="ftp.fr.debian.org"
+        ;;
+    ga|ga_IE)
+        ## Gaelic
+                #LANGUAGE="ga_IE:ga"
+        LANG="ga_IE.UTF-8"
+        KEYTABLE="uk"
+        XKBLAYOUT="ie,us"
+        TZ="Europe/Dublin"
+                FLUX="en"
+        COUNTRY="Gaelic"
+                MIRROR="ftp.ie.debian.org"
+        ;;
+        ge|ka_GE)
+        ## Georgian
+                #LANGUAGE="ka_GE:ge"
+        LANG="ka_GE.UTF-8"
+        KEYTABLE="ge"
+        XKBLAYOUT="ge,us"
+        TZ="Asia/Tbilisi"
+                FLUX="en"
+        COUNTRY="Georgian"
+                MIRROR="ftp.ru.debian.org"
+        ;;
+    he|il|he_IL)
+        ## Hebrew
+        #LANGUAGE="he_IL:he"
+        LANG="he_IL.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="il,us"
+        TZ="Asia/Jerusalem"
+                FLUX="en"
+        COUNTRY="Hebrew"
+                MIRROR="ftp.us.debian.org"
+        ;;
+    hr|hr_HR)
+        ## Croatian
+        #LANGUAGE=hr_HR:hr" 
+        LANG="hr_HR.UTF-8" 
+        KEYTABLE="hr" 
+        XKBLAYOUT="hr,us" 
+        TZ="Europe/Zagreb" 
+                FLUX="hr"
+        COUNTRY="Croatian"
+                MIRROR="ftp.hr.debian.org"
+        ;;
+        hu|hu_HU)
+        ## Hungarian
+        #LANGUAGE="hu_HU:hu"
+        LANG="hu_HU.UTF-8"
+        KEYTABLE="hu"
+                XKBLAYOUT="hu,us"
+        TZ="Europe/Budapest"
+                FLUX="hu"
+        COUNTRY="Hungarian"
+                MIRROR="ftp.hu.debian.org"
+        ;;
+        hy|am|hy_AM)
+        ## Armenian
+        #LANGUAGE="hy_AM:am"
+        LANG="hy_AM.UTF-8"
+        KEYTABLE="am"
+                XKBLAYOUT="am,us"
+                FLUX="am"
+                COUNTRY="Armenian"
+                MIRROR="ftp.ru.debian.org" #nearest?
+        ;;
+    ie|en_IE)
+        ## Irish-English
+        #LANGUAGE="en_IE:en"
+        LANG="en_IE.UTF-8"
+        KEYTABLE="uk"
+        XKBLAYOUT="ie,gb,us"
+        TZ="Europe/Dublin"
+                FLUX="en"
+        COUNTRY="Irish"
+                MIRROR="ftp.ie.debian.org"
+        ;;
+        is|is_IS)
+        ## Icelandic
+        #LANGUAGE="is_IS:is"
+        LANG="is_IS.UTF-8"
+        KEYTABLE="is-latin1"
+        XKBLAYOUT="is,us"
+        TZ="Europe/Reykjavík"
+                FLUX="is"
+        COUNTRY="Icelandic"
+                MIRROR="ftp.is.debian.org"
+        ;;
+    it|it_IT)
+        ## Italian
+        #LANGUAGE="it_IT:it"
+        LANG="it_IT.UTF-8"
+        KEYTABLE="it"
+        XKBLAYOUT="it,us"
+        TZ="Europe/Rome"
+                FLUX="it"
+        COUNTRY="Italian"
+                MIRROR="ftp.it.debian.org"
+        ;;
+    ja|ja_JP)
+        ## Japanese
+        #LANGUAGE="ja_JP:ja"
+        LANG="ja_JP.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="jp,us"
+        TZ="Asia/Tokyo"
+                FLUX="ja"
+        COUNTRY="Japanese"
+                MIRROR="ftp.jp.debian.org"
+        ;;
+        ko|ko_KR)
+        ## Korean
+        #LANGUAGE="ko_KR:ko"
+        LANG="ko_KR.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="kr,us"
+        TZ="Asia/Seoul"
+                FLUX="ko"
+        COUNTRY="Korean"
+                MIRROR="ftp.kr.debian.org"
+        ;; 
+        lt|lt_LT)
+        ## Lithuanian
+        #LANGUAGE="lt_LT:lt"
+        LANG="lt_LT.UTF-8"
+        KEYTABLE="lt"
+                XKBLAYOUT="lt,us"
+        TZ="Europe/Vilnius"
+                FLUX="lt"
+        COUNTRY="Lithuanian"
+                MIRROR="ftp.ee.debian.org"
+                ;;
+        lv|lv_LV)
+        ## Latvian
+        #LANGUAGE="lv_LV:lv"
+        LANG="lv_LV.UTF-8"
+        KEYTABLE="lv-latin7"
+                XKBLAYOUT="lv,us"
+        TZ="Europe/Riga"
+                FLUX="lv"
+        COUNTRY="Latvian"
+                MIRROR="ftp.ee.debian.org"
+                ;;
+        mk|mk_MK)
+        ## Macedonian
+        #LANGUAGE="mk_MK:mk"
+        LANG="mk_MK.UTF-8"
+        KEYTABLE="mk"
+                XKBLAYOUT="mk,us"
+        TZ="Europe/Skopje"
+                FLUX="mk"
+        COUNTRY="Macedonian"
+                MIRROR="ftp.gr.debian.org" #nearest?
+        ;;
+        no|nb_NO)
+        ## Norwegian
+        #LANGUAGE="nb_NO:no"
+        LANG="nb_NO.UTF-8"
+        KEYTABLE="no-latin1"
+                XKBLAYOUT="no,us"
+        TZ="Europe/Oslo"
+                FLUX="no"
+        COUNTRY="Norwegian"
+                MIRROR="ftp.no.debian.org"
+        ;;
+    nl|nl_NL)
+        ## Dutch
+        #LANGUAGE="nl_NL:nl"
+        LANG="nl_NL.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="nl,us"
+        TZ="Europe/Amsterdam"
+                FLUX="nl"
+        COUNTRY="Dutch"
+                MIRROR="ftp.nl.debian.org"
+        ;;
+        nz|en_NZ)
+        ## New Zealand
+        #LANGUAGE="en_NZ:en"
+        LANG="en_NZ.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="us"
+        TZ="Pacific/Auckland"
+                FLUX="en"
+        COUNTRY="NZ-English"
+                MIRROR="ftp.nz.debian.org"
+        ;;
+    pl|pl_PL)
+        ## Polish
+        #LANGUAGE="pl_PL:pl"
+        LANG="pl_PL.UTF-8"
+        KEYTABLE="pl"
+        XKBLAYOUT="pl,us"
+        TZ="Europe/Warsaw"
+                FLUX="pl"
+        COUNTRY="Polish"
+                MIRROR="ftp.pl.debian.org"
+        ;;
+    pt|pt_PT)
+        ## Portuguese
+        #LANGUAGE="pt_PT:pt"
+        LANG="pt_PT.UTF-8"
+        KEYTABLE="pt-latin1"
+        XKBLAYOUT="pt,us"
+        TZ="Europe/Lisbon"
+                FLUX="pt"
+        COUNTRY="Portugese"
+                MIRROR="ftp.pt.debian.org"
+        ;;
+        ro|ro_RO)
+        ## Romanian
+        #LANGUAGE="ro_RO:ro"
+        LANG="ro_RO.UTF-8"
+        KEYTABLE="ro"
+                XKBLAYOUT="ro,us"
+        TZ="Europe/Bucharest"
+                FLUX="ro"
+        COUNTRY="Romanian"
+                MIRROR="ftp.ro.debian.org"
+        ;;
+    ru|ru_RU)
+        ## Russian
+        #LANGUAGE="ru_RU:ru"
+        LANG="ru_RU.UTF-8"
+        KEYTABLE="ru"
+        XKBLAYOUT="ru,us"
+        TZ="Europe/Moscow"
+                FLUX="ru"
+        COUNTRY="Russian"
+                MIRROR="ftp.ru.debian.org"
+        ;;
+    sk|sk_SK)
+        ## Slovak
+        #LANGUAGE="sk_SK:sk"
+        LANG="sk_SK.UTF-8"
+        KEYTABLE="sk-qwerty"
+        XKBLAYOUT="sk,us"
+        TZ="Europe/Bratislava"
+                FLUX="sk"
+        COUNTRY="Slovak"
+                MIRROR="ftp.sk.debian.org"
+        ;;
+    sl|sl_SI)
+        ## Slovenian
+        #LANGUAGE="sl_SI:sl"
+        LANG="sl_SI.UTF-8"
+        KEYTABLE="slovene"
+        XKBLAYOUT="si,us"
+        TZ="Europe/Ljubljana"
+                FLUX="sl"
+        COUNTRY="Slovene"
+                MIRROR="ftp.si.debian.org"
+        ;;
+        al|sq|sq_AL)
+        ## Albanian
+        #LANGUAGE="sq_AL:al"
+        LANG="sq_AL.UTF-8"
+        KEYTABLE="us"
+                XKBLAYOUT="sq,us"
+        TZ="Europe/Tirana"
+                FLUX="sq"
+        COUNTRY="Albanian"
+                MIRROR="ftp.gr.debian.org" #nearest?
+        ;;
+        sr|sr_RS)
+        ## Serbian
+        #LANGUAGE="sr_RS:sr"
+        LANG="sr_RS.UTF-8"
+        KEYTABLE="sr"
+                XKBLAYOUT="sr,us"
+        TZ="Europe/Belgrade"
+                FLUX="sr"
+        COUNTRY="Serbian"
+                MIRROR="ftp.gr.debian.org" #nearest?
+        ;;
+        sv|sv_SE)
+        ## Swedish
+        #LANGUAGE="sv_SE:se"
+        LANG="sv_SE.UTF-8"
+        KEYTABLE="se-latin1"
+                XKBLAYOUT="se,us"
+        TZ="Europe/Stockholm"
+                FLUX="sv"
+        COUNTRY="Swedish"
+                MIRROR="ftp.se.debian.org"
+        ;;
+    tr|tr_TR)
+        ## Turkish
+        #LANGUAGE="tr_TR:tr"
+        LANG="tr_TR.UTF-8"
+        KEYTABLE="tr_q-latin5"
+        XKBLAYOUT="tr,us"
+        TZ="Europe/Istanbul"
+                FLUX="tr"
+        COUNTRY="Turkish"
+                MIRROR="ftp.tr.debian.org"
+        ;;
+    tw|zh_TW)
+        ## Traditional Chinese
+        #LANGUAGE="zh_TW:zh"
+        LANG="zh_TW.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="us"
+        TZ="Asia/Taipei"
+                FLUX="en"
+        COUNTRY="Chinese"
+                MIRROR="ftp.tw.debian.org"
+        ;;
+        ua|uk_UA)
+        ## Ukrainian
+        #LANGUAGE="uk_UA:ua"
+        LANG="uk_UA.UTF-8"
+        KEYTABLE="ua"
+        XKBLAYOUT="ua,us"
+        TZ="Europe/Kiev"
+                FLUX="ua"
+        COUNTRY="Ukrainian"
+                MIRROR="ftp.ua.debian.org"
+        ;;
+    uk|en_GB)
+        ## British
+        #LANGUAGE="en_GB:en"
+        LANG="en_GB.UTF-8"
+        KEYTABLE="uk"
+        XKBLAYOUT="gb"
+        TZ="Europe/London"
+                FLUX="en"
+        COUNTRY="GB-English"
+                MIRROR="ftp.uk.debian.org"
+        ;;
+    us|en_US)
+        ## American
+        #LANGUAGE="en_US:en"
+        LANG="en_US.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="us"
+        TZ="America/New_York"
+                FLUX="en"
+        CD_COUNTRY="US-English"
+                MIRROR="ftp.us.debian.org"
+        ;;
+    *)
+        ## American
+        #LANGUAGE="en_US:en"
+        LANG="en_US.UTF-8"
+        KEYTABLE="us"
+        XKBLAYOUT="us"
+        TZ="America/New_York"
+                FLUX="en"
+        COUNTRY="US-English"
+                MIRROR="ftp.us.debian.org"
+        ;;
+</code></pre></div>
+An issue with your latest version is that whatever keyboard is chosen, the fluxbox/icewm changes no longer work as it copies the ar folder all the time.<br>
+<br>
+Once we get these issues sorted, antix-system will be a fantastic addition to antiX. <br>
+<br>
+Thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19629" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19629">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19629">
+
+<time datetime="2011-02-28T02:01">posted: 2011-02-28 &nbsp; 02:01</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19629" title="permalink">#17</a></span>
+
+<div class="content">Fixed the issue at the bottom of the post.<br>
+<br>
+Not sure how to set the keymap, where can I find all of antiX-init ? I tried the way mepis sets the keymap, it asks to reboot but the changes do not stick. Also the changes only apply to the console before reboot. Maybe just make it a checkbox to run dpkg-reconfigure keyboard-configuration similar to the others?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19632" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19632">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19632">
+
+<time datetime="2011-02-28T16:46">posted: 2011-02-28 &nbsp; 16:46</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19632" title="permalink">#18</a></span>
+
+<div class="content">Found out what the problem was. A typo.<br>
+<br>
+NEWKOPTIONS="XKBLAYOUT=\"grp:alt_shift_toggle,terminate:ctrl_alt_bksp\"" ;<br>
+sed -i -e"s/$KOPTIONS/$NEWKOPTIONS/ig" /etc/default/keyboard ;<br>
+<br>
+<br>
+should be, for all keyboard language options.<br>
+<br>
+NEWKOPTIONS="XKBOPTIONS=\"grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll\"" ;<br>
+<br>
+Another typo:<br>
+KLOCALE=`cat /etc/deyfault/keyboard | grep -m"1""XKBLAYOUT="` ;<br>
+should be cat /etc/default/keyboard <br>
+<br>
+Forget my last post about MEPIS.<br>
+<br>
+Instead of having the limited options in Change Keyboard layout list, could we get them from some template?<br>
+<br>
+This is how SalixOS does it. Their keyboard script. (There are differences to Debian)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+# This script configures rc.keymap and hal fdi keyboard policy with preferred keyboard map. 
+
+# This program is free software; you can redistribute it and/or modify it 
+# under the terms of the GNU General Public License as published by the
+# Free Software Foundation; either version 2 of the License, or (at your option)
+# any later version. Please take a look at http://www.gnu.org/copyleft/gpl.htm
+
+# Original code from keyboardconfig, Jean-Philippe Guillemin &lt;jp.guillemin~at~free~dot~fr&gt;
+# Modified by:    Pierrick Le Brun &lt;akuna~at~free~dot~fr&gt;
+# Modified by:  George Vlahavas &lt;vlahavas~at~gmail~dot~com&gt;
+
+init(){
+    # Translations only work with utf8 locales
+    if [ ! `echo $LANG | grep -i utf` ]; then
+        LANG=C
+    fi
+
+    # Gettext internationalization
+    export TEXTDOMAIN="keyboardsetup"
+    export TEXTDOMAINDIR="/usr/share/locale"
+    . gettext.sh
+    
+    # create the buffer directory
+    buffer="$(mktemp -d -p /tmp temp.XXXXXXXX)"
+
+    # remove the buffer directory on any type of exit
+    trap 'rm -rf $buffer 2&gt;/dev/null' TERM INT EXIT
+
+    # Path needs to be extended in case you're only half a root :)
+    export PATH="/usr/sbin:/sbin:${PATH}"
+
+    # Path to the salixtools shared files
+    salixtoolsdir="/usr/share/salixtools/"
+
+    # Just to be sure
+    unset keymap \
+        key \
+        numstate \
+        numdefault \
+        scimstate \
+        scimdefault \
+        xkblayout \
+        xkbvariant \
+        xkboptions \
+        setkeymap \
+        setnumlock \
+        setscim \
+        applynow
+
+    backtohome=$(pwd)
+
+    dialog="dialog"
+        
+    cd /usr/share/kbd/keymaps/i386
+}
+
+usage(){
+    echo"`eval_gettext 'USAGE: keyboardsetup [[-k keymap] [-n numlockstate] [-s scimstate]]'`"
+    echo
+    echo"`eval_gettext 'OPTIONS:'`"
+    echo
+    echo"`eval_gettext '   -k keymap,         a valid keyboard map'`"
+    echo"`eval_gettext '   -n numlockstate,   the numlock state, on or off'`"
+    echo"`eval_gettext '   -s scimstate,      the SCIM state, on or off'`"
+    echo"`eval_gettext '   -z,                do not apply changes on the fly, only edit settings files'`"
+    exit 1
+}
+
+checkdefaults(){
+    # Check for the current keymap
+    if [ ! -e /etc/rc.d/rc.keymap ] ; then 
+    cat &lt;&lt;"EORC" &gt; /etc/rc.d/rc.keymap
+#!/bin/sh
+# Load the keyboard map.  More maps are in /usr/share/kbd/keymaps.
+if [ -x /usr/bin/loadkeys ]; then
+ /usr/bin/loadkeys -u us.map
+fi
+EORC
+    fi
+    keymap=$(grep"^[[:space:]]*\/usr\/bin\/loadkeys.*" /etc/rc.d/rc.keymap | sed -e 's/^.*loadkeys -u *\(.*\)$/\1/')
+
+    # Check for the running numlock state
+    if [ -x /etc/rc.d/rc.numlock ]; then
+        numstate="on"
+    else
+        numstate="off"
+    fi
+
+    # Check for the running SCIM state (only if scim is installed)
+    if [ -x /usr/bin/scim ]; then
+        if [ -x /etc/profile.d/scim.sh ]; then
+            scimstate="on"
+        else
+            scimstate="off"
+        fi
+    else
+        scimstate="off"
+    fi
+}
+
+# Check which options are used from the command line
+checkoptions(){
+    while getopts":hk:n:s:z" flag
+    do
+        # if switch is unknown or if asking for help
+        if [ $flag ="?" ] || [ $flag ="h" ]; then
+            usage
+        fi
+        if [ $flag ="k" ]; then
+            setkeymap=1
+            if [ `grep"^$OPTARG|" $salixtoolsdir/keymaps` ]; then
+                key="$OPTARG"
+                keymap="$OPTARG.map"
+            else
+                echo"`eval_gettext 'ERROR: $OPTARG is not a valid keymap. You can look in $salixtoolsdir/keymaps for a list of valid keymaps'`"
+                usage
+            fi
+        fi
+        if [ $flag ="n" ]; then
+            setnumlock=1
+            if [ $OPTARG ="on" ] || [ $OPTARG ="off" ]; then
+                numstate="$OPTARG"
+                if [ $numstate ="on" ]; then
+                    numlock="checked"
+                elif [ $numstate ="off" ]; then
+                    numlock="unchecked"
+                fi
+            else
+                echo"`eval_gettext 'ERROR: $OPTARG is not a valid option.'`"
+                usage
+            fi
+        fi
+        if [ $flag ="s" ]; then
+            setscim=1
+            if [ $OPTARG ="on" ] || [ $OPTARG ="off" ]; then
+                scimstate="$OPTARG"
+            else
+                echo"`eval_gettext 'ERROR: $OPTARG is not a valid option.'`"
+                usage
+            fi
+        fi
+        if [ $flag ="z" ]; then
+            applynow=0
+        else
+            applynow=1
+        fi
+    done
+    
+    # we shift positions in $@ so that we discard all previous switches
+    # and leave only files as additional arguments
+    shift $((OPTIND-1))
+
+    # There should be no more arguments
+    if [ $# -gt 0 ]; then
+        echo"`eval_gettext 'ERROR: Too many arguments'`" &gt;&amp;2
+        usage
+    fi
+}
+
+# The interactive section
+interactive(){
+    setkeymap=1
+    setnumlock=1
+    applynow=1
+
+    # Set the current keymap as the keymap that is checked by default
+    if ["$keymap" ] ; then
+        [ !"$(echo $keymap | grep 'map')" ] &amp;&amp; keymap="${keymap}.map"
+
+        # We get the corresponding current path/key.map
+        currentpathkeymap="$(ls */* \
+        | egrep"azerty|qwerty|dvorak|qwertz|olpc" \
+        | grep"\/$keymap" \
+        | sed -e 's/^\(.*\).gz$/\1/')"
+
+    fi
+
+    [ !"$currentpathkeymap" ] &amp;&amp; currentpathkeymap="qwerty/us.map"
+    
+    avail="$( grep -v"^#" $salixtoolsdir/keymaps | \
+            grep -v"^" | \
+            sed"s/\(.*\)|.*|.*|.*/\1/")"
+    all="$(ls */* \
+        | egrep"azerty|qwerty|dvorak|qwertz|olpc" \
+        | egrep 'map.gz' )"
+    
+    for k in $all; do
+        code=$( echo $k | sed"s|\(.*\)/\(.*\)\.map\.gz|\2|" )
+        if [[ $avail == *$code* ]];then
+            templist="$templist$k
+"
+        fi
+    done
+
+    list="$( echo"$templist" | sed -e 's/^\(.*\).gz$/\"\1\" \" \" \\/' )"
+    
+    if [ -x /etc/rc.d/rc.numlock ]; then
+        numprecheck="on"
+    else
+        numprecheck="off"
+    fi
+
+    # Display keymap selection dialog
+    answer="$(eval $dialog \
+    --stdout \
+    --title \"`eval_gettext 'Keyboard configuration'`\" \
+    --default-item \"$currentpathkeymap\" \
+    --ok-label \"`eval_gettext 'OK'`\" \
+    --cancel-label \"`eval_gettext 'Exit'`\" \
+    --icon \"$iconpath\" \
+    --menu \
+    \"\\n        `eval_gettext 'Please select your preferred keyboard map:'`\" 20 80 11"$list" )"
+
+    # Don't do anything if Cancel or the close button was pressed
+    retval=$?
+    if [ $retval -eq 1 ] || [ $retval -eq 255 ]; then
+        exit 0
+    fi
+
+    pathkeymap="$(echo"$answer" | head -n1)"
+    
+    if ["$pathkeymap" ] ; then
+        keymap="$(basename $pathkeymap)"
+
+        # We need the keymap without".map"
+        key=${keymap%.map}
+    fi
+
+    # Display a dialog for numlock
+    if [ $numstate ="off" ]; then
+        numdefault="--defaultno"
+    fi
+    $dialog \
+    --stdout \
+    --title"`eval_gettext 'Numlock configuration'`" \
+    --yes-label"`eval_gettext 'Enabled'`" \
+    --no-label"`eval_gettext 'Disabled'`" \
+    $numdefault \
+    --icon"$iconpath" \
+    --yesno \
+   "\\n`eval_gettext 'Do you want to have numlock enabled or disabled by default?'`" 0 0
+        retval=$?
+    if [ $retval -eq 255 ]; then
+        setnumlock=0
+    elif [ $retval -eq 0 ]; then
+        numstate="on"
+        numlock="checked"
+    else
+        numstate="off"
+        numlock="unchecked"
+    fi
+    
+    # Display a dialog for scim, if scim is installed
+    if [ -x /usr/bin/scim ]; then
+        setscim=1
+        if [ $scimstate ="off" ]; then
+            scimdefault="--defaultno"
+        fi
+        $dialog \
+        --stdout \
+        --title"`eval_gettext 'SCIM configuration'`" \
+        --yes-label"`eval_gettext 'Enabled'`" \
+        --no-label"`eval_gettext 'Disabled'`" \
+        $scimdefault \
+        --icon"$iconpath" \
+        --yesno \
+       "\\n`eval_gettext 'SCIM is an input platform for Chinese, Japanese, Korean and many other languages when using a graphical environment. Do you want to have it enabled or disabled on boot?\n\nYou will have to restart your system for this to take effect.'`" 0 0
+        retval=$?
+        if [ $retval -eq 255 ]; then
+            setscim=0
+        elif [ $retval -eq 0 ]; then
+            scimstate="on"
+        else
+            scimstate="off"
+        fi
+    else
+        setscim=0
+    fi
+}
+
+# Apply numlock settings
+applynumlock(){
+    if ["$numlock" ="checked" ]; then
+        [ -e /etc/rc.d/rc.numlock ] &amp;&amp; chmod 755 /etc/rc.d/rc.numlock
+        if [ $applynow -eq 1 ]; then
+            [[ $DISPLAY ]] &amp;&amp; [ -x /usr/bin/numlockx ] &amp;&amp; /usr/bin/numlockx on
+            for t in 1 2 3 4 5 6 7 8 ; do
+                setleds +num &lt; /dev/tty$t &gt; /dev/null
+            done
+        fi
+        if [ -f /etc/lxdm/lxdm.conf ]; then
+            sed -i"/numlock/d" /etc/lxdm/lxdm.conf
+            sed -i"s/\[base\]/\[base\]\nnumlock=1/" /etc/lxdm/lxdm.conf
+        fi
+        if [ -f /etc/kde/kdm/kdmrc ]; then
+            if [ `grep"\(^\|#\)NumLock=" /etc/kde/kdm/kdmrc` ]; then
+                sed -i"s/\(^\|#\)NumLock=.*/NumLock=On/" /etc/kde/kdm/kdmrc
+            else
+                sed -i"s/\[X-\*-Greeter\]/\[X-\*-Greeter\]\nNumLock=On/" /etc/kde/kdm/kdmrc
+            fi
+        fi
+    elif ["$numlock" ="unchecked" ]; then
+        [ -e /etc/rc.d/rc.numlock ] &amp;&amp; chmod 644 /etc/rc.d/rc.numlock
+        if [ $applynow -eq 1 ]; then
+            [[ $DISPLAY ]] &amp;&amp; [ -x /usr/bin/numlockx ] &amp;&amp; /usr/bin/numlockx off
+            for t in 1 2 3 4 5 6 7 8 ; do
+                setleds -num &lt; /dev/tty$t &gt; /dev/null
+            done
+        fi
+        if [ -f /etc/lxdm/lxdm.conf ]; then
+            sed -i"/numlock/d" /etc/lxdm/lxdm.conf
+            sed -i"s/\[base\]/\[base\]\nnumlock=0/" /etc/lxdm/lxdm.conf
+        fi
+        if [ -f /etc/kde/kdm/kdmrc ]; then
+            if [ `grep"\(^\|#\)NumLock=" /etc/kde/kdm/kdmrc` ]; then
+                sed -i"s/\(^\|#\)NumLock=.*/NumLock=Off/" /etc/kde/kdm/kdmrc
+            else
+                sed -i"s/\[X-\*-Greeter\]/\[X-\*-Greeter\]\nNumLock=Off/" /etc/kde/kdm/kdmrc
+            fi
+        fi
+    fi
+}
+
+# Apply scim settings
+applyscim(){
+    if ["$scimstate" ="on" ]; then
+        [ -f /etc/profile.d/scim.sh ] &amp;&amp; chmod +x /etc/profile.d/scim.sh
+        [ -f /etc/profile.d/scim.csh ] &amp;&amp; chmod +x /etc/profile.d/scim.csh
+    elif ["$scimstate" ="off" ]; then
+        [ -f /etc/profile.d/scim.sh ] &amp;&amp; chmod -x /etc/profile.d/scim.sh
+        [ -f /etc/profile.d/scim.csh ] &amp;&amp; chmod -x /etc/profile.d/scim.csh
+    fi
+}
+
+# Apply keyboard layout settings (console and xorg)
+applykeyboard(){
+    # Keymaps path to a system dir where it'll be installed
+    grep"^$key|.*|.*|.*" $salixtoolsdir/keymaps \
+      | sed -e"s/^.*|\(.*\)|\(.*\)|\(.*\)/\1|\2|\3/" &gt; $buffer/xkb
+
+    xkblayout="$(sed -e"s/^\(.*\)|.*|.*/\1/" $buffer/xkb)"
+    xkbvariant="$(sed -e"s/^.*|\(.*\)|.*/\1/" $buffer/xkb)"
+    xkboptions="$(sed -e"s/^.*|.*|\(.*\)/\1/" $buffer/xkb)"
+
+    rm -f $buffer/xkb
+    # Fall back to keymap if no xkb maping available
+    if [ !"$xkblayout" ]; then
+        xkblayout="$key"
+        xkbvariant=""
+        xkboptions=""
+    fi
+
+    if [ $applynow -eq 1 ]; then
+        /usr/bin/loadkeys -u $keymap 1&gt;&amp;2 2&gt;/dev/null
+        [[ $DISPLAY ]] &amp;&amp; [ -x /usr/bin/setxkbmap ] &amp;&amp; \
+        /usr/bin/setxkbmap -layout"$xkblayout" -variant"$xkbvariant" -option"$xkboptions" 1&gt;&amp;2 2&gt;/dev/null
+    fi
+    sed -i"s/\(^[ \t]*\/usr\/bin\/loadkeys -u\).*$/\1 $keymap/" /etc/rc.d/rc.keymap
+
+    # set keymap in /etc/X11/xorg.conf.d/50-keymap.conf
+    cp -f $salixtoolsdir/keyboardsetup/10-keymap.conf-template /etc/X11/xorg.conf.d/10-keymap.conf
+    sed -i"s/__XKBLAYOUT__/$xkblayout/" /etc/X11/xorg.conf.d/10-keymap.conf
+    sed -i"s/__XKBVARIANT__/$xkbvariant/" /etc/X11/xorg.conf.d/10-keymap.conf
+    sed -i"s/__XKBOPTIONS__/$xkboptions/" /etc/X11/xorg.conf.d/10-keymap.conf
+}
+
+# This is the main thing!
+init
+checkdefaults
+# If no arguments are passed, run interactively, else not
+if [ $# -eq 0 ]; then
+    interactive
+else
+    checkoptions $@
+fi
+
+# Apply selected settings
+[[ $setkeymap -eq 1 ]] &amp;&amp; applykeyboard
+[[ $setnumlock -eq 1 ]] &amp;&amp; applynumlock
+[[ $setscim -eq 1 ]] &amp;&amp; applyscim
+    
+# Exit back to original directory
+if [ -d $backtohome ]; then
+    cd $backtohome
+else
+    cd
+fi
+
+</code></pre></div>
+and their keymaps template<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#This is a list of keymaps used by keyboardsetup
+#The fields are: keymap|XkbLayout|XkbVariant|XkbOptions
+
+ANSI-dvorak|dvorak||
+al|al||
+am|am||
+ar|ar||
+azerty|fr||
+az|az||
+be-latin1|be||
+bg-cp1251|bg||
+bg-cp855|bg||
+bg_bds-cp1251|bg||
+bg_bds-utf8|bg||
+bg_pho-cp1251|bg||
+bg_pho-utf8|bg||
+br-abnt2|br||
+br-abnt|br||
+br-latin1-abnt2|br||
+br-latin1-us|br||
+brdk|brdk||
+by|by||
+by|by||
+cf|ca_enhanced||
+croat|hr||
+cz-cp1250|cz||
+cz-lat2-prog|cz||
+cz-lat2|cz||
+cz-us-qwertz|cz_qwerty||
+cz|cz||
+de-latin1-nodeadkeys|de||
+de-latin1|de||
+de_CH-latin1|de_CH||
+de|de||
+dk-latin1|dk||
+dk|dk||
+dvorak-l|dvorak||
+dvorak-r|dvorak||
+dvorak|dvorak||
+es-cp850|es||
+es-olpc|es||
+es|es||
+et|et||
+et-nodeadkeys|et||
+fi-latin1|fi||
+fi-latin9|fi||
+fi|fi||
+fr-latin1|fr||
+fr-latin9|fr|oss|
+fr-pc|fr||
+fr_CH-latin1|ch|fr|
+fr_CH|ch|fr|
+fr|fr|oss|
+gr-pc|us,el||grp:alt_shift_toggle,grp_led:scroll
+gr|us,el||grp:alt_shift_toggle,grp_led:scroll
+hu|hu||
+il|us,il||grp:alt_shift_toggle
+is-latin1-us|us,is||grp:alt_shift_toggle
+is-latin1|is||
+it-ibm|it||
+it2|it||
+it|it||
+jp106|jp||
+lt.baltic|lt_std||
+lt.l4|lt_std||
+lt|lt_std||
+lt|lt||
+lv|lv||
+lv-latin7|lv||
+mk-cp1251|mk||
+mk-utf|mk||
+mk0|mk||
+mk|mk||
+nl2|nl||
+nl|nl||
+nl|nl||
+no-latin1|no||
+no|no||
+pl2|pl2||
+pl|pl||
+pt|pt||
+pt-latin1|pt||
+pt-latin9|pt||
+pt-olpc|pt||
+ro_win|ro_microsoft||
+ru-cp1251|ru||grp:switch,grp:alt_shift_toggle,grp_led:scroll
+ru-ms|us,ru(winkeys)||grp:switch,grp:alt_shift_toggle,grp_led:scroll
+ru-yawerty|ru||
+ru1|us,ru(winkeys)||grp:switch,grp:alt_shift_toggle,grp_led:scroll
+ru2|us,ru(winkeys)||grp:switch,grp:alt_shift_toggle,grp_led:scroll
+ru3|us,ru(winkeys)||grp:switch,grp:alt_shift_toggle,grp_led:scroll
+ru4|us,ru(winkeys)||grp:switch,grp:alt_shift_toggle,grp_led:scroll
+ru_win|us,ru(winkeys)||grp:switch,grp:alt_shift_toggle,grp_led:scroll
+ru|us,ru(winkeys)||grp:switch,grp:alt_shift_toggle,grp_led:scroll
+se-fi-ir209|se_FI||
+se-fi-lat6|se_FI||
+se-ir209|se_SE||
+se-lat6|se_SE||
+sg-latin1-lk450|sg||
+sg-latin1|de_CH||
+sg|de_CH||
+sk-prog-qwerty|sk_qwerty||
+sk-prog-qwertz|sk_qwerty||
+sk-prog-qwertz|sk||
+sk-qwerty|sk_qwerty||
+sk-qwertz|sk_qwerty||
+slovene|si||
+sr-cy|sry||
+sv-latin1|se||
+syr|syr||
+tel|tel||
+th_pat|th_pat||
+th_tis|th_tis||
+th|th||
+tj|tj||
+tml|tml||
+tr_f-latin5|tr_f||
+tr_q-latin5|tr||
+tralt|tr||
+tralt|tr||
+trq|tr||
+ua-utf-ws|ua||
+ua-utf|ua||
+ua-ws|ua||
+ua|ua||
+ua|ua||
+uk|gb||
+us-acentos|us||
+us|us||
+uz|uz||
+vn|vn||
+wangbe2|fr||
+wangbe|fr||
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19641" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19641">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19641">
+
+<time datetime="2011-02-28T22:15">posted: 2011-02-28 &nbsp; 22:15</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19641" title="permalink">#19</a></span>
+
+<div class="content">A couple more issues.<br>
+<br>
+1. When the chosen locale icewm/fluxbox files get moved to home/username directories, they are owned by root and not user.<br>
+2. The grep line to remove the minstall section of the menus, doesn't delete the whole line.<br>
+<br>
+Possible solutions from the antiX.sh script can be incorporated into the antix-system script.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+# ------------------------------------------------------------------------------- #
+# Script:         antiX.sh (16 June 2009)                                         #
+# Author:         anticapitalista (antiX@operamail.com)                           # 
+# ------------------------------------------------------------------------------- #
+### BEGIN INIT INFO
+# Provides:          antiX.sh
+# Required-Start:    procps
+# Required-Stop:     
+# Should-Start:         
+# Default-Start:     
+# Default-Stop:      
+# Short-Description: antiX.sh
+# Description:       copies livecd options to install
+### END INIT INFO
+echo -ne"\e[33m"
+
+    NAME=$(cat /etc/passwd | grep 1000 | cut -d: -f1)
+    NAME1=/home/$NAME
+    LOC1=/antiX-install
+    LOC2=/usr/share/wallpaper
+
+    if [ -e"$LOC1" ]
+    then
+      cd $LOC1/fluxbox
+      egrep -v"gksu minstall"  menu-* &gt; menu
+      echo"Updating fluxbox menu."
+      chown $NAME menu
+      chgrp users menu
+      chown $NAME gnome2fluxmenu4.py
+      chgrp users gnome2fluxmenu4.py
+      chown $NAME pb_antiX-fb
+      chgrp users pb_antiX-fb
+      cp -p $LOC1/fluxbox/menu $NAME1/.fluxbox/menu
+      cp -p $LOC1/fluxbox/menu /etc/skel/.fluxbox
+      cp -p $LOC1/fluxbox/gnome2fluxmenu4.py $NAME1/.fluxbox/gnome2fluxmenu4.py
+      cp -p $LOC1/fluxbox/gnome2fluxmenu4.py /etc/skel/.fluxbox
+      cp -p $LOC1/fluxbox/pb_antiX-fb $NAME1/.config/rox.sourceforge.net/ROX-Filer/pb_antiX-fb
+      rm $LOC1/fluxbox/menu-*     
+      rm $LOC1/fluxbox/gnome2fluxmenu4.py
+      rm $LOC1/fluxbox/pb_antiX-fb
+      cd $LOC1/icewm
+      egrep -v"gksu minstall"  menu-* &gt; menu
+      echo"Updating icewm menu."
+      chown $NAME menu
+      chgrp users menu
+      chown $NAME icemenuyap2.py
+      chgrp users icemenuyap2.py
+      chown $NAME pb_antiX-ice
+      chgrp users pb_antiX-ice   
+      cp -p $LOC1/icewm/menu $NAME1/.icewm/menu
+      cp -p $LOC1/icewm/menu /etc/skel/.icewm
+      cp -p $LOC1/icewm/icemenuyap2.py $NAME1/.icewm/icemenuyap2.py
+      cp -p $LOC1/icewm/icemenuyap2.py /etc/skel/.icewm
+      cp -p $LOC1/icewm/pb_antiX-ice $NAME1/.config/rox.sourceforge.net/ROX-Filer/pb_antiX-ice
+      rm $LOC1/icewm/menu-*
+      rm $LOC1/icewm/icemenuyap2.py
+      rm $LOC1/icewm/pb_antiX-ice
+      echo"Updating icewm toolbar."
+      cp -p $LOC1/icewm/toolbar $NAME1/.icewm/toolbar
+      cp -p $LOC1/icewm/toolbar /etc/skel/.icewm
+      rm $LOC1/icewm/toolbar
+      echo"Updating Wallpaper."
+      cp -p $LOC2/* $NAME1/Wallpaper
+    fi
+
+echo -ne"\e[0m"
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19642" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19642">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19642">
+
+<time datetime="2011-02-28T23:52">posted: 2011-02-28 &nbsp; 23:52</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19642" title="permalink">#20</a></span>
+
+<div class="content">1) have allowed the keyboards to be set a different way by displaying the keymaps from a template made while the script runs. ( the old way is kept in another copy if this way is less suitable )<br>
+2) The grep line to remove install should remove the whole line now <br>
+3) Allowed the users to modify the menus through a chmod of 777 for the *.py files and chmod 666 for the menu and toolbar files. Would like to chown the to the user, but not sure how to set it, can see setting for 1 user by cat /etc/passwd | grep 1000 | cut -d: -f1 but what if there was 2 or more users, that command will only choose the first. This is why I set the copy to run cp -f /tmp/.fluxbox/* /home/*****/.fluxbox<br>
+<br>
+I could do a ls of the /home directory, but i am not sure how to then separate the users and copy and chown the files to the specific user from the ls. Then do this over and over for every user listed from the ls and continue when finished.<br>
+<br>
+Hope this is a little closer to completion <span class="emoticon"> __{{emoticon}}__ </span> <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://daveserver.dyndns-web.com/antiX/antix-system/antix-system"<br>linktext was:"antix-system"<br>====================================<br>
+</div>
+<div class="notice">
+Last edited by <b>Dave</b> on 23 Jul 2011, 20:58, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19645" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19645">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19645">
+
+<time datetime="2011-03-01T13:30">posted: 2011-03-01 &nbsp; 13:30</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19645" title="permalink">#21</a></span>
+
+<div class="content">A typo error.<br>
+<br>
+MAPKEYBOARD=`cat /tmp/locale | zenity --text"Choose a your locale for antiX applications" --list --column="" `;<br>
+<br>
+should be<br>
+<br>
+MAPKEYBOARD=`cat /tmp/keyboard | zenity --text"Choose your locale for antiX applications" --list --column="" `;<br>
+<br>
+To get the correct user, we could simply ask the user to give their username and then use the answer.<br>
+<br>
+Edit: Or use ls /home and ask user to choose one or all?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19663" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19663">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19663">
+
+<time datetime="2011-03-01T22:32">posted: 2011-03-01 &nbsp; 22:32</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19663" title="permalink">#22</a></span>
+
+<div class="content">Yes thank you for catching these typos' , I test the sections of script outside of the antix-system script, when I have them working I add them and some parts I miss. It will still work for me though because those temporary text files are left there after testing. I should really and will start removing them before testing the antix-system script.<br>
+<br>
+As to the user, ( I am sorry if I sound rather ignorant ) <br>
+Doing the ls /home and asking the user to enter who the locale change is for is not the issue, nor is finding all the users that need ~/.fluxbox , ~/.icewm , and ~/.profile changed. I can set the script to find all users and ask where to apply it rather easily. You can make it work with one user, for example<br>
+A) do an ls /home<br>
+output: userA userB userC<br>
+<br>
+B) Select user<br>
+userA selected<br>
+B)copy the files to all the users <br>
+cp /tmp/file /home/userA/<br>
+<br>
+C)change the ownership of the files<br>
+chown ("userA") /home/("userA")/*<br>
+<br>
+one user chosen ("userA") there is no problem.<br>
+<br>
+Now how do you set this for a choice of all users? This I do not understand, because to my knowledge it is not possible to do chmod 777 ("userA")("userB")("userC") /home/("userA")("userB")("userC")/* and to enter seperate lines of code for each user would mean the antix-system script would need to be edited for each user, or rerun antix-system choosing a different user every time ( This would take a long time / be a pain to do the whole thing several times )<br>
+<br>
+I am able to add a question after applying this to one user, so it routes back to just selecting another user, rather than running through the whole script again. I do not know if this is beneficial but I can add it if you believe so.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19664" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19664">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19664">
+
+<time datetime="2011-03-01T23:16">posted: 2011-03-01 &nbsp; 23:16</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19664" title="permalink">#23</a></span>
+
+<div class="content">"I am able to add a question after applying this to one user, so it routes back to just selecting another user, rather than running through the whole script again. I do not know if this is beneficial but I can add it if you believe so."<br>
+<br>
+Seems to be the best solution, Dave.<br>
+<br>
+As the script is at present, with the chmod it works ok. So don't beat yourself over it too much <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19704" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19704">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19704">
+
+<time datetime="2011-03-03T21:52">posted: 2011-03-03 &nbsp; 21:52</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19704" title="permalink">#24</a></span>
+
+<div class="content">After some time to think I believe I have found a solution. I did not notice at the time but the answer was rather simple, use a for statement in this manner
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>for ULOCALE in `ls /home/`; do {
+    mv -f /tmp/.icewm/* /home/$ULOCALE/.icewm/ ;
+    mv -f /tmp/.fluxbox/* /home/$ULOCALE/.fluxbox/ ;
+    chown $ULOCALE /home/$ULOCALE/.fluxbox/gnome2fluxmenu4.py
+    chgrp users /home/$ULOCALE/.fluxbox/gnome2fluxmenu4.py
+    chown $ULOCALE /home/$ULOCALE/.fluxbox/menu
+    chgrp users /home/$ULOCALE/.fluxbox/menu
+    chown $ULOCALE /home/$ULOCALE/.icewm/icemenuyap2.py
+    chgrp users /home/$ULOCALE/.icewm/icemenuyap2.py
+    chown $ULOCALE /home/$ULOCALE/.icewm/menu
+    chgrp users /home/$ULOCALE/.icewm/menu
+    chown $ULOCALE /home/$ULOCALE/.icewm/toolbar
+    chgrp users /home/$ULOCALE/.icewm/toolbar
+}
+done
+</code></pre></div>
+EDIT: sorry seen an error in the posted code above, fixed in here and the script<br>
+<br>
+This should work fine I think, 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://daveserver.dyndns-web.com/antiX/antix-system/antix-system"<br>linktext was:"here"<br>====================================<br>
+ is the latest.</div>
+<div class="notice">
+Last edited by <b>Dave</b> on 23 Jul 2011, 20:59, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19708" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19708">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19708">
+
+<time datetime="2011-03-04T15:14">posted: 2011-03-04 &nbsp; 15:14</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19708" title="permalink">#25</a></span>
+
+<div class="content">Ok, there is still an issue I had overlooked.<br>
+<br>
+The keyboard pop up shows (correctly) the keymaps available and this should be loaded on boot by running in the script <br>
+<br>
+/usr/sbin/install-keymap $KEYMAP eg /usr/sbin/install-keymap br-abnt2 (For Brazilian)<br>
+<br>
+However, the correct XkbLayout to go in /etc/default/keyboard is not br-abnt2, but br.<br>
+<br>
+So maybe it is better to have a template that the script reads from, instead of<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls -1 /usr/share/keymaps/i386/azerty &gt; /tmp/keyboard;
+ls -1 /usr/share/keymaps/i386/qwerty &gt;&gt; /tmp/keyboard;
+ls -1 /usr/share/keymaps/i386/qwertz &gt;&gt; /tmp/keyboard;
+ls -1 /usr/share/keymaps/i386/dvorak &gt;&gt; /tmp/keyboard;
+ls -1 /usr/share/keymaps/i386/fgGIod &gt;&gt; /tmp/keyboard;
+sed  -i 's/\(.*\)\..*/\1/' /tmp/keyboard; 
+sed -i 's/\(.*\)\..*/\1/' /tmp/keyboard;
+</code></pre></div>
+The first chosen option is the kemap that needs generated as above, and the second is the one that is put in /etc/default/keyboard.<br>
+<br>
+<br>
+Here is a template, similar to SalixOS. maybe it should be put in /usr/share/antiX<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#This is a list of keymaps used by antix-system
+#The fields are: keymap|XkbLayout
+
+azerty|fr
+be2-latin1|be
+be-latin1|be
+fr|fr
+fr-latin0|fr
+fr-latin1|fr
+fr-latin9|fr
+fr-pc|fr
+fr-x11|fr
+mac-usb-be|be
+mac-usb-fr|fr
+mac-usb-it|it
+wangbe|fr
+ar|ar
+bg-cp1251|bg
+bg|bg
+br-abnt2|br
+br-latin1|br
+by|by
+ca-multi|us
+cf|fr
+cz-lat2|cz
+cz-lat2-prog|cz
+cz-us-qwerty|cz
+dk|dk
+dk-latin1|dk
+es-cp850|es
+es|es
+et|et
+et-nodeadkeys|et
+fa|fa
+fi|fi
+fi-latin1|fi
+gr|gr
+gr-pc|gr
+gr-utf8|gr
+hebrew|il
+hu101|hu
+il-heb|il
+il|il
+il-phonetic|il
+is-latin1|is
+is-latin1-us|is
+it2|it
+it-ibm|it
+it|it
+jp106|jp
+kg|kg
+lt|lt
+lt.l4|lt
+lv-latin4|lv
+lv-latin7|lv
+mac-usb-dk-latin1|dk
+mac-usb-es|es
+mac-usb-euro|us
+mac-usb-fi-latin1|fi
+mac-usb-se|se
+mac-usb-uk|gb
+mac-usb-us|us
+mk|mk
+nl|nl
+no|np
+no-latin1|no
+no-standard|no
+pl1|pl
+pl|pl
+pt-latin1|pt
+pt-old|pt
+ro-academic|ro
+ro-comma|ro
+ro|ro
+ru1|ru
+ru2|ru
+ru3|ru
+ru4|ru
+ru-cp1251|ru
+ru|ru
+ru-ms|ru
+ru_win|ru
+ru-yawerty|ru
+se-fi-ir209|se
+se-fi-lat6|se
+se-ir209|se
+se-lat6|se
+se-latin1|se
+sk-prog|sk
+sk-prog-qwerty|sk
+sk-qwerty|sk
+sr-cy|sr
+th-tis|th
+tralt|tr
+trq|tr
+tr_q-latin5|tr
+trqu|tr
+ua|ua
+ua-utf|ua
+ua-utf-ws|ua
+uaw|ua
+ua-ws|ua
+uaw_uni|ua
+uk|gb
+us-intl.iso01|us
+us-intl.iso15|us
+us|us
+us-latin1|us
+croat|hr
+cz-us-qwertz|cz
+de|de
+de-latin1|de
+de-latin1-nodeadkeys|de
+fr_CH|fr
+fr_CH-latin1|fr
+hu|hu
+mac-usb-de_CH|de
+mac-usb-de-latin1|de
+mac-usb-de-latin1-nodeadkeys|de
+mac-usb-fr_CH-latin1|fr
+mac-usb-pt-latin1|pt
+pl-qwertz|pl
+sg|de
+sg-latin1|de
+sg-latin1-lk450|de
+sk-prog-qwertz|sk
+sk-qwertz|sk
+slovene|sl
+sr|sr
+ANSI-dvorak|dvorak
+dvorak-classic|dvorak
+dvorak-de|dvorak
+dvorak-fr-bepo|dvorak
+dvorak-fr-bepo-utf8|dvorak
+dvorak-fr|dvorak
+dvorak|dvorak
+dvorak-lisp|dvorak
+dvorak-l|dvorak
+dvorak-r|dvorak
+dvorak-ru|dvorak
+dvorak-uk|dvorak
+mac-usb-dvorak|dvorak
+pc-dvorak-latin1|dvorak
+trf|tr
+tr_f-latin5|tr
+trfu|tr
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19709" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19709">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19709">
+
+<time datetime="2011-03-04T21:38">posted: 2011-03-04 &nbsp; 21:38</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19709" title="permalink">#26</a></span>
+
+<div class="content">ok will look into using that template but it may be a while before I will post the changes<br>
+<br>
+If I am reading the post correctly it is /usr/sbin/install-keymap $KEYMAP that loads the keymap on boot. Is that all or do I run this command, then change etc/default/keyboard and then run another?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19710" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19710">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19710">
+
+<time datetime="2011-03-04T21:56">posted: 2011-03-04 &nbsp; 21:56</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19710" title="permalink">#27</a></span>
+
+<div class="content">You need to run /usr/sbin/install-keymap $KEYMAP (first option in the template) and also make the changes to /etc/default/keyboard, using the second string in template. (Just like you have done before in the script).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19719" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19719">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19719">
+
+<time datetime="2011-03-05T20:43">posted: 2011-03-05 &nbsp; 20:43</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19719" title="permalink">#28</a></span>
+
+<div class="content">It has been rewrote to use template, here is the code segment
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>KEYMAP=`cat /usr/share/antiX/keymap.template |grep -v"#" |zenity --text"Choose a your locale for antiX applications" --list --column=""`;
+if [ $? != 0 ]; then
+zenity --info --text"Keymap left default";
+else
+cat /usr/share/antiX/keymap.template |grep"$KEYMAP" &gt; /tmp/selectedmap;
+cat /tmp/selectedmap |sed 's/|[a-z]*//ig' /tmp/selectedmap &gt; /tmp/map;
+MAP=`cat /tmp/map`;
+/usr/sbin/install-keymap $MAP;
+cat /tmp/selectedmap |grep -o"|[a-z]*" &gt; /tmp/default;
+sed -i 's/|//ig' /tmp/default;
+DEFAULT=`cat /tmp/default`;
+KLOCALE=`cat /etc/default/keyboard | grep -m"1""XKBLAYOUT="` ;
+NEWKLOCALE="XKBLAYOUT=\"us,$DEFAULT\"" ;
+sed -i -e"s/$KLOCALE/$NEWKLOCALE/ig" /etc/default/keyboard ;
+KOPTIONS=`cat /etc/default/keyboard | grep -m"1""XKBOPTIONS="` ;
+NEWKOPTIONS="XKBOPTIONS=\"grp:alt_shift_toggle,terminate:ctrl_alt_bksp\"" ;
+sed -i -e"s/$KOPTIONS/$NEWKOPTIONS/ig" /etc/default/keyboard ;
+ if ["$MOUSE" ="Leave default" ] ; then
+ zenity --info --title"antix-system" --text"Keyboard set to $KEYMAP, restart and use keymap by ALT + SHIFT + (LEFT / RIGHT)" ;
+ antix-system ;
+ else
+ mouse ; 
+ zenity --info --title"antix-system" --text"Keyboard set to $KEYMAP, restart and use keymap by ALT + SHIFT + (LEFT / RIGHT). Mouse layout set to $MOUSE" ;
+ fi
+fi
+</code></pre></div>
+and here is the new 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://daveserver.dyndns-web.com/antiX/antix-system/antix-system"<br>linktext was:"antix-system"<br>====================================<br>
+<br>
+and here is the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://daveserver.dyndns-web.com/antiX/antix-system/keymap.template"<br>linktext was:"keymap.template"<br>====================================<br>
+ to be placed in /usr/share/antiX</div>
+<div class="notice">
+Last edited by <b>Dave</b> on 23 Jul 2011, 21:00, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19721" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19721">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19721">
+
+<time datetime="2011-03-05T21:48">posted: 2011-03-05 &nbsp; 21:48</time>
+<span class="permalink"><a href="./antix-system-t2970-s15.html#p19721" title="permalink">#29</a></span>
+
+<div class="content">Thanks Dave. I'll test it out asap.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+29 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-system-t2970.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-system-t2970.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

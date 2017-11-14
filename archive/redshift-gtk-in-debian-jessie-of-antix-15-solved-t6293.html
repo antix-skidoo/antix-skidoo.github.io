@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>redshift-gtk in Debian Jessie of AntiX 15 (SOLVED} - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./software-f57/index.html"><span>Software</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./redshift-gtk-in-debian-jessie-of-antix-15-solved-t6293.html">redshift-gtk in Debian Jessie of AntiX 15 (SOLVED}</a></h2>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_45875" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45875">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45875">
+
+<time datetime="2016-03-18T14:07">posted: 2016-03-18  &nbsp; 14:07</time>
+<span class="permalink"><a href="./redshift-gtk-in-debian-jessie-of-antix-15-solved-t6293.html#p45875" title="permalink">#1</a></span>
+
+<div class="content">I installed redshift-gtk and began to set it up. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ gtk-redshift -l 30:103 &amp;
+[1] 10540
+bash: gtk-redshift: command not found
+harry@biker:~
+$ which redshift
+/usr/bin/redshift
+[1]+  Exit 127                gtk-redshift -l 30:103
+harry@biker:~
+$ cat  / etc/desktop-session/startup &gt;&gt;&gt;&gt;&gt;&gt;(spacebar hit for space inserted between / and etc because of the forum bug)
+#!/bin/bash
+volumeicon &amp; 
+
+fbxkb &amp;
+
+search-bar-icon &amp;
+
+(sleep 5 &amp;&amp; toram-eject) &amp;
+
+spacefm -d &amp;
+
+gtk-redshift -l 30:103 &amp;
+
+harry@biker:~
+</code></pre></div>
+As you can see. Debian has changed things since we did this in wheezy<br>
+<br>
+redshift-not-working-t4479.html<br>
+<br>
+Here is the read me from Debian on file in my laptop after the install<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ cat /usr/share/doc/redshift/README.Debian
+Autostart of gtk-redshift
+-------------------------
+
+Autostart was removed from Debian package because of violation of 'Desktop Application
+Autostart Specification' (see bug #619699). If you want gtk-redshift autostarted please
+configure this in your specific desktop environment (e.g. by placing
+/usr/share/applications/gtk-redshift.desktop in
+$HOME/$XDG_CONFIG_HOME/autostart/
+(usually defaults to $HOME/.config/autostart).
+harry@biker:~
+</code></pre></div>
+So,
+<blockquote class="uncited"><div><strong>Autostart was removed from Debian package because of violation of 'Desktop Application</strong></div></blockquote>
+Must be what is stumping me on this not working for me on Jessie.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://jonls.dk/redshift/"<br>linktext was:"http://jonls.dk/redshift/"<br>====================================<br>
+<br>
+<blockquote class="uncited"><div>Note: Before version 1.8 redshift-gtk was known as gtk-redshift.</div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ apt search redshift
+Sorting... Done
+Full Text Search... Done
+awscli/stable 1.4.2-1 all
+  Universal Command Line Environment for AWS
+
+gtk-redshift/stable,now 1.9.1-4 all [installed]
+  Adjusts the color temperature of your screen with GTK+ integration
+
+redshift/stable,now 1.9.1-4 i386 [installed,automatic]
+  Adjusts the color temperature of your screen
+
+redshift-plasmoid/stable 1.0-1 i386
+  Adjusts the color temperature of your screen, KDE plasmoid
+</code></pre></div>
+Now you see why I am ver-klept with confusion. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Installed stuff below<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ sudo -i
+[sudo] password for harry: 
+root@biker:~# updatedb
+root@biker:~# exit
+logout
+harry@biker:~
+$ locate redshift
+/home/harry/.config/redshift.conf
+/usr/bin/redshift
+/usr/bin/redshift-gtk
+/usr/lib/python3/dist-packages/redshift_gtk
+/usr/lib/python3/dist-packages/redshift_gtk/__init__.py
+/usr/lib/python3/dist-packages/redshift_gtk/__pycache__
+/usr/lib/python3/dist-packages/redshift_gtk/defs.py
+/usr/lib/python3/dist-packages/redshift_gtk/statusicon.py
+/usr/lib/python3/dist-packages/redshift_gtk/utils.py
+/usr/lib/python3/dist-packages/redshift_gtk/__pycache__/__init__.cpython-34.pyc
+/usr/lib/python3/dist-packages/redshift_gtk/__pycache__/defs.cpython-34.pyc
+/usr/lib/python3/dist-packages/redshift_gtk/__pycache__/statusicon.cpython-34.pyc
+/usr/lib/python3/dist-packages/redshift_gtk/__pycache__/utils.cpython-34.pyc
+/usr/share/applications/redshift-gtk.desktop
+/usr/share/doc/gtk-redshift
+/usr/share/doc/redshift
+/usr/share/doc/gtk-redshift/NEWS.Debian.gz
+/usr/share/doc/gtk-redshift/README
+/usr/share/doc/gtk-redshift/README.Debian
+/usr/share/doc/gtk-redshift/changelog.Debian.gz
+/usr/share/doc/gtk-redshift/changelog.gz
+/usr/share/doc/gtk-redshift/copyright
+/usr/share/doc/redshift/NEWS.Debian.gz
+/usr/share/doc/redshift/README
+/usr/share/doc/redshift/README.Debian
+/usr/share/doc/redshift/changelog.Debian.gz
+/usr/share/doc/redshift/changelog.gz
+/usr/share/doc/redshift/copyright
+/usr/share/doc/redshift/example-redshift.conf
+/usr/share/icons/hicolor/scalable/apps/redshift-status-off.svg
+/usr/share/icons/hicolor/scalable/apps/redshift-status-on.svg
+/usr/share/icons/hicolor/scalable/apps/redshift.svg
+/usr/share/locale/ar/LC_MESSAGES/redshift.mo
+/usr/share/locale/bg/LC_MESSAGES/redshift.mo
+/usr/share/locale/ca/LC_MESSAGES/redshift.mo
+/usr/share/locale/cs/LC_MESSAGES/redshift.mo
+/usr/share/locale/da/LC_MESSAGES/redshift.mo
+/usr/share/locale/de/LC_MESSAGES/redshift.mo
+/usr/share/locale/el/LC_MESSAGES/redshift.mo
+/usr/share/locale/es/LC_MESSAGES/redshift.mo
+/usr/share/locale/et/LC_MESSAGES/redshift.mo
+/usr/share/locale/eu/LC_MESSAGES/redshift.mo
+/usr/share/locale/fi/LC_MESSAGES/redshift.mo
+/usr/share/locale/fr/LC_MESSAGES/redshift.mo
+/usr/share/locale/gl/LC_MESSAGES/redshift.mo
+/usr/share/locale/he/LC_MESSAGES/redshift.mo
+/usr/share/locale/hi/LC_MESSAGES/redshift.mo
+/usr/share/locale/hr/LC_MESSAGES/redshift.mo
+/usr/share/locale/it/LC_MESSAGES/redshift.mo
+/usr/share/locale/ja/LC_MESSAGES/redshift.mo
+/usr/share/locale/ka/LC_MESSAGES/redshift.mo
+/usr/share/locale/lt/LC_MESSAGES/redshift.mo
+/usr/share/locale/nb/LC_MESSAGES/redshift.mo
+/usr/share/locale/nl/LC_MESSAGES/redshift.mo
+/usr/share/locale/pl/LC_MESSAGES/redshift.mo
+/usr/share/locale/pt/LC_MESSAGES/redshift.mo
+/usr/share/locale/pt_BR/LC_MESSAGES/redshift.mo
+/usr/share/locale/ru/LC_MESSAGES/redshift.mo
+/usr/share/locale/sv/LC_MESSAGES/redshift.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/redshift.mo
+/usr/share/man/man1/redshift-gtk.1.gz
+/usr/share/man/man1/redshift.1.gz
+/usr/share/man/man5/redshift.5.gz
+/usr/share/menu/gtk-redshift
+/var/cache/apt/archives/gtk-redshift_1.9.1-4_all.deb
+/var/cache/apt/archives/redshift_1.9.1-4_i386.deb
+/var/lib/dpkg/info/gtk-redshift.list
+/var/lib/dpkg/info/gtk-redshift.md5sums
+/var/lib/dpkg/info/gtk-redshift.postinst
+/var/lib/dpkg/info/gtk-redshift.postrm
+/var/lib/dpkg/info/gtk-redshift.prerm
+/var/lib/dpkg/info/redshift.list
+/var/lib/dpkg/info/redshift.md5sums
+/var/lib/menu-xdg/applications/menu-xdg/X-Debian-Games-Toys-redshift.desktop
+harry@biker:~
+$ 
+</code></pre></div>
+The <strong>/home/harry/.config/redshift.conf</strong> I just created myself. But for now is just a blank file. Empty of text.<br>
+I am not sure what to place in it per the authors example file shown on his site.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>; Global settings for redshift
+[redshift]
+; Set the day and night screen temperatures
+temp-day=5700
+temp-night=3500
+
+; Enable/Disable a smooth transition between day and night
+; 0 will cause a direct change from day to night screen temperature.
+; 1 will gradually increase or decrease the screen temperature.
+transition=1
+
+; Set the screen brightness. Default is 1.0.
+;brightness=0.9
+; It is also possible to use different settings for day and night
+; since version 1.8.
+;brightness-day=0.7
+;brightness-night=0.4
+; Set the screen gamma (for all colors, or each color channel
+; individually)
+gamma=0.8
+;gamma=0.8:0.7:0.8
+; This can also be set individually for day and night since
+; version 1.10.
+;gamma-day=0.8:0.7:0.8
+;gamma-night=0.6
+
+; Set the location-provider: 'geoclue', 'geoclue2', 'manual'
+; type 'redshift -l list' to see possible values.
+; The location provider settings are in a different section.
+location-provider=manual
+
+; Set the adjustment-method: 'randr', 'vidmode'
+; type 'redshift -m list' to see all possible values.
+; 'randr' is the preferred method, 'vidmode' is an older API.
+; but works in some cases when 'randr' does not.
+; The adjustment method settings are in a different section.
+adjustment-method=randr
+
+; Configuration of the location-provider:
+; type 'redshift -l PROVIDER:help' to see the settings.
+; ex: 'redshift -l manual:help'
+; Keep in mind that longitudes west of Greenwich (e.g. the Americas)
+; are negative numbers.
+[manual]
+lat=48.1
+lon=11.6
+
+; Configuration of the adjustment-method
+; type 'redshift -m METHOD:help' to see the settings.
+; ex: 'redshift -m randr:help'
+; In this example, randr is configured to adjust screen 1.
+; Note that the numbering starts from 0, so this is actually the
+; second screen. If this option is not specified, Redshift will try
+; to adjust _all_ screens.
+[randr]
+screen=1</code></pre></div></div>
+
+<div class="notice">
+Last edited by <b>rokytnji</b> on 18 Mar 2016, 14:12, edited 1 time in total.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45876" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile45876">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45876">
+
+<time datetime="2016-03-18T14:11">posted: 2016-03-18  &nbsp; 14:11</time>
+<span class="permalink"><a href="./redshift-gtk-in-debian-jessie-of-antix-15-solved-t6293.html#p45876" title="permalink">#2</a></span>
+
+<div class="content">Stupid biker<br>
+<br>
+Just needed to turn the command around<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ redshift-gtk -l 30:103 &amp;
+[1] 16893
+harry@biker:~
+$ 
+** (redshift-gtk:16893): WARNING **: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+
+(redshift-gtk:16893): Gtk-WARNING **: Theme parsing error: gtk-widgets.css:63:17: Theming engine 'unico' not found
+
+(redshift-gtk:16893): Gtk-WARNING **: Theme parsing error: gtk-widgets.css:1064:23: Missing name of pseudo-class
+
+</code></pre></div></div>
+ 
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45877" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45877">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45877">
+
+<time datetime="2016-03-18T14:21">posted: 2016-03-18  &nbsp; 14:21</time>
+<span class="permalink"><a href="./redshift-gtk-in-debian-jessie-of-antix-15-solved-t6293.html#p45877" title="permalink">#3</a></span>
+
+ <div class="content">Ok , setup is done<br>
+<br>
+antixcc&gt;session&gt;global desktop-session &gt;&gt;&gt;&gt;password<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+volumeicon &amp; 
+
+fbxkb &amp;
+
+search-bar-icon &amp;
+
+(sleep 5 &amp;&amp; toram-eject) &amp;
+
+spacefm -d &amp;
+
+redshift-gtk -l 30:103 &amp;
+
+</code></pre></div>
+<br>
+<br>
+I can put a fork in her. She is done. Now to go outside and enjoy my day.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45908" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile45908">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 667</dd>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45908">
+
+<time datetime="2016-03-19T14:17">posted: 2016-03-19  &nbsp; 14:17</time>
+<span class="permalink"><a href="./redshift-gtk-in-debian-jessie-of-antix-15-solved-t6293.html#p45908" title="permalink">#4</a></span>
+
+<div class="content">See, I told you that you were smarter than the average bear.<br>
+<br>
+<span data-s9e-mediaembed="youtube" style="display:inline-block;width:100%;max-width:640px"><span style="display:block;overflow:hidden;position:relative;padding-bottom:56.25%"><iframe allowfullscreen="" scrolling="no" style="background:url(https://i.ytimg.com/vi/1pqyax6gwzQ/hqdefault.jpg) 50% 50% / cover;border:0;height:100%;left:0;position:absolute;width:100%" src="https://www.youtube.com/embed/1pqyax6gwzQ"></iframe></span></span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

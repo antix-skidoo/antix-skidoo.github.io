@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>frugal install - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./frugal-install-t3676.html">frugal install</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24486" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24486">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24486">
+<time datetime="2012-04-27T11:43">posted: 2012-04-27 &nbsp; 11:43</time>
+<span class="permalink"><a href="./frugal-install-t3676.html#p24486" title="permalink">#1</a></span>
+
+<div class="content">A frugal install is similar to running a live cd or live usb, except that it is running from a hard drive.<br>
+<br>
+Advantages of frugal:<br>
+<br>
+* space is saved (installation to hard drive typically is 4 times the size of the iso, whereas with frugal it is the size of the iso). <br>
+* Frugal from hard drive is faster than live usb and live cd. <br>
+* great for testing (once set up).<br>
+<br>
+antiX is able to run frugal with persistence which means you can run it (like Puppy linux), add/remove apps and changes will be saved.<br>
+You get to create antiX exactly as you want it, and then you can remaster it for use on othe boxes/devices if you wish.<br>
+<br>
+You need a working grub already installed.<br>
+<br>
+antiX-frugal works on ext2. ext3, ext4. fat and ntfs partitions, but ext is recommended.<br>
+<br>
+Scenario 1. Single partition running antiX.<br>
+<br>
+You can run frugal from within your running antiX.<br>
+<br>
+In your root partition (not root folder) make a folder called antiX-base (or whatever).<br>
+<br>
+# cd /<br>
+# mkdir antiX-base<br>
+Open mc and navigate to your iso file, press Enter and you will see the contents of the live iso file.<br>
+Copy all the contents of the antiX folder to antiX-base on your root partition.<br>
+<br>
+Now you need to edit your /boot/grub/menu.lst to add the frugal entry. Put this near the top.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#Frugal
+title antiX-base-frugal-sda1
+root (hd0,0)
+kernel /antiX-base/vmlinuz quiet noxorg vga=791 bdev=sda1 bdir=antiX-base antiX=LMXD nomodeset persist 
+initrd /antiX-base/initrd.gz
+</code></pre></div>
+The same process applies when running frugal on othe partitions eg for sdb6
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#Frugal
+title antiX-base-frugal-sdb6
+root (hd1,5)
+kernel /antiX-base/vmlinuz quiet noxorg vga=791  bdev=sdb6 bdir=antiX-full antiX=LMXD nomodeset persist 
+initrd /antiX-base/initrd.gz
+</code></pre></div>
+Once you have booted, you can set up persistence. See this thread.<br>
+<br>
+live-persistence-t3566.html<br>
+<br>
+Give frugal a try. It's fun.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24487" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24487">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24487">
+
+<time datetime="2012-04-27T13:46">posted: 2012-04-27 &nbsp; 13:46</time>
+<span class="permalink"><a href="./frugal-install-t3676.html#p24487" title="permalink">#2</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>
+<br>
+Give frugal a try. It's fun.</div></blockquote>
+You're right!<br>
+Posting this from my frugal install with persistence.<br>
+Works great!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

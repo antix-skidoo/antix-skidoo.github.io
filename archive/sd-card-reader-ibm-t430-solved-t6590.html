@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>SD card reader IBM T430 (SOLVED) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./sd-card-reader-ibm-t430-solved-t6590.html">SD card reader IBM T430 (SOLVED)</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_48153" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48153">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48153">
+<time datetime="2016-09-09T23:19">posted: 2016-09-09 &nbsp; 23:19</time>
+<span class="permalink"><a href="./sd-card-reader-ibm-t430-solved-t6590.html#p48153" title="permalink">#1</a></span>
+
+<div class="content">Just the basic facts. I can't get AntiX 4.6, 4.4, and now Liqourix 3.16 to see my durn sd card slot, but it loads the driver. <br>
+I ran smxi to load up the liqourix kernel before I was going to post this thread. In case it was just a AntiX kernel bug.<br>
+But no change.<br>
+<br>
+Here is command line info with the 3.16 kernel. I can reboot into my AntiX 4.6 kernel and post the same commands in my post for comparison.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ su
+Password: 
+root@biker:/home/harry# fdisk -l
+
+Disk /dev/sda: 320 GB, 320070320640 bytes
+255 heads, 63 sectors/track, 38913 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sda1               1        1020     8193118   83  Linux
+Warning: Partition 1 does not end on cylinder boundary.
+/dev/sda2            1020        9944    71682030   83  Linux
+Warning: Partition 2 does not end on cylinder boundary.
+/dev/sda3            9944       10454     4096575   82  Linux swap
+Warning: Partition 3 does not end on cylinder boundary.
+/dev/sda4           10454       38914   228604950    5  Extended
+Warning: Partition 4 does not end on cylinder boundary.
+/dev/sda6           10454       23202   102398310   83  Linux
+Warning: Partition 6 does not end on cylinder boundary.
+/dev/sda5           23202       38914   126206640   83  Linux
+Warning: Partition 5 does not end on cylinder boundary.
+root@biker:/home/harry# exit
+exit
+harry@biker:~
+$ inxi -S
+System:    Host: biker Kernel: 3.16-7.dmz.1-liquorix-686-pae i686 (32 bit) Desktop: IceWM 1.3.8
+           Distro: antiX-15-V_386-full Killah P 30 June 2015
+harry@biker:~
+$ dmesg | grep sdhci
+[    0.551464] sdhci: Secure Digital Host Controller Interface driver
+[    0.551466] sdhci: Copyright(c) Pierre Ossman
+[    0.551671] sdhci-pci 0000:02:00.0: SDHCI controller found [1180:e822] (rev 7)
+harry@biker:~
+$ dmesg | grep ricoh
+harry@biker:~
+$ lspci
+00:00.0 Host bridge: Intel Corporation 3rd Gen Core processor DRAM Controller (rev 09)
+00:02.0 VGA compatible controller: Intel Corporation 3rd Gen Core processor Graphics Controller (rev 09)
+00:14.0 USB controller: Intel Corporation 7 Series/C210 Series Chipset Family USB xHCI Host Controller (rev 04)
+00:16.0 Communication controller: Intel Corporation 7 Series/C210 Series Chipset Family MEI Controller #1 (rev 04)
+00:16.3 Serial controller: Intel Corporation 7 Series/C210 Series Chipset Family KT Controller (rev 04)
+00:19.0 Ethernet controller: Intel Corporation 82579LM Gigabit Network Connection (rev 04)
+00:1a.0 USB controller: Intel Corporation 7 Series/C210 Series Chipset Family USB Enhanced Host Controller #2 (rev 04)
+00:1b.0 Audio device: Intel Corporation 7 Series/C210 Series Chipset Family High Definition Audio Controller (rev 04)
+00:1c.0 PCI bridge: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 1 (rev c4)
+00:1c.1 PCI bridge: Intel Corporation 7 Series/C210 Series Chipset Family PCI Express Root Port 2 (rev c4)
+00:1d.0 USB controller: Intel Corporation 7 Series/C210 Series Chipset Family USB Enhanced Host Controller #1 (rev 04)
+00:1f.0 ISA bridge: Intel Corporation QM77 Express Chipset LPC Controller (rev 04)
+00:1f.2 SATA controller: Intel Corporation 7 Series Chipset Family 6-port SATA Controller [AHCI mode] (rev 04)
+00:1f.3 SMBus: Intel Corporation 7 Series/C210 Series Chipset Family SMBus Controller (rev 04)
+02:00.0 System peripheral: Ricoh Co Ltd MMC/SD Host Controller (rev 07)
+03:00.0 Network controller: Intel Corporation Centrino Advanced-N 6205 [Taylor Peak] (rev 34)
+harry@biker:~
+$ dmesg | grep sdhci-pci
+[    0.551671] sdhci-pci 0000:02:00.0: SDHCI controller found [1180:e822] (rev 7)
+harry@biker:~
+$ lspci -nnk | grep Ricoh -A2
+02:00.0 System peripheral [0880]: Ricoh Co Ltd MMC/SD Host Controller [1180:e822] (rev 07)
+    Subsystem: Lenovo Device [17aa:21f3]
+    Kernel driver in use: sdhci-pci
+harry@biker:~
+$ inxi -Fxz
+System:    Host: biker Kernel: 3.16-7.dmz.1-liquorix-686-pae i686 (32 bit gcc: 4.8.3) Desktop: IceWM 1.3.8
+           Distro: antiX-15-V_386-full Killah P 30 June 2015
+Machine:   System: LENOVO (portable) product: 2347DS2 v: ThinkPad T430
+           Mobo: LENOVO model: 2347DS2 UEFI [Legacy]: LENOVO v: G1ET41WW (1.16 ) date: 05/25/2012
+Battery    BAT0: charge: 35.9 Wh 100.1% condition: 35.9/56.2 Wh (64%) model: SANYO 45N1001 status: Full
+CPU:       Dual core Intel Core i5-3320M (-HT-MCP-) cache: 3072 KB
+           flags: (lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx) bmips: 10375
+           clock speeds: max: 2601 MHz 1: 1400 MHz 2: 1700 MHz 3: 1200 MHz 4: 1200 MHz
+Graphics:  Card: Intel 3rd Gen Core processor Graphics Controller bus-ID: 00:02.0
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 1600x900@60.01hz
+           GLX Renderer: Mesa DRI Intel Ivybridge Mobile x86/MMX/SSE2
+           GLX Version: 3.0 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Intel 7 Series/C210 Series Family High Definition Audio Controller
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture v: k3.16-7.dmz.1-liquorix-686-pae
+Network:   Card-1: Intel 82579LM Gigabit Network Connection driver: e1000e v: 2.3.2-k port: 4080 bus-ID: 00:19.0
+           IF: eth2 state: down mac: &lt;filter&gt;
+           Card-2: Intel Centrino Advanced-N 6205 [Taylor Peak] driver: iwlwifi v: in-tree: bus-ID: 03:00.0
+           IF: wlan0 state: up mac: &lt;filter&gt;
+Drives:    HDD Total Size: 320.1GB (16.1% used) ID-1: /dev/sda model: HGST_HTS545032A7 size: 320.1GB
+Partition: ID-1: / size: 7.6G used: 5.2G (72%) fs: ext4 dev: /dev/sda1
+           ID-2: /home size: 68G used: 2.4G (4%) fs: ext4 dev: /dev/sda2
+           ID-3: swap-1 size: 4.19GB used: 0.00GB (0%) fs: swap dev: /dev/sda3
+Sensors:   System Temperatures: cpu: 43.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: 3234
+Info:      Processes: 162 Uptime: 13 min Memory: 396.7/15971.2MB Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.3.1 
+harry@biker:~
+$ 
+</code></pre></div>
+Edit: here is mount since I forgot.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,relatime,size=10240k,nr_inodes=186886,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620)
+tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=1635456k,mode=755)
+/dev/sda1 on / type ext4 (rw,relatime,data=ordered)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+pstore on /sys/fs/pstore type pstore (rw,relatime)
+tmpfs on /run/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=4090100k)
+/dev/sda2 on /home type ext4 (rw,relatime,data=ordered)
+/dev/sda5 on /media/_data1 type ext4 (rw,nosuid,nodev,noexec,relatime,data=ordered)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,relatime)
+/dev/sda6 on /media/_data2 type ext4 (rw,nosuid,nodev,noexec,relatime,data=ordered)
+rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw,relatime)
+harry@biker:~
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48154" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48154">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48154">
+
+<time datetime="2016-09-09T23:38">posted: 2016-09-09 &nbsp; 23:38</time>
+<span class="permalink"><a href="./sd-card-reader-ibm-t430-solved-t6590.html#p48154" title="permalink">#2</a></span>
+
+<div class="content">I am now booted up to my AntiX-4.6 kernel. Info below<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ su
+Password: 
+root@biker:/home/harry# fdisk -l
+
+Disk /dev/sda: 320 GB, 320070320640 bytes
+255 heads, 63 sectors/track, 38913 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sda1               1        1020     8193118   83  Linux
+Warning: Partition 1 does not end on cylinder boundary.
+/dev/sda2            1020        9944    71682030   83  Linux
+Warning: Partition 2 does not end on cylinder boundary.
+/dev/sda3            9944       10454     4096575   82  Linux swap
+Warning: Partition 3 does not end on cylinder boundary.
+/dev/sda4           10454       38914   228604950    5  Extended
+Warning: Partition 4 does not end on cylinder boundary.
+/dev/sda6           10454       23202   102398310   83  Linux
+Warning: Partition 6 does not end on cylinder boundary.
+/dev/sda5           23202       38914   126206640   83  Linux
+Warning: Partition 5 does not end on cylinder boundary.
+root@biker:/home/harry# exit
+exit
+harry@biker:~
+$ lspci -nnk | grep Ricoh -A2
+02:00.0 System peripheral [0880]: Ricoh Co Ltd MMC/SD Host Controller [1180:e822] (rev 07)
+    Subsystem: Lenovo Device [17aa:21f3]
+    Kernel driver in use: sdhci-pci
+harry@biker:~
+$ dmesg | grep sdhci-pci
+[    1.340626] sdhci-pci 0000:02:00.0: SDHCI controller found [1180:e822] (rev 7)
+harry@biker:~
+$ mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,relatime,size=10240k,nr_inodes=177719,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=1631452k,mode=755)
+/dev/sda1 on / type ext4 (rw,relatime,data=ordered)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+pstore on /sys/fs/pstore type pstore (rw,relatime)
+tmpfs on /run/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=4082100k)
+/dev/sda2 on /home type ext4 (rw,relatime,data=ordered)
+/dev/sda5 on /media/_data1 type ext4 (rw,nosuid,nodev,noexec,relatime,data=ordered)
+/dev/sda6 on /media/_data2 type ext4 (rw,nosuid,nodev,noexec,relatime,data=ordered)
+rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw,relatime)
+harry@bike</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ inxi -S
+System:    Host: biker Kernel: 4.6.2-antix.1-686-smp-pae i686 (32 bit) Desktop: IceWM 1.3.8
+           Distro: antiX-15-V_386-full Killah P 30 June 2015
+harry@biker:~
+</code></pre></div>
+The below dmesg.tar.gz is the 4.6 kernel readout. <br>
+<br>
+Edit: Not a real big deal breaker for me. I have a SD external usb card reader that works OK for now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48163" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48163">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48163">
+
+<time datetime="2016-09-11T02:05">posted: 2016-09-11 &nbsp; 02:05</time>
+<span class="permalink"><a href="./sd-card-reader-ibm-t430-solved-t6590.html#p48163" title="permalink">#3</a></span>
+
+<div class="content">Posting this for info. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxz
+System:    Host: biker Kernel: 4.2.1-antix.2-686-pae i686 (32 bit gcc: 4.9.2)
+           Desktop: IceWM 1.3.8 Distro: antiX-15-V_386-full Killah P 30 June 2015
+Machine:   System: Dell (portable) product: Latitude E4310 v: 0001
+           Mobo: Dell model: 0T6M8G v: A01 Bios: Dell v: A03 date: 07/08/2010
+Battery    BAT0: charge: 44.0 Wh 103.9% condition: 42.3/44.0 Wh (96%)
+           model: Samsung SDI DELL RM6618A status: Full
+CPU:       Dual core Intel Core i5 M 520 (-HT-MCP-) cache: 3072 KB
+           flags: (lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx) bmips: 9578
+           clock speeds: max: 2400 MHz 1: 1333 MHz 2: 1333 MHz 3: 1733 MHz
+           4: 1199 MHz
+Graphics:  Card: Intel Core Processor Integrated Graphics Controller
+           bus-ID: 00:02.0
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1366x768@60.00hz
+           GLX Renderer: Mesa DRI Intel Ironlake Mobile x86/MMX/SSE2
+           GLX Version: 2.1 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Intel 5 Series/3400 Series High Definition Audio
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture v: k4.2.1-antix.2-686-pae
+Network:   Card-1: Intel 82577LM Gigabit Network Connection
+           driver: e1000e v: 3.2.5-k port: 6040 bus-ID: 00:19.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card-2: Intel Centrino Advanced-N 6200 driver: iwlwifi bus-ID: 02:00.0
+           IF: wlan0 state: up mac: &lt;filter&gt;
+Drives:    HDD Total Size: 60.0GB (49.6% used)
+           ID-1: /dev/sda model: KINGSTON_SV300S3 size: 60.0GB
+           ID-2: /dev/mmcblk0 model: N/A size: 4.0GB
+Partition: ID-1: / size: 7.6G used: 5.8G (80%) fs: ext3 dev: /dev/sda2
+           ID-2: /home size: 48G used: 23G (50%) fs: ext3 dev: /dev/sda1
+Sensors:   System Temperatures: cpu: 48.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 145 Uptime: 19 min Memory: 457.9/8027.1MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.3.0 </code></pre></div>
+Laptop is a Dell E4310. My other beast. SD card reader works on it. So info below.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ lspci -nnk | grep Ricoh -A2
+03:00.0 SD Host controller [0805]: Ricoh Co Ltd MMC/SD Host Controller [1180:e822] (rev 01)
+    Subsystem: Dell Device [1028:0410]
+    Kernel driver in use: sdhci-pci
+harry@biker:~
+$ dmesg | grep sdhci-pci
+[    1.306561] sdhci-pci 0000:03:00.0: SDHCI controller found [1180:e822] (rev 1)
+[    1.306914] sdhci-pci 0000:03:00.0: Will use DMA mode even though HW doesn't fully claim to support it.
+[    1.306924] sdhci-pci 0000:03:00.0: No vmmc regulator found
+[    1.306929] sdhci-pci 0000:03:00.0: No vqmmc regulator found
+[  260.527767] sdhci-pci 0000:03:00.0: Will use DMA mode even though HW doesn't fully claim to support it.
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@biker:/home/harry# fdisk -l
+
+Disk /dev/sda: 60 GB, 60019868160 bytes
+255 heads, 63 sectors/track, 7297 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sda2               1        1020     8185117   83  Linux
+Warning: Partition 2 does not end on cylinder boundary.
+/dev/sda1            1020        7298    58589055   83  Linux.
+
+Disk /dev/mmcblk0: 3 GB, 3956359680 bytes
+255 heads, 63 sectors/track, 481 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+       Device Boot      Start         End      Blocks   Id  System 
+/dev/mmcblk0p1               1         482     3871633    b  FAT32
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,relatime,size=10240k,nr_inodes=200741,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=821980k,mode=755)
+/dev/sda2 on / type ext3 (rw,relatime,errors=continue,user_xattr,acl,barrier=1,data=writeback)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+pstore on /sys/fs/pstore type pstore (rw,relatime)
+tmpfs on /run/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=1643940k)
+/dev/sda1 on /home type ext3 (rw,relatime,errors=continue,user_xattr,acl,barrier=1,data=writeback)
+rpc_pipefs on /run/rpc_pipefs type rpc_pipefs (rw,relatime)
+/dev/mmcblk0p1 on /media/mmcblk0p1-2 type vfat (rw,nosuid,nodev,noexec,relatime,uid=1000,gid=100,fmask=0113,dmask=0002,allow_utime=0020,codepage=437,iocharset=utf8,shortname=mixed,utf8,errors=remount-ro)
+</code></pre></div>
+dmesg below is from this dell e4310 with successful working sd card slot<br>
+<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48165" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48165">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48165">
+
+<time datetime="2016-09-11T03:04">posted: 2016-09-11 &nbsp; 03:04</time>
+<span class="permalink"><a href="./sd-card-reader-ibm-t430-solved-t6590.html#p48165" title="permalink">#4</a></span>
+
+<div class="content">Roky, the 2nd dmesg output shows that the controller is found but not the card:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[    1.340403] sdhci: Secure Digital Host Controller Interface driver
+[    1.340405] sdhci: Copyright(c) Pierre Ossman
+[    1.340626] sdhci-pci 0000:02:00.0: SDHCI controller found [1180:e822] (rev 7)
+[    1.344263] mmc0: SDHCI controller on PCI [0000:02:00.0] using DMA</code></pre></div>
+The working dmesg output has something similar but four minutes after booting it detects an sdcard:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[  261.193924] mmc0: new high speed SDHC card at address 1234
+[  261.201864] mmcblk0: mmc0:1234 SA04G 3.68 GiB 
+[  261.203260]  mmcblk0: p1
+[  352.514106] mmc0: card 1234 removed</code></pre></div>
+My guess is there may be a physical or electrical connection problem with the slot. Maybe some dust is preventing the card from being fully inserted or something is preventing a good electrical connection.<br>
+<br>
+Maybe you can trying cleaning it out with *clean* compressed air or have a young-un try to take a peek inside.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48166" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48166">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48166">
+
+<time datetime="2016-09-11T04:05">posted: 2016-09-11 &nbsp; 04:05</time>
+<span class="permalink"><a href="./sd-card-reader-ibm-t430-solved-t6590.html#p48166" title="permalink">#5</a></span>
+
+<div class="content">Good idea. I never would have thought of that &lt; good drugs <span class="emoticon"> __{{emoticon}}__ </span> &gt;. When I get off these crutches. I'll blow out the laptop.<br>
+<br>
+Since it was bought off of ebay. No telling how dirty the internals are or if the sd slot is internally fubar.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48188" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48188">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48188">
+
+<time datetime="2016-09-12T16:34">posted: 2016-09-12 &nbsp; 16:34</time>
+<span class="permalink"><a href="./sd-card-reader-ibm-t430-solved-t6590.html#p48188" title="permalink">#6</a></span>
+
+<div class="content"><span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Must be the drugs I am on. Facepalm moment and PBKAU all on my end in this thread.<br>
+<br>
+I blew out the laptop with canned air. Looked at the SD card slot with a flashlight and magnifying glass. Everything looks good.<br>
+I was going to put the Windows 10 hard drive back in. But.<br>
+<br>
+Being semi-cripple. I figured I'd boot my Carolina Puppy CD I had on the rack. Still a no show with the SD card in Puppy. Which usually picks up <br>
+any usb or sd drive card in it's file manager on most hard ware. At least in my experience. <br>
+<br>
+Long story shortened. I had it turned off in bios. Bunches of stuff was turned off in bios in this laptop. Something I should have checked<br>
+before I started this thread. My Bad. I will edit my post here to say exactly where I went in bios. I cannot right now because I am on this laptop posting <br>
+that this is solved. <br>
+<br>
+<strong>Edit: The bios settings menu as follows; Security&gt;I/O Port Access&gt; Memory Card Slot&gt; Enabled</strong><br>
+<br>
+Spacefm now opens and auto mounts the sd card like I told it to in Icewm startup file with<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>spacefm -d &amp;</code></pre></div>
+when I insert the sd card into the slot now. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+<a href="http://en.zimagez.com/zimage/screenshotd122b0ed573cce096477afa5e82eb6c2.php" class="postlink"><img src="http://en.zimagez.com/miniature/screenshotd122b0ed573cce096477afa5e82eb6c2.jpg" class="postimage" alt="Image"></a><br>
+<br>
+<img src="http://i.imgur.com/fNoNczy.jpg" class="postimage" alt="Image"></div>
+ </div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

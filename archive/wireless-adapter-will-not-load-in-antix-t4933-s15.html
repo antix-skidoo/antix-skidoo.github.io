@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Wireless adapter will not load in antiX - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html">Wireless adapter will not load in antiX</a></div>
+<div class="pagination">
+50 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./wireless-adapter-will-not-load-in-antix-t4933.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./wireless-adapter-will-not-load-in-antix-t4933.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./wireless-adapter-will-not-load-in-antix-t4933-s30.html" role="button">3</a></li>
+<li><a class="button" href="./wireless-adapter-will-not-load-in-antix-t4933-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./wireless-adapter-will-not-load-in-antix-t4933-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34414" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34414">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34414">
+<time datetime="2014-04-10T01:48">posted: 2014-04-10 &nbsp; 01:48</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34414" title="permalink">#16</a></span>
+
+<div class="content">Not sure where yopu are going wrong but if me I would start with<br>
+<blockquote class="uncited"><div>ACX111<br>
+<br>
+To install all version 1.2.1.34 firmware for the ACX111 chipset:<br>
+<br>
+# mkdir /usr/local/lib/firmware<br>
+# for i in"" c16 c17 r16 r17 ; do wget -P /usr/local/lib/firmware 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://acx100.erley.org/fw/acx111_1.2.1.34/tiacx111$i"<br>linktext was:"http://acx100.erley.org/fw/acx111_1.2.1.34/tiacx111$i"<br>====================================<br>
+ ; done</div></blockquote>
+part of the link. Then move on to<br>
+<blockquote class="uncited"><div>Driver<br>
+<br>
+Debian 7"Wheezy"<br>
+<br>
+The acx-mac80211 driver is required to be compiled and installed, which can be automated via DKMS.<br>
+<br>
+Install the dkms and git packages:<br>
+<br>
+# aptitude install dkms git &amp;&amp; exit<br>
+<br>
+This will also install the recommended linux-headers-* package as appropriate for your system.<br>
+<br>
+Checkout the acx-mac80211 repository:<br>
+<br>
+$ git clone git://git.code.sf.net/p/acx100/acx-mac80211 acx100-acx-mac80211<br>
+<br>
+Move the repository directory to /usr/src and rename: <br>
+$ su<br>
+# mv acx-mac80211 /usr/src/acx-mac80211-git<br>
+<br>
+Add acx-mac80211-git to the tree for building and installing:<br>
+<br>
+# dkms add -m acx-mac80211 -v git<br>
+<br>
+Build and install the acx-mac80211 module:<br>
+<br>
+# dkms build -m acx-mac80211 -v git<br>
+# dkms install -m acx-mac80211 -v git<br>
+<br>
+Load the module:<br>
+<br>
+# modprobe acx-mac80211<br>
+<br>
+If necessary, connect the device to your system.<br>
+<br>
+Configure your wireless interface as appropriate. <br>
+<br>
+Alternate installation methods are described within the repository's INSTALL file. </div></blockquote>
+if running wheezy. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -r</code></pre></div>
+will let us know what repos you are running. Whether wheezy, testing, or unstable.<br>
+<br>
+Also a <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat / etc/os-release</code></pre></div>
+I have to put a space between / and etc in above code so type it out when you use it the the / right next to the etc.<br>
+You will run into this bug when posting back. You will get a forbidden window and to fix that. Remove any / in front of etc<br>
+or hit the space bar to make a space between / and etc like I did in the above code block.<br>
+<br>
+Good Luck.<br>
+<br>
+Edit: PS. I was the guy who recommended the Dlink WNA 1330 for 5 bucks with free shipping that would have worked out out of the box in AntiX.<br>
+Your choice as always though.<br>
+You should be able to get the card you have working. Just post better details on how things went wrong like exact terminal readings.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34415" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34415">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34415">
+
+<time datetime="2014-04-10T01:56">posted: 2014-04-10 &nbsp; 01:56</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34415" title="permalink">#17</a></span>
+
+<div class="content">Sigh, lots of hoops<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://sourceforge.net/p/acx100/acx-mac80211/ci/master/tree/"<br>linktext was:"http://sourceforge.net/p/acx100/acx-mac ... ster/tree/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34417" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34417">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34417">
+
+<time datetime="2014-04-10T02:29">posted: 2014-04-10 &nbsp; 02:29</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34417" title="permalink">#18</a></span>
+
+<div class="content">Repos: Active apt sources in file: / etc/apt/sources.list.d/antix.list<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.daveserver.info/stable"<br>linktext was:"http://antix.daveserver.info/stable"<br>====================================<br>
+ stable main<br>
+Active apt sources in file: / etc/apt/sources.list.d/debian.list<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org/debian/"<br>linktext was:"http://ftp.us.debian.org/debian/"<br>====================================<br>
+ wheezy main contrib non-free<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org/"<br>linktext was:"http://security.debian.org/"<br>====================================<br>
+ wheezy/updates main contrib non-free<br>
+<br>
+Also CPU is running at 100% since I tried to do the install. I rebooted and now it is back to normal.<br>
+<br>
+I think I will get the D link card. This Linksys has been nothing but trouble. Will it work with a Linksys wireless router?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34419" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34419">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34419">
+
+<time datetime="2014-04-10T03:11">posted: 2014-04-10 &nbsp; 03:11</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34419" title="permalink">#19</a></span>
+
+<div class="content">you shouldn't have any problem these days mixing router brands and wifi chipsets of different manufacturers. I think I have 3 or 4 different chipsets in use around my house and office right now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34420" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34420">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34420">
+
+<time datetime="2014-04-10T03:18">posted: 2014-04-10 &nbsp; 03:18</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34420" title="permalink">#20</a></span>
+
+<div class="content">chzuck@ThinkPad-ANTIX:~<br>
+$ # mkdir /usr/local/lib/firmware<br>
+chzuck@ThinkPad-ANTIX:~<br>
+$ # for i in"" c16 c17 r16 r17 ; do wget -P /usr/local/lib/firmware 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://acx100.erley.org/fw/acx111_1.2.1.34/tiacx111$i"<br>linktext was:"http://acx100.erley.org/fw/acx111_1.2.1.34/tiacx111$i"<br>====================================<br>
+ ; done<br>
+chzuck@ThinkPad-ANTIX:~<br>
+$ # aptitude install dkms git &amp;&amp; exit<br>
+chzuck@ThinkPad-ANTIX:~<br>
+$ $ git clone git://git.code.sf.net/p/acx100/acx-mac80211 acx100-acx-mac80211<br>
+bash: $: command not found<br>
+chzuck@ThinkPad-ANTIX:~<br>
+$</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34421" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34421">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34421">
+
+<time datetime="2014-04-10 &nbsp; 03:27">posted: 2014-04-10 &nbsp; 03:27</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34421" title="permalink">#21</a></span>
+
+<div class="content">the # symbol is the root prompt. so you would want to be root for those commands, and the # symbol is already on the screen. Note your regular user prompt ends with a $. The root one will end with a #.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34422" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34422">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34422">
+
+<time datetime="2014-04-10T03:40">posted: 2014-04-10 &nbsp; 03:40</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34422" title="permalink">#22</a></span>
+
+<div class="content">So, you are saying I should delete the $ at the beginning of the lines in what I posted and it will work?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34430" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34430">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34430">
+
+<time datetime="2014-04-10T11:11">posted: 2014-04-10 &nbsp; 11:11</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34430" title="permalink">#23</a></span>
+
+<div class="content">Not quite.<br>
+<br>
+You need to log into the administrator, or root, account.<br>
+<br>
+from the terminal prompt:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>su
+</code></pre></div>
+It will ask for your root password, which you set up during installation. Then you can use the commands. Here's a screenshot. Notice how the last character of the command prompt changes from a $ to a # when I log into my root account. This is a linux standard.<br>
+<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34432" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34432">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34432">
+
+<time datetime="2014-04-10T11:33">posted: 2014-04-10 &nbsp; 11:33</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34432" title="permalink">#24</a></span>
+
+<div class="content">DO,<br>
+Thanks much, I will try going through the write up again. I did order a D-link adapter, but until it comes I will try to get this one working. Maybe it will help me understand Linux.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34439" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34439">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content34439">
+
+<time datetime="2014-04-10T14:42">posted: 2014-04-10 &nbsp; 14:42</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34439" title="permalink">#25</a></span>
+
+<div class="content">As DO says you need to be root. This is to help you understand about root.<br>
+<br>
+Being root makes you god of your system so it should only be used when you need to be god. When you have finished with the terminal that DO has included on his post, you really should type <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>exit</code></pre></div>
+to log out from being god. This keeps your machine secure.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34446" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34446">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34446">
+
+<time datetime="2014-04-11T01:44">posted: 2014-04-11 &nbsp; 01:44</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34446" title="permalink">#26</a></span>
+
+<div class="content"><blockquote class="uncited"><div>root@ThinkPad-ANTIX:/home/chzuck# aptitude install dkms git &amp;&amp; exit<br>
+bash: aptitude: command not found</div></blockquote>
+We use apt-get in AntiX instead of aptitude. Easy mistake to make for a novice.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install dkms git &amp;&amp; exit</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34448" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34448">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34448">
+
+<time datetime="2014-04-11T02:05">posted: 2014-04-11 &nbsp; 02:05</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34448" title="permalink">#27</a></span>
+
+<div class="content"># mv acx-mac80211 /usr/src/acx-mac80211-git<br>
+mv: cannot stat `acx-mac80211': No such file or directory</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34449" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34449">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34449">
+
+<time datetime="2014-04-11T02:08">posted: 2014-04-11 &nbsp; 02:08</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34449" title="permalink">#28</a></span>
+
+ <div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>locate acx-mac80211</code></pre></div>
+to see if you downloaded it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34450" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34450">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34450">
+
+<time datetime="2014-04-11T02:13">posted: 2014-04-11 &nbsp; 02:13</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34450" title="permalink">#29</a></span>
+
+<div class="content">root@ThinkPad-ANTIX:/home/chzuck# locate acx-mac80211<br>
+root@ThinkPad-ANTIX:/home/chzuck#</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34451" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34451">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34451">
+
+<time datetime="2014-04-11T02:17">posted: 2014-04-11 &nbsp; 02:17</time>
+<span class="permalink"><a href="./wireless-adapter-will-not-load-in-antix-t4933-s15.html#p34451" title="permalink">#30</a></span>
+
+ <div class="content">So you did not recieve it yet if locate can't find it but to be sure. In root terminal<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>updatedb</code></pre></div>
+takes a few minutes to finish. Then try the locate command again. You are updating locates data base with the updatedb command (needs root though)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+50 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./wireless-adapter-will-not-load-in-antix-t4933.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./wireless-adapter-will-not-load-in-antix-t4933.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./wireless-adapter-will-not-load-in-antix-t4933-s30.html" role="button">3</a></li>
+<li><a class="button" href="./wireless-adapter-will-not-load-in-antix-t4933-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./wireless-adapter-will-not-load-in-antix-t4933-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

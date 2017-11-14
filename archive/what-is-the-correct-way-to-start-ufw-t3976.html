@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>What is the correct way to start UFW? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./what-is-the-correct-way-to-start-ufw-t3976.html">What is the correct way to start UFW?</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_26604" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26604">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26604">
+<time datetime="2012-10-25T17:34">posted: 2012-10-25 &nbsp; 17:34</time>
+<span class="permalink"><a href="./what-is-the-correct-way-to-start-ufw-t3976.html#p26604" title="permalink">#1</a></span>
+
+<div class="content">The default installation state of the UFW is off. In this condition using antiXCC to start it does not change the values in / etc/ufw/ufw.conf. <br>
+antiXCC--&gt;Network--&gt;Manage Firewall<br>
+Unlock--&gt;Status--&gt;Switch to On <br>
+Following a reboot UFW remains off.<br>
+<br>
+The only reliable way I can find to start it so it survives a reboot is:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ufw logging off
+Logging disabled
+
+ufw enable
+Firewall is active and enabled on system startup</code></pre></div>Note: if logging is not set to off an error message is generated during bootup<br>
+<br>
+Reboot<br>
+<br>
+Verify condition
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ufw status verbose
+Status: active
+Logging: off
+Default: deny (incoming), allow (outgoing)
+New profiles: skip</code></pre></div>
+Once the firewall is running it can be successfully stopped via antiXCC as the values are written to / etc/ufw/ufw.conf.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26622" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26622">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26622">
+
+<time datetime="2012-10-26T10:12">posted: 2012-10-26 &nbsp; 10:12</time>
+<span class="permalink"><a href="./what-is-the-correct-way-to-start-ufw-t3976.html#p26622" title="permalink">#2</a></span>
+
+<div class="content">It seems as though there is a kernel related element to this. <br>
+<br>
+After a bit more research, there are some bug reports of similar (not identical) symptoms. These were traced to factors in the compilation of the kernel. The oringinal post is based on the antiX-12 supplied kernel. <br>
+<br>
+To test further a new, completely fresh installation of antiX-12-Full was created.<br>
+The system was booted with the standard antiX kernel<br>
+The firewall was activated via antiXCC (GUFW)<br>
+Following a reboot the reported symptoms were present i.e. <span style="color: #FF0000">the firewall was not enabled</span>.<br>
+<br>
+Via smxi the latest liquorix kernel was installed (3.6.0-3.dmz.2-liquorix-686)<br>
+The system was booted with the liquorix kernel<br>
+The firewall was activated via antiXCC (GUFW)<br>
+Following a reboot the reported symptoms were not present i.e. <span style="color: #0000FF">the firewall was enabled</span>.<br>
+<br>
+It works as expected with the liquorix kernel but not the antiX one.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26629" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26629">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26629">
+
+<time datetime="2012-10-26T17:19">posted: 2012-10-26 &nbsp; 17:19</time>
+<span class="permalink"><a href="./what-is-the-correct-way-to-start-ufw-t3976.html#p26629" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>The only reliable way I can find to start it so it survives a reboot is:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ufw logging off
+Logging disabled
+
+ufw enable
+Firewall is active and enabled on system startup</code></pre></div></div></blockquote>
+I had a similar problem with Shorewall. I informed anti of the missing logging module so this problem should be fixed in future releases.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26643" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26643">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26643">
+
+<p class="author">
+<a href="./what-is-the-correct-way-to-start-ufw-t3976.html#p26643" title="Post"> 27 Oct 2012, 10:50 <span style="padding-left:10px">#4</span></a>
+<time class="hide" datetime="2012-10-27 &nbsp; 10:50">2012-10-27 &nbsp; 10:50</time>
+ </p>
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>I had a similar problem with Shorewall. I informed anti of the missing logging module so this problem should be fixed in future releases.</div></blockquote>Thanks for this info.<br>
+<br>
+<br>
+<br>
+The above sparked an idea. When a new version of antiX is released an additional forum section is usually created at the same time. Might it be worthwhile having within it a"sticky" area named something like"Known Issues"?<br>
+<br>
+Posting in this area might be reserved to forum moderators or <strong>anticapitalista</strong>. These are just suggestions and should not be interpreted as volunteering anyone.<br>
+<br>
+The type of issues might be restricted to those that are specific to antiX, and those which might be regarded as central to the use of the system. The existing areas of the forum will remain unchanged and continue to be used as they are now.<br>
+<br>
+As qualifying issues are discovered and notified via PM or normal forum posts, they might be added in a controlled manner to the list of known issues. When a fix is released the issue might be marked in the list as fixed together with the date the fix became available.<br>
+<br>
+Perhaps a simple format for a Known Issue listing might be something like...<br>
+Date Listed:<br>
+Symptoms:<br>
+Workaround: (if any. This is a temporary measure pending a permanent fix)<br>
+Date Fixed:<br>
+How to apply the fix:<br>
+<br>
+<br>
+<br>
+As is often the case, I have plenty of ideas and limited capability.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

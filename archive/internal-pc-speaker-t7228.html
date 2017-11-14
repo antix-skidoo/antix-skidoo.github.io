@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>internal PC speaker - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./internal-pc-speaker-t7228.html">internal PC speaker</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_53632" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile53632">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">delix02</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53632">
+<time datetime="2017-10-08T15:11">posted: 2017-10-08 &nbsp; 15:11</time>
+<span class="permalink"><a href="./internal-pc-speaker-t7228.html#p53632" title="permalink">#1</a></span>
+
+<div class="content">as the first problem has been fixed so extremly fast, I hope you have some suggestions for the second one as well.<br>
+<br>
+I'm using antiX16 on a Wyse thin client with no other sound output option than the internal PC speaker and it works out-of-the-box without any problems.<br>
+Now I installed antiX17 on a Fujitsu Esprimo P5615 PC with the following hardware components according to the PC info output :<br>
+Audio: Card NVidia MCP51 High Def. Audio driver snd_hda_intel<br>
+Graphics: NVidia GeForce 7300 LE<br>
+<br>
+this system has no external speaker and I'm using the headphone output channel if I need the sound.<br>
+However, occasionally I would prefer to use the internal PC speaker as output channel but I can't get the output redirected to the speaker.<br>
+<br>
+Is there a configuration option in ALSA, pulseaudio or elsewhere to get the internal PC speaker as the output channel on this PC as it is on the Wyse thin client ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53653" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile53653">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53653">
+
+<time datetime="2017-10-09T11:02">posted: 2017-10-09 &nbsp; 11:02</time>
+<span class="permalink"><a href="./internal-pc-speaker-t7228.html#p53653" title="permalink">#2</a></span>
+
+<div class="content">Use F6 in alsamixer to change soundcards.<br>
+<br>
+(You may have to make it permanent, if there are 2 soundcards in the machine.)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53655" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile53655">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span>  <a href="#" class="username">SamK</a> </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53655">
+
+<time datetime="2017-10-09T13:37">posted: 2017-10-09 &nbsp; 13:37</time>
+<span class="permalink"><a href="./internal-pc-speaker-t7228.html#p53655" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>delix02 wrote:</cite>Is there a configuration option in ALSA, pulseaudio or elsewhere to get the internal PC speaker as the output channel on this PC...</div></blockquote>
+Check if the PC speaker/beeper has been disabled.<br>
+<br>
+Look for the file /etc/modprobe.d/pc-speaker.conf<br>
+It contains the following
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># file /etc/modprobe.d/pc-speaker.conf
+#
+# The line below disables the audible beeping in the console (and
+# also in X-windows?)  If you want the beeping enabled then
+# comment out the line below and then run:
+#
+#     sudo modprobe snd-pcsp
+
+blacklist snd-pcsp
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53657" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile53657">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">delix02</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53657">
+
+<time datetime="2017-10-09T15:40">posted: 2017-10-09 &nbsp; 15:40</time>
+<span class="permalink"><a href="./internal-pc-speaker-t7228.html#p53657" title="permalink">#4</a></span>
+
+<div class="content">thanks for the replies.<br>
+<br>
+So, this is what I tried so far :<br>
+-- the blacklist command in the file is commented<br>
+-- the driver module snd-pcspkr is loaded by
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-pcspkr</code></pre></div>
+in the /etc/rc.local file<br>
+-- loading the snd-pcsp with
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-pcsp</code></pre></div>
+results in the error message
+<blockquote class="uncited"><div>modprobe: FATAL: Module snd-pcsp not found in directory /lib/modules/4.10.5-antix.1-amd64-smp</div></blockquote>
+-- the package beep is installed<br>
+<br>
+I can beep around now.<br>
+In alsamixer is see the attached diagram.<br>
+If I start for example Youtube I get no sound.<br>
+<br>
+I found 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://fitzcarraldoblog.wordpress.com/2016/09/27/to-beep-or-not-to-beep-that-is-the-question/"<br>linktext was:"https://fitzcarraldoblog.wordpress.com/ ... -question/"<br>====================================<br>
+<br>
+but can't get a solution for the problem.<br>
+<br>
+The next step was the installation of the antiX version of pulseaudio.<br>
+I wanted to use pavucontrol but
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>pactl list</code></pre></div>
+returned only 1 soundcard.<br>
+So, still the same situation.<br>
+<br>
+Actually, I don't understand enough of the sound system to get a clue what's going on, but at the moment two facts are confusing :<br>
+-- the redirection is working on the thin client out-of-the-box<br>
+-- I can beep from a terminal but get no sound for a browser or any other app<br>
+<br>
+Any idea what is missing on my system ? Is it a specific hardware problem of my PC ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53658" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile53658">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">delix02</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53658">
+
+<time datetime="2017-10-09T16:52">posted: 2017-10-09 &nbsp; 16:52</time>
+<span class="permalink"><a href="./internal-pc-speaker-t7228.html#p53658" title="permalink">#5</a></span>
+
+<div class="content">I received the info that the PC speaker is/was working out-of-the-box on the same Esprimo model with antiX15 (!).<br>
+This is encouraging and hope this helps to find a solution.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53659" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile53659">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53659">
+
+<time datetime="2017-10-09T17:33">posted: 2017-10-09 &nbsp; 17:33</time>
+<span class="permalink"><a href="./internal-pc-speaker-t7228.html#p53659" title="permalink">#6</a></span>
+
+<div class="content">This has to be one of the most confusing areas to configure across a variety of Linux-based distributions.  Whether using alsamixer, pulse audio, or some kind of"jack" interface, it's difficult to consistently figure out which is the right one to use on each distribution.<br>
+<br>
+Even with as many years as I've been working on various distributions, I occasionally run into issues configuring sound.  It would be wonderful if one of the interfaces worked properly, not only on our distribution, but others in a consistent way.<br>
+<br>
+I hope at least knowing about these possible sources will help find one that works.  I don't think I've had any sound related issues with antiX or MX recently, but if I do come across issues, I look for the one that allows me to test out the sound - the system beep, the audio sound when running a Web-based application (such as YouTube), and whatever else I may be using where I'm expecting sound output.  I always start with whatever the distribution I'm using presents when I want to do something with"sound", and if it doesn't work, then I go through a progression of possible interfaces until I locate the one that works.<br>
+<br>
+That may be unnecessary here, but I thought I'd mention it anyway for"distro-hoppers" that may encounter their sound interfaces working differently on the same physical hardware using a different distribution.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53665" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile53665">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53665">
+
+<time datetime="2017-10-09T20:15">posted: 2017-10-09 &nbsp; 20:15</time>
+<span class="permalink"><a href="./internal-pc-speaker-t7228.html#p53665" title="permalink">#7</a></span>
+
+<div class="content">Possibly it's working, but you're unable to hear anything because the default sound level is too low.<br>
+Indeed, your screenshot indicates volume level for headphones channel is"00"<br>
+<br>
+<img src="https://vgy.me/mmY9ja.jpg" class="postimage" alt="Image"><br>
+FWIW, on many machines, at first liveboot I must bump the tray icon slider (same as adjusting"master" channel in alsamixer, I reckon)<br>
+nearly to the top, in order to hear the ControlCenter::"sound test" output.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_53670" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile53670">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content53670">
+
+<time datetime="2017-10-10T04:03">posted: 2017-10-10 &nbsp; 04:03</time>
+<span class="permalink"><a href="./internal-pc-speaker-t7228.html#p53670" title="permalink">#8</a></span>
+
+<div class="content">
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://forum.ts.fujitsu.com/forum/viewtopic.php?t=12401"<br>linktext was:"This thread"<br>====================================<br>
+ says the internal speaker should be engaged automatically when there is nothing plugged into the front or rear audio jack.   If nothing is plugged in and you still get no sound from the internal speaker then maybe there is a problem with the switch in one of the audio jacks.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

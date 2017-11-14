@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[dica] Como ter Conkys diferentes no IceWM e no Fluxbox. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./other-languages-f29/index.html"><span>Other Languages</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./portuguese-f32/index.html"><span>Portuguese</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./dica-como-ter-conkys-diferentes-no-icewm-e-no-flux-t2205.html">[dica] Como ter Conkys diferentes no IceWM e no Fluxbox.</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_14325" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile14325">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content14325">
+<time datetime="2010-01-20T15:02">posted: 2010-01-20 &nbsp; 15:02</time>
+<span class="permalink"><a href="./dica-como-ter-conkys-diferentes-no-icewm-e-no-flux-t2205.html#p14325" title="permalink">#1</a></span>
+
+<div class="content">Eu gosto de exibir no Conky as teclas de atalho para referência enquanto eu não me acostumo com elas. No entanto no antiX elas são distintas entre o IceWM e o Fluxbox. Nesse caso é preciso que o arquivo .conkyrc seja diferente para cada ambiente de trabalho.<br>
+Como fazer?<br>
+<br>
+Primeiro crie dois arquivos .conkyrc, um em ~/.icewm e outro em ~/.fluxbox. Pode copiar o ~/.conkyrc para ter uma base sobre a qual modificar.<br>
+<br>
+Então crie dois scripts, um chamado conkytoggleice.sh e o outro conkytoggleflux.sh no diretório /usr/local/bin (é preciso ser root para isso) com o seguinte conteúdo:<br>
+conkytoggleice.sh
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Filename:      conkytoggleice.sh
+# Purpose:       toggle conky on/off from menu
+# Authors:       Kerry and anticapitalista for antiX - modified by me :)
+# Latest change: Sun April 13, 2008.
+################################################################################
+
+#!/bin/sh
+
+if pidof conky | grep [0-9] &gt; /dev/null
+then
+ killall conky 
+else
+ conky -c ~/.icewm/.conkyrc
+ fi
+</code></pre></div>
+e conkytoggleflux.sh
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Filename:      conkytoggleflux.sh
+# Purpose:       toggle conky on/off from menu
+# Authors:       Kerry and anticapitalista for antiX - modifed by me :)
+# Latest change: Sun April 13, 2008.
+################################################################################
+
+#!/bin/sh
+
+if pidof conky | grep [0-9] &gt; /dev/null
+then
+ killall conky 
+else
+ conky -c ~/.fluxbox/.conkyrc
+ fi
+</code></pre></div>
+Aí torne-os executáveis - botão direito do mouse sobre o arquivo e 'Propriedades' ou (como root, em /usr/local/bin)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>chmod +x conkytoggleice.sh conkytoggleflux.sh</code></pre></div>
+Então mude o arquivo ~/.icewm/startup e na linha onde estava 'conky &amp;' deixe
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>conky -c ~/.icewm/.conkyrc &amp;</code></pre></div>
+e no arquivo ~/.icewm/keys, onde estava conkytoggle.sh deixe
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>key"Alt+Ctrl+o" conkytoggleice.sh</code></pre></div>
+Para o Fluxbox mude o arquivo ~/.fluxbox/apps e no lugar de '[startup] {conky}' deixe
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[startup] {conky -c ~/.fluxbox/.conkyrc}</code></pre></div>
+e no arquivo ~/.fluxbox/keys, onde estava conkytoggle.sh deixe
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Mod4 t :ExecCommand conkytoggleflux.sh</code></pre></div>
+Pronto! Agora é só reiniciar o IceWM ou o Fluxbox e editar os arquivos ~/.icewm/.conkyrc e ~/.fluxbox/.conkyrc ao seu gosto.</div>
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

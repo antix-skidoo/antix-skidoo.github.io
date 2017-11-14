@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Change keyboard setup from us (default) to de-latin1 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./change-keyboard-setup-from-us-default-to-de-latin1-t3107.html">Change keyboard setup from us (default) to de-latin1</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_20475" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20475">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 64</span></div>
+
+</div>
+</div>
+<span class="username">floppy</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Dec 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20475">
+<time datetime="2011-05-05T19:35">posted: 2011-05-05 &nbsp; 19:35</time>
+<span class="permalink"><a href="./change-keyboard-setup-from-us-default-to-de-latin1-t3107.html#p20475" title="permalink">#1</a></span>
+
+<div class="content">Hello,<br>
+<br>
+could somebody explain to me how to change the keyboard setup from US to DE-LATIN1?<br>
+<br>
+I know the solution for M11, but not for the M8.5 ? (and I want to keep M8.5 before I mess up my computer because I have different files on the HDD.. and I am not so skilled for installing M11 without loosing something, like the menu.lst for multiboot what I have today).<br>
+Perhaps changing the parameters in Xorg.conf? or other?<br>
+<br>
+Thanks a lot.<br>
+This is important because I want to show to my brother in law how antix-linux a nice thing is. aND YOU KNOW: ANY MISTAKE DURING A PRESENTATION IS NOT IMPRESSING NEWBIES..<br>
+<br>
+Pascal</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20487" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20487">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20487">
+
+<time datetime="2011-05-06T13:10">posted: 2011-05-06 &nbsp; 13:10</time>
+<span class="permalink"><a href="./change-keyboard-setup-from-us-default-to-de-latin1-t3107.html#p20487" title="permalink">#2</a></span>
+
+<div class="content">If you want to use German keyboard just for the session (and keep the applications menu in English) you could simply use <br>
+antiX-control centre -&gt;Xwindow -&gt; Change keyboard layout<br>
+<br>
+Changes do not stick on reboot or logout.<br>
+<br>
+If you want it permanent and all to be in Germen.<br>
+<br>
+1. #dpkg-reconfigure locales <br>
+and choose de_DE.UTF-8<br>
+<br>
+2. Either a) /usr/sbin/install-keymap de-latin1-nodeadkeys OR<br>
+b) loadkeys de-latin1-nodeadkeys <br>
+<br>
+3. dpkg-reconfigure console-setup<br>
+Check that this changes /etc/default/keyboard to include de in the XKBLAYOUT="der"<br>
+<br>
+4. Add this line to the end of ~/.profile<br>
+export LANG=de_DE.UTF-8<br>
+<br>
+You'l probably need to reboot for all changes to take effect.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20519" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20519">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 64</span></div>
+
+</div>
+</div>
+<span class="username">floppy</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Dec 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20519">
+
+<time datetime="2011-05-08T16:29">posted: 2011-05-08 &nbsp; 16:29</time>
+<span class="permalink"><a href="./change-keyboard-setup-from-us-default-to-de-latin1-t3107.html#p20519" title="permalink">#3</a></span>
+
+<div class="content">Thanks!<br>
+<br>
+to 1. I made it. Fine.<br>
+I deleted by inadvertance the En_US.. (I dont know how to put the * again in the front of it) and it came few errors.<br>
+<br>
+to 2. I made b. Fine.<br>
+<br>
+to 3. I changed to"de" and not"der".. and it was fine.<br>
+<br>
+to 4. I made it.<br>
+<br>
+Now: keyboard is 100% fine.. but the menues in the webbrowser"links" are in german. This is not a big issue because I can read it, but in order to make anybody of my family using the box, how to put the menues back to"en" or"en_US"?<br>
+So, in any case, a big big thanks.. and if you have few seconds the next 2 weeks, perhaps can you answer the question above?<br>
+<br>
+Pascal</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20520" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20520">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20520">
+
+<time datetime="2011-05-08 &nbsp; 19:11">posted: 2011-05-08 &nbsp; 19:11</time>
+<span class="permalink"><a href="./change-keyboard-setup-from-us-default-to-de-latin1-t3107.html#p20520" title="permalink">#4</a></span>
+
+<div class="content">Ok, reverse number 4. ie don't add that line to profile.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

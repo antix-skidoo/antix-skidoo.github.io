@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>GUI app (gtkdialog): 10 band audio equalizer - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./gui-app-gtkdialog-10-band-audio-equalizer-t6862.html">GUI app (gtkdialog): 10 band audio equalizer</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_50367" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50367">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50367">
+<time datetime="2017-02-13T22:35">posted: 2017-02-13 &nbsp; 22:35</time>
+<span class="permalink"><a href="./gui-app-gtkdialog-10-band-audio-equalizer-t6862.html#p50367" title="permalink">#1</a></span>
+
+<div class="content">because:<br>
+* antiX does not currently pre-install an audio equalizer GUI app<br>
+* the few equalizer apps available from debian jessie repo all depend on systemd!<br>
+* it's lean-n-mean tiny<br>
+<br>
+<img src="http://i.imgur.com/MekXn70.png" class="postimage" alt="Image"><br>
+<br>
+how to install / test:<br>
+1) paste from the two codeboxes shown below into files <span style="color: blue">/usr/local/bin/eekwal_func</span> and <span style="color: blue">/usr/local/bin/eekwal</span><br>
+2) <span style="color: green">chmod +x</span> both files<br>
+3) from a terminal emulator prompt, run"<strong><span style="color: purple">eekwal</span></strong>" (no quotes)<br>
+4) (optional, DIY) after testing, if you decide to keep using it, create a .desktop launcher &amp; run"Update Menu"<br>
+<br>
+I've tested, it's working (and I'll keep using it) but the"create/save custom presets" functionality<br>
+is undocumented and is either confusing (to me) or is somewhat buggy.<br>
+Ideally, IMO, the entrybox should not have an associated as-you-type action;"SaveAs custom" would only be performed when button/icon is clicked.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+# PLACE THIS AS FILE /usr/local/bin/eekwal    and chmod +x
+#
+# THIS SCRIPT IS DERIVED FROM"pEqualizer"
+#     http://murga-linux.com/puppy/viewtopic.php?t=81889
+#
+# License: GPLv2 or, at your option, any later version
+#   20121028 (c) 01micko@gmail.com and zigbert@murgalinux.com 2011-2012
+# Modified for antiX Feb2017 
+#
+# Occupies approx 3Mb RAM while running.
+# Feel free to launch, make changes, and exit; changed settings will remain in effect.
+#
+# NOTE: If a given application provides its own"selected/preferred sound card" pref, 
+#       that preference will override global alsa settings.
+#       This equalizer utiltity should work for any app which uses the global alsa settings.
+
+# could omit checking this, as libasound_module_ctl_equal.so is provided by
+#    pkg"libasound2-plugin-equal" (present by default in antiX16)
+if [ ! -f /usr/lib/i386-linux-gnu/alsa-lib/libasound_module_ctl_equal.so ] &amp;&amp; \
+   [ ! -f /usr/lib/x86_64-linux-gnu/alsa-lib/libasound_module_ctl_equal.so ]; then
+    echo"Missing dependencies: libasound_module_ctl_equal.so"
+    echo"equalizer will now exit."
+    exit 1 ;
+fi
+
+# further dependencies (omit checking, as these are pre-installed in antiX16)
+#     libasound_module_ctl_equal.so (provided by pkg"libasound2-plugin-equal")
+#     gtkdialog &gt;=0.8.0 (pre-installed package"gtkdialog" provides v0.8.3)
+
+if [[ $UID =="0" ]]; then
+    echo"equalizer utility is NOT suitable for use by root user"
+    exit 1 ;
+fi
+
+# REF: these are the freq fields recognized by alsaequal
+#   '01. 31 Hz' '02. 63 Hz' '03. 125 Hz' '04. 250 Hz' '05. 500 Hz'
+#   '06. 1 kHz' '07. 2 kHz' '08. 4 kHz' '09. 8 kHz' '10. 16 kHz'
+#set -x #uncomment this line while debugging
+VERSION=0.9.1
+
+#enable alsaequal
+[ ! -f $HOME/.asoundrc.bak ] &amp;&amp; cat &gt; $HOME/.asoundrc.bak &lt;&lt; _EQ
+ctl.equal {
+    type equal;
+}
+
+pcm.plugequal {
+    type equal;
+    #       Modify the line below if you do not want to use sound card 0.
+    #slave.pcm"plughw:0,0";
+    #       or if you want to use with multiple applications output to dmix
+    slave.pcm"plug:dmix"
+}
+
+#pcm.equal {
+    # Or if you want the equalizer to be your default soundcard uncomment the following line and comment the above line.
+pcm.!default {
+    type plug;
+    slave.pcm plugequal;
+}
+_EQ
+mv -f $HOME/.asoundrc.bak $HOME/.asoundrc
+
+#setup working dirs
+mkdir /tmp/eekwal 2&gt; /dev/null
+[ ! -d $HOME/.config/eekwal/preset ] &amp;&amp; mkdir -p $HOME/.config/eekwal/preset
+export CONFDIR="$HOME/.config/eekwal"
+#create config
+[ ! -f $HOME/.config/eekwal/eekwalrc ] &amp;&amp; echo '#eekwal config
+export PRESET=Flat' &gt; $HOME/.config/eekwal/eekwalrc
+#create presets
+[ ! -f $CONFDIR/preset/Flat ] &amp;&amp; cat &gt; $CONFDIR/preset/Flat &lt;&lt; _FLAT
+VAL1=65
+VAL2=65
+VAL3=65
+VAL4=65
+VAL5=65
+VAL6=65
+VAL7=65
+VAL8=65
+VAL9=65
+VAL10=65
+_FLAT
+[ ! -f $CONFDIR/preset/Jazz ] &amp;&amp; cat &gt; $CONFDIR/preset/Jazz &lt;&lt; _JAZZ
+VAL1=53
+VAL2=42
+VAL3=54
+VAL4=58
+VAL5=63
+VAL6=68
+VAL7=74
+VAL8=79
+VAL9=89
+VAL10=79
+_JAZZ
+[ ! -f $CONFDIR/preset/Pop ] &amp;&amp; cat &gt; $CONFDIR/preset/Pop &lt;&lt; _POP
+VAL1=78
+VAL2=67
+VAL3=64
+VAL4=53
+VAL5=53
+VAL6=53
+VAL7=59
+VAL8=64
+VAL9=74
+VAL10=74
+_POP
+[ ! -f $CONFDIR/preset/Rock ] &amp;&amp; cat &gt; $CONFDIR/preset/Rock &lt;&lt; _ROCK
+VAL1=68
+VAL2=52
+VAL3=59
+VAL4=63
+VAL5=68
+VAL6=68
+VAL7=69
+VAL8=64
+VAL9=54
+VAL10=54
+_ROCK
+
+#read config
+. $HOME/.config/eekwal/eekwalrc
+#if preset is not valid we need to give a helping hand
+if [ !"$PRESET" ] || [ ! -s $HOME/.config/eekwal/preset/$PRESET ]; then
+   export PRESET=$(ls $HOME/.config/eekwal/preset/ | head -n1)
+   export PRESETNEW=$PRESET
+   . /usr/local/bin/eekwal_func -writeconfig
+   . /usr/local/bin/eekwal_func -preset
+fi
+
+#parameters
+while [ $# != 0 ]; do
+    I=1
+    while [ $I -lt `echo $# | wc -c` ]; do
+        case $1 in
+            -e)     EMBEDDED=true;;
+            -s) NOGUI=true;;
+            -h|--help)
+                echo 'eekwal alsa audio equalizer
+  -e    Run embedded - gtkdialog code is pointed to stdout
+  -h    Show this help message
+  -s    Setup equalizer - no gui
+  -v    Show eekwal version'
+                exit;;
+            -v|--version)
+                echo"eekwal $VERSION"; exit;;
+        esac
+        shift
+        I=$(($I+1))
+    done
+done
+
+#get/set initial values
+/usr/local/bin/eekwal_func -getcurrent
+. /tmp/eekwal/valuesrc
+["$NOGUI" ="true" ] &amp;&amp; exit
+. /usr/local/bin/eekwal_func -gui
+
+#build base gui as shown embedded            ##### CONSIDER USING BUTTON LABELTEXT VS ICONS
+S='
+&lt;vbox&gt;
+    &lt;hbox&gt;
+        '$SCALES'
+    &lt;/hbox&gt;
+    &lt;hseparator&gt;&lt;/hseparator&gt;
+    &lt;hbox&gt;
+        &lt;button tooltip-text="Delete preset"&gt;
+            &lt;input file stock="gtk-delete"&gt;&lt;/input&gt;
+            &lt;action&gt;/usr/local/bin/eekwal_func -delete"$PRESETNEW"&lt;/action&gt;
+            &lt;action&gt;refresh:PRESETNEW&lt;/action&gt;
+        &lt;/button&gt;
+        &lt;button tooltip-text="Save custom preset (type a new Name or overwrite existing)"&gt;
+            &lt;input file stock="gtk-save"&gt;&lt;/input&gt;
+            &lt;action&gt;/usr/local/bin/eekwal_func -save"$PRESETNEW"&lt;/action&gt;
+            &lt;action&gt;refresh:PRESETNEW&lt;/action&gt;
+        &lt;/button&gt;
+        &lt;comboboxentry has-focus="true"&gt;
+            &lt;variable&gt;PRESETNEW&lt;/variable&gt;
+            &lt;default&gt;'$PRESET'&lt;/default&gt;
+            &lt;input&gt;ls -1 '$HOME'/.config/eekwal/preset/&lt;/input&gt;
+            &lt;action&gt;/usr/local/bin/eekwal_func -preset&lt;/action&gt;'
+            for I in 1 2 3 4 5 6 7 8 9 10; do S=$S'&lt;action&gt;refresh:SLIDER'$I'&lt;/action&gt;'; done
+            S=$S'&lt;/comboboxentry&gt;
+    &lt;/hbox&gt;
+&lt;/vbox&gt;'
+GUI_EMBEDDED="$S"
+
+if ["$EMBEDDED" ="true" ]; then
+    echo"$GUI_EMBEDDED"
+    exit
+fi
+
+#show standalone gui  ############ NEED TO SPECIFY A KNOWN EXISTING ICONFILE
+echo '&lt;window title="audio equalizer" width-request="380" resizable="false"&gt;
+    &lt;vbox&gt;'$GUI_EMBEDDED'&lt;/vbox&gt;
+    &lt;action signal="delete-event"&gt;mv -f $HOME/.asoundrc $HOME/.asoundrc.bak&lt;/action&gt;
+    &lt;/window&gt;' | gtkdialog -s
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+# PLACE THIS AS FILE /usr/local/bin/eekwal_func    and chmod +x
+
+case"$1" in
+-gui)
+    COUNT=1
+    until [ $COUNT = 11 ]; do
+        case $COUNT in  #labels
+            1) FR="31Hz";  FREQ='01. 31 Hz';;
+            2) FR="63Hz";  FREQ='02. 63 Hz';;
+            3) FR="125Hz"; FREQ='03. 125 Hz';;
+            4) FR="250Hz"; FREQ='04. 250 Hz';;
+            5) FR="500Hz"; FREQ='05. 500 Hz';;
+            6) FR="1kHz";  FREQ='06. 1 kHz';;
+            7) FR="2kHz";  FREQ='07. 2 kHz';;
+            8) FR="4kHz";  FREQ='08. 4 kHz';;
+            9) FR="8kHz";  FREQ='09. 8 kHz';;
+            10) FR="16kHz"; FREQ='10. 16 kHz';;
+        esac
+        #&lt;action&gt;echo"'$VARIABLE' is now $'$VARIABLE'"&lt;/action&gt;  # uncomment for testing
+        SCALES=$SCALES'
+        &lt;vbox width-request="28"&gt;
+            &lt;vscale width-request="15" height-request="150" scale-min="0" scale-max="100" scale-step="1" value-pos="2" digits="0" inverted="true"&gt;
+                &lt;input file&gt;/tmp/eekwal/VAL'$COUNT'&lt;/input&gt;
+                &lt;variable&gt;SLIDER'$COUNT'&lt;/variable&gt;
+                &lt;action&gt;amixer -D equal sset '"'$FREQ'"' $SLIDER'$COUNT' &gt;/dev/null 2&gt;&amp;1&lt;/action&gt;
+                &lt;item&gt;"50  | 1"&lt;/item&gt;
+            &lt;/vscale&gt;
+            &lt;text use-markup="true"&gt;&lt;label&gt;"&lt;tt&gt;&lt;small&gt;&lt;small&gt;'${FR}'&lt;/small&gt;&lt;/small&gt;&lt;/tt&gt;"&lt;/label&gt;&lt;/text&gt;
+        &lt;/vbox&gt;'
+        COUNT=$(($COUNT+1))
+    done
+    ;;
+
+-preset)
+    cp -f $HOME/.config/eekwal/preset/$PRESETNEW /tmp/eekwal/valuesrc
+    . /tmp/eekwal/valuesrc
+    eval /usr/local/bin/eekwal_func -links  #update images
+    COUNT=1
+    for VAL in '01._31_Hz' '02._63_Hz' '03._125_Hz' '04._250_Hz' '05._500_Hz' '06._1_kHz' '07._2_kHz' '08._4_kHz' '09._8_kHz' '10._16_kHz'; do
+        ACTVAL="`echo"$VAL"|tr '_' ' '`"
+        case $COUNT in #values
+            1)SETVAL="$VAL1";;
+            2)SETVAL="$VAL2";;
+            3)SETVAL="$VAL3";;
+            4)SETVAL="$VAL4";;
+            5)SETVAL="$VAL5";;
+            6)SETVAL="$VAL6";;
+            7)SETVAL="$VAL7";;
+            8)SETVAL="$VAL8";;
+            9)SETVAL="$VAL9";;
+            10)SETVAL="$VAL10";;
+        esac
+        #echo"amixer -D equal sset"$ACTVAL""$SETVAL"" &gt;&gt; /root/debug #debug remove
+        amixer -D equal sset"$ACTVAL""$SETVAL" &gt;/dev/null 2&gt;&amp;1 #set mixer, suppress stdout and stderr
+        echo $SETVAL &gt; /tmp/eekwal/VAL$COUNT
+        COUNT=$(($COUNT+1))
+    done
+    . $0 -writeconfig
+    ;;
+
+-writeconfig)
+    [ !"$PRESETNEW" ] &amp;&amp; exit
+    echo"#eekwal alsa audio config" &gt; $HOME/.config/eekwal/eekwalrc
+    echo"export PRESET=$PRESETNEW" &gt;&gt; $HOME/.config/eekwal/eekwalrc
+    ;;
+
+-getcurrent)
+    #get current values #could be a problematic if surround is enabled
+    echo"#values" &gt; /tmp/eekwal/valuesrc
+    CNT=1
+    for VAL in '01._31_Hz' '02._63_Hz' '03._125_Hz' '04._250_Hz' '05._500_Hz' '06._1_kHz' '07._2_kHz' '08._4_kHz' '09._8_kHz' '10._16_kHz'; do
+        ACTVAL="`echo"$VAL"|tr '_' ' '`"
+        PERCENT="`amixer -D equal sget"$ACTVAL" | grep -F"Left:" | cut -d ':' -f2 | cut -d' ' -f3`"
+        echo"VAL${CNT}=$PERCENT" &gt;&gt; /tmp/eekwal/valuesrc
+        echo"$PERCENT" &gt; /tmp/eekwal/VAL${CNT}
+        CNT=$(($CNT+1))
+    done
+    #error check and kill
+    if [ ! -f $HOME/.alsaequal.bin ];then
+            gtkdialog-splash -close box -bg hotpink -text"An error occurred. Please check your sound configuration."
+            exit 1
+    fi
+    ;;
+
+-save)
+    export PRESETNEW="`echo"$2"| tr ' ' '_'`"    #ensure it is only one word
+    if [ -s $HOME/.config/eekwal/preset/$PRESETNEW ]; then  #already exists
+        export yesno_box='
+        &lt;window title="audio equalizer" window_position="2" allow-grow="false"&gt;
+            &lt;vbox&gt;
+                &lt;frame&gt;
+                    &lt;pixmap icon_size="6"&gt;&lt;input file stock="gtk-dialog-warning"&gt;&lt;/input&gt;&lt;/pixmap&gt;
+                    &lt;text use-markup="true"&gt;&lt;label&gt;"&lt;b&gt;Preset &lt;u&gt;'$PRESETNEW'&lt;/u&gt; already exists.&lt;/b&gt;"&lt;/label&gt;&lt;/text&gt;
+                    &lt;text&gt;&lt;label&gt;Do you want to overwrite existing Preset?&lt;/label&gt;&lt;/text&gt;
+                &lt;/frame&gt;
+                &lt;hbox&gt;&lt;button no&gt;&lt;/button&gt;&lt;button yes&gt;&lt;/button&gt;&lt;/hbox&gt;
+            &lt;/vbox&gt;
+        &lt;/window&gt;'
+        I=$IFS; IFS=""
+        for STATEMENTS in  $(gtkdialog -p yesno_box --center); do
+            eval $STATEMENTS
+        done
+        IFS=$I
+        [ $EXIT = No ] &amp;&amp; exit
+    fi
+    $0 -getcurrent
+    cp /tmp/eekwal/valuesrc $HOME/.config/eekwal/preset/$PRESETNEW
+    . $0 -writeconfig
+    ;;
+
+-delete)
+    PRESET="$2"
+    export yesno_box='
+    &lt;window title="audio equalizer" window_position="2" allow-grow="false"&gt;
+        &lt;vbox&gt;
+        &lt;frame&gt;
+            &lt;pixmap icon_size="6"&gt;&lt;input file stock="gtk-dialog-warning"&gt;&lt;/input&gt;&lt;/pixmap&gt;
+            &lt;text use-markup="true"&gt;&lt;label&gt;"&lt;b&gt;Do you REALLY want to delete the preset named &lt;u&gt;'$PRESET'&lt;/u&gt;?&lt;/b&gt;"&lt;/label&gt;&lt;/text&gt;
+        &lt;/frame&gt;
+        &lt;hbox&gt;&lt;button no&gt;&lt;/button&gt;&lt;button yes&gt;&lt;/button&gt;&lt;/hbox&gt;
+        &lt;/vbox&gt;
+    &lt;/window&gt;'
+    I=$IFS; IFS=""
+    for STATEMENTS in $(gtkdialog -p yesno_box --center); do
+        eval $STATEMENTS
+    done
+    IFS=$I
+    [ $EXIT = No ] &amp;&amp; exit
+    rm $HOME/.config/eekwal/preset/$PRESET
+    #get a new sane preset
+    export PRESETNEW=$(ls $HOME/.config/eekwal/preset/ | head -n1)
+    . $0 -preset
+    . $0 -writeconfig
+    ;;
+esac
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

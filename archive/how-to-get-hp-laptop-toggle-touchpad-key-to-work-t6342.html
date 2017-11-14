@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How to get HP laptop Toggle Touchpad key to work - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-get-hp-laptop-toggle-touchpad-key-to-work-t6342.html">How to get HP laptop Toggle Touchpad key to work</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46371" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46371">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46371">
+<time datetime="2016-04-26T07:14">posted: 2016-04-26 &nbsp; 07:14</time>
+<span class="permalink"><a href="./how-to-get-hp-laptop-toggle-touchpad-key-to-work-t6342.html#p46371" title="permalink">#1</a></span>
+
+<div class="content">I purchased a new (refurbished) HP"Elitebook" 8440p laptop. Installed Antix remastered, of course! Got all the special HP light-up buttons above the keyboard working with xbindkeys EXCEPT the one that looks like a tiny touchpad, that's supposed to toggle the touchpad. That little bugger just did not want to work, not even in Windows-7?! Finally stole and hacked up a tiny daemon C program that DOES make it work! You need to do the following:<br>
+<br>
+1) in rc.local or somewhere in startup scripts add: /usr/bin/setkeycodes e058 140<br>
+2) compile this little C program"keycheckd" (gcc -o keycheckd keycheckd.c) and place the compiled binary in /usr/local/bin/, and chown 4755 keycheckd<br>
+3) In your X desktop session's startup script do (must be started from w/n X desktop, NOT startup or console!):<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>xset -r 138 -r 140 -r 146 -r 148
+keycheckPid=`pidof keycheckd`;
+if [["X$keycheckPid" =="X" ]]; then
+    /usr/bin/nice -n 10 /usr/local/bin/keycheckd &amp;
+fi
+</code></pre></div>
+The source (keycheckd.c) (note: you could add other keysyms / actions, if needed):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;linux/input.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+/*
+   JWT:THIS DAEMON PGM WATCHES THE KEYBOARD FOR PRESSES OF THE SPECIAL HP ELITEBOOK 8440P"TOGGLE-KEYPAD" 
+   KEY WHICH X (xev, xbindkey &amp; FRIENDS REFUSE TO SEE AFTER THE 1ST PRESS PER REBOOT) AND INVOKES THE 
+   COMMAND TO TOGGLE THE TOUCHPAD (AS IT WAS DESIGNED TO DO).  X DOESNPT LIKE THIS SPECIAL KEY B/C IT 
+   ONLY SENDS A"KeyPressed" EVENT W/NO CORRESPONDING"KeyReleased" EVENT.  IT WORKS LIKE OTHER"LED"DED 
+   KEYS SUCH AS CAPSLOCK AND NUMLOCK!  THE INITIAL STATE IS"BLUE" (TOUCHPAD ON), FIRST PRESS SENDS 
+   KEYCODE 140 (148 TO xbindkeys) AND SWITCHES THE LED TO"ORANGE".  NEXT PRESS SENDS KEYCODE 138 (146)
+   AND SWITCHES THE LED BACK TO"BLUE".  SUBSEQUENT KEYPRESSES ALTERNATE BETWEEN THESE TWO STATES. 
+
+   I STOLE THIS PGM. FROM HERE:  http://stackoverflow.com/questions/20943322/accessing-keys-from-linux-input-device
+   I MODIFIED IT TO ONLY CARE A/B THESE TWO KEYCODES.  NOTE:  I HAD TO ADD"setkeycodes e058 140" TO 
+   rc_local.pl WHEREAS THE OTHER ONE (138) WAS ALREADY RECOGNIZED BY THE KERNEL.  THIS PROGRAM SHOULD BE 
+   STARTED THE FIRST TIME AFTERSTEP STARTS UP (.afterstep/autoexec)
+*/
+
+int main(void)
+{
+    const char *dev ="/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+    struct input_event ev;
+    ssize_t n;
+    int fd;
+
+    fd = open(dev, O_RDONLY);
+    if (fd == -1) {
+        fprintf(stderr,"Cannot open %s: %s.\n", dev, strerror(errno));
+        return EXIT_FAILURE;
+    }
+    while (1) {
+        n = read(fd, &amp;ev, sizeof ev);
+        if (n == (ssize_t)-1) {
+            if (errno == EINTR)
+                continue;
+            else
+                break;
+        } else
+        if (n != sizeof ev) {
+            errno = EIO;
+            break;
+        }
+        if (ev.type == EV_KEY &amp;&amp; ev.value &gt;= 0 &amp;&amp; ev.value &lt;= 2) {
+/* printf("0x%04x (%d)\n", (int)ev.code, (int)ev.code); */
+            if ((int)ev.code == 138) {
+                /* TURN ON TOUCHPAD: */
+/* printf("--138: turn touchpad ON!\n"); */
+                system ("/usr/bin/synclient TouchpadOff=0");
+            } else if ((int)ev.code == 140) {
+                /* TURN OFF TOUCHPAD: */
+/* printf("--140: turn touchpad off!\n"); */
+                system ("/usr/bin/synclient TouchpadOff=1");
+            }
+        }
+    }
+    fflush(stdout);
+    fprintf(stderr,"%s.\n", strerror(errno));
+    return 0;
+}
+</code></pre></div>
+Now, when you press this"key", it should turn orange and actually disable your touchpad, a second press should turn it back blue and re-enable your touchpad. I believe you could add the"/usr/bin/synclient TouchpadOff=1" in your X session startup script above where you start this daemon, and reverse the two"TouchpadOff=#" commands in it to have it start out disabled, then toggle to enabled, then disabled, etc.<br>
+<br>
+Hope someone else finds this hack useful!<br>
+<br>
+Jim</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

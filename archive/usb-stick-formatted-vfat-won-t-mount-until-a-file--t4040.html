@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>USB stick formatted vfat won't mount until a file is present - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./usb-stick-formatted-vfat-won-t-mount-until-a-file--t4040.html">USB stick formatted vfat won't mount until a file is present</a></h2>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_27066" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27066">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 8</dd>
+<span class="username">paraquat</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27066">
+
+<time datetime="2012-11-27T05:32">posted: 2012-11-27  &nbsp; 05:32</time>
+<span class="permalink"><a href="./usb-stick-formatted-vfat-won-t-mount-until-a-file--t4040.html#p27066" title="permalink">#1</a></span>
+
+<div class="content">Hi all,<br>
+<br>
+Unexpected problem. I formatted a USB stick thus:<br>
+<br>
+mkfs.vfat /dev/sdb1<br>
+<br>
+Formatted fine. But then it wouldn't mount. I have automounting set up, so just pulling out the stick and putting it back in should have mounted it, but didn't.<br>
+<br>
+OK, next logical step was to su to root and try to mount it manually, someplace:<br>
+<br>
+mount /dev/sdb1 /mnt<br>
+<br>
+No success. Also tried SpaceFM - no USB stick visible.<br>
+<br>
+Next step - reboot into Linux Mint Debian (on same machine). Stuck in the USB stick and an icon pops up - I click on that and it mounts. I copied a few files onto the stick. Pulled it out and rebooted again, back into AntiX. Now I insert the stick and it automounts. The files I copied onto it are visible, and I can add and delete files.<br>
+<br>
+I tried reformatting the same USB stick again in AntiX, this time to the ext2 file system. I pulled it out and stuck it back in, it automounts. Is this because ext2 is somehow"better" than vfat? Maybe, but the more likely explanation is that the command mkfs.ext2 will not only format the disk, but also add a"lost+found" directory. It could be the present of this directory that solves the problem of not being able to mount it.<br>
+<br>
+My"workaround" (adding a file or two with another OS) is OK for now, but not an elegant solution. I'm wondering just what is causing this, and how to solve it.<br>
+<br>
+cheers,<br>
+P</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27070" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27070">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,308</dd>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27070">
+
+<time datetime="2012-11-27T17:43">posted: 2012-11-27  &nbsp; 17:43</time>
+<span class="permalink"><a href="./usb-stick-formatted-vfat-won-t-mount-until-a-file--t4040.html#p27070" title="permalink">#2</a></span>
+
+<div class="content">In general, it would be helpful if you told us exactly what version of antiX you are running and whether you are running a Live system or an installed system. The automounting code has changed recently and it is different on Live systems versus installed systems, but that information might not be needed in this particular case.<br>
+<br>
+This sounds like a Linux/udev quirk and not something specific to antiX. Sometimes when you update partitions on a usb drive (or if not everything on the drive is cleanly unmounted), it will show up as a different device after unplugging and replugging. If the kernel/udev are not certain the old device has completely gone away, they will give you a new device name just to be on the safe side.<br>
+<br>
+If you encountered this problem again do an"ls /dev/sd*" to see if the usb drive shows up as a different device. A pro-active solution is to use disk labels (or even uuids) to identify partitions. While device names will get changed easily, labels and uuids stay the same. You can see the labels for all your disk devices by doing"ls -l /dev/disk/by-label".</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Some questions - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m11-jayaben-desai-f43/index.html"><span>antiX-M11 Jayaben Desai</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./some-questions-t3401.html">Some questions</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_22517" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22517">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 7</span></div>
+
+</div>
+</div>
+<span class="username">seby1689</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22517">
+<time datetime="2011-10-30T18:10">posted: 2011-10-30 &nbsp; 18:10</time>
+<span class="permalink"><a href="./some-questions-t3401.html#p22517" title="permalink">#1</a></span>
+
+<div class="content">Some questions about things I'd like to do in antiX<br>
+<br>
+1.) How do I change the default browser to a browser of my choice? At it stands, Dillo is the default browser.<br>
+<br>
+2.) How do I network my two antiX computers over wifi so that I can share files between them? (It would be great to access the media on my desktop from my laptop.)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22518" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22518">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22518">
+
+<time datetime="2011-10-30T21:20">posted: 2011-10-30 &nbsp; 21:20</time>
+<span class="permalink"><a href="./some-questions-t3401.html#p22518" title="permalink">#2</a></span>
+
+<div class="content">#1, I am not sure of (I just removed all the browsers till I had *only* the one I wanted)<br>
+#2 I would download nfs-common, and nfs-kernel-server, then add a line in /etc/exports similar to:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/home   192.168.0.1(no_root_squash,rw)
+</code></pre></div>
+where :<br>
+/home is the directory on your desktop that you would like to share<br>
+192.168.0.1 is the ip address of your laptop (needs to be a static ip)<br>
+rw is read write permissions.<br>
+<br>
+if you would like to allow more than just your laptop to mount your desktop directory then you should add your network instead of the laptop ip<br>
+192.168.0.0/255.255.255.0 instead of 192.168.0.1<br>
+<br>
+Once this is done you can go to your laptop and install the nfs-common, once installed make a mount point and mount your desktop directory by running the following command as root
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mount 192.168.0.2:/home /MOUNT_POINT 
+</code></pre></div>
+where 192.168.0.2 is your desktop and :/home is the exported directory.<br>
+<br>
+STEPS BY STEP<br>
+DESKTOP<br>
+menu --&gt; run<br>
+type: roxterm<br>
+press: ok<br>
+type: su<br>
+press: enter/return<br>
+type: YOUR ROOT PASSWORD<br>
+press: enter/return<br>
+type: apt-get update <br>
+press: enter/return<br>
+type: apt-get -f install nfs-common nfs-kernel-server<br>
+press: enter/return<br>
+FINISH INSTALL<br>
+type: ifconfig <br>
+press: enter/return<br>
+NOTE IP ADDRESS<br>
+<br>
+GO TO LAPTOP<br>
+menu --&gt; run<br>
+type: roxterm<br>
+press: ok<br>
+type: su<br>
+press: enter/return<br>
+type: YOUR ROOT PASSWORD<br>
+press: enter/return<br>
+type: apt-get update <br>
+press: enter/return<br>
+type: apt-get -f install nfs-common<br>
+press: enter/return<br>
+FINISH INSTALL<br>
+type: ifconfig <br>
+press: enter/return<br>
+NOTE IP ADDRESS<br>
+<br>
+GO TO DESKTOP<br>
+type: echo"/home LAPTOP IP(no_root_squash,rw)" &gt; /etc/exports<br>
+press: enter/return<br>
+type: /etc/init.d/nfs-kernel-server restart<br>
+press: enter/return<br>
+<br>
+GO TO LAPTOP<br>
+type:mkdir /mnt/desktop<br>
+press: enter/return<br>
+type: mount DESKTOP IP:/home /mnt/desktop<br>
+press:enter/return<br>
+<br>
+Go to your favorite file manager, navigate to /mnt/desktop and have fun</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

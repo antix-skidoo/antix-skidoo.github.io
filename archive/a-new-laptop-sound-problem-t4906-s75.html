@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>A new laptop sound problem - Page 6 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./a-new-laptop-sound-problem-t4906-s75.html">A new laptop sound problem</a></div>
+<div class="pagination">
+130 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./a-new-laptop-sound-problem-t4906-s60.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s45.html" role="button">4</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s60.html" role="button">5</a></li>
+<li class="active"><span>6</span></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s90.html" role="button">7</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s105.html" role="button">8</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s120.html" role="button">9</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./a-new-laptop-sound-problem-t4906-s90.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34658" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34658">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+ </div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34658">
+<time datetime="2014-04-18T14:15">posted: 2014-04-18 &nbsp; 14:15</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34658" title="permalink">#76</a></span>
+
+<div class="content">for a complete re-install of ALSA
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg --purge alsa</code></pre></div>
+then<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> rm /usr/lib/libasound.* </code></pre></div> (will remove any remaining sound libraries )<br>
+next <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /lib/modules|gawk '/^snd-/{print $1}'|xargs -i rmmod {} </code></pre></div> (will remove any remaining sound modules)<br>
+reboot with your usb sound plugged in<br>
+then <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install alsa</code></pre></div>
+next
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-cm6501</code></pre></div>
+next
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-usb-audio ; modprobe snd-pcm-oss ; modprobe snd-mixer-oss ; modprobe snd-seq-oss</code></pre></div>
+Reboot</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34724" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34724">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34724">
+
+<time datetime="2014-04-20T13:09">posted: 2014-04-20 &nbsp; 13:09</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34724" title="permalink">#77</a></span>
+
+<div class="content">Eino, here's what's in /proc/asound/card0/ (no codecs folder):<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dqualls@Little-Luddite:/proc/asound/card0
+$ ls -l
+total 0
+-r--r--r-- 1 root root 0 Apr 20 09:04 id
+-rw-r--r-- 1 root root 0 Apr 20 09:04 oss_mixer
+dr-xr-xr-x 3 root root 0 Apr 20 09:04 pcm0c
+dr-xr-xr-x 3 root root 0 Apr 20 09:04 pcm0p
+-r--r--r-- 1 root root 0 Apr 20 09:04 stream0
+-r--r--r-- 1 root root 0 Apr 20 09:04 usbbus
+-r--r--r-- 1 root root 0 Apr 20 09:04 usbid
+-r--r--r-- 1 root root 0 Apr 20 09:04 usbmixer
+dqualls@Little-Luddite:/proc/asound/card0
+$ cd pcm0c
+dqualls@Little-Luddite:/proc/asound/card0/pcm0c
+$ ls -l
+total 0
+-r--r--r-- 1 root root 0 Apr 20 09:04 info
+-rw-r--r-- 1 root root 0 Apr 20 09:04 oss
+dr-xr-xr-x 2 root root 0 Apr 20 09:04 sub0
+dqualls@Little-Luddite:/proc/asound/card0/pcm0c
+$ cd sub0
+dqualls@Little-Luddite:/proc/asound/card0/pcm0c/sub0
+$ ls -l
+total 0
+-r--r--r-- 1 root root 0 Apr 20 09:05 hw_params
+-r--r--r-- 1 root root 0 Apr 20 09:05 info
+-r--r--r-- 1 root root 0 Apr 20 09:05 status
+-r--r--r-- 1 root root 0 Apr 20 09:05 sw_params
+dqualls@Little-Luddite:/proc/asound/card0/pcm0c/sub0
+$ cd ../..
+dqualls@Little-Luddite:/proc/asound/card0
+$ cd pcm0p
+dqualls@Little-Luddite:/proc/asound/card0/pcm0p
+$ ls -l
+total 0
+-r--r--r-- 1 root root 0 Apr 20 09:05 info
+-rw-r--r-- 1 root root 0 Apr 20 09:05 oss
+dr-xr-xr-x 2 root root 0 Apr 20 09:05 sub0
+dqualls@Little-Luddite:/proc/asound/card0/pcm0p
+$ cd sub0
+dqualls@Little-Luddite:/proc/asound/card0/pcm0p/sub0
+$ ls -l
+total 0
+-r--r--r-- 1 root root 0 Apr 20 09:05 hw_params
+-r--r--r-- 1 root root 0 Apr 20 09:05 info
+-r--r--r-- 1 root root 0 Apr 20 09:05 status
+-r--r--r-- 1 root root 0 Apr 20 09:05 sw_params
+dqualls@Little-Luddite:/proc/asound/card0/pcm0p/sub0
+</code></pre></div>
+Does this imply that I need to reinstall alsa? The last time we tried this, uninstalling took out other dependent packages (though I see you using dpkg and rm instead of apt-get purge this time). I can recreate this sound failure with all the kernels I have installed; I could reboot to 3.10.7 and rerun the dump above if that would help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34735" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34735">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34735">
+
+<time datetime="2014-04-20T16:11">posted: 2014-04-20 &nbsp; 16:11</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34735" title="permalink">#78</a></span>
+
+<div class="content">You can also try newer drivers for your USB sound. <br>
+this method will rebuild alsa with newer drivers. <br>
+make sure that's you usb sound is on and plugged in while doing this.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install module-assistant alsa-source
+m-a prepare
+m-a build alsa
+m-a install alsa</code></pre></div>
+The methods below leave dependent packages alone. <br>
+Reason for the other removal of sound related files afterwards.<br>
+But i would try the less invasive re-install of alsa-base first.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34739" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34739">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34739">
+
+<time datetime="2014-04-20T16:44">posted: 2014-04-20 &nbsp; 16:44</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34739" title="permalink">#79</a></span>
+
+<div class="content"><blockquote><div><cite>Eino wrote:</cite>You can also try newer drivers for your USB sound. <br>
+this method will rebuild alsa with newer drivers. <br>
+make sure that's you usb sound is on and plugged in while doing this.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install module-assistant alsa-source
+m-a prepare
+m-a build alsa
+m-a install alsa</code></pre></div>
+The methods below leave dependent packages alone. <br>
+Reason for the other removal of sound related files afterwards.<br>
+But i would try the less invasive re-install of alsa-base first.</div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@Little-Luddite:/home/dqualls# apt-get install module-assistant alsa-source
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package alsa-source
+root@Little-Luddite:/home/dqualls#</code></pre></div>
+Apparently alsa-source isn't in the repos I have enabled. I'll try the"minimum reinstall" first and post back.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34741" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34741">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34741">
+
+<time datetime="2014-04-20T16:52">posted: 2014-04-20 &nbsp; 16:52</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34741" title="permalink">#80</a></span>
+
+<div class="content"><blockquote><div><cite>Silent Observer wrote:</cite>
+I'll try the"minimum reinstall" first and post back.</div></blockquote>
+Do this afterwards
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-cm6501</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34742" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34742">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34742">
+
+<time datetime="2014-04-20T17:08">posted: 2014-04-20 &nbsp; 17:08</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34742" title="permalink">#81</a></span>
+
+<div class="content"><blockquote><div><cite>Eino wrote:</cite><blockquote><div><cite>Silent Observer wrote:</cite>
+I'll try the"minimum reinstall" first and post back.</div></blockquote>
+Do this afterwards
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-cm6501</code></pre></div></div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe: FATAL: Module snd-cm6501 not found.
+</code></pre></div>
+This was after going through the minimum alsa reinstall, also reinstalling volumeicon-alsa (removed along with alsa-base) and installing the suggested package alsa-oss. I had, however, also tried a sound test and had to kill volumeicon before trying the modprobe (that shouldn't affect whether the module is present, though).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34743" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34743">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34743">
+
+<time datetime="2014-04-20T17:16">posted: 2014-04-20 &nbsp; 17:16</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34743" title="permalink">#82</a></span>
+
+<div class="content"><blockquote><div><cite>Silent Observer wrote:</cite><blockquote><div><cite>Eino wrote:</cite><blockquote><div><cite>Silent Observer wrote:</cite>
+I'll try the"minimum reinstall" first and post back.</div></blockquote>
+Do this afterwards
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-cm6501</code></pre></div></div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe: FATAL: Module snd-cm6501 not found.
+</code></pre></div>
+.</div></blockquote>
+Your needed driver module is not in alsa, reason for the missing codecs directory.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34752" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34752">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34752">
+
+<time datetime="2014-04-20T23:01">posted: 2014-04-20 &nbsp; 23:01</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34752" title="permalink">#83</a></span>
+
+<div class="content">So, where did it go? This worked for a good while, including after my four day power failure, then quit without any apparent system changes while the system was still running. I did the same thing as before to get sound working after reinstalling the OS -- except this time it didn't work. If I'll have to rebuild alsa-base, where can I get the alsa-source needed to do that?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34754" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34754">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34754">
+
+<time datetime="2014-04-20T23:36">posted: 2014-04-20 &nbsp; 23:36</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34754" title="permalink">#84</a></span>
+
+<div class="content">I was trying the"complete" alsa reinstall. I presumed that you meant alsa-base where you typed alsa; I had to remove volumeicon-alsa with apt-get before I could use dpkg to remove alsa-base; but there were no libraries named libasound.*. When I came to the step with the complicated looking program-on-a-line, I got this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@Little-Luddite:/usr/lib# cat /lib/modules|gawk '/^snd-/{print $1}'|xargs -i rmmod {}
+cat: /lib/modules: Is a directory
+root@Little-Luddite:/usr/lib# 
+</code></pre></div>
+I'm leaving this with alsa-base and volumeicon-alsa removed, waiting for a correction...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34761" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34761">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34761">
+
+<time datetime="2014-04-21T11:59">posted: 2014-04-21 &nbsp; 11:59</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34761" title="permalink">#85</a></span>
+
+<div class="content">I know you say that oss-compat is needed on your installation, however last time I had it installed on my laptop the sound would sometimes work, then randomly quit and not come back for a random amount of time (seemingly never coming back) so per anticapitalista's suggestion to me I removed oss-compat and the sound would work 100% of the time. Based that your thread is getting long, I have to ask are you 100% certain oss-compat is needed?<br>
+<br>
+<br>
+Reading through an older thread of yours, I see
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> 
+
+: Okay, here's the information I've (quickly) been able to figure out how to get; this is from the laptop, with the USB sound unit plugged in:
+
+Code:
+user@Little-Luddite:~
+$ aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 1: Device [USB PnP Sound Device], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+user@Little-Luddite:~
+$ lsmod | grep snd
+snd_usb_audio          73509  0 
+snd_usbmidi_lib        12785  1 snd_usb_audio
+snd_hwdep               4064  1 snd_usb_audio
+snd_seq_midi            3473  0 
+snd_seq_midi_event      3645  1 snd_seq_midi
+snd_rawmidi            12723  2 snd_usbmidi_lib,snd_seq_midi
+snd_pcm                50454  1 snd_usb_audio
+snd_page_alloc          5015  1 snd_pcm
+snd_seq                34663  2 snd_seq_midi_event,snd_seq_midi
+snd_seq_device          3890  3 snd_seq,snd_rawmidi,snd_seq_midi
+snd_timer              12034  2 snd_pcm,snd_seq
+snd                    36700  9 snd_usb_audio,snd_hwdep,snd_timer,snd_pcm,snd_seq,snd_rawmidi,snd_usbmidi_lib,snd_seq_device,snd_seq_midi
+soundcore               3447  1 snd
+user@Little-Luddite:~
+$
+
+</code></pre></div>
+Which I don't see oss in, and then a later post saying usb primary devices was disabled in alsaconfig and needed to be enabled <br>
+<br>
+I'm thinking that you have posted an inxi of when it was working so maybe I can find it and we can see what driver you were using at the time</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34762" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34762">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+ <div id="post_content34762">
+
+<time datetime="2014-04-21T12:55">posted: 2014-04-21 &nbsp; 12:55</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34762" title="permalink">#86</a></span>
+
+<div class="content"><blockquote><div><cite>Silent Observer wrote:</cite>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@Little-Luddite:/usr/lib# cat /lib/modules|gawk '/^snd-/{print $1}'|xargs -i rmmod {}
+cat: /lib/modules: Is a directory
+root@Little-Luddite:/usr/lib# 
+</code></pre></div>
+I'm leaving this with alsa-base and volumeicon-alsa removed, waiting for a correction...</div></blockquote>
+I'm finding what has worked for me in the past with Debian, dose not apply to antiX <br>
+At this point I'm trying to recreate want worked in the past, when the on-board sound was getting loaded with the wrong drivers, and the usb sound worked. (hence the missing codec directory) <br>
+If you have your on-board sound disabled in the bios re-enable it.<br>
+Going to the next step.This will fix any broken dependence, and re-install missing packages.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get -f install alsa </code></pre></div>
+reboot<br>
+then show the results of
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /dev/sndstat</code></pre></div>
+also
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>grep 'audio'  etc/group</code></pre></div> add a / in front of etc. . <br>
+you should see something like this. Your user name should be in the audio group.
+<blockquote class="uncited"><div>Eino@antiX1:~<br>
+$ grep 'audio' etc/group<br>
+audio<img alt=":x:" class="emoji" draggable="false" src="//cdn.jsdelivr.net/emojione/assets/svg/274c.svg">29:Eino</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34763" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34763">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34763">
+
+<time datetime="2014-04-21T13:07">posted: 2014-04-21 &nbsp; 13:07</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34763" title="permalink">#87</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>I know you say that oss-compat is needed on your installation, however last time I had it installed on my laptop the sound would sometimes work, then randomly quit and not come back for a random amount of time (seemingly never coming back) so per anticapitalista's suggestion to me I removed oss-compat and the sound would work 100% of the time. Based that your thread is getting long, I have to ask are you 100% certain oss-compat is needed?
+</div></blockquote>
+The oss-compat is need for generic USB audio to work.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.alsa-project.org/main/index.php/Matrix:Module-usb-audio"<br>linktext was:"http://www.alsa-project.org/main/index. ... -usb-audio"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34785" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34785">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34785">
+
+<time datetime="2014-04-22T00:44">posted: 2014-04-22 &nbsp; 00:44</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34785" title="permalink">#88</a></span>
+
+<div class="content">I once again presumed you meant alsa-base when you typed alsa. I went ahead and reinstalled volumeicon-alsa as well. Last couple cycles through uninstalling and reinstalling, volumeicon doesn't load successfully; when I start it from a terminal I get:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ volumeicon &amp;
+[1] 4672
+dqualls@Little-Luddite:~
+$ volumeicon: alsa_backend.c:86: asound_get_volume: Assertion `m_elem != ((void *)0)' failed.
+
+[1]+  Aborted                 volumeicon
+</code></pre></div>
+<blockquote><div><cite>Eino wrote:</cite>reboot<br>
+then show the results of
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /dev/sndstat</code></pre></div></div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cat /dev/sndstat
+Sound Driver:3.8.1a-980706 (ALSA emulation code)
+Kernel: Linux Little-Luddite 3.12.3-antix.2-486-smp #2 SMP Sun Dec 8 21:23:31 EET 2013 i686
+Config options: 0
+
+Installed drivers: 
+Type 10: ALSA emulation
+
+Card config: 
+C-Media Electronics Inc. USB PnP Sound Device at usb-0000:00:07.2-2, full speed
+
+Audio devices:
+1: USB Audio (DUPLEX)
+
+Synth devices: NOT ENABLED IN CONFIG
+
+Midi devices: NOT ENABLED IN CONFIG
+
+Timers:
+31: system timer
+
+Mixers:
+1: USB Mixer
+</code></pre></div>
+<blockquote class="uncited"><div>also
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>grep 'audio'  etc/group</code></pre></div> add a / in front of etc. . <br>
+you should see something like this. Your user name should be in the audio group.
+<blockquote class="uncited"><div>Eino@antiX1:~<br>
+$ grep 'audio' etc/group<br>
+audio<img alt=":x:" class="emoji" draggable="false" src="//cdn.jsdelivr.net/emojione/assets/svg/274c.svg">29:Eino</div></blockquote></div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ grep 'audio'  etc/group
+audio:x:29:dqualls
+</code></pre></div> Yep, there it is...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34789" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34789">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34789">
+
+<time datetime="2014-04-22T10:17">posted: 2014-04-22 &nbsp; 10:17</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34789" title="permalink">#89</a></span>
+
+<div class="content">Do a
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-usb-audio</code></pre></div>
+then reboot<br>
+and look at the results of this after the reboot
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /dev/sndstat</code></pre></div>
+This time it's one step a a time looking at the results.<br>
+<br>
+The volume icon will not appear till you have, what appears to have alsa working sound, or a driver loaded.<br>
+<br>
+Next if you get the same results <br>
+do
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update &amp;&amp; apt-get -f install oss-compat</code></pre></div>
+then
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe snd-pcm-oss ; modprobe snd-mixer-oss ; modprobe snd-seq-oss</code></pre></div>
+reboot, or restart alsa</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34826" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34826">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34826">
+
+<time datetime="2014-04-23 &nbsp; 00:09">posted: 2014-04-23 &nbsp; 00:09</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s75.html#p34826" title="permalink">#90</a></span>
+
+<div class="content">Okay, did all that, no change; still getting this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ volumeicon &amp;
+[1] 10360
+dqualls@Little-Luddite:~
+$ volumeicon: alsa_backend.c:86: asound_get_volume: Assertion `m_elem != ((void *)0)' failed.
+
+[1]+  Aborted                 volumeicon
+</code></pre></div>
+The cat of /dev/sndsat was the same as the last one I posted. The oss-compat package was already installed, so that install did (apparently) nothing.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+130 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./a-new-laptop-sound-problem-t4906-s60.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s45.html" role="button">4</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s60.html" role="button">5</a></li>
+<li class="active"><span>6</span></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s90.html" role="button">7</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s105.html" role="button">8</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s120.html" role="button">9</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./a-new-laptop-sound-problem-t4906-s90.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Need help with another Zenity script - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./kafeneio-chats-f25/index.html"><span>Kafeneio chats</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./in-a-greek-kafeneio-f7/index.html"><span>In a Greek kafeneio</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./need-help-with-another-zenity-script-t1141.html">Need help with another Zenity script</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_7075" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7075">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7075">
+<time datetime="2008-10-21T00:44">posted: 2008-10-21 &nbsp; 00:44</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7075" title="permalink">#1</a></span>
+
+<div class="content">I used to maintain and use a text file to keep track of name and phone numbers. Nothing fancy and no special formatting, just a simple text file I could add to and search as needed. Mind like a sieve you know.<br>
+<br>
+Now the problem. Since I have been playing with zenity I thought I would put a gui to my phonebook. Actually I got everything to work great but I wanted to add a way of removing an entry but I am drawing a blank. I was hoping that OU812, Anti or anyone else could come up with a way to add a remove option?<br>
+<br>
+Here is the script. It needs to be cleaned up but play with it and let me know what you find.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+##  Title: Zen-phonebook
+##
+##  Purpose: To easily save and search names and phone numbers
+##
+##  Author: eriefisher@gmail.com
+##
+##  Dependencies: Zenity and stock Linux tools
+
+touch .zen-phonebook.txt  ## This will look for your phonebook file in your /home directory
+                          ## and create it if it doesn't exist. All entries will be saved here.
+ans=$(zenity --title"Zen-phonebook" --list --text"What would you like to do" --radiolist --column"Pick" --column"Options" TRUE"Search for a contact" FALSE"Enter new contact" FALSE"Show all contacts" FALSE"Remove contact" --width 300 --height 250)
+
+if ["$ans" ="Search for a contact" ] ; then
+   SEARCH=$(zenity --title"Search for" --entry --text"Please enter a name") &amp;&amp; cat .zen-phonebook.txt | grep $SEARCH* | zenity --title"Search Results" --text-info --height 200 --width 300
+fi
+
+if ["$ans" ="Enter new contact" ] ; then
+   NEW=$(zenity --title"New Contact" --entry --text"Please enter name and Number") &amp;&amp; echo \"$NEW" &gt;&gt; .zen-phonebook.txt &amp;&amp; zenity --title"Saved" --info --text"$NEW\n Has been saved"
+fi
+
+if ["$ans" ="Show all contacts" ] ; then
+   cat .zen-phonebook.txt | zenity --title"All contacts" --text-info
+fi
+
+if ["$ans" ="Remove contact" ] ; then</code></pre></div>
+As you see the end does not finish so take it from there.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7076" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7076">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7076">
+
+<time datetime="2008-10-21T02:13">posted: 2008-10-21 &nbsp; 02:13</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7076" title="permalink">#2</a></span>
+
+<div class="content">These may be of interest<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linux.byexamples.com/archives/265/a-complete-zenity-dialog-examples-2/"<br>linktext was:"http://linux.byexamples.com/archives/26 ... xamples-2/"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linux.byexamples.com/archives/259/a-complete-zenity-dialog-examples-1/"<br>linktext was:"http://linux.byexamples.com/archives/25 ... xamples-1/"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://manpages.unixforum.co.uk/man-pages/unix/solaris-10-11_06/1/zenity-man-page.html"<br>linktext was:"http://manpages.unixforum.co.uk/man-pag ... -page.html"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+I'm afraid this goes a bit beyond my experience with zenity.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7079" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7079">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7079">
+
+<time datetime="2008-10-21T11:59">posted: 2008-10-21 &nbsp; 11:59</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7079" title="permalink">#3</a></span>
+
+<div class="content">Thanks John, I did not see that last link you posted. I think zenity will work fine but I need to come up with a way to remove a single line from a text file without changing the format of the file. More digging required I guess.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7080" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7080">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7080">
+
+<time datetime="2008-10-21T12:46">posted: 2008-10-21 &nbsp; 12:46</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7080" title="permalink">#4</a></span>
+
+<div class="content">Suggestion:<br>
+<br>
+zenity --list to display the content of your file (provided you have one record per line)<br>
+<br>
+I suppose zenity list returns the content of the selected line (not the number of the item in the list, I used zenity but don't have it at hand)<br>
+<br>
+Then I would do a grep -v 'the string returned' phonebook-file redirected to a tmpfile<br>
+and overwrite the phonebook with the tmpfile</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7081" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7081">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+ <div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7081">
+
+<time datetime="2008-10-21T13:41">posted: 2008-10-21 &nbsp; 13:41</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7081" title="permalink">#5</a></span>
+
+<div class="content">Thanks, I will play with that later.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7127" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7127">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7127">
+
+<time datetime="2008-10-23T21:46">posted: 2008-10-23 &nbsp; 21:46</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7127" title="permalink">#6</a></span>
+
+<div class="content">eriefisher,<br>
+<br>
+I found this:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.linux.com/feature/114156?theme=print"<br>linktext was:"http://www.linux.com/feature/114156?theme=print"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+Towards the end of the article, It may help, beyond my expertise though<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7131" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7131">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7131">
+
+<time datetime="2008-10-24T00:06">posted: 2008-10-24 &nbsp; 00:06</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7131" title="permalink">#7</a></span>
+
+<div class="content">Thank you, something like that just might work.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7171" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7171">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7171">
+
+<time datetime="2008-10-26T03:15">posted: 2008-10-26 &nbsp; 03:15</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7171" title="permalink">#8</a></span>
+
+<div class="content">Have you thought of using gtkdialog? Look at the example in the top-right corner.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linux.pte.hu/~pipas/gtkdialog/screenshots.html"<br>linktext was:"http://linux.pte.hu/~pipas/gtkdialog/screenshots.html"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7207" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7207">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7207">
+
+<time datetime="2008-10-28T00:09">posted: 2008-10-28 &nbsp; 00:09</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7207" title="permalink">#9</a></span>
+
+<div class="content">My modest contribution:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+##  Title: Zen-phonebook
+##
+##  Purpose: To easily save and search names and phone numbers
+##
+##  Author: eriefisher@gmail.com" onclick="window.open(this.href);return false
+##
+##  Dependencies: Zenity and stock Linux tools
+
+touch .zen-phonebook.txt  ## This will look for your phonebook file in your /home directory
+                          ## and create it if it doesn't exist. All entries will be saved here.
+
+WIDTH=300
+HEIGHT=300
+MYTITLE="Zen-phonebook"
+
+while true
+do
+
+    ans=$(zenity --title $MYTITLE --list --text"What would you like to do" --radiolist --column"Pick" --column"Options" TRUE"Search for a contact" FALSE"Enter new contact" FALSE"Show all contacts" FALSE"Remove contact" --width 300 --height 250)
+
+    # Cancel
+    if ["$ans" ="" ] ; then
+        exit 0
+    fi
+
+    if ["$ans" ="Search for a contact" ] ; then
+        SEARCH=$(zenity --title"Search for" --entry --text"Please enter a name") &amp;&amp; cat .zen-phonebook.txt | grep $SEARCH* | zenity --title"Search Results" --text-info --height 200 --width 300
+    fi
+
+    if ["$ans" ="Enter new contact" ] ; then
+        NEW=$(zenity --title"New Contact" --entry --text"Please enter name and Number") &amp;&amp; echo \"$NEW" &gt;&gt; .zen-phonebook.txt &amp;&amp; zenity --title"Saved" --info --text"$NEW\n Has been saved"
+    fi
+
+    if ["$ans" ="Show all contacts" ] ; then
+        cat .zen-phonebook.txt | zenity --title"All contacts" \
+                                        --width=$WIDTH \
+                                        --height=$HEIGHT \
+                                        --text-info
+    fi
+
+    if ["$ans" ="Remove contact" ] ; then
+
+        DELETE=$(cat .zen-phonebook.txt | zenity --list \
+              --width=$WIDTH \
+              --height=$HEIGHT \
+              --title="Remove Contact" \
+              --column="Contacts")
+
+        if [ -n"$DELETE" ]
+            then
+            # Confirm
+            zenity --title"Remove Contact" --question --text"Remove $DELETE ?"; 
+            if ["$?" ="0" ]
+            then
+
+                grep -v"$DELETE" .zen-phonebook.txt &gt; /tmp/.zen-phonebook.txt.$$
+                mv /tmp/.zen-phonebook.txt.$$ .zen-phonebook.txt
+
+            fi
+        fi
+    fi
+    
+    # Do you want to continue?
+    zenity --question --title $MYTITLE --width=$WIDTH \
+           --text"Select another operation?\n(Cancel to quit $MYTITLE)"
+    if ["$?" ="1" ]
+    then
+        exit 0
+    fi
+
+# Done with main loop
+done
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7208" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7208">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7208">
+
+<time datetime="2008-10-28T00:19">posted: 2008-10-28 &nbsp; 00:19</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7208" title="permalink">#10</a></span>
+
+<div class="content">PERFECT!!! This is exactly what I had envisioned. Please put you name one and spread the word.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7216" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7216">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7216">
+
+<time datetime="2008-10-28T02:31">posted: 2008-10-28 &nbsp; 02:31</time>
+<span class="permalink"><a href="./need-help-with-another-zenity-script-t1141.html#p7216" title="permalink">#11</a></span>
+
+<div class="content">Congrats, dude.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

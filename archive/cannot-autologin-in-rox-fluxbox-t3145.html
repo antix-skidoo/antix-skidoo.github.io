@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>cannot autologin in rox-fluxbox - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m11-jayaben-desai-f43/index.html"><span>antiX-M11 Jayaben Desai</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html">cannot autologin in rox-fluxbox</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_20709" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20709">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">equimanthorn</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20709">
+<time datetime="2011-05-17T21:20">posted: 2011-05-17 &nbsp; 21:20</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20709" title="permalink">#1</a></span>
+
+<div class="content">this evening after the dist-upgrade and a reboot I discover I cannot autologin in rox-fluxbox <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+After the boot appear Slim and I can log only in rox-icewm<br>
+<br>
+Do you have the same problem ?</div>
+<div class="hide">
+ </div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20710" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20710">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20710">
+
+<time datetime="2011-05-17T22:24">posted: 2011-05-17 &nbsp; 22:24</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20710" title="permalink">#2</a></span>
+
+<div class="content">Post ~/.xinitrc and /etc/slim.conf</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20711" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20711">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">equimanthorn</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20711">
+
+<time datetime="2011-05-17T22:38">posted: 2011-05-17 &nbsp; 22:38</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20711" title="permalink">#3</a></span>
+
+<div class="content">excuseme for my mistake, this is my complete /.xinitrc:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#xset m 10 2
+xmodmap -e 'pointer = 1 2 3 4 5'
+# The following line gets changed by antiX-init.sh with the desktop= cheatcode
+
+XINITRC_DEFAULT="startfluxbox"
+
+case $1 in
+icewm)
+        sed -i -e 's/fehbgrox-ice/fehbgice/g' ~/.icewm/startup
+        sed -i -e"s/rox --pinboard=antiX-ice &amp;/#rox --pinboard=antiX-ice &amp;/" ~/.icewm/startup
+        sh ~/.fehbgice &amp;
+    exec icewm-session
+    ;;
+
+lxde) 
+        exec startlxde
+        ;;
+
+xfce)
+        exec startxfce4
+        ;;
+
+dwm)
+        exec dwm
+        ;;
+
+wmii)
+        exec wmii
+        ;;
+
+fvwm-crystal)
+        exec fvwm-crystal 
+        ;;
+
+kde)
+        exec startkde
+        ;;
+
+gnome)
+        exec gnome-session
+        ;;
+
+openbox)
+        exec openbox-session
+        ;;
+
+fluxbox)
+        sed -i -e 's/fehbgrox-fb/fehbgfb/g' ~/.fluxbox/startup
+        sed -i -e"s/rox --pinboard=antiX-fb &amp;/#rox --pinboard=antiX-fb &amp;/" ~/.fluxbox/startup
+        sh ~/.fehbgfb &amp;
+    exec startfluxbox
+    ;;
+
+Rox-fluxbox)
+        sed -i -e 's/fehbgfb/fehbgrox-fb/g' ~/.fluxbox/startup
+        sh ~/.fehbgrox-fb &amp;
+        rox --pinboard=antiX-fb
+        exec startfluxbox
+        ;; 
+
+Rox-icewm)
+        sed -i -e 's/fehbgice/fehbgrox-ice/g' ~/.icewm/startup
+        sh ~/.fehbgrox-ice &amp;
+        rox --pinboard=antiX-ice
+        exec icewm
+        ;;
+
+*)
+    exec $XINITRC_DEFAULT
+    ;;
+esac</code></pre></div></div>
+<div class="notice">
+Last edited by <b>equimanthorn</b> on 18 May 2011, 05:51, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20712" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20712">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">equimanthorn</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20712">
+
+<time datetime="2011-05-17T22:40">posted: 2011-05-17 &nbsp; 22:40</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20712" title="permalink">#4</a></span>
+
+<div class="content">and this is my /etc/slim.conf :<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Path, X server and arguments (if needed)
+# Note: -xauth $authfile is automatically appended
+default_path        ./:/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin
+default_xserver     /usr/bin/X
+xserver_arguments   -dpi 96 -nolisten tcp
+
+# Commands for halt, login, etc.
+halt_cmd            /sbin/shutdown -h now
+reboot_cmd          /sbin/shutdown -r now
+console_cmd         /usr/bin/urxvt -C -fg white -bg black +sb -T"Console login" -e /bin/sh -c"/bin/cat /etc/issue; exec /bin/login"
+#suspend_cmd        /usr/sbin/suspend
+
+# Full path to the xauth binary
+xauth_path         /usr/bin/xauth 
+
+# Xauth file for server
+authfile           /var/run/slim.auth
+# Activate numlock when slim starts. Valid values: on|off
+numlock             off
+
+# Hide the mouse cursor (note: does not work with some WMs).
+# Valid values: true|false
+hidecursor          true
+
+# This command is executed after a succesful login.
+# you can place the %session and %theme variables
+# to handle launching of specific commands in .xinitrc
+# depending of chosen session and slim theme
+#
+# NOTE: if your system does not have bash you need
+# to adjust the command according to your preferred shell,
+# i.e. for freebsd use:
+# login_cmd         exec /bin/bash -login /etc/X11/Xsession %session 
+login_cmd exec ck-launch-session dbus-launch /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors 2&gt;&amp;1
+
+# Commands executed when starting and exiting a session.
+# They can be used for registering a X11 session with
+# sessreg. You can use the %user variable
+#
+# sessionstart_cmd    some command
+# sessionstop_cmd    some command
+
+# Start in daemon mode. Valid values: yes | no
+# Note that this can overridden by the command line
+# option"-d"
+# daemon    yes
+
+# Available sessions (first one is the default).
+# The current chosen session name is replaced in the login_cmd
+# above, so your login command can handle different sessions.
+# see the xinitrc.sample file shipped with slim sources
+sessions        fluxbox,Rox-fluxbox,Rox-icewm,icewm,dwm,wmii,lxde,xfce,fvwm-crystal,kde,gnome,openbox
+
+# Executed when pressing F11 (requires imagemagick)
+screenshot_cmd      scrot /tmp/slim.png
+
+# welcome message. Available variables: %host, %domain
+welcome_msg         (Press F1 to toggle sessions)
+
+# shutdown / reboot messages
+shutdown_msg       The system is shutting down...
+reboot_msg         The system is rebooting...
+
+# Focus the password field on start when default_user is set
+# Set to"yes" to enable this feature
+#focus_password      no
+
+# current theme, use comma separated list to specify a set to 
+# randomly choose from
+current_theme       antiX
+
+# Lock file
+#lockfile            /var/run/slim.lock
+
+# Log file
+#logfile             /var/log/slim.log
+
+# Automatically login the default user (without entering
+# the password. Set to"yes" to enable this feature
+#auto_login          yes
+
+# default user, leave blank or remove this line
+# to avoid pre-loading the username.
+default_user        paolo
+auto_login          yes
+lockfile            /var/run/slim.lock
+logfile             /var/log/slim.log</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20713" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20713">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20713">
+
+<time datetime="2011-05-17T22:48">posted: 2011-05-17 &nbsp; 22:48</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20713" title="permalink">#5</a></span>
+
+<div class="content">Is that all is in ~.xinitrc?<br>
+<br>
+Mine looks like this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>
+#xset m 10 2
+xmodmap -e 'pointer = 1 2 3 4 5'
+
+urxvtd -q -o -f
+
+# The following line gets changed by antiX-init.sh with the desktop= cheatcode
+XINITRC_DEFAULT=startfluxbox
+
+case $1 in
+icewm)
+        sed -i -e 's/fehbgrox-ice/fehbgice/g' ~/.icewm/startup
+        sed -i -e"s/rox --pinboard=antiX-ice &amp;/#rox --pinboard=antiX-ice &amp;/" ~/.icewm/startup
+        sh ~/.fehbgice &amp;
+    exec icewm-session
+    ;;
+
+lxde) 
+        exec startlxde
+        ;;
+
+xfce)
+        exec startxfce4
+        ;;
+
+dwm)
+        exec dwm
+        ;;
+
+wmii)
+        exec wmii
+        ;;
+
+fvwm-crystal)
+        exec fvwm-crystal 
+        ;;
+
+kde)
+        exec startkde
+        ;;
+
+gnome)
+        exec gnome-session
+        ;;
+
+openbox)
+        exec openbox-session
+        ;;
+
+fluxbox)
+        sed -i -e 's/fehbgrox-fb/fehbgfb/g' ~/.fluxbox/startup
+        sed -i -e"s/rox --pinboard=antiX-fb &amp;/#rox --pinboard=antiX-fb &amp;/" ~/.fluxbox/startup
+        sh ~/.fehbgfb &amp;
+    exec startfluxbox
+    ;;
+
+Rox-fluxbox)
+        sed -i -e 's/fehbgfb/fehbgrox-fb/g' ~/.fluxbox/startup
+        sh ~/.fehbgrox-fb &amp;
+        rox --pinboard=antiX-fb
+        exec startfluxbox
+        ;; 
+
+Rox-icewm)
+        sed -i -e 's/fehbgice/fehbgrox-ice/g' ~/.icewm/startup
+        sh ~/.fehbgrox-ice &amp;
+        rox --pinboard=antiX-ice
+        exec icewm
+        ;;
+
+*)
+    exec $XINITRC_DEFAULT
+    ;;
+esac
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20714" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20714">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20714">
+
+<time datetime="2011-05-17T22:49">posted: 2011-05-17 &nbsp; 22:49</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20714" title="permalink">#6</a></span>
+
+<div class="content">Also what does your ~/.fluxbox startup look like?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20717" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20717">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">equimanthorn</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20717">
+
+<time datetime="2011-05-18T05:54">posted: 2011-05-18 &nbsp; 05:54</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20717" title="permalink">#7</a></span>
+
+<div class="content">I've edited my .xinitrc post.<br>
+This is my /.fluxbox startup:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+thunar --daemon &amp; &amp;
+ibus-daemon &amp;
+# fluxbox startup-script:
+#
+# Lines starting with a '#' are ignored.
+
+# You can set your favourite wallpaper here if you don't want
+# to do it from your style.
+# fbsetbg -l
+#
+# This sets a black background
+# /usr/bin/fbsetroot -solid black
+
+# This shows the fluxbox-splash-screen
+# fbsetbg -C /usr/share/fluxbox/splash.jpg
+
+# Other examples. Check man xset for details.
+# Turn off beeps:
+# xset -b
+# Increase the keyboard repeat-rate:
+# xset r rate 195 35
+# Your own fonts-dir:
+# xset +fp ~/.font
+#
+# Your favourite mouse cursor:
+# xsetroot -cursor_name right_ptr
+#
+# Change your keymap:
+# xmodmap ~/.Xmodmap
+
+# Auto-update menu
+#python ~/.fluxbox/gnome2fluxmenu4.py &gt; ~/.fluxbox/applications ##This is old menu##
+auto-fluxbox-menu.sh &amp;
+
+# Use feh to set wallpaper
+eval `cat ~/.fehbg` &amp; 
+
+# Applications you want to run with fluxbox.
+# MAKE SURE THAT APPS THAT KEEP RUNNING HAVE AN ''&amp;'' AT THE END.
+#
+# unclutter -idle 2 &amp;
+# wmnd &amp;
+# wmsmixer -w &amp;
+# wicd-client &amp;
+
+# Desktop icons
+#pcmanfm --desktop &amp;
+#rox --pinboard=antiX-fb rox --pinboard=antiX-fb &amp;
+
+# Run conky regardless of desktop
+sleep 10 &amp;&amp; conky &amp;
+
+# Set live keyboard
+#setxkbmap
+
+########## PLAY STARTUP SOUND #########
+##play /usr/share/sounds/Pardus_Rocks/Pardus_Rocks-Logout.ogg &gt; /dev/null 2&gt;&amp;1 &amp;
+
+# Auto-mount usb devices in rox /media. Do not use with /etc/udev/rules.d/99-usbstorage.rules
+# Do not use if you use Thunar or pcmanfm file managers.
+#sleep 5 &amp;&amp; devmon --exec-on-drive"rox /media" &amp;
+
+volumeicon &amp;
+
+# And last but not least we start fluxbox.
+# Because it is the last app you have to run it with ''exec'' before it.
+
+exec /usr/bin/fluxbox
+# or if you want to keep a log:
+# exec /usr/bin/fluxbox -log ~/.fluxbox/log</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20719" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20719">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20719">
+
+<time datetime="2011-05-18T07:16">posted: 2011-05-18 &nbsp; 07:16</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20719" title="permalink">#8</a></span>
+
+<div class="content">#rox --pinboard=antiX-fb rox --pinboard=antiX-fb &amp;<br>
+should be<br>
+<br>
+rox --pinboard=antiX-fb &amp;<br>
+<br>
+if you want fluxbox with rox desktop.<br>
+<br>
+But apart from that it seems ok.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20721" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20721">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">equimanthorn</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20721">
+
+<time datetime="2011-05-18T10:35">posted: 2011-05-18 &nbsp; 10:35</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20721" title="permalink">#9</a></span>
+
+<div class="content">many thanks ! I try this evening at home</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20738" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20738">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">equimanthorn</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20738">
+
+<time datetime="2011-05-18T21:55">posted: 2011-05-18 &nbsp; 21:55</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20738" title="permalink">#10</a></span>
+
+<div class="content">I find my error :<br>
+<br>
+thunar --daemon &amp; &amp; &lt;=== here on the second line of my /.fluxbox startup I must delete one"&amp;"<br>
+<span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Now all is ok ! Thanks Anticapitalista</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20742" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20742">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20742">
+
+<time datetime="2011-05-18T22:28">posted: 2011-05-18 &nbsp; 22:28</time>
+<span class="permalink"><a href="./cannot-autologin-in-rox-fluxbox-t3145.html#p20742" title="permalink">#11</a></span>
+
+<div class="content">Glad you found that out! Happy antiXing in fluxbox (the best wm IMO)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

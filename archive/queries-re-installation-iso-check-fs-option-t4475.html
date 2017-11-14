@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Queries re Installation ISO - Check FS Option - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./queries-re-installation-iso-check-fs-option-t4475.html">Queries re Installation ISO - Check FS Option</a></div>
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_30249" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30249">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30249">
+<time datetime="2013-07-13T10:06">posted: 2013-07-13 &nbsp; 10:06</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30249" title="permalink">#1</a></span>
+
+<div class="content">antiX-13.1-Full ISO burned to CD-ROM and used to boot PC.<br>
+<br>
+F1--&gt;<blockquote class="uncited"><div>check fs<br>
+check the integrity of the file system used. This may take some time.</div></blockquote>
+F4--&gt;Select="check fs"<br>
+<br>
+Main Menu<br>
+Boot Options box="quiet antiX=MLX"<br>
+Options F4 column="check fs"<br>
+<br>
+Enter to begin bootup<br>
+The bootup proceeds to load antiX. An on screen report is not displayed that a check is/has been done. Is e2fsck (or similar) meant to check the internal disk before antiX is started?</div>
+<div class="notice">
+Last edited by <b>SamK</b> on 17 Jul 2013, 18:02, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30290" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30290">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30290">
+
+<time datetime="2013-07-15T18:06">posted: 2013-07-15 &nbsp; 18:06</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30290" title="permalink">#2</a></span>
+
+<div class="content">Yes. We run e2fsck so it only works on ext2/3/4 file systems. It is meant to check the LiveUSB file system and the file system of the rootfs file (and maybe the homefs file) and the partition that holds the persistence files (if it is not the boot partition). These checks will also get performed automatically depending on how you set things with tune2fs. You can tell it to check after a certain amount of time has passed or after X many mounts. When you make a file system, the default is set to never check so in that case we check every 30 mounts but we leave the time limit so it never triggers a check. If you don't like this, use tune2fs and set it to a very large number.<br>
+<br>
+Even on a LiveCD, this check isn't pointless although we never check the CDROM file system. You can easily set up persistence on a LiveCD by adding the label"antiXPersist" to a read-write partition then use the persist-makefs tool to create a rootfs and/or homefs file on that partition. Select one of the persistence options from the boot loader menu to enable persistence. When you select"check fs" then these file systems will be checked but only if persistence is enabled.<br>
+<br>
+I'm not aware of any other LiveUSB that has this feature. This goes hand in hand with our new LiveUSB clean umount code.<br>
+<br>
+<strong>Edit:</strong> There is a message that shows up in /var/log/live/bootstrap.log that says it can't perform a file check on an iso9660 file system. I admit this is extremely obscure. I could turn this into an error message instead of an info message so it is red and always prints while you boot. The reason I didn't do it that way is there are plenty of normal situations where we encounter file systems that we can't check. Did you really expect us to check the file system on your CDROM? Another situation is if a user has persistence files on an NTFS file system. If I generate an error message that we can't check the NTFS file system then I'm sure someone is going to be worried that something is terribly wrong.<br>
+<br>
+ISTM the choice is between being rather quiet about not being able to check your CDROM or presenting the user with bogus error messages. Often we need to fine tune the messaging after all the code is working. I'm open to suggestions on how you think this condition should be reported.<br>
+<br>
+Another approach was to let the user fine-tune exactly which file-systems they want checked. The code to do this isn't too bad but it adds a lot of complexity to the UX with very little gain. That's why I opted for a single on/off flag that says to check everything it can and then be rather quiet about file systems that can't be checked.<br>
+<br>
+Since you just experienced this and found it unsatisfactory, your suggestions could be very helpful. That message was originally much louder but it seemed a bit like saying"hey, you idiot ..." so I toned it down. This is especially so because there are cases where people want to use"check fs" even though some of the file systems can't be checked.<br>
+<br>
+I would prefer to not add a lot of complexity to this. The first check of the boot partition file system has to happen very early, while we are just opening our eyes, so to speak. I don't want to make that message conditional on whether we might be checking persistence file systems later in the boot process. I would prefer to just have a fixed message with a fixed level of"loudness". Still, I'd like to know what you think would work best for you.<br>
+<br>
+To some extent, I was emulating how installed system check their root filesystem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30319" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30319">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30319">
+
+<time datetime="2013-07-17T04:08">posted: 2013-07-17 &nbsp; 04:08</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30319" title="permalink">#3</a></span>
+
+<div class="content">SamK, I changed the messages about not being able to check a filesystem into warnings so they are always printed to the screen and they stand out. If you want to see for yourself, send me an email or a PM and I can send you an initrd.gz file or an xdelta3 file that will modify a .iso file and put the new initrd.gz into it. In either case (especially with the xdelta3) I need to know the full name (as downloaded) of the iso file you are starting with.<br>
+<br>
+I am also intrigued by your idea of having something pop up in X-windows that gives a brief report to the user. We had been toying around with an idea like this but we never got around to doing it. One challenge is knowing what to say because if anything really bad happens then we don't boot antiX and never get to X-windows. You can look in the files /var/log/live/bootstrap.log and /var/log/live/bootstrap.log.color to get an idea of what information is available. There is also some information that is put in files in /live/config/. These are intended as input to other programs.<br>
+<br>
+It might be easy to make a program that pops up some information about the bootstrap process. Maybe it would only pop up if there was something interesting to report but it would also be available via the control center. The question is whether the value added would be worth the effort. The log file is pretty comprehensive. I can imagine a trimmed down version that is more useful to users.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30332" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30332">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30332">
+
+<time datetime="2013-07-17T18:00">posted: 2013-07-17 &nbsp; 18:00</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30332" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>It is meant to check the LiveUSB file system and the file system of the rootfs file (and maybe the homefs file) and the partition that holds the persistence files (if it is not the boot partition).</div></blockquote> I did not pick up on that when booting from CD-ROM specifically to conduct a traditional hard disk installation. Perhaps an explanation of purpose in the main boot menu F1--&gt;"* F4: Miscellaneous Options" would be sufficient.<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>Did you really expect us to check the file system on your CDROM?</div></blockquote>No. I did wonder if it would conduct a check on the existing ext4 file systems on the disk. This was perhaps fanciful, beyond scope and of limited value.<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>There is a message that shows up in /var/log/live/bootstrap.log that says it can't perform a file check on an iso9660 file system. I admit this is extremely obscure. I could turn this into an error message instead of an info message so it is red and always prints while you boot.</div></blockquote>I don't see anything other than the message in /var/log/live/bootstrap.log being useful.<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>I am also intrigued by your idea of having something pop up in X-windows that gives a brief report to the user.</div></blockquote>My observation about there being no message was related to the possible check of an existing ext file system on disk. As I have not used the current antiX release from USB I can't really comment on the aspect of having an X-window pop-up report.<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>These [file system] checks will also get performed automatically depending on how you set things with tune2fs.
+</div></blockquote>I've been intending to raise a post about the checks for a while. I'll open a separate topic about it.<br>
+<br>
+<br>
+I'll amend the title of the opening post to more accurate reflect that the topic is a query rather than a failure report.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30333" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30333">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30333">
+
+<time datetime="2013-07-17T18:22">posted: 2013-07-17 &nbsp; 18:22</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30333" title="permalink">#5</a></span>
+
+<div class="content">Thanks SamK. I agree the F1 documentation of this feature needs to be improved. I will do that. It is always helpful to get the viewpoint of someone who is outside of the design process.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30340" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30340">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30340">
+
+<time datetime="2013-07-17T19:54">posted: 2013-07-17 &nbsp; 19:54</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30340" title="permalink">#6</a></span>
+
+<div class="content">Maybe try to explain what the safe, very safe and such graphics options mean too? Irc, they had"real" names in beta, but were changed to easier titles in 13.1? but I don't remember what which one was what?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30343" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30343">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30343">
+
+<time datetime="2013-07-17T20:07">posted: 2013-07-17 &nbsp; 20:07</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30343" title="permalink">#7</a></span>
+
+<div class="content">The"safe" option adds the nomodeset boot parameter. It also creates a minimal xorg.conf which helps some systems achieve a higher resolution by increasing the range of HorizSync and VertRefresh allowed. (side note: this increase could actually damage some ancient CRTs). The"very safe" option does the same except it doesn't create an xorg.conf at all so it uses all of the Xorg defaults. <br>
+<br>
+I give the explanation here to see what you guys think of it. Should I also try to explain what nomodeset does?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30344" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30344">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30344">
+
+<time datetime="2013-07-17 &nbsp; 20:11">posted: 2013-07-17 &nbsp; 20:11</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30344" title="permalink">#8</a></span>
+
+<div class="content">well, I don't use any of them, but it might be good to have the info somewhere?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30347" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30347">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30347">
+
+<time datetime="2013-07-17T20:18">posted: 2013-07-17 &nbsp; 20:18</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30347" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>rust collector wrote:</cite>well, I don't use any of them, but it might be good to have the info somewhere?</div></blockquote>I agree. I was just wondering about exactly what information should be included. <br>
+<br>
+I'm reminded of a anecdote about George Bernard Shaw that ends with him saying"We are just haggling over the price."</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30348" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30348">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30348">
+
+<time datetime="2013-07-17T20:25">posted: 2013-07-17 &nbsp; 20:25</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30348" title="permalink">#10</a></span>
+
+<div class="content">lol, well, if I had some wierd... no... I have a wierd machine, that is why I use none of the options..<br>
+I don't now what modeset does really, as I can't use it anyway.<br>
+Maybe someone knows enough to comment with something useful.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30360" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30360">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30360">
+
+<time datetime="2013-07-18T08:29">posted: 2013-07-18 &nbsp; 08:29</time>
+<span class="permalink"><a href="./queries-re-installation-iso-check-fs-option-t4475.html#p30360" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>rust collector wrote:</cite>Maybe try to explain what the safe, very safe and such graphics options mean too?</div></blockquote><blockquote><div><cite>BitJam wrote:</cite>I give the explanation here to see what you guys think of it.</div></blockquote><blockquote><div><cite>BitJam wrote:</cite><blockquote><div><cite>rust collector wrote:</cite>well, I don't use any of them, but it might be good to have the info somewhere?</div></blockquote>I agree. I was just wondering about exactly what information should be included.</div></blockquote><blockquote><div><cite>rust collector wrote:</cite>I don't now what modeset does really...</div></blockquote>
+This is slightly off-topic but for what it is worth these are some of the general princples I <em>try</em> to observe.<ul><li>Aim the information at a specific target audience.<br>
+Technically competent users are more likely to understand both technical and non-technical guidance. They are also better equipped to research the things they don't understand. Non-technical users do not usually have the background knowledge to understand purely technical guidance.</li>
+<li>Indicate why the advice is being provided. <br>
+e.g. in what circumstances it might be useful.</li>
+<li>Describe the expected outcome.<br>
+Because of the limited knowlege of non-technical users, they often go through a subconcious"translation" process when faced with guidance. Something along the lines of"what does this mean to me" or"how will this affect me".</li>
+<li>Keep It Simple and Straightforward (KISS).<br>
+Anything that attempts to make a task easier to complete is usually appreciated. <br>
+e.g. jargon free (where possible) short sentences etc. (I hope the following saying is known in other countries. <em>I didn't have enough time to write a short explanation, so I wrote a long one instead</em>.</li></ul>
+<br>
+I freely admit that the above are difficult to do, particularly for techichnal users. They are accustomed to using technical terminolgy to describe technical matters. The antiX forum is proud of its friendliness towards users. It is a natural progression to extend that friendliness to guidance offered outside the forum.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+11 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

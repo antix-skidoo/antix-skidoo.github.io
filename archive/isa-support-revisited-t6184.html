@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>ISA support, revisited - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./isa-support-revisited-t6184.html">ISA support, revisited</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_44995" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44995">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 17</span></div>
+
+</div>
+</div>
+<span class="username">luker</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Oct 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44995">
+<time datetime="2016-01-23T16:54">posted: 2016-01-23 &nbsp; 16:54</time>
+<span class="permalink"><a href="./isa-support-revisited-t6184.html#p44995" title="permalink">#1</a></span>
+
+<div class="content">Hi forum,<br>
+<br>
+it's been a while since isa-support-t5438.html<br>
+Now I'm back for another try.<br>
+<br>
+Looks like I need to compile a custom kernel to get ISA support for my Yamaha opl3-sa2 sound chip.<br>
+<br>
+This is what I did<br>
++ get kernel sources from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.7.10.tar.bz2"<br>linktext was:"https://www.kernel.org/pub/linux/kernel ... 10.tar.bz2"<br>====================================<br>
+ and extracted it<br>
++ $make oldconfig &amp;&amp; $make menuconfig<br>
++ add support for ISA and OPL3-SA2 and PentiumII<br>
++ save .config<br>
++ $CONCURRENCY_LEVEL=1 fakeroot make-kpkg --initrd --append-to-version=-custom kernel_image kernel_headers (from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://mepiscommunity.org/wiki/system/compiling-and-installing-new-kernel"<br>linktext was:"http://mepiscommunity.org/wiki/system/c ... new-kernel"<br>====================================<br>
+)<br>
+<br>
+Installed and ran it. System boots, X starts, network works.<br>
+But alsamixer still doesn't start:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$alsamixer
+cannot open mixer: No such file or directory</code></pre></div>
+here is a full dmesg<br>
+
+<br>
+I believe the interesting device is this one:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[    0.232654] pnp 00:0c: [io  0x0220-0x0233]
+[    0.232688] pnp 00:0c: [io  0x0530-0x0537]
+[    0.232717] pnp 00:0c: [io  0x0388-0x038f]
+[    0.232745] pnp 00:0c: [io  0x0330-0x0333]
+[    0.232773] pnp 00:0c: [io  0x0538-0x0539]
+[    0.232803] pnp 00:0c: [irq 5]
+[    0.232830] pnp 00:0c: [dma 1]
+[    0.232857] pnp 00:0c: [dma 0 disabled]
+[    0.238474] pnp 00:0c: Plug and Play ACPI device, IDs YMH0021 (active)</code></pre></div>
+$lspci -v<br>
+
+<br>
+$lsmod<br>
+
+<br>
+1) Do I have the correct sources? Or is there a special antiX sources repository for 3.7.10-antix-5.486-smp #2?<br>
+2) What do I have to load to get a Yamaha OPL3-SA2 to work?<br>
+<br>
+Ciao,<br>
+<br>
+<br>
+luker</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

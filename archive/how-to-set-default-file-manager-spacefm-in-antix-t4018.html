@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>how to set default File Manager SpaceFM in antix - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html">how to set default File Manager SpaceFM in antix</a></div>
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_26930" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26930">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1</span></div>
+
+</div>
+</div>
+<span class="username">paraguma</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26930">
+<time datetime="2012-11-17T10:05">posted: 2012-11-17 &nbsp; 10:05</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p26930" title="permalink">#1</a></span>
+
+<div class="content">i would like to set default File Manager SpaceFM in antix.<br>
+<br>
+<br>
+pleas help me..</div>
+<div class="postcontent_footer">
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26932" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26932">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26932">
+
+<time datetime="2012-11-17T13:01">posted: 2012-11-17 &nbsp; 13:01</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p26932" title="permalink">#2</a></span>
+
+<div class="content">I'm not absolutely certain what you mean by 'default' (nor do I know what WM your using) but if it's the 'folder' icon on the Toolbar you want to change from RoxFM to SpaceFM = and if your using IceWM - it's comparatively easy.<br>
+<br>
+You should have a file .icewm/toolbar in your home directory; if not, copy it from:<br>
+<br>
+/usr/share/antiX/localisation/en/icewm/toolbar<br>
+<br>
+to:<br>
+<br>
+~/.icewm/toolbar<br>
+<br>
+(you will probably need to be root to do this, you will certainly need to be root to edit it or change its ownership - as root:<br>
+<br>
+chown paraguma ~/.icewm/toolbar<br>
+<br>
+Then it's simple - use your favourite editor to open the file, find the line:<br>
+<br>
+prog"Home Folder" folder rox<br>
+<br>
+and change 'rox' to 'spacefm'<br>
+<br>
+You can even change the title if you want to:<br>
+<br>
+prog"SpaceFM: ~/" folder spacefm<br>
+<br>
+You can organise your toolbar in this file' I enclose a copy of mine which includes an 'often used; menu file + some notes.<br>
+<br>
+<br>
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;<br>
+<br>
+# This is a default toolbar definition file for IceWM<br>
+<br>
+# The 'top' copy of this file is in:<br>
+# /usr/share/antiX/localisation/en/icewm/toolbar<br>
+# But ensure your personal variant is placed in the ~/.icewm directory and that this is the one you edit.<br>
+<br>
+# If called from 'antiX Control Center --&gt; Edit System Monitor' check<br>
+# 'Documents' tab to ensure you are editing the ~/.icewm copy (not thru'<br>
+# 'top' copy)<br>
+<br>
+### Here is an example of a"quick launch" button (effectively a folder)<br>
+<br>
+menu"MyStuff" /usr/local/share/xsw/tutorial/tux.png {<br>
+prog"cherrytree" /usr/share/icons/hicolor/scalable/apps/cherrytree.svg /usr/bin/cherrytree<br>
+prog"leafpad" /usr/share/icons/hicolor/scalable/apps/leafpad.svg /usr/bin/leafpad<br>
+<br>
+### Nested menu<br>
+<br>
+menu"FileManagers" folder {<br>
+prog"RoxFM" /usr/share/icons/hicolor/48x48/apps/spacefm-48-folder-red.png /usr/bin/rox<br>
+prog"SpaceFM" /usr/share/icons/hicolor/48x48/apps/spacefm-48-folder-blue.png /usr/bin/spacefm<br>
+}<br>
+}<br>
+<br>
+# __________________________________________________________________<br>
+<br>
+# NB: The FIRST Button on the Toolbar is for the QuickLaunch (the menu <br>
+#"MyStuff") &amp; this has 2 sets of braces {}. the first opens at:<br>
+<br>
+#    menu"MyStuff" /usr/local/share/xsw/tutorial/tux.png <span style="color: #FF0080"><strong>{</strong></span><br>
+<br>
+#and closes at:<br>
+<br>
+# prog"SpaceFM" /usr/share/icons/hicolor/48x48/apps/spacefm-48-folder-blue.png /usr/bin/spacefm<br>
+# }<br>
+#    <span style="color: #FF0080"><strong>}</strong></span><br>
+# The second set opens at:<br>
+<br>
+#    ### Nested menu<br>
+<br>
+# menu"FileManagers" folder <span style="color: #FF0080"><strong>{</strong></span><br>
+<br>
+#and closes at:<br>
+<br>
+# prog"SpaceFM" /usr/share/icons/hicolor/48x48/apps/spacefm-48-folder-blue.png /usr/bin/spacefm<br>
+# <span style="color: #FF0080"><strong>}</strong></span><br>
+#    }<br>
+<br>
+# __________________________________________________________________<br>
+<br>
+<br>
+prog"Terminal" xterm roxterm<br>
+prog"Browser" /usr/share/icons/gTangish-2.0a1/32x32/apps/internet-web-browser.png /usr/bin/iceweasel<br>
+prog"Control Center" /usr/share/icons/gTangish-2.0a1/32x32/categories/preferences-desktop.png antixcc.sh<br>
+<br>
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;<br>
+<br>
+If you're using fluxbox or something other than icewm someone else will have to help you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26933" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26933">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26933">
+
+<time datetime="2012-11-17T13:05">posted: 2012-11-17 &nbsp; 13:05</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p26933" title="permalink">#3</a></span>
+
+<div class="content">For local settings ( your user only ) you need to edit <br>
+~/.local/share/applications/mimeapps.list<br>
+and withing the file place a line similar to the following<br>
+inode/directory=spacefm.desktop;<br>
+<br>
+For global settings (every user) you need to edit<br>
+/usr/share/applications/mimeinfo.cache<br>
+changing the line above to put spacefm first. So if the line shows<br>
+inode/directory=rox-filer.desktop, spacefm.desktop <br>
+change it to say<br>
+inode/directory=spacefm.desktop, rox-filer.desktop<br>
+<br>
+This will set spacefm as the default, however you will need to edit the icewm/jwm toolbars and the icewm,jwm,fluxbox menus to reflect. <br>
+This can be done through the antix control center in the desktop tab</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26934" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26934">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 137</dd>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26934">
+
+<time datetime="2012-11-17T14:46">posted: 2012-11-17 &nbsp; 14:46</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p26934" title="permalink">#4</a></span>
+
+<div class="content">Good post Dave! Now I must try to learn something about mimes. One slight problem is that I do not have a<br>
+<br>
+~/.local/share/applications/mimeapps.list<br>
+<br>
+either on in my home folder or, even, on my harddrive - although there is a: <br>
+<br>
+~/local/share/applications/mimeinfo.cache.<br>
+<br>
+Does this file (mimeapps.list) need to be created and the text"inode/directory=spacefm.desktop;" added to it?<br>
+<br>
+Thanks as usual for your help.<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26935" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26935">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26935">
+
+<time datetime="2012-11-17T15:52">posted: 2012-11-17 &nbsp; 15:52</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p26935" title="permalink">#5</a></span>
+
+<div class="content">The proper way re. MIME types is
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>xdg-mime default spacefm.desktop inode/directory</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26936" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26936">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26936">
+
+<time datetime="2012-11-17T16:38">posted: 2012-11-17 &nbsp; 16:38</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p26936" title="permalink">#6</a></span>
+
+<div class="content">This is all good stuff - <br>
+<br>
+paraguma should look @<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/IgnorantGuru/spacefm/issues/71"<br>linktext was:"https://github.com/IgnorantGuru/spacefm/issues/71"<br>====================================<br>
+<br>
+<br>
+it explains the difference between default.list (which I have in my <strong>.local</strong> folder and /mimeapps.list which Dave mentios.<br>
+<br>
+Today I've learned something.<br>
+<br>
+Thanks for the question &amp; all the answers<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26988" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26988">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26988">
+
+<time datetime="2012-11-20T12:26">posted: 2012-11-20 &nbsp; 12:26</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p26988" title="permalink">#7</a></span>
+
+<div class="content">@duncan_mk in that article the developer of spacefm talks on how the program find file associations. as for the defaults.list you shouldn't dismiss it yet. an example is: for transmission to see and open mkvs with mplayer, it only works via defaults.list and not the mimeapps.list. a general rule in linux is to use what works for you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27021" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27021">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27021">
+
+<time datetime="2012-11-23T21:36">posted: 2012-11-23 &nbsp; 21:36</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p27021" title="permalink">#8</a></span>
+
+<div class="content">Dave<br>
+<br>
+I agree entirely, but then I don't use SpaceFM - default.list fits the bill for me - but if you're setting it as your default browser, you need to know how it works:<br>
+<br>
+quote:<br>
+"spacefm &gt;0.7.7 no longer modifies ~/.local/share/applications/defaults.list. If you no longer want to use it, you can delete it".<br>
+<br>
+This may not be entirely true, you may need both, but you will need mimeapps.list.<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27067" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27067">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27067">
+
+<time datetime="2012-11-27T11:10">posted: 2012-11-27 &nbsp; 11:10</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p27067" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>dark-D wrote:</cite>a general rule in linux is to use what works for you.</div></blockquote>
+No. You can have that attitude if you like but if everyone did the same you would very soon have no choices at all.<br>
+You can only choose 'what works for you' among several options because applications use standards.<br>
+The standard for setting MIME type associations and default applications is mimeapps.list and that's the file edited by the default tool for that, xdg-mime.<br>
+<br>
+So if you (generic here) find an application, even a GNOME one (which isn't the case for Transmission), that doesn't parse mimeapps.list to check the default application for some MIME association (even if it checks defaults.list before) then you should open a bug report for it, if you really care to be able to choose the best application for you in the future.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27068" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27068">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27068">
+
+<time datetime="2012-11-27T12:32">posted: 2012-11-27 &nbsp; 12:32</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p27068" title="permalink">#10</a></span>
+
+<div class="content">i find what you said offensive at my person and preachy. it is not the first time that you did that. i don't have an attitude it's just the way things work in linux. there are five programs to do the same thing and there are five configuration files for a single setting and i can name a dozen. setting the global time has change the third time this year. we have fluxbox, icewm, spacefm, rox, gnome settings, gtk2 and gtk3, qt apps, console apps and so on each with their set of configuration and files. i like the standard there. as for the discussion above. spacefm isn't the default in antix, so to set it you need to change the icewm/fluxbox menu entries, then the auto-generating menu, then mime info, but it's still not the default because other apps like transmission that is a gtk compiled program will look in to defaults.list which by gnome/gtk (ubuntu way) is the default for them. am i sick and tired of submitting bug report and gui optimization advice or contributing to a distribution when the developers do what they want and ignore your bug/suggestion, and when google/apple/gnome or who else does a thing everyone copies it like the parrots they are. if you want to send a bug report fell free to send it. for your information even in antix, suggestions made by me to make it more friendly were ignored and people enter the forum and post endless questions with a thing that should be resolved by my suggestion. but i keep on using it and try to live with it and improve it when i can. in the mean time i have antix set to my perfection because the standard doesn't work and will never will.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27071" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27071">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27071">
+
+<time datetime="2012-11-27T19:04">posted: 2012-11-27 &nbsp; 19:04</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p27071" title="permalink">#11</a></span>
+
+<div class="content">What can I say: dark-d I'm sorry sorry to have confused you with Dave BUT: <br>
+<br>
+Jesus H on a bike - I already seem to be in involved in a flamewar on LQ. <br>
+<br>
+AND<br>
+<br>
+Actually, I agree with dark-d. Surely, as long as the information is out there, it doesn't matter what the config files are called: default.list, mimeapps.list or my"oo-er.missis.you.aren't.'alf.saucy.list" (I'm not sure what that does at the moment) as long as the program knows what to look for. My program - Oo-er.Mrs! - will looks toward neither default.list nor mimeapps.list - I haven't decided on the name yet!<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27072" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27072">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27072">
+
+ <time datetime="2012-11-27T19:36">posted: 2012-11-27 &nbsp; 19:36</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p27072" title="permalink">#12</a></span>
+
+<div class="content">i was in a bad mood i had some problems today. i didn't want to offend anyone. i stand by my post regarding linux and problems in it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27081" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27081">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27081">
+
+<time datetime="2012-11-27T23:01">posted: 2012-11-27 &nbsp; 23:01</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p27081" title="permalink">#13</a></span>
+
+<div class="content">I'm not offended and, if you thought I was, I am very sorry. I have certainly had help from you in the past for which I have been grateful.<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27115" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27115">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27115">
+
+<time datetime="2012-11-30T03:29">posted: 2012-11-30 &nbsp; 03:29</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p27115" title="permalink">#14</a></span>
+
+<div class="content"><blockquote><div><cite>dark-D wrote:</cite>i have antix set to my perfection because the standard doesn't work and will never will</div></blockquote>if you care to talk further on the subject, I'm curious to hear the details of your tweaks &amp; to find out which part(s) of"the standard" will never work.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27116" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27116">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27116">
+
+<ul class="post-buttons">
+ </ul>
+<time datetime="2012-11-30T04:49">posted: 2012-11-30 &nbsp; 04:49</time>
+<span class="permalink"><a href="./how-to-set-default-file-manager-spacefm-in-antix-t4018.html#p27116" title="permalink">#15</a></span>
+
+<div class="content">do no take my words out of context, i was referring to the technical standards that don't work, as a reply to secipolla for saying that i have an attitude. if you want my customizations they are in the forum if you look for them, but i never imposed my personal taste to antix. further more i don't want to get in to polemics because they a waste of everyone's time.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

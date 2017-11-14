@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Optimising png flies using a Spacefm shortcut + others - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./optimising-png-flies-using-a-spacefm-shortcut-othe-t4429.html">Optimising png flies using a Spacefm shortcut + others</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+ <div id="p_29864" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29864">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content29864">
+<time datetime="2013-06-21T11:56">posted: 2013-06-21 &nbsp; 11:56</time>
+<span class="permalink"><a href="./optimising-png-flies-using-a-spacefm-shortcut-othe-t4429.html#p29864" title="permalink">#1</a></span>
+
+<div class="content">If you have a directory containing png files that you wish to optimise, first you need to install optipng.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install optipng</code></pre></div>
+Then in Spacefm, right click on"tools", and click"new" and type"Optipng_Dir" or whatever else you wish to call it. Then enter<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>optipng -o7 *.png %N</code></pre></div> in the next box that opens.<br>
+<br>
+You might not want o7, so put o6, or o5, or whatever value fits your requirements and/or processing power.<br>
+<br>
+Now when you go to your png directory, you can just click on the new tool to optimise them all.<br>
+<br>
+(If you're used to Thunar-actions, you can use this same method to create similar Spacefm actions.)</div>
+<div class="notice">
+Last edited by <b>Guest</b> on 22 Feb 2014, 16:34, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29870" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29870">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content29870">
+
+<time datetime="2013-06-21T18:08">posted: 2013-06-21 &nbsp; 18:08</time>
+<span class="permalink"><a href="./optimising-png-flies-using-a-spacefm-shortcut-othe-t4429.html#p29870" title="permalink">#2</a></span>
+
+<div class="content">I've now worked out how to invoke shred.<br>
+<br>
+Right-click on SpaceFM tools menu and select"new".<br>
+<br>
+I named it"Shred" but you can choose whatever you like. <br>
+<br>
+Then the script goes thus:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+$fm_import    # import file manager variables (scroll down for info)
+#
+# Enter your commands here:     ( then save this file )
+
+    eval"`spacefm -g --label"Are you sure?" --button yes --button no`"
+    if [["$dialog_pressed" =="button1" ]]; then shred -fuz ${fm_files[@]}
+        echo"User pressed Yes - Shredding now!"
+    else
+        echo"User did NOT press Yes - abort"
+    fi
+
+exit $?</code></pre></div>
+This will shred whichever files you selected in SpaceFM, and you can never get them back, so use wisely <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29874" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29874">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content29874">
+
+<time datetime="2013-06-21T19:00">posted: 2013-06-21 &nbsp; 19:00</time>
+<span class="permalink"><a href="./optimising-png-flies-using-a-spacefm-shortcut-othe-t4429.html#p29874" title="permalink">#3</a></span>
+
+<div class="content">This one is called"Slideshow" and runs the selected image files in a fullscreen slideshow using Feh.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>feh -p -F -Z -D 3 %F</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29895" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29895">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content29895">
+
+<time datetime="2013-06-22T16:51">posted: 2013-06-22 &nbsp; 16:51</time>
+<span class="permalink"><a href="./optimising-png-flies-using-a-spacefm-shortcut-othe-t4429.html#p29895" title="permalink">#4</a></span>
+
+<div class="content">Resize all jpg files in a directory by 50%, saving the new files as file *b.jpg. This reguires Imagemagick<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install imagemagick</code></pre></div>
+Right click Tools/New, give it at name like Resize50 and put the following code into the box.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>for i in $( ls *.jpg); do convert -resize 50% $i re_$i; done</code></pre></div></div>
+<div class="notice">
+Last edited by <b>Guest</b> on 21 Sep 2014, 13:26, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33325" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33325">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content33325">
+
+<time datetime="2014-02-11T17:08">posted: 2014-02-11 &nbsp; 17:08</time>
+<span class="permalink"><a href="./optimising-png-flies-using-a-spacefm-shortcut-othe-t4429.html#p33325" title="permalink">#5</a></span>
+
+<div class="content">photo2mail<br>
+<br>
+I placed photo2mail by William Shotts<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linuxcommand.org/lc3_photo2mail.php"<br>linktext was:"http://linuxcommand.org/lc3_photo2mail.php"<br>====================================<br>
+<br>
+<br>
+into my bin folder and chmodded it. I then right-clicked Tools/New/Command/photo2mail and entered<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>photo2mail %F</code></pre></div>
+You then click on any photo and it resizes to 1024 for easy emailing.<br>
+<br>
+My thanks to William Shotts for his script.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37020" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37020">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content37020">
+
+<time datetime="2014-09-21T13:41">posted: 2014-09-21 &nbsp; 13:41</time>
+<span class="permalink"><a href="./optimising-png-flies-using-a-spacefm-shortcut-othe-t4429.html#p37020" title="permalink">#6</a></span>
+
+<div class="content">Disk Usage<br>
+<br>
+Install Baobab, and then<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>baobab %d</code></pre></div></div>
+<div class="notice">
+Last edited by <b>Guest</b> on 04 Dec 2014, 18:15, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38571" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38571">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content38571">
+
+<time datetime="2014-12-15T16:38">posted: 2014-12-15 &nbsp; 16:38</time>
+<span class="permalink"><a href="./optimising-png-flies-using-a-spacefm-shortcut-othe-t4429.html#p38571" title="permalink">#7</a></span>
+
+<div class="content">Name: Convert Filename to Lower Case<br>
+<br>
+Code: <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>for file in %N; do mv"$file""$(echo"$file" | tr '[:upper:]' '[:lower:]')"; done</code></pre></div>
+Name: Slugify Filename<br>
+<br>
+Code: <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>for file in %N; do mv"$file""$(echo"$file" | tr -s ' ' | tr ' A-Z' '-a-z' | tr -s '-' | tr -c '[:alnum:][:cntrl:].' '-')"; done</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>ifdown disables the interface - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./ifdown-disables-the-interface-t6393.html">ifdown disables the interface</a></div>
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46874" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46874">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46874">
+<time datetime="2016-06-04T14:16">posted: 2016-06-04 &nbsp; 14:16</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46874" title="permalink">#1</a></span>
+
+<div class="content">I have set etc/network/interfaces to auto start wlan0. that is working fine.<br>
+if I use 'ifdown wlan0' or 'ifconfig wlan0 down' the interface is brought down, but I cannot restart it.<br>
+if after boot I use 'ifdown wlan0 &amp;&amp; ifup wlan0' I get an error message for ifup and iwconfig shows 'no wireless extensions' for wlan0, wifi0, lo, and eth0.<br>
+inxi -xF show wlan0 status:down<br>
+How do I restart wlan0 without rebooting? I also tried ifup wlan0=wlan0 to no avail.<br>
+<br>
+I could not previously post this. On Oracle's suggestion I dropped the slash in front of etc</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46876" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46876">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46876">
+
+<time datetime="2016-06-04T14:26">posted: 2016-06-04 &nbsp; 14:26</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46876" title="permalink">#2</a></span>
+
+<div class="content">hmmm.... is this an internal device or a usb device?<br>
+<br>
+I have had trouble in the past with ifup/ifdown. try <br>
+<br>
+ifconfig wlan0 up</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46879" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46879">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46879">
+
+<time datetime="2016-06-04T14:36">posted: 2016-06-04 &nbsp; 14:36</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46879" title="permalink">#3</a></span>
+
+<div class="content">this is internal on a T23 Thinkpad<br>
+it is an Intersil Prism 2.5/3, driver hostap<br>
+I tried ifconfig wlan0 up; that didn't work either.<br>
+Curiously inxi shows two interfaces for the same card: wifi0 and wlan0; same mac address</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46880" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46880">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46880">
+
+<time datetime="2016-06-04T14:58">posted: 2016-06-04 &nbsp; 14:58</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46880" title="permalink">#4</a></span>
+
+<div class="content">have you tried bringing up wifi0?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46887" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46887">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46887">
+
+<time datetime="2016-06-04T16:10">posted: 2016-06-04 &nbsp; 16:10</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46887" title="permalink">#5</a></span>
+
+<div class="content">Yes. <br>
+with ifup wifi0, the message is: Ignoring unknown interface wifi0=wifi0.<br>
+with ifup wlan0 the message is: ifup: interface wlan0 already configured<br>
+with ifconfig wifi0, the message is: SIOCSIFFLAGS: No such device<br>
+with ifconfig wlan0, the message is: SIOCSIFFLAGS: No such device</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46897" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46897">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46897">
+
+<time datetime="2016-06-05T13:56">posted: 2016-06-05 &nbsp; 13:56</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46897" title="permalink">#6</a></span>
+
+<div class="content">Hi, guys.<br>
+This is still a problem.<br>
+Anyone have any ideas? <br>
+<br>
+It looks like ifdown wlan0 and ifconfig wlan0 down are turning off the wireless card. I have no physical way to turn it back on. with the legacy Windows program, Fn+F5 would turn on the wireless but that was dependent on the IBM software, which is not present with the antiX 15 base install.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46899" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46899">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">dolphin_oracle</a> </span> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46899">
+
+<time datetime="2016-06-05T15:38">posted: 2016-06-05 &nbsp; 15:38</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46899" title="permalink">#7</a></span>
+
+<div class="content">does <br>
+<br>
+rfkill list all<br>
+<br>
+show anything usefull? soft-block maybe?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46901" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46901">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46901">
+
+<time datetime="2016-06-05T18:33">posted: 2016-06-05 &nbsp; 18:33</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46901" title="permalink">#8</a></span>
+
+<div class="content">Off the desk - will try later today</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46907" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46907">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46907">
+
+<time datetime="2016-06-05T21:32">posted: 2016-06-05 &nbsp; 21:32</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46907" title="permalink">#9</a></span>
+
+<div class="content">rfkill list all does not show anything</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46949" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46949">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+ <span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46949">
+
+<time datetime="2016-06-08T14:10">posted: 2016-06-08 &nbsp; 14:10</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p46949" title="permalink">#10</a></span>
+
+<div class="content">Still struggling with this problem. Any ideas?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47316" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47316">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47316">
+
+<time datetime="2016-07-01T14:28">posted: 2016-07-01 &nbsp; 14:28</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p47316" title="permalink">#11</a></span>
+
+<div class="content">I am attempting to update the firmware on the wireless card and will let you know if that fixes the problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47322" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47322">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47322">
+
+<time datetime="2016-07-01T17:40">posted: 2016-07-01 &nbsp; 17:40</time>
+<span class="permalink"><a href="./ifdown-disables-the-interface-t6393.html#p47322" title="permalink">#12</a></span>
+
+<div class="content">Just a thought, but have you tried re configuring the card with ceni or wicd?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

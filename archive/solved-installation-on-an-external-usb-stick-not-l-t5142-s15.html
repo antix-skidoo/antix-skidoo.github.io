@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>(solved)Installation on an external usb-stick (not live) - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html">(solved)Installation on an external usb-stick (not live)</a></div>
+<div class="pagination">
+27 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./solved-installation-on-an-external-usb-stick-not-l-t5142.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./solved-installation-on-an-external-usb-stick-not-l-t5142.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_36039" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36039">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36039">
+<time datetime="2014-06-10T06:54">posted: 2014-06-10 &nbsp; 06:54</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36039" title="permalink">#16</a></span>
+
+<div class="content">The two things that I have found that may go wrong when trying to boot from USB.<br>
+The wrong partition is specified in the grub boot menu, (&amp; fstab file).<br>
+The system needs longer to find the boot partition, (add rootdelay=9 to the grub boot line).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36041" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36041">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36041">
+
+<time datetime="2014-06-10T17:39">posted: 2014-06-10 &nbsp; 17:39</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36041" title="permalink">#17</a></span>
+
+<div class="content">Thank you for answers.<br>
+<br>
+This is the boot/grub/menu/list<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 5
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+
+title  antiX at sda1, kernel 3.7.10-antix.5-486-smp
+root   (hd0,0)
+kernel /boot/vmlinuz-3.7.10-antix.5-486-smp root=/dev/sda1 quiet
+initrd /boot/initrd.img-3.7.10-antix.5-486-smp
+boot</code></pre></div>
+<br>
+<br>
+and the fstab<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+/dev/sda1 / auto defaults,noatime 1 1
+/dev/sda2 swap swap sw,pri=1 0 0
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+</code></pre></div>
+<br>
+<br>
+Do I have to add" rootdelay=9" to the kernel-line in the boot/grub/menu.lst ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36042" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36042">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36042">
+
+<time datetime="2014-06-10T19:46">posted: 2014-06-10 &nbsp; 19:46</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36042" title="permalink">#18</a></span>
+
+<div class="content">This is the boot-folder from stick<br>
+<br>
+<a href="http://img841.imageshack.us/i/iz1lj.jpg/" class="postlink"><img src="http://img841.imageshack.us/img841/218/iz1lj.th.jpg" class="postimage" alt="Image"></a><br>
+<a href="http://imageshack.us/photo/my-images/841/iz1lj.jpg/" class="postlink"><img src="http://imageshack.us/a/img841/218/iz1lj.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Uploaded with 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://imageshack.us"<br>linktext was:"ImageShack.us"<br>====================================<br>
+<br>
+<br>
+Strange ,there is no mem-test in boot/grub/menu.lst<br>
+<br>
+<br>
+I changed menu.lst like that<br>
+<br>
+<a href="http://img820.imageshack.us/i/4lez.jpg/" class="postlink"><img src="http://img820.imageshack.us/img820/5728/4lez.th.jpg" class="postimage" alt="Image"></a><br>
+<a href="http://imageshack.us/photo/my-images/820/4lez.jpg/" class="postlink"><img src="http://imageshack.us/a/img820/5728/4lez.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Uploaded with 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://imageshack.us"<br>linktext was:"ImageShack.us"<br>====================================<br>
+<br>
+<br>
+<br>
+Doesn't work<br>
+<br>
+So I don't know how to go on.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36049" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36049">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36049">
+
+<time datetime="2014-06-11T07:03">posted: 2014-06-11 &nbsp; 07:03</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36049" title="permalink">#19</a></span>
+
+<div class="content">See if you can take out the hdd of the laptop, for checking the penrdive works, also check the bios for any other options pertaining to usb booting, like 'legacy'.<br>
+<br>
+Edit: Your problem seems to be getting your laptop to see the pendrive as the first boot device.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36053" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36053">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">caprea</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36053">
+
+<time datetime="2014-06-11T20:10">posted: 2014-06-11 &nbsp; 20:10</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36053" title="permalink">#20</a></span>
+
+<div class="content">Thank you for answer,fatmac.<br>
+There's allready no hdd in the laptop.It has a normal bios ,no uefi.<br>
+The bootorder seems to be ok, cause every live-stick boots on the laptop.<br>
+<br>
+Unfortunately I can not try the stick with the normal installation on another pc ,cause my desktop-pc doesn't boot from usb.<br>
+<br>
+I never dealed with plop ,would this maybe be an option to get the stick working on the laptop?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36054" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36054">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36054">
+
+<time datetime="2014-06-11T20:16">posted: 2014-06-11 &nbsp; 20:16</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36054" title="permalink">#21</a></span>
+
+<div class="content">I do not have the ability at the moment to write up step by step a howto for installing extlinux to the mbr / boot partition. I am also not sure why grub does not work... but seeing how every live usb functions just fine, that would mean extlinux is known to work. So if it were me, I would try installing extlinux to the mbr of the installed stick.<br>
+<br>
+I can give a more detailed howto later, but for the moment the best I can do is link you to the extlinux install doc @ syslinux.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.syslinux.org/wiki/index.php/EXTLINUX"<br>linktext was:"http://www.syslinux.org/wiki/index.php/EXTLINUX"<br>====================================<br>
+<br>
+<br>
+If you give it a read through it may give you a general idea of what will be done and understanding the steps I will write later may be easier to accomplish<br>
+<br>
+Dave</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36055" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36055">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36055">
+
+<time datetime="2014-06-11T20:21">posted: 2014-06-11 &nbsp; 20:21</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36055" title="permalink">#22</a></span>
+
+<div class="content">Thank you Dave, I will look for this.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36060" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36060">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36060">
+
+<time datetime="2014-06-12T17:05">posted: 2014-06-12 &nbsp; 17:05</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36060" title="permalink">#23</a></span>
+
+<div class="content">I doubt that there is grub on the stick.<br>
+around 6.39pm, the menu.lst a label and to 8.46pm she has a uuid.<br>
+<br>
+Please click on the terminal output of<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>fdisk -l -u -c</code></pre></div>
+Maybe grub should be installed again...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36062" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36062">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36062">
+
+<time datetime="2014-06-12T21:25">posted: 2014-06-12 &nbsp; 21:25</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36062" title="permalink">#24</a></span>
+
+<div class="content">Hello male,<br>
+she changed menu lst. to uuid by herself.<br>
+<br>
+terminal without stick<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo fdisk -l -u -c
+[sudo] password for helga: 
+fdisk: Ungültige Option -- c
+
+Disk /dev/sda: 80 GB, 80023749120 bytes
+255 heads, 63 sectors/track, 9729 cylinders, total 156296385 sectors
+Units = sectors of 1 * 512 = 512 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sda1            2048    81913855    40957686   83  Linux
+Warning: Partition 1 does not end on cylinder boundary.
+/dev/sda2        81915496   156301311    37190475    f  Extended LBA
+Warning: Partition 2 does not end on cylinder boundary.
+/dev/sda5        81917952   112637951    15358140   83  Linux
+Warning: Partition 5 does not end on cylinder boundary.
+/dev/sda7       112640000   152107007    19735852   83  Linux
+Warning: Partition 7 does not end on cylinder boundary.
+/dev/sda6       152109056   156301311     2096482   82  Linux swap
+Warning: Partition 6 does not end on cylinder boundary.
+Warning: Unable to open /dev/sr2 read-write (Das Dateisystem ist nur lesbar).  /dev/sr2 has been opened read-only.
+Warning: The driver descriptor says the physical block size is 512 bytes, but Linux says it is 2048 bytes.
+</code></pre></div>
+<br>
+terminal with stick<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo fdisk -l -u -c
+[sudo] password for helga: 
+fdisk: Ungültige Option -- c
+
+Disk /dev/sda: 80 GB, 80023749120 bytes
+255 heads, 63 sectors/track, 9729 cylinders, total 156296385 sectors
+Units = sectors of 1 * 512 = 512 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sda1            2048    81913855    40957686   83  Linux
+Warning: Partition 1 does not end on cylinder boundary.
+/dev/sda2        81915496   156301311    37190475    f  Extended LBA
+Warning: Partition 2 does not end on cylinder boundary.
+/dev/sda5        81917952   112637951    15358140   83  Linux
+Warning: Partition 5 does not end on cylinder boundary.
+/dev/sda7       112640000   152107007    19735852   83  Linux
+Warning: Partition 7 does not end on cylinder boundary.
+/dev/sda6       152109056   156301311     2096482   82  Linux swap
+Warning: Partition 6 does not end on cylinder boundary.
+
+Disk /dev/sdc: 15 GB, 15512878080 bytes
+255 heads, 63 sectors/track, 1886 cylinders, total 30298590 sectors
+Units = sectors of 1 * 512 = 512 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sdc1   *           1    26050559    13028683   83  Linux
+Warning: Partition 1 does not end on cylinder boundary.
+/dev/sdc2        26050560    30310399     2128612   82  Linux swap
+Warning: Partition 2 does not end on cylinder boundary.
+Warning: Unable to open /dev/sr2 read-write (Das Dateisystem ist nur lesbar).  /dev/sr2 has been opened read-only.
+Warning: The driver descriptor says the physical block size is 512 bytes, but Linux says it is 2048 bytes.
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36063" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36063">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36063">
+
+<time datetime="2014-06-13T07:40">posted: 2014-06-13 &nbsp; 07:40</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36063" title="permalink">#25</a></span>
+
+<div class="content">Guten Morgen!<br>
+<br>
+The following commands are required to issue the grub antiX on to install the stick:<br>
+determine how the stick is, and what he has uuid<br>
+<br>
+Example here is my stick sdb1<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># blkid -c /dev/null -o list
+device           fs_type  label     mount point          UUID
+----------------------------------------------------------------------------------------------
+/dev/sda1        ext4               (not mounted)        9b306f0f-ed25-46e5-9d1b-fede7cc26389
+/dev/sda5        ext4     home      (not mounted)        386e5d76-fc3c-430f-9a31-c97cf64d1b20
+/dev/sda6        swap               &lt;swap&gt;               016d8cde-618e-4236-9395-1a3b36fe3d1a
+/dev/sda7        ext4               /                    23936e83-d30f-40f9-a136-57059cc5190a
+/dev/sda8        vfat     DATEN     /media/DATEN         F300-DCE2
+/dev/sda9        ext4               (not mounted)        207aacef-dca6-4a2f-88e8-d9def373ecc3
+/dev/sda10       ext4               (not mounted)        9309d5f1-6cee-468a-8597-8ecce6141608
+/dev/sdb1        vfat               (not mounted)        A234-8808</code></pre></div>
+then<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># mount /dev/sdb1 /mnt/temp
+# mkdir -p /mnt/temp/boot/grub
+# cp /boot/grub/*stage* /mnt/temp/boot/grub
+# echo '(hd0) /dev/sdb' &gt; /mnt/temp/boot/grub/device.map
+# grub-install --root-directory=/mnt/temp /dev/sdb
+Installation finished. No error reported.
+This is the contents of the device map /mnt/temp/boot/grub/device.map.
+Check if this is correct or not. If any of the lines is incorrect,
+fix it and re-run the script `grub-install'.
+
+(hd0) /dev/sdb
+# umount /mnt/temp
+</code></pre></div>
+<strong>BUT </strong><br>
+your stick<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/sdc1   *           1    26050559    13028683   83  Linux</code></pre></div>
+my stick<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/sdb1   *        2048      503807      250880    6  FAT16</code></pre></div>(do not let FAT16 irritate)<br>
+<br>
+A flash memory requires an alignment. With a usb stick is the more necessary because of the system so and so even slow down.<br>
+So, you've got to do it again with gparted.<br>
+"Align to 1MiB" recommend ext2 or 3<br>
+<br>
+After installation, check with previously determined blkid:<br>
+-fstab<br>
+-menu.lst<br>
+-device.map<br>
+<br>
+good luck <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36099" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36099">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36099">
+
+<time datetime="2014-06-18T22:21">posted: 2014-06-18 &nbsp; 22:21</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36099" title="permalink">#26</a></span>
+
+<div class="content">@male ,thank you for answer.<br>
+OK,I tried this.I had to change a little bit,and I dont know if everything worked Ok,but inthe end there was standing:Installationfinished.No error........<br>
+But the result was, that during boot there was standing on black screen in white letters"Grub" and a blinking cursor.Strange.<br>
+<br>
+Then I tried to install grub as chroot.That really changed menu.lst.There was now mem-test .But no success during boot:operating system not found.<br>
+<br>
+I tried plop,but plop was a flop.<br>
+I made a super-grub-disk from this side
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.supergrubdisk.org/"<br>linktext was:"http://www.supergrubdisk.org/"<br>====================================<br>
+.<br>
+With this cd I could finally boot the system on the stick,after enabling floppys.<br>
+<br>
+Installing est-linux to the mbr would have been the solution,I think<br>
+But after all I've now seen that the system on the usb-stick is much slower than the live-usb,especially the internet-speed.So I made a snapshot of my running antix-system and from this a live-usb.This worked really good ,it's cool, and I'm feeling very comfortable with this solution.<br>
+That's the story.<br>
+Thank you for help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36310" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36310">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 156</span></div>
+
+</div>
+</div>
+<span class="username">caprea</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36310">
+
+<time datetime="2014-07-06T07:04">posted: 2014-07-06 &nbsp; 07:04</time>
+<span class="permalink"><a href="./solved-installation-on-an-external-usb-stick-not-l-t5142-s15.html#p36310" title="permalink">#27</a></span>
+
+<div class="content">OK,tried again and installing extlinux to the mbr did the trick,thanks for advice,Dave.<br>
+This is a good page,if someone else is having also problems with his usb-stick.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://shallowsky.com/linux/extlinux.html"<br>linktext was:"http://shallowsky.com/linux/extlinux.html"<br>====================================<br>
+<br>
+But in MX14 and I think in antix too,you don't have to add any line to /boot/extlinux.conf.Just make an update-extlinux.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+27 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./solved-installation-on-an-external-usb-stick-not-l-t5142.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./solved-installation-on-an-external-usb-stick-not-l-t5142.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

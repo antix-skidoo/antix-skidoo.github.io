@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Antix 11 antix2usb persistent - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-11-antix2usb-persistent-t3130.html">Antix 11 antix2usb persistent</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_20612" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20612">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20612">
+<time datetime="2011-05-12T18:54">posted: 2011-05-12 &nbsp; 18:54</time>
+<span class="permalink"><a href="./antix-11-antix2usb-persistent-t3130.html#p20612" title="permalink">#1</a></span>
+
+<div class="content">This is going to be a generic how to for creating a persistent Antix 11 usb drive. For this how to. I am going to use my Antix 11 i686 Full Iso Unetbootin Live USB and boot it up on my IBM m57 Desktop<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:~$ inxi -F
+System:    Host antiX1 Kernel 2.6.36-1-mepis-smp i686 (32 bit) Distro antiX-M11-686 Jayaben Desai 01 May 2011
+CPU:       Dual core AMD Athlon 64 X2 4200+ (-MCP-) cache 1024 KB flags (lm nx sse sse2 sse3 svm) bmips 8798.54 
+           Clock Speeds: (1) 2199.635 MHz (2) 2199.635 MHz
+Graphics:  Card: nVidia G71 [GeForce 7900 GS] bus-ID: 01:00.0 X.Org 1.9.5 Res: 1024x768@85.0hz 
+           GLX Renderer Software Rasterizer GLX Version 2.1 Mesa 7.10 Direct Rendering Yes
+Audio:     Card ATI SBx00 Azalia (Intel HDA) driver HDA Intel bus-ID: 00:14.2
+           Sound: Advanced Linux Sound Architecture Version 1.0.23
+Network:   Card Realtek RTL8111/8168B PCI Express Gigabit Ethernet controller driver r8169 v: 2.3LK-NAPI port dc00 bus-ID: 02:00.0
+Disks:     HDD Total Size: 322.1GB (0.2% used) 1: /dev/sda WDC_WD3200AAKS 320.1GB 
+           2: USB /dev/sdb DataTraveler_2.0 2.0GB 
+Partition: ID:/ size: 16M used: 101K (1%) fs: rootfs ID:swap-1 size: 6.17GB used: 0.00GB (0%) fs: swap 
+Info:      Processes 96 Uptime 34 min Memory 145.3/2023.5MB Runlevel 5 Client Shell inxi 1.4.95 
+</code></pre></div>
+This procedure can be done on any laptop/Desktop. Either booting from cdrom or pendrive with AntiX 11 with a control center. <br>
+<br>
+Either download AntiX 11 from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.cc.uoc.gr/mirrors/linux/mepis/released/antix/"<br>linktext was:"http://ftp.cc.uoc.gr/mirrors/linux/mepi ... sed/antix/"<br>====================================<br>
+ or use Transmission and download torrent from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.mepis.org/index.php?title=Main_Page#Downloads"<br>linktext was:"http://antix.mepis.org/index.php?title= ... #Downloads"<br>====================================<br>
+ to demo folder. I always md5sum check my downloads for integrity reasons.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:~$ md5sum antiX-M11-base-686.iso 
+8e6075a96c640bdc1218a7e85bab3808  antiX-M11-base-686.iso
+demo@antiX1:~$ 
+</code></pre></div>
+Now on to making the pendrive. <br>
+<br>
+Insert your pendrive that you are going to make the persistent Pendrive with. I will show you later on how to identify it in Gparted and make sure it is unmounted.<br>
+<br>
+Your thunar file manager should look like so. Click the crossed wrenches in tool bar (icewm) or in Flux box right click on Desktop and pick controlcenter from menu.<br>
+<br>
+<br>
+<br>
+Next open Gparted to get drive identity. I'm am doing this the gui way for new users instead of command line.<br>
+<br>
+<br>
+<br>
+As you can see. My pendrive is /dev/sdc and is formatted as fat32. Just a stock pendrive. You will also see that it is unmounted. If your is mounted. Just right click on the drive in gparted and pick unmount.<br>
+<br>
+Close gparted when done.<br>
+<br>
+Now in drives section of antix control center hit the antix2usb box and a window should open like so.<br>
+<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20613" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20613">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20613">
+
+<time datetime="2011-05-12T19:02">posted: 2011-05-12 &nbsp; 19:02</time>
+<span class="permalink"><a href="./antix-11-antix2usb-persistent-t3130.html#p20613" title="permalink">#2</a></span>
+
+<div class="content">Now we know that /dev/sdc is the usb drive that I wish to make my persistent usb on. I pick that from the drop down menu. I also find my antix 11 .iso in demo also. I am using ext2 file system on my usb. ext3 file system choice is also available from drop down menu box for file system.<br>
+<br>
+<br>
+<br>
+When done. Your next screen should look like mine.<br>
+<br>
+'<br>
+<br>
+Hit apply and you are off to the races.<br>
+<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20614" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile20614">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20614">
+
+<time datetime="2011-05-12T19:07">posted: 2011-05-12 &nbsp; 19:07</time>
+<span class="permalink"><a href="./antix-11-antix2usb-persistent-t3130.html#p20614" title="permalink">#3</a></span>
+
+<div class="content">When finished your screen should look like mine<br>
+<br>
+<br>
+<br>
+After hitting OK. You will get a prompt that it is safe to remove the pendrive. I just shutdown and am going to enjoy the new Pendrive I just made. Enjoy yours also. Happy Trails, Rok <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20615" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20615">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20615">
+
+<time datetime="2011-05-12T19:17">posted: 2011-05-12 &nbsp; 19:17</time>
+<span class="permalink"><a href="./antix-11-antix2usb-persistent-t3130.html#p20615" title="permalink">#4</a></span>
+
+<div class="content">ok. i JUST BOOTED MY aNTIx 11 I686 base iso persistent usb and here is the look see.<br>
+<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

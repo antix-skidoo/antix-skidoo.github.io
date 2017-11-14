@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>4.8 kernels in repos - Page 4 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./kernels-f52/index.html"><span>Kernels</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./4-8-kernels-in-repos-t6631-s45.html">4.8 kernels in repos</a></div>
+<div class="pagination">
+58 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./4-8-kernels-in-repos-t6631-s30.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./4-8-kernels-in-repos-t6631.html" role="button">1</a></li>
+<li><a class="button" href="./4-8-kernels-in-repos-t6631-s15.html" role="button">2</a></li>
+<li><a class="button" href="./4-8-kernels-in-repos-t6631-s30.html" role="button">3</a></li>
+<li class="active"><span>4</span></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_49373" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49373">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49373">
+<time datetime="2016-12-02 &nbsp; 21:33">posted: 2016-12-02 &nbsp; 21:33</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49373" title="permalink">#46</a></span>
+
+<div class="content">Just edit the antix.list file in / etc / apt / sources.list.d and add the 'dev' after the 'nosystemd' part.<br>
+Then 'apt-get update' so the list of packages will find the 'dev' packages. Then 'apt-get dist-upgrade'.<br>
+The eudev package in the dev list will automatically get upgraded and replace the old udev causing the problem.<br>
+There might be a few other changes. They didn't cause any problems and then everything worked. <br>
+<br>
+The kernel should be unchanged so the Grub should still work. The 'update-grub' command shouldn't hurt anything. The 'grub-install' command should always follow the update-grub when using UEFI so I made my own custom 'update-efi' command with the correct parameters:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=antix</code></pre></div>
+That solved my core i3 problems so maybe that will solve your atom problems.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49375" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49375">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 48</span></div>
+
+</div>
+</div>
+<span class="username">myway_1</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49375">
+
+<time datetime="2016-12-02T23:40">posted: 2016-12-02 &nbsp; 23:40</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49375" title="permalink">#47</a></span>
+
+<div class="content"><blockquote><div><cite>hobbyist7890 wrote:</cite>Just edit the antix.list file in / etc / apt / sources.list.d and add the 'dev' after the 'nosystemd' part.<br>
+Then 'apt-get update' so the list of packages will find the 'dev' packages. Then 'apt-get dist-upgrade'.<br>
+The eudev package in the dev list will automatically get upgraded and replace the old udev causing the problem.<br>
+There might be a few other changes. They didn't cause any problems and then everything worked. <br>
+<br>
+The kernel should be unchanged so the Grub should still work. The 'update-grub' command shouldn't hurt anything. The 'grub-install' command should always follow the update-grub when using UEFI so I made my own custom 'update-efi' command with the correct parameters:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=antix</code></pre></div>
+That solved my core i3 problems so maybe that will solve your atom problems.</div></blockquote>
+Thanks Hobbyist.<br>
+<br>
+I did the steps in the 1st paragraph (not the second paragraph since it appears to be optional)<br>
+<br>
+Still no-go with 4.8.10 gnu-antix. Exact same boot messages as shown in my picture posted previously (except for the UUID number)<br>
+<br>
+I am glad to be using the eudev anyhow. It worked with 4.6 kernel.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49376" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49376">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49376">
+
+<time datetime="2016-12-03T00:31">posted: 2016-12-03 &nbsp; 00:31</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49376" title="permalink">#48</a></span>
+
+<div class="content">I am running out of ideas.<br>
+<br>
+Maybe the gnu kernel is missing some driver needed by the atom. I don't know exactly what might have changed between the 4.6 and 4.8 kernels to cause the problem. <br>
+<br>
+I would install the linux-headers-4.8.10-antix and the linux-image-4.8.10-antix along with more firmware packages. Look in 'apt-cache search firmware | more' for example. There might be some needed firmware in the 'firmware-linux-nonfree' package for example.<br>
+<br>
+Maybe somebody else knows what changed with the 4.8 kernels about the atom. I know the audio for the Broadwell Core M processors didn't work until the recent kernels. There is probably an answer on the internet someplace.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49381" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49381">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 48</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">myway_1</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49381">
+
+<time datetime="2016-12-03T17:23">posted: 2016-12-03 &nbsp; 17:23</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49381" title="permalink">#49</a></span>
+
+<div class="content">I got the regular 4.8 antix amd64 kernel. I got Intel microcode.<br>
+<br>
+Still no-go. Same messages.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49384" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49384">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49384">
+
+<time datetime="2016-12-03T18:46">posted: 2016-12-03 &nbsp; 18:46</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49384" title="permalink">#50</a></span>
+
+<div class="content">.<br>
+<strong>Seriously, in addition to the 'sticky post' we need a boilerplate reply template.<br>
+Help requests where folks don't show their system specs and explain<br>
+<span style="color: red">"Here's what I've searched, here's what I have already tried"</span><br>
+should be ignored or met with a boilerplate reply.</strong><br>
+<br>
+In this case, a 30-second glance at google search results indicates that processor (gleaned from myway's forum sig) requires a specially-patched kernel.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.google.com/#q=linux+gnu+kernel+atom+z3735f+processor"<br>linktext was:"https://www.google.com/#q=linux+gnu+ker ... +processor"<br>====================================<br>
+<br>
+^---v<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linuxiumcomau.blogspot.com/2016/04/ubuntu-1604-iso-for-intel-atom-compute.html"<br>linktext was:"http://linuxiumcomau.blogspot.com/2016/ ... mpute.html"<br>====================================<br>
+<br>
+<br>
+<br>
+<strong>To be clear:<br>
+I'm suggesting that"whoever gets there first" in replying to such"vague" posts would use the same boilerplate reply</strong></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49385" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49385">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 48</span></div>
+
+ </div>
+</div>
+<span class="username">myway_1</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49385">
+
+<time datetime="2016-12-03T19:10">posted: 2016-12-03 &nbsp; 19:10</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49385" title="permalink">#51</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>.<br>
+<strong>Seriously, in addition to the 'sticky post' we need a boilerplate reply template.<br>
+Help requests where folks don't show their system specs and explain<br>
+<span style="color: red">"Here's what I've searched, here's what I have already tried"</span><br>
+should be ignored or met with a boilerplate reply.</strong><br>
+<br>
+In this case, a 30-second glance at google search results indicates that processor (gleaned from myway's forum sig) requires a specially-patched kernel.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.google.com/#q=linux+gnu+kernel+atom+z3735f+processor"<br>linktext was:"https://www.google.com/#q=linux+gnu+ker ... +processor"<br>====================================<br>
+<br>
+^---v<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linuxiumcomau.blogspot.com/2016/04/ubuntu-1604-iso-for-intel-atom-compute.html"<br>linktext was:"http://linuxiumcomau.blogspot.com/2016/ ... mpute.html"<br>====================================<br>
+<br>
+<br>
+<br>
+<strong>To be clear:<br>
+I'm suggesting that"whoever gets there first" in replying to such"vague" posts would use the same boilerplate reply</strong></div></blockquote>
+Skidoo, I have added dongles to my PC so it will work with regular kernels. How on earth do you think I was able to post results from terminal commands otherwise? I already knew all about these issues and I implement the cstate fix soon after I install a linux distro. It has never prevented me from booting in any distro or kernel. It just causes my computer to freeze. <br>
+<br>
+I am always reluctant to post in any computer-related forum because there are often mean-spirited people ready to jump on folks who don't do things the way they think they should be done.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49387" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49387">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49387">
+
+<time datetime="2016-12-03T21:02">posted: 2016-12-03 &nbsp; 21:02</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49387" title="permalink">#52</a></span>
+
+<div class="content">Joe, I think what you're doing (tackling challenge of booting from compute stick) is cool. <br>
+The kernel patch seems to be an important consideraton. If your earlier posts mentioned that you're already aware,<br>
+then I apologize for missing that and for my grumbling about finding it mentioned in googlesearch page1 search results.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49390" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49390">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49390">
+
+<time datetime="2016-12-04T01:03">posted: 2016-12-04 &nbsp; 01:03</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49390" title="permalink">#53</a></span>
+
+<div class="content">My antix16 on an Asus Vivo works fine with 4.8.1 not with 4.8.10.<br>
+The only problem is the wireless does not connect to the router. The card is a Realtek rtl8821ae.<br>
+I have both kernels installed and the installation is upgraded to the latest 'testing' packages.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cat inxi-4.8.1-3dec2016.txt
+System:    Host: vivoax16 Kernel: 4.8.1-antix-sid.1-amd64-smp x86_64 (64 bit) Console: tty 2
+           Distro: antiX-16-a1-xorg-sid_x64-core -FÁÍÔÁÑÓÕÁ 19 February 2016
+Machine:   Device: desktop Mobo: ASUSTeK model: VC62B UEFI: American Megatrends v: 0405 date: 03/23/2015
+CPU:       Dual core Intel Core i3-4030U (-HT-MCP-) cache: 3072 KB 
+           clock speeds: max: 1800 MHz 1: 939 MHz 2: 837 MHz 3: 908 MHz 4: 891 MHz
+Graphics:  Card: Intel Haswell-ULT Integrated Graphics Controller
+           Display Server: X.org 1.18.4 drivers: modesetting (unloaded: fbdev,vesa)
+           tty size: 120x37 Advanced Data: N/A out of X
+Audio:     Card Intel Haswell-ULT HD Audio Controller driver: snd_hda_intel
+           Sound: Advanced Linux Sound Architecture v: k4.8.1-antix-sid.1-amd64-smp
+Network:   Card-1: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller driver: r8169
+           IF: eth0 state: down mac: 1c:b7:2c:01:ca:84
+           Card-2: Realtek RTL8821AE 802.11ac PCIe Wireless Network Adapter driver: rtl8821ae
+           IF: wlan0 state: up mac: 40:e2:30:cc:51:c3
+Drives:    HDD Total Size: 6001.2GB (41.5% used)
+           ID-1: /dev/sda model: WDC_WD60EFRX size: 6001.2GB
+Partition: ID-1: / size: 55G used: 3.1G (6%) fs: ext4 dev: /dev/sda6
+           ID-2: swap-1 size: 8.00GB used: 0.00GB (0%) fs: swap dev: /dev/sda3
+Sensors:   System Temperatures: cpu: 29.8C mobo: 27.8C
+           Fan Speeds (in rpm): cpu: 0
+Repos:     Active apt sources in file: / etc/apt/sources.list.d/antix.list
+           deb http://antix.daveserver.info/testing testing main nosystemd dev
+           Active apt sources in file: / etc/apt/sources.list.d/debian.list
+           deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+Info:      Processes: 121 Uptime: 5 min Memory: 151.9/15959.4MB Init: SysVinit runlevel: 5
+           Client: Shell (bash) inxi: 2.3.5 
+
+$ cat inxi-4.8.10-3dec2016.txt
+System:    Host: vivoax16 Kernel: 4.8.10-antix-sid.1-amd64-smp x86_64 (64 bit) Console: tty 2
+           Distro: antiX-16-a1-xorg-sid_x64-core -FÁÍÔÁÑÓÕÁ 19 February 2016
+Machine:   Device: desktop Mobo: ASUSTeK model: VC62B UEFI: American Megatrends v: 0405 date: 03/23/2015
+CPU:       Dual core Intel Core i3-4030U (-HT-MCP-) cache: 3072 KB 
+           clock speeds: max: 1800 MHz 1: 826 MHz 2: 1209 MHz 3: 800 MHz 4: 822 MHz
+Graphics:  Card: Intel Haswell-ULT Integrated Graphics Controller
+           Display Server: X.org 1.18.4 drivers: modesetting (unloaded: fbdev,vesa)
+           tty size: 120x37 Advanced Data: N/A out of X
+Audio:     Card Intel Haswell-ULT HD Audio Controller driver: snd_hda_intel
+           Sound: Advanced Linux Sound Architecture v: k4.8.10-antix-sid.1-amd64-smp
+Network:   Card-1: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller driver: r8169
+           IF: eth0 state: down mac: 1c:b7:2c:01:ca:84
+           Card-2: Realtek RTL8821AE 802.11ac PCIe Wireless Network Adapter driver: rtl8821ae
+           IF: wlan0 state: down mac: 40:e2:30:cc:51:c3
+Drives:    HDD Total Size: 6001.2GB (41.5% used)
+           ID-1: /dev/sda model: WDC_WD60EFRX size: 6001.2GB
+Partition: ID-1: / size: 55G used: 3.0G (6%) fs: ext4 dev: /dev/sda6
+           ID-2: swap-1 size: 8.00GB used: 0.00GB (0%) fs: swap dev: /dev/sda3
+Sensors:   System Temperatures: cpu: 29.8C mobo: 27.8C
+           Fan Speeds (in rpm): cpu: 0
+Repos:     Active apt sources in file: / etc/apt/sources.list.d/antix.list
+           deb http://antix.daveserver.info/testing testing main nosystemd dev
+           Active apt sources in file: / etc/apt/sources.list.d/debian.list
+           deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+Info:      Processes: 133 Uptime: 2 min Memory: 120.1/15959.5MB Init: SysVinit runlevel: 5
+           Client: Shell (bash) inxi: 2.3.5 
+
+</code></pre></div>
+I was switching back and forth between the kernels and tried to 'ifup wlan0' several times with the 4.8.10 is the reason my uptime is low just for running inxi. The 4.8.10 never connected to the router when the 4.8.1 kernel connected every time. Sorry about still running the Feb alpha dist except I doubt that is the reason.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49391" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49391">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49391">
+
+<time datetime="2016-12-04T03:30">posted: 2016-12-04 &nbsp; 03:30</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49391" title="permalink">#54</a></span>
+
+<div class="content">Do both pick up the wireles correctly?<br>
+Run
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ lspci</code></pre></div>
+Find it. Mine reads:<br>
+0c:00.0 Network controller: Broadcom Corporation BCM4321<br>
+Plug in your information and replace my 0c:00.0
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ lspci -vnn -s 0c:00.0</code></pre></div>
+Post it from both 4.8.1and 4.8.10.<br>
+Hopefully someone can spot the problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49392" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49392">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49392">
+
+<time datetime="2016-12-04T03:54">posted: 2016-12-04 &nbsp; 03:54</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49392" title="permalink">#55</a></span>
+
+<div class="content">I can try that next chance I get. Looking in the logs shows the only difference is the 4.8.10 saying"no dhcpcd offers received" after trying to connect while the 4.8.1 connects normally. Everything else is the same for both kernels, only the kernels are different.<br>
+<br>
+The time is getting late now. Here is what I found in the logs. There wasn't any difference as shown:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[    0.000000] Kernel command line: BOOT_IMAGE=/boot/vmlinuz-4.8.1-antix-sid.1-amd64-smp root=UUID=7a2d2169-6cc2-46b4-a8c3-8575baf81e13 ro quiet
+[    4.959573] rtl8821ae 0000:04:00.0: enabling device (0000 -&gt; 0003)
+[    5.000439] rtl8821ae: Using firmware rtlwifi/rtl8821aefw.bin
+[    5.000446] rtl8821ae: Using firmware rtlwifi/rtl8821aefw_wowlan.bin
+[    5.041425] ieee80211 phy0: Selected rate control algorithm 'rtl_rc'
+[    5.042420] rtlwifi: rtlwifi: wireless switch is on
+
+[    0.000000] Kernel command line: BOOT_IMAGE=/boot/vmlinuz-4.8.10-antix-sid.1-amd64-smp root=UUID=7a2d2169-6cc2-46b4-a8c3-8575baf81e13 ro quiet
+[    4.332111] rtl8821ae 0000:04:00.0: enabling device (0000 -&gt; 0003)
+[    4.374569] rtl8821ae: Using firmware rtlwifi/rtl8821aefw.bin
+[    4.374573] rtl8821ae: Using firmware rtlwifi/rtl8821aefw_wowlan.bin
+[    4.468117] ieee80211 phy0: Selected rate control algorithm 'rtl_rc'
+[    4.468809] rtlwifi: rtlwifi: wireless switch is on
+</code></pre></div>
+This isn't too big of a problem yet because I can stay with 4.8.1 when I need the network and see if the 4.9 kernels fix the problem. I have another project starting soon so this can easily wait for me. Maybe I am the only one with this problem.<br>
+<br>
+Edit: I just checked and the kernel config is exactly the same for both kernels and the kernel sizes are the same and the initrd.img files are about the same size for both kernels. I think there must be something changed within the kernels. I might look into the changelogs for the kernels between 4.8.1 and 4.8.10 to see what happened. I expect this is a temporary problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49400" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49400">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49400">
+
+<time datetime="2016-12-04T19:20">posted: 2016-12-04 &nbsp; 19:20</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49400" title="permalink">#56</a></span>
+
+<div class="content">I just checked with lspci and both kernels produced exactly the same output. There was no diff at all. I plan to let this problem ride out a few more kernel changes before worrying.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>04:00.0 Network controller: Realtek Semiconductor Co., Ltd. RTL8821AE 802.11ac PCIe Wireless Network Adapter
+    Subsystem: ASUSTeK Computer Inc. RTL8821AE 802.11ac PCIe Wireless Network Adapter
+    Flags: bus master, fast devsel, latency 0, IRQ 46
+    I/O ports at d000 [size=256]
+    Memory at f7c00000 (64-bit, non-prefetchable) [size=16K]
+    Capabilities: [40] Power Management version 3
+    Capabilities: [50] MSI: Enable+ Count=1/1 Maskable- 64bit+
+    Capabilities: [70] Express Endpoint, MSI 00
+    Capabilities: [100] Advanced Error Reporting
+    Capabilities: [140] Device Serial Number 00-e0-4c-ff-fe-87-2b-01
+    Capabilities: [150] Latency Tolerance Reporting
+    Capabilities: [158] L1 PM Substates
+    Kernel driver in use: rtl8821ae
+    Kernel modules: rtl8821ae
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49406" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49406">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49406">
+
+<time datetime="2016-12-05T01:48">posted: 2016-12-05 &nbsp; 01:48</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49406" title="permalink">#57</a></span>
+
+<div class="content">The rtl8821ae must be an oddball wifi chip. The 3.16 kernel had some drivers except they didn't work completely. Then the driver quit working until the 4.4 kernel. There is still work now on the driver and firmware so maybe the chip will start working again in the future.<br>
+I have several dists installed with several kernels and everything still works if I choose the working kernels so not really a problem now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49414" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49414">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49414">
+
+<time datetime="2016-12-05T18:04">posted: 2016-12-05 &nbsp; 18:04</time>
+<span class="permalink"><a href="./4-8-kernels-in-repos-t6631-s45.html#p49414" title="permalink">#58</a></span>
+
+<div class="content">It must be, but I did find this.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://unix.stackexchange.com/questions/261609/rtl8821ae-wifi-driver"<br>linktext was:"http://unix.stackexchange.com/questions ... ifi-driver"<br>====================================<br>
+<br>
+<br>
+Maybe of help.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+58 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./4-8-kernels-in-repos-t6631-s30.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./4-8-kernels-in-repos-t6631.html" role="button">1</a></li>
+<li><a class="button" href="./4-8-kernels-in-repos-t6631-s15.html" role="button">2</a></li>
+<li><a class="button" href="./4-8-kernels-in-repos-t6631-s30.html" role="button">3</a></li>
+<li class="active"><span>4</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

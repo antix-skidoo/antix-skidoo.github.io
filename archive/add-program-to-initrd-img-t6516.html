@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Add program to initrd.img - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./add-program-to-initrd-img-t6516.html">Add program to initrd.img</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47701" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47701">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 22</span></div>
+
+</div>
+</div>
+<span class="username">wean_irdeh</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Sep 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47701">
+<time datetime="2016-07-31T19:44">posted: 2016-07-31 &nbsp; 19:44</time>
+<span class="permalink"><a href="./add-program-to-initrd-img-t6516.html#p47701" title="permalink">#1</a></span>
+
+<div class="content">Hi. I'd like to add program to initrd.img so it could run before the root filesystem mounted. How is this possible?<br>
+<br>
+EDIT: I'd like to add qemu-utils which is installed by apt-get and it's dependencies to initrd.img</div>
+<div class="notice">
+Last edited by <b>wean_irdeh</b> on 01 Aug 2016, 15:47, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47708" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47708">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47708">
+
+<time datetime="2016-08-01T05:58">posted: 2016-08-01 &nbsp; 05:58</time>
+<span class="permalink"><a href="./add-program-to-initrd-img-t6516.html#p47708" title="permalink">#2</a></span>
+
+<div class="content">For live-init, I've used /usr/local/bin/ps_initrd.sh (Usage: ps_initrd.sh INITRD open|close|cancel)<br>
+but it's been more than a year since I messed with it. To confirm the workflow, I would need to dig through my old notes.<br>
+(something like: create a dir to work in, copy the current init..gz file into workdir, cd workdir, run"ps_initrd.sh init..gz open" to extract contents...)<br>
+In the meantime, examining ps_initrd.sh in a text editor might be enlightening for you.<br>
+IIRC, it's primarily a wrapper script which employs tools (commands) which are provided by the debian package"initramfs-tools" (preinstalled in antiX) <br>
+<br>
+manpages:<br>
+man initramfs-tools<br>
+man mkinitramfs<br>
+man update-initramfs<br>
+<br>
+You can also skim the docs-n-examples here:<br>
+<em>/</em>etc/initramfs-tools/*<br>
+/usr/share/doc/initramfs-tools/*<br>
+/usr/share/initramfs-tools/*<br>
+<blockquote class="uncited"><div>before the root filesystem mounted</div></blockquote>Bear in mind that your injected"program" probably has only busybox command interpreter available at that point during init.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47712" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47712">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 22</span></div>
+
+</div>
+</div>
+<span class="username">wean_irdeh</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Sep 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47712">
+
+<time datetime="2016-08-01T15:12">posted: 2016-08-01 &nbsp; 15:12</time>
+<span class="permalink"><a href="./add-program-to-initrd-img-t6516.html#p47712" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite><blockquote class="uncited"><div>before the root filesystem mounted</div></blockquote>Bear in mind that your injected"program" probably has only busybox command interpreter available at that point during init.</div></blockquote>
+How could one determine if a program would run in busybox or not?<br>
+<br>
+EDIT:<br>
+<blockquote><div><cite>skidoo wrote:</cite>
+manpages:<br>
+man initramfs-tools<br>
+man mkinitramfs<br>
+man update-initramfs
+</div></blockquote>
+Does this means all antiX distro use initramfs instead of initrd? There's different instruction regarding unpack either</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47717" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47717">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47717">
+
+<time datetime="2016-08-01T16:21">posted: 2016-08-01 &nbsp; 16:21</time>
+<span class="permalink"><a href="./add-program-to-initrd-img-t6516.html#p47717" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div>antiX distro use initramfs instead of initrd?</div></blockquote>The fact that you're asking, rather than determining for yourself, via<br>
+<span style="color: green">sudo locate initrd<br>
+sudo locate initramfs</span><br>
+doesn't bode well for the prospect of your success.<br>
+<br>
+<blockquote class="uncited"><div>How could one determine if a program would run in busybox or not?</div></blockquote>A google search would have pointed you straightaway to <strong>busybox.net</strong><br>
+I not familiar enough with busybox to discuss what is or isn't possible. I'm not even certain the init for an installed (not live-boot) antiX uses busybox.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

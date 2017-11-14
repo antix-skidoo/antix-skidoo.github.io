@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>live-persistence on ntfs partition - Page 3 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html">live-persistence on ntfs partition</a></div>
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604.html" role="button">1</a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604-s45.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23868" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23868">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23868">
+<time datetime="2012-03-08T23:57">posted: 2012-03-08 &nbsp; 23:57</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23868" title="permalink">#31</a></span>
+
+<div class="content"><blockquote><div><cite>newbody wrote:</cite>What was that Run /mnt/media not allowing me to see sda2? </div></blockquote>I don't understand what you mean by"Run /mnt/media". Your sda2 device will be mounted at /live/mount-dev.
+<blockquote class="uncited"><div>Did Anti or you forgot that I should look at live boot-dev instead? </div></blockquote>I still don't understand but I bet that looking at /live/boot-dev instead of under /mnt or /media is the right answer.
+<blockquote class="uncited"><div>I did not even know such directories could exist. I had not happen to meet those terms before. </div></blockquote>We made up those names ourselves and this is the first release that uses them so it is no surprise that you have not seen them before.
+<blockquote class="uncited"><div>Okay about the root thing. Yes I know that most Linux Devs don't want us to be root. Future will tell how I decide on it. </div></blockquote>As you have been told before, it is much less secure and it is easy to break things accidentally. I think/hope that once you get things set up, you won't need to be root as much.
+<blockquote class="uncited"><div>Now a questions you don't have to answer. All the other derivates or forks or pure Debian OS existing can they learn from you how to do this then as long as you get recognitions with your name in the code?</div></blockquote>They are welcome to learn from what we did and they don't have to credit us (but it would be nice). The software is GPL-2 so they are welcome to use that and modify it as long as the modification are also released under the GPL-2.<br>
+<br>
+I would be very happy if other distros wanted to use what we have made. That was part of why I created such detailed documentation. Right now it works for both antiX and Mepis. I doubt it would work on other distros without at least some minor changes. I'd love to make it general purpose so it could work on a wide range of distributions. Some init scripts and programs are needed to make use of all the features but I think what we have would be very useful to others even if those features aren't used. <br>
+<br>
+<strong>We *want* other people to use it.</strong><br>
+<blockquote class="uncited"><div>As I remember you told me the file that makes it possible to save on NTFS is rather small even if making it where rather difficult which explains nobody has done it before on Mepis varieties???</div></blockquote>Most of the changes are in the linuxrc script. We rewrote it a couple of times in order to make use of the features in modern kernels and to make use of features in an updated version of busybox. Working on the original linuxrc script was very difficult. I think working on the new version is much more straightfoward. Also, there is a lot more debugging and reporting built in. Take a look at the /var/log/antiX/linuxrc.log file or try booting with <strong>verb=8</strong> or even <strong>verb=9</strong>.
+<blockquote class="uncited"><div>Knopper has done it for Knoppix but that is not 100% Debian maybe?</div></blockquote>Yes he did. In fact we used a few lines of his GPL-2 code for the ntfs stuff. All of this happens so early in the boot process that Debian compatiblity is not an issue. Well, actually there are a few tricks that are needed in order for Debian installs and updates to work smoothly on the Live system. But those tricks are not Debian specific. All they do is make the Live system look more like an installed system.
+<blockquote class="uncited"><div>So congratulations to having accomplish this. I've been waiting sine AntiX 8.5 for to be able to do this. So happy you made it possible.</div></blockquote>Thank you. I think I started working on this stuff back in antiX-8.0 or so. Of course anticapitalista played a big part. Even though I did most of the coding, very little of this would have happened without him. In addition to his many other talents he is very skilled at herding cats. And by"cats" I mean programmers. In fact, he was the one who pushed for adding the ability to have persistence and remastering on ntfs partitions. IMO it is almost like asking for the ability to build a house on quicksand. OTOH, it is probably as safe as logging into the GUI as root. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+<strong>Edit:</strong> Do you always get those modprobe error messages (like the two in the picture you posted)? Do they always appear in the same place?</div>
+</div>
+</div>
+
+</div>
+</div>
+ <div id="p_23873" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23873">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23873">
+
+<time datetime="2012-03-09T10:02">posted: 2012-03-09 &nbsp; 10:02</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23873" title="permalink">#32</a></span>
+
+<div class="content">I have to put in the delay or the bp=2 again to look. It flies bye to fast. <br>
+I think those error messages have gone now. <br>
+<br>
+<br>
+Edit. I used bp=9 and took a look and all look normal. <br>
+What disappoints me is that it fail to remember that I told <br>
+grandr to make use of 1024 x 768 instead it goes to default 800 x 600. <br>
+So either I have to set it to that one theboot or edit some other file <br>
+xorg.conf or something. I know too little. Annoying that it don't remember. <br>
+<br>
+Can I expand homefs without loosing changes?<br>
+What is it that gets added to it. okay I should read back in thread. <br>
+If I delete the old and make a new bigger one what size would be okay?<br>
+<br>
+Sometimes things are easy but one need to know what to do. <br>
+I did a ctrl+alt+Bspace and wanted to start a specific WM <br>
+so wrote startx slim but that where wrong one just write slim <br>
+not startx</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23877" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23877">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23877">
+
+<time datetime="2012-03-09T11:34">posted: 2012-03-09 &nbsp; 11:34</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23877" title="permalink">#33</a></span>
+
+<div class="content">If you want to try out other windows managers after you are at the desktop, just logout and at the login prompt press F1 until you see the windows manager you want to try.<br>
+You can also do that at boot with this cheat. desktop=name of wm eg desktop=jwm or desktop=fluxbox<br>
+<br>
+<br>
+The easiest way to avoid typing 1024 x 768 at every boot is to add the cheat you use permanently to your /boot/menu.lst<br>
+<br>
+Not sure if you can expand homefs without losing changes. Maybe someone else knows for sure.<br>
+Size of homefs will depend on what sort of files you want to save. Text files are pretty small, but if you want to save audio/video and images, they take up a lot of space.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23881" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23881">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23881">
+
+<time datetime="2012-03-09T12:55">posted: 2012-03-09 &nbsp; 12:55</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23881" title="permalink">#34</a></span>
+
+<div class="content">Anti, the vga=791 seems to only set the resolution of splash and not of the desktop or firefox or anything else. <br>
+To change such I need to go into grandr but that only last for that session and not for next. <br>
+It did not help to do vga=ask either that only changed how splash looked not the desktop <br>
+and the programs like Iceweasel I am a spoiled person. To set it up each time manually <br>
+hat becomes tedius to have set each time. Would it be easier to tell it to keep dpi= <br>
+some value what figures that I have no idea what to set it to. Does behave a bit like resolution? <br>
+what dpi is likely for to change a 800 x 600 look to a 1024 x 768 look? <br>
+<br>
+Apart from that I feel very happy about your AntiX so thanks to you and BitJam caring about us <br>
+who want to boot live using frugal on NTFS. Now you only have to spread that news on LQ <br>
+and Puppy forum and so on. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+oops I still have no clue on how to get Adobe Flash player going So typical for being Newbody</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23882" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23882">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23882">
+
+<time datetime="2012-03-09T13:04">posted: 2012-03-09 &nbsp; 13:04</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23882" title="permalink">#35</a></span>
+
+<div class="content">Try booting with the noxorg cheat removed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23889" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23889">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+
+</dl>
+<div class="postbody">
+<div id="post_content23889">
+
+<time datetime="2012-03-09T17:28">posted: 2012-03-09 &nbsp; 17:28</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23889" title="permalink">#36</a></span>
+
+<div class="content">Jay that worked. I actually asked about that bood code and my body felt unsure about it<br>
+but due to me not knowing anything I only felt in my stomack that it was unusual. <br>
+<br>
+Yes now I have the resolution I need. So thanks</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23892" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23892">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23892">
+
+<time datetime="2012-03-09T17:55">posted: 2012-03-09 &nbsp; 17:55</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23892" title="permalink">#37</a></span>
+
+<div class="content">That boot cheat means you will be using vesa and an /etc/X11/xorg.conf is created. Ok if you don't want graphics acceleration.<br>
+Keeping noxorg as a cheat means that the nouveau acceleration drivers can be used, and intel so you can watch video full screen for example.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23894" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23894">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23894">
+
+<time datetime="2012-03-09T18:45">posted: 2012-03-09 &nbsp; 18:45</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23894" title="permalink">#38</a></span>
+
+<div class="content"><blockquote><div><cite>newbody wrote:</cite>I have to put in the delay or the bp=2 again to look. It flies bye to fast. <br>
+I think those error messages have gone now. </div></blockquote>That's okay. I think I know what caused them (thanks anti!) and it should be fixed in the next release.<br>
+<blockquote class="uncited"><div> Can I expand homefs without loosing changes?</div></blockquote>Yes, but it is not real easy. I plan to make it much easier in the next release. <br>
+<br>
+Here is how I would do it now (someone may have a much easier way). At some point you need to boot without home persistence (this is one of the things I plan to fix). If it's not too difficult I would suggest booting without any persistence by just removing the <strong>persist</strong> boot code. If it is hard to remove this code then give it a ficticious persistence device: <strong>pdev=xxx</strong>. When the system is booted you want to double check and make sure home persistence is turned off:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ df -Th | grep /home</code></pre></div>If the type is"ext4" then you still have home persistence enabled and you will have to reboot and try again. If the type is"aufs" then you have succeeded and can go on to the next step.<br>
+<br>
+As root:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># cd /live/boot-dev/antiX
+# mkdir /mnt/oldhome /mnt/newhome
+# cp homefs homefs.save
+# mv homefs homefs.old
+# mount -o loop homefs.old /mnt/oldhome
+# dd if=/dev/zero of=homefs bs=1M count=0 seek=2000
+# mkfs.ext4 -q -F homefs
+# mount -o loop homefs /mnt/newhome
+# cp -a /mnt/oldhome/* /mnt/newhome
+# umount /mnt/oldhome
+# umount /mnt/newhome</code></pre></div>
+The next time you boot, you should have a larger home partition. The commands above give you about 2 Gig which should be reasonable since you had over 90 Gig free.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23896" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23896">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">newbody</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23896">
+
+<time datetime="2012-03-09T19:45">posted: 2012-03-09 &nbsp; 19:45</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23896" title="permalink">#39</a></span>
+
+<div class="content">Haha thanks, 2GB that is very big. I come from the world of Puppy <br>
+where they have a savefile about 500MB as the standard. <br>
+I guess the old limit where 1.9GB or something. Now maybe they <br>
+have found ways around that limit. <br>
+<br>
+Thanks for the The code you gave. As I get it then? <br>
+One should write each line as separate and hit enter after each? <br>
+And one need to be root doing it? <br>
+<br>
+Oh while I have your attention. What WM am I booted in as Demo? <br>
+If I boot in as root then another more restrict or older form of WM <br>
+appear if I do startx. If I write slim on the command line then I am <br>
+back in Demo and the old Desktop I recognize. <br>
+<br>
+What should I tell the command line to get that WM without losing <br>
+being root? Yes I know you don't like root but I am used to it <br>
+on puppy and I fail to write the password that many times. <br>
+My body scream in protest each time. Hope I can ask such sensitive <br>
+questions. No offense intended. <br>
+<br>
+Cool that you two worked on this feature for so long and not giving up on it. <br>
+I admire such stamina or what the correct word for it is?Dedication? Go?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23898" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23898">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23898">
+
+<time datetime="2012-03-09T19:56">posted: 2012-03-09 &nbsp; 19:56</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p23898" title="permalink">#40</a></span>
+
+<div class="content"><blockquote><div><cite>newbody wrote:</cite>Oh while I have your attention. What WM am I booted in as Demo? </div></blockquote>I don't know. I usually don't even start the window manager. Also, it depends on which version of antiX (full or base) that you are using. Someone else should be able to tell you.
+<blockquote class="uncited"><div>What should I tell the command line to get that WM without losing being root? </div></blockquote>I think one thing you will have to do is copy all of the hidden files and directories from /home/demo to /root:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># cp -r /home/demo/.[a-zA-Z]* /root</code></pre></div>I take no responsibility if things go horribly horribly wrong.
+<blockquote class="uncited"><div>Cool that you two worked on this feature for so long and not giving up on it. <br>
+I admire such stamina or what the correct word for it is?Dedication? Go?</div></blockquote>Obsessive Compulsive Disorder? <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25544" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25544">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25544">
+
+<time datetime="2012-07-29T12:07">posted: 2012-07-29 &nbsp; 12:07</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p25544" title="permalink">#41</a></span>
+
+<div class="content">Guys it is embarrassing but I have to ask this. <br>
+<br>
+Code: Select all<br>
+<br>
+What does"Select all" refers to? <br>
+<br>
+And trust that this part <br>
+<br>
+SIZE=500<br>
+dd if=/dev/zero of=rootfs bs=1M count=0 seek=$SIZE<br>
+mkfs.ext2 -q -m 0 -O ^has_journal -F rootfs<br>
+<br>
+means I write <br>
+SIZE=500 then hit enter<br>
+and then I write <br>
+dd if=/dev/zero of=rootfs bs=1M count=0 seek=$SIZE and hit enter <br>
+<br>
+and then write mkfs.ext2 -q -m 0 -O ^has_journal -F rootfs and hit enter?</div>
+<div class="postcontent_footer">
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25545" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25545">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25545">
+
+<time datetime="2012-07-29T12:16">posted: 2012-07-29 &nbsp; 12:16</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p25545" title="permalink">#42</a></span>
+
+<div class="content">On antiX, there are 2 persistent files because, unlike Puppy, user and root are separate.<br>
+<br>
+You need a homefs to save files in /home eg documents and changes you made to desktop eg wallpaper. (I think you said you still have a working homefs file).<br>
+<br>
+You also need a rootfs file to save changes made to the root system eg if you install an application.<br>
+<br>
+You set up both by going to the antiX-control centre -&gt; Live tab -&gt; Set Up Persistence <br>
+The one you want is set up rootfs. Size should be quite large, ext2 is recommended.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25546" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25546">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25546">
+
+<time datetime="2012-07-29T12:25">posted: 2012-07-29 &nbsp; 12:25</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p25546" title="permalink">#43</a></span>
+
+<div class="content">Yes thanks <br>
+<br>
+Same as every year <span class="emoticon"> __{{emoticon}}__ </span> <br>
+I have to look back in threads <br>
+how one do it. I fail to set the keyboard <br>
+to Swedish or Norwegian. <br>
+<br>
+I did chose Norwegian but it did not take <br>
+despite I had save for both rootfs and for homefs. <br>
+<br>
+And it says that it save changes. <br>
+<br>
+And I fail to change the resolution to screen and <br>
+have run the Randr thing each time to get it 1024x768 <br>
+instead of the default 800x600<br>
+<br>
+Apart from that thanks for AntiX</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25550" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25550">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25550">
+
+<time datetime="2012-07-29T21:45">posted: 2012-07-29 &nbsp; 21:45</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p25550" title="permalink">#44</a></span>
+
+<div class="content">newbody have a red of the earlier posts in this thread. They answer your questions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26138" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26138">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 14</span></div>
+
+</div>
+</div>
+<span class="username">doveman</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26138">
+
+<time datetime="2012-09-05T14:13">posted: 2012-09-05 &nbsp; 14:13</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s30.html#p26138" title="permalink">#45</a></span>
+
+<div class="content">I want to try Antix with Live-Persistence but first I thought I'd get it booting without first.<br>
+<br>
+I'm using grub4dos on an old laptop which currently only has FAT32 partitions, not NTFS. I assume it should still work on FAT32?<br>
+<br>
+So I've extracted the vmlinuz, initrd.gz and linuxfs from the ISO into a folder on the second partition (seen as hd0,5 for some reason) iso/antiX. I just need to check the entry to boot it as I'm not familiar with the parameters. Does the following look correct?<br>
+<br>
+kernel (hd0,5)/iso/antiX/vmlinuz vga=791 quiet lean noxorg blab=antiXlive bdir=iso/antiX en xres=1024x768<br>
+initrd (hd0,5)/iso/antiX/initrd.gz</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604.html" role="button">1</a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604-s45.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

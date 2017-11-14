@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>32 bit dist-upgrade gone awfully wrong - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./32-bit-dist-upgrade-gone-awfully-wrong-t6472.html">32 bit dist-upgrade gone awfully wrong</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47429" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47429">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47429">
+<time datetime="2016-07-06T21:06">posted: 2016-07-06 &nbsp; 21:06</time>
+<span class="permalink"><a href="./32-bit-dist-upgrade-gone-awfully-wrong-t6472.html#p47429" title="permalink">#1</a></span>
+
+<div class="content">Yesterday I did a full upgrade of my Antix 15 system and I sorely regret it. I had Testing repo's enabled.<br>
+<br>
+[*] I lost sound in firefox (just saw some possible remedies in another post that I have yet to try).<br>
+[*] I use three different keyboard layouts. Those are gone too. I tried to get them back via 'configure system' in the control center, but several 'locale' settings seem to be broken.<br>
+[*] Desktop seems to behave differently. Before upgrading, I could change workspaces by mouse-scrolling on the desktop, now<br>
+[*] Worst of all, my wifi-settings have become unstable. Half of the time I don't get an IP address from my router. I can't set up a fixed IP anymore, or I don't have a DNS-server configured (when using DHCP). For more than a year I haven't had a single wifi problem: booted the system and in less than a minute I was online. A warm reboot doesn't fix the problem. A cold reboot sometimes does.<br>
+[*] Half an hour ago Firefox disappeared without warning (I was connected to facebook). The whole desktop stopped responding. Couldn't even logoff/logon, or restart conky.<br>
+<br>
+In case someone asks: yes, I suspect systemd crept in, but I don't understand much about that so I'm not even sure.<br>
+<br>
+Any suggestions about repairing my system?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47434" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47434">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47434">
+
+<time datetime="2016-07-06T23:30">posted: 2016-07-06 &nbsp; 23:30</time>
+<span class="permalink"><a href="./32-bit-dist-upgrade-gone-awfully-wrong-t6472.html#p47434" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Any suggestions about repairing my system?</div></blockquote>
+How I bailed my system upgrade out<br>
+<br>
+post47421.html#p47421<br>
+<br>
+But I run Jessie stable and in / etc/apt/preferences.d/00sysystemd I have<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Package: *systemd*
+Pin: origin""
+Pin-Priority: -1</code></pre></div>
+To keep systemd from creeping in on dist upgrade unless I give permission by unpinning it.<br>
+<br>
+Good Luck with it. I assume a good md5sum was done before a burning media and installing AntiX 15. That is something I religiously do to keep ghosts out of my machines. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47445" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47445">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47445">
+
+<time datetime="2016-07-07T19:31">posted: 2016-07-07 &nbsp; 19:31</time>
+<span class="permalink"><a href="./32-bit-dist-upgrade-gone-awfully-wrong-t6472.html#p47445" title="permalink">#3</a></span>
+
+<div class="content">I have the same 00systemd configuration file, so maybe I'm still systemd free.<br>
+<br>
+In the mean time most problems have been repaired. All of them were caused by configuration files that were overwritten without my realising so.<br>
+<br>
+The only problems that really bother me still are the unstable wifi configuration and not being able to share a printer with Windows.<br>
+<br>
+Here's my theory for the wifi. Is it possible that the timeout for the dhcp-client has been reduced? That could explain why dns-servers are often missing. Although my wifi signal has proven to be stable, it's not really strong. In the past I could often see 4,5 or more dhcp-discovery cycles when booting before a dhcp-offer was detected. Now the system boots up so fast that I can't even read the messages flashing by. But alas, often without a working internetconnection.<br>
+<br>
+If a shorter time-out is indeed the cause, how do I configure a longer one?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47447" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47447">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47447">
+
+<time datetime="2016-07-07 &nbsp; 20:53">posted: 2016-07-07 &nbsp; 20:53</time>
+<span class="permalink"><a href="./32-bit-dist-upgrade-gone-awfully-wrong-t6472.html#p47447" title="permalink">#4</a></span>
+
+<div class="content">Not sure but<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ locate dhcp-client 
+/usr/share/doc/isc-dhcp-client
+/usr/share/doc/isc-dhcp-client/NEWS.Debian.gz
+/usr/share/doc/isc-dhcp-client/changelog.Debian.gz
+/usr/share/doc/isc-dhcp-client/copyright
+/var/cache/apt/archives/isc-dhcp-client_4.3.1-6+deb8u2_i386.deb
+/var/lib/dpkg/info/isc-dhcp-client.conffiles
+/var/lib/dpkg/info/isc-dhcp-client.list
+/var/lib/dpkg/info/isc-dhcp-client.md5sums
+/var/lib/dpkg/info/isc-dhcp-client.postinst
+/var/lib/dpkg/info/isc-dhcp-client.postrm
+/var/lib/dpkg/info/isc-dhcp-client.preinst
+</code></pre></div>
+You can use the locate command to find the file you think you might need to adjust the time on.<br>
+like<br>
+<em>/</em>etc/dhcp/dhclient.conf<br>
+<br>
+maybe? Like I said. I do not really know.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

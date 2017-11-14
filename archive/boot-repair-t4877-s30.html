@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Boot Repair - Page 3 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./boot-repair-t4877-s30.html">Boot Repair</a></div>
+<div class="pagination">
+43 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./boot-repair-t4877-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./boot-repair-t4877.html" role="button">1</a></li>
+<li><a class="button" href="./boot-repair-t4877-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_33773" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33773">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33773">
+<time datetime="2014-03-06T21:48">posted: 2014-03-06 &nbsp; 21:48</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33773" title="permalink">#31</a></span>
+
+<div class="content">q1: good question. I'm not sure if your data will survive a resize (any thoughts BitJam?)<br>
+<br>
+q2: using the static persistence boot option should help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33774" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33774">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33774">
+
+<time datetime="2014-03-06T23:33">posted: 2014-03-06 &nbsp; 23:33</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33774" title="permalink">#32</a></span>
+
+<div class="content">Thanks for bringing this to my attention D.O. You continue to rock.
+<blockquote><div><cite>mello wrote:</cite>Q1: Any chance resizing persistance w/o destroying data?<br>
+<br>
+Q2: Is there a better way setting-up persistance w/low-RAM?</div></blockquote>
+<strong>TL;DR:</strong> Boot with static root persistence and do a live remaster.<br>
+<br>
+I am delighted that someone has seen that error message.<br>
+<br>
+Let me give you a bit of background. The LiveCD system normally works by storing any changes to the file system in RAM because it can't save them on the cd. When you reboot, those changes all go away. Dynamic root persistence (which is what you have been using) modifies this only slightly. Before your system shuts down, the perisist-save program writes all of your filesystem changes to a small fileystem inside the rootfs file. When you boot, those changes get copied out of the rootfs file and back into RAM. We need to be a little conservative in this step because if we use up too much RAM then bad things can happen and the system can become unusable.<br>
+<br>
+You've bumped into the limit where we think it is no longer safe to copy all of your filesystem changes back into RAM.<br>
+<br>
+The solution I suggest has two steps. First, enable static root persistence (in the bootloader menu). This will make things work a little differently. Instead of copying filesystem changes from the rootfs file to RAM, we <em>mount</em> the rootfs directly. This means there is no RAM limit and the only limit is the size of your rootfs file. File system changes get immediately stored in the rootfs file.<br>
+<br>
+The only reason we don't do this all the the time is because reading and writing to usb sticks is much much slower than reading and writing to RAM so static root persistence can be unacceptably slow. But in this scenario you only need to use it once. After you've booted with static root persistence enabled, go the the RemasterCC and choose to remaster (sometimes called remaster-live). You need to be sure to do a Live remaster. This will regenerate your linuxfs file which contains a compressed version of your entire file system. This takes extra space on your LiveUSB (because there will be two copies of the large linuxfs file). It takes a lot of CPU power to compress your entire file system. But when it is done and you reboot then it resets the RAM usage (for file system changes) back to close to zero because all of those changes have been locked into the new linuxfs file.<br>
+<br>
+You can then create another rootfs file to enable root persistence with this new linuxfs file. When you run out of RAM again, just rinse and repeat: boot with static root persistence and remaster again.<br>
+<br>
+Generally, resizing the rootfs file is very safe but it won't be allowed if you have <em>static</em> root persistence enabled. But that's okay because you don't need to have persistence enabled to resize the rootfs file. But resizing the rootfs file won't solve your problem because you've run out of space in RAM, not space in the rootfs file. <br>
+<br>
+It's safe to resize because we make first make the new, (usually) larger, rootfs file and then copy everything from the old file to the new file. If this works then we rename the old file rootfs.bak and the new one becomes rootfs. This is slower and consumes more resources but it is much safer than using clever tricks to actually expand the rootfs file and then expand the filesystem that lives inside of it. We try to be very careful with your data. We've chosen to do things slower and less efficiently in order to keep your data safe.<br>
+<br>
+Maybe in the next version of remaster-live we could add a feature that will remaster from a rootfs file directly. This would let you avoid the step of enabling static root persistence.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33778" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33778">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33778">
+
+<time datetime="2014-03-07T03:21">posted: 2014-03-07 &nbsp; 03:21</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33778" title="permalink">#33</a></span>
+
+<div class="content">Excellent BitJam, thanks for chiming in!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33781" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33781">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">male</a>  </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33781">
+
+<time datetime="2014-03-07T12:05">posted: 2014-03-07 &nbsp; 12:05</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33781" title="permalink">#34</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>Excellent BitJam, thanks for chiming in!</div></blockquote> <img src="http://www.en.kolobok.us/smiles/big_standart/good.gif" class="postimage" alt="Image"></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33782" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33782">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">mello</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Feb 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33782">
+
+<time datetime="2014-03-07T12:26">posted: 2014-03-07 &nbsp; 12:26</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33782" title="permalink">#35</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite> After you've booted with static root persistence enabled, go the the RemasterCC and choose to remaster (sometimes called remaster-live). You need to be sure to do a Live remaster. This will regenerate your linuxfs file which contains a compressed version of your entire file system. This takes extra space on your LiveUSB (because there will be two copies of the large linuxfs file). It takes a lot of CPU power to compress your entire file system. But when it is done and you reboot then it resets the RAM usage (for file system changes) back to close to zero because all of those changes have been locked into the new linuxfs file.<br>
+<br>
+You can then create another rootfs file to enable root persistence with this new linuxfs file. When you run out of RAM again, just rinse and repeat: boot with static root persistence and remaster again.<br>
+<br>
+Generally, resizing the rootfs file is very safe but it won't be allowed if you have <em>static</em> root persistence enabled. .</div></blockquote>
+BitJam,<br>
+Dry run of"rinse and repeat:<br>
+1)... boot w/static root persistance enabled<br>
+2a).. goto RemasterCC and click remaster-live<br>
+2b) .. data is now locked into new linuxfs<br>
+3)... create another rootfs file to enable root persistance with this newer one<br>
+<br>
+When you run out of RAM again, repeat #1, #2a, #3<br>
+****************<br>
+Please translate #3 into actual mouse click events for the ignorant.<br>
+This step sounds to me that the 1GB root persistance should be resized to ~750MB.<br>
+thanks,<br>
+mello</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33784" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33784">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33784">
+
+<time datetime="2014-03-07T13:57">posted: 2014-03-07 &nbsp; 13:57</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33784" title="permalink">#36</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite><blockquote><div><cite>dolphin_oracle wrote:</cite>Excellent BitJam, thanks for chiming in!</div></blockquote> <img src="http://www.en.kolobok.us/smiles/big_standart/good.gif" class="postimage" alt="Image"></div></blockquote>
+DITTO</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33790" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33790">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33790">
+
+<time datetime="2014-03-07T18:59">posted: 2014-03-07 &nbsp; 18:59</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33790" title="permalink">#37</a></span>
+
+<div class="content"><blockquote><div><cite>mello wrote:</cite>Dry run of"rinse and repeat:<br>
+1)... boot w/static root persistance enabled<br>
+2a).. goto RemasterCC and click remaster-live<br>
+2b) .. data is now locked into new linuxfs<br>
+3)... create another rootfs file to enable root persistance with this newer one<br>
+<br>
+When you run out of RAM again, repeat #1, #2a, #3<br>
+****************<br>
+Please translate #3 into actual mouse click events for the ignorant.</div></blockquote>
+Navigate to the RemasterCC. Select"Enable Persistence". Select"Root: Create Root Persistence". Follow the steps. Perhaps the missing link was associating"Enable Persistence" with creating persistence files. <br>
+<br>
+A slight variation is to create a new rootfs file in the same session you do the live remaster. It is just like the above except you select"New: Make rootfs.new for remastering". Do this right before or right after you do the remaster but before you reboot. This way, your use of root persistence won't be interrupted. <br>
+<br>
+PLMK if you still need more info. Since you had root persistence enabled I figured you had done this before. I'd prefer not to fire up antiX-13.2 just to write down the exact mouse clicks for you. I imagine there's an app ... I mean Dolphin Oracle video for that already.
+<blockquote class="uncited"><div>This step sounds to me that the 1GB root persistence should be resized to ~750MB.</div></blockquote>I don't know the specs of your machine so I can't comment on actual sizes. If you make the rootfs file much smaller then you will hit an error when you try to save your changes with persist-save. It will say there is not enough room to save the changes. You will then have two choices: either do a live remaster before you shut down or lose your changes. [Well, I guess you could also go to persist-makefs ("Enable Persistence" in the RemasterCC) and enlarge the rootfs file but this will totally defeat the purpose of making it smaller to begin with!] <br>
+<br>
+Getting an error message earlier is not a horrible scenario but I don't think you gain much with it. Also, with a smaller rootfs file then you can't use static root persistence to temporarily side-step the problem of running out of RAM.<br>
+<br>
+BTW, the command"df -h /live/aufs-ram" should give you an early warning about when it is getting to be time to remaster. If that filesystem is starting to fill up then you can do a remaster to reset the ram usage (for file system changes) back close to zero. This will allow you to avoid the warning message at boot time.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33792" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33792">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">mello</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Feb 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33792">
+
+<time datetime="2014-03-07T21:12">posted: 2014-03-07 &nbsp; 21:12</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33792" title="permalink">#38</a></span>
+
+<div class="content"><blockquote><div><cite>mello wrote:</cite>
+d_o,<br>
+Just installed LiveUSB as you did and find that Claws Mail cannot send or receive mail. Iceweasel browser is very marginal too.</div></blockquote>
+hi,<br>
+<br>
+Week 2 of AntiX 13.x shakedown found this problem resurface!<br>
+<br>
+Dillo trapped an error that just might get it SOLVED:<br>
+<blockquote class="uncited"><div>
+UNABLE TO RESOLVE NAMESERVER!<br>
+</div></blockquote>
+If nameserver=192.168.0.1, browsers cannot render URL's, I've seen on other distros.<br>
+Changing it to nameserver=8.8.8.8, resolved it before. Address 192.168.0.1 is the router gateway, which causes browsers to FAIL on other OS's.<br>
+<br>
+Suspect AntiX problem is tied to nameserver . . .<br>
+Q: Can a Trace be done?<br>
+mello</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33794" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33794">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">mello</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Feb 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33794">
+
+<time datetime="2014-03-07T22:44">posted: 2014-03-07 &nbsp; 22:44</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33794" title="permalink">#39</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>I don't know the specs of your machine so I can't comment on actual sizes. </div></blockquote>
+RAM is maxed 256MB.<br>
+Complete SPEC:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://h10025.www1.hp.com/ewfrf/wc/document?docname=bph04810&amp;cc=us&amp;dlc=en&amp;lc=en&amp;product=59943"<br>linktext was:"
+http://h10025.www1.hp.com/ewfrf/wc/doc ... uct=59943
+"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33921" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33921">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">mello</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Feb 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33921">
+
+<time datetime="2014-03-11T03:19">posted: 2014-03-11 &nbsp; 03:19</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p33921" title="permalink">#40</a></span>
+
+<div class="content">Re: AntiX 13.x<br>
+<br>
+hi,<br>
+The USB printer connected to AntiX has date coded ink cartridges and one has a chip code that's past end-of-life! Therefore, inorder to print, the Year must be turned back to 2013.<br>
+<br>
+Q1: <span style="color: #FF0000">How can one change the system clock Year back to 2013, inorder to get a hardcopy?</span><br>
+A couple mouse clicks does the job on other distros.<br>
+<br>
+Q2: Why doesn't AntiX have this common linux feature?<br>
+<br>
+mello</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36356" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36356">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content36356">
+
+<time datetime="2014-07-12T15:31">posted: 2014-07-12 &nbsp; 15:31</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p36356" title="permalink">#41</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Q1: How can one change the system clock Year back to 2013, inorder to get a hardcopy?</div></blockquote>
+Normally this is set by the BIOS. Shut the computer down, open the back, take out the BIOS backup battery, and hey, everything is set to whenever your motherboard was made. Of course, should you have a brand new motherboard <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36357" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36357">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36357">
+
+<time datetime="2014-07-12T15:47">posted: 2014-07-12 &nbsp; 15:47</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p36357" title="permalink">#42</a></span>
+
+<div class="content"><blockquote><div><cite>mello wrote:</cite>Q1: <span style="color: #FF0000">How can one change the system clock Year back to 2013, inorder to get a hardcopy?</span></div></blockquote>Try:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo date --set 2013-07-12</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36358" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36358">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content36358">
+
+<time datetime="2014-07-12T16:09">posted: 2014-07-12 &nbsp; 16:09</time>
+<span class="permalink"><a href="./boot-repair-t4877-s30.html#p36358" title="permalink">#43</a></span>
+
+<div class="content"><blockquote class="uncited"><div>sudo date --set 2013-07-12</div></blockquote>
+That's so much easier. Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+43 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./boot-repair-t4877-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./boot-repair-t4877.html" role="button">1</a></li>
+<li><a class="button" href="./boot-repair-t4877-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

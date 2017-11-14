@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>apt-get doesn't work after setting static ip - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html">apt-get doesn't work after setting static ip</a></div>
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_51004" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51004">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">bingel</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51004">
+<time datetime="2017-04-01T22:59">posted: 2017-04-01 &nbsp; 22:59</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51004" title="permalink">#1</a></span>
+
+<div class="content">apt-get doesn't work after setting static ip.<br>
+<br>
+My antix version is core.<br>
+<br>
+My <em>/etc/network/interfaces</em>:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># The loopback network interface
+auto lo
+iface lo inet loopback
+
+auto eth0
+allow-hotplug eth0
+iface eth0 inet static
+address 192.168.10.10
+netmask 255.255.255.0
+gateway 192.168.10.1
+network 192.168.10.0
+broadcast 192.168.10.255
+dns-nameservers 192.168.10.1</code></pre></div>
+Already tried to comment some lines but did not solve.<br>
+<br>
+Tried to put antix repos ip and names in <em>/etc/hosts</em> but did not solve.<br>
+<br>
+No problem if I use dhcp instead than a static address.<br>
+<br>
+Some help? ...thanks in advance</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51006" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51006">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51006">
+
+<time datetime="2017-04-02T00:13">posted: 2017-04-02 &nbsp; 00:13</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51006" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>dns-nameservers 192.168.10.1</div></blockquote>This line seems suspect. Are you are running a local DNS resolver? (few people do so)<br>
+I would retest after changing that line to <strong>dns-nameservers 8.8.8.8</strong> (google public dns resolver) or the DNS server provided by your ISP.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51008" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51008">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">bingel</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51008">
+
+<time datetime="2017-04-02T02:59">posted: 2017-04-02 &nbsp; 02:59</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51008" title="permalink">#3</a></span>
+
+<div class="content">It's router's IP where opendns servers are already configured.<br>
+However you are right (I forgot to reset that line ...it was just a test) but I have already tried google dns and opendns without success.<br>
+Moreover, with that line (dns-nameservers 192.168.10.1) I'm able to ping domain names without problems (only apt-get doesn't run).<br>
+<br>
+More details:<br>
+<em>/etc/resolv.conf</em> is OK. It is updated correctly by that line.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51024" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51024">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">bingel</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51024">
+
+<time datetime="2017-04-03T18:44">posted: 2017-04-03 &nbsp; 18:44</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51024" title="permalink">#4</a></span>
+
+<div class="content">up</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51025" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51025">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span>  <a href="#" class="username">dolphin_oracle</a> </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51025">
+
+<time datetime="2017-04-03T19:00">posted: 2017-04-03 &nbsp; 19:00</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51025" title="permalink">#5</a></span>
+
+<div class="content">could you go ahead and connect via dhcp and post the <br>
+<br>
+ifconfig <br>
+<br>
+output please.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51026" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51026">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">bingel</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51026">
+
+<time datetime="2017-04-03T21:01">posted: 2017-04-03 &nbsp; 21:01</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51026" title="permalink">#6</a></span>
+
+<div class="content"><span style="text-decoration: underline">Static:</span><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:45:f2:88:aa:10  
+          inet addr:192.168.10.10  Bcast:192.168.10.255  Mask:255.255.255.0
+          inet6 addr: fe80::240:f4ff:fe8a:5a90/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1807 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1753 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:147208 (143.7 KiB)  TX bytes:254069 (248.1 KiB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:24 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:24 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1 
+          RX bytes:2919 (2.8 KiB)  TX bytes:2919 (2.8 KiB)</code></pre></div>
+<span style="text-decoration: underline">DHCP:</span><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:45:f2:88:aa:10  
+          inet addr:192.168.10.4  Bcast:192.168.10.255  Mask:255.255.255.0
+          inet6 addr: fe80::240:f4ff:fe8a:5a90/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:142 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:203 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:17996 (17.5 KiB)  TX bytes:23026 (22.4 KiB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:86 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:86 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1 
+          RX bytes:7959 (7.7 KiB)  TX bytes:7959 (7.7 KiB)</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51028" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51028">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51028">
+
+<time datetime="2017-04-04T00:18">posted: 2017-04-04 &nbsp; 00:18</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51028" title="permalink">#7</a></span>
+
+<div class="content">and <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /etc/resolv.conf</code></pre></div>
+for both.<br>
+<br>
+and a single<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -r
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51029" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51029">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">bingel</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51029">
+
+<time datetime="2017-04-04T10:39">posted: 2017-04-04 &nbsp; 10:39</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51029" title="permalink">#8</a></span>
+
+<div class="content">In <em>/etc/resolv.conf</em> I have in both cases:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)
+#     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN
+nameserver 192.168.10.1
+</code></pre></div>
+however I have already tried other dns servers (google, opendns) without success (as already said, I've already done various tests).<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo inxi -r
+Repos:     Active apt sources in file: /etc/apt/sources.list.d/antix.list
+           deb http://nl.mxrepo.com/antix/jessie/ jessie main nosystemd
+           Active apt sources in file: /etc/apt/sources.list.d/debian-stable-updates.list
+           deb http://ftp.it.debian.org/debian/ jessie-updates main contrib non-free
+           Active apt sources in file: /etc/apt/sources.list.d/debian.list
+           deb http://ftp.it.debian.org/debian/ jessie main
+           deb http://security.debian.org/ jessie/updates main</code></pre></div>
+However repos should be ok because with DHCP I have no problems. <em>apt-get</em> doesn't run only when I set a static address.<br>
+<br>
+<br>
+<span style="text-decoration: underline">PS:</span> could you let me know how to correctly restart the network (and services in general)? Because with these commands:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo service networking stop; sudo service networking start</code></pre></div>
+I'm unable to obtain an ip address when I'm on DHCP so I need to restart the machine. Instead, when I'm on STATIC, when I try to restart network, I have problems only with DNSs (/etc/resolv.conf is not updated) and setting them manually is not a solution (even restarting <em>resolvconf</em> service).<br>
+<br>
+Is it preferable to run <em>/etc/init.d/demon_name start/stop</em>?<br>
+<br>
+Moreover, I've seen (running <em>sysv-rc-conf</em>) that"networking" service is disabled so this should means that network is started/stopped in other way.<br>
+<br>
+<span style="text-decoration: underline">More details:</span><br>
+I've already tried to remove dhcp related packages and to reinstall all the system with the hope to solve instead problem persists. I think about to open a bug. How could I do?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51030" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51030">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">bingel</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51030">
+
+<time datetime="2017-04-04T18:53">posted: 2017-04-04 &nbsp; 18:53</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51030" title="permalink">#9</a></span>
+
+<div class="content">Just installed <em>Antix Core</em> in <em>VirtualBox</em>.<br>
+Same steps than previous installation on physical machine.<br>
+On <em>VirtualBox</em> (ethernet card configured in bridged mode) I have no problems with <em>apt-get</em> after setting static ip.<br>
+<br>
+Maybe a problem related to my physical machine that has an old VIA C3 cpu without"pae" support"cmov" and"cx8" or with its ethernet card.<br>
+<br>
+<br>
+<strong>EDIT:</strong> I have created a"raw" image from virtualbox"vdi" file then I copied the raw image on the physical machine hdd. Now <em>apt-get</em> works correctly even with a static ip address. I write the steps executed as a refresher:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>VBoxManage internalcommands converttoraw antix.vdi antix.img
+dd if=antix.img of=/dev/sdN bs=4M</code></pre></div>
+<strong>EDIT_2:</strong> When I installed Antix on VirtualBox, I setted <em>192.168.10.20</em> as IP (static) and <em>apt-get</em> was working. After transferring the virtual machine on the physical machine, as a test, I have changed my static IP address from <em>192.168.10.20</em> to <em>192.168.10.10</em>, restarted network (then restarted also the machine) and <em>apt-get</em> was no working anymore. Resetted IP to <em>192.168.10.20</em> and <em>apt-get</em> worked again. Very very very odd!!! Maybe a problem with ethernet card drivers? I do not know what to think.</div>
+<div class="notice">
+Last edited by <b>bingel</b> on 04 Apr 2017, 23:13, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51031" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51031">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51031">
+
+<time datetime="2017-04-04T21:40">posted: 2017-04-04 &nbsp; 21:40</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51031" title="permalink">#10</a></span>
+
+<div class="content">Not my area of expertise but have you read<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.jeffgeerling.com/blog/2016/setting-static-ip-address-raspbian-jessie-lite-on-raspberry-pi"<br>linktext was:"https://www.jeffgeerling.com/blog/2016/ ... spberry-pi"<br>====================================<br>
+<br>
+<br>
+yet.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51032" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51032">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51032">
+
+<time datetime="2017-04-04T22:16">posted: 2017-04-04 &nbsp; 22:16</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51032" title="permalink">#11</a></span>
+
+<div class="content">I would set your ip address outside the range of your dhcp.<br>
+<br>
+I don't know it that's the problem, but if you don't it's possible to have collisions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51033" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51033">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">bingel</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51033">
+
+<time datetime="2017-04-04T22:59">posted: 2017-04-04 &nbsp; 22:59</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51033" title="permalink">#12</a></span>
+
+<div class="content">Great suggestion <em>dolphin_oracle</em> but I have finally SOLVED: since changing the IP address (static) from <em>192.168.10.10</em> to any other address, <em>apt-get</em> was working, I began to think of a problem with the router/firewall (although I had already checked router settings). In fact, entering the router with telnet, I could see that following rules were set in <em>iptables</em>:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>DROP       tcp  --  192.168.10.10        anywhere           tcp dpt:smtp 
+DROP       tcp  --  192.168.10.10        anywhere           tcp dpt:443 
+DROP       tcp  --  192.168.10.10        anywhere           tcp dpt:www </code></pre></div>
+In practice I have confused"IP Filters" with"Portforwarding" (masks for entering data are identical therefore it can easily happen), and so, instead of forwarding these ports, I had prevented that IP <em>192.168.10.10</em> could initiate connections on these ports. Obviously I setted these rules many days ago (working, furthermore, to another machine) and I had completely forgotten. Bad luck did the rest.<br>
+<br>
+Please forgive me for the time I have made You waste.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51034" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51034">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51034">
+
+<time datetime="2017-04-04T23:29">posted: 2017-04-04 &nbsp; 23:29</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51034" title="permalink">#13</a></span>
+
+<div class="content">Lol! I'm glad you figured it out! Thanks for letting us know.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51037" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51037">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51037">
+
+<time datetime="2017-04-05 &nbsp; 09:08">posted: 2017-04-05 &nbsp; 09:08</time>
+<span class="permalink"><a href="./apt-get-doesn-t-work-after-setting-static-ip-t6937.html#p51037" title="permalink">#14</a></span>
+
+<div class="content">Glad you found a fix. So no bug report needed <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

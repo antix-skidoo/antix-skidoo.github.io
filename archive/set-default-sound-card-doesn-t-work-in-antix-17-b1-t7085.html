@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>&quot;Set Default Sound Card&quot; doesn't work in antiX 17 b1 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-development-f24/index.html"><span>antiX-development</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-f6/index.html"><span>Development</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./set-default-sound-card-doesn-t-work-in-antix-17-b1-t7085.html">&quot;Set Default Sound Card&quot; doesn't work in antiX 17 b1</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_52256" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52256">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5</span></div>
+
+</div>
+</div>
+<span class="username">.-083</span>
+</dt>
+<dd class="profile-joined">Joined: 06 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52256">
+<time datetime="2017-07-22T22:41">posted: 2017-07-22 &nbsp; 22:41</time>
+<span class="permalink"><a href="./set-default-sound-card-doesn-t-work-in-antix-17-b1-t7085.html#p52256" title="permalink">#1</a></span>
+
+<div class="content">I've just switched from antiX 16.2 to antiX 17 (did a fresh install) and everything works fine, except sound. I have no sound of any kind...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cat /proc/asound/cards
+ 0 [SB             ]: HDA-Intel - HDA ATI SB
+                      HDA ATI SB at 0xf2400000 irq 16
+ 1 [HDMI           ]: HDA-Intel - HDA ATI HDMI
+                      HDA ATI HDMI at 0xf2310000 irq 19</code></pre></div>
+After restarting the control center several times, the option"Set Default Sound Card" showed up in Hardware tab (it wasn't there beofre). <br>
+It shows me two options:"SB: HDA-Intel - HDA ATI SB" and"HDMI: HDA-Intel - HDA ATI HDMI"<br>
+<br>
+But if select the correct card ("SB: HDA-Intel - HDA ATI SB"), when testing if the sound works, it says:"test failed, could not connect to the selected device"<br>
+<br>
+In VLC the sound works if I select the corret audio device: <br>
+<br>
+<img src="https://s18.postimg.org/q6lhz43hl/Screenshot-75.png" class="postimage" alt="Image"><br>
+<br>
+How can I fix the sound system-wide?<br>
+<br>
+Edit: solved the issue replacing contents of /etc/asound.conf with:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>defaults.pcm.!card SB
+defaults.ctl.!card SB
+defaults.pcm.!device 0
+defaults.ctl.!device 0</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52260" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52260">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52260">
+
+<time datetime="2017-07-23T07:33">posted: 2017-07-23 &nbsp; 07:33</time>
+<span class="permalink"><a href="./set-default-sound-card-doesn-t-work-in-antix-17-b1-t7085.html#p52260" title="permalink">#2</a></span>
+
+<div class="content"><blockquote><div><cite>.-083 wrote:</cite>How can I fix the sound system-wide?<br>
+<br>
+Edit: solved the issue replacing contents of /etc/asound.conf with:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>defaults.pcm.!card SB
+defaults.ctl.!card SB
+defaults.pcm.!device 0
+defaults.ctl.!device 0</code></pre></div></div></blockquote>
+Did you notice the guidance at the head of the shipped asound.conf?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /etc/asound.conf
+# Audio card/chip and device to use
+# In most cases these settings should remain commented (#)
+# When commented card and device 0 are usually automatically selected
+# When uncommented the item corresponding to the number is selected
+#defaults.pcm.card 0
+#defaults.pcm.device 0
+...
+</code></pre></div>It points towards doing the same as your edit in a less drastic way.<br>
+<br>
+You might try reverting to the shipped file and modify only the lines at head of the file to include your values. It might restore the operation of the system wide equalizer (see Control Centre--&gt;Alsamixer Equalizer)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /etc/asound.conf
+# Audio card/chip and device to use
+# In most cases these settings should remain commented (#)
+# When commented card and device 0 are usually automatically selected
+# When uncommented the item corresponding to the number is selected
+#defaults.pcm.card 0
+#defaults.pcm.device 0
+defaults.pcm.!card SB
+defaults.ctl.!card SB
+defaults.pcm.!device 0
+defaults.ctl.!device 0
+...
+</code></pre></div>Also you might edit out a pair (i.e. so the default card and device refer to either SB or 0 rather than both) to confirm whether only 2 entries are required rather than 4.<br>
+<br>
+A reboot will ensure your changes are used, (you might try manually stopping and resrtarting the alsa service).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52270" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52270">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">.-083</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 06 Mar 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52270">
+
+<time datetime="2017-07-24T02:14">posted: 2017-07-24 &nbsp; 02:14</time>
+<span class="permalink"><a href="./set-default-sound-card-doesn-t-work-in-antix-17-b1-t7085.html#p52270" title="permalink">#3</a></span>
+
+<div class="content">Thanks for your reply<br>
+<br>
+Default configuration with the two default lines uncommented doesn't fix it<br>
+Your suggested configuration also works, but AlsaMixer Equalizer doesn't work (as with my other drastic config)<br>
+<br>
+In the end I restored the original config file, just changing"default" for"SB" on line 9, and"plug" for"hw" on line 10<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Audio card/chip and device to use
+# In most cases these settings should remain commented (#)
+# When commented card and device 0 are usually automatically selected
+# When uncommented the item corresponding to the number is selected
+#defaults.pcm.card 0
+#defaults.pcm.device 0
+
+# Re-set up default device
+pcm.!SB {
+   type hw
+
+   # Point output to device named equalizer
+   slave.pcm equalizer
+}
+
+# Set up a control interface named equalizer
+ctl.equalizer {
+   type equal
+}
+
+# Set up a device named equalizer
+pcm.equalizer {
+   type equal
+
+   # Point output to device named duplex
+   slave.pcm duplex
+}
+# Set up a device named duplex
+pcm.duplex {
+   type asym
+
+   # Point playback output to use dmix
+   playback.pcm plug:dmix
+
+   # Point capture record to use dsnoop
+   capture.pcm plug:dsnoop
+}</code></pre></div>
+This config also works, but AlsaMixer Equalizer still doesn't work, although I don't care that much about that anyways</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

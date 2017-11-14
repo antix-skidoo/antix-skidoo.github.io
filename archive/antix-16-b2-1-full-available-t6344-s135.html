@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-16-b2.1-full available - Page 10 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-releases-f45/index.html"><span>Development releases</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-16-b2-1-full-available-t6344-s135.html">antiX-16-b2.1-full available</a></div>
+<div class="pagination">
+180 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-16-b2-1-full-available-t6344-s120.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344-s105.html" role="button">8</a></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344-s120.html" role="button">9</a></li>
+<li class="active"><span>10</span></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344-s150.html" role="button">11</a></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344-s165.html" role="button">12</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-16-b2-1-full-available-t6344-s150.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_46703" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46703">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,062</dd>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46703">
+<time datetime="2016-05-19T03:27">posted: 2016-05-19 &nbsp; 03:27</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46703" title="permalink">#136</a></span>
+
+<div class="content">@ SamK<br>
+<br>
+Could you try the following for what I think is the version of desktop-session in antiX16 ( I do not have the original as I have been working out an update and as such am going off of github. ) I cannot seem to make the problem come about (with the version I have at least)<br>
+Each one would require a check I think.<br>
+Also make sure that the NOTIFICATION_DIALOG is set to false in desktop-session.conf<br>
+<br>
+Also perhaps ~/.desktop-session/log might have some indication in it... maybe not....<br>
+<br>
+1) comment out line 84
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#  . /usr/local/lib/desktop-session/desktop-session-xdg-dirs.sh
+</code></pre></div>
+2) line 87, 88, 89
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> # if [ -f"$xmodmap_config" ]; then
+ #      xmodmap"$xmodmap_config"
+ # fi
+</code></pre></div>
+3) line 141 + 136, 137, 138
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#if [ -f"~/.$wm/startup.disabled" ]; then
+#    mv ~/.$wm/startup.disabled ~/.$wm/startup
+#fi
+.......
+
+#mv ~/.$wm/startup ~/.$wm/startup.disabled
+[code]
+
+4) comment out lines 93 - 99
+[code]
+#test -r $config || continue
+#if ! /bin/bash -n $config; then
+#    shout"Errors in $config, cannot load $config."
+#    shout"desktop-session may crash"
+#    shout"Copy default config from /usr/local/share/desktop-session/desktop-session.conf"
+# continue
+# fi
+[code]
+
+5) change line 128 by removing echo_cmd
+[code]
+$WM_EXEC
+[code]</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46706" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46706">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46706">
+
+<time datetime="2016-05-19T09:12">posted: 2016-05-19 &nbsp; 09:12</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46706" title="permalink">#137</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Could you try the following...</div></blockquote>
+<blockquote><div><cite>Dave wrote:</cite>Also make sure that the NOTIFICATION_DIALOG is set to false in desktop-session.conf</div></blockquote><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat .desktop-session/desktop-session.conf | grep ^NOTIFICATION_DIALOG
+NOTIFICATION_DIALOG="false"</code></pre></div>
+<br>
+<blockquote><div><cite>Dave wrote:</cite>Also perhaps ~/.desktop-session/log might have some indication in it... maybe not....</div></blockquote>From a cold boot while IceWM monitors and clock frozen.<br>
+nosavestate desktop=icewm vga=791 lang=en_GB quiet <br>
+To keep it clean, log retrieved via separate login on tty2
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat .desktop-session/log
+desktop-session: started Thu 19 May 08:27:53 BST 2016 start_time: 33.00
+desktop-session: pid: 3552
+desktop-session: logging to: /home/demo/.desktop-session/log
+desktop-session: launch  @ 3318
+desktop-session: look up executable for icewm
+desktop-session: save desktop code: icewm
+desktop-session: Exporting desktop Variables:
+desktop-session: DESKTOP_SESSION_CODE=icewm
+desktop-session: DESKTOP_SESSION_WM=icewm
+desktop-session: DESKTOP_SESSION_IM=none
+desktop-session: Location does not exist; making
+desktop-session: Location does not exist; making
+desktop-session: run: /usr/bin/icewm-session
+desktop-session: Checking for running window manager @ 3331
+icewm-session: using /home/demo/.icewm for private configuration files
+icewm-session: Warning: File still open: fd=3, target='/var/log/slim.log' (missing FD_CLOEXEC?)
+icewm-session: Warning: Closing file descriptor: 3
+icewm-session: Warning: File still open: fd=3, target='/var/log/slim.log' (missing FD_CLOEXEC?)
+icewm-session: Warning: Closing file descriptor: 3
+icewm-session: Warning: File still open: fd=3, target='/var/log/slim.log' (missing FD_CLOEXEC?)
+icewm-session: Warning: Closing file descriptor: 3
+icewm-session: Warning: File still open: fd=3, target='/var/log/slim.log' (missing FD_CLOEXEC?)
+icewm-session: Warning: Closing file descriptor: 3
+icewmbg: using /home/demo/.icewm for private configuration files
+icewmtray: using /home/demo/.icewm for private configuration files
+IceWM: using /home/demo/.icewm for private configuration files
+desktop-session: Window manager running or setup forced, setting up desktop @ 3389
+desktop-session: Delaying session startup by 2 seconds
+desktop-session: run: desktop-session-wallpaper
+desktop-session: run: desktop-menu --write-out-global
+Writing Menu: fluxbox
+Writing Menu: icewm
+Writing Menu: jwm
+/usr/local/bin/desktop-session: line 170: / etc/desktop-session/file_compare: No such file or directory
+desktop-session: run: /home/demo/.desktop-session/startup &amp;
+desktop-session: run: conky
+Conky: forked to background, pid is 3775
+desktop-session: run: xset dpms 3600 3600 3600 s 3600 3600
+
+Conky: desktop window (81) is root window
+Conky: window type - normal
+Conky: drawing to created window (0x800001)
+desktop-session: run: wmctrl -F -r Conky (antix1) -b add,below
+Conky: drawing to double buffer
+desktop-session: Running first time run script
+desktop-session: run: /usr/local/lib/desktop-session/first-run-script
+
+** (volumeicon:3772): WARNING **: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+icewmbg: MappingNotify
+IceWM: MappingNotify</code></pre></div>
+Appended to above log after manually restarting IceWM via antiX menu
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>IceWM: using /home/demo/.icewm for private configuration files
+icewmbg: MappingNotify
+IceWM: MappingNotify</code></pre></div>
+<br>
+<blockquote><div><cite>Dave wrote:</cite>1) comment out line 84
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#  . /usr/local/lib/desktop-session/desktop-session-xdg-dirs.sh</code></pre></div></div></blockquote>From cold boot<br>
+nosavestate desktop=icewm vga=791 persist_root lang=en_GB quiet<br>
+Result<br>
+Clock: <span style="color: #BF0000">Frozen showing incorrect time</span><br>
+Monitors: <span style="color: #BF0000">Frozen</span><br>
+<br>
+Restart IceWM via antiX Menu, or Menu--&gt;Logout--&gt;Restart Session<br>
+Result<br>
+Clock: <span style="color: #00BF00">Shows correct time</span><br>
+Monitors: <span style="color: #00BF00">Works</span><br>
+<br>
+Change reverted<br>
+<br>
+<br>
+<blockquote><div><cite>Dave wrote:</cite>2) line 87, 88, 89
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># if [ -f"$xmodmap_config" ]; then
+#      xmodmap"$xmodmap_config"
+# fi</code></pre></div></div></blockquote>From cold boot<br>
+nosavestate desktop=icewm vga=791 persist_root lang=en_GB quiet<br>
+Result<br>
+Clock: <span style="color: #BF0000">Frozen showing incorrect time</span><br>
+Monitors: <span style="color: #BF0000">Frozen</span><br>
+<br>
+Restart IceWM via antiX Menu, or Menu--&gt;Logout--&gt;Restart Session<br>
+Result<br>
+Clock: <span style="color: #00BF00">Shows correct time</span><br>
+Monitors: <span style="color: #00BF00">Works</span><br>
+<br>
+Changes reverted<br>
+<br>
+<br>
+<blockquote><div><cite>Dave wrote:</cite>3) line 141 + 136, 137, 138
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#if [ -f"~/.$wm/startup.disabled" ]; then
+# mv ~/.$wm/startup.disabled ~/.$wm/startup
+#fi
+.......
+
+#mv ~/.$wm/startup ~/.$wm/startup.disabled</code></pre></div></div></blockquote>From cold boot<br>
+nosavestate desktop=icewm vga=791 persist_root lang=en_GB quiet<br>
+Result<br>
+During boot up while loading slim, error message <em>Failed to execute login command</em><br>
+Slim login screen displayed<br>
+Attempt to login as demo, error message <em>Failed to execute login command</em><br>
+Cycle repeats at each login attempt<br>
+<br>
+Attempt to enter <em>reboot</em> command in slim login screen<br>
+Dropped to text login screen<br>
+Login as root<br>
+As root enter reboot command<br>
+<br>
+Changes reverted<br>
+<br>
+<br>
+<blockquote><div><cite>Dave wrote:</cite>4) comment out lines 93 - 99
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#test -r $config || continue
+#if ! /bin/bash -n $config; then
+# shout"Errors in $config, cannot load $config."
+# shout"desktop-session may crash"
+# shout"Copy default config from /usr/local/share/desktop-session/desktop-session.conf"
+# continue
+# fi</code></pre></div></div></blockquote>From cold boot<br>
+nosavestate desktop=icewm vga=791 persist_root lang=en_GB quiet<br>
+Result<br>
+Clock: <span style="color: #BF0000">Frozen showing incorrect time</span><br>
+Monitors: <span style="color: #BF0000">Frozen</span><br>
+<br>
+Restart IceWM via antiX Menu, or Menu--&gt;Logout--&gt;Restart Session<br>
+Result<br>
+Clock: <span style="color: #00BF00">Shows correct time</span><br>
+Monitors: <span style="color: #00BF00">Works</span><br>
+<br>
+Changes reverted<br>
+<br>
+<br>
+<blockquote><div><cite>Dave wrote:</cite>5) change line 128 by removing echo_cmd
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$WM_EXEC</code></pre></div></div></blockquote>From cold boot<br>
+nosavestate desktop=icewm vga=791 persist_root lang=en_GB quiet<br>
+Result<br>
+Clock: <span style="color: #BF0000">Frozen showing incorrect time</span><br>
+Monitors: <span style="color: #BF0000">Frozen</span><br>
+<br>
+Restart IceWM via antiX Menu, or Menu--&gt;Logout--&gt;Restart Session<br>
+Result<br>
+Clock: <span style="color: #00BF00">Shows correct time</span><br>
+Monitors: <span style="color: #00BF00">Works</span><br>
+<br>
+Changes reverted</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46707" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46707">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46707">
+
+<time datetime="2016-05-19T11:09">posted: 2016-05-19 &nbsp; 11:09</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46707" title="permalink">#138</a></span>
+
+<div class="content">Hmm. What are the two lines used in slim.conf when desktop-session is enabled and disabled? <br>
+<br>
+Is there anything in ~ / . xsession-errors when it is working without desktop-session being used? <br>
+<br>
+Does waiting for a minute or two before logging in have any change on the outcome? <br>
+<br>
+Also could have run <br>
+Ps -ef | grep -i 'ice' <br>
+When it is working and when it is not? I do not know if that will tell anything but maybe if the processes are orphaned.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46709" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46709">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46709">
+
+<time datetime="2016-05-19T12:56">posted: 2016-05-19 &nbsp; 12:56</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46709" title="permalink">#139</a></span>
+
+<div class="content">Perhaps another clue about the frozen clock, but not the frozen monitors.<br>
+<br>
+Boot to frozen state of both clock and monitors<br>
+Menu--&gt;Run<br>
+In gExec, specify geany, run as root, OK<br>
+When the password box is presented, cancel without entering anything<br>
+The IceWM clock now shows the correct time, but the monitors remain frozen<br>
+<br>
+It seems that CC gksu-properties default <em>screen grab mode enable</em> is sufficient to clear the blockage for the clock. If it is set to <em>screen grab mode disable</em> the clock remains frozen.<br>
+<br>
+Maybe we are dealing with two problems rather than one.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46711" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46711">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46711">
+
+<time datetime="2016-05-19T14:32">posted: 2016-05-19 &nbsp; 14:32</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46711" title="permalink">#140</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>What are the two lines used in slim.conf when desktop-session is enabled and disabled?</div></blockquote>I'm not sure I get your meaning.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+# This command is executed after a succesful login.
+# you can place the %session and %theme variables
+# to handle launching of specific commands in .xinitrc
+# depending of chosen session and slim theme
+#
+# NOTE: if your system does not have bash you need
+# to adjust the command according to your preferred shell,
+# i.e. for freebsd use:
+# login_cmd         exec /bin/bash -login / etc/X11/Xsession %session 
+#################OLD COMMAND####################
+# login_cmd         exec /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors$DISPLAY 2&gt;&amp;1
+################################################
+#LOGIN COMMAND FOR DESKTOP SESSION BELOW#
+#############################################################################################
+login_cmd   setsid /usr/local/bin/desktop-session %session
+#############################################################################################
+
+# login_cmd exec dbus-launch /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors 2&gt;&amp;1
+
+# Commands executed when starting and exiting a session.
+# They can be used for registering a X11 session with
+# sessreg. You can use the %user variable
+#
+sessionstart_cmd   /usr/bin/sessreg -a -l $DISPLAY %user
+sessionstop_cmd       /usr/bin/sessreg -d -l $DISPLAY %user
+
+# Start in daemon mode. Valid values: yes | no
+# Note that this can overridden by the command line
+# option"-d"
+# daemon    yes
+
+# Available sessions (first one is the default).
+# The current chosen session name is replaced in the login_cmd
+# above, so your login command can handle different sessions.
+# see the xinitrc.sample file shipped with slim sources
+sessions rox-fluxbox,space-fluxbox,fluxbox,herbstluftwm,rox-icewm,space-icewm,icewm,rox-jwm,space-jwm,jwm
+...</code></pre></div>
+<blockquote><div><cite>Dave wrote:</cite>Is there anything in ~ / . xsession-errors when it is working without desktop-session being used?</div></blockquote>When desktop-session is enabled the file does not exist.<br>
+<br>
+When desktop-session is disabled the file contains
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Xsession: X session started for demo at Thu 19 May 15:56:29 BST 2016
+localuser:demo being added to access control list
+VBoxClient: the VirtualBox kernel service is not running.  Exiting.
+icewm-session: using /home/demo/.icewm for private configuration files
+icewmbg: using /home/demo/.icewm for private configuration files
+icewmtray: using /home/demo/.icewm for private configuration files
+IceWM: using /home/demo/.icewm for private configuration files
+head: cannot open ‘/home/demo/.desktop-session/desktop-code.0’ for reading: No such file or directory</code></pre></div>
+<blockquote><div><cite>Dave wrote:</cite>Does waiting for a minute or two before logging in have any change on the outcome?</div></blockquote><span style="color: #00BF00">Yes. Waiting approx 70 seconds at the slim login screen then login, clock shows correct time and monitors work as expected in five successive tests.</span><br>
+<blockquote><div><cite>Dave wrote:</cite>Also could have run<br>
+Ps -ef | grep -i 'ice'<br>
+When it is working and when it is not? I do not know if that will tell anything but maybe if the processes are orphaned.</div></blockquote>When clock and monitors are frozen
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ps -ef | grep -i 'ice' | grep -v 'grep'
+demo      3984  3955  0 15:14 ?        00:00:00 /usr/bin/icewm-session
+demo      3993  3984  0 15:14 ?        00:00:00 icewmbg
+demo      3994  3984  1 15:14 ?        00:00:00 icewm
+demo      3995  3984  0 15:14 ?        00:00:00 icewmtray</code></pre></div>When clock shows correct time and monitors working following a manual restart of IceWM
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ps -ef | grep -i 'ice' | grep -v 'grep'
+root      3552     1  0 15:14 ?        00:00:00 /usr/sbin/gpm -m /dev/input/mice -t exps2
+demo      3984  3955  0 15:14 ?        00:00:00 /usr/bin/icewm-session
+demo      3993  3984  0 15:14 ?        00:00:00 icewmbg
+demo      3994  3984  1 15:14 ?        00:00:02 icewm --restart
+demo      3995  3984  0 15:14 ?        00:00:00 icewmtray</code></pre></div>When clock shows correct time and monitors working following a delayed login
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ps -ef | grep -i 'ice' | grep -v 'grep'
+root      3559     1  0 15:22 ?        00:00:00 /usr/sbin/gpm -m /dev/input/mice -t exps2
+demo      4000  3971  0 15:23 ?        00:00:00 /usr/bin/icewm-session
+demo      4009  4000  0 15:23 ?        00:00:00 icewmbg
+demo      4010  4000  1 15:23 ?        00:00:00 icewm
+demo      4011  4000  0 15:23 ?        00:00:00 icewmtray</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46712" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46712">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46712">
+
+<time datetime="2016-05-19T14:58">posted: 2016-05-19 &nbsp; 14:58</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46712" title="permalink">#141</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Dave wrote:<br>
+Does waiting for a minute or two before logging in have any change on the outcome?<br>
+Yes. Waiting approx 70 seconds at the slim login screen then login, clock shows correct time and monitors work as expected in five successive tests.</div></blockquote>
+now that is interesting, and implies something isn't finished loading with slim starts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46713" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46713">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46713">
+
+<time datetime="2016-05-19T15:16">posted: 2016-05-19 &nbsp; 15:16</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46713" title="permalink">#142</a></span>
+
+
+<div class="content">Yes that is what I was wondering as the other post disabled everything really to the point of just having exec icewm-session in xinitrc. So I was thinking maybe the way it was called in slim or some service (acpi maybe? ) not being loaded or being reloaded later on.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46714" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46714">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46714">
+
+<time datetime="2016-05-19T15:23">posted: 2016-05-19 &nbsp; 15:23</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46714" title="permalink">#143</a></span>
+
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Yes that is what I was wondering as the other post disabled everything really to the point of just having exec icewm-session in xinitrc. So I was thinking maybe the way it was called in slim or some service (acpi maybe? ) not being loaded or being reloaded later on.</div></blockquote>
+the debian etc/init.d/slim script is slightly different from ours. Posting here for convienence (no code tags because of all the <em>/etc</em>. My untrained eye doesn't see any big deals...<br>
+<br>
+I have seen references around the 'net to using dbus-launch to start the wm, but nothing definitive to this situation.<br>
+<br>
+#!/bin/sh<br>
+<br>
+# Largely adapted from xdm's init script:<br>
+# Copyright 1998-2002, 2004, 2005 Branden Robinson &lt;<a href="mailto:branden@debian.org">branden@debian.org</a>&gt;.<br>
+# Copyright 2006 Eugene Konev &lt;<a href="mailto:ejka@imfi.kspu.ru">ejka@imfi.kspu.ru</a>&gt;<br>
+<br>
+### BEGIN INIT INFO<br>
+# Provides: slim<br>
+# Required-Start: dbus $local_fs $remote_fs<br>
+# Required-Stop: $local_fs $remote_fs<br>
+# Should-Start: xfs $named slapd<br>
+# Should-Stop: xfs $named slapd<br>
+# Default-Start: 2 3 4 5<br>
+# Default-Stop: 0 1 6<br>
+# Short-Description: Start daemon at boot time<br>
+# Description: Debian init script for the SLiM.<br>
+### END INIT INFO<br>
+<br>
+test -z"$HEED_DEFAULT_DISPLAY_MANAGER" &amp;&amp; HEED_DEFAULT_DISPLAY_MANAGER=true<br>
+DEFAULT_DISPLAY_MANAGER_FILE=<em>/</em>etc/X11/default-display-manager<br>
+<br>
+NAME="slim"<br>
+DESC="X display manager"<br>
+DAEMON=/usr/bin/slim<br>
+PIDFILE=/var/run/slim.lock<br>
+<br>
+SSD_START_ARGS="--pidfile $PIDFILE --name $(basename $DAEMON) --startas $DAEMON -- -d"<br>
+SSD_STOP_ARGS="--pidfile $PIDFILE --name $(basename $DAEMON) --retry TERM/5/TERM/5"<br>
+<br>
+test -x $DAEMON || exit 0<br>
+. /lib/lsb/init-functions<br>
+<br>
+case $1 in<br>
+start)<br>
+if ["$HEED_DEFAULT_DISPLAY_MANAGER" ="true" ] &amp;&amp;<br>
+[ -e $DEFAULT_DISPLAY_MANAGER_FILE ] &amp;&amp;<br>
+["$(cat $DEFAULT_DISPLAY_MANAGER_FILE)" !="$DAEMON" ]; then<br>
+log_daemon_msg"Not starting $DESC ($NAME); it is not the default display manager.""$NAME"<br>
+else<br>
+log_daemon_msg"Starting $NAME""$NAME"<br>
+start-stop-daemon --start --quiet $SSD_START_ARGS<br>
+log_end_msg $?<br>
+fi<br>
+;;<br>
+<br>
+stop)<br>
+log_daemon_msg"Stopping $DESC""$NAME"<br>
+start-stop-daemon --stop --quiet $SSD_STOP_ARGS<br>
+log_end_msg $?<br>
+rm -f $PIDFILE<br>
+;;<br>
+<br>
+restart)<br>
+$0 stop<br>
+sleep 2<br>
+$0 start<br>
+;;<br>
+<br>
+force-reload)<br>
+<em>/</em>etc/init.d/slim restart<br>
+;;<br>
+<br>
+status)<br>
+status_of_proc /usr/bin/$NAME $NAME<br>
+;;<br>
+<br>
+*)<br>
+echo"Usage: <em>/</em>etc/init.d/slim {start|stop|restart|force-reload|status}"<br>
+exit 1<br>
+;;<br>
+esac<br>
+<br>
+# End of file</div>
+<div class="notice">
+Last edited by <b>dolphin_oracle</b> on 19 May 2016, 15:24, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46715" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46715">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46715">
+
+<time datetime="2016-05-19T15:24">posted: 2016-05-19 &nbsp; 15:24</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46715" title="permalink">#144</a></span>
+
+<div class="content">Try using the bootchart option in F4 and when you get to the desktop, type in a user terminal pybootchartgui.<br>
+Maybe we can see something there.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46718" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46718">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46718">
+
+<time datetime="2016-05-20T04:41">posted: 2016-05-20 &nbsp; 04:41</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46718" title="permalink">#145</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Try using the bootchart option...</div></blockquote>Attached. I'm not sure if you wanted a particular set of boot params, so this is basic live with UK lang and time.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46725" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46725">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46725">
+
+<time datetime="2016-05-20T12:08">posted: 2016-05-20 &nbsp; 12:08</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46725" title="permalink">#146</a></span>
+
+<div class="content">SamK is this when the monitors are frozen or when they are working after waiting? <br>
+Also can you wait any less than 70s or is that the lowest you can wait ?<br>
+<br>
+Ideally a chart of when they are frozen to when they are working would help to compare. <br>
+Trying to find what starts 70 seconds after slim. (or what extras are being started that need 70s to load) 70 seconds seems a very long time for anything however so I am not sure what could be found.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46727" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46727">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46727">
+
+<time datetime="2016-05-20T12:39">posted: 2016-05-20 &nbsp; 12:39</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46727" title="permalink">#147</a></span>
+
+<div class="content">OK, call me crazy, but on my bootchart here in a virtualbox, ntpdate runs way before slim starts and is finished pretty much just before slim does the autologin thing. but in sam's bootchart, ntpdate runs way after the desktop would start, and depending on how you measure, 10 to 15 seconds after slim starts. and its after the icewmtray starts, so it possible tries to do whatever it does after sam's monitor start.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46728" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46728">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46728">
+
+<time datetime="2016-05-20T12:47">posted: 2016-05-20 &nbsp; 12:47</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46728" title="permalink">#148</a></span>
+
+<div class="content">Well then to proceed I would figure set the time to use system time or disable the time sync completely and see if it works</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46729" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46729">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46729">
+
+<time datetime="2016-05-20T12:50">posted: 2016-05-20 &nbsp; 12:50</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46729" title="permalink">#149</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Well then to proceed I would figure set the time to use system time or disable the time sync completely and see if it works</div></blockquote>
+<br>
+yeah, this apparently runs when a network interface is brought up. its not called from etc/init or etc/init.d as far as I can tell. that startup looks to be in etc/network/ifup.d<br>
+<br>
+I wouldn't think setting the date would cause an issue, but heck, we've tried everything else.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46732" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46732">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46732">
+
+<time datetime="2016-05-20T14:30">posted: 2016-05-20 &nbsp; 14:30</time>
+<span class="permalink"><a href="./antix-16-b2-1-full-available-t6344-s135.html#p46732" title="permalink">#150</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>SamK is this when the monitors are frozen or when they are working after waiting? </div></blockquote>That bootchart was not using any form of persistence so the desktop defaults to shipped GUI state i.e. IceWM without monitors in taskbar.<br>
+<blockquote><div><cite>Dave wrote:</cite>Also can you wait any less than 70s or is that the lowest you can wait ?</div></blockquote>The 70 seconds was chosen following the successful test of the clock updating in the panel of Fluxbox. That happens every 60 seconds. When testing IceWM the period of 70 seconds was to ensure a complete minute had passed therefore the clock in the taskbar should have advanced by 1 minute.<br>
+<br>
+It is probable a shorter wait time will work. Establishing what the minimum is will be quite tricky. I will test a shorter wait time.<br>
+<blockquote><div><cite>Dave wrote:</cite>Ideally a chart of when they are frozen to when they are working would help to compare.</div></blockquote>Currently the only way to boot to an"unfrozen" state is to wait a while at the slim login screen before login. So I'm not certain that will provide much useful info. Will <strong>you or d_o</strong> confirm if either of you would like to see it anyway.<br>
+<br>
+I can capture a bootchart of the frozen condition by using auto-login with persistence. Again will <strong>you or d_o</strong> confirm if either of you want to see that one even if the bootchart for a manual login is not wanted..</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+180 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-16-b2-1-full-available-t6344-s120.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344-s105.html" role="button">8</a></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344-s120.html" role="button">9</a></li>
+<li class="active"><span>10</span></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344-s150.html" role="button">11</a></li>
+<li><a class="button" href="./antix-16-b2-1-full-available-t6344-s165.html" role="button">12</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-16-b2-1-full-available-t6344-s150.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

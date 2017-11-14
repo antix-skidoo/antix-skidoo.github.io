@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>did you really install audacious in antix 16.2 using PETGET? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-development-f24/index.html"><span>antiX-development</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-respins-f48/index.html"><span>antiX-respins</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html">did you really install audacious in antix 16.2 using PETGET?</a></div>
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="viewtopic_wrapper">
+<div id="p_51848" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51848">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">figosdev</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51848">
+<time datetime="2017-06-30T08:15">posted: 2017-06-30 &nbsp; 08:15</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p51848" title="permalink">#1</a></span>
+
+<div class="content">yeah. worse than that, i made a respin of antix 16.2 that has petget. <br>
+<br>
+though that wasnt a specific goal. the goal was to find out how much of mkfigos i would have to modify to make it respin antix (full) instead.<br>
+<br>
+the changes are here: (then an explanation)<br>
+<br>
+<br>
+* NOTE: I DIDNT UPLOAD THE FILE YET.<br>
+<br>
+when i tried to post this, i got a real nastygram from cloudflare. GUYS! its a 52k plaintext file. what do... fine, i will upload it somewhere else and link to it here.<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt; refractaurl"https://archive.org/download/Refracta_Linux/refracta8_xfce_i386-20161014_1432.iso"
+&gt; refractaurl"https://downloads.sourceforge.net/project/antix-linux/Final/antiX-16/antiX-16.2_386-full.iso"
+
+&lt; now"mkdir /mnt/mkrefpup/newiso/live"  shell
+&gt; now"mkdir /mnt/mkrefpup/newiso/antiX"  shell
+
+&lt; now"cp /mnt/mkrefpup/refracta/live/vmlinuz /mnt/mkrefpup/newiso/live"  shell   
+&lt; now"cp /mnt/mkrefpup/refracta/live/initrd.img /mnt/mkrefpup/newiso/live/"  shell   
+---
+&gt; now"cp /mnt/mkrefpup/refracta/antiX/vmlinuz /mnt/mkrefpup/newiso/antiX"  shell   
+&gt; now"cp /mnt/mkrefpup/refracta/antiX/initrd.gz /mnt/mkrefpup/newiso/antiX/"  shell   
+
+&lt; now"cat /mnt/mkrefpup/refracta/isolinux/live.cfg | head -25 &gt;&gt; /mnt/mkrefpup/newiso/isolinux.cfg"  shell   
+&gt; now"cat /mnt/mkrefpup/refracta/boot/isolinux/isolinux.cfg | tail -26 &gt;&gt; /mnt/mkrefpup/newiso/isolinux.cfg"  
+
+&lt; now"unsquashfs /mnt/mkrefpup/refracta/live/filesystem.squashfs"  shell
+&gt; now"unsquashfs /mnt/mkrefpup/refracta/antiX/linuxfs"  shell
+
+&lt;     now"mksquashfs . /mnt/mkrefpup/newiso/live/filesystem.squashfs -noappend"  shell
+&gt;     now"mksquashfs . /mnt/mkrefpup/newiso/antiX/linuxfs -noappend"  shell
+
+&lt;     now"mksquashfs . /mnt/mkrefpup/newiso/live/filesystem.squashfs -noappend -comp xz -b 512K"  shell
+&gt;     now"mksquashfs . /mnt/mkrefpup/newiso/antiX/linuxfs -noappend -comp xz -b 512K"  shell
+</code></pre></div>
+<br>
+* the goal of this script was to find out how much of mkfigos i would have to modify to make it respin antix.<br>
+* this is a fully automated script with no user input. the necessary changes made to it are listed in this post.<br>
+* it successfully made a new iso for antix with several changes-- including adding fig, some utilities written in fig, and also petget from puppy linux.<br>
+* petget works-- i installed audacious in this"respin" of antix.<br>
+* fig os normally mixes librepup with refracta (latest version: 8.3)<br>
+* one of the really nice things about the previous version of mkfigos was that it fixed dirty cow before refracta did.<br>
+<br>
+<br>
+the way i started remixing distros was by trying to sort out the differences between all the many puppy versions (even over time, such as very old versions based on the 2.x kernel.)<br>
+<br>
+i found out no one else was interested in this deep analysis of puppy distros (a little bit surprising, and yet not a lot.) <br>
+<br>
+i created a utility called"distdiff" which instead of producing a table of things found in many isos, would compare two isos along with the contents of their squashfs files.<br>
+<br>
+then i watched people struggle to use the official puppy build script. i wanted to find out if there was a way to UPDATE PUPPY by mixing its files with debians. there were two modes; the script took librepup and refracta and made it boot into either:<br>
+<br>
+* puppy mode: puppy with some parts updated from refracta<br>
+* refracta mode: refracta with some parts imported from puppy (like petget)<br>
+<br>
+it was a race to find out what was easier: update puppy from refracta binaries? or TRULY puppify refracta. refractahrpup could potentially do both. <br>
+<br>
+<br>
+how did it become fig os?<br>
+<br>
+* no interest in puppifying refracta, even if i was doing all the work<br>
+* refracta dev (who ive met in person) thought the name"refractahrpup" might confuse some<br>
+* a close friend from the puppy community thought it was better without"puppy" in the name<br>
+* ...he made a fig boot screen for me, too<br>
+<br>
+i updated puppy mode as much as i could-- with TONS of fresh binaries from refracta. it got to where i had to do surgery on initrd; thats where i stopped. with no audience i got as far with puppy mode as i wanted; and dropped the feature.<br>
+<br>
+when i say"dropped the feature" all i have to do to pick it back up is add some code back. from an older version.<br>
+<br>
+now ive modified mkfigos to remix antix instead. it doesnt make all the proper edits to antix that it makes to refracta, but i believe it can.<br>
+<br>
+it makes the new iso-- it boots into the default graphical desktop (with shells and roxterm) and worst of all! it has a working installation of petget. <br>
+<br>
+i will even attach the source to this bizarre public domain respin code. i made the minimum modifications to get a working, graphical, bootable puppy/antix hybrid. yes! now thats a thing... dont worry, i have no reason to pursue that at this time.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51858" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51858">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51858">
+
+<time datetime="2017-06-30T14:38">posted: 2017-06-30 &nbsp; 14:38</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p51858" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>when i tried to post this, i got a real nastygram from cloudflare. GUYS! its a 52k plaintext file</div></blockquote>idunno how cloudflare fits in the mix, but...<br>
+to upload plaintext forum attachments, I've been forced to append .zip to filename (just rename, no need to actually compress)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51860" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51860">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51860">
+
+<time datetime="2017-06-30T15:17">posted: 2017-06-30 &nbsp; 15:17</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p51860" title="permalink">#3</a></span>
+
+<div class="content">From my perspective, use of petget is worrisome, in the same vein as using/trusting content blindly installed from PPAs (or wget'ted from clowdz).<br>
+I do keep an eye on puppyland tech, though<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://barryk.org/easy/how-easy-works.htm"<br>linktext was:"http://barryk.org/easy/how-easy-works.htm"<br>====================================<br>
+ (go ahead, try to read, and digest, that in one sitting -- I couldn't)<br>
+-=-<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://distro.ibiblio.org/fatdog/web/faqs/uml.html"<br>linktext was:"http://distro.ibiblio.org/fatdog/web/faqs/uml.html"<br>====================================<br>
+ (keywords: virtenv, isolation, lxc containers)<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.lightofdawn.org/blog/?viewDetailed=00028"<br>linktext was:"http://www.lightofdawn.org/blog/?viewDetailed=00028"<br>====================================<br>
+<br>
+<br>
+An"adrive" [...]"zdrive" mechanism doesn't jibe well with a dpkg -managed system, but I'd like to work out a way to conditionally side-load<br>
+infrequently needed"stuff" during liveboot. (Immediate example is LibreOffice.) Shuffling appimage loaders into, and out of,<br>
+a watched directory on the liveUSB should be possible... but I'd prefer an ability to choose"create a diversion" when installing debian packages,<br>
+so that LO (and its myriad"personal bloatation devices") could be relegated to a separately-loadable"layer".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51870" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51870">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">figosdev</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51870">
+
+<time datetime="2017-06-30T20:23">posted: 2017-06-30 &nbsp; 20:23</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p51870" title="permalink">#4</a></span>
+
+<div class="content">a user would be generally unwise to mix apt with puppy packages on an installed system. sooner or later its going to do-- something.<br>
+<br>
+for a livecd i think its fine, petget happens to be my favourite part of puppy but more importantly, there are many packages for puppy that you can now run-- and when debian drops them in newer versions, theyre still available. i think avidemux is one example.<br>
+<br>
+not that its ever a great idea to mix repos, let alone package systems. and yet every once in a while, an exception can come up. when i added petget, it was a demo. <br>
+<br>
+to me, if youre going to mix puppy with anything, you cant have puppy without petget. you probably need a lot of other things, too-- but petget is essential, because people want to be able to use their packages (and a lot the puppy packages are unique, even if compatibility is never guaranteed.)<br>
+<br>
+if i were going to maintain (rather than just demo) petget or offer it as a serious idea for including, it would need a lot of cleanup. barrys stuff is usually very tightly coupled, difficult to separate into standalone components, and no one seems to have any interest in doing that. i would probably modify petget so that it cant clobber any existing files-- though that would make upgrades difficult or impossible-- petget is designed to clobber. having it check apt to avoid stepping on its toes would be a feat, but probably too much work for something no one would actually use.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52865" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52865">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">sc0ttman</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52865">
+
+<time datetime="2017-09-10T11:16">posted: 2017-09-10 &nbsp; 11:16</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p52865" title="permalink">#5</a></span>
+
+<div class="content">Hi guys,<br>
+<br>
+This is my first post, and I've not yet used antiX, although I read some reviews and it looks great..<br>
+I particularly like your installer GUI, is it gtkdialog? Is there source available for it?<br>
+<br>
+...Anyway, about this thread: <strong>I have made a command line package manager for Puppy Linux</strong>.<br>
+<br>
+Currently found here, in a discussion I'm trying to start about (lack of) Puppy CLI apps:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://murga-linux.com/puppy/viewtopic.php?p=967038#967038"<br>linktext was:"http://murga-linux.com/puppy/viewtopic. ... 038#967038"<br>====================================<br>
+<br>
+<br>
+It is called Pkg-1.9.0alpha ... It uses some Puppy repo stuff in ~/.packages ... <br>
+I wouldn't even think about trying to port it to AntiX until 1.9.1alpha is released.. <br>
+<br>
+I post about it here because it <em>may</em> be an easier (or not!) way of getting Puppy repos and PETs available in AntiX, <br>
+without the need to bring it in PetGet and all its config files, etc.. <br>
+<br>
+It is currently very, very early alpha stages (only works well on Slacko-6.9.x, which are the latest Slackware based pups)..<br>
+But soon it should work work in all recent Puppy Linux builds, and most Woof-built pups (4.3 and later).. <br>
+<br>
+Anyway, if any mad people on this forum WANT to get Puppy Linux PETs in to AntiX, <br>
+this CLI package manager <em>may</em> be something to try... Just FYI.<br>
+<br>
+Cheers,<br>
+Good luck on the great looking distro and its excellent custom tools!<br>
+<br>
+Scott</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52866" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52866">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52866">
+
+<time datetime="2017-09-10T13:32">posted: 2017-09-10 &nbsp; 13:32</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p52866" title="permalink">#6</a></span>
+
+<div class="content">Hi, Scott. The antiX installer GUI is written in C++ and has a QT frontend. Its source code is posted here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/antiX-installer"<br>linktext was:"https://github.com/antiX-Linux/antiX-installer"<br>====================================<br>
+<br>
+<br>
+Source code for most of the antix in-house tools are posted to separate github repos, under antiX-Linux project<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux"<br>linktext was:"https://github.com/antiX-Linux"<br>====================================<br>
+<br>
+<br>
+antiX ships with gtkdialog pre-installed. IIRC, it is a slightly higher version (v0.8.3) than most puppy variants use. Its tarball is available here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antixlinux.com/jessie/pool/main/g/gtkdialog/"<br>linktext was:"http://antixlinux.com/jessie/pool/main/g/gtkdialog/"<br>====================================<br>
+<br>
+Although the newer version introduces some new functionality and fixes a couple bugs, some quirks arise in puppy applications expecting the older version. An example, from (my) recent memory: <br>
+<a href="http://murga-linux.com/puppy/viewtopic.php?t=110097" class="postlink">SFR's <em>Yahtzeeeee</em> game</a><br>
+I had to make several modifications to get it to run under antiX, period, and never managed to get it to run flawlessly (roll2, roll3 actions didn't respond). <br>
+<br>
+Because antiX includes JWM and rox, it may provide a comfortable transition to puppy emigrants.<br>
+Hey {click} I just realized: antiX even includes a 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/advert-block-antix"<br>linktext was:"advert-block-antix "<br>====================================<br>
+util derived from your 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://murga-linux.com/puppy/viewtopic.php?t=59290"<br>linktext was:"Advert-Blocker"<br>====================================<br>
+<br>
+<br>
+<strong>Please do</strong> at least test-drive antiX. Aligned with your 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://murga-linux.com/puppy/viewtopic.php?t=111468"<br>linktext was:"Better command line tools, and pkg manager suggestions,"<br>====================================<br>
+<br>
+within the antiX17beta you'll find 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/console-grid-gui"<br>linktext was:"console-grid-gui"<br>====================================<br>
+<br>
+<br>
+<a href="http://murga-linux.com/puppy/viewtopic.php?t=111468" class="postlink"></a></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52883" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52883">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">figosdev</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52883">
+
+<time datetime="2017-09-11T02:56">posted: 2017-09-11 &nbsp; 02:56</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p52883" title="permalink">#7</a></span>
+
+<div class="content">hi sc0tt, the only real point of having petget in fig os (originally refractahrpup) was to show how you could take barrys stuff and merge it with another distro.<br>
+<br>
+i dont think theres really anyone on earth who wants to use petget outside of puppy, but if they do its not impossible.<br>
+<br>
+the point of showing petget in antix was mainly to demonstrate that mkfigos works on antix-- i normally use it with refracta. just to reiterate, i have scripts that used to merge puppy (librepup, based on puppy tahr) with debian-based distros like refracta and antix. dont get me wrong, being able to install .pet packages that easily has actually helped one or two times. have fun.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52884" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52884">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52884">
+
+<time datetime="2017-09-11T05:16">posted: 2017-09-11 &nbsp; 05:16</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p52884" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>sc0ttman wrote:</cite>...Anyway, about this thread: <strong>I have made a command line package manager for Puppy Linux</strong>.</div></blockquote>
+We added a command-line Debian package manager to antiX-17.    It is written in Bash and makes use of a fairly powerful library that is available here:
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/BitJam/cli-shell-utils"<br>linktext was:" cli-shell-utils"<br>====================================<br>
+.   IIRC, four of our programs use this library now: cli-aptiX, live-usb-maker, dd-live-usb, and live-kernel-updater.   The UI elements are all menus that are navigated with the arrow keys, etc.   I made a screenshot to show you the UI but I was not able to attach it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52906" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52906">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">sc0ttman</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52906">
+
+<time datetime="2017-09-12T14:18">posted: 2017-09-12 &nbsp; 14:18</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p52906" title="permalink">#9</a></span>
+
+<div class="content">Thanks for the info guys.<br>
+<br>
+I will install antiX when I have a bit more time, might need to buy some USBs before I can play around with some new stuff.. <br>
+<br>
+Cheers for the links to your GitHub stuff, I will have a good look around, already seen some nice stuff!<br>
+<br>
+As for many people not wanting to use PetGet, that includes some Puppy users too I think! :)<br>
+<br>
+Cheers,<br>
+Scott.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52907" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52907">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">figosdev</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52907">
+
+<time datetime="2017-09-12T19:00">posted: 2017-09-12 &nbsp; 19:00</time>
+<span class="permalink"><a href="./did-you-really-install-audacious-in-antix-16-2-usi-t7047.html#p52907" title="permalink">#10</a></span>
+
+<div class="content">at least its not called pupget anymore (or more importantly, theyre not called"pups") <br>
+<br>
+mcafee uses"pup" as an abbreviation for"potentially unwanted programs." i wouldnt be surprised if that went into barrys reasons for the change.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

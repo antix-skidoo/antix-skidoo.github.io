@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Devices renamed after installing liquorix kernel via smxi - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./devices-renamed-after-installing-liquorix-kernel-v-t5007.html">Devices renamed after installing liquorix kernel via smxi</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_34951" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34951">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 17</span></div>
+
+</div>
+</div>
+<span class="username">anamesa</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34951">
+<time datetime="2014-04-25T21:50">posted: 2014-04-25 &nbsp; 21:50</time>
+<span class="permalink"><a href="./devices-renamed-after-installing-liquorix-kernel-v-t5007.html#p34951" title="permalink">#1</a></span>
+
+<div class="content">So, here's the problem: I have an antix installation on /dev/sda8, which was working flawlessly with 3.7 kernel and with debian stable apt sources. After upgrading to debian testing (jessie) AND installing the latest liquorix kernel (3.13.11 I think), the devices get renamed, and though it boots (due to UUID name), it cannon mount other partitions I have in fstab. Actually, /dev/sda --&gt; /dev/sdc , /dev/sdb --&gt; /dev/sdd and two other USB disks get the names of /dev/sda &amp; /dev/sdb. Now, thiw problem I've encountered also in a debian testing installation I have on a USB disk, on a different laptop, but why does it appear here, on an ACER Aspire laptop, when antix had the right device names before? Is this a bug in Debian testing? Since I use a grub2 /boot/grub/grub.cfg file built from a manjaro installation, I'll have to manually edit it, but since it changes every time the manjaro kernel is upgraded, I'll end up changing this every day (so to say). The /boot/grub/device.map and /boot/grub/menu.lst in antix is ok (or so it seems, since it shows the right number of partitions per device). What could possibly be the reason for this?<br>
+<br>
+The problem DOESN'T OCCUR when i boot with the antix 3.7.10 kernel. <br>
+<br>
+I've installed the 64bit antix 13.2 iso and then changed the sources from debian stable to jessie, and then installed the liquorix kernel. It seems a bug in liquorix kernel, but before going there, is there any way to find a solution here?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34952" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34952">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34952">
+
+<time datetime="2014-04-25T22:01">posted: 2014-04-25 &nbsp; 22:01</time>
+<span class="permalink"><a href="./devices-renamed-after-installing-liquorix-kernel-v-t5007.html#p34952" title="permalink">#2</a></span>
+
+<div class="content">It is due to how new kernels and udev now work. Basically it is no longer reliable to use device partions eg /dev/sda1 in the boot menu or fstab since the kernel now sets them randomly ie the quickest gets sda etc.<br>
+<br>
+Solution is to use uuid and/or labels in both as they do not change,<br>
+<br>
+To get uuid, use type blkid in a root terminal.<br>
+You can also use gparted to set labels for each partition/device.<br>
+<br>
+As an example here is my fstab<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+UUID=3b6c6562-2de0-4f14-993d-8af446a6bf57 / ext4 defaults,noatime 1 1
+#LABEL="antiX-64" / ext4 defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+#UUID=c0c16fbc-1e5a-46a8-9ecd-d064800b1dca swap swap sw, 0 0
+LABEL="swap" swap swap sw, 0 0
+#UUID=8fa6aecc-c2ee-48c5-9dd8-2e4027187922 /media/sda1 ext4 noauto,users,exec,relatime 0 0
+LABEL="antiX-32" /media/antiX-32 ext4 noauto,users,exec,relatime 0 0
+#UUID=2c53bf5a-8caa-4534-beb1-f5aa04050918 /media/sda3 ext3 auto,users,exec,relatime 0 0
+LABEL="Torrents" /media/Torrents ext3 auto,users,exec,relatime 0 0
+#UUID=f56325d7-99bc-4d6d-b84d-b81554a404dd /media/sdb3 ext3 auto,users,exec,relatime 0 0
+LABEL="Data" /media/Data ext3 auto,users,exec,relatime 0 0
+#UUID=d5b1c53b-8c62-4731-8492-021f22c45b69 /media/sdb5 btrfs auto,users,exec,relatime 0 0 
+LABEL="Docs" /media/Docs btrfs auto,users,exec,relatime 0 0
+#UUID=8fa6aecc-c2ee-48c5-9dd8-2e4027187922 /media/sdb6 ext4 noauto,users,exec,relatime 0 0
+LABEL="MX-14" /media/MX-14 ext4 noauto,users,exec,relatime 0 0
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34953" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34953">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34953">
+
+<time datetime="2014-04-25T22:05">posted: 2014-04-25 &nbsp; 22:05</time>
+<span class="permalink"><a href="./devices-renamed-after-installing-liquorix-kernel-v-t5007.html#p34953" title="permalink">#3</a></span>
+
+<div class="content">Oh and you would probably need to create the labelled folders in /media</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34954" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34954">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 17</span></div>
+
+</div>
+</div>
+<span class="username">anamesa</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34954">
+
+<time datetime="2014-04-25T23:40">posted: 2014-04-25 &nbsp; 23:40</time>
+<span class="permalink"><a href="./devices-renamed-after-installing-liquorix-kernel-v-t5007.html#p34954" title="permalink">#4</a></span>
+
+<div class="content">@anticapitalista<br>
+Thank you for your prompt reply.
+<blockquote class="uncited"><div>Solution is to use uuid and/or labels in both as they do not change</div></blockquote>
+This is exactly what I did to circumvent the issue. Now it boots ok. Due to the fact that I'm using another grub2 bootmanager, I had to edit the 3.13-11 kernel part of antix there, to reflect the new device it sees as the root partition.
+<blockquote class="uncited"><div>Oh and you would probably need to create the labelled folders in /media</div></blockquote>
+I have edited fstab to reflect my own kind of mounting the partitions, eg the ntfs partitions go to /win, the other linux distros on the same disk go to /dis, so I didn't create the labelled folders in /media, but next time I'll see if it is better to keep the antix way and just symlink the folders to the names of my preference.<br>
+<br>
+Thanks again.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34957" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34957">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 17</span></div>
+
+</div>
+</div>
+<span class="username">anamesa</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34957">
+
+<time datetime="2014-04-26T08:44">posted: 2014-04-26 &nbsp; 08:44</time>
+<span class="permalink"><a href="./devices-renamed-after-installing-liquorix-kernel-v-t5007.html#p34957" title="permalink">#5</a></span>
+
+<div class="content">What I cannot figure out is why this is only present in Debian testing at the moment. I've not encountered the problem in any other distro. But the interaction of kernel and udev must be a complex matter and jessie is"testing" after all. Anyway, the"UUID=..." way works ok, and I hope that next time I'll generate a new /boot/grub/grub.cfg from manjaro won't have to edit it again. Thanks once more.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34960" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34960">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34960">
+
+<time datetime="2014-04-26T12:47">posted: 2014-04-26 &nbsp; 12:47</time>
+<span class="permalink"><a href="./devices-renamed-after-installing-liquorix-kernel-v-t5007.html#p34960" title="permalink">#6</a></span>
+
+<div class="content">Another bit of info that is starting to pop up. Motherboard manufacturers are slowly beginning to incorporate the use of"UUID" in their BIOS codes to standardize labeling. Even BIOS updates on older boards still supported may add this coding.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>radeon driver; Error messages in Xorg.log; what to do? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./radeon-driver-error-messages-in-xorg-log-what-to-d-t6320.html">radeon driver; Error messages in Xorg.log; what to do?</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46128" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46128">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 64</span></div>
+
+</div>
+</div>
+<span class="username">floppy</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Dec 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46128">
+<time datetime="2016-04-02T11:31">posted: 2016-04-02 &nbsp; 11:31</time>
+<span class="permalink"><a href="./radeon-driver-error-messages-in-xorg-log-what-to-d-t6320.html#p46128" title="permalink">#1</a></span>
+
+<div class="content">Hello,<br>
+in the Xorg.log, there are few error messages. <br>
+My system:<br>
+<strong>$ inxi -F</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: hp7100 Kernel: 4.0.5-antix.3-486-smp i686 (32 bit) Desktop: IceWM 1.3.8
+           Distro: antiX-15.1_386-full Killah P 18 February 2016
+Machine:   System: Hewlett-Packard product: HP Compaq dc7100 USDT(DX877AV)
+           Mobo: Hewlett-Packard model: 0980h Bios: Hewlett-Packard v: 786C1 v02.15 date: 08/07/2008
+CPU:       Single core Intel Pentium 4 (-HT-) cache: 2048 KB 
+           clock speeds: max: 3393 MHz 1: 3393 MHz 2: 3393 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] Cedar [Radeon HD 5000/6000/7350/8350 Series]
+           Display Server: X.Org 1.16.4 drivers: ati,radeon (unloaded: fbdev,vesa) Resolution: 1280x1024@60.02hz
+           GLX Renderer: Gallium 0.4 on AMD CEDAR GLX Version: 3.0 Mesa 10.3.2
+Audio:     Card-1 Intel 82801FB/FBM/FR/FW/FRW (ICH6 Family) AC'97 Audio Controller driver: snd_intel8x0
+           Card-2 Advanced Micro Devices [AMD/ATI] Cedar HDMI Audio [Radeon HD 5400/6300 Series]
+           driver: snd_hda_intel
+           Sound: Advanced Linux Sound Architecture v: k4.0.5-antix.3-486-smp
+Network:   Card: Broadcom NetXtreme BCM5751 Gigabit Ethernet PCI Express driver: tg3
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: 00:12:79:67:bd:7e
+Drives:    HDD Total Size: 40.0GB (9.7% used) ID-1: /dev/sda model: SAMSUNG_SP0411C size: 40.0GB
+Partition: ID-1: / size: 7.7G used: 2.9G (40%) fs: ext4 dev: /dev/sda2
+           ID-2: /home size: 29G used: 770M (3%) fs: ext4 dev: /dev/sda1
+Sensors:   System Temperatures: cpu: No active sensors found. Have you configured your sensors yet? mobo: N/A gpu: 72.0
+Info:      Processes: 108 Uptime: 38 min Memory: 248.0/3035.2MB Client: Shell (bash) inxi: 2.2.31 </code></pre></div>
+Xorg.0.log extract
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>....
+(EE) [mi] EQ overflowing.  Additional events will be discarded until existing events are processed.
+(EE) 
+(EE) Backtrace:
+(EE) 0: /usr/bin/X11/X (xorg_backtrace+0x52) [0xb7696552]
+(EE) 1: /usr/bin/X11/X (mieqEnqueue+0x25c) [0xb767644c]
+(EE) 2: /usr/bin/X11/X (QueuePointerEvents+0x5b) [0xb7544f3b]
+(EE) 3: /usr/bin/X11/X (xf86PostMotionEventM+0x22e) [0xb757dede]
+(EE) 4: /usr/lib/xorg/modules/input/evdev_drv.so (0xb369a000+0x4bd4) [0xb369ebd4]
+(EE) 5: /usr/lib/xorg/modules/input/evdev_drv.so (0xb369a000+0x514d) [0xb369f14d]
+(EE) 6: /usr/bin/X11/X (0xb74f0000+0x7d4d6) [0xb756d4d6]
+(EE) 7: /usr/bin/X11/X (0xb74f0000+0xa7fa7) [0xb7597fa7]
+(EE) 8: linux-gate.so.1 (__kernel_sigreturn+0x0) [0xb74ceba0]
+(EE) 9: /lib/i386-linux-gnu/libc.so.6 (ioctl+0x14) [0xb71a2464]
+(EE) 10: /usr/lib/i386-linux-gnu/libdrm.so.2 (drmIoctl+0x2e) [0xb73aebce]
+(EE) 11: /usr/lib/i386-linux-gnu/libdrm.so.2 (drmCommandWrite+0x32) [0xb73b1a42]
+(EE) 12: /usr/lib/i386-linux-gnu/libdrm_radeon.so.1 (0xb6b27000+0x1678) [0xb6b28678]
+(EE) 13: /usr/lib/i386-linux-gnu/libdrm_radeon.so.1 (0xb6b27000+0x18d2) [0xb6b288d2]
+(EE) 14: /usr/lib/i386-linux-gnu/libdrm_radeon.so.1 (radeon_bo_map+0x14) [0xb6b29e84]
+(EE) 15: /usr/lib/xorg/modules/drivers/radeon_drv.so (0xb6b36000+0x307b9) [0xb6b667b9]
+(EE) 16: /usr/lib/xorg/modules/libexa.so (0xb6aff000+0x4ce7) [0xb6b03ce7]
+(EE) 17: /usr/lib/xorg/modules/libexa.so (0xb6aff000+0x5043) [0xb6b04043]
+(EE) 18: /usr/lib/xorg/modules/libexa.so (0xb6aff000+0x73f5) [0xb6b063f5]
+(EE) 19: /usr/lib/xorg/modules/libexa.so (0xb6aff000+0x3d83) [0xb6b02d83]
+(EE) 20: /usr/lib/xorg/modules/libexa.so (0xb6aff000+0x10013) [0xb6b0f013]
+(EE) 21: /usr/lib/xorg/modules/libexa.so (0xb6aff000+0x7707) [0xb6b06707]
+(EE) 22: /usr/bin/X11/X (0xb74f0000+0x12ab24) [0xb761ab24]
+(EE) 23: /usr/bin/X11/X (0xb74f0000+0x39346) [0xb7529346]
+(EE) 24: /usr/bin/X11/X (0xb74f0000+0x3d086) [0xb752d086]
+(EE) 25: /usr/bin/X11/X (0xb74f0000+0x4126a) [0xb753126a]
+(EE) 26: /usr/bin/X11/X (0xb74f0000+0x2af2a) [0xb751af2a]
+(EE) 27: /lib/i386-linux-gnu/libc.so.6 (__libc_start_main+0xf3) [0xb70eb723]
+(EE) 28: /usr/bin/X11/X (0xb74f0000+0x2af68) [0xb751af68]
+(EE) 
+(EE) [mi] These backtraces from mieqEnqueue may point to a culprit higher up the stack.
+(EE) [mi] mieq is *NOT* the cause.  It is a victim.</code></pre></div>
+Should I perhaps install the ATI proprietary driver instead of radeon?</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46133" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46133">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46133">
+
+<time datetime="2016-04-02T15:19">posted: 2016-04-02 &nbsp; 15:19</time>
+<span class="permalink"><a href="./radeon-driver-error-messages-in-xorg-log-what-to-d-t6320.html#p46133" title="permalink">#2</a></span>
+
+<div class="content">Are you experiencing any problems with the ati,radeon driver?<br>
+<br>
+I never install the proprietary driver if things are working smoothly for me using the open source driver.<br>
+You just might induce more trouble shooting time in case something breaks.<br>
+<br>
+That being said.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepiscommunity.org/wiki/antix-faqs-applications/guide-smxisgfxiinxi"<br>linktext was:"http://www.mepiscommunity.org/wiki/anti ... isgfxiinxi"<br>====================================<br>
+<br>
+<br>
+The instructions are good for AntiX also.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

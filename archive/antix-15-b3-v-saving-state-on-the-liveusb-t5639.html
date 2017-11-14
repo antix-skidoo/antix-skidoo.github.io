@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>AntiX 15 b3-V: saving state on the LiveUSB - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html">AntiX 15 b3-V: saving state on the LiveUSB</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_40863" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40863">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40863">
+<time datetime="2015-06-02T19:06">posted: 2015-06-02 &nbsp; 19:06</time>
+<span class="permalink"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html#p40863" title="permalink">#1</a></span>
+
+<div class="content">We are experimenting with saving some state information on the LiveUSB even if no persistence is enabled. Currently we save the desktop setting (window manager and icon manager), the alsa volume settings, and wireless networks and passwords. The alsa settings are saved on a machine by machine basis. Otherwise there will be conflicts and error messages because the alsa settings contain machine dependent information.<br>
+<br>
+This should be transparent to you. What you may notice is that your choice of desktop, your wireless passwords, and your volume settings survive across reboots even if persistence is not enabled. There will also be messages about"saving state file ..." and"restoring state file ..." at startup and shutdown.<br>
+<br>
+The files are stored under subdirectories in /antiX/state/ on the LiveUSB. The LiveUSB is normally mounted at /live/boot-dev when you are running Live. This directory should be created automatically the first time you boot the LiveUSB. You can control which files get saved by editing the files:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/antiX/state/general-state-files
+/antiX/state/machine-state-files</code></pre></div>These will be also be automatically created on the first LiveUSB boot. The defaults are:<br>
+<br>
+machine-state-files:<blockquote class="uncited"><div> /var/lib/alsa/asound.state</div></blockquote>
+general-state-files:<blockquote class="uncited"><div> <em>/</em>etc/wicd/*.conf<br>
+<em>/</em>etc/NetworkManager/system-connections/*<br>
+<em>/</em>etc/network/interfaces<br>
+<em>/</em>etc/network/interfaces.d/*</div></blockquote>
+You can turn this off temporarily with the"nousbstate" cheat. You can turn it off permanently by touching the file /antiX/state/no-state. In the next release, the cheat code will change to"nosavestate" and"savestate". These will also touch and remove the no-state file so any change you make to enable or disable this feature with boot codes will survive reboots.<br>
+<br>
+General state files are saved across all machines. This is being used to remember wireless networks and passwords. Machine state files are saved and restored on a machine by machine basis. If you only use the LiveUSB on one machine then they act like general state files but if you move the LiveUSB between machines then machine state files will only be restored to the machine they were stored on.<br>
+<br>
+The reason for this is a conflict between making the LiveUSB work on different machines and saving the alsa volume. The file that stores the alsa volume also contains hardware specific information and will cause errors if it is used on a machine that has different hardware. To make a LiveUSB that has persistence general purpose (so it works on more than one machine) then we need to delete the volume information. Machine dependent state files keep a separate copy of the asound.state file for each machine the LiveUSB is run on. Machine are identified by a machine-id which is a hash of the files /sys/class/dmi/id/board_*.<br>
+<br>
+The restoration of general state files and of the desktop session file is disabled if persistence is enabled. But the files are stilled stored at shutdown and will be available on the next non-persistent boot. The machine state files aways get used unless saving state is disabled. This should prevent alsa error when you move the LiveUSB between machines.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40890" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40890">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40890">
+
+<time datetime="2015-06-02T23:46">posted: 2015-06-02 &nbsp; 23:46</time>
+<span class="permalink"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html#p40890" title="permalink">#2</a></span>
+
+<div class="content">Sounds like a great idea. <br>
+Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40951" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40951">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40951">
+
+<time datetime="2015-06-05T18:34">posted: 2015-06-05 &nbsp; 18:34</time>
+<span class="permalink"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html#p40951" title="permalink">#3</a></span>
+
+<div class="content">This system can also potentially resolve the problem that of machines with wired on ethX and wireless on ethX in the same machine. <br>
+<br>
+background: / etc/udve/70-persistent-net.rules keeps track of what interface (by MAC address) is assigned what label. This caused problems on the liveusb w/ persistence because evertyime you changed machines, you had to reset either wicd or ceni to use the correct interfaces. Our past solution was to simply not save 70-persistent-net.rules by default, so that for most users with ethX and wlanX, the names are always eth0 and wlan0. makes the cool conky net monitor stuff work as well.<br>
+<br>
+but some combinations of hardware result in ethX for the wired and ethX for the wireless. and since we weren't saving the 70-persistent-net.rules file, udev was renaming these every boot. but udev allows for EITHER of the devices to be eth1 or eth0 (basically whichever it gets to first is eth0), and its not necessarily the same from boot to boot. which plays havoc with the live w/persistence setup on such machines, forcing users to manually reconfigure the interfaces when the labels switch.<br>
+<br>
+procedure:<br>
+adding this line to the machine-state save file<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/ etc/udev/rules.d/*-persistent-net.rules
+</code></pre></div>
+and commented out that line in the two liveusb persistence excludes files (now accesible via control center, thank you!).<br>
+<br>
+Now instead of simply resetting the interface names every boot, the system remembers what names go with what interface card, and and what machine. <br>
+<br>
+Since I don't have interfaces with this issue, I've been using tracker text in the udev 70-persistent-net.rules file to make sure the file is going back and forth from the machine save to the proper machine, and it is. IMO, much more useful than saving the volume state.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40955" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40955">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40955">
+
+<time datetime="2015-06-05T19:50">posted: 2015-06-05 &nbsp; 19:50</time>
+<span class="permalink"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html#p40955" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>... adding this line to the machine-state save file<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/ etc/udev/rules.d/*-persistent-net.rules
+</code></pre></div>
+and commented out that line in the two liveusb persistence excludes files (now accesible via control center, thank you!).</div></blockquote>
+Thanks! I will make it so. Should we do this with all of the <strong>*-persistent-*.rules</strong> files? That is what I will do unless told otherwise.<br>
+<br>
+BTW: this saving state mechanism might be a bit of a security risk since you can use it to inject a file almost anywhere. Of course, you need to be root to do this and once you have root it is game-over security-wise. OTOH, the root password for the live system is well known. As we make the live system work more and more like the installed system, the security of the live system becomes more and more like that of the installed system.<br>
+<br>
+One way to make saving state a little more secure is to do away with the config files that let the user specify which files get saved. This makes a security breach a little less trivial once someone has root but it won't stop a determined attacker.<br>
+<br>
+We could greatly increase the defense against network attacks by forcing users to change the root and demo passwords. If you have root persistence enabled then I believe you can do this now with the <strong>pw=root,demo</strong> cheat but I have not tested this recently. We could also create random passwords for root and demo that get displayed on the screen. I'm not suggesting we do this now but I think it is good to look for a path forward that makes the Live system more secure. A few years ago I experimented with running the Live system from an encrypted partition. We might want to have a more secure version of antiX/MX but not for antiX-15. I will try to make sure the <strong>pw=...</strong> boot parameter works even if root persistence isn't enabled. We could even add this to the F4-Options menu. H'mm. We could then add the / etc/shadow and / etc/passwd files to the list of state files so the new passwords are remembered across reboots. Just thinking aloud here.<br>
+<br>
+I *think* we could make it work so the user is forced to change the passwords just once and then the shadow and passwd files will be saved as state files. We could do this with a cheat like"secure" or"securepw" or"forcepw". I like the idea of keeping the convenience of well-known passwords as the default but providing an easy security upgrade via a boot parameter. Forcing people to change the passwords on a LiveUSB system (or maybe even any Live system) could even be an option in the remaster and snapshot programs.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40957" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40957">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40957">
+
+<time datetime="2015-06-05T20:15">posted: 2015-06-05 &nbsp; 20:15</time>
+<span class="permalink"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html#p40957" title="permalink">#5</a></span>
+
+<div class="content"><blockquote class="uncited"><div>
+Thanks! I will make it so. Should we do this with all of the *-persistent-*.rules files? That is what I will do unless told otherwise.</div></blockquote>
+I don't think it would hurt anything, but the 70-persistent-net.rules file is the only one generated in / etc/udev/rules.d on my system(s)<br>
+<br>
+BTW, the 70-persistent-net.rules file is apparently created/update by /lib/udev/write_net_rules.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40962" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40962">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40962">
+
+<time datetime="2015-06-05T20:43">posted: 2015-06-05 &nbsp; 20:43</time>
+<span class="permalink"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html#p40962" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>... commented out that line in the two liveusb persistence excludes files (now accesible via control center, thank you!).</div></blockquote>I'm glad it was useful. There is a slight problem though. I believe that button is in the"Live" tab and that tab goes away on installed systems so there will no longer be a button to edit iso-snapshot-excludes.list on installed systems. Maybe we can add another button on a different tab for editing that one file.<br>
+<blockquote class="uncited"><div>... the 70-persistent-net.rules file is the only one generated in / etc/udev/rules.d on my system(s)</div></blockquote>That is the only one I've seen too but wonder if it makes sense to save all of the *-persistent-* rules:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>60-persistent-alsa.rules
+60-persistent-input.rules
+60-persistent-serial.rules
+60-persistent-storage-dm.rules
+60-persistent-storage-tape.rules
+60-persistent-storage.rules
+60-persistent-v4l.rules</code></pre></div> Maybe should erase all of these rules files except persistent-net. Also, The persistent-net rules file should definitely go on the machine dependent list (I'm pretty sure you already knew that). It looks like persistent-net is the only one that is auto-generated.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40964" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40964">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40964">
+
+<time datetime="2015-06-05T20:54">posted: 2015-06-05 &nbsp; 20:54</time>
+<span class="permalink"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html#p40964" title="permalink">#7</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>60-persistent-alsa.rules
+60-persistent-input.rules
+60-persistent-serial.rules
+60-persistent-storage-dm.rules
+60-persistent-storage-tape.rules
+60-persistent-storage.rules
+60-persistent-v4l.rules</code></pre></div>
+I'm not sure about these. I'm showing these in /lib/udev/rules.d. Do they actually store any information? If they are truly just rules and don't store any particular system information between boots, then saving them doesn't hurt, but probably doesn't do anything either. I'll poke around them tonight and see what I find.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40973" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40973">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40973">
+
+<time datetime="2015-06-05T23:49">posted: 2015-06-05 &nbsp; 23:49</time>
+<span class="permalink"><a href="./antix-15-b3-v-saving-state-on-the-liveusb-t5639.html#p40973" title="permalink">#8</a></span>
+
+ <div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>I'm not sure about these. I'm showing these in /lib/udev/rules.d. Do they actually store any information? </div></blockquote>
+Excellent point!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

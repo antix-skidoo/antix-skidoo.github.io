@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Make your sound louder, especially on laptops - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html">Make your sound louder, especially on laptops</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23662" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23662">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23662">
+<time datetime="2012-02-17T00:35">posted: 2012-02-17 &nbsp; 00:35</time>
+<span class="permalink"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html#p23662" title="permalink">#1</a></span>
+
+<div class="content">Many complain that linux audio is too low volume by default. I know on the same hardware, audio on windows can be much louder than the audio on linux/antix.<br>
+<br>
+so I did some googling, and found some info on a solution. <br>
+<br>
+check out 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://alien.slackbook.org/blog/adding-an-alsa-software-pre-amp-to-fix-low-sound-levels/"<br>linktext was:"http://alien.slackbook.org/blog/adding- ... nd-levels/"<br>====================================<br>
+ for the work around. I'm posting the soluntion that worked for my eeepc below for expediency. The author notes that you may need to change"type plug" to"type hw" depending on your hardware. On my screen, I had to scroll through the alsamixer window all the way to the right as the new pre-amp setting was off screen to the right. It works for me, maybe it will for you too. <br>
+<br>
+PS - I didn't code this, and I don't know why it works. Your mileage may vary.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>pcm.!default {
+      type plug
+      slave.pcm"softvol"
+  }
+
+  pcm.softvol {
+      type softvol
+      slave {
+          pcm"dmix"
+      }
+      control {
+          name"Pre-Amp"
+          card 0
+      }
+      min_dB -5.0
+      max_dB 20.0
+      resolution 6
+  }
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23663" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23663">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23663">
+
+<time datetime="2012-02-17T01:40">posted: 2012-02-17 &nbsp; 01:40</time>
+<span class="permalink"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html#p23663" title="permalink">#2</a></span>
+
+<div class="content">Did you add a /etc/asound.conf file D.O.?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~$ cd /etc
+harry@biker:/etc$ ls
+abcde.conf              hostname         polkit-1
+acpi                    hosts            ppp
+adduser.conf            hosts.allow      printcap
+alternatives            hosts.deny       profile
+antixsnapshot.conf      icedtea-web      profile.d
+antix-version           iceweasel        protocols
+apm                     ifplugd          pulse
+apt                     init.d           purple
+ati                     initramfs-tools  python
+avahi                   inittab          python2.7
+avserver.conf           inputrc          rc0.d
+bash.bashrc             insserv          rc1.d
+bash_completion         insserv.conf     rc2.d
+bash_completion.d       insserv.conf.d   rc3.d
+bindresvport.blacklist  iproute2         rc4.d
+blkid.tab               irssi.conf       rc5.d
+blkid.tab.old           issue            rc6.d
+bonobo-activation       issue.net        rc.local
+ca-certificates         java-6-openjdk   rcS.d
+ca-certificates.conf    jwm              request-key.conf
+calendar                kbd              request-key.d
+chatscripts             kernel           resolv.conf
+conky                   ldap             ripit
+console                 ld.so.cache      rmt
+ConsoleKit              ld.so.conf       rpc
+console-setup           ld.so.conf.d     rsyslog.conf
+cron.d                  libao.conf       rsyslog.d
+cron.daily              libaudit.conf    samba
+cron.hourly             libnl-3          sane.d
+cron.monthly            libpaper.d       screenrc
+crontab                 libreoffice      securetty
+cron.weekly             live             security
+cups                    locale.alias     sensors3.conf
+dbus-1                  locale.gen       sensors.d
+debconf.conf            localtime        services
+debian_version          logcheck         sgml
+default                 login.defs       shadow
+defaultdomain           logrotate.conf   shadow-
+defoma                  logrotate.d      shells
+deluser.conf            lsb-base         skel
+dhcp                    magic            slim.conf
+dhcp3                   magic.mime       slim.conf.dpkg-dist
+dictionaries-common     mailcap          smbnetfs.conf
+dillo                   mailcap.order    sound
+dkms                    mailname         ssh
+dpkg                    manpath.config   ssl
+e4rat.conf              mc               sudoers
+elinks                  menu             sudoers.d
+emacs                   menu-methods     sudoers.dpkg-dist
+environment             mime.types       sysctl.conf
+esound                  mke2fs.conf      sysctl.d
+ffserver.conf           modprobe.d       systemd
+fonts                   modules          terminfo
+foomatic                motd             timezone
+fstab                   motd.tail        transmission-daemon
+fstab.backup            mplayer          ts.conf
+fstab.d                 mtab             ucf.conf
+fuse.conf               mtools.conf      udev
+gai.conf                nanorc           ufw
+gamin                   ndiswrapper      uniconf.conf
+gconf                   netscsid.conf    updatedb.conf
+gftp                    network          usb_modeswitch.conf
+ghostscript             networks         usb_modeswitch.d
+gnome-vfs-2.0           newsbeuter       uswsusp.conf
+gnome-vfs-mime-magic    nsswitch.conf    vga
+gpm.conf                openal           vim
+grep-dctrl.rc           OpenCL           wgetrc
+groff                   opt              wicd
+group                   pam.conf         wildmidi
+group-                  pam.d            wodim.conf
+grub.d                  papersize        wpa_supplicant
+gshadow                 passwd           wvdial.conf
+gshadow-                passwd-          X11
+gtk                     pcmcia           xdg
+gtk-2.0                 perl             xlock.staff
+gtk-3.0                 pm               xml
+hdparm.conf             pmount.allow
+host.conf               pnm2ppa.conf
+</code></pre></div>
+This is the New AntiX iso.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23664" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23664">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 903</span></div>
+
+</div>
+</div>
+<span class="username">plvera</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23664">
+
+<time datetime="2012-02-17T01:50">posted: 2012-02-17 &nbsp; 01:50</time>
+<span class="permalink"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html#p23664" title="permalink">#3</a></span>
+
+<div class="content">I added a new file asound.conf like the link said, but I can't get the plugin to show up, even after trying the substitution to"hw" as recommended.<br>
+<br>
+Thanks for the tip though.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23667" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23667">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23667">
+
+<time datetime="2012-02-17T12:10">posted: 2012-02-17 &nbsp; 12:10</time>
+<span class="permalink"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html#p23667" title="permalink">#4</a></span>
+
+<div class="content">@rok - yes i did, in /etc. and I'm using the new test iso as well.<br>
+<br>
+@plvera - in my alsamixer the plugin was out of view on the window to the right. Sorry it didn't work for you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31968" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31968">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">Boub</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31968">
+
+<time datetime="2013-11-23T16:57">posted: 2013-11-23 &nbsp; 16:57</time>
+<span class="permalink"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html#p31968" title="permalink">#5</a></span>
+
+<div class="content">Hi there,<br>
+Hi anticapitalista,<br>
+Hi everybody,<br>
+<br>
+Newbie to AntiX. I prefered to go on with this topic instead of creating o new one. I am currently using 13.1 base on a 2001 Acer Laptop with a lot of pleasure, thanks to everybody implied. It's not a place to explain why I find this distro so nice.<br>
+<br>
+So my soundcard was detected. Everything was right except the famous problem of low volume level.<br>
+And I tried to create the"asound.conf" in /etc with the code shown here first, AND with the second edition of this code shown on the blog linked here.<br>
+As a result, the Alsamixer didn't even open no more, in any case. I decided to remove the asound.conf file. Alsamixer now opens, but there is no more sound, not at all.<br>
+Please, what sould I try? I wish at least make things like they were, with the low level volume, but managing to get a normal volume level would be better obviously.<br>
+Please, forgive my approximative use of English language, and excuse me to post my first message here instead of making a presentation of myself.<br>
+<br>
+Hope someone knows what happened.<br>
+Boub,</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31969" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31969">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">Boub</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31969">
+
+<time datetime="2013-11-23T17:17">posted: 2013-11-23 &nbsp; 17:17</time>
+<span class="permalink"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html#p31969" title="permalink">#6</a></span>
+
+<div class="content">Ok,<br>
+<br>
+Found why there was no more sound, not at all. In the Alsamixer, every leveller got muted when I tried to make things with the asound.conf file. If this happens to someone, cancel muting of every level by typing"m" on each of them (there should be"00" numbers below every leveller instead of"MM".) <br>
+<br>
+However, the sound stays low for the moment.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31971" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31971">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">Boub</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31971">
+
+<time datetime="2013-11-23T19:29">posted: 2013-11-23 &nbsp; 19:29</time>
+<span class="permalink"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html#p31971" title="permalink">#7</a></span>
+
+<div class="content">Something worked for me!<br>
+<br>
+I give you the tip. I find it on this page :<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/ALSA"<br>linktext was:"https://wiki.debian.org/ALSA"<br>====================================<br>
+<br>
+<br>
+It's said to MUTE the s/pdif channel.<br>
+Just did it, no more, and it worked. The sound got normal! To mute, press"m" on the selected channel.<br>
+I will do some tests to say you if the sound is not distorted (gain), but it seems that no.<br>
+<br>
+Hope this will help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31972" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31972">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 19</span></div>
+
+</div>
+</div>
+<span class="username">pcpavnz</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31972">
+
+<time datetime="2013-11-23T19:48">posted: 2013-11-23 &nbsp; 19:48</time>
+<span class="permalink"><a href="./make-your-sound-louder-especially-on-laptops-t3586.html#p31972" title="permalink">#8</a></span>
+
+<div class="content">I did this some years back to a number of Linux distros and sure enough it worked, but it does introduce a potential fry something.<br>
+<br>
+The Linux pre-amps do as they should, but if the levels are not set right, you will get audio clipping, which may not be discernible to the untrained ear on regular laptop speakers. What clipping does is to feed raw DC current to the speakers at the point of clipping, and this will damage the speakers, and potentially the transistors that produce the output. Clipping simply sounds like scratchy speakers, which are usually the result of too much power or playing too many clipped tracks at volumes above 70% of their capabilities for too long.<br>
+<br>
+An easy way to discern clipping is to feed the headphones output from the Linux machine to a real stereo, the better quality the stereo, the better chance of detecting the clipping. I have the advantage of having a 32-channel mixer connected to 1400 RMS amp and matched speakers, but a regular household stereo should suffice, or a good quality car stereo with auxiliary inputs.<br>
+<br>
+If you can find the point of clipping and set the preamp to just under it, you will get the best results.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

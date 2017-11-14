@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>USB ports get deactivated after unmounting drive - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./usb-ports-get-deactivated-after-unmounting-drive-t3679.html">USB ports get deactivated after unmounting drive</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24507" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24507">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24507">
+<time datetime="2012-04-28T21:24">posted: 2012-04-28 &nbsp; 21:24</time>
+<span class="permalink"><a href="./usb-ports-get-deactivated-after-unmounting-drive-t3679.html#p24507" title="permalink">#1</a></span>
+
+<div class="content">Hey all, <br>
+<br>
+quite regularly I get an error message on the command line either when unplugging a USB drive that I have (correctly I assume) unmounted via 'unmount /media/DEVICE' or as has just happened resetting my iPod, since it does not get it, that it has been hooked up to a computer. FYI: The latter behaviour is quite frequent with Apple's iPod, my previous one had the same issues.<br>
+<br>
+The error message I got a few minutes ago read like this, the others should had been similiar:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Message from syslogd@Honeyman-AntiX at Apr 16 01:26:26 ...
+ kernel:[23150.812182] Oops: 0000 [#1] SMP 
+
+Message from syslogd@Honeyman-AntiX at Apr 16 01:26:26 ...
+ kernel:[23150.812490] Process udisks-part-id (pid: 9063, ti=dc75e000 task=cf22d9a0 task.ti=dc75e000)
+
+Message from syslogd@Honeyman-AntiX at Apr 16 01:26:26 ...
+ kernel:[23150.812498] Stack:
+
+Message from syslogd@Honeyman-AntiX at Apr 16 01:26:26 ...
+ kernel:[23150.812573] Call Trace:
+
+Message from syslogd@Honeyman-AntiX at Apr 16 01:26:26 ...
+ kernel:[23150.812974] Code: 12 5b b9 80 d5 bc e0 5e ba 80 00 00 00 5f e9 e8 83 59 e0 5b 5e 5f c3 ba 01 00 00 00 e9 58 ff ff ff 55 89 d5 57 31 d2 56 89 c6 53 &lt;8b&gt; 40 04 49 0f 94 c2 b9 10 00 00 00 bf 00 00 00 04 e8 9a 02 58 
+
+Message from syslogd@Honeyman-AntiX at Apr 16 01:26:26 ...
+ kernel:[23150.813101] EIP: [&lt;e0bcc9b6&gt;] scsi_execute+0xa/0x109 [scsi_mod] SS:ESP 0068:dc75fce4
+
+Message from syslogd@Honeyman-AntiX at Apr 16 01:26:26 ...
+ kernel:[23150.813135] CR2: 000000002f40657a</code></pre></div>
+<br>
+<br>
+The annoying thing is that I have to reboot the system before my USB ports are working again. After the error message they are deactivated, and I cannot get them up and running again.<br>
+<br>
+Any thoughts on that? Am I doing something wrong here?<br>
+<br>
+AntiX 11 is running on an IBM T21 notebook.<br>
+<br>
+Here is the output for lspci -vv:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>00:1d.0 USB controller: Intel Corporation 82801CA/CAM USB Controller #1 (rev 01) (prog-if 00 [UHCI])
+        Subsystem: IBM ThinkPad A/T/X Series
+        Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B-
+ DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium &gt;TAbort- &lt;TAbort- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-
+        Latency: 0
+        Interrupt: pin A routed to IRQ 11
+        Region 4: I/O ports at 1800 [size=32]
+        Kernel driver in use: uhci_hcd
+
+00:1d.1 USB controller: Intel Corporation 82801CA/CAM USB Controller #2 (rev 01) (prog-if 00 [UHCI])
+        Subsystem: IBM ThinkPad A/T/X Series
+        Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+
+Status: Cap- 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium &gt;TAbort- &lt;TAbort- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-
+        Latency: 0
+        Interrupt: pin B routed to IRQ 11
+        Region 4: I/O ports at 1820 [size=32]
+        Kernel driver in use: uhci_hcd
+
+00:1d.2 USB controller: Intel Corporation 82801CA/CAM USB Controller #3 (rev 01) (prog-if 00 [UHCI])
+        Subsystem: IBM ThinkPad A/T/X Series
+        Control: I/O+ Mem- BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B+ ParErr- DEVSEL=medium &gt;TAbort- &lt;TAbort- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-
+        Latency: 0
+        Interrupt: pin C routed to IRQ 11
+        Region 4: I/O ports at 1840 [size=32]
+        Kernel driver in use: uhci_hcd
+
+00:1e.0 PCI bridge: Intel Corporation 82801 Mobile PCI Bridge (rev 41) (prog-if 00 [Normal decode])
+        Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR+ FastB2B- DisINTx-
+        Status: Cap- 66MHz- UDF- FastB2B+ ParErr- DEVSEL=fast &gt;TAbort- &lt;TAbort- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-
+        Latency: 0
+        Bus: primary=00, secondary=02, subordinate=08, sec-latency=64
+        I/O behind bridge: 00002000-00006fff
+        Memory behind bridge: c0200000-cfffffff
+        Prefetchable memory behind bridge: f0000000-f7ffffff
+        Secondary status: 66MHz- FastB2B+ ParErr- DEVSEL=medium &gt;TAbort- &lt;TAbort- &lt;MAbort+ &lt;SERR- &lt;PERR-
+        BridgeCtl: Parity- SERR- NoISA+ VGA- MAbort- &gt;Reset- FastB2B-
+                PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-</code></pre></div>
+Thanks for your help</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24509" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24509">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24509">
+
+<time datetime="2012-04-29T14:17">posted: 2012-04-29 &nbsp; 14:17</time>
+<span class="permalink"><a href="./usb-ports-get-deactivated-after-unmounting-drive-t3679.html#p24509" title="permalink">#2</a></span>
+
+<div class="content">Me, Not being a Ipod owner. I have a generic rca mp3 player that works real good in linux with mp3s. I don't get usb ports disabled by anything I disconnect via usb. On my IBM T23. I use a cheapo pcmcia usb/firewire card OK. <br>
+<br>
+Maybe something in bios is causing this for you as far as settings go. Damn if I know what it is though. Or maybe Apple Ipod is causing some kind of feedback ( damn if I know that either). <br>
+<br>
+Are all other usb devices working OK like pendrives?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24525" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24525">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24525">
+
+<time datetime="2012-04-29T21:39">posted: 2012-04-29 &nbsp; 21:39</time>
+<span class="permalink"><a href="./usb-ports-get-deactivated-after-unmounting-drive-t3679.html#p24525" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>Are all other usb devices working OK like pendrives?</div></blockquote>
+No, this is not an Ipod issue only. This happens also from time to time when unplugging other USB devices. Never encountered a similiar problem with MacPup or Slitaz, but I hadn't used them long enough to be able to confidently point the finger at AntiX. It might arguably be the BIOS's fault, but there nothing I can do there. The strange thing is that this problem does not come up everytime I unplug a device, only sometimes. Maybe the next time this happens I should carefully pay attention to what I was doing at the moment, as well have a closer look into /var/syslog and dmesg.<br>
+<br>
+Thanks for the response,<br>
+<br>
+Honeypuck</div>
+ </div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

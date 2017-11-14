@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>13.2 on Acer Aspire One 722 sound problems - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./13-2-on-acer-aspire-one-722-sound-problems-t4678.html">13.2 on Acer Aspire One 722 sound problems</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_31648" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31648">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31648">
+<time datetime="2013-11-06T23:49">posted: 2013-11-06 &nbsp; 23:49</time>
+<span class="permalink"><a href="./13-2-on-acer-aspire-one-722-sound-problems-t4678.html#p31648" title="permalink">#1</a></span>
+
+<div class="content">Wiped out W7, now have antiX 13.2 on and machine runs like a champ! Only real problem is sound--or rather, lack of same. Have futzed around for a while, and sort of know what the problem is. First, here are the sound specs:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>jb@BondAcer2:~
+$ cat /proc/asound/modules
+ 0 snd_hda_intel
+ 1 snd_hda_intel
+jb@BondAcer2:~
+$ lsusb
+Bus 002 Device 003: ID 064e:d214 Suyin Corp. 
+Bus 003 Device 002: ID 0a5c:2198 Broadcom Corp. 
+Bus 003 Device 003: ID 192f:0416 Avago Technologies, Pte. 
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+jb@BondAcer2:~
+$ cat /proc/asound/cards
+ 0 [Generic        ]: HDA-Intel - HD-Audio Generic
+                      HD-Audio Generic at 0xf0444000 irq 41
+ 1 [SB             ]: HDA-Intel - HDA ATI SB
+                      HDA ATI SB at 0xf0440000 irq 16</code></pre></div>I installed VLC, and using that can switch to the second card, which then works fine. But I can't figure out how to reverse the order system-wide. Don't actually understand what the generic card is there for in the first place, so don't want to just black list it.<br>
+<br>
+Thoughts? TIA</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31649" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31649">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31649">
+
+<time datetime="2013-11-07T02:11">posted: 2013-11-07 &nbsp; 02:11</time>
+<span class="permalink"><a href="./13-2-on-acer-aspire-one-722-sound-problems-t4678.html#p31649" title="permalink">#2</a></span>
+
+<div class="content">OK, got it after searching around some more:<ul><li>find card numbers with <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cat /proc/asound/cards</code></pre></div></li><li>create a file in home directory <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>.asoundrc</code></pre></div></li><li>
+open new file and paste in <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>pcm.!default {
+    type hw
+    card 1
+}
+
+ctl.!default {
+    type hw           
+    card 1
+}</code></pre></div></li><li>use the card number that you want to be default</li><li>reboot</li></ul>Woot!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31650" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31650">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31650">
+
+<time datetime="2013-11-07T02:29">posted: 2013-11-07 &nbsp; 02:29</time>
+<span class="permalink"><a href="./13-2-on-acer-aspire-one-722-sound-problems-t4678.html#p31650" title="permalink">#3</a></span>
+
+<div class="content">I'm sure there are others here who know more about this stuff than I do.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://kmuto.jp/debian/hcl/Acer/Aspire+One+722"<br>linktext was:"This page"<br>====================================<br>
+ indicates there is an hdmi sound output and an non-hdmi sound output which makes sense.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture#Set_the_default_sound_card"<br>linktext was:"This page"<br>====================================<br>
+ gives instructions for selecting the sound card system-wide. Their first method seems to assume the different cards use different sound drivers (modules). The <strong>Alternative method</strong>, using ~/.asoundrc or / etc/asound.conf does not make this assumption. It says you just need to add something like the following to your ~/.asoundrc file:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>pcm.!default {
+    type hw
+    card 2
+}
+
+ctl.!default {
+    type hw           
+    card 2
+}</code></pre></div>
+BTW: the output if"lspci -k" might have been more useful than the output of"lsusb" but since your system was already in the database I linked to above, your lspci output was not needed.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31660" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31660">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31660">
+
+<time datetime="2013-11-07T10:35">posted: 2013-11-07 &nbsp; 10:35</time>
+<span class="permalink"><a href="./13-2-on-acer-aspire-one-722-sound-problems-t4678.html#p31660" title="permalink">#4</a></span>
+
+<div class="content">Thanks for looking. I used that Archlinux page myself in posting the answer above, which I guess you did not see (?).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31667" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31667">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31667">
+
+ <time datetime="2013-11-07T18:08">posted: 2013-11-07 &nbsp; 18:08</time>
+<span class="permalink"><a href="./13-2-on-acer-aspire-one-722-sound-problems-t4678.html#p31667" title="permalink">#5</a></span>
+
+<div class="content">Yes, I missed your second post. I sometimes get distracted by higher priorities and finish a reply long after I started it.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

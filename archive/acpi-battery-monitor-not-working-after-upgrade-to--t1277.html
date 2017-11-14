@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>ACPI battery monitor not working after upgrade to 7.5 - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./antix-m7-5-toussaint-louverture-f20/index.html"><span>antiX-M7.5 Toussaint Louverture</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./acpi-battery-monitor-not-working-after-upgrade-to--t1277.html">ACPI battery monitor not working after upgrade to 7.5</a></h2>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_8083" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile8083">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 61</dd>
+<span class="username">thinkpada21</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8083">
+
+<time datetime="2008-12-08T09:25">posted: 2008-12-08  &nbsp; 09:25</time>
+<span class="permalink"><a href="./acpi-battery-monitor-not-working-after-upgrade-to--t1277.html#p8083" title="permalink">#1</a></span>
+
+<div class="content">I finally got to upgrading from 7.2 to 7.5 using the antiX-upgrader.sh script.<br>
+<br>
+After the update, Conky was displaying"no ac_adapters, 0 %".<br>
+<br>
+I tried modifying .conkyrc, but no changes I made helped, and many didn't show anything.<br>
+<br>
+After all that, I decided to go looking around in /proc/acpi<br>
+<br>
+I am not sure, but I think the virtual files that report battery status are missing.<br>
+<br>
+Here are listings from ls and from cat:<br>
+<br>
+# ls -lR acpi<br>
+acpi:<br>
+total 0<br>
+-r-------- 1 root root 0 2008-12-08 04:02 dsdt<br>
+dr-xr-xr-x 3 root root 0 2008-12-08 04:02 embedded_controller<br>
+-r-------- 1 root root 0 2008-12-07 05:05 event<br>
+-r-------- 1 root root 0 2008-12-08 04:02 fadt<br>
+-r--r--r-- 1 root root 0 2008-12-08 04:02 info<br>
+dr-xr-xr-x 4 root root 0 2008-12-08 04:02 power_resource<br>
+-rw-r--r-- 1 root root 0 2008-12-08 04:02 sleep<br>
+-rw-r--r-- 1 root root 0 2008-12-08 04:02 wakeup<br>
+<br>
+acpi/embedded_controller:<br>
+total 0<br>
+dr-xr-xr-x 2 root root 0 2008-12-08 04:02 EC<br>
+<br>
+acpi/embedded_controller/EC:<br>
+total 0<br>
+-r--r--r-- 1 root root 0 2008-12-08 04:02 info<br>
+<br>
+acpi/power_resource:<br>
+total 0<br>
+dr-xr-xr-x 2 root root 0 2008-12-08 04:02 PSER<br>
+dr-xr-xr-x 2 root root 0 2008-12-08 04:02 PSIO<br>
+<br>
+acpi/power_resource/PSER:<br>
+total 0<br>
+-r--r--r-- 1 root root 0 2008-12-08 04:02 state<br>
+<br>
+acpi/power_resource/PSIO:<br>
+total 0<br>
+-r--r--r-- 1 root root 0 2008-12-08 04:02 state<br>
+<br>
+# cat acpi/power_resource/PSER/state<br>
+state: off<br>
+system level: S0<br>
+order: 0<br>
+reference count: 0<br>
+# cat acpi/power_resource/PSIO/state<br>
+state: on<br>
+system level: S0<br>
+order: 0<br>
+reference count: 0</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8084" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile8084">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8084">
+
+<time datetime="2008-12-08T12:59">posted: 2008-12-08  &nbsp; 12:59</time>
+<span class="permalink"><a href="./acpi-battery-monitor-not-working-after-upgrade-to--t1277.html#p8084" title="permalink">#2</a></span>
+
+<div class="content">Post your conkyrc, there may be other options.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8089" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile8089">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 61</dd>
+<span class="username">thinkpada21</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8089">
+
+ <time datetime="2008-12-08T23:38">posted: 2008-12-08  &nbsp; 23:38</time>
+<span class="permalink"><a href="./acpi-battery-monitor-not-working-after-upgrade-to--t1277.html#p8089" title="permalink">#3</a></span>
+
+<div class="content">This is the"out of the box" .conkyrc, except I tried using the optional parameter to specify which battery. I tried BAT0, BAT1, BAT2 through BAT9. Al yielded the same result.<br>
+<br>
+I am running on an IBM ThinkPad A21m with PIII 750 MHz and 256 MB RAM.<br>
+<br>
+# set to yes if you want Conky to be forked in the background<br>
+background yes<br>
+<br>
+cpu_avg_samples 2<br>
+net_avg_samples 2<br>
+<br>
+out_to_console no<br>
+<br>
+# X font when Xft is disabled, you can pick one with program xfontsel<br>
+#font 7x12<br>
+#font 6x10<br>
+#font 7x13<br>
+font 8x12<br>
+#font 7x12<br>
+#font *mintsmild.se*<br>
+#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*<br>
+#font -artwiz-snap-normal-r-normal-*-*-100-*-*-p-*-iso8859-1<br>
+<br>
+# Use Xft?<br>
+use_xft no<br>
+<br>
+# Xft font when Xft is enabled<br>
+xftfont Kristen ITC-7<br>
+<br>
+own_window_transparent yes<br>
+own_window_colour hotpink<br>
+<br>
+# Text alpha when using Xft<br>
+xftalpha 0.8<br>
+<br>
+#on_bottom no<br>
+<br>
+# mail spool<br>
+mail_spool $MAIL<br>
+<br>
+# Update interval in seconds<br>
+update_interval 1<br>
+<br>
+# Create own window instead of using desktop (required in nautilus)<br>
+own_window no<br>
+<br>
+# Use double buffering (reduces flicker, may not work for everyone)<br>
+double_buffer yes<br>
+<br>
+# Minimum size of text area<br>
+minimum_size 5 5<br>
+maximum_width 200<br>
+<br>
+# Draw shades?<br>
+draw_shades no<br>
+<br>
+# Draw outlines?<br>
+draw_outline no<br>
+<br>
+# Draw borders around text<br>
+draw_borders no<br>
+<br>
+# Stippled borders?<br>
+stippled_borders 0<br>
+<br>
+# border margins<br>
+border_margin 10<br>
+<br>
+# border width<br>
+border_width 2<br>
+<br>
+# Default colors and also border colors<br>
+default_color white<br>
+default_shade_color white<br>
+default_outline_color white<br>
+<br>
+# Text alignment, other possible values are commented<br>
+alignment top_left<br>
+#alignment top_right<br>
+#alignment bottom_left<br>
+#alignment bottom_right<br>
+<br>
+# Gap between borders of screen and text<br>
+<br>
+gap_x 10<br>
+gap_y 10<br>
+<br>
+# Add spaces to keep things from moving about? This only affects certain objects.<br>
+use_spacer yes<br>
+<br>
+# Subtract file system buffers from used memory?<br>
+no_buffers yes<br>
+<br>
+# set to yes if you want all text to be in uppercase<br>
+uppercase no<br>
+<br>
+# boinc (seti) dir<br>
+# seti_dir /opt/seti<br>
+<br>
+# Possible variables to be used:<br>
+#<br>
+# Variable Arguments Description <br>
+# acpiacadapter ACPI ac adapter state. <br>
+# acpifan ACPI fan state <br>
+# acpitemp ACPI temperature. <br>
+# adt746xcpu CPU temperature from therm_adt746x <br>
+# adt746xfan Fan speed from therm_adt746x <br>
+# battery (num) Remaining capasity in ACPI or APM <br>
+# battery. ACPI battery number can be <br>
+# given as argument (default is BAT0). <br>
+# buffers Amount of memory buffered <br>
+# cached Amount of memory cached <br>
+# color (color) Change drawing color to color <br>
+# cpu CPU usage in percents <br>
+# cpubar (height) Bar that shows CPU usage, height is <br>
+# bar's height in pixels <br>
+# downspeed net Download speed in kilobytes <br>
+# downspeedf net Download speed in kilobytes with one <br>
+# decimal <br>
+# exec shell command Executes a shell command and displays <br>
+# the output in torsmo. warning: this <br>
+# takes a lot more resources than other <br>
+# variables. I'd recommend coding wanted <br>
+# behaviour in C and posting a patch <span class="emoticon"> __{{emoticon}}__ </span>. <br>
+# execi interval, shell Same as exec but with specific interval. <br>
+# command Interval can't be less than <br>
+# update_interval in configuration. <br>
+# fs_bar (height), (fs) Bar that shows how much space is used on <br>
+# a file system. height is the height in <br>
+# pixels. fs is any file on that file <br>
+# system. <br>
+# fs_free (fs) Free space on a file system available <br>
+# for users. <br>
+# fs_free_perc (fs) Free percentage of space on a file <br>
+# system available for users. <br>
+# fs_size (fs) File system size <br>
+# fs_used (fs) File system used space <br>
+# hr (height) Horizontal line, height is the height in <br>
+# pixels <br>
+# i2c (dev), type, n I2C sensor from sysfs (Linux 2.6). dev <br>
+# may be omitted if you have only one I2C <br>
+# device. type is either in (or vol) <br>
+# meaning voltage, fan meaning fan or temp <br>
+# meaning temperature. n is number of the <br>
+# sensor. See /sys/bus/i2c/devices/ on <br>
+# your local computer. <br>
+# kernel Kernel version <br>
+# loadavg (1), (2), (3) System load average, 1 is for past 1 <br>
+# minute, 2 for past 5 minutes and 3 for <br>
+# past 15 minutes. <br>
+# machine Machine, i686 for example <br>
+# mails Mail count in mail spool. You can use <br>
+# program like fetchmail to get mails from <br>
+# some server using your favourite <br>
+# protocol. See also new_mails. <br>
+# mem Amount of memory in use <br>
+# membar (height) Bar that shows amount of memory in use <br>
+# memmax Total amount of memory <br>
+# memperc Percentage of memory in use <br>
+# new_mails Unread mail count in mail spool. <br>
+# nodename Hostname <br>
+# outlinecolor (color) Change outline color <br>
+#  pre_exec shell command Executes a shell command one time before <br>
+# torsmo displays anything and puts output <br>
+# as text. <br>
+# processes Total processes (sleeping and running) <br>
+# running_processes Running processes (not sleeping), <br>
+# requires Linux 2.6 <br>
+# shadecolor (color) Change shading color <br>
+# stippled_hr (space), Stippled (dashed) horizontal line <br>
+# (height) <br>
+# swapbar (height) Bar that shows amount of swap in use <br>
+# swap Amount of swap in use <br>
+# swapmax Total amount of swap <br>
+# swapperc Percentage of swap in use <br>
+# sysname System name, Linux for example <br>
+# time (format) Local time, see man strftime to get more <br>
+# information about format <br>
+# totaldown net Total download, overflows at 4 GB on <br>
+# Linux with 32-bit arch and there doesn't <br>
+# seem to be a way to know how many times <br>
+# it has already done that before torsmo <br>
+# has started. <br>
+# totalup net Total upload, this one too, may overflow <br>
+# updates Number of updates (for debugging) <br>
+# upspeed net Upload speed in kilobytes <br>
+# upspeedf net Upload speed in kilobytes with one <br>
+# decimal <br>
+# uptime Uptime <br>
+# uptime_short Uptime in a shorter format <br>
+#<br>
+# seti_prog Seti@home current progress<br>
+# seti_progbar (height) Seti@home current progress bar<br>
+# seti_credit Seti@hoome total user credit<br>
+<br>
+<br>
+# variable is given either in format $variable or in ${variable}. Latter<br>
+# allows characters right after the variable and must be used in network<br>
+# stuff because of an argument<br>
+#${font Dungeon:style=Bold:pixelsize=10}I can change the font as well<br>
+#${font Verdana:size=10}as many times as I choose<br>
+#${font Perry:size=10}Including UTF-8,<br>
+#${font Luxi Mono:size=10}justo como este texto que o google traduz fÃ\u0192Âªz o portuguÃ\u0192Âªs<br>
+# stuff after 'TEXT' will be formatted on screen<br>
+<br>
+TEXT<br>
+${color white}$sysname $kernel<br>
+${color green}Uptime: $uptime<br>
+${color red}${time %a %d %b %k:%M}<br>
+<br>
+${color white}Monitors:<br>
+${color green}cpu: ${color green}${cpu}%<br>
+${color red}ram : ${color white}$mem${color white}/${color white}$memmax ${color white}- ${color green}$memperc%<br>
+${color red}swap: ${color white}$swap${color white}/${color white}$swapmax ${color white}- ${color green}$swapperc%<br>
+${color red}processes: ${color white}$processes    ${color white}running: ${color white}$running_processes<br>
+${color green}battery: ${color white}${acpiacadapter BAT0}, ${battery_percent BAT0}% ${battery_time BAT0}<br>
+<br>
+${color white}Space:<br>
+${color green}Root:${color white} ${fs_free /} ${color green}= ${fs_free_perc /}%<br>
+${color green}Home:${color white} ${fs_free /home} ${color green}= ${fs_free_perc /home}%</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8090" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile8090">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8090">
+
+<time datetime="2008-12-09T00:17">posted: 2008-12-09  &nbsp; 00:17</time>
+<span class="permalink"><a href="./acpi-battery-monitor-not-working-after-upgrade-to--t1277.html#p8090" title="permalink">#4</a></span>
+
+<div class="content">I was using something similar in the past. when the kernel changed something went wrong. Here is what I did and it works for me:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${color grey}bat : ${color grey}${battery_percent BAT1}% ${color grey}${battery_bar BAT1 (8)}</code></pre></div>
+Modify to your needs.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8110" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile8110">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 61</dd>
+<span class="username">thinkpada21</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8110">
+
+<time datetime="2008-12-10T04:33">posted: 2008-12-10  &nbsp; 04:33</time>
+<span class="permalink"><a href="./acpi-battery-monitor-not-working-after-upgrade-to--t1277.html#p8110" title="permalink">#5</a></span>
+
+<div class="content">Hi,<br>
+<br>
+I pasted in your conkyrc entry. It stills shows 0% (and a hollow bar).<br>
+<br>
+Since /proc/acpi seems to be missing the battery status reporting 'files' , I am guessing that somehow antiX 7.5 is not detecting my laptop as a laptop.<br>
+<br>
+I will try to find 'cheat codes' to use while booting</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8310" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile8310">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 61</dd>
+<span class="username">thinkpada21</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8310">
+
+<time datetime="2008-12-27T01:17">posted: 2008-12-27  &nbsp; 01:17</time>
+<span class="permalink"><a href="./acpi-battery-monitor-not-working-after-upgrade-to--t1277.html#p8310" title="permalink">#6</a></span>
+
+<div class="content">I tried adding <strong>acpi=force</strong> to the boot parameters. No change. I also tried <strong>acpi=on</strong> and just <strong>acpi</strong>. Neither of those worked. I checked my installed package and noted that laptop-detect is installed.<br>
+<br>
+Anyone have any other ideas?</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

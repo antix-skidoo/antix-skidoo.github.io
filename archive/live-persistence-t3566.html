@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>live persistence - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./live-persistence-t3566.html">live persistence</a></div>
+<div class="pagination">
+13 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23571" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23571">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23571">
+<time datetime="2012-02-06T11:39">posted: 2012-02-06 &nbsp; 11:39</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23571" title="permalink">#1</a></span>
+
+<div class="content">Running antiX live with persistence on a usb device.<br>
+<br>
+1. Install antiX to usb device using unetbootin or new_usb.sh(recommended)<br>
+2. You can set up persistence files before using the stick. Advantage is that persistence is ready from first boot. (see later)<br>
+<br>
+Setting up persistence while running live usb stick.<br>
+<br>
+1. Boot using the first option shown in boot menu.<br>
+2. Open RemasterCC app from Menu-&gt; Applications-&gt;Others - give root password (for live this is root)<br>
+3. Click on Set up live file system. <br>
+4. You need to set up rootfs to save changes made to system ie adding/removing applications.<br>
+5. You need to set up homefs to save changes made to home user ie documents, themes, wallpaper.<br>
+6. To set up homefs (rootfs is exactly the same)<br>
+<br>
+Using Set up live application :-<br>
+<strong>Directory</strong> - navigate to Other -&gt; live-&gt; boot-dev-&gt; antiX<br>
+<strong>Size</strong> -Depends on what you want to store. If you intend to save a lot of large files in your home directrory, eg avi video files that you want to watch on successive boots, make homefs gib. make sure you have space on your stick.<br>
+Same applies for installing apps for rootfs.<br>
+This is what I suggest for a 4GB stick running antiX-base. YMMV.<br>
+homefs=200MB rootfs=500MB<br>
+Leave <strong>ext </strong>blank for now.<br>
+<strong>format</strong>. Choice between ext2 or ext3. ext2 is reommended.<br>
+Set up homefs , click ok and repeat for rootfs.<br>
+A popup should show messages of success (or failure).<br>
+<br>
+The persistence files are now set up.<br>
+<br>
+Reboot and choose correct persistence option in boot menu. home is only for home, whereas root is for both home and root.<br>
+<br>
+On first live boot, you will be prompted to change root and user passwords (not user name -it is still demo) for extra security.<br>
+At desktop you will be asked to set up root persistence. There are 3 choices. semi-automatic is recommended.<br>
+Make the changes you want eg change wallpaper for homefs changes, install an app for rootfs.<br>
+<br>
+Click exit/reboot from antiX menu and a popup will indicate tha persistence changes for are being saved. (homefs changes are automatically saved)<br>
+On next reboot (still using the same persistent option), there will be a slight delay when booting.<br>
+<br>
+New desktop should have all your changes.<br>
+<br>
+Adding a new kernel. At the moment only antiX kernels will work with persistence and a bit of fiddling is required.<br>
+<br>
+Run antiX live with persistence (rootfs), install latest antiX-kernel and headers (if needed).<br>
+To be safe, run <strong>update-initramfs -u -t -k all</strong><br>
+<br>
+Copy the new vmlinuz-3.2.2-antix2 file from boot to /live/boot-dev/antiX and rename vmlinuz1<br>
+Edit menu.lst in /live/boot-dev/boot/grub to include: (note: vmlinuz1 entry)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>## ISO boot
+title antiX-M11-base-686 (Root Persistence-new kernel)
+kernel /antiX/vmlinuz1 quiet lean noxorg blab=antiXlive vga=791 bdir=antiX persist
+initrd /antiX/initrd.gz
+</code></pre></div>
+Reboot, using Root Persistence-new kernel option.<br>
+<br>
+If all works ok, then you could remove the old kernel and headers and rename vmlinuz1 to vmlinuz and delete the new menu entry mentioned above. Make sure you recreate the sym links in boot to link to new vmlinuz and initrd.img.<br>
+<br>
+Remastering.<br>
+<br>
+Once you are satisfied that all is working as it should, you may want to remaster your changes. Basically this creates a new linuxfs file (in effect a sort of new iso) that you boot from. Then you can delete all the old rootfs/homefs files (if you do not need them).<br>
+<br>
+An example.<br>
+<br>
+I have antiX-base-test1 installed using new_usb.sh to a 2GB partition, ext2 format of a 4Gb stick. The other 2GB partition is formatted as fat32 for data.<br>
+rootfs is 400MB and homefs 200Mb.<br>
+I installed latest kernel as described above as well as abiword. On reboot all seem to work ok. Time to remaster.<br>
+<br>
+Open RemasterCC app from Menu-&gt; Applications-&gt;Others - give new root password.<br>
+<br>
+Click on Remaster and follow the instructions. The reastering will take time depending on your CPU and RAM.<br>
+<br>
+Once finished, click on Set up live file system and set up a new rootfs in /live/boot-dev/antiX but this time in the ext field add the word .new (you must include the dot). <br>
+<br>
+Click ok and reboot into your new antiX!<br>
+<br>
+You can remove the old rootfs and linuxfs in /live/boot-dev/antiX to save space.<br>
+<br>
+Added: Can I have 2 partitions on my stick and run persistence?<br>
+<br>
+You may decide that you do not want to use all of your usb stick to run antiX live persistence, for example you have an 8GB stick, want to use antiX-base plus add a few apps like abiword, gnumeric and you want to have a data partition for files that both linux and windoze will see (fat32 for example).<br>
+<br>
+It is possible to do this, though it needs a bit of fiddling. This is what I did.<br>
+<br>
+1. Install latest antiX-base-test1 (or full if you prefer) to your usb stick using new_usb.sh. This will take over all the disk.<br>
+2. Once finished, save a copy of the contents somewhere, just in case.<br>
+3. Use gparted to shrink your usb partition and set up the space to whatever you want eg fat32 and give it a label eg mydata<br>
+4. Once finished, remove and re-insert your usb stick and check that you do in fact have 2 'folders' one contaning your live antiX. ie all the stuff you saved in 2. <br>
+5. You should be able to boot your stick and set up persistence and use your data partition as well. Though I have no idea if windoze will see your data partition.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23573" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23573">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23573">
+
+<time datetime="2012-02-06T16:06">posted: 2012-02-06 &nbsp; 16:06</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23573" title="permalink">#2</a></span>
+
+<div class="content">Works great. i am posting from my new USB stick with the new kernel installed. Wireless works fine.<br>
+I can't seem to make iceWM with no icons stick though. It wants to always install the desktop with icons and my conky is located where the icons are.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_23574" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23574">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23574">
+
+<time datetime="2012-02-06T16:25">posted: 2012-02-06 &nbsp; 16:25</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23574" title="permalink">#3</a></span>
+
+<div class="content">Use boot cheat noRox<br>
+<br>
+If that doesn't work (it will be a bug), boot using homefs (or rootfs) and manually edit ~/.icewm/startup file to edit out the rox-pinboard option, and the ~/.xinitrc default to edit out rox-pinboard ie to read as icewm option as shown in .xinitrc.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23577" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23577">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23577">
+
+<time datetime="2012-02-06T16:59">posted: 2012-02-06 &nbsp; 16:59</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23577" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Use boot cheat noRox<br>
+<br>
+If that doesn't work (it will be a bug), boot using homefs (or rootfs) and manually edit ~/.icewm/startup file to edit out the rox-pinboard option, and the ~/.xinitrc default to edit out rox-pinboard ie to read as icewm option as shown in .xinitrc.</div></blockquote>
+<br>
+I ended up modifying .xinitrc so it defaults to icewm.<br>
+works fine now.<br>
+<br>
+Installed mail client icedove and am modifying my toolbar next.<br>
+Then on to the remaster <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+AND....The remaster worked exactly as you posted.<br>
+Still couldn't save my noRox iceWM desktop though. No biggie I just edited .xinitrc again.<br>
+Booted the same thumb drive on my other laptop with b43 card. Still need to modprobe b43 to get ceni to see the interface.<br>
+How cool is this!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23578" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23578">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23578">
+
+<time datetime="2012-02-06T23:56">posted: 2012-02-06 &nbsp; 23:56</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23578" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>afab4 wrote:</cite>
+How cool is this!</div></blockquote>
+Very cool, eh! Enjoy!<br>
+<br>
+BTW any idea as to why ceni won't 'remember' the settings? Does wicd do it?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23579" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23579">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23579">
+
+<time datetime="2012-02-07T00:04">posted: 2012-02-07 &nbsp; 00:04</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23579" title="permalink">#6</a></span>
+
+<div class="content">Just to add that you can run antiX-live with persistence in this way as a frugal install on a hard drive. This has some advantages over a full install, the main one being that it takes up less space. Its quite a fun way to run. A bit like how Puppy linux works.<br>
+<br>
+Another thing is that you can run using the toram cheat as well. If your RAM is around 1GB, booting may be slower, but you may find that once at desktop, apps open faster. If you have plenty of RAM, then running toram may not be that beneficial.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23580" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23580">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23580">
+
+<time datetime="2012-02-07T02:41">posted: 2012-02-07 &nbsp; 02:41</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23580" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>
+BTW any idea as to why ceni won't 'remember' the settings? Does wicd do it?</div></blockquote>
+No difference with wicd. <br>
+The interface will not show up until I run modprobe b43 from root terminal.<br>
+Immediately after I run the modprobe, wireless connects automatically with ceni, so ceni is saving data.<br>
+Maybe if I add b43 to /etc/modules ??</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23581" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23581">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23581">
+
+<time datetime="2012-02-07T09:22">posted: 2012-02-07 &nbsp; 09:22</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23581" title="permalink">#8</a></span>
+
+<div class="content">Is the lean/Xtralean cheat being used? Try without it.<br>
+<br>
+You could also try adding the modprobe b43 line to /etc/rc.local</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23583" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23583">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23583">
+
+<time datetime="2012-02-08T19:19">posted: 2012-02-08 &nbsp; 19:19</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p23583" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Is the lean/Xtralean cheat being used? Try without it.<br>
+<br>
+You could also try adding the modprobe b43 line to /etc/rc.local</div></blockquote>
+Taking the lean cheatcode out made no difference.<br>
+Adding the modprobe b43 to /etc/rc.local was successful. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24223" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24223">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24223">
+
+<time datetime="2012-04-09T21:44">posted: 2012-04-09 &nbsp; 21:44</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p24223" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Running antiX live with persistence on a usb device.<br>
+<br>
+<br>
+<br>
+Remastering.<br>
+<br>
+Once you are satisfied that all is working as it should, you may want to remaster your changes. Basically this creates a new linuxfs file (in effect a sort of new iso) that you boot from. Then you can delete all the old rootfs/homefs files (if you do not need them).<br>
+<br>
+An example.<br>
+<br>
+I have antiX-base-test1 installed using new_usb.sh to a 2GB partition, ext2 format of a 4Gb stick. The other 2GB partition is formatted as fat32 for data.<br>
+rootfs is 400MB and homefs 200Mb.<br>
+I installed latest kernel as described above as well as abiword. On reboot all seem to work ok. Time to remaster.<br>
+<br>
+Open RemasterCC app from Menu-&gt; Applications-&gt;Others - give new root password.<br>
+<br>
+Click on Remaster and follow the instructions. The reastering will take time depending on your CPU and RAM.<br>
+<br>
+Once finished, click on Set up live file system and set up a new rootfs in /live/boot-dev/antiX but this time in the ext field add the word .new (you must include the dot). <br>
+<br>
+Click ok and reboot into your new antiX!<br>
+<br>
+You can remove the old rootfs and linuxfs in /live/boot-dev/antiX to save space.<br>
+</div></blockquote>
+I have made another USB using the upgraded and improved version(s). While it is quite different to use versus the older version, I was able to muddle through successfully and now have a remastered 8GB thumb that mirrors my hard drive install. I was even able to use the resize rootfs to increase my partition from 1.5GB to 2GB.<br>
+Also very cool the way rootfs.new and rootfs.old are created automatically.<br>
+Some questions:<br>
+1. Is there a way to use the new remastered USB to install antiX to a hard drive? If not then what is now recommended for those who do not have a CD/DVD reader on their box and only have USB ports? ( I tried this but no grub will install.)<br>
+2. What is the purpose of the antiXusb app in the antixcc? Is this still functional? Does the new_usb.sh not replace this?<br>
+<br>
+EDIT:<br>
+I tried installing my remastered USB to my hard drive and the installation was successful and grub installed to the MBR ok but when I got to the login screen it showed"demo"as login and no matter what i put in as a password="demo","my_password","root_password" and combinations of those, I got no further.<br>
+I tried both ways as gui and cli-installer and no difference. Tried installing from"Live USB" and"Root Persistance" boot options and no difference.<br>
+Finally got my DVD remaster and installed it via cli-installer with no problems. The DVD install asks for a new hostname, user name/password, root name/password etc. but the USB install doesn't do this and also doesn't seem to save the names/passwords from the remastered USB.<br>
+<br>
+EDIT UPDATE:<br>
+I decided to use new_usb.sh to make a bootable thumb drive using the original antiX-test2.iso. i then used the newly made thumb drive to install via cli-installer to my hard drive. This installed flawlessly so i guess somehow I borked something up while remastering and it in turn borks my remastered install.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24747" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24747">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">wh7qq</span>
+</dt>
+<dd class="profile-joined">Joined: 07 May 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24747">
+
+<time datetime="2012-05-18T23:49">posted: 2012-05-18 &nbsp; 23:49</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p24747" title="permalink">#11</a></span>
+
+<div class="content">I set up antiX-base-t3 on a 4G usb stick using new_usb.sh with a single ext2 partition for the entire stick. Worked great but wanted to update so after rebooting, did an apt-get update &amp;&amp; apt-get dist-upgrade. Worked great again after increasing the rootfs size to 1G. After some use, did"dpkg -i" for the 3.3.5 kernel".deb" files and copied the result per the first post in this thread. Renamed it to vmlinuz1 per instructions. When I tried to edit<blockquote class="uncited"><div>menu.lst in /live/boot-dev/boot/grub to include: (note: vmlinuz1 entry)
+</div></blockquote> I found that there was no grub directory in /live/boot-dev/boot/. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls -l /live/boot-dev/boot/
+total 124
+dr-xr-xr-x 2 root root   4096 May 16 15:41 extlinux
+-r-xr-xr-x 1 root root 116508 May 16 15:41 memtest
+</code></pre></div> So I am still booting into the 3.3.3 kernel, which works ok (but no suspend). I found"menu.lst" files in the following locations:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> find / -name menu.lst
+/usr/lib/antixsnapshot/new-iso/boot/grub/menu.lst
+/live/aufs/usr/lib/antixsnapshot/new-iso/boot/grub/menu.lst
+/live/aufs-ram/usr/lib/antixsnapshot/new-iso/boot/grub/menu.lst
+/live/linux/usr/lib/antixsnapshot/new-iso/boot/grub/menu.lst</code></pre></div>
+Which should I edit? Did I miss a step?<br>
+<br>
+Thanks in advance,<br>
+<br>
+Paul</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24748" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24748">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24748">
+
+<time datetime="2012-05-20T01:09">posted: 2012-05-20 &nbsp; 01:09</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p24748" title="permalink">#12</a></span>
+
+<div class="content">[/quote] I found that there was no grub directory in /live/boot-dev/boot/<br>
+[/quote]<br>
+<br>
+I was puzzled by your encounter so I tried to emulate your steps.<br>
+1. I booted the live CD made from antiX-base-t3.iso<br>
+2. Used new_usb.sh to make a new bootable USB.<br>
+3. Installed the persistence options.<br>
+4. Booted using root persistence.<br>
+5. Installed the 3.3.5 kernel using dpkg -i<br>
+6. Followed the instructions anti gave to copy the new vmlinuz-3.3.5-antix.1.486.smp file from boot to /live/boot-dev/antiX and rename to vmlinuz1. Modified the menu.lst in /live/boot-dev/grub/menu.lst<br>
+7. Did an apt-get update and apt-get upgrade.<br>
+8. Saved everything to persistence when prompted upon reboot.<br>
+<br>
+Didn't have any issues and the new kernel is booting OK. <br>
+I think you might just try to make a new /live/boot-dev/grub/menu.lst using the menu.lst that anti included in his post.<br>
+I will say that I did not have to include the blab=antiXlive in my menu.lst which reads:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Code:
+## ISO boot
+title antiX-M11-base-686 (Root Persistence-new kernel)
+kernel /antiX/vmlinuz1 quiet lean noxorg vga=791 bdir=antiX persist
+initrd /antiX/initrd.gz</code></pre></div>
+i can't figure why your USB would boot off any of the menu.lst files you posted. <span class="emoticon"> __{{emoticon}}__ </span><br>
+Next step for me is to remaster the USB.<br>
+EDIT:<br>
+Remastered. Saved homefs. Set up a new rootfs. Deleted vmlinuz. Renamed vmlinuz1 to vmlinuz and changed my menu.lst accordingly. Deleted the old rootfs etc. <br>
+Everything seems OK. Posting from USB with persistence.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24755" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24755">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">wh7qq</span>
+</dt>
+<dd class="profile-joined">Joined: 07 May 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24755">
+
+<time datetime="2012-05-20T21:10">posted: 2012-05-20 &nbsp; 21:10</time>
+<span class="permalink"><a href="./live-persistence-t3566.html#p24755" title="permalink">#13</a></span>
+
+<div class="content">Arrrgh! Finally after much thrashing, found my omision: Failed to rename vmlinuz1! I knew I'd missed something. Being old and dumb is a bxtch! Now it is running the 3.3.5 kernel. Thanks for the suggestions and effort.<br>
+<br>
+Paul</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+13 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

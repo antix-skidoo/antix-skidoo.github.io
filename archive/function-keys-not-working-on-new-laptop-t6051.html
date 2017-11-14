@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Function keys not working on new laptop - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./function-keys-not-working-on-new-laptop-t6051.html">Function keys not working on new laptop</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43868" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43868">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43868">
+<time datetime="2015-11-20T20:30">posted: 2015-11-20 &nbsp; 20:30</time>
+<span class="permalink"><a href="./function-keys-not-working-on-new-laptop-t6051.html#p43868" title="permalink">#1</a></span>
+
+<div class="content">Hi!<br>
+<br>
+I'm trying to configure my function keys on my Lenovo G50 - 80 with Antix 15.<br>
+On my old laptop was working fine, with OSD notifications for volume keys, I need the same at my new laptop.<br>
+<br>
+Testing with volume+ key, looks fine, detected as XF86AudioRaiseVolume<br>
+<blockquote class="uncited"><div>
+$xev<br>
+KeyRelease event, serial 48, synthetic NO, window 0x3200001,<br>
+root 0xcd, subw 0x0, time 1452080, (827,643), root:(829,666),<br>
+state 0x0, keycode 123 (keysym 0x1008ff13, XF86AudioRaiseVolume), same_screen YES,<br>
+XLookupString gives 0 bytes: <br>
+XFilterEvent returns: False
+</div></blockquote>
+I'm not sure if is a ACPI problem, I have added acpi_osi=Linux acpi_backlight=vendor to grub without any efect.<br>
+acpi_listen, catch the keys, so i'm very confused.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># acpi_listen 
+button/volumeup VOLUP 00000080 00000000 K
+</code></pre></div>
+<br>
+<br>
+I have edited .config/openbox/lxde-rc.xml as workarround, but I don't have OSD notification when use the keys.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt;keybind key="XF86AudioRaiseVolume"&gt;
+        &lt;action name="Execute"&gt;
+            &lt;command&gt;amixer set Master 10%+ unmute&lt;/command&gt;
+        &lt;/action&gt;
+    &lt;/keybind&gt;
+</code></pre></div>
+Note that this modification not was needed on my old laptop (ASUS 5135 with Antix 13)<br>
+<br>
+I need and additional package for --osd notification?<br>
+Is and ACPI error?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43870" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43870">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43870">
+
+<time datetime="2015-11-20T21:09">posted: 2015-11-20 &nbsp; 21:09</time>
+<span class="permalink"><a href="./function-keys-not-working-on-new-laptop-t6051.html#p43870" title="permalink">#2</a></span>
+
+<div class="content">Loading thinkpad_acpi at etc/modules not solve my problem</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43898" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43898">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43898">
+
+<time datetime="2015-11-21T15:30">posted: 2015-11-21 &nbsp; 15:30</time>
+<span class="permalink"><a href="./function-keys-not-working-on-new-laptop-t6051.html#p43898" title="permalink">#3</a></span>
+
+<div class="content">right click on the volume icon select prefeerences. at the bottom of the preference dialog enable the volume keys.<br>
+<br>
+the notification are a lxde function. antix by default doesn't have them.<br>
+<br>
+try adding notify-osd.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43934" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43934">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43934">
+
+<time datetime="2015-11-22T13:25">posted: 2015-11-22 &nbsp; 13:25</time>
+<span class="permalink"><a href="./function-keys-not-working-on-new-laptop-t6051.html#p43934" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>right click on the volume icon select prefeerences. at the bottom of the preference dialog enable the volume keys.<br>
+<br>
+the notification are a lxde function. antix by default doesn't have them.<br>
+<br>
+try adding notify-osd.</div></blockquote>
+thanks, notify-osd fix my problem.</div>
+<div class="postcontent_footer">
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

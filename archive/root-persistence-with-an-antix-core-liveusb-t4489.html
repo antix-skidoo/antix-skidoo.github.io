@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Root Persistence with an antix-core LiveUSB - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./root-persistence-with-an-antix-core-liveusb-t4489.html">Root Persistence with an antix-core LiveUSB</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_30335" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30335">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30335">
+<time datetime="2013-07-17T19:00">posted: 2013-07-17 &nbsp; 19:00</time>
+<span class="permalink"><a href="./root-persistence-with-an-antix-core-liveusb-t4489.html#p30335" title="permalink">#1</a></span>
+
+<div class="content">Hey guys,<br>
+<br>
+Is there a way to make automatic saving of the root file system work with an antix-core LiveUSB. Lets assume all command-line at the moment. I can build the live usb persistence file with the scripts in /usr/local/bin and I can save manually with persist-save, but I'm looking for an automatic save. This is a question from someone who viewed one of my videos, and I'm trying to get him an answer.<br>
+<br>
+Thanks guys!<br>
+<br>
+d.o.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30338" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30338">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30338">
+
+<time datetime="2013-07-17T19:53">posted: 2013-07-17 &nbsp; 19:53</time>
+<span class="permalink"><a href="./root-persistence-with-an-antix-core-liveusb-t4489.html#p30338" title="permalink">#2</a></span>
+
+<div class="content">The easiest solution is to use static root persistence. This way everything is saved as it is written and there is no need to run persist-save. But that might be too slow.<br>
+<br>
+There is a script /etc/init.d/persist-autosave that is supposed to run when exiting runlevel 3. The solution could be as simple as making sure there is a"3" boot parameter so you are in runlevel 3. Then on shutdown or reboot, you leave runlevel 3 and your changes should be saved if auto-save was selected. If manually saving was selected then, of course, the automatic saving will be disabled. You should be able to select auto-save with the persist-config command. It is possible that semi-automatic saving during runlevel 3 is broken due to conflicts over who controls the console. <br>
+<br>
+If auto-save is already selected and you are in runlevel 3 and it still doesn't work then it is broken and I will have to fix it. I have not tested it recently here. I know it used to work.<br>
+<br>
+BTW: an easy way to test is to use the"telinit" command to switch to a different runlevel. I have not tried this on core but if I am in runlevel 3 in a full system and root persistence is enabled then when I run"telinit 5" it first exits runlevel 3 and the autosave is done. I consider this to be a bug but it can be useful now for testing since you don't have to shutdown or reboot to test autosave. To test it again run"telinit 3" followed by another"telinit 5".<br>
+<br>
+HTH. If these suggestions don't help then I suggest you send me a PM or an email so we can continue this via email. <br>
+<br>
+BTW: Besides fixing this problem, I'm curious to know if there are other things we can do to improve the antiX-core experience. For example, perhaps there could be a text menu system that has functionality similar to the antiX GUI Control Centre.<br>
+<br>
+BTW2: the"db+" boot parameter will automatically log you in as root on vt2, vt3, and vt4. It will also make a fancy Bash prompt that spans the screen. I find this useful. YMMVG.<br>
+<br>
+BTW3: Great videos!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30349" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30349">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30349">
+
+<time datetime="2013-07-17T20:49">posted: 2013-07-17 &nbsp; 20:49</time>
+<span class="permalink"><a href="./root-persistence-with-an-antix-core-liveusb-t4489.html#p30349" title="permalink">#3</a></span>
+
+<div class="content">Well, shutting down with"sudo halt" or"shutdown -h now" does not initiate the save, even though the system looks like its dropping from runlevel 3 to runlevel 0 (if I saw it right, it goes by pretty fast). <br>
+<br>
+static persistence works as expected, and I'm recommending this to the viewer.<br>
+<br>
+As far as the text based menu, that has some merit, particularly for some antix-specific scripts that are included. Perhaps final message at login before the command prompt that says"type menu" for a menu, or some such. I would need to think about what to include, as core's target audience may not need it for much beyond the antix-specific tools.<br>
+<br>
+and thanks for the comment about the videos. they are fun to make and so far the response is generally positive. I'm working on a STEAM video right now. I've learned so much from the forums that I'm glad to give a little back.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30350" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30350">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30350">
+
+<time datetime="2013-07-17T20:57">posted: 2013-07-17 &nbsp; 20:57</time>
+<span class="permalink"><a href="./root-persistence-with-an-antix-core-liveusb-t4489.html#p30350" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>Well, shutting down with"sudo halt" or"shutdown -h now" does not initiate the save, even though the system looks like its dropping from runlevel 3 to runlevel 0 (if I saw it right, it goes by pretty fast). </div></blockquote> Okay. I will work on fixing this. Sorry for the inconvenience. I'm delighted that someone wants to use persistence on a core system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30351" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30351">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30351">
+
+<time datetime="2013-07-17T21:05">posted: 2013-07-17 &nbsp; 21:05</time>
+<span class="permalink"><a href="./root-persistence-with-an-antix-core-liveusb-t4489.html#p30351" title="permalink">#5</a></span>
+
+<div class="content">No worries, thanks for the help!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30354" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30354">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30354">
+
+<time datetime="2013-07-17T22:02">posted: 2013-07-17 &nbsp; 22:02</time>
+<span class="permalink"><a href="./root-persistence-with-an-antix-core-liveusb-t4489.html#p30354" title="permalink">#6</a></span>
+
+<div class="content">It mostly works here. If I run"/etc/init.d/persist-autosave stop" then the script works. The problem is that this script is no longer running when runlevel 3 stops. I tried using:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-rc.d  persist-autosave stop 3 20</code></pre></div>to see if I could get it to run when runlevel 3 stops. I first had to remove some question marks from the header in /etc/init.d/persists-autosave in order to get this command to complete. Unfortunately, this command caused the script to run when entering runlevel 3 instead of when leaving it!<br>
+<br>
+I think the Debian init system might have changed. Some documentation says that links in the /etc/rc?.d/ directories that start with"K" are disabled. I think this used to signify that the program was to be run at shutdown.<br>
+<br>
+Strange as it may sound, I am not familiar with the Debian init system. I don't know how to get a script to run when you leave a runlevel. One easy (I hope) workaround is to add persist-autosave as a top priority stop script to runlevels 0 and 6. This should cause it to run on shutdown and reboot which is exactly what you want. Unfortunately, I don't even know how to make that work. Creating symlinks and running:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-rc.d persist-autosave stop 0 0 6</code></pre></div>did not work. This should be easy to fix for someone who is familiar with the Debian init system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30370" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30370">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30370">
+
+<time datetime="2013-07-18T18:15">posted: 2013-07-18 &nbsp; 18:15</time>
+<span class="permalink"><a href="./root-persistence-with-an-antix-core-liveusb-t4489.html#p30370" title="permalink">#7</a></span>
+
+<div class="content">I'm no expert, but...<br>
+<br>
+I've been working on the init system issue and persistent saves and I've come up with the following. I do have persist-autosave working at shutdown and reboot from the command line.<br>
+<br>
+I've made the following changes to /etc/init.d/persist-autosave<br>
+<br>
+1. In the init header, I've removed the question marks as you did.<br>
+2. In the init header, at default start, I've added 3 4 5<br>
+3. In the init header, at default stop, I've added 0 1 6<br>
+4. At the end of the file, I've changed"exit" to"exit 0" . This seems to be important to the system that processes the init scripts.<br>
+<br>
+so /etc/init.d/persist-autosave now looks like this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          persist-autosave
+# Required-Start:
+# Required-Stop:
+# Should-Start:
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: ??
+# Description:       Save persistent root filesystem changes at shutdown
+### END INIT INFO
+
+case"$1" in
+    start)
+        /usr/local/bin/persist-config --cli --startup
+        ;;
+    stop)
+        /usr/local/bin/persist-config --cli --shutdown
+        ;;
+    *)
+        echo"Usage: $0 {start|stop}"
+        ;;
+esac
+
+exit 0</code></pre></div>
+5. I removed the symlinks in /etc/rc3.d to persist-autosave (the K01persist-autosave and S19persist-autosave).<br>
+<br>
+6. I issued the following command once all changes were made<br>
+update-rc.d persist-autosave defaults (note I'm not sure which takes precedence here, the defaults or the run levels specified in the file)<br>
+<br>
+7. I manually saved one more time and rebooted the usbkey.<br>
+<br>
+8. issued a"echo cat7&gt;&gt;test7.txt" in the home directory as a marker for changes.<br>
+<br>
+9. issued"sudo reboot" and rebooted as normal, selecting the first root persistence option.<br>
+<br>
+10. at both shutdown and reboot, the persist-autosave script is invoked and the rysnc to the rootfs is performed.<br>
+<br>
+I'll be honest, I'm not sure exactly why any of this worked, other than I think the symlinks and the init headers were somehow in conflict. The update-rc.d command DID NOT place any symlinks in /etc/rc3.d .<br>
+<br>
+Hope this helps.<br>
+<br>
+d.o.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

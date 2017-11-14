@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Antix 8.5  Asus EEEPC 701SD rtl8187 (SOLVED) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html">Antix 8.5 Asus EEEPC 701SD rtl8187 (SOLVED)</a></div>
+<div class="pagination">
+21 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_16896" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16896">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16896">
+<time datetime="2010-08-19T04:21">posted: 2010-08-19 &nbsp; 04:21</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16896" title="permalink">#1</a></span>
+
+<div class="content">Figured I would start a new thread. For what I have done earlier. Please go to <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/my-new-asus-eeepc-701sd-t2606.html"<br>linktext was:"antix.freeforu ms.org/my-new-asus ... t2606.html"<br>====================================<br>
+<br>
+<br>
+Running my 4 gig SD Flash Antix 8.5 Upgrade antix2usb persistent card.<br>
+Good thing to report so far. Tap works<br>
+Landline works on eth0 automatic in Wicd.<br>
+Screen Resolution is ok.<br>
+<br>
+Now for the neg.<br>
+Ceni froze the desktop. Had to do a Hard reset. Which damaged the ext2 file system on /dev/sda1<br>
+Had to boot up my live USB. Open Gparted. Run a Check on /dev/sda1 antixlive and /dev/sda2 antixdata partitions making sure they were not mounted first.<br>
+That fixed all the file system error messages I got when I tried to reboot after a hard reset.<br>
+<br>
+So now I am back in my persistent install.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/aufs/home/demo# inxi -F
+System:    Host antiX1 Kernel 2.6.32-1-mepis-smp i686 (32 bit) Distro antiX-M8.5-686-update 27 July 2010
+CPU:       Single core Intel Celeron M (-UP-) cache 512 KB flags (nx sse sse2) bmips 1796.43 clocked at 897.807 MHz 
+Graphics:  Card Intel Mobile 915GM/GMS/910GML Express Graphics Controller tty res: 80x23 Gfx Data: N/A for root user
+Audio:     Card Intel 82801FB/FBM/FR/FW/FRW (ICH6 Family) High Definition Audio Controller driver HDA Intel BusID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture Version 1.0.21
+Network:   Card-1 Realtek RTL8187SE Wireless LAN Controller at port d800 BusID: 01:00.0
+           Card-2 Atheros AR8121/AR8113/AR8114 Gigabit or Fast Ethernet driver ATL1E at port ec00 BusID: 03:00.0
+Disks:     HDD Total Size: 16.0GB (4.4% used) 1: USB /dev/sda Flash_Reader 4.0GB 
+           2: /dev/sdb ASUS 4.0 GB 
+Partition: ID:/ size: 16M used: 103K (1%) fs: rootfs 
+Info:      Processes 107 Uptime 27 min Memory 148.7/1000.8MB Runlevel 5 Client Shell inxi 1.4.12 
+root@antiX1:/aufs/home/demo# iwconfig
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+
+root@antiX1:/aufs/home/demo# ps ax | grep client
+13777 ?        Ss     0:00 dhclient -v -pf /var/run/dhclient.eth0.pid -lf /var/lib/dhcp/dhclient.eth0.leases eth0
+14451 ?        S      0:02 /usr/bin/python -O /usr/share/wicd/gtk/wicd-client.py
+16052 pts/0    S+     0:00 grep client
+root@antiX1:/aufs/home/demo# ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:22:15:9c:42:47  
+          inet addr:192.168.2.18  Bcast:192.168.2.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:3325 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:3522 errors:0 dropped:0 overruns:0 carrier:2
+          collisions:0 txqueuelen:1000 
+          RX bytes:2184711 (2.0 MiB)  TX bytes:849994 (830.0 KiB)
+          Interrupt:27 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:2 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:100 (100.0 B)  TX bytes:100 (100.0 B)
+
+root@antiX1:/aufs/home/demo# modprobe rtl8187
+root@antiX1:/aufs/home/demo# iwconfig
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+
+root@antiX1:/aufs/home/demo# 
+</code></pre></div>
+Now. I know that /aufs/lib/modules/2.6.32-1-mepis-smp/kernel/drivers/net/wireless/rtl818x/rtl8187.ko<br>
+is there.<br>
+<br>
+Why won't it show in inxi -F as loaded and when i do a <br>
+modprobe rtl8187<br>
+I still get no wireless interface to show under iwlist or ifconfig?<br>
+<br>
+And you know what kills me. Check out lsmod. It shows rtl8187 is loaded.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:/aufs/home/demo$ sux
+Password: 
+root@antiX1:/aufs/home/demo# lsmod
+Module                  Size  Used by
+rtl8187                25058  0 
+mac80211              123148  1 rtl8187
+led_class               1717  1 rtl8187
+cfg80211               86249  2 rtl8187,mac80211
+eeprom_93cx6             931  1 rtl8187
+i915                  191473  2 
+drm_kms_helper         16943  1 i915
+drm                   105416  3 i915,drm_kms_helper
+i2c_algo_bit            3465  1 i915
+cpufreq_userspace       1416  0 
+cpufreq_stats           1928  0 
+cpufreq_powersave        578  0 
+cpufreq_conservative     3994  0 
+parport_pc             15583  0 
+ppdev                   3974  0 
+lp                      5490  0 
+parport                21766  3 parport_pc,ppdev,lp
+fuse                   43419  3 
+snd_hda_codec_realtek   163210  1 
+snd_hda_intel          15529  0 
+snd_hda_codec          44409  2 snd_hda_codec_realtek,snd_hda_intel
+snd_hwdep               3930  1 snd_hda_codec
+snd_pcm_oss            27741  0 
+snd_mixer_oss          10241  1 snd_pcm_oss
+snd_pcm                45612  3 snd_hda_intel,snd_hda_codec,snd_pcm_oss
+snd_seq_midi            3288  0 
+snd_rawmidi            12033  1 snd_seq_midi
+snd_seq_midi_event      3564  1 snd_seq_midi
+snd_seq                34783  2 snd_seq_midi,snd_seq_midi_event
+uvcvideo               45170  0 
+videodev               25253  1 uvcvideo
+snd_timer              12034  2 snd_pcm,snd_seq
+v4l1_compat            10146  2 uvcvideo,videodev
+snd_seq_device          3625  3 snd_seq_midi,snd_rawmidi,snd_seq
+eeepc_laptop           10080  0 
+i2c_core               12449  4 i915,drm,i2c_algo_bit,videodev
+snd                    32475  11 snd_hda_codec_realtek,snd_hda_intel,snd_hda_codec,snd_hwdep,snd_pcm_oss,snd_mixer_oss,snd_pcm,snd_rawmidi,snd_seq,snd_timer,snd_seq_device
+rfkill                  9976  2 cfg80211,eeepc_laptop
+video                  14589  1 i915
+tpm_tis                 5344  0 
+serio_raw               2884  0 
+tpm                     7849  1 tpm_tis
+processor              26435  0 
+output                  1116  1 video
+uhci_hcd               15885  0 
+soundcore               3350  1 snd
+pci_hotplug            17981  1 eeepc_laptop
+thermal                 9118  0 
+rng_core                2142  0 
+atl1e                  22896  0 
+psmouse                31979  0 
+evdev                   5573  24 
+tpm_bios                3369  1 tpm
+ac                      1552  0 
+battery                 3698  0 
+intel_agp              20087  1 
+snd_page_alloc          4773  2 snd_hda_intel,snd_pcm
+button                  3506  1 i915
+thermal_sys             9326  3 video,processor,thermal
+aufs                  109130  1 
+exportfs                2578  1 aufs
+root@antiX1:/aufs/home/demo# 
+</code></pre></div>
+But when I do a <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:/aufs/home/demo$ sux
+Password: 
+root@antiX1:/aufs/home/demo# lsmod | grep rtl
+root@antiX1:/aufs/home/demo# 
+</code></pre></div>
+nothing shows?<br>
+<br>
+in synaptic show <br>
+1. firmware-realtek .26 installed<br>
+2. I installed <blockquote class="uncited"><div>source for RT2860 wireless adapter kernel module<br>
+<br>
+RT2860 is a wireless adapter found particularly in the ASUS EeePC model<br>
+901 and above. The package contains the source of a Linux kernel module for<br>
+it.<br>
+<br>
+The source is ready to be compiled using module-assistant.</div></blockquote>
+Though I don't know what it means by"ready to be compiled using module-assistent" yet. Bleary eyed guys <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+3. I also installed firmware-realtek<blockquote class="uncited"><div>Binary firmware for Realtek RTL8192 wireless cards<br>
+<br>
+This package contains the binary firmware for wireless network cards with<br>
+the RTL8192 chips supported by the rtl8192e and rtl8192su drivers.</div></blockquote>
+So I thought I would cover all bases with every damn thing this biker could think of.<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+I'm Lost. And I thought I knew what to do to enable card by my terminal readout above and making sure /aufs/lib/modules/2.6.32-1-mepis-smp/kernel/drivers/net/wireless/rtl818x/rtl8187.ko<br>
+was there.<br>
+<br>
+So OHH or the wifi gods above. Where am I going wrong. Otherwise. Except for Ceni throwing a Hissy fit (did the same on my Asus EEEPC 900 but would settle down after a few minutes. But Ctrl+Alt+Del or Ctl+Alt+Backspace got me nowhere on the 701SD and I waited a long time for Ceni to settle down. Which it wouldn't.) Hence the hard reset.<br>
+<br>
+On a side note. I tried smxi also to see if maybe a newer kernel may rectify the problem. But smxi tells me I have no /boot/grub/menu.lst so it exits with that error.<br>
+<br>
+Hows that for"Let's have fun" guys. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Puppeee has the 2.6.33 kernel but jemimah massaged the kernel for EEEPC so that is probably why Puppeee works so well on this unit. Neither here nor there though. I want AntiX 8.5 to work with rtl8187 chip so this thread is to concentrate on getting it working.<br>
+<br>
+Next I am going to go into bios (Edit: it's not turned off in bios) and see to make sure wireless did not get turned off for some reason. I don't know if maybe rfkill may be the culprit either. Trying to cover all bases here. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Booting and running AntiX 8.5 Update Full Iso with antix2usbpy persistent install to a 4 gig Kingston external SD Flash Drive with Ext2 file system on a Asus EEEPC 701SD.<br>
+<br>
+Happy Trails, Rok</div>
+<div class="notice">
+Last edited by <b>rokytnji</b> on 22 Aug 2010, 03:38, edited 3 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16897" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16897">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16897">
+
+<time datetime="2010-08-19T13:46">posted: 2010-08-19 &nbsp; 13:46</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16897" title="permalink">#2</a></span>
+
+<div class="content">Hey Rok,<br>
+You wrote,<br>
+<blockquote class="uncited"><div>Why won't it show in inxi -F as loaded and when i do a<br>
+modprobe rtl8187</div></blockquote>
+How about<br>
+<blockquote class="uncited"><div> modprobe rtl8187se</div></blockquote>
+then iwconfig<br>
+<br>
+have a look here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/rtl818x#rtl8187se"<br>linktext was:"http://wiki.debian.org/rtl818x#rtl8187se"<br>====================================<br>
+<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16898" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16898">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16898">
+
+<time datetime="2010-08-19T15:43">posted: 2010-08-19 &nbsp; 15:43</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16898" title="permalink">#3</a></span>
+
+<div class="content">The rtl8187se.ko is not in Mepis Kernel OHH. I tried that first last night, Just did not include it<br>
+in my previous post. Was wore out by trying to get this figured. Googled my butt off.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Password: 
+root@antiX1:/aufs/home/demo# modprobe rtl8187se
+FATAL: Module rtl8187se not found.
+root@antiX1:/aufs/home/demo# 
+
+</code></pre></div>
+What gets me I guess is Warrens mepis kernel got stripped of that module I guess. Because<br>
+Debian says that it is included in 2.6.29 kernel. Just a uneducated guess though.<br>
+<br>
+Dumb question time. Instead of Like Downloading Stevo's 2.6.34 kernel as a experiment to see<br>
+if rtl8187se.ko is in it. What if I can just find the rtl8187se.ko. And open pcmanfor rox as root.<br>
+Copy and paste that module into /aufs/lib/modules/2.6.32-1-mepis-smp/kernel/drivers/net/wireless/rtl818x<br>
+<br>
+I was thinking of maybe booting into puppeeee. Go to it's /aufs/lib/modules/2.6.33/kernel/drivers not sure what comes after that yet and because puppeee runs as root. Copy and paste to usb. Then inset into AntiX. Am I way off base in thinking I can do this.<br>
+<br>
+Because this<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://rtl-wifi.sourceforge.net/wiki/Download"<br>linktext was:"http://rtl-wifi.sourceforge.net/wiki/Download"<br>====================================<br>
+<br>
+is just way over my head. So can I shady tree it?</div>
+<div class="notice">
+Last edited by <b>rokytnji</b> on 22 Aug 2010, 03:36, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16899" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16899">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16899">
+
+ <time datetime="2010-08-19T16:02">posted: 2010-08-19 &nbsp; 16:02</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16899" title="permalink">#4</a></span>
+
+<div class="content">Give it shot, can't hurt.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16900" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16900">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16900">
+
+<time datetime="2010-08-19T16:17">posted: 2010-08-19 &nbsp; 16:17</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16900" title="permalink">#5</a></span>
+
+<div class="content">roky - the liquorix 2.6.33 kernels have it.<br>
+<br>
+You could try this using the MEPIS kernel.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://maunal.sidux.com/index.php?module=Wikula&amp;lang=de&amp;tag=Msi"<br>linktext was:"http://maunal.sidux.com/index.php?modul ... de&amp;tag=Msi"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16904" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16904">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16904">
+
+<time datetime="2010-08-19T20:23">posted: 2010-08-19 &nbsp; 20:23</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16904" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>roky - the liquorix 2.6.33 kernels have it.<br>
+<br>
+You could try this using the MEPIS kernel.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://maunal.sidux.com/index.php?module=Wikula&amp;lang=de&amp;tag=Msi"<br>linktext was:"http://maunal.sidux.com/index.php?modul ... de&amp;tag=Msi"<br>====================================<br>
+</div></blockquote>
+Ok Anti. I first made a backup of /etc/apt/sources.list because I was going to edit the hell<br>
+out of oriiginal file. I tried doing one repo at a time but as you can see from my terminal readout <br>
+and my last edited sources.list that even the shotgun approach did not give favorable results.<br>
+<br>
+Please look over attatched zip files and see if I tried it correctly.<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+No matter how I tried. I ended up with <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:/aufs/home/demo$ sux
+Password: 
+root@antiX1:/aufs/home/demo# apt-get install rtl8187se-source
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Couldn't find package rtl8187se-source
+root@antiX1:/aufs/home/demo# 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16905" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16905">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16905">
+
+<time datetime="2010-08-19T20:42">posted: 2010-08-19 &nbsp; 20:42</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16905" title="permalink">#7</a></span>
+
+<div class="content">Maybe it is no longer in Debian repos.<br>
+<br>
+There is a deb in Ubuntu that might work.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://packages.ubuntu.com/jaunty/all/rtl8187se-source/download"<br>linktext was:"http://packages.ubuntu.com/jaunty/all/r ... e/download"<br>====================================<br>
+<br>
+<br>
+Here is a link to the source/tarball.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://rtl8187se.sourcearchive.com/downloads/1023.0928.2008/"<br>linktext was:"http://rtl8187se.sourcearchive.com/down ... 0928.2008/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16906" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16906">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16906">
+
+<time datetime="2010-08-19T21:20">posted: 2010-08-19 &nbsp; 21:20</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16906" title="permalink">#8</a></span>
+
+<div class="content">Well Anti. Before I got to your reply. I tried grabbing rtl8187.ko from Puppeee and copied to USB.<br>
+Then a pasted it as root into where rtl8187.ko is located in kernel.<br>
+<br>
+When it asked about overwrite. I saw that the new rtl8187 was 71.3 kb (approx can't remember exact decimal<br>
+point) and original rtl8187.ko was about 35kb (approx also).<br>
+<br>
+So I thought. Gee. Puppees .ko is twice the size. So I said yeah to overwrite. Dummy me was such in a hurry<br>
+I did not make a backup first. So I guessed I wrecked rt8187.ko because<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:/aufs/home/demo$ sux
+Password: 
+root@antiX1:/aufs/home/demo# modprobe rtl8187
+FATAL: Error inserting rtl8187 (/lib/modules/2.6.32-1-mepis-smp/kernel/drivers/net/wireless/rtl818x/rtl8187.ko): Invalid module format
+root@antiX1:/aufs/home/demo# 
+</code></pre></div>
+So much for my shady tree experiment. I guess now I need to boot up my live USB and see about<br>
+grabbing its rtl8187.ko and overwrite the puppeee one I installed in it's place now. So scratch using<br>
+Puppeees stuff.<br>
+<br>
+I will look into the links later. If I install source. I will need build-essentials installed, correct? I already<br>
+know that answer but just double checking. LOL<br>
+<br>
+Experimenting can be tedious at times. Happy Trails, Rok</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16907" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16907">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16907">
+
+<time datetime="2010-08-19T21:48">posted: 2010-08-19 &nbsp; 21:48</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16907" title="permalink">#9</a></span>
+
+<div class="content">Rok,<br>
+<br>
+I was looking around and found this:<br>
+<br>
+The rtl8187se driver is now included in the kernel; model 701SD users no longer need to build their own from source. (From the debian wik ihttp://wiki.debian.org/DebianEeePC/HowTo/Upgrade<br>
+<br>
+and then I took a look at the /boot/ config-2.6.32-1-mepis-smp<br>
+<br>
+# CONFIG_RTL8187SE is not set<br>
+may be possible to recompile the kernel and set this flag, or you might be able to use ksplice, over my head but anyway here's the article<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.ibm.com/developerworks/aix/library/au-spunix_ksplice/index.html?ca=dgr-lnxw07Ksplicedth-AIX"<br>linktext was:"http://www.ibm.com/developerworks/aix/l ... icedth-AIX"<br>====================================<br>
+<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16908" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16908">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16908">
+
+<time datetime="2010-08-19T22:26">posted: 2010-08-19 &nbsp; 22:26</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16908" title="permalink">#10</a></span>
+
+<div class="content">Ya know what guys. I tried the Ubuntu deb Anti. It installed but no joy out of ifconfig. Rebooted also. Same same.<br>
+<br>
+I am starting to get frustrated with this issue. So I am thinking of throwing in the towel for now.<br>
+<br>
+MY SD install is probably trashed by now anyways with all the stuff I tried. Might think of doing a Install of <br>
+Sidux instead to the card maybe. I don't know. Tired as hell here. Gotta step back and cool my jets I guess.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16911" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16911">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16911">
+
+<time datetime="2010-08-20T07:24">posted: 2010-08-20 &nbsp; 07:24</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16911" title="permalink">#11</a></span>
+
+<div class="content">Alternatively, install the liquorix kernel.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16914" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16914">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16914">
+
+<time datetime="2010-08-20T12:48">posted: 2010-08-20 &nbsp; 12:48</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16914" title="permalink">#12</a></span>
+
+<div class="content">Hi roky.<br>
+From what I read, you have two options:<br>
+1) Install the sources for the driver using module-assistant.<br>
+2) Install Liquorix kernel.<br>
+<br>
+If it was a full installation I would go for number 2, but if it's for a frugal installation then number 1 is preferable since it would take less space (you can't delete the original kernel).<br>
+<br>
+For number 1, install module-assistant and then either ask at mepislovers.org where stevo always answers related questions or read the manual yourself.<br>
+If you don't try other things at the same time and read the manual carefully I think you may do it without even asking for help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16915" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16915">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16915">
+
+<time datetime="2010-08-20T13:10">posted: 2010-08-20 &nbsp; 13:10</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16915" title="permalink">#13</a></span>
+
+<div class="content">Yeah. I thought of Liquorux also. But smxi would not cooperate with a frugak install. It would basically drop out complaining<br>
+it was looking for grub and couldn't find it.<br>
+<br>
+Later I am going to wipe the card and do another antiX2usb install so I can start fresh. I will go over my and your guys posts<br>
+to refresh what I have already tried. Maybe some of my problems is that the flash drive is getting corrupted.<br>
+<br>
+I mention this because when I try and reinstall rtl8187.ko from live USB (copied to pendrive) pcmanfm as root user gives error<br>
+about input/output error. Yet when I did the same procedure earlier with Puppeees rtl8187.ko. I received no such error.<br>
+So time to start from scratch. If I ever have success. I will post what I did to make this all work.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16917" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16917">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16917">
+
+<time datetime="2010-08-20T15:44">posted: 2010-08-20 &nbsp; 15:44</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16917" title="permalink">#14</a></span>
+
+<div class="content">Just to let you know, antiX has the liquorix repos enabled so you can install those kernels with Synaptic (open it and search for liquorix).<br>
+Pay attention, though: the packages <strong>linux-image-2.6-liquorix-686</strong> and <strong>linux-headers-2.6-liquorix-686</strong> are metapackages that keep the kernel always up-to-date so if you're installing in a frugal antiX you may want to just install the kernel and its headers directly (like <strong>linux-image-2.6.35-2.dmz.1-liquorix-686</strong> and <strong>linux-headers-2.6.35-2.dmz.1-liquorix-686</strong>) so you only upgrade it when you want to.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16920" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16920">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16920">
+
+<time datetime="2010-08-20T22:32">posted: 2010-08-20 &nbsp; 22:32</time>
+<span class="permalink"><a href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610.html#p16920" title="permalink">#15</a></span>
+
+ <div class="content">Thanks secipolla. I totally spaced out remembering synaptic. I am so geared in to using<br>
+smxi for problems that I totally forgot to look in synaptic.<br>
+<br>
+The drive is wiped now. I think I might use a 4gig SD card for next trial. Reason is.<br>
+I was exploring Puppeee and found a program included called"PUDD" which is a puppy<br>
+linux specific application for a GUI way of running dd. Basically I might be able to use the<br>
+8 gig SD Flash to do a byte by byte copy of the internal Windows XP drive/partition to the external<br>
+8gig SD Flash. The internal NTFS partition is 8 gig SSD. So the way I figure it.<br>
+<br>
+I format the external 8gig SD card as NTFS. Point pudd to it. Then see what happens.<br>
+Like I don't have enough experiments going on <span class="emoticon"> __{{emoticon}}__ </span> .</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+21 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-8-5-asus-eeepc-701sd-rtl8187-solved-t2610-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

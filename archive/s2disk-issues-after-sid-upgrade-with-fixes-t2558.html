@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>s2disk issues after Sid upgrade with fixes - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./s2disk-issues-after-sid-upgrade-with-fixes-t2558.html">s2disk issues after Sid upgrade with fixes</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_16526" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16526">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">michael.conner</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Jul 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16526">
+<time datetime="2010-07-10T18:52">posted: 2010-07-10 &nbsp; 18:52</time>
+<span class="permalink"><a href="./s2disk-issues-after-sid-upgrade-with-fixes-t2558.html#p16526" title="permalink">#1</a></span>
+
+<div class="content">I decided to live dangerously and take my antiX-m8.5-base release into the land of Sid. After dist-upgrading, s2disk stopped working properly. <br>
+<br>
+1.) /etc/uswsusp.conf had the line"shutdown method = reboot" in it, rather than the expected"shutdown method = shutdown"<br>
+<br>
+2.) after fixing that line and running update-initramfs -u, it would not resume, but would rather simply restart as if from a cold boot. Turns out there was no /etc/initramfs-tools/conf.d/resume file. After looking at debian bug 576700, which seems to indicate problems with earlier versions of initramfs-tools and the contents of"resume," I created a"resume" file with the line"RESUME=/dev/disk/by-uuid/" and my swap partition's UUID. Ran update-initramfs -u again. Ran s2disk, restarted computer, resume worked!<br>
+<br>
+Everything else seems to be working fine thus far (knocks on wood)...</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

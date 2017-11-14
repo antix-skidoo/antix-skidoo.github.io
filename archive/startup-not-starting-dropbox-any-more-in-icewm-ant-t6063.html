@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>startup not starting dropbox any more in icewm antix15 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./startup-not-starting-dropbox-any-more-in-icewm-ant-t6063.html">startup not starting dropbox any more in icewm antix15</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43976" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43976">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5</span></div>
+
+</div>
+</div>
+<span class="username">matthew</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43976">
+<time datetime="2015-11-25T20:02">posted: 2015-11-25 &nbsp; 20:02</time>
+<span class="permalink"><a href="./startup-not-starting-dropbox-any-more-in-icewm-ant-t6063.html#p43976" title="permalink">#1</a></span>
+
+<div class="content">Hello I am new to Antix 15 which is great, I have tried out a few other distros. I use it on an old Dell Inspiron to take on holiday and it is brilliant. However I have done something (not sure what) that has prevented the automatic start up of DropBox. I followed the clear instructions of Dolphin Oracle on setting up DropBox including entry in start-up part of icewm file, but I noticed that DropBox had stopped starting automatically (although it will start from the applications menu). So I went back to the Dolphin Oracle video and found the startup tab in icewm was now completely blank, so I retyped the following as before:<br>
+<br>
+#!/bin/bash<br>
+<br>
+dropbox start<br>
+<br>
+... but it doesn’t start! I looked in the /home/matthew folder and found a file called startup.disabled which I renamed with zzz in front to disable that, which made no difference. As recommended I have searched the forum and used the prefix"site:antix.freeforums.org" in google with my question as you advised, but still not found the answer. I suppose I could do a re-install but would have to set up all my passwords etc and really I would rather learn how to overcome this problem so that I become a more competent user.<br>
+<br>
+Thanks, Matthew</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43978" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43978">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43978">
+
+<time datetime="2015-11-25T21:30">posted: 2015-11-25 &nbsp; 21:30</time>
+<span class="permalink"><a href="./startup-not-starting-dropbox-any-more-in-icewm-ant-t6063.html#p43978" title="permalink">#2</a></span>
+
+<div class="content">Do you have a ~/.desktop-session/startup file?<br>
+If so, please post the contents here. <br>
+<br>
+My guess is that you have set up the dropbox startup via <em>/</em>etc/desktop-session/startup (global session under control center) and later on saved a ~/.desktop-session/startup file (user session under control center). The user session file (~/.desktop-session/startup) overrides the global file to allow a per user configuration. <br>
+<br>
+Therefor you should be able to get it exactly as it was via <br>
+1) copy <em>/</em>etc/desktop-session/startup to ~/.desktop-session/ (cp <em>/</em>etc/desktop-session/startup ~/.desktop-session)<br>
+NOTE: I cannot recall at the moment but you may need to set the execute permission for ~/.desktop-session/startup to make it work (chmod +x ~/.desktop-session/startup<br>
+2) if you have only one user anyway on the system (or they have all the same startup requirements) you can remove the ~/.desktop-session/startup file (rm ~/.desktop-session/startup)<br>
+<br>
+I also understand that drop box also follows the xdg autostart system, so you could also edit ~/.desktop-session/desktop-session.conf (user) or <em>/</em>etc/desktop-session/desktop-session.conf (global) and set the XDG_AUTOSTART="false" to XDG_AUTOSTART="true". Dropbox should autostart then, as well as other xdg autostart apps such as wicd and clipit.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44041" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44041">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5</span></div>
+
+</div>
+</div>
+<span class="username">matthew</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44041">
+
+<time datetime="2015-11-29T16:53">posted: 2015-11-29 &nbsp; 16:53</time>
+<span class="permalink"><a href="./startup-not-starting-dropbox-any-more-in-icewm-ant-t6063.html#p44041" title="permalink">#3</a></span>
+
+<div class="content">Dave thank you, I am just posting to to acknowledge and say thanks and that I am rather busy at present so will post back when I have studied your solution and applied it. Matthew</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44286" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44286">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5</span></div>
+
+</div>
+</div>
+<span class="username">matthew</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44286">
+
+<time datetime="2015-12-17T17:07">posted: 2015-12-17 &nbsp; 17:07</time>
+<span class="permalink"><a href="./startup-not-starting-dropbox-any-more-in-icewm-ant-t6063.html#p44286" title="permalink">#4</a></span>
+
+<div class="content"><br>
+i am having trouble posting but heard you have to put a / etc</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44287" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44287">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5</span></div>
+
+</div>
+</div>
+<span class="username">matthew</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Nov 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44287">
+
+<time datetime="2015-12-17T17:26">posted: 2015-12-17 &nbsp; 17:26</time>
+<span class="permalink"><a href="./startup-not-starting-dropbox-any-more-in-icewm-ant-t6063.html#p44287" title="permalink">#5</a></span>
+
+<div class="content">Hi Dave thanks for the message and after some tinkering about I hope this SLASH-ETCETERA workaround will get posted! Let's see....<br>
+<br>
+On reflection I think I caused my problem trying out the different desktops and themes available, but liked IceWM best and went back to it. At one point I got stuck in Herbstluftwm and couldnt get out by switching off, so thought harder and ran firefox from a tiny window and googled my way out by typing desktop-session-exit, and pressing F1 when I logged back in to get to IceWM. At some point I lost the Antix icon in the bottom left corner and a Debian icon replaced it (I don't mind about that!)<br>
+<br>
+I searched with SpaceFM Filesearch and I do not have have a ~/.desktop-session/startup file. I wasn't sure what"~" means but I think it could be Root. Using Rox as root I could look in the Root folder but there was no startup file in it, and none in the root/desktop folder, even after i had run your command to copy (cp SLASH-ETCETERA-SLASHdesktop-session/startup ~/.desktop-session)<br>
+<br>
+There are 5 desktop-session folders:<br>
+<br>
+(1) SLASH-ETCETERA-SLASHdesktop-session This contains"startup" shell script 83B -rwxr-xr-x owner matthew-matthew 2015-03-31 and also five other files namely desktop-defaults.conf desktop-session.conf file_compare wallpaper.conf wallpaper-list.conf<br>
+<br>
+(2) /usr/local/share/live-filesSLASH-ETCETERA-SLASHdesktop-session This only contains"startup" shell script 83B -rwxr-xr-x owner root-root 2015-03-31<br>
+<br>
+(3) /usr/local/lib/desktop-session This doesn't contain a"startup" file but has 12 files <br>
+desktop-session-exit.py desktop-session-file-locations.sh desktop-session-logout desktop-session-restart desktop-session-save-gpid desktop-session-slim-update.sh desktop-session-update-wm-menus desktop-session-xdg-dirs.sh desktop-session/first-run-script desktop-session/lib-desktop-session.sh desktop-session/lib-popup-window.sh desktop-session/startup-dialog.py<br>
+<br>
+(4) /usr/local/bin/desktop-session This is a shell script 14.3K -rwxr-xr-x owner matthew-matthew 2015-06-14 <br>
+<br>
+(5) /usr/share/desktop-session This contains a folder /wm-menus and two files first-run-script and first-run-text<br>
+<br>
+I tried copy SLASH-ETCETERA-SLASHdesktop-session/startup to ~/.desktop-session/ but this didn't make any difference. Then I had a thought, and I went into each of the 3"startup" files I had and did"edit as root" and added the line"dropbox start &amp;" at the end - I'd read somewhere on this forum about the importance of the"&amp;" at the end of the line. I didn't change anything with XDG_AUTOSTART.<br>
+<br>
+And it has worked, thank you. Several reboots have been successful. Can I tidy things up by removing what I copied into root, or will it not hurt to leave it?<br>
+<br>
+Many thanks, <br>
+<br>
+Matthew</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

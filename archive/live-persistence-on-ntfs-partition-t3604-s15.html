@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>live-persistence on ntfs partition - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html">live-persistence on ntfs partition</a></div>
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s30.html" role="button">3</a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23824" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23824">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23824">
+<time datetime="2012-03-07T16:20">posted: 2012-03-07 &nbsp; 16:20</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23824" title="permalink">#16</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite><blockquote class="uncited"><div>The boot code will always set the drive that one boot from as ro<br>
+read only and that it is busy and owned by the live boot session<br>
+and the only way to work around it would be to remaster the initrd<br>
+or some other code and there change it. Would be a big job that<br>
+none are motivated to do because so few need it and it is a PITA<br>
+to do it. Takes months of hard work. </div></blockquote>
+That is exactly what BitJam has done to make it possible in antiX.</div></blockquote>
+Wow he has? That would be precious indeed. But BitJam when I read your <br>
+instruction to me which I ahve copied and made a text file that I placed in <br>
+the antiX dir so I easily can find it then there is nothing in that text that indicate <br>
+that it should work and all my tests up to now has failed. But sure I want to trust <br>
+you guys So I will follow your instructions but some of it is way above my head. <br>
+<br>
+AFAIK I ahve already done all in the text in the other thread. AntiX do boot frugally <br>
+but the drive get owned and are owned by the boot up script. <br>
+<br>
+I tested that just a few minutes ago and cited the error text and the error text is <br>
+when one boot too but too fast for to be able to copy it. It says that it fails to <br>
+do the persist. <br>
+<br>
+Quote <br>
+So all you need to do is copy the linuxfs file to a place on your ntfs partition and then tell us where to find it with boot parameters. Assuming you are in the LiveCD or LiveUSB environment, you need to:<br>
+<br>
+1. mount the ntfs partition (if it is not mounted already),<br>
+2. create an antiX/ directory on the top level of the ntfs partition,<br>
+3. copy /live/boot-dev/antiX/linuxfs to the antiX/ directory on the ntfs partition<br>
+/quote ends here<br>
+<br>
+I try to add a screenshot to show what is in my antiX dir on NTFS. The linuxfs and homefs and rootfs are there <br>
+and properties show them are what one expect from such. <br>
+<br>
+I use this menu.lst grub4dos <br>
+<br>
+title antiXl-ntfs-sda2<br>
+root (hd0,1)<br>
+kernel /antiX/vmlinuz noxorg bdev=sda2 vga=791 bdir=antiX antiX=LMXD persist<br>
+initrd /antiX/initrd.gz<br>
+<br>
+So the antix dir is on sda2 and it is a ntfs formatted sata or scsi ata not sure. <br>
+I make a blkid to see what they say. <br>
+sh-4.1# blkid<br>
+/dev/sda2: LABEL="ACER" UUID="xxxxxx" TYPE="ntfs" <br>
+/dev/loop0: TYPE="squashfs" <br>
+/dev/loop1: UUID="xxxxxxx" TYPE="ext3" <br>
+/dev/sda1: LABEL="PQSERVICE" UUID="xxxxxx" TYPE="ntfs" <br>
+sh-4.1# <br>
+<br>
+So antix is on label ACER but AFAIK it would make no difference for it does <br>
+boot the problem is that the sda2 is owned by the"live session user"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23830" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23830">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23830">
+
+<time datetime="2012-03-07T20:16">posted: 2012-03-07 &nbsp; 20:16</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23830" title="permalink">#17</a></span>
+
+<div class="content">And, yes, it did take a lot of hard work. <span class="emoticon"> __{{emoticon}}__ </span> I'm hoping that other distribution will be able to use what we've done to add a lot of features to their LiveCD/USBs without having to repeat all that work.<br>
+<br>
+One important thing you should know to better understand what is going on is that all the this stuff happens before the Linux system is started so it doesn't much matter whether we are booting a Debian system or some other distribution. All the code and data needed to mount your ntfs partition comes from the kernel boot parameters and a tiny little filesystem in the initrd.gz file. This is why 3 files are needed to boot Live (or Frugal): the Linux kernel, the initrd.gz, and the linuxfs file that holds the entire Linux system.<br>
+<br>
+There are only two binary programs in our initrd, busybox (which can act like all the common utility programs we need) and ntfs-3g which mounts ntfs partitions read-write. There are also some scripts. The most important one is linuxrc which is the first script that runs when a LiveCD/USB (or Frugal) system boots. When that script is done it prints out:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>The linuxrc bootstrap is done.
+======================================================================</code></pre></div>
+To help me better understand your situation could you post the output of"df -Th" on your Live ntfs system and also the output of the"mount" command? Please put the output between code tags. 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/faq.php?mode=bbcode#f2r1"<br>linktext was:"here are instructions"<br>====================================<br>
+ for doing that.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23831" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23831">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23831">
+
+<time datetime="2012-03-07T20:38">posted: 2012-03-07 &nbsp; 20:38</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23831" title="permalink">#18</a></span>
+
+<div class="content">I didn't see your most recent post before I made the post above.
+<blockquote><div><cite>newbody wrote:</cite>So antix is on label ACER but AFAIK it would make no difference for it does <br>
+boot the problem is that the sda2 is owned by the"live session user"</div></blockquote>
+Everything in your post looks good. It would be great if you could fire up a browser after you boot antiX so that you can log in to these forums and post the output of the commands I asked you to run with copy and paste. A screen shot would also work. If it is easy, I would also like to see the /var/log/antiX/linuxrc.log file. Perhaps someone else can walk you through the steps needed to post this stuff on the forums.<br>
+<br>
+I have one more test I want you to run but we should probably wait until after I get the information I asked for above because that information might make the following test unnecessary. <br>
+<br>
+Anyway, here is the next test. I want you to add the <strong>bp=2</strong> boot code at the intial Grub or IsoLinux menu. This will create a breakpoint and cause the boot process to stop and let you enter commands. You can resume booting with either the"exit" command or by hitting &lt;Ctrl&gt;-d. You should get a prompt that looks like:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>antiX&gt;</code></pre></div>
+At that prompt, enter these two commands:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>antiX&gt; mkdir /test
+antiX&gt; ntfs-3g /dev/sda2 /test</code></pre></div>
+If this command works there should be no output. If it doesn't work, there should be an error message. Write that error message down on a piece of paper and post it here. If you want to continue booting then you should run these commands:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>antiX&gt; umount /test
+antiX&gt; exit</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23835" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23835">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23835">
+
+<time datetime="2012-03-07T21:43">posted: 2012-03-07 &nbsp; 21:43</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23835" title="permalink">#19</a></span>
+
+<div class="content">I can do it in puppy now tonight it is 22.35 now and my body scream for bed <br>
+so I do for antiX tomorrow at about 10AM our local time. <br>
+<br>
+Hm tags? Which tag do you want? it is not code is it. <br>
+It is terminal answers not code? Way above m,y knowledge <br>
+I got very little from that link. The reason I don't ahve tags now <br>
+is that the no script don't allow them. sorry. <br>
+<br>
+df -Th I try to do it and copy result here from within frugal of puppy<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sh-4.1# df -Th
+Filesystem    Type    Size  Used Avail Use% Mounted on
+rootfs      rootfs    504M  154M  351M  31% /
+/dev/sda2  fuseblk    139G   42G   97G  30% /initrd/mnt/dev_save
+/dev/loop1    ext3    504M  154M  351M  31% /initrd/pup_rw
+/dev/loop0
+          squashfs    127M  127M     0 100% /initrd/pup_ro2
+unionfs       aufs    504M  154M  351M  31% /
+tmpfs        tmpfs    251M  104K  250M   1% /tmp
+shmfs        tmpfs    225M     0  225M   0% /dev/shm
+sh-4.1# </code></pre></div>
+sda2 is the one everything boots from. WinXP too I ahve dual boot set up. <br>
+Grub4dos"chainload" to the boot.ini <br>
+What more did you ask me to tell I take a look. <br>
+<br>
+Ah so I add bp=2 to the kernel line and it does not matter where on the line of code? <br>
+Fially somebody giving instruction that I trust in. I do this coming morning then. <br>
+<br>
+So that test dir should turn up then when it is booted. Where do I look for it? <br>
+<br>
+Ah it give the answer directly okay <br>
+quote If this command works there should be no output. If it doesn't work, there should be an error message. Write that error message down on a piece of paper and post it here /quote<br>
+<br>
+okay I go to bed now</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23840" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23840">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23840">
+
+<time datetime="2012-03-08T00:54">posted: 2012-03-08 &nbsp; 00:54</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23840" title="permalink">#20</a></span>
+
+<div class="content"><blockquote><div><cite>newbody wrote:</cite>df -Th I try to do it and copy result here from within frugal of puppy</div></blockquote>
+That is the information I want but I need it from antiX, not Puppy. All of my instructions assumed you were able to boot antiX on your system that has the ntfs partition.<br>
+<br>
+The"df" command tells me what file systems are mounted on what partitions. I want to know what my code in antiX is doing. I'm much less interested in what Puppy is doing. I want to see how we are mounting /dev/sda2. If the Type is"ntfs" that means the ntfs-3g program is failing. The <strong>bp=2</strong> instructions should create the error message that tells us why it is failing. If it is not failing then /dev/sda2 should already be mounted read-write and the problem is elsewhere.<br>
+<blockquote class="uncited"><div>Ah so I add bp=2 to the kernel line and it does not matter where on the line of code?</div></blockquote>
+Yes, and the position on the line does not matter. Just make sure there are spaces between different parameters and there are no spaces inside of <strong>bp=2</strong>. If you make a mistake and create a parameter that I don't understand, my program will issue a warning message. <br>
+<br>
+You probably already know this, but just in case, you can add <strong>bp=2</strong> during the boot process. You type it in at the first graphical screen. IIRC, it has a white border and a black background with stars. After you type it in you need to hit &lt;Enter&gt; for the boot process to continue. You don't need to edit any files.<br>
+<blockquote class="uncited"><div>Hm tags? Which tag do you want? it is not code is it.<br>
+It is terminal answers not code? </div></blockquote>
+Yes, code tags. Terminal output should go inside of code tags because that will make the columns line up. Example:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ df -Th
+Filesystem     Type    Size  Used Avail Use% Mounted on
+rootfs         rootfs   31G   24G  5.8G  81% /
+/dev/root      ext3     31G   24G  5.8G  81% /
+rc-svcdir      tmpfs   1.0M  108K  916K  11% /lib64/rc/init.d
+cgroup_root    tmpfs    10M     0   10M   0% /sys/fs/cgroup
+udev           tmpfs    10M  344K  9.7M   4% /dev
+shm            tmpfs   2.0G     0  2.0G   0% /dev/shm
+/dev/sda7      xfs     1.1G  409M  633M  40% /usr/portage
+/dev/sda8      ext3    452G  346G   83G  81% /data</code></pre></div>
+<blockquote class="uncited"><div>so I do for antiX tomorrow at about 10AM our local time. </div></blockquote>
+I'm in no rush. I don't know what time zone you're in. I'm on Mountain Time:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wwp.greenwichmeantime.com/time-zone/usa/mountain-time/"<br>linktext was:"http://wwp.greenwichmeantime.com/time-z ... tain-time/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23842" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23842">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23842">
+
+<time datetime="2012-03-08T08:12">posted: 2012-03-08 &nbsp; 08:12</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23842" title="permalink">#21</a></span>
+
+<div class="content">First things first! <br>
+<br>
+I added the break point 2 and that failed with this error<br>
+<blockquote class="uncited"><div>mount: mounting /dev/sda2 on /test failed: Device or resource busy </div></blockquote>
+Then I did the umount /test exit and it booted and I am in AntiX now <br>
+and like Anti suggested and trusted in the wallpaper did change to the <br>
+blue seashore that I told it to yesterday but I still are not allowed to <br>
+even see the sda2 <br>
+<br>
+here is the df-Th
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:~$ df -Th
+Filesystem     Type      Size  Used Avail Use% Mounted on
+/dev/sda2      fuseblk   139G   42G   97G  30% /live/boot-dev
+/dev/loop0     squashfs  647M  647M     0 100% /live/linux
+tmpfs          tmpfs     785M  1.3M  784M   1% /live/aufs-ram
+/live/aufs     aufs      785M  1.3M  784M   1% /live/aufs
+/live/aufs     aufs      785M  1.3M  784M   1% /bin
+/live/aufs     aufs      785M  1.3M  784M   1% /boot
+/live/aufs     aufs      785M  1.3M  784M   1% /etc
+/live/aufs     aufs      785M  1.3M  784M   1% /sbin
+/live/aufs     aufs      785M  1.3M  784M   1% /var
+/live/aufs     aufs      785M  1.3M  784M   1% /lib
+/live/aufs     aufs      785M  1.3M  784M   1% /opt
+/live/aufs     aufs      785M  1.3M  784M   1% /root
+/live/aufs     aufs      785M  1.3M  784M   1% /tmp
+/live/aufs     aufs      785M  1.3M  784M   1% /usr
+/live/aufs     aufs      785M  1.3M  784M   1% /media
+/live/aufs     aufs      785M  1.3M  784M   1% /selinux
+/live/aufs     aufs      785M  1.3M  784M   1% /srv
+/dev/loop1     ext4       96M   45M   52M  47% /home
+tmpfs          tmpfs     100M  368K  100M   1% /run
+tmpfs          tmpfs     5.0M     0  5.0M   0% /run/lock
+tmpfs          tmpfs      10M     0   10M   0% /dev
+tmpfs          tmpfs     200M     0  200M   0% /run/shm
+demo@antiX1:~$ 
+</code></pre></div>
+And on iceweasel it does remember bookmark I made <br>
+but does not remember the startpage that I changed. <br>
+I had pointed it to a html file on the sda2<br>
+<br>
+Does there exist two sda2? I mean is one of them"virtual" <br>
+and thus owned by the boot up and the other that you or <br>
+Anti described or referred to somewhere and I did not <br>
+make notes about it. Something about where one find it? <br>
+<br>
+Somebody did mention that one have to reach for the drive <br>
+coming the right way? Sorry my poor memory<br>
+so it does remember something despite it says that it can not save. <br>
+<br>
+And it failed to remember the passwords that I gave it. <br>
+<br>
+it created a hidden file that I don't have permission to open. <br>
+I guess one have to be root to open it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23843" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23843">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23843">
+
+<time datetime="2012-03-08T08:30">posted: 2012-03-08 &nbsp; 08:30</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23843" title="permalink">#22</a></span>
+
+<div class="content">When I do Run rox /media and check the run as root <br>
+then it still say
+<blockquote class="uncited"><div>Mounting /media/sda2<br>
+Mount is denied because the NTFS volume is already exclusively opened.<br>
+The volume may be already mounted, or another software may use it which<br>
+could be identified for example by the help of the 'fuser' command.<br>
+Mount failed<br>
+<br>
+Done<br>
+There was one error.</div></blockquote>
+so how do I use the fuser command. <br>
+<br>
+It had enormous many options and I did not get a iota of it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23844" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23844">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23844">
+
+<time datetime="2012-03-08T08:42">posted: 2012-03-08 &nbsp; 08:42</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23844" title="permalink">#23</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Ok, you have persistence working from your ntfs partition.<br>
+There is no need to go to the media. sda2 folder as you are already using it. You are in it as your antiX frugal folder is on sda2. (the windows partition).<br>
+<br>
+Instead what you have to do is go to /live/boot-dev. All your windows stuff and anything else on the ntfs partition is there.<br>
+If you want to make changes while running frugal-antiX, you can save a file for example in your /home/demo folder and changes are saved so next time you use antiX-frugal it will be there is /home/demo.<br>
+If you want to access what you do in antiX eg a file when using windows, you must save it in /live/boot-dev.<br>
+<br>
+Try this.<br>
+<br>
+Run antiX frugal with the persist option.<br>
+When at the desktop, open the filer to /home/demo and in there create and save a file.<br>
+Use antiX control centre to change the wallpaper.<br>
+Reboot and you should boot into the new wallpaper and that file you created in /home/demo should still be there.<br>
+No need to use root (yet).<br>
+<br>
+What else is on your sda2 partition? You should see them when running antiX-frugal in /live/boot-dev</div></blockquote>
+This is the post by Anti that I did refer to above. <br>
+<br>
+First time I read about that way to access files. <blockquote class="uncited"><div>what you have to do is go to /live/boot-dev</div></blockquote>
+I try to look there now Jay there I ahve a my files. I guess I ahve to tell rox that I want to use Leafpad <br>
+for to edit menu.lst using the set run action? I edit the text file that is a copy of your text BitJam <br>
+and that actually did save to the /live/boot_dev/ <br>
+<br>
+But I had never heard of live boot dev before so had no idea one should use that one. <br>
+All the other 75 linux distros that I have tested made use of mnt/home/ and such designations. <br>
+So sorry. had no idea. So thansk Anti for mentioning the above. <br>
+<br>
+But I still ahve no idea how to use it. I will reboot now and see if it survives. <br>
+<br>
+Edit. 50% success <br>
+<br>
+It still give the error when booting too fast for to write down. something about <br>
+Can\t umount live persist not valid argument <br>
+and then it ask me for the passwords again so it failed to remember them <br>
+and then it boots and show the new wall paper and it remember my bookmarks <br>
+and it kept the edit I made to the BitJam.txt on the itnernal HD so that is a success. <br>
+<br>
+But it says that this is the first time I use persist so would I set it up ... so failure there. <br>
+<br>
+So already now it is a huge help but No Cigar as we say. <br>
+<br>
+So what could be missing? my boot looks like this now in grub4dos menu.lst
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiXl-ntfs-sda2
+root (hd0,1)
+kernel /antiX/vmlinuz noxorg bdev=sda2 vga=791 bdir=antiX antiX=LMXD persist
+initrd /antiX/initrd.gz
+</code></pre></div> should it have something that indicate the /live/boot_dev/ or does that one only <br>
+come to exist after boot maybe. And one need to find a solution to the error that it <br>
+can not umount due to live persist not valid</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23847" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23847">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23847">
+
+<time datetime="2012-03-08T10:47">posted: 2012-03-08 &nbsp; 10:47</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23847" title="permalink">#24</a></span>
+
+<div class="content">This is looking good even though it not fully working yet. It appears that /dev/sda2 is being mounted read-write as it is supposed to which can be seen from this line in your df -Th output:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/sda2      fuseblk   139G   42G   97G  30% /live/boot-dev</code></pre></div>
+This means the linuxrc program was able to mount your ntfs partiton read-write even though you were unable to do so at breakpoint 2.<br>
+<br>
+It looks like the only problem is that the changes to the linux file system are not saved back to the /live/boot-dev/antiX/rootfs file.<br>
+<blockquote class="uncited"><div>All the other 75 linux distros that I have tested made use of mnt/home/ and such designations. So sorry. had no idea. So thansk Anti for mentioning the above. </div></blockquote>
+The du -Th output from PuppyLinux shows that your /dev/sda2 is mounted under /initrd/mnt. LivCD/USBs need to keep some things out of the normal Linux file system. Puppy is putting them under /initrd, we put them under /live. The entire Linux file system is contained under /live at least twice. If you tried to put this stuff under /mnt then it would try to contain itself which is impossible. To some extent the existence of the /live directory and what it contains is the major difference between a Live system and a full install. The other difference is the linuxrc script that runs and creates everything under /live.<br>
+<br>
+Anyway, back to your problem with persistence. <br>
+<blockquote class="uncited"><div>it created a hidden file that I don't have permission to open.<br>
+I guess one have to be root to open it.</div></blockquote>
+I won't be able to understand what you are saying here unless you tell me the full path to the file and the name of the file. Giving me some hint about *when* this file gets created would also help.<br>
+<br>
+The problem you have seems to be that your changes are not being saved to the rootfs file which is why things like the new passwords get forgotten. If your bookmarks are saved that means the home directory is being saved in the homefs file. The best way to track down the rootfs error is to run the persist-save program which is supposed to save your changes to the rootfs file. <br>
+<br>
+You can either run"persist-save" from the command line or navigate the menus: <br>
+<br>
+Applications --&gt; Other --&gt; RemasterCC<br>
+<br>
+and then select"Save root peristence". If this program is not run then your changes will not be saved. You are supposed to be able to select to have it always gets run at shutdown. That is the automatic setting. You could instead choose the semi-automatic setting where you get asked if you want to save your changes on shutdown. If you set it for manual then you will have to manually run the persist-save program as explained above or your changes won't be saved.<br>
+<br>
+It might be best to run the program from the command line to ensure you see the error messages although all error messages should show up in /var/log/antiX/persist-save.log. We are playing the same game as before where either the program works or you get an error message exlaining why it didn't work. <br>
+<blockquote class="uncited"><div>It still give the error when booting too fast for to write down. something about<br>
+Can\t umount live persist not valid argument</div></blockquote>
+It would have helped if you told us at least *when* this error occurs. Does it occur before or after it says:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>he linuxrc bootstrap is done
+======================================================================</code></pre></div>?<br>
+If it happens before this is printed, you have several options:
+<ol style="list-style-type: decimal">
+<li> You could use the <strong>wait=10</strong> boot parameter to have the system wait 10 seconds before going on to the next things.</li>
+<li> You could use the <strong>bp=9</strong> boot code that will drop you to a shell when the linuxrc program is almost done. This too will pause the scrolling of the display. Use the"exit" command or &lt;Ctrl&gt;-d to continue booting.</li>
+<li> You could look at the file /var/log/antiX/linuxrc.log after the system boots which may (but may not) contain the error message.</li> </ol>
+The point of error messages is to help us track down what the problem is. Even if you can't catch the actually error message as it flies by, it helps a lot if you can give us an idea of *when* the error is occurring. Most (but not all) error messages for my programs will show up in one of the log files under /var/log/antiX/.<br>
+<blockquote class="uncited"><div>should it [the Grub entry] have something that indicate the /live/boot_dev/ or does that one only come to exist after boot maybe.</div></blockquote>
+The user does not have control over the /live directory structure. As far as booting is concerned, the only information we need is how to find the boot device and how to find the linuxfs file on the boot device. Since your linuxfs file is in the standard location on the boot device (/antiX/linuxfs) all you need to tell us is how to find the boot device. You already do this with the <strong>bdev=sda2</strong> entry. BW I don't think you need <strong>bdir=antiX</strong> because that should be the default value.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23848" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23848">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23848">
+
+<time datetime="2012-03-08T11:29">posted: 2012-03-08 &nbsp; 11:29</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23848" title="permalink">#25</a></span>
+
+<div class="content">I am in puppy now for to be able to easily edit the picture my mobile camera took <br>
+of the bp=9 halted boot process. <br>
+<br>
+To your question that error happen before the linuxrc is finished see blurred picture <br>
+I will now reboot into antix and reread your post and try to answer your questions. <br>
+<br>
+I did the Menu Applications remaster as you described and saved a screenshot of <br>
+the errror message. <br>
+<br>
+So most likely??? the rootfs file maybe is bad due to me not good at following instructions. <br>
+<br>
+Can I make it again now when I ahve come this far. Anti described how to but <br>
+I have already forgotten all about it. I try to find that text again? <br>
+<br>
+the error show up as you told me also in that persist-save.log
+<blockquote class="uncited"><div>--------------------------------------------------------------------<br>
+NTFS signature is missing.<br>
+Failed to mount '/dev/loop2': Invalid argument<br>
+The device '/dev/loop2' doesn't seem to have a valid NTFS.<br>
+Maybe the wrong device is used? Or the whole disk instead of a<br>
+partition (e.g. /dev/sda, not /dev/sda1)? Or the other way around?<br>
+/usr/local/lib/antiX/antiX-common.sh: line 562: g[f]/live/persist-root[/]t_ac: No such file or directory<br>
+persist-save [0;31merror[0;39m:<br>
+<br>
+2012-03-08 13:40:23: [0;35mCleaning up ...[0;39m<br>
+2012-03-08 13:40:23: Removing lockfile [0;32m/live/config/locked[0;39m</div></blockquote>
+When I run from Run being root then it show same error message as in the first picture <br>
+So what would be the most logical thing to do now? Give the NTFS drive a signature? <br>
+Would that not destroy it for WinXP later? Why does the OS need a NTFS signature <br>
+whatever that is? <br>
+<br>
+Did not Anti tell me that I could copy a rootfs file from somewhere? I need to find that instruction again <br>
+I have found it and tried to follow the instruction but felt unsure of if Idid make it right. <br>
+I reboot now and see if rootfs works better now</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23852" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23852">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,308</dd>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23852">
+
+<time datetime="2012-03-08T19:19">posted: 2012-03-08 &nbsp; 19:19</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23852" title="permalink">#26</a></span>
+
+<div class="content"><span style="color: blue"><span style="font-size: 120%; line-height: normal"><strong>Thank you for the error messages!</strong></span></span><br>
+<br>
+I agree the problem is most likely a bad rootfs file. My program did not deal with this error condition gracefully so I will fix that to make it more clear.<br>
+<br>
+You can check the rootfs file with these commands. If you change the directory name you should be able to run them in antiX or in Puppy. First, either log-in to a terminal as root or change to root with the"su" command. It will ask you for the *root* password. Then:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># cd /live/boot-dev/antiX
+# script
+# ls -l rootfs
+# mkdir /mnt/rootfs
+# mount -o loop rootfs /mnt/rootfs</code></pre></div>
+I believe you will get an error message when you try to do this. The next step is to create a new rootfs file. The seek number sets the size. The 2000 will give you a 2 gig rootfs which is what I would suggest. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># rm rootfs
+# dd if=/dev/zero of=rootfs bs=1M count=0 seek=2000
+# mkfs.ext2 -q -m 0 -F rootfs</code></pre></div>
+Now you should check it again with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># mount -o loop rootfs /mnt/rootfs
+# df | grep /mnt/rootfs
+# umount /mnt/rootfs</code></pre></div>
+Thank you for putting up with this process. I hope we will be able to make things much easier for those who follow in your footsteps.<br>
+<br>
+The"script" command at the very beginning will log everything you enter and all the output in a file called"typescript". Use the"exit" command when you are done to turn this off.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23856" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23856">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23856">
+
+<time datetime="2012-03-08T20:53">posted: 2012-03-08 &nbsp; 20:53</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23856" title="permalink">#27</a></span>
+
+<div class="content">Thanks. It looked good and when I booted then it seems to mount rootfs without <br>
+the error that I made a picture of but when I do this in terminal as root then it says
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/live/boot-dev/antiX# mount -o loop rootfs /mnt/rootfs
+mount: mount point /mnt/rootfs does not exist
+root@antiX1:/live/boot-dev/antiX#</code></pre></div> <br>
+<br>
+I have to find the command that showed the other error. What was it? <br>
+Run rox /media then it give same error but when I run this <br>
+persist-save then it works. So that is a huge progress. <br>
+<br>
+I test again if I can edit things on the live boot-dev Jay that works too. <br>
+<br>
+The rox /media what is that about then? what could that be about?<br>
+10.00PM here now so I tutn in within one hour most likely. <br>
+BitJam much thanks for being this patient with an old fool like me. <br>
+I am incredibly bad at following instructions. But I want Linux to work <br>
+so sometimes I don\t want to give up. <br>
+<br>
+Now I will go and set the language to Norwegian or to do the setxkbmap se <br>
+and see if that survive a reboot. Maybe I need to do the homefs like you <br>
+described I did the rootfs? Does home take care of keyboard? <br>
+<br>
+anyway Much appreciated you cared. <br>
+<br>
+Can I ask. If I want to run as Puppy do. To boot as root and not boot as demo? <br>
+<br>
+What boot code do I use then? Can I use something like this? <br>
+noprompt autologin username=root password=root on the kernel line?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23859" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23859">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23859">
+
+<time datetime="2012-03-08T21:12">posted: 2012-03-08 &nbsp; 21:12</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23859" title="permalink">#28</a></span>
+
+<div class="content"><blockquote><div><cite>newbody wrote:</cite><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/live/boot-dev/antiX# mount -o loop rootfs /mnt/rootfs
+mount: mount point /mnt/rootfs does not exist</code></pre></div>
+You just have to make the directory first:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># mkdir /mnt/rootfs
+# mount -o loop rootfs /mnt/rootfs
+# ls /mnt/rootfs</code></pre></div>The ls command should show at least a"etc" directory. You should run"umount /mnt/rootfs" when you are done.
+<blockquote class="uncited"><div>I have to find the command that showed the other error. What was it?</div></blockquote></div></blockquote>I need more hints.<br>
+<br>
+The important thing is to make sure the persist-save program runs. If it does, you can repeat the steps above (omitting the mkdir) and you should see a lot more when you ls.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23861" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23861">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23861">
+
+<time datetime="2012-03-08T21:36">posted: 2012-03-08 &nbsp; 21:36</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23861" title="permalink">#29</a></span>
+
+<div class="content"><blockquote><div><cite>newbody wrote:</cite>BitJam much thanks for being this patient with an old fool like me. <br>
+I am incredibly bad at following instructions. But I want Linux to work so sometimes I don\t want to give up. </div></blockquote>The fault was 100% mine. If all my programs were working properly then you would not have run into any rootfs error. I thank you for your help and your persistence.<br>
+<blockquote class="uncited"><div>Now I will go and set the language to Norwegian or to do the setxkbmap se <br>
+and see if that survive a reboot.</div></blockquote>I *think* you might need to do this before enabling persistence. Just use the <strong>lang=no</strong> boot code. Anti can tell you for sure. If <strong>lang=no</strong> does not work when persistence is enabled then delete the file /etc/live/protect/persist and try again. You will have to delete that file as root.<br>
+<blockquote class="uncited"><div>Maybe I need to do the homefs like you described I did the rootfs?</div></blockquote>No. I don't think so. The fact that your bookmarks were saved shows that homefs is working. This is also seen in this line from you df -Th:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/loop1     ext4       96M   45M   52M  47% /home</code></pre></div>Unfortunately, your homefs is way too small and you are going to run out of space on it very soon.<br>
+<blockquote class="uncited"><div>Does home take care of keyboard? </div></blockquote>No.<br>
+<blockquote class="uncited"><div>If I want to run as Puppy do. To boot as root and not boot as demo? </div></blockquote>Yes you can and no you shouldn't. There is no boot code to do this, instead you need to edit the /etc/slim.conf file and change the default_user from"demo" to"root". You should be able to do this from the antiX Control Center. I suggest that you do not make this change.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23862" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23862">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 76</span></div>
+
+</div>
+</div>
+<span class="username">newbody</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Mar 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23862">
+
+<time datetime="2012-03-08T21:53">posted: 2012-03-08 &nbsp; 21:53</time>
+<span class="permalink"><a href="./live-persistence-on-ntfs-partition-t3604-s15.html#p23862" title="permalink">#30</a></span>
+
+<div class="content">Swedish seems to work now using the code lang=se so that is cool. <br>
+Seems I did not need to delete the persist file for that. <br>
+<br>
+What was that Run /mnt/media not allowing me to see sda2? <br>
+<br>
+Did Anti or you forgot that I should look at live boot-dev instead? <br>
+I did not even know such directories could exist. I had not happen <br>
+to meet those terms before. <br>
+<br>
+Okay about the root thing. Yes I know that most Linux Devs don't want <br>
+us to be root. Future will tell how I decide on it. <br>
+<br>
+Now a questions you don't have to answer. All the other derivates or forks <br>
+or pure Debian OS existing can they learn from you how to do this then <br>
+as long as you get recognitions with your name in the code? <br>
+<br>
+Sickgut over at Puppy him trying to make a 100% compatible Debian OS <br>
+most likely want to learn it too. <br>
+<br>
+As I remember you told me the file that makes it possible to save on NTFS <br>
+is rather small even if making it where rather difficult which explains nobody <br>
+has done it before on Mepis varieties??? Okay Knopper has done it for Knoppix <br>
+but that is not 100% Debian maybe? <br>
+<br>
+So congratulations to having accomplish this. I've been waiting sine AntiX 8.5 <br>
+for to be able to do this. So happy you made it possible. <br>
+Most things seems to work now. <br>
+<br>
+I only lack Adobe Flashplayer so I need to learn how to get that going. <br>
+Now I go to bed.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s30.html" role="button">3</a></li>
+<li><a class="button" href="./live-persistence-on-ntfs-partition-t3604-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./live-persistence-on-ntfs-partition-t3604-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Samba - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m7-lysistrata-f11/index.html"><span>antiX-M7 Lysistrata</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./samba-t308.html">Samba</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_1585" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile1585">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1585">
+<time datetime="2007-12-22T22:29">posted: 2007-12-22 &nbsp; 22:29</time>
+<span class="permalink"><a href="./samba-t308.html#p1585" title="permalink">#1</a></span>
+
+<div class="content">Hey all.<br>
+<br>
+I'm trying to get samba up and running. I have two XP boxes and Two Antix boxes. The printer is connected to one of the Antix boxes and all other boxes can see and use it. The two Xp boxes can see the two Antix boxes and their files. The Antix boxes show the two Xp boxes via xsmbrowser but cannot see the shares. Also I cannot write to the Antix boxes from XP. The two XP boxes can see and write to each other. Here is my smb.conf please advise.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>;*******************section global*****************
+[global]
+
+# Do something sensible when Samba crashes: mail the admin a backtrace
+panic action = /usr/share/samba/panic-action %d
+printing = cups
+workgroup = WORKGROUP
+server string = %h server (Samba %v)
+hosts allow = 192.168.0. 192.168.1. 192.168.2. 192.168.79. 127. 10.0.0. 10.1.1.
+socket options = IPTOS_LOWDELAY TCP_NODELAY
+log level = 1
+dead time = 15
+wins support = yes
+hide unreadable = yes
+passdb backend = tdbsam
+dns proxy = no
+host msdfs = no
+max log size = 1000
+security = share
+map to guest = Bad Password
+restrict anonymous = no
+domain master = no
+preferred master = no
+max protocol = NT
+ldap ssl = No
+server signing = Auto
+oplocks = No
+level2 oplocks = No
+;*******************section Shares*****************
+[Shared]
+path = /home/dan/Shared
+guest ok = yes
+#read only = no
+writable = yes
+browseable = yes
+create mask = 0775
+directory mask = 0775
+[Music]
+path = /mnt/sdb3/mystuff/Audio
+guest ok = yes
+#read only = no
+writable = yes
+browseable = yes
+create mask = 0775
+directory mask = 0775
+;*******************section homes*****************
+[homes]
+comment = Home Directories
+browseable = no
+guest ok = no
+read only = no
+;*******************section printers*****************
+[printers]
+comment = All Printers
+path = /tmp
+browseable = no
+printable = yes
+guest ok = yes
+create mode = 0700</code></pre></div>
+eriefisher<br>
+<br>
+<br>
+[/code]</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1657" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile1657">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1657">
+
+<time datetime="2007-12-27T21:09">posted: 2007-12-27 &nbsp; 21:09</time>
+<span class="permalink"><a href="./samba-t308.html#p1657" title="permalink">#2</a></span>
+
+<div class="content">Have you checked to see if you have smbclient installed? It was not setup by default on my antix box. You may need it to access the windows shares.<br>
+<br>
+As for writing to the antix shares, check you file permissions to make sure you've enabled"others" read/write access. This is the linux file permissions, not just the samba permissions.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1660" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile1660">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1660">
+
+<time datetime="2007-12-28T14:30">posted: 2007-12-28 &nbsp; 14:30</time>
+<span class="permalink"><a href="./samba-t308.html#p1660" title="permalink">#3</a></span>
+
+<div class="content">smbclient is installed and the change to the permissions for read/write worked so now the windows boxes can write to the linux boxes.<br>
+<br>
+The only thing left is getting the linux boxes to write to the windows boxes. The linux boxes can see windows but say there are no shares offered?? The two windows boxes read and write to each other..<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1664" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile1664">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1664">
+
+<time datetime="2007-12-29T00:37">posted: 2007-12-29 &nbsp; 00:37</time>
+<span class="permalink"><a href="./samba-t308.html#p1664" title="permalink">#4</a></span>
+
+<div class="content">do you have smbfs installed. according to the smbclient info, you need it to mount windows shares.<br>
+<br>
+You might also have a look at fusesmb. There are some excellent howto's out there (search for thunar and fuse). It basically lets you mount an entire network to a mount point. And you don't need to be root to use it. This is the method I use. Its not thunar dependent. any app can access the network.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1667" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile1667">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 253</span></div>
+
+</div>
+</div>
+<span class="username">mariel77</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1667">
+
+<time datetime="2007-12-29T02:46">posted: 2007-12-29 &nbsp; 02:46</time>
+<span class="permalink"><a href="./samba-t308.html#p1667" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>do you have smbfs installed. according to the smbclient info, you need it to mount windows shares.<br>
+<br>
+You might also have a look at fusesmb. There are some excellent howto's out there (search for thunar and fuse). </div></blockquote>
+Thanks for this tip, dolphin_oracle; I like fusesmb.<br>
+<br>
+eriefisher, Do you have a firewall on the win computers that blocks the Linux computers? I have McAfee antivirus/firewall on my win comps; only one usually runs though, and it will only allow the win computers to talk to each other. It sees the Linux machines, but won't allow any writing; I think it installed its own network software. I allow it to run because I figure win machines need all the help they can get. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1671" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile1671">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1671">
+
+<time datetime="2007-12-29T14:23">posted: 2007-12-29 &nbsp; 14:23</time>
+<span class="permalink"><a href="./samba-t308.html#p1671" title="permalink">#6</a></span>
+
+<div class="content">Fusesmb did the trick. I now have full read/write access to and from any computer on my network via thunar. I'm sure it will work with rox or any other file manager out there.<br>
+<br>
+I was unaware of this and I'll never forget it. It works great.<br>
+<br>
+eriefisher</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1675" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile1675">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1675">
+
+<time datetime="2007-12-29T20:50">posted: 2007-12-29 &nbsp; 20:50</time>
+<span class="permalink"><a href="./samba-t308.html#p1675" title="permalink">#7</a></span>
+
+<div class="content">glad you like it. It fusesmb mounts the network just like any other mount point, so no special software required for browsing. I use it with XFE, and it works great (command line too).<br>
+<br>
+D.O.</div>
+<div class="postcontent_footer">
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

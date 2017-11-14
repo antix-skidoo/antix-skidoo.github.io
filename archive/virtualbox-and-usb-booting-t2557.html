@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>VirtualBox and USB Booting - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./virtualbox-and-usb-booting-t2557.html">VirtualBox and USB Booting</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_16524" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16524">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 35</span></div>
+
+</div>
+</div>
+<span class="username">dcbevins</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16524">
+<time datetime="2010-07-10T14:43">posted: 2010-07-10 &nbsp; 14:43</time>
+<span class="permalink"><a href="./virtualbox-and-usb-booting-t2557.html#p16524" title="permalink">#1</a></span>
+
+<div class="content">I have antix installed on a usb drive.<br>
+<br>
+I've been trying to get virtual box in a windows host to boot the usb device with antix.<br>
+<br>
+I can get it to see grub, but it fails to load, dropping me to a limited shell with, a"can't find antix file system" error.<br>
+<br>
+Attached is a screenshot.<br>
+<br>
+<a href="http://img231.imageshack.us/my.php?image=764f4430741c3eccc034ec1.jpg" class="postlink"><img src="http://img231.imageshack.us/img231/1041/764f4430741c3eccc034ec1.th.jpg" class="postimage" alt="Image"></a><br>
+<br>
+Anyone have an idea what could be going wrong? Is the UUID that grub is using in the menulist somehow bad? I'm stuck.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16527" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16527">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16527">
+
+<time datetime="2010-07-10 &nbsp; 19:24">posted: 2010-07-10 &nbsp; 19:24</time>
+<span class="permalink"><a href="./virtualbox-and-usb-booting-t2557.html#p16527" title="permalink">#2</a></span>
+
+<div class="content">That happens when booting from a USB 1.x port too. I don't know the reason or the fix (would like to) but the other day I was having a look at the linuxrc file (which is a file inside the compressed initrd.gz) and I saw some things that could be related, like a sleep time to give time for slow devices to digest the info from the live environment which maybe (wild guess) could be not enough for specially slow devices.<br>
+I think BitJam (forum member) is the one who wrote that or adapted to antiX but I didn't contact him yet.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16529" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16529">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16529">
+
+<time datetime="2010-07-10T19:49">posted: 2010-07-10 &nbsp; 19:49</time>
+<span class="permalink"><a href="./virtualbox-and-usb-booting-t2557.html#p16529" title="permalink">#3</a></span>
+
+<div class="content">Try rootdelay=10 at grub boot.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16530" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16530">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 35</span></div>
+
+</div>
+</div>
+<span class="username">dcbevins</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16530">
+
+<time datetime="2010-07-10T20:16">posted: 2010-07-10 &nbsp; 20:16</time>
+<span class="permalink"><a href="./virtualbox-and-usb-booting-t2557.html#p16530" title="permalink">#4</a></span>
+
+<div class="content">Tried rootdelay=10 and 15, still a no go.<br>
+<br>
+Found a pci usb 2.0 card on ebay for 4 bucks. <br>
+<br>
+Try again in a couple weeks when it gets here.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

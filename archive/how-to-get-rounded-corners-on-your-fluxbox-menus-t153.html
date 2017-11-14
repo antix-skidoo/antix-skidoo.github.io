@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How To: Get rounded corners on your fluxbox menus - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-get-rounded-corners-on-your-fluxbox-menus-t153.html">How To: Get rounded corners on your fluxbox menus</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_892" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile892">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 22</span></div>
+
+</div>
+</div>
+<span class="username">Steve</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content892">
+<time datetime="2007-11-07T19:53">posted: 2007-11-07 &nbsp; 19:53</time>
+<span class="permalink"><a href="./how-to-get-rounded-corners-on-your-fluxbox-menus-t153.html#p892" title="permalink">#1</a></span>
+
+<div class="content">To get rounded corners in your fluxbox menu you will have to build fluxbox from the source code. <br>
+<br>
+You can start out in either fluxbox or icewm.<br>
+<br>
+1. Make sure you have everything for the build.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># aptitude install build-essential checkinstall xorg-dev </code></pre></div>
+2. Set up checkinstall so that it prepares the deb but does not do the installation (as root):<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># nano /etc/checkinstallrc</code></pre></div>
+<br>
+Change INSTALL=1 to INSTALL=0 at the very end of the file.<br>
+<br>
+3. Modify your fluxbox startup file:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ nano ~./fluxbox/startup</code></pre></div>
+Find the line that has<br>
+<br>
+exec /usr/bin/fluxbox<br>
+<br>
+and change it to<br>
+<br>
+exec /usr/local/bin/fluxbox<br>
+<br>
+4. Modify your fluxbox menu file so your new styles will appear in the menu:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ nano ~/.fluxbox/menu</code></pre></div>
+Find area for the styles and change it to this:<br>
+<br>
+[submenu] (Styles)<br>
+[stylesdir] (~/.fluxbox/styles)<br>
+[stylesdir] (/usr/share/fluxbox/styles)<br>
+[stylesdir] (/usr/local/share/fluxbox/styles)<br>
+[end]<br>
+<br>
+5. Get the fluxbox source tarball from <br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://fluxbox.sourceforge.net/download.php"<br>linktext was:"http://fluxbox.sourceforge.net/download.php"<br>====================================<br>
+<br>
+<br>
+6. Extract the source code:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ tar xvzf fluxbox-1.0.0.tar.gz</code></pre></div>
+7. Change to the source directory:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cd fluxbox-1.0.0</code></pre></div>
+8. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ./configure</code></pre></div>
+9. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ make</code></pre></div>
+10. If you are in fluxbox, quit terminal, logout of fluxbox and log into icewm.<br>
+<br>
+11. Use Synaptic to remove the previously installed fluxbox.<br>
+<br>
+12. Start terminal, navigate to the fluxbox source directory, and as <br>
+root, type: <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># checkinstall</code></pre></div>
+<br>
+You will be presented with: <br>
+<br>
+The package documentation directory ./doc-pak does not exist. <br>
+Should I create a default set of package docs? [y]:<br>
+<br>
+Answer y<br>
+<br>
+Preparing package documentation...OK<br>
+<br>
+Please write a description for the package.<br>
+End your description with an empty line or EOF.<br>
+<br>
+Enter something like:<br>
+&gt;&gt; fluxbox 1.0.0 compiled by foo<br>
+&gt;&gt; <br>
+<br>
+Then you will see:<br>
+<br>
+*****************************************<br>
+**** Debian package creation selected ***<br>
+*****************************************<br>
+<br>
+This package will be built according to these values: <br>
+<br>
+0 - Maintainer: [ root@foo-desktop ]<br>
+1 - Summary: [ fluxbox 1.0.0 compiled by foo ]<br>
+2 - Name: [ fluxbox ]<br>
+3 - Version: [ 1.0.0 ]<br>
+4 - Release: [ 1 ]<br>
+5 - License: [ GPL ]<br>
+6 - Group: [ checkinstall ]<br>
+7 - Architecture: [ i386 ]<br>
+8 - Source location: [ fluxbox-1.0.0 ]<br>
+9 - Alternate source location: [ ]<br>
+10 - Requires: [ ]<br>
+<br>
+Enter a number to change any of them or press ENTER to continue: <br>
+<br>
+Enter a 3 and change the version to 1.0.999 so Synaptic or aptitude doesn't try to update your installation.<br>
+<br>
+This package will be built according to these values: <br>
+<br>
+0 - Maintainer: [ root@foo-desktop ]<br>
+1 - Summary: [ fluxbox 1.0.0 compiled by foo ]<br>
+2 - Name: [ fluxbox ]<br>
+3 - Version: [ 1.0.999 ]<br>
+4 - Release: [ 1 ]<br>
+5 - License: [ GPL ]<br>
+6 - Group: [ checkinstall ]<br>
+7 - Architecture: [ i386 ]<br>
+8 - Source location: [ fluxbox-1.0.0 ]<br>
+9 - Alternate source location: [ ]<br>
+10 - Requires: [ ]<br>
+<br>
+<br>
+Everything is set now, press return.<br>
+<br>
+You will see:<br>
+<br>
+Done. The new package has been saved to<br>
+<br>
+/home/foo/Desktop/fluxbox-1.0.0/fluxbox_1.0.999-1_i386.deb<br>
+You can install it in your system anytime using: <br>
+<br>
+# dpkg -i fluxbox_1.0.999-1_i386.deb<br>
+<br>
+You may see the following errors when you install:<br>
+<br>
+couldn't delete /etc/X11/fluxbox<br>
+couldn't delete /usr/share/fluxbox/styles<br>
+couldn't delete /usr/share/fluxbox<br>
+<br>
+I ignored these errors and didn't have any problems.<br>
+<br>
+Logout of icewm and into fluxbox, with rounded corners! You can test it out with anti's cool antiX style.<br>
+<br>
+I must give credit to RedSquirrel over at the Ubuntu forum. This was adapted from a portion of his post specifically for use on antiX-M7.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ubuntuforums.org/showthread.php?t=371144"<br>linktext was:"http://ubuntuforums.org/showthread.php?t=371144"<br>====================================<br>
+<br>
+<br>
+Give me feedback and I will edit the post if necessary.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_919" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile919">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 319</span></div>
+
+</div>
+</div>
+<span class="username">impuwat</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content919">
+
+<time datetime="2007-11-09T02:18">posted: 2007-11-09 &nbsp; 02:18</time>
+<span class="permalink"><a href="./how-to-get-rounded-corners-on-your-fluxbox-menus-t153.html#p919" title="permalink">#2</a></span>
+
+<div class="content">Thanks Steve! I will probably be trying this in the next few days. I've been wondering why I could not round the corners in the style. Why do I have to build from source to do this? Are there any other side benefits as well?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_920" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile920">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 22</span></div>
+
+</div>
+</div>
+<span class="username">Steve</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content920">
+
+<time datetime="2007-11-09T03:42">posted: 2007-11-09 &nbsp; 03:42</time>
+<span class="permalink"><a href="./how-to-get-rounded-corners-on-your-fluxbox-menus-t153.html#p920" title="permalink">#3</a></span>
+
+<div class="content">To be honest, I have no idea why the fluxbox from debian doesn't work with respect to rounded corners. So far I haven't noticed any other benefits. So it may seem like a lot of trouble to go to just to get those rounded menu corners. But I can tell you it doesn't take long! The deb you will create is only about 1 Mb. I hope it works well for you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1262" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile1262">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 319</span></div>
+
+</div>
+</div>
+<span class="username">impuwat</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1262">
+
+<time datetime="2007-11-23T04:14">posted: 2007-11-23 &nbsp; 04:14</time>
+<span class="permalink"><a href="./how-to-get-rounded-corners-on-your-fluxbox-menus-t153.html#p1262" title="permalink">#4</a></span>
+
+<div class="content">Missed the speed and responsiveness so I went back to Sid. Shortly after upgrading I noticed I had rounded menu corners. So it looks like the debian repo fluxbox has caught up.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_2000" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile2000">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content2000">
+
+<time datetime="2008-01-21T05:18">posted: 2008-01-21 &nbsp; 05:18</time>
+<span class="permalink"><a href="./how-to-get-rounded-corners-on-your-fluxbox-menus-t153.html#p2000" title="permalink">#5</a></span>
+
+<div class="content">I know I can edit fb styles to turn off the rounding effect, but is there an easier way to turn it off? I've looked unsuccessfully through a few files (init, startup, apps), but could not find any entries regarding this. Thanks.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_2001" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile2001">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 319</span></div>
+
+</div>
+</div>
+<span class="username">impuwat</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content2001">
+
+<time datetime="2008-01-21T05:26">posted: 2008-01-21 &nbsp; 05:26</time>
+<span class="permalink"><a href="./how-to-get-rounded-corners-on-your-fluxbox-menus-t153.html#p2001" title="permalink">#6</a></span>
+
+<div class="content">The easiest way would be to edit the style directly. Just find the line regarding the rounded corners...pretty easy to find, usually on a line by itself...and comment out that line. Save and exit.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

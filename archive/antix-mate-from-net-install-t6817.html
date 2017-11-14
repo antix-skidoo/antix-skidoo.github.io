@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-MATE from net install - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-mate-from-net-install-t6817.html">antiX-MATE from net install</a></div>
+<div class="pagination">
+53 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-mate-from-net-install-t6817-s15.html" role="button">2</a></li>
+<li><a class="button" href="./antix-mate-from-net-install-t6817-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-mate-from-net-install-t6817-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-mate-from-net-install-t6817-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_49984" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49984">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49984">
+<time datetime="2017-01-28T19:14">posted: 2017-01-28 &nbsp; 19:14</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p49984" title="permalink">#1</a></span>
+
+<div class="content">Just for kicks to get a systemd/libsystemd0 free light and basic MATE desktop.<br>
+I assume user knows how to download and burn/copy the net iso file to cd/dvd/usb/frugal(fromiso) in order to boot.<br>
+<br>
+1. On first boot of the live net image, make sure you know exactly where you install to install. Drive and partition.<br>
+Log in as root and then type blkid.<br>
+This will give you the disk and partition information you need to install to.<br>
+<br>
+2. Make sure your Internet is up and running. You may need to use dhclient (tab) to get it up.<br>
+Mine is dhclient eth0<br>
+Wired connected is strongly advised.<br>
+<br>
+3. Note you *MUST* install grub (when prompted) to the MBR<br>
+<br>
+4. OK - lets get installation under way by typing cli-installer<br>
+<br>
+5. My partitions are already set up.<br>
+<br>
+6. At prompt, type where to install. In my case, I type sda3<br>
+<br>
+7. I choose not to have a separate /home partition<br>
+<br>
+8. Type Y(yes) when asked if it is a net install.<br>
+This will download grub, keyboard and console packages.<br>
+Grub will ask you some questions.<br>
+Do not install grub to any partition at this stage<br>
+<br>
+9. You will then be told that antiX is being copied to the drive you typed in 6.<br>
+<br>
+10. Install grub to MBR ie answer Y(Yes)<br>
+<br>
+11. You will be asked to set up localisation, keyboard, timezone etc. I would choose yes.<br>
+<br>
+12. Provide your username/password and root password<br>
+<br>
+13. No need for autologin<br>
+<br>
+14. Reboot when prompted<br>
+<br>
+15. Hopefully you boot into a basic cli desktop.<br>
+<br>
+16. Login as root and type apt-get update (if networking isn't working, try again with dhclient)<br>
+<br>
+17. apt-get install xorg mate-desktop-environment leafpad gettext-base xz-utils lockfile-progs firefox-esr clawsmail evince-gtk mpv xmms slim or lightdm (obviously choose your own apps) <br>
+<br>
+18. Once all is done, if you installed slim, you need to do the following<br>
+<br>
+nano /etc/slim.conf<br>
+<br>
+and uncomment the first login_cmd and comment the last to look like this.<br>
+<br>
+login_cmd exec /bin/bash -login /etc/X11/Xsession %session <br>
+#################OLD COMMAND####################<br>
+# login_cmd exec /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors$DISPLAY 2&gt;&amp;1<br>
+################################################<br>
+#LOGIN COMMAND FOR DESKTOP SESSION BELOW#<br>
+#############################################################################################<br>
+#login_cmd setsid /usr/local/bin/desktop-session %session<br>
+#############################################################################################<br>
+<br>
+Also change sessions to read like this<br>
+<br>
+sessions mate<br>
+<br>
+and default_user from demo to yours eg<br>
+<br>
+default_user anticapitalista<br>
+<br>
+19. Reboot into a basic MATE systemd-free desktop ready for you to customise as you feel fit.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49989" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49989">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">skidoo</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49989">
+
+<time datetime="2017-01-28T23:18">posted: 2017-01-28 &nbsp; 23:18</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p49989" title="permalink">#2</a></span>
+
+<div class="content">Interested in seeing <span style="color: blue">dpkg -l</span> of the result if you care to post/attach it.<br>
+<br>
+I'm inclined to try an ala carte approach, instead of"mate-desktop-environment" and avoid caja, cujo, harpo, marco...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49990" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49990">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49990">
+
+<time datetime="2017-01-28T23:49">posted: 2017-01-28 &nbsp; 23:49</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p49990" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>
+<br>
+I'm inclined to try an ala carte approach, instead of"mate-desktop-environment" and avoid caja, cujo, harpo, marco...</div></blockquote>
+I don't think it is possible to do that.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49995" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49995">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49995">
+
+<time datetime="2017-01-29T08:44">posted: 2017-01-29 &nbsp; 08:44</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p49995" title="permalink">#4</a></span>
+
+<div class="content">I'm a long way from my comfort zone here, but would a similar approach work to get a basic Openbox system?<br>
+<br>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49998" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49998">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49998">
+
+<time datetime="2017-01-29T12:55">posted: 2017-01-29 &nbsp; 12:55</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p49998" title="permalink">#5</a></span>
+
+<div class="content">Yes, you need xorg and replace mate-desktop-environment with openbox. If you install slim, you still need to make the changes in /etc/slim.conf replacing mate with openbox-session</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50014" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50014">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50014">
+
+<time datetime="2017-01-30T20:22">posted: 2017-01-30 &nbsp; 20:22</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50014" title="permalink">#6</a></span>
+
+<div class="content">very cool so far!<br>
+<br>
+mate-power-manager is not installable. it requires libupower-glib1 which isn't available. That's the only one I've found so far.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50017" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50017">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50017">
+
+<time datetime="2017-01-30T20:34">posted: 2017-01-30 &nbsp; 20:34</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50017" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>very cool so far!<br>
+<br>
+mate-power-manager is not installable. it requires libupower-glib1 which isn't available. That's the only one I've found so far.</div></blockquote>
+Is that jessie or stretch?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50018" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50018">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50018">
+
+<time datetime="2017-01-30T20:37">posted: 2017-01-30 &nbsp; 20:37</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50018" title="permalink">#8</a></span>
+
+<div class="content">Stretch</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50019" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50019">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50019">
+
+<time datetime="2017-01-30T20:52">posted: 2017-01-30 &nbsp; 20:52</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50019" title="permalink">#9</a></span>
+
+<div class="content">Probably due to recent changes in a systemd rsyslog being updated. Remove it and try again. (A nosystemd rsyslog iw waiting to appear in the repos). Worked here.<br>
+<br>
+Stretch is still a bit of a moving target at the moment until the deep freeze sometime this month.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50020" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50020">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50020">
+
+<time datetime="2017-01-30T21:01">posted: 2017-01-30 &nbsp; 21:01</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50020" title="permalink">#10</a></span>
+
+<div class="content">I figured it was something like that. Thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50024" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50024">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50024">
+
+<time datetime="2017-01-31T08:54">posted: 2017-01-31 &nbsp; 08:54</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50024" title="permalink">#11</a></span>
+
+<div class="content">As an academic excercise, I tested from live session (fresh antiX16.1 iso, not a bare"net install" iso)<br>
+and found the minimum installation is: <span style="color: blue">apt install mate-panel mate-sesssion-manager marco</span><br>
+<br>
+Immediately after installing those 3 packages, can logout and find MATE available as a choice on the slim login screen.<br>
+I immediately launched conky via Alt+F2 to check the memory footprint (about 203Mb)<br>
+<br>
+marco is the name of mate's window manager. Its package brings webkit &amp; zenity as dependencies.<br>
+mate-panel package depends on libmateweather; installs +-20Mb of icons.<br>
+(I'll never use the panel weather applet, so immediately pruned the icons files.)<br>
+A persist-save operation, as a waypoint, indicated the rootfs size had increased 45mb.<br>
+<br>
+Onward, installing additional DE components:<br>
+<br>
+<span style="color: blue">apt install mate-settings-daemon</span><br>
+Arguably this could be considered as one of the"bare minimum" components because it handles global keybinds... but just about everything else it manages (gtk3 theming, mouse settings, screensaver, clipboard, sound) is redundant with existing controls. I'm curious to see whatall"accessibility" support it provides. <br>
+<br>
+<span style="color: blue">apt install mate-themes</span><br>
+note: with, or without this package (@33Mb), theme selection for gtk2 apps is still settable via lxappearance<br>
+<br>
+I chose to forego installing"mate-utils". It provides 'tools' (screenshooter, diskusage, user/group mgmt, filesearch, logviewer) which are redundant with tools already present.<br>
+<br>
+<span style="color: blue">apt install mate-system-monitor</span><br>
+For non-techy icewm/jwm/fluxbox/openbox users, this (@4Mb) is my recommended GUI"TaskManager" app.<br>
+<br>
+<span style="color: blue">apt install pluma</span><br>
+Installation of the <strong>pluma</strong> app (mate's version of gedit) adds about 12Mb and, IMO, it is"worth a look".<br>
+It is more featureful than leafpad, is tabbed and themable... but lacks features compared to geany.<br>
+<br>
+<span style="color: blue">mate-control-center</span> (@33mb) <br>
+<span style="color: blue">mate-system-tools</span> (@13Mb)<br>
+I noticed that nothing other than system-tools depends on the control center component.<br>
+All the previously mentioned components can be accessed via desktop menu, or could be linked into<br>
+the custom cc (ala antiX or MX). To some users, the redundancy of the mate cc would be unappealing.<br>
+<br>
+<br>
+aw, it's sleepytime. I'll set aside the pendrive for some other rainy night...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50036" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50036">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50036">
+
+<time datetime="2017-01-31T18:22">posted: 2017-01-31 &nbsp; 18:22</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50036" title="permalink">#12</a></span>
+
+<div class="content">ok this is fun.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50038" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50038">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50038">
+
+<time datetime="2017-01-31T19:43">posted: 2017-01-31 &nbsp; 19:43</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50038" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>As an academic excercise, I tested from live session (fresh antiX16.1 iso, not a bare"net install" iso)<br>
+and found the minimum installation is: <span style="color: blue">apt install mate-panel mate-sesssion-manager marco</span><br>
+<br>
+&lt;snip&gt;<br>
+<br>
+aw, it's sleepytime. I'll set aside the pendrive for some other rainy night...</div></blockquote>Nice job. Pasted this into the MX/antiX Wiki, so we can find it later and edit as needed.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://mxlinux.org/wiki/system/mate"<br>linktext was:"https://mxlinux.org/wiki/system/mate"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50039" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50039">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50039">
+
+<time datetime="2017-01-31T21:32">posted: 2017-01-31 &nbsp; 21:32</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50039" title="permalink">#14</a></span>
+
+<div class="content">what package has the antiX remaster control center? I can't seem to find it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50040" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50040">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50040">
+
+<time datetime="2017-01-31 &nbsp; 21:56">posted: 2017-01-31 &nbsp; 21:56</time>
+<span class="permalink"><a href="./antix-mate-from-net-install-t6817.html#p50040" title="permalink">#15</a></span>
+
+<div class="content">persist-makefs (needs yad)<br>
+You could also type live-remaster (as root) after dropping to F1</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+53 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-mate-from-net-install-t6817-s15.html" role="button">2</a></li>
+<li><a class="button" href="./antix-mate-from-net-install-t6817-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-mate-from-net-install-t6817-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-mate-from-net-install-t6817-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

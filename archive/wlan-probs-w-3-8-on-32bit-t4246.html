@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Wlan probs w. 3.8 on 32bit - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./wlan-probs-w-3-8-on-32bit-t4246.html">Wlan probs w. 3.8 on 32bit</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_28547" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28547">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28547">
+<time datetime="2013-04-04T22:35">posted: 2013-04-04 &nbsp; 22:35</time>
+<span class="permalink"><a href="./wlan-probs-w-3-8-on-32bit-t4246.html#p28547" title="permalink">#1</a></span>
+
+<div class="content">I've been having trouble with the Wlan over some months - covered in a couple of posts esewhere:<br>
+<br>
+post28526.html#p28526<br>
+<br>
+but these concerned 64bit distro's. These have sorted themselves out - 3.8.4-antix.2-amd64-smp x86_64 is now good &amp; trouble free. The only remaining problem is that I cannot connect to the router with any 32bit kernel higher than 3.7.10.<br>
+<br>
+Rusty put me on to this post from Brian Masinick:<br>
+<br>
+post25059.html?hilit=b43%20firmware#p25059<br>
+<br>
+and I have found his suggestion of using the legacy drivers useful. The Dell had a habit of dropping the signal (not a huge problem - I have an 'ifdown' 'ifup' script which usually reconnects without pain) but it's been running for several hours today with out problem <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Here's some output to show what's happening:<br>
+<br>
+<strong>Output of Dell netbook:</strong><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -n
+Network:   Card-1: Broadcom BCM4312 802.11b/g LP-PHY driver: b43-pci-bridge 
+           IF: wlan0 state: up mac: 0c:60:76:3f:54:c6
+           Card-2: Realtek RTL8101E/RTL8102E PCI Express Fast Ethernet controller driver: r8169 
+           IF: eth0 state: down mac: 00:24:e8:e2:6f:63</code></pre></div>
+<strong>What's"seen" by 3.7.10</strong><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># iwlist wlan0 scan | grep ESSID
+                    ESSID:"NETGEAR-2.4-G"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTWiFi-with-FON"
+                    ESSID:"BTHomeHub2-2R42"
+                    ESSID:"Netgear" &lt;====
+                    ESSID:"Powerbook"</code></pre></div>
+<strong>and"seen" by 3.8.4</strong><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ su -c"iwlist wlan0 scan | grep ESSID"
+Password: 
+                    ESSID:"NETGEAR-2.4-G"
+                    ESSID:"BTHomeHub2-2R42"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTWiFi-with-FON"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTOpenzone-B"
+                    ESSID:"BTHub3-KHXG"</code></pre></div>
+<strong>output from 3.8.4 64bit</strong><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -n
+Network:   Card-1: Realtek RTL8111/8168B PCI Express Gigabit Ethernet controller driver: r8169 
+           IF: eth0 state: down mac: e8:11:32:96:ff:77
+           Card-2: Broadcom BCM4313 802.11b/g/n Wireless LAN Controller driver: bcma-pci-bridge 
+           IF: wlan0 state: up mac: e0:ca:94:02:70:97</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ su -c"iwlist wlan0 scan | grep ESSID"
+Password: 
+                    ESSID:"NETGEAR-2.4-G"
+                    ESSID:"vellasrv1-Wireless"
+                    ESSID:"BTHomeHub2-2R42"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTWiFi-with-FON"
+                    ESSID:"Powerbook"
+                    ESSID:"Netgear" &lt;====
+                    ESSID:"BTWiFi"
+                    ESSID:"BTOpenzone-B"d</code></pre></div>
+As you will note, there are differences - notably the"Netgear" router which is the one I use! Don't know if this is any help - but that's how things are in Suffolk.<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28561" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28561">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28561">
+
+<time datetime="2013-04-06T15:20">posted: 2013-04-06 &nbsp; 15:20</time>
+<span class="permalink"><a href="./wlan-probs-w-3-8-on-32bit-t4246.html#p28561" title="permalink">#2</a></span>
+
+<div class="content"><blockquote><div><cite>duncan_mk wrote:</cite>I've been having trouble with the Wlan over some months - covered in a couple of posts esewhere:<br>
+<br>
+post28526.html#p28526<br>
+<br>
+but these concerned 64bit distro's. These have sorted themselves out - 3.8.4-antix.2-amd64-smp x86_64 is now good &amp; trouble free. The only remaining problem is that I cannot connect to the router with any 32bit kernel higher than 3.7.10.<br>
+<br>
+Rusty put me on to this post from Brian Masinick:<br>
+<br>
+post25059.html?hilit=b43%20firmware#p25059<br>
+<br>
+and I have found his suggestion of using the legacy drivers useful. The Dell had a habit of dropping the signal (not a huge problem - I have an 'ifdown' 'ifup' script which usually reconnects without pain) but it's been running for several hours today with out problem <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Here's some output to show what's happening:<br>
+<br>
+<strong>Output of Dell netbook:</strong><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -n
+Network:   Card-1: Broadcom BCM4312 802.11b/g LP-PHY driver: b43-pci-bridge 
+           IF: wlan0 state: up mac: 0c:60:76:3f:54:c6
+           Card-2: Realtek RTL8101E/RTL8102E PCI Express Fast Ethernet controller driver: r8169 
+           IF: eth0 state: down mac: 00:24:e8:e2:6f:63</code></pre></div>
+<strong>What's"seen" by 3.7.10</strong><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># iwlist wlan0 scan | grep ESSID
+                    ESSID:"NETGEAR-2.4-G"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTWiFi-with-FON"
+                    ESSID:"BTHomeHub2-2R42"
+                    ESSID:"Netgear" &lt;====
+                    ESSID:"Powerbook"</code></pre></div>
+<strong>and"seen" by 3.8.4</strong><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ su -c"iwlist wlan0 scan | grep ESSID"
+Password: 
+                    ESSID:"NETGEAR-2.4-G"
+                    ESSID:"BTHomeHub2-2R42"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTWiFi-with-FON"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTOpenzone-B"
+                    ESSID:"BTHub3-KHXG"</code></pre></div>
+<strong>output from 3.8.4 64bit</strong><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -n
+Network:   Card-1: Realtek RTL8111/8168B PCI Express Gigabit Ethernet controller driver: r8169 
+           IF: eth0 state: down mac: e8:11:32:96:ff:77
+           Card-2: Broadcom BCM4313 802.11b/g/n Wireless LAN Controller driver: bcma-pci-bridge 
+           IF: wlan0 state: up mac: e0:ca:94:02:70:97</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ su -c"iwlist wlan0 scan | grep ESSID"
+Password: 
+                    ESSID:"NETGEAR-2.4-G"
+                    ESSID:"vellasrv1-Wireless"
+                    ESSID:"BTHomeHub2-2R42"
+                    ESSID:"BTWiFi"
+                    ESSID:"BTWiFi-with-FON"
+                    ESSID:"Powerbook"
+                    ESSID:"Netgear" &lt;====
+                    ESSID:"BTWiFi"
+                    ESSID:"BTOpenzone-B"d</code></pre></div>
+As you will note, there are differences - notably the"Netgear" router which is the one I use! Don't know if this is any help - but that's how things are in Suffolk.<br>
+<br>
+dmk</div></blockquote>
+Can you say with certainty that it is always on the 32 bit 3.8.4 kernel in which you miss seeing the Netgear ESSID? Could it be coincidence, or is your Wifi access always consistent with other kernels, yet not with the 32 bit instance of the 3.8.4 kernel?<br>
+<br>
+If it is really problematic with only the 3.8.4 kernel, but not the others, then the solution is clear - assuming that is the only variable: use a different kernel. Why that particular kernel would be problematic is beyond me, but there is a chance that the actual issue is not associated with the kernel specifically, but perhaps with the router or the interaction with the other Wifi access spots.<br>
+<br>
+At one point in time, I was consistently finding that neighboring Wifi access points were attempting to use the same Wifi channel as the one that I was using. The solution for me was to watch the channels being used, and if the other access points were always using the same ones. If they were, I just reprogrammed my wireless router to a different channel and set it to a fixed channel number and that permanently fixed the problem (unless yet another channel came along, in which case, I may have had to repeat this exercise).<br>
+<br>
+Based on these comments, you can see that there is the potential that the real problem could be intermittent Wifi channel access contention, and that is why I posed the question about whether a particular kernel is at fault or not. If it's ALWAYS the kernel, then we can point the finger at the kernel, but if the access points in your area vary from time to time, as they have in the areas where I've lived, then that is a more likely variable - an ever changing one at that, and that is one possible reason why you do not see consistent behavior.<br>
+<br>
+So, there are at least two possibilities, maybe more than that: 1. The 32 bit 3.8.4 kernel isn't as robust as it needs to be for Wifi access; if so, use a kernel that you've known to work. There are plenty of kernels available: antiX kernels of different versions, Debian kernels, and Liquorix kernels, to name three alternate sources; each have several versions available; use what works for you, that's why we keep plenty of options available in order to address various different hardware issues. 2. Diagnose and experiment with Wifi channels. I've seen a lot of channel conflict in the areas I've lived, especially with channels 6 and 7. Belkin and Netgear inexpensive routers tend to contend for those channels unless you explicitly reprogram your router to a different channel. Some ISPs, when they install their Wifi setup for you, will take care of channel contention in dense areas where they install everyone's equipment; if you handle it yourself, you can see what channels have strong signals that could interfere, and you can choose a different channel. 3. Some inexpensive routers just don't work all that well, and seem to benefit from an occasional power cycle reboot, even when you've done all of these things. Belkin and Netgear routers are generally inexpensive and usually fall into this category.<br>
+<br>
+Hope this is useful.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28566" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28566">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28566">
+
+<time datetime="2013-04-06T23:29">posted: 2013-04-06 &nbsp; 23:29</time>
+<span class="permalink"><a href="./wlan-probs-w-3-8-on-32bit-t4246.html#p28566" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Can you say with certainty that it is always on the 32 bit 3.8.4 kernel in which you miss seeing the Netgear ESSID? Could it be coincidence, or is your Wifi access always consistent with other kernels, yet not with the 32 bit instance of the 3.8.4 kernel?</div></blockquote>
+Yes! This is certainly true - infact, 3.8.0 doesn't even see wlan0. I don't have 32bit 3.8.1, 2 or 3 - and they seem to have disappeared from Daveserver but, I can say with some certainty,"3.7, good - 3.8, bad". During the time I had antiX 32bit installed on the 64bit Samsung, the same was true but I haven't reinsalled it - only antiX 64 which is now good.<br>
+<blockquote class="uncited"><div>At one point in time, I was consistently finding that neighboring Wifi access points were attempting to use the same Wifi channel as the one that I was using. The solution for me was to watch the channels being used, and if the other access points were always using the same ones.
+</div></blockquote>
+So far as I can see, that's not a problem - although the three marked routers: NETGEAR-2.4-G, Netgear &amp; Powerbook are all essentially the same. The NETGEAR-2.4-G is a router my son got hold of when we started having trouble last year and is a 'cable' (rather than copper wire) device. Other members of the family are using it successfully. I can connect to it but never get anything out of it - but that may be because - I have just realized - it's using WPA2 &amp; I'm using WPA-PSK (I'll look at that tomorrow) The Powerbook is one of my son's machines which uses WEP.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># iwlist wlan0 scan | grep 'Frequency|Quality|Encryption|ESSID'
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=39/70  Signal level=-71 dBm  
+                    Encryption key:on
+                    ESSID:"BTHub3-KHXG"
+
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=25/70  Signal level=-85 dBm  
+                    Encryption key:off
+                    ESSID:"BTOpenzone-B"
+
+                    Frequency:2.437 GHz (Channel 6)
+                    Quality=54/70  Signal level=-56 dBm  
+                    Encryption key:on
+                    ESSID:"NETGEAR-2.4-G"                     &lt;====
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : CCMP TKIP
+                        Authentication Suites (1) : PSK
+
+                    Frequency:2.442 GHz (Channel 7)
+                    Quality=55/70  Signal level=-55 dBm  
+                    Encryption key:on
+                    ESSID:"BTHomeHub2-2R42"
+
+                    Frequency:2.442 GHz (Channel 7)
+                    Quality=51/70  Signal level=-59 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.442 GHz (Channel 7)
+                    Quality=57/70  Signal level=-53 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi-with-FON"
+
+                    Frequency:2.472 GHz (Channel 13)
+                    Quality=60/70  Signal level=-50 dBm  
+                    Encryption key:on
+                    ESSID:"Powerbook"                         &lt;=======
+
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=31/70  Signal level=-79 dBm  
+                    Encryption key:off
+                    ESSID:"BTOpenzone-B"
+
+                    Frequency:2.472 GHz (Channel 13)
+                    Quality=62/70  Signal level=-48 dBm  
+                    Encryption key:on
+                    ESSID:"Netgear"                      &lt;=======
+                    IE: WPA Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : TKIP CCMP
+                        Authentication Suites (1) : PSK
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=28/70  Signal level=-82 dBm  
+                    Encryption key:on
+                    ESSID:"BTHub3-CXN7"
+
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=28/70  Signal level=-82 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=25/70  Signal level=-85 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=22/70  Signal level=-88 dBm  
+                    Encryption key:on
+                    ESSID:"BTHub3-T5QW"
+
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=38/70  Signal level=-72 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.457 GHz (Channel 10)
+                    Quality=30/70  Signal level=-80 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.457 GHz (Channel 10)
+                    Quality=30/70  Signal level=-80 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi-with-FON"
+
+                    Frequency:2.457 GHz (Channel 10)
+                    Quality=30/70  Signal level=-80 dBm  
+                    Encryption key:on
+                    ESSID:"BTHomeHub2-RHNS"
+
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=25/70  Signal level=-85 dBm  
+                    Encryption key:on
+                    ESSID:"TALKTALK-F7FA18"
+root</code></pre></div>
+Thanks for your help. Actually, I'm not unhappy with 3.7.10 (I wasn't unhappy with 3.5.0) but, if it should work, I'd like to know if it's me who's doing something wrong.<br>
+<br>
+Thanks again<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28567" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28567">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28567">
+
+<time datetime="2013-04-06T23:32">posted: 2013-04-06 &nbsp; 23:32</time>
+<span class="permalink"><a href="./wlan-probs-w-3-8-on-32bit-t4246.html#p28567" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Can you say with certainty that it is always on the 32 bit 3.8.4 kernel in which you miss seeing the Netgear ESSID? Could it be coincidence, or is your Wifi access always consistent with other kernels, yet not with the 32 bit instance of the 3.8.4 kernel?</div></blockquote>
+Yes! This is certainly true - infact, 3.8.0 doesn't even see wlan0. I don't have 32bit 3.8.1, 2 or 3 - and they seem to have disappeared from Daveserver but, I can say with some certainty,"3.7, good - 3.8, bad". During the time I had antiX 32bit installed on the 64bit Samsung, the same was true but I haven't reinsalled it - only antiX 64 which is now good.<br>
+<blockquote class="uncited"><div>At one point in time, I was consistently finding that neighboring Wifi access points were attempting to use the same Wifi channel as the one that I was using. The solution for me was to watch the channels being used, and if the other access points were always using the same ones.
+</div></blockquote>
+So far as I can see, that's not a problem - although the three marked routers: NETGEAR-2.4-G, Netgear &amp; Powerbook are all essentially the same. The NETGEAR-2.4-G is a router my son got hold of when we started having trouble last year and is a 'cable' (rather than copper wire) device. Other members of the family are using it successfully. I can connect to it but never get anything out of it - but that may be because - I have just realized - it's using WPA2 &amp; I'm using WPA-PSK (I'll look at that tomorrow) The Powerbook is one of my son's machines which uses WEP.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># iwlist wlan0 scan | grep 'Frequency|Quality|Encryption|ESSID'
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=39/70  Signal level=-71 dBm  
+                    Encryption key:on
+                    ESSID:"BTHub3-KHXG"
+
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=25/70  Signal level=-85 dBm  
+                    Encryption key:off
+                    ESSID:"BTOpenzone-B"
+
+                    Frequency:2.437 GHz (Channel 6)
+                    Quality=54/70  Signal level=-56 dBm  
+                    Encryption key:on
+                    ESSID:"NETGEAR-2.4-G"                     &lt;====
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : CCMP TKIP
+                        Authentication Suites (1) : PSK
+
+                    Frequency:2.442 GHz (Channel 7)
+                    Quality=55/70  Signal level=-55 dBm  
+                    Encryption key:on
+                    ESSID:"BTHomeHub2-2R42"
+
+                    Frequency:2.442 GHz (Channel 7)
+                    Quality=51/70  Signal level=-59 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.442 GHz (Channel 7)
+                    Quality=57/70  Signal level=-53 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi-with-FON"
+
+                    Frequency:2.472 GHz (Channel 13)
+                    Quality=60/70  Signal level=-50 dBm  
+                    Encryption key:on
+                    ESSID:"Powerbook"                         &lt;=======
+
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=31/70  Signal level=-79 dBm  
+                    Encryption key:off
+                    ESSID:"BTOpenzone-B"
+
+                    Frequency:2.472 GHz (Channel 13)
+                    Quality=62/70  Signal level=-48 dBm  
+                    Encryption key:on
+                    ESSID:"Netgear"                      &lt;=======
+                    IE: WPA Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : TKIP CCMP
+                        Authentication Suites (1) : PSK
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=28/70  Signal level=-82 dBm  
+                    Encryption key:on
+                    ESSID:"BTHub3-CXN7"
+
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=28/70  Signal level=-82 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=25/70  Signal level=-85 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=22/70  Signal level=-88 dBm  
+                    Encryption key:on
+                    ESSID:"BTHub3-T5QW"
+
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=38/70  Signal level=-72 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.457 GHz (Channel 10)
+                    Quality=30/70  Signal level=-80 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi"
+
+                    Frequency:2.457 GHz (Channel 10)
+                    Quality=30/70  Signal level=-80 dBm  
+                    Encryption key:off
+                    ESSID:"BTWiFi-with-FON"
+
+                    Frequency:2.457 GHz (Channel 10)
+                    Quality=30/70  Signal level=-80 dBm  
+                    Encryption key:on
+                    ESSID:"BTHomeHub2-RHNS"
+
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=25/70  Signal level=-85 dBm  
+                    Encryption key:on
+                    ESSID:"TALKTALK-F7FA18"
+root</code></pre></div>
+Thanks for your help. Actually, I'm not unhappy with 3.7.10 (I wasn't unhappy with 3.5.0) but, if it should work, I'd like to know if it's me who's doing something wrong.<br>
+<br>
+Thanks again<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28568" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28568">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28568">
+
+<time datetime="2013-04-07T10:29">posted: 2013-04-07 &nbsp; 10:29</time>
+<span class="permalink"><a href="./wlan-probs-w-3-8-on-32bit-t4246.html#p28568" title="permalink">#5</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>:"BTHub3-KHXG"
+:"BTHomeHub2-RHNS"
+"BTHub3-T5QW"
+</code></pre></div>
+Does anyone else think that looks like russian? <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28569" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28569">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content28569">
+
+<time datetime="2013-04-07T11:10">posted: 2013-04-07 &nbsp; 11:10</time>
+<span class="permalink"><a href="./wlan-probs-w-3-8-on-32bit-t4246.html#p28569" title="permalink">#6</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Does anyone else think that looks like russian? <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span></div></blockquote>
+Man in the middle attack by whatever the KGB is called these days, perhaps? <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

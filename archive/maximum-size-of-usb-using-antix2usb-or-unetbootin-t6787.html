@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>maximum size of USB using antix2usb or unetbootin - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./maximum-size-of-usb-using-antix2usb-or-unetbootin-t6787.html">maximum size of USB using antix2usb or unetbootin</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_49744" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49744">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49744">
+<time datetime="2017-01-12T01:59">posted: 2017-01-12 &nbsp; 01:59</time>
+<span class="permalink"><a href="./maximum-size-of-usb-using-antix2usb-or-unetbootin-t6787.html#p49744" title="permalink">#1</a></span>
+
+<div class="content">One of my favorite applications that is featured in antiX is iso-snapshot. <br>
+I can make a snapshot of my custom install including the files in my"personal" folders and then back it all up on a 8 GB USB using either antix2usb or unetbootin. I prefer antix2usb.<br>
+I can make some huge iso-snapshots successfully, but when they exceed around 3.2 GB or so, any attempt to write the snapshot to a USB using either antix2usb or unetbootin will fail.<br>
+Both applications will report that the USB has been completed successfully but in reality, processing ends quickly with a unbootable USB.<br>
+<br>
+Comments?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49753" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49753">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49753">
+
+<time datetime="2017-01-12T18:53">posted: 2017-01-12 &nbsp; 18:53</time>
+<span class="permalink"><a href="./maximum-size-of-usb-using-antix2usb-or-unetbootin-t6787.html#p49753" title="permalink">#2</a></span>
+
+<div class="content">IIRC, unetbootin demands a fat32-formatted target, and fat32 imposes a 4Gb max filesize limit.<br>
+<br>
+With iso-snapshot, even if the target is ext4... can fail if insufficient storage space exists to house the"working directory".<br>
+(might exit quickly, and incorrectly report successful completion, as you described)<br>
+Months back, I suggested the app should allow us to specify at runtime an alternate work directory, instead of being hardcoded:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/iso-snapshot/blob/master/isosnapshot.cpp#L71"<br>linktext was:"https://github.com/antiX-Linux/iso-snap ... ot.cpp#L71"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/iso-snapshot/blob/master/isosnapshot.cpp#L288"<br>linktext was:"https://github.com/antiX-Linux/iso-snap ... t.cpp#L288"<br>====================================<br>
+<br>
+Examine the logfiles to see if they provide any additional details.<br>
+<br>
+wondering:<br>
+Are you choosing gz compression, or xz? (and, does gz impose an 8Gb limit?)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49763" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49763">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49763">
+
+<time datetime="2017-01-13T01:27">posted: 2017-01-13 &nbsp; 01:27</time>
+<span class="permalink"><a href="./maximum-size-of-usb-using-antix2usb-or-unetbootin-t6787.html#p49763" title="permalink">#3</a></span>
+
+<div class="content">OK I understand why unetbootin would fail then with the FAT32 limitation.<br>
+<br>
+I examined all of my logfiles. The unsuccessful USB's logfiles all have this entry:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Info: Copying antiX compressed file system (49MB) to the mounted device</code></pre></div> <br>
+On a successful write, the actual size of the iso-snapshot is written in the logfile:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Info: Copying antiX compressed file system (3298MB) to the mounted device</code></pre></div>
+I am using the default compression for both iso-snaphot and antix2usb. I can't see any options to choose.<br>
+<br>
+If what you are saying is that the"working directory" is on the 8GB USB then maybe that is the reason for the failure and perhaps I should be using a 32GB USB.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49768" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49768">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49768">
+
+<time datetime="2017-01-13T09:36">posted: 2017-01-13 &nbsp; 09:36</time>
+<span class="permalink"><a href="./maximum-size-of-usb-using-antix2usb-or-unetbootin-t6787.html#p49768" title="permalink">#4</a></span>
+
+<div class="content">If my memory is right, you actually need about 3 times the size of .iso space to make it work.<br>
+(But it was a long time ago that I used it.)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49769" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49769">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49769">
+
+<time datetime="2017-01-13T09:45">posted: 2017-01-13 &nbsp; 09:45</time>
+<span class="permalink"><a href="./maximum-size-of-usb-using-antix2usb-or-unetbootin-t6787.html#p49769" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>afab4 wrote:</cite>
+On a successful write, the actual size of the iso-snapshot is written in the logfile:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Info: Copying antiX compressed file system (3298MB) to the mounted device</code></pre></div>
+</div></blockquote>
+WOW - (3298MB) for the linuxfs file. - Have you installed the kitchen sink as well! <br>
+<br>
+Seriously, have you got files you could exclude from the snapshot such as what is in /home?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49770" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile49770">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49770">
+
+<time datetime="2017-01-13T11:18">posted: 2017-01-13 &nbsp; 11:18</time>
+<span class="permalink"><a href="./maximum-size-of-usb-using-antix2usb-or-unetbootin-t6787.html#p49770" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>
+<br>
+WOW - (3298MB) for the linuxfs file. - Have you installed the kitchen sink as well! <br>
+<br>
+Seriously, have you got files you could exclude from the snapshot such as what is in /home?</div></blockquote>
+Heh! <br>
+Of course I already have excluded the other 56GB of files in /home <span class="emoticon"> __{{emoticon}}__ </span> <br>
+I am just exploring the limits of the application. The more"stuff" I can pack into my snapshot, the less stuff I have to add from another source later.<br>
+Thank you for providing these excellent tools in antiX.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_49771" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile49771">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content49771">
+
+<time datetime="2017-01-13T12:06">posted: 2017-01-13 &nbsp; 12:06</time>
+<span class="permalink"><a href="./maximum-size-of-usb-using-antix2usb-or-unetbootin-t6787.html#p49771" title="permalink">#7</a></span>
+
+<div class="content">unetbootin doesn't actually care what the filesystem is, it utilizes a already formated mounted partition. so you could use a ext4 or ntfs partition.<br>
+<br>
+however, the stick likely won't boot in a uefi environment because uefi machines require a fat32 partition or a cd/dvd filesystem. (actually, a stick made with dd would probably boot on uefi, but wouldn't be able to use persistence features on the same device).</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

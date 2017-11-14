@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] No sound anymore, it worked at first - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-no-sound-anymore-it-worked-at-first-t3546.html">[SOLVED] No sound anymore, it worked at first</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23444" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23444">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23444">
+<time datetime="2012-01-25T23:41">posted: 2012-01-25 &nbsp; 23:41</time>
+<span class="permalink"><a href="./solved-no-sound-anymore-it-worked-at-first-t3546.html#p23444" title="permalink">#1</a></span>
+
+<div class="content">Hi all, <br>
+<br>
+I have the problem that sound disappeared although I had sound right after install. It got lost after some upgrade, unfortunately I didn't pay attention to the update history, so I cannot provide further information in this regard. In essence sound seems to be possible in principal.<br>
+<br>
+The hardware setup of my IBM Thinkpad T23 is quite similiar to the Thinkpad R51 mentioned in this post: no-audio-intel-n10-ich-7-hd-audio-t2564.html<br>
+<br>
+Here are more specific information about the soundcard as recognized:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /proc/asound/cards
+ 0 [I82801CAICH3   ]: ICH - Intel 82801CA-ICH3
+                      Intel 82801CA-ICH3 with CS4299 at irq 11
+29 [ThinkPadEC     ]: ThinkPad EC - ThinkPad Console Audio Control
+                      ThinkPad Console Audio Control at EC reg 0x30, fw 1AHT23WW-1.06a
+</code></pre></div>
+and...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /proc/asound/version
+Advanced Linux Sound Architecture Driver Version 1.0.23.
+</code></pre></div>
+<br>
+Kernel modules seem to be loaded:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lspci -nnk
+..
+l00:1f.5 Multimedia audio controller [0401]: Intel Corporation 82801CA/CAM AC'97 Audio Controller [8086:2485] (rev 01)
+    Subsystem: IBM ThinkPad A30/A30p/T23 [1014:0222]
+    Kernel driver in use: Intel ICH
+..
+</code></pre></div>
+The sound related modules are:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod | grep snd
+snd_intel8x0           19407  1 
+snd_ac97_codec         76689  1 snd_intel8x0
+ac97_bus                 690  1 snd_ac97_codec
+snd_pcm_oss            26956  0 
+snd_mixer_oss          10117  1 snd_pcm_oss
+snd_pcm                45526  3 snd_intel8x0,snd_ac97_codec,snd_pcm_oss
+snd_seq_midi            3376  0 
+snd_rawmidi            12512  1 snd_seq_midi
+snd_seq_midi_event      3716  1 snd_seq_midi
+snd_seq                34139  2 snd_seq_midi,snd_seq_midi_event
+snd_timer              12397  2 snd_pcm,snd_seq
+snd_seq_device          3619  3 snd_seq_midi,snd_rawmidi,snd_seq
+snd                    32975  12 snd_intel8x0,snd_ac97_codec,snd_pcm_oss,thinkpad_acpi,snd_mixer_oss,snd_pcm,snd_rawmidi,snd_seq,snd_timer,snd_seq_device
+snd_page_alloc          4833  2 snd_intel8x0,snd_pcm
+soundcore               3127  1 snd
+</code></pre></div>
+I added the following line to <strong>/etc/modprobe.d/alsa-base.conf</strong>:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>options snd-intel8x0= Intel ICH (i8x0) chipsets
+</code></pre></div>
+I checked out the sound configuration via <em>alsa-conf</em>, in order to see, whether any speaker was put on mute, well they are all on.<br>
+<br>
+Strangely while <em>pulseaudio</em> is running, <em>alsa</em> is not, I guess that is the real problem. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ps aux | grep pulseaudio
+pascal    2214  1.6  0.9 164192  4928 ?        Sl   00:28   0:01 /usr/bin/pulseaudio --start --log-target=syslog
+
+ps aux | grep alsa
+root      2299  0.0  0.1   4048   820 pts/0    S+   00:31   0:00 grep --color=auto alsa
+</code></pre></div>
+On my Debian system <em>pulseaudio</em> and <em>alsa</em> are both running simultaneously.<br>
+<br>
+I (re)started both services without success via:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>killall pulseaudio
+sudo alsa force-reload
+pulseaudio -D
+</code></pre></div>
+<br>
+I perhabs naively put <em>alsa-utils</em> as a service that is to be started at bootup. Didn't help.<br>
+<br>
+Help is highly appreciated.</div>
+<div class="notice">
+Last edited by <b>Honeypuck</b> on 28 Apr 2012, 21:25, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23446" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23446">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 4,164</dd>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23446">
+
+<time datetime="2012-01-26T05:28">posted: 2012-01-26 &nbsp; 05:28</time>
+<span class="permalink"><a href="./solved-no-sound-anymore-it-worked-at-first-t3546.html#p23446" title="permalink">#2</a></span>
+
+<div class="content">Hmmmm. Posting from my IBM T23 (I still have AntiX 8.5 running on this rig. Pretty much fully updated) No sound problems, ever. It is freezing outside so I have the laptop in my lap (to keep me warm)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: biker Kernel: 2.6.34-stevo i686 (32 bit) 
+           Desktop: Fluxbox 1.3.2 Distro: antiX-M8.5 Marek Edelman 16 February 2010
+Machine:   Mobo: IBM model: 26474MU Bios: IBM version: 1AET64WW (1.20 ) date: 10/18/2006
+CPU:       Single core Mobile Intel Pentium III CPU - M (-UP-) cache: 512 KB flags: (sse) clocked at 798.00 MHz 
+Graphics:  Card: S3 SuperSavage IX/C SDR X.Org: 1.11.2.901 driver: vesa Resolution: 1024x768@71.0hz 
+           GLX Renderer: Rasterizer GLX Version: 2.1 Mesa 7.11.1
+Audio:     Card: Intel 82801CA/CAM AC'97 Audio Controller driver: Intel ICH Sound: ALSA ver: 1.0.22.1
+Network:   Card-1: Ralink RT2561/RT61 802.11g PCI driver: rt61pci 
+           IF: wlan0 state: up mac: &lt;filter&gt;
+           Card-2: Intel 82801CAM (ICH3) PRO/100 VE (LOM) Ethernet Controller driver: e100 
+           IF: eth0 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 80.0GB (18.7% used) 1: /dev/hda ST980815A 80.0GB 
+Partition: ID: / size: 6.8G used: 3.4G (52%) fs: ext3 ID: /home size: 11G used: 2.9G (30%) fs: ext3 
+           ID: swap-1 size: 1.04GB used: 0.00GB (0%) fs: swap 
+Sensors:   System Temperatures: cpu: 55.0C mobo: 49.0C 
+           Fan Speeds (in rpm): cpu: 0 
+Info:      Processes: 100 Uptime: 1:23 Memory: 301.4/1008.7MB Client: Shell inxi: 1.7.28 </code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@biker:~$ cat /proc/asound/cards
+ 0 [I82801CAICH3   ]: ICH - Intel 82801CA-ICH3
+                      Intel 82801CA-ICH3 with CS4299 at irq 11
+ 5 [ThinkPadEC     ]: ThinkPad EC - ThinkPad Console Audio Control
+                      ThinkPad Console Audio Control at EC reg 0x30, fw 1AHT20WW-1.04
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@biker:~$ lspci -nnk
+00:1f.5 Multimedia audio controller [0401]: Intel Corporation 82801CA/CAM AC'97 Audio Controller [8086:2485] (rev 02)
+Subsystem: IBM ThinkPad A30/A30p/T23 [1014:0222]
+    Kernel driver in use: Intel ICH
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@biker:~$ lsmod | grep snd
+snd_intel8x0           19407  0 
+snd_ac97_codec         77180  1 snd_intel8x0
+ac97_bus                 686  1 snd_ac97_codec
+snd_pcm_oss            27764  0 
+snd_mixer_oss          10254  1 snd_pcm_oss
+snd_pcm                46062  3 snd_intel8x0,snd_ac97_codec,snd_pcm_oss
+snd_seq_midi            3312  0 
+snd_rawmidi            12176  1 snd_seq_midi
+snd_seq_midi_event      3556  1 snd_seq_midi
+snd_seq                34457  3 snd_seq_midi,snd_seq_midi_event
+snd_timer              12089  2 snd_pcm,snd_seq
+snd_seq_device          3629  3 snd_seq_midi,snd_rawmidi,snd_seq
+snd                    32567  11 snd_intel8x0,snd_ac97_codec,thinkpad_acpi,snd_pcm_oss,snd_mixer_oss,snd_pcm,snd_rawmidi,snd_seq,snd_timer,snd_seq_device
+soundcore               3418  1 snd
+snd_page_alloc          4761  2 snd_intel8x0,snd_pcm
+</code></pre></div>
+My full /etc/modprobe.d/alsa-base.conf txt file reads<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># autoloader aliases
+install sound-slot-0 /sbin/modprobe snd-card-0
+install sound-slot-1 /sbin/modprobe snd-card-1
+install sound-slot-2 /sbin/modprobe snd-card-2
+install sound-slot-3 /sbin/modprobe snd-card-3
+install sound-slot-4 /sbin/modprobe snd-card-4
+install sound-slot-5 /sbin/modprobe snd-card-5
+install sound-slot-6 /sbin/modprobe snd-card-6
+install sound-slot-7 /sbin/modprobe snd-card-7
+# Cause optional modules to be loaded above generic modules
+install snd /sbin/modprobe --ignore-install snd &amp;&amp; { /sbin/modprobe --quiet snd-ioctl32 ; /sbin/modprobe --quiet snd-seq ; }
+install snd-rawmidi /sbin/modprobe --ignore-install snd-rawmidi &amp;&amp; { /sbin/modprobe --quiet snd-seq-midi ; : ; }
+install snd-emu10k1 /sbin/modprobe --ignore-install snd-emu10k1 &amp;&amp; { /sbin/modprobe --quiet snd-emu10k1-synth ; : ; }
+
+# Prevent abnormal drivers from grabbing index 0
+options bt87x index=-2
+options cx88_alsa index=-2
+options snd-atiixp-modem index=-2
+options snd-intel8x0m index=-2
+options snd-via82xx-modem index=-2
+# Keep snd-pcsp from beeing loaded as first soundcard
+options snd-pcsp index=-2
+# Keep snd-usb-audio from beeing loaded as first soundcard
+options snd-usb-audio index=-2
+</code></pre></div>
+My alsa version may be older, (as shown in above inxi -F readout in first code tag), since this is AntiX 8.5, (been installed since release date)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~$ ps aux | grep pulseaudio
+harry    21984  0.0  0.0   3472   752 pts/0    S+   23:24   0:00 grep pulseaudio
+harry@biker:~$ ps aux | grep alsa
+harry    21105  0.8  1.5 172256 16472 ?        Sl   23:19   0:02 geany /etc/modprobe.d/alsa-base.conf
+harry    22137  0.0  0.0   3476   752 pts/0    S+   23:24   0:00 grep alsa
+</code></pre></div>
+I don't know why your above readout says"root" instead of user name though. I figured since my post showing how my IBM T23 setup looks compared to yours may shed some light on your problem. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+<span style="color: #FF0000">Edit:</span> In case you are wondering about my kernel<br>
+update-via-smxi-to-liiqourix-2-6-35-kernel-slim-fails-at-log-t2585.html</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23453" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23453">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 24</span></div>
+
+</div>
+</div>
+<span class="username">Honeypuck</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23453">
+
+<time datetime="2012-01-27T00:42">posted: 2012-01-27 &nbsp; 00:42</time>
+<span class="permalink"><a href="./solved-no-sound-anymore-it-worked-at-first-t3546.html#p23453" title="permalink">#3</a></span>
+
+<div class="content">The problem is partly solved. It is definitively not a hardware issue after all, as I had assumed all along. Sound DID work right after clean install and all the sound hardware is correctly recognized. I noticed that something mutes PCM in <em>alsa-mixer</em> after each startup, so it is hardly surprising that there is no sound unless I manually activate it.<br>
+Does anybody have an idea what might cause that behavior?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Why antiX can shutdown safely without error? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./why-antix-can-shutdown-safely-without-error-t7045.html">Why antiX can shutdown safely without error?</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_51832" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51832">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 22</span></div>
+
+</div>
+</div>
+<span class="username">wean_irdeh</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Sep 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51832">
+<time datetime="2017-06-29T19:44">posted: 2017-06-29 &nbsp; 19:44</time>
+<span class="permalink"><a href="./why-antix-can-shutdown-safely-without-error-t7045.html#p51832" title="permalink">#1</a></span>
+
+<div class="content">Everytime antiX shuts down, it does a bunch of things and when completed, it unmount root and turn off. Why that can happen? Why 'mount' is always killed last? Can I make 'mount' to be killed first rather than last, which will cause error? Or can I make another program to be killed last before the computer turned off?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51834" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51834">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">figosdev</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51834">
+
+<time datetime="2017-06-29T20:10">posted: 2017-06-29 &nbsp; 20:10</time>
+<span class="permalink"><a href="./why-antix-can-shutdown-safely-without-error-t7045.html#p51834" title="permalink">#2</a></span>
+
+<div class="content">if a live image is loaded entirely into ram, the distro can unmount the drives first-- or at least after syncing (which umount will do, but either way) and when its done with any programs or drivers that were loaded from the drives to be unmounted.<br>
+<br>
+however / is / whether its a mountpoint for an image loaded first in ram or first on the drive. its where various things are mounted to, including /sys and /dev and /proc and /tmp ...it cant umount / until its done doing everything else. <br>
+<br>
+if youre running in ram and can make certain that all persistent partitions/volumes/block devices are unmounted, you can call poweroff -f ...a good question would be"what happens if i keep calling poweroff -f without unmounting all physical devices first?" i wouldnt-- but at least sync first! IF YOU DAMAGE something this way, you will know why not to.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51864" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51864">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 22</span></div>
+
+</div>
+</div>
+<span class="username">wean_irdeh</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Sep 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51864">
+
+<time datetime="2017-06-30T17:58">posted: 2017-06-30 &nbsp; 17:58</time>
+<span class="permalink"><a href="./why-antix-can-shutdown-safely-without-error-t7045.html#p51864" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>figosdev wrote:</cite>if a live image is loaded entirely into ram, the distro can unmount the drives first-- or at least after syncing (which umount will do, but either way) and when its done with any programs or drivers that were loaded from the drives to be unmounted.<br>
+<br>
+however / is / whether its a mountpoint for an image loaded first in ram or first on the drive. its where various things are mounted to, including /sys and /dev and /proc and /tmp ...it cant umount / until its done doing everything else. <br>
+<br>
+if youre running in ram and can make certain that all persistent partitions/volumes/block devices are unmounted, you can call poweroff -f ...a good question would be"what happens if i keep calling poweroff -f without unmounting all physical devices first?" i wouldnt-- but at least sync first! IF YOU DAMAGE something this way, you will know why not to.</div></blockquote>
+How about normal installation? If 'mount' is killed first during shutdown, then the filesystem isn't unmounted cleanly, right? Can I somehow, add a program and set it to be killed last?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51867" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51867">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">figosdev</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51867">
+
+<time datetime="2017-06-30T20:10">posted: 2017-06-30 &nbsp; 20:10</time>
+<span class="permalink"><a href="./why-antix-can-shutdown-safely-without-error-t7045.html#p51867" title="permalink">#4</a></span>
+
+<div class="content">mount is not a process, its a utility that interacts with the kernel. the part of"mount" that is like a process is the kernel. but really, the kernel isnt a process either.<br>
+<br>
+admitttedly while mount is running, its a process. but after you run it, it exits moments later. you cant kill it, because it isnt running. its like ls or find-- you can kill them while theyre running, but they do one thing and then exit anyway.<br>
+<br>
+i think what you want is to learn about the rc.d scripts and shutdown handling. though until i understand why youre focused on"mount" its difficult to say. are you trying to optimise the shutdown process? whats the actual goal, rather than the step (kill mount) youre trying to achieve?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51882" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile51882">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 22</span></div>
+
+</div>
+</div>
+<span class="username">wean_irdeh</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Sep 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51882">
+
+<time datetime="2017-07-01T02:14">posted: 2017-07-01 &nbsp; 02:14</time>
+<span class="permalink"><a href="./why-antix-can-shutdown-safely-without-error-t7045.html#p51882" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>figosdev wrote:</cite>mount is not a process, its a utility that interacts with the kernel. the part of"mount" that is like a process is the kernel. but really, the kernel isnt a process either.<br>
+<br>
+admitttedly while mount is running, its a process. but after you run it, it exits moments later. you cant kill it, because it isnt running. its like ls or find-- you can kill them while theyre running, but they do one thing and then exit anyway.<br>
+<br>
+i think what you want is to learn about the rc.d scripts and shutdown handling. though until i understand why youre focused on"mount" its difficult to say. are you trying to optimise the shutdown process? whats the actual goal, rather than the step (kill mount) youre trying to achieve?</div></blockquote>
+my root installation is handled by qemu-nbd and it's frustrating that qemu-nbd is the process that get killed first on shutdown, resulting unsafe shutdown. How can I somehow, let the qemu-nbd to be killed last so my system can shutdown safely?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_51883" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile51883">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">figosdev</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content51883">
+
+<time datetime="2017-07-01T03:01">posted: 2017-07-01 &nbsp; 03:01</time>
+<span class="permalink"><a href="./why-antix-can-shutdown-safely-without-error-t7045.html#p51883" title="permalink">#6</a></span>
+
+<div class="content">ok, that brings me back to"i think what you want is to learn about the rc.d scripts and shutdown handling" though here is a thought:<br>
+<br>
+if you have enough ram to load antix into ram, then you can unmount everything BEFORE you shutdown, and then youre probably fine. im not familiar with qemu-nbd (i have it installed, ive never heard of the nbd protocol) but this is one way to possibly fix your problem (just a guess) plus you might want to ask wherever they support qemu, what they recommend.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

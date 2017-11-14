@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Touchpad Horizontal scrolling [SOLVED] - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./touchpad-horizontal-scrolling-solved-t4540.html">Touchpad Horizontal scrolling [SOLVED]</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="viewtopic_wrapper">
+<div id="p_30668" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30668">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 243</span></div>
+
+</div>
+</div>
+<span class="username">Aleph</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30668">
+<time datetime="2013-08-10T10:40">posted: 2013-08-10 &nbsp; 10:40</time>
+<span class="permalink"><a href="./touchpad-horizontal-scrolling-solved-t4540.html#p30668" title="permalink">#1</a></span>
+
+<div class="content">Hi friends,<br>
+<br>
+sorry, an other issue:<br>
+<br>
+How enable the touchpad horizontal scrolling?<br>
+<br>
+I was looking for a solution at the forum but I could not find it, sorry...<br>
+<br>
+I tried editing Synapntics (/etc/X11/xorg.conf) but X failed... (now solved editing with the live cd)<br>
+<br>
+Can you help me to enable the touchpad horizontal scroll?<br>
+<br>
+Thanks.</div>
+<div class="notice">
+Last edited by <b>Aleph</b> on 11 Aug 2013, 10:42, edited 1 time in total.
+</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_30674" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30674">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30674">
+
+<time datetime="2013-08-10T12:20">posted: 2013-08-10 &nbsp; 12:20</time>
+<span class="permalink"><a href="./touchpad-horizontal-scrolling-solved-t4540.html#p30674" title="permalink">#2</a></span>
+
+<div class="content">The preferred way of configuring the touchpad is to modify synaptics.conf under /etc/X11/xorg.conf.d. This is a relatively recent change in debian upstream.<br>
+<br>
+My synaptics.conf looks like this. Horizontal scrolling workings on my HP dm4.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"InputClass"
+        Identifier     "Touchpad"                      # required
+        MatchIsTouchpad"yes"                           # required
+        Driver         "synaptics"                     # required
+        Option         "MinSpeed"             "0.5"
+        Option         "MaxSpeed"             "1.0"
+        Option         "AccelFactor"          "0.075"
+        Option         "TapButton1"           "1"
+        Option         "TapButton2"           "2"     # multitouch
+        Option         "TapButton3"           "3"     # multitouch
+        Option         "VertTwoFingerScroll"  "1"     # multitouch
+        Option         "HorizTwoFingerScroll" "1"     # multitouch
+        Option         "VertEdgeScroll"       "1"
+        Option         "CoastingSpeed"        "8"
+        Option         "CornerCoasting"       "1"
+        Option         "CircularScrolling"    "1"
+        Option         "CircScrollTrigger"    "7"
+        Option         "EdgeMotionUseAlways"  "1"
+        Option         "LBCornerButton"       "8"     # browser"back" btn
+        Option         "RBCornerButton"       "9"     # browser"forward" btn
+EndSection
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30696" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30696">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 243</span></div>
+
+</div>
+</div>
+<span class="username">Aleph</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30696">
+
+<time datetime="2013-08-11T10:41">posted: 2013-08-11 &nbsp; 10:41</time>
+<span class="permalink"><a href="./touchpad-horizontal-scrolling-solved-t4540.html#p30696" title="permalink">#3</a></span>
+
+<div class="content">The"HorizTwoFingerScroll" was enable out of the box but I didn't know it...<br>
+<br>
+BTW I prefer the"HorizEdgeScroll", I aded
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Option"HorizEdgeScroll""1"</code></pre></div>
+and now is working perfect <span class="emoticon"> __{{emoticon}}__ </span> maybe I did something wrong before, I don't know...<br>
+<br>
+Solved!<br>
+<br>
+Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

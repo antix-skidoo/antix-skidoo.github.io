@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>NVIDIA needs xorg.conf tweak to work with xorg 1.11.0 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./announcements-and-news-old-f38/index.html"><span>Announcements and News (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html">NVIDIA needs xorg.conf tweak to work with xorg 1.11.0</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_21804" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21804">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21804">
+<time datetime="2011-08-29T12:13">posted: 2011-08-29 &nbsp; 12:13</time>
+<span class="permalink"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html#p21804" title="permalink">#1</a></span>
+
+<div class="content">I have two Sid systems with NVIDIA driver 280.13 installed with sgfxi. Both wouldn't load X after the upgrade (xserver-common, xserver-xorg-core) to 1.11.0.<br>
+I had to downgrade to version 1.10.4 from testing.</div>
+<div class="notice">
+Last edited by <b>secipolla</b> on 29 Aug 2011, 14:08, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21805" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21805">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21805">
+
+<time datetime="2011-08-29T13:23">posted: 2011-08-29 &nbsp; 13:23</time>
+<span class="permalink"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html#p21805" title="permalink">#2</a></span>
+
+<div class="content">Yes, users should be careful when upgrading.<br>
+<br>
+I had to add this to my /etc/X11/xorg.conf
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"ServerFlags"
+        Option    "ignoreABI""true"
+EndSection
+</code></pre></div>
+This is my inxi -G
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -G
+Graphics:  Card: nVidia G98 [GeForce 8400 GS] X.Org: 1.11.0 driver: nvidia Resolution: 1280x1024@50.0hz 
+           GLX Renderer: GeForce 8400 GS/PCI/SSE2/3DNOW! GLX Version: 3.3.0 NVIDIA 285.03
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21806" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21806">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21806">
+
+<time datetime="2011-08-29T14:07">posted: 2011-08-29 &nbsp; 14:07</time>
+<span class="permalink"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html#p21806" title="permalink">#3</a></span>
+
+<div class="content">Works, thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21833" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21833">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21833">
+
+<time datetime="2011-08-30T21:39">posted: 2011-08-30 &nbsp; 21:39</time>
+<span class="permalink"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html#p21833" title="permalink">#4</a></span>
+
+<div class="content">For some reason adding the line in my xorg.conf did not work.<br>
+I had to downgrade to the Testing versions as secipolia suggested.<br>
+Back in business! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21834" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21834">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21834">
+
+<time datetime="2011-08-30T21:43">posted: 2011-08-30 &nbsp; 21:43</time>
+<span class="permalink"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html#p21834" title="permalink">#5</a></span>
+
+<div class="content">The 'fix' I posted sort of works (random 'bleeding' of graphics), so in the end I also downgraded to Testing versions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21836" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21836">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21836">
+
+<time datetime="2011-08-31T11:06">posted: 2011-08-31 &nbsp; 11:06</time>
+<span class="permalink"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html#p21836" title="permalink">#6</a></span>
+
+<div class="content">I would just like to add that I have the 280 driver installed in a GNOME 3 system and the 285 in a KDE system with some effects enabled (the default ones). All is working, at least apparently, perfectly (with xserver 1.11.0).<br>
+This may be due to the fact that I have probably the most basic card supported by these drivers, a GF 6200.<br>
+<br>
+As an interesting tip, GNOME 3 has built-in desktop recording and it works surprisingly well in this old PC. Much better than recordmydesktop ever did (and actually better than the same GNOME 3 feature in Fedora).<br>
+Here's a tiny 4 or 5 s video: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.sendspace.com/file/okk9ir"<br>linktext was:"http://www.sendspace.com/file/okk9ir"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22374" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22374">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 173</span></div>
+
+</div>
+</div>
+<span class="username">DeepDayze</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22374">
+
+<time datetime="2011-10-17T01:47">posted: 2011-10-17 &nbsp; 01:47</time>
+<span class="permalink"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html#p22374" title="permalink">#7</a></span>
+
+<div class="content">The latest NVIDIA 285.05.09 driver works fine if installed via sgfxi and no hacks needed</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22545" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22545">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">kernelpanic!</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Mar 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22545">
+
+<time datetime="2011-11-05T11:35">posted: 2011-11-05 &nbsp; 11:35</time>
+<span class="permalink"><a href="./nvidia-needs-xorg-conf-tweak-to-work-with-xorg-1-1-t3316.html#p22545" title="permalink">#8</a></span>
+
+<div class="content">after fiddling around with various drivers, the added section"ServerFlags" did the trick for<br>
+me too, thanks vor the tip.<br>
+<br>
+however the new 280.13.really.275.36-1 in the repos also works now with xserver 1.11. on<br>
+my system. running nvidia-xconfig adds the lines"ServerFlags" automatically to xorg.conf,<br>
+so you don`t have to do this by hand anymore.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

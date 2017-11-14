@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Bug zram Incorrect Calculation of CPUs &amp; Swap Areas - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./bug-zram-incorrect-calculation-of-cpus-swap-areas-t5278.html">Bug zram Incorrect Calculation of CPUs &amp; Swap Areas</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_37050" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37050">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37050">
+<time datetime="2014-09-22T12:45">posted: 2014-09-22 &nbsp; 12:45</time>
+<span class="permalink"><a href="./bug-zram-incorrect-calculation-of-cpus-swap-areas-t5278.html#p37050" title="permalink">#1</a></span>
+
+<div class="content">﻿Noticed this months ago but did not get round to looking in to it until yesterday.<br>
+<br>
+Hardware=Single CPU/core<br>
+Distro=antiX-13.2-Full-Stable<br>
+zram=copied to <em>/</em>etc/init.d/ from /usr/local/bin/<br>
+System=rebooted<br>
+<br>
+<strong>Diagnosis</strong><br>
+All following conducted with root privileges<br>
+<br>
+Report the status of swapspace started by zram
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>swapon -s
+Filename                Type        Size    Used    Priority
+/dev/zram0                              partition    95500    0    100
+/dev/zram1                              partition    95500    0    100</code></pre></div>This seems incorrect as two instances are reported.<br>
+<br>
+The following line in <em>/</em>etc/init.d/zram calculates the number of CPUs
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+num_cpus=$(grep -c processor /proc/cpuinfo)
+...</code></pre></div>It counts the number of times the word <em>processor</em> is present in the file /proc/cpuinfo<br>
+<br>
+Verifying what the line returns in a terminal
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>grep -c processor /proc/cpuinfo
+2</code></pre></div>This figure is used by the zram script to start the above two instances<br>
+<br>
+Explanation of value returned
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>grep --line-number processor /proc/cpuinfo
+1:processor    : 0
+5:model name    : Intel(R) Pentium(R) M processor 1.73GHz</code></pre></div>The search term appears twice (lines 1 &amp; 5) and thereby reports an invalid value of 2 CPUs on a single CPU/core system. It begins counting upwards from 1.<br>
+<br>
+Later in the script a section is included to handle the incorrectly reported number of CPUs
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>last_cpu=$((num_cpus - 1))</code></pre></div>This decreases the incorrectly reported value of 2 to 1<br>
+<br>
+The adjusted value is then fed into the start and stop sections
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>for i in $(seq 0 $last_cpu); do...</code></pre></div>This starts counting upwards from 0 (zero).<br>
+<br>
+Outcome<br>
+Even though the number of CPUs has been adjusted (decreased by 1), an incorrect number of swap areas are created because the relevant section of the script starts counting from 0. A swap area is created for number 0, and a swap area is created for number 1.<br>
+<br>
+<strong>Options</strong><br>
+Workaround Fix
+<ul>
+<li> Retain incorrect calculation section</li>
+<li> Retain section to compensate for incorrect calculation</li>
+<li> Adjust start and stop sections to begin counting upwards from 1 to match incorrect sections</li></ul>
+In start and stop sections of zram script change value from 0 to 1
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>for i in $(seq 1 $last_cpu); do...</code></pre></div>
+Full Fix
+<ul>
+<li> Correctly calculate number of CPUs</li>
+<li> Jettison section to compensate for incorrect calculation</li>
+<li> Adjust start and stop sections to begin counting upwards from 1 to match correct correct calculation section</li></ul>
+Requires major rewrite.<br>
+<br>
+<br>
+<strong>Suggestions</strong><br>
+antiX-13.2-Full-Stable ships with two suitable apps as components of packages which Debian marks as essential
+<ul>
+<li> getconf is part of libc-bin</li>
+<li> nproc is part of coreutils</li></ul>
+Verification that both return the correct CPU count in a terminal
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>getconf _NPROCESSORS_ONLN
+1
+nproc
+1
+nproc --all
+1
+</code></pre></div>
+Verification of correct zram operation with any of the above commands substituted for the present command
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo swapon -s
+Filename                Type        Size    Used    Priority
+/dev/zram0                              partition    191004    0    100</code></pre></div>Note: the size of the swap area is incorrect as the relevant part of the file was not edited for this quick and dirty test.<br>
+<br>
+<br>
+Of the two commands my personal preference is for one of the nproc variants because its format is familiar and adaptable. Additionally the online GNU manual indicates that in use"<em>The result is guaranteed to be greater than zero</em>". This will enable the following additional section to be jettisoned<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># if something goes wrong, assume we have 1
+["$num_cpus" != 0 ] || num_cpus=1</code></pre></div>.<br>
+<br>
+<br>
+<strong>References</strong><br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.gnu.org/software/coreutils/manual/html_node/nproc-invocation.html"<br>linktext was:"https://www.gnu.org/software/coreutils/ ... ation.html"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.unix.com/man-page/linux/1/getconf/"<br>linktext was:"http://www.unix.com/man-page/linux/1/getconf/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

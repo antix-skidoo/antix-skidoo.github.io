@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-14-a3.2 mini-release -- Testers Needed! - Page 4 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html">antiX-14-a3.2 mini-release -- Testers Needed!</a></div>
+<div class="pagination">
+63 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s30.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-14-a3-2-mini-release-testers-needed-t5381.html" role="button">1</a></li>
+<li><a class="button" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s15.html" role="button">2</a></li>
+<li><a class="button" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s30.html" role="button">3</a></li>
+<li class="active"><span>4</span></li>
+<li><a class="button" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s60.html" role="button">5</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s60.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_38274" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38274">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38274">
+<time datetime="2014-11-25T01:35">posted: 2014-11-25 &nbsp; 01:35</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38274" title="permalink">#46</a></span>
+
+<div class="content">Thanks skidoo!<br>
+<blockquote><div><cite>skidoo wrote:</cite>all these look perfect in Ctrl+Alt+F5 consoles<br>
+1920x1080 
+1600x900 
+1440x900 <iframe data-s9e-mediaembed="imgur" allowfullscreen="" onload="!window.__cfRl||__cfRl.r(function(){var b=Math.random();window.addEventListener('message',function(a){a.data.id==b&amp;&amp;(style.height=a.data.height+'px',style.width=a.data.width+'px')});contentWindow.postMessage('s9e:'+b,'https://s9e.github.io')},this)" scrolling="no" style="border:0;height:450px;max-width:100%;width:568px" src="https://s9e.github.io/iframe/imgur.min.html#ITQpI7y"></iframe></div></blockquote>Is there now too much room for text at the bottom for some of them? It looks like there is room to add another line of text.
+<blockquote class="uncited"><div>...but for the latter 2, during live init, the text is still overflowing past the bottom decorative frame.</div></blockquote>The themes are in 2 different places. They are in the initrd for the initial boot and they are also in the final file system. I don't think I gave you an updated initrd so the new versions and any changes you make will only be seen after the boot is complete.
+<blockquote class="uncited"><div>(? the initramfs contains an overriding bootsplash default template?)</div></blockquote>In the early part of the boot process the final file system is not available. The main task of the live initrd (initramfs) is to find the linuxfs file, mount the device it is on and mount the final file system. So if you want a background image during that process then you need to put at least one theme into the initrd.
+<blockquote class="uncited"><div>tgz file contained a"verbose-1366x768.png" ( <span style="color: red">note: a"silent-" imagefile for that resolution was absent, so I copied one into place</span> )</div></blockquote>There are two different *boot* modes: silent and verbose. The silent mode covers up the text with an image. We don't use it. Once you've booted, then the only mode available is verbose. So basically, we don't ever use silent mode or silent images.
+<blockquote class="uncited"><div>but it seems my system doesn't support a 1366x768 mode.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/var/log/splash-all.log
+
+"FBIOCONDECOR_SETSTATE failed, error code 22"</code></pre></div></div></blockquote>I don't quite understand the situation you are reporting. You should be able to see the current framebuffer resolution with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /sys/class/graphics/fb0/virtual_size</code></pre></div>If the size is"1366,768" then you should be getting framebuffer background images. Dave and D.O. both have machines that use that resolution and now I use it on my laptops too.<br>
+<br>
+Again, thanks for your help on this. I'm sorry I didn't previously explain that the initrd has its own set of themes.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38277" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38277">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38277">
+
+<time datetime="2014-11-25T05:00">posted: 2014-11-25 &nbsp; 05:00</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38277" title="permalink">#47</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Is there now too much room for text at the bottom</div></blockquote>Maybe I was overly generous in describing 'em as perfect?<br>
+Yes, evident in the screencaps, one additional line would fit within the frame for each of the 3 resolutions I tested.<br>
+For my own use, I had planned to nudge the frame bottom of the 1920x1080 template downward a few pixels and insert 2 additional text lines.<br>
+<blockquote class="uncited"><div>The silent mode covers up the text with an image. We don't use it.</div></blockquote>Yeah, I get it ~~ silent is like"plymouth".<br>
+I was just explaining that (because I found silent- prefixed imagefiles present for the other resolutions) as a troubleshooting step I had tried adding the missing file... attempting to rule out missing imagefile as the reason I couldn't get that resolution to work on my system.<br>
+<blockquote class="uncited"><div>I don't quite understand the situation you are reporting.</div></blockquote>In my testing, ONE of the tested resolutions (1366,768) is apparently unsupported on my system.<br>
+When I tried that bootline, I didn't check which vconsole fallback resolutions was used... <br>
+<span style="color: silver">{ placeholder -- i can retest }</span><br>
+but whatever res it wound up, bg was solid black (no framebuffer background image).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38359" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38359">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+
+</dl>
+<div class="postbody">
+<div id="post_content38359">
+
+<time datetime="2014-11-30T19:09">posted: 2014-11-30 &nbsp; 19:09</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38359" title="permalink">#48</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>Yes, evident in the screencaps, one additional line would fit within the frame for each of the 3 resolutions I tested.<br>
+For my own use, I had planned to nudge the frame bottom of the 1920x1080 template downward a few pixels and insert 2 additional text lines.</div></blockquote>
+It would be really great if you could edit the configs (for one theme) and send them to me. I can get close by guessing but I need to rely on someone who can test the configs to fine tune. I don't want to ship themes that are a little broken.<br>
+<br>
+BTW-1: Would you like it if we added"video=WWWWxHHHH" options in the bootloader? I was thinking of combining vga=xxx and video=yyyy options in a single"F7 Console" menu:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>default
+vga: 800x600
+vga: 1024x768
+vga: 1280x1024
+[etc]
+video: 1024x768
+video: 1280x1024
+[etc]</code></pre></div>Maybe the labels could be"old" and"new" instead of"vga" and"video".<br>
+<br>
+BTW-2: I am very impressed by your tracking down the hugely annoying gksu dialog password bug. I wonder why this bug was left in place upstream? It works as expected on my Gentoo system. I wonder if maybe it is just a config issue and we need to have some keyring thing running in order for the password to be saved. OTOH if patching the C-code works then that indicates it is not a config issue.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38362" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38362">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,445</dd>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38362">
+
+<time datetime="2014-12-01T02:09">posted: 2014-12-01 &nbsp; 02:09</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38362" title="permalink">#49</a></span>
+
+<div class="content">re: gksu2<br>
+The upstream devs might not even acknowledge it as being a valid bug.<br>
+As a feature request, we might ask for a revised conditional"if mode=sudo <strong>AND timeout&gt;0</strong><br>
+<br>
+I realize that rebuilding packages is an extra, unwanted chore, and I'm still trying to find a workaround.<br>
+Maybe a scripted python-gksu2 dialog will fit the bill.<br>
+<br>
+re:"video=WWWWxHHHH" options in the bootloader<br>
+Ai jai jai, that (video=1920x1080) is what I've been placing in the bootline all along, since back in May when I got a widescreen monitor.<br>
+(In case you don't recall, I was getting a black screen under alpha1 and vga= boot arg didn't help.)<br>
+With release notes docs superceded by patchset notes, compounded by (apparently) the boot menu displaying a different<br>
+set of options for isolinux vs syslinux, I've suspended trying to understand Who's On First...<br>
+<br>
+re:"I don't want to ship themes that are a little broken"<br>
+Can we agree that there are plenty of bigger fish to fry right now?<br>
+<br>
+Night before last, I nuked my antiX-14-a3.2 pendrive and reinstalled 13.2full (also the 13.5jwm build from Dec2013, antiX-13.1_386-base, etc)<br>
+in order to check whether the current aufs bug is a regression, or was present (but unnoticed) in earlier builds.<br>
+I've determined that the aufs bug __is__ a regression; the bug is absent from all the prior versions I checked.<br>
+At this juncture, I'll probably abstain from further testing until / unless a revised antiX-14-a-RV_386-full iso is released.<br>
+<br>
+In the interim, hopefully we'll see these (confusingly placed in a 'final' subdir at sourceforge)<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://sourceforge.net/projects/antix-linux/files/Final/antiX-13/FAQ/"<br>linktext was:"http://sourceforge.net/projects/antix-l ... iX-13/FAQ/"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://sourceforge.net/projects/antix-linux/files/Final/antiX-13/Boot_Menu/"<br>linktext was:"http://sourceforge.net/projects/antix-l ... Boot_Menu/"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://sourceforge.net/projects/antix-linux/files/Final/antiX-13/live-boot/"<br>linktext was:"http://sourceforge.net/projects/antix-l ... live-boot/"<br>====================================<br>
+<br>
+moved to a git submodule under<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux"<br>linktext was:"https://github.com/antiX-Linux"<br>====================================<br>
+<br>
+and these<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/live-initrd"<br>linktext was:"https://github.com/antiX-Linux/live-initrd"<br>====================================<br>
+ aka 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/live-initrd"<br>linktext was:"https://github.com/antiX-Linux/live-initrd"<br>====================================<br>
+<br>
+updated to match what's being shipped on the isos being tested.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38363" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38363">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38363">
+
+<time datetime="2014-12-01T02:47">posted: 2014-12-01 &nbsp; 02:47</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38363" title="permalink">#50</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>re:"I don't want to ship themes that are a little broken"<br>
+Can we agree that there are plenty of bigger fish to fry right now?</div></blockquote>
+I don't agree. Why leave this item open indefinitely when we are so close to closing it out? I don't have infinite resources and I would prefer to not have this hanging over me. I told you the deal was that we either fine tune the configurations or we don't ship them. <br>
+<br>
+It will take 10 minutes or less. The effort for you to fix this is less than the effort I will need to keep track of the fact that you may or may not fix it at some future date.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38486" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38486">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38486">
+
+<time datetime="2014-12-11T18:39">posted: 2014-12-11 &nbsp; 18:39</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38486" title="permalink">#51</a></span>
+
+<div class="content">clarification: FWIW, I've been using <strong>video=</strong>"all along" as in, since May when I posted the blue text in this linked thread:<br>
+antix-14-console-decoration-t5034.html<br>
+<blockquote><div><cite>BitJam wrote:</cite>I'm not interested in tests on the 32-bit version</div></blockquote>I'm not interested in using the 64-bit version, nor the"full" version for that matter, nor decorated consoles... but here we are.<br>
+<blockquote class="uncited"><div><blockquote><div><cite>skidoo wrote:</cite>it's pretty unsettling to know that a fat-fingered cli typo could send the content of my system clipboard to google.</div></blockquote>-=-<blockquote><div><cite>BitJam wrote:</cite>I will compromise to"gg" but no further.</div></blockquote></div></blockquote>Earlier, I bit my tongue following your post mentioning compromise. As a tester, I had simply reported a problem, a concern.<br>
+<br>
+<span style="color: green">Set a single-character"g" alias for searchBar if YOU want it that way in YOUR install...<br>
+vs<br>
+shipping a default which potentially compromises the (clipboard) privacy of ALL users.</span><br>
+You somehow regard that as a concession, a compromise?!?<br>
+<br>
+You're adding /xtra functionality, but have mentioned that you might or might not fully support it for fat32 boot device<br>
+(even though Dolphin and I have posted across numerous threads that we are keen on accommodating that).<br>
+<br>
+When I reported the unexpected absence of clipit clipboard manager, you replied that you'd add it (as though you're doing me a personal favor) then stated that you'll leave it disabled by default.<br>
+What a waste of effort on my part...
+<blockquote class="uncited"><div>I told you the deal was that we either fine tune the configurations or we don't ship them.</div></blockquote>Wait... what?<br>
+I've bit my tongue, held back replying here, with attention to the likelihood that my"venting" reply belongs in a PM vs a public post<br>
+but this quoted bit... was it in email? in a PM sent to me? in one of the README files attached to one of the patches distributed via dropbox?<br>
+<br>
+All I ever heard was"I don't want to ship themes that are a little broken." 2 posts up ---^<br>
+<br>
+I'm pointing to this as an example. The ongoing dev{--}tester and dev{--}user communication has been inconsistent, and dysfunctional.<br>
+<strong>Half</strong> the time, eliciting sufficient details from antix devs is like... like you're keeping a secret (or"it's too complicated, you wouldn't understand").<br>
+You dribble out knowledge of undocumented details, a piece here, a piece in PM... presuming that I, or anyone, can sift through reading everything<br>
+and then you (apparently) later get frustrated, thinking"I already told you..."<br>
+<br>
+The other <strong>half</strong>, usually in response to a"simple" question, the dev provides an overwhelming amount of detail rather than simple, digestable answer.<br>
+"You can also press 't' and if flying monkeys... press alt+shift+backslashQ... or if it's tuesday and you're in Latvia you can press Enter to skip that option"<br>
+???<br>
+<br>
+As for the console themes... shrug. So, don't ship 'em yet.<br>
+I'm the BadGuy, because I'm unwilling to invest"ten more minutes" playing break / fix toward finalizing an eye candy feature?<br>
+At this point, after investing a lot of time testing personally unuseful, uninteresting stuff<br>
+and getting barked at<br>
+I've grown really uncomfortable.<br>
+Go ahead, paint me as BadGuy -- I'm sitting on my hands at this point, holding out for fixes to existing features and improved documentation.
+<blockquote class="uncited"><div>
+dec 10, 2014<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/antiX-Gfxboot/blob/master/Input/antiX/isolinux.msg"<br>linktext was:"https://github.com/antiX-Linux/antiX-Gf ... olinux.msg"<br>====================================<br>
+<br>
+<br>
+To start the system, <strong>type one of the label names below</strong> and press [enter]:</div></blockquote><span style="color: blue"> sigh </span>!<br>
+<br>
+Too much stuff I've reported across two years, across multiple releases, has remained unfixed and that stings.<br>
+Either you're not hearing me, or are selectively ignoring... In any event, I've not been asking for favors, only fixes.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38488" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38488">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38488">
+
+<time datetime="2014-12-11T19:10">posted: 2014-12-11 &nbsp; 19:10</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38488" title="permalink">#52</a></span>
+
+<div class="content">@ skidoo I must say sorry to your frustrations, and admit that I have selectively ignored some of your bug finds (like the keyboard and mouse settings in the cc). To justify why they are old and require a rewrite. I am okay with this and will start on it. When... hopefully in the near future with the control center rewrite. However like with bleachbit developer I am limited to what I can do in what little free time I have. Now I tried keeping a list together of what needs to be done because the second problem from the above is when I selectively ignore or cannot develop for a period of time I forget... taking a lesson from mx the hope was to make a public list. This list helps a lot but also consumes a good chunk of my development time. Therefor in one of my latest emails to anti I asked / stated if in one of the hosting places could a bug tracker be used? I hope that will help further. If you would like to know statuses I will try to give you any information I have on those projects. Also I have finally gotten comfortable with git and maybe that is a good helpful chunk of information already I don't know... I am still slowly migrating all items to the antiX-Linux repo on github as I update something. if there is anything else that you would feel very important to aid in giving the user / tester much needed information I would be all ears because I am not good in the communication department.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38508" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38508">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38508">
+
+<time datetime="2014-12-12T12:10">posted: 2014-12-12 &nbsp; 12:10</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38508" title="permalink">#53</a></span>
+
+<div class="content">The following post should not be interpreted as derogatory of the distro or anyone connected with it. It is intended to highlight my general experiences and feelings, with the hope that they can be used in a constructive manner.<br>
+<br>
+For some years I have refrained from doing this, because it is too easy to casually misinterpret it and precipitate attack and defence postures. The door has now been opened by someone else, so...<br>
+<blockquote><div><cite>skidoo wrote:</cite>
+...user communication has been inconsistent, and dysfunctional.<br>
+<strong>Half</strong> the time, eliciting sufficient details from antix devs is like... like you're keeping a secret...<br>
+[...]<br>
+At this point, after investing a lot of time... I've grown really uncomfortable.<br>
+[...]<br>
+Either you're not hearing me, or are selectively ignoring...
+</div></blockquote>I was taken aback by how closely these correlate with my growing experience of antiX over recent years. It is now apparent that I am not alone in the view that there has been a reduction in the value of true consultation, collaboration, and cooperation, with a corresponding increase in the sense of dissatisfaction and disillusionment. I get the distinct impression that a conclave rather than a congress is the preferred arena for discussions and decisions. These were factors (amongst others) in my reluctance to place on Github any of the stuff I develop for antiX.<br>
+<blockquote><div><cite>Dave wrote:</cite>
+...I must say sorry to your frustrations, and admit that I have selectively ignored some of your...<br>
+[...]<br>
+...in one of my latest emails to anti I asked / stated if in one of the hosting places could a bug tracker be used?<br>
+[...]<br>
+...if there is anything else that you would feel very important to aid...
+</div></blockquote>A bug tracker (again) is a welcome idea. In my view it alone will not address the issues outlined above and in the previous post. Having a reporting mechanism/bug-tracking procedure is not a substitute for the core communication/discussion/decision problems. What is required is an attitudinal shift, away from a conclave towards a more collegiate way of operating. It will probably work best (i.e. give most reassurance) when there is evidence that demonstrates it has been adopted and consistently in use.<br>
+<br>
+None of the above is intended to undermine the role of <strong>anticapitalista</strong>. In lieu of a project manager it is entirely right and proper that the ultimate decisions remain with the project founder.<br>
+<br>
+It is evident that there is a willingness and ability to contribute to antiX. We should do everything to encourage active involvement rather than mere participation.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38509" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38509">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38509">
+
+<time datetime="2014-12-12T12:56">posted: 2014-12-12 &nbsp; 12:56</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38509" title="permalink">#54</a></span>
+
+<div class="content">Sorry Sam, reading your posts always does two things for me minimum... learn a problem / solution and secondly learn / improve my English.<br>
+<br>
+However I am not really sure what the difference is here
+<blockquote class="uncited"><div> <br>
+What is required is an attitudinal shift, away from a conclave towards a more collegiate way of operating. It will probably work best (i.e. give most reassurance) when there is evidence that demonstrates it has been adopted and consistently in use.
+</div></blockquote>
+As far as I can tell is that they are both meetings but the first is behind closed doors (private) while the second is with the door open (public) . I am going sure how to make this relate though.... should communication not be done via email? Or maybe this is a problem of documentation not being released with the code?<br>
+<br>
+I guess what I ask for is a few examples of actions that determines an attitude flip.<br>
+<br>
+Also I am interested in your reasons for not using github. For the longest time I was not to keen on it but like I say I have recently become more comfortable with it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38550" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38550">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38550">
+
+<time datetime="2014-12-14T10:11">posted: 2014-12-14 &nbsp; 10:11</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38550" title="permalink">#55</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>I guess what I ask for is a few examples of actions that determines an attitude flip.</div></blockquote><ul>
+<li>On multiple occasions private requests for information have not elicited a response nor even an acknowledgement</li>
+<li>On multiple occasions having agreed to collaborate on someone else's idea, all communication abruptly ceases with no indication why</li>
+<li>The result of a collaboration being perfunctorily discarded without any indication why</li>
+<li>Ongoing development decisions and refinements being made on the basis of a 64bit alpha release which automatically precludes feedback/opinion from the majority of the antiX user base.</li>
+<li>etc...</li></ul>
+Examples such as these create an environment that is conducive to frustration, and dissatisfaction, rather than encouragement, stimulation and involvement.<br>
+<blockquote><div><cite>Dave wrote:</cite>...I am not really sure...</div></blockquote>Neither term is intended to be seen as an absolute state. <br>
+<br>
+Upto now development has been (more-or-less) an isolated and individual activity to implement a (privately conceived) idea. At the end of the process each of the individual efforts have then been assembled into another alpha/beta/release of this remarkable distro.<br>
+<br>
+During the process, people contact each other, often on the basis of asking questions e.g. <em>any idea how I can do XXX?</em> in order to overcome something that is hampering their effort. It tends to be done privately; any discussion of the desirability/value of the idea tends to happen in this way.<br>
+<br>
+Looking forward from here, we might place the emphasis on sharing and discussing ideas at an earlier stage, in a more open manner, probably before any work is done to make it avilable within antiX. This does not imply the end of privately conceived ideas. It simply allows others to be aware of them and offer input.<br>
+<br>
+As you know, a while back, there was an unsuccessful attempt to introduce something along the above lines. It died at birth. Merely having a mechanism or facility is not a guarantee of its success. Unless personal behaviour changes, everything continues as before. This guarantees the failure of the new system. It can be successful only when each and every individual makes it work. To quote my previous post, this will only be achieved <em>when there is evidence that demonstrates it has been adopted and consistently in use.</em><br>
+<br>
+It is the commitment to, and evidence of ownership that are more important than the mechanism/means. <br>
+<br>
+It might be that change is perceived as unnecessary. After all the status quo has worked to date.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38551" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38551">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38551">
+
+<time datetime="2014-12-14T12:23">posted: 2014-12-14 &nbsp; 12:23</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38551" title="permalink">#56</a></span>
+
+<div class="content">I installed this via DVD to an HP DV9000 laptop that has a max resolution of 1440x900 nVidia and all went fine. I did a pretty much default install and there were no install problems.<br>
+<br>
+1. If I try to run synaptic from the menu nothing happens. I am able to launch it from a terminal via:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo synaptic</code></pre></div> <br>
+<br>
+2. I installed openbox and tint2 just to see if I could get it working</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38552" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38552">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38552">
+
+<time datetime="2014-12-14T13:50">posted: 2014-12-14 &nbsp; 13:50</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38552" title="permalink">#57</a></span>
+
+<div class="content">@Dave:<blockquote class="uncited"><div>Therefor in one of my latest emails to anti I asked / stated if in one of the hosting places could a bug tracker be used?</div></blockquote>We could look into duplicating MX Tracker for antiX use if that would suffice for your needs. The layout work is all done, so *all* that might be required would be to change the settings and login setup--might be a lot fo work, might be a little. PM me here or on the MX forum if interested.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38555" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile38555">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38555">
+
+<time datetime="2014-12-14T15:09">posted: 2014-12-14 &nbsp; 15:09</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38555" title="permalink">#58</a></span>
+
+<div class="content"><blockquote><div><cite>thriftee wrote:</cite>2. I installed openbox and tint2 just to see if I could get it working</div></blockquote>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://obmenu.sourceforge.net/index.html"<br>linktext was:"http://obmenu.sourceforge.net/index.html"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38557" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38557">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38557">
+
+<time datetime="2014-12-14T15:21">posted: 2014-12-14 &nbsp; 15:21</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38557" title="permalink">#59</a></span>
+
+<div class="content"><blockquote><div><cite>male wrote:</cite><blockquote><div><cite>thriftee wrote:</cite>2. I installed openbox and tint2 just to see if I could get it working</div></blockquote>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://obmenu.sourceforge.net/index.html"<br>linktext was:"http://obmenu.sourceforge.net/index.html"<br>====================================<br>
+</div></blockquote>
+Yes, thanks. I have also installed obmenu on another system and maybe I wasn't doing something right, but it didn't let me edit well enough, so at that point I edited by hand. I can try it here to see if it works better.<br>
+<br>
+I do have openbox running, but the menu needs to be antiX'd, lol<br>
+<br>
+BTW, Dave started another thread on Openbox, so it might be best to discuss that there rather than here?<br>
+<br>
+search-and-request-for-openbox-t5411.html</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38578" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38578">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38578">
+
+<time datetime="2014-12-15T22:57">posted: 2014-12-15 &nbsp; 22:57</time>
+<span class="permalink"><a href="./antix-14-a3-2-mini-release-testers-needed-t5381-s45.html#p38578" title="permalink">#60</a></span>
+
+<div class="content">On my HP DV9700 laptop running the RV Killah, gparted won't run and gets a segmentation fault. I also tried it from a terminal as root and it didn't work there either.<br>
+<br>
+Another oddity is that synaptic isn't on the menu, but it does run.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+63 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s30.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-14-a3-2-mini-release-testers-needed-t5381.html" role="button">1</a></li>
+<li><a class="button" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s15.html" role="button">2</a></li>
+<li><a class="button" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s30.html" role="button">3</a></li>
+<li class="active"><span>4</span></li>
+<li><a class="button" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s60.html" role="button">5</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-14-a3-2-mini-release-testers-needed-t5381-s60.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

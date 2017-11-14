@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Exit dialog - keep or change? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./exit-dialog-keep-or-change-t3614.html">Exit dialog - keep or change?</a></div>
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_23908" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23908">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23908">
+<time datetime="2012-03-10T21:16">posted: 2012-03-10 &nbsp; 21:16</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p23908" title="permalink">#1</a></span>
+
+<div class="content">The logout dialog box we have is fine, it works well, but I'm thinking of replacing it with the one shown in the screenshot.<br>
+<br>
+Here is the code.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#! /bin/bash
+# Exit dialogue box for antiX. 
+# Name: exitantix Make it executable and put in /usr/local/bin
+
+action=$(yad --width 300 --entry --title"System Logout" \
+    --image=gnome-shutdown \
+    --button="gtk-ok:0" --button="gtk-close:1" \
+    --text"Choose action:" \
+    --entry-text \
+   "Power Off""Reboot""Suspend""Hibernate""Logout""Lock Screen")
+case $action in
+    Power*) cmd="shutdown.sh" ;;
+    Reboot*) cmd="reboot.sh" ;;
+    Suspend*) cmd="antixsuspend.sh" ;;
+    Hibernate*) cmd="antixhibernate.sh" ;;
+    Lock*) cmd="xlock" ;;
+    Logout*) cmd="logouthelper.sh" ;;
+    *) exit 1 ;;        
+esac
+
+eval exec $cmd
+</code></pre></div>
+It uses yad and no gtkdialog. It should also be easy to internationalise.<br>
+<br>
+Comments welcome.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23909" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23909">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23909">
+
+<time datetime="2012-03-10T21:57">posted: 2012-03-10 &nbsp; 21:57</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p23909" title="permalink">#2</a></span>
+
+<div class="content">Seems to work well. I personally prefer the buttons on the original vs. the drop down box on the new one.</div>
+</div>
+</div>
+<div class="back2top">
+ </div>
+</div>
+</div>
+<div id="p_23913" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23913">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23913">
+
+<time datetime="2012-03-11T09:23">posted: 2012-03-11 &nbsp; 09:23</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p23913" title="permalink">#3</a></span>
+
+<div class="content">i'm for the original. it's easier on the eye and matches antixcc. but everybody with their opinion.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23919" class="post has-profile bg1">
+<div class="inner">
+ <dl class="postprofile" id="profile23919">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23919">
+
+<time datetime="2012-03-11T21:09">posted: 2012-03-11 &nbsp; 21:09</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p23919" title="permalink">#4</a></span>
+
+<div class="content">I would prefer the older one as well, all the options are at one click while in the new one it can take 1-3 clicks. <br>
+I really like oblogout, and have used it with antix before. The only problem I have found with it is that when using multiple screens it will center across all of them</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23920" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23920">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 173</span></div>
+
+</div>
+</div>
+<span class="username">DeepDayze</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23920">
+
+<time datetime="2012-03-11T22:39">posted: 2012-03-11 &nbsp; 22:39</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p23920" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>I would prefer the older one as well, all the options are at one click while in the new one it can take 1-3 clicks. <br>
+I really like oblogout, and have used it with antix before. The only problem I have found with it is that when using multiple screens it will center across all of them</div></blockquote>
+Sounds like a bug in oblogout then, as it should ideally appear only on what is Screen 1.</div>
+</div>
+</div>
+
+</div>
+</div>
+ <div id="p_23931" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23931">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23931">
+
+<time datetime="2012-03-12T12:28">posted: 2012-03-12 &nbsp; 12:28</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p23931" title="permalink">#6</a></span>
+
+<div class="content">Your Distro. Translation. My Bike. My Looks and ride and feel.<br>
+<br>
+I'll live with what ever comes out. If I don't likey. That is what customising is for. <br>
+<br>
+My comment is based on.<br>
+<blockquote class="uncited"><div>It should also be easy to internationalise.</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23937" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23937">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 903</span></div>
+
+</div>
+</div>
+<span class="username">plvera</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23937">
+
+<time datetime="2012-03-13T01:56">posted: 2012-03-13 &nbsp; 01:56</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p23937" title="permalink">#7</a></span>
+
+<div class="content">I vote for the new one.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24064" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24064">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">swiftlinuxcreator</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24064">
+
+<time datetime="2012-03-28T16:59">posted: 2012-03-28 &nbsp; 16:59</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p24064" title="permalink">#8</a></span>
+
+<div class="content">I just found out that the Debian repository no longer has the i386 package for gtkdialog. It turns out that nobody stepped forward to continue maintaining it.<br>
+<br>
+Thus, I'm turning to PyGTK, as using the antiX Linux gtkdialog scripts is not a viable option for the new Mint-based Swift Linux I'm working on. There's an example of a PyGTK dialog box with buttons and actions at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://en.wikibooks.org/wiki/PyGTK_For_GUI_Programming/Signals"<br>linktext was:"http://en.wikibooks.org/wiki/PyGTK_For_ ... ng/Signals"<br>====================================<br>
+ .<br>
+<br>
+The advantages of PyGTK:<br>
+1. It will certainly be supported, because it's part of Python.<br>
+2. Python is already included with antiX Linux and Linux Mint, so relying on PyGTK doesn't require using precious MB.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24088" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24088">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 112</span></div>
+
+</div>
+</div>
+<span class="username">chrishall57</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Apr 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24088">
+
+<time datetime="2012-03-29T20:31">posted: 2012-03-29 &nbsp; 20:31</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p24088" title="permalink">#9</a></span>
+
+<div class="content">Another vote for the existing exit box.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24116" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24116">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 128</span></div>
+
+</div>
+</div>
+<span class="username">Hannes Worst</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24116">
+
+<time datetime="2012-03-30T17:07">posted: 2012-03-30 &nbsp; 17:07</time>
+<span class="permalink"><a href="./exit-dialog-keep-or-change-t3614.html#p24116" title="permalink">#10</a></span>
+
+<div class="content">Anti, the script of your suggested logout dialog box is indeed easier to adjust, but the existing one is more visually appealing.</div>
+</div>
+</div>
+
+</div>
+</div>
+ 
+
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

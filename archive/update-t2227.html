@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Update - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./other-languages-f29/index.html"><span>Other Languages</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./portuguese-f32/index.html"><span>Portuguese</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./update-t2227.html">Update</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_14525" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile14525">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">sbispo</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Feb 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content14525">
+<time datetime="2010-02-07T18:23">posted: 2010-02-07 &nbsp; 18:23</time>
+<span class="permalink"><a href="./update-t2227.html#p14525" title="permalink">#1</a></span>
+
+<div class="content">Olá pessoal, boa tarde.<br>
+<br>
+Gostaria de ajuda no seguinte sentido: tenho o Antix-8.2 instalado em meu laptop HP DV6449US; até ai, tudo bem. O problema se inicia quando tento fazer a atualização da distro como um todo. Já tentei via Synaptic, e também via linha de comando, e sempre informações de que os arquivos não foram encontrados, ou não são mais suportados.<br>
+Entendo que tenho que modificar o arquivo /etc/sources.list<br>
+Mas, justamente, alguém poderia me dizer como, ou me indicar um link, onde haja a explicação detalhada de como fazer isto, desde o principio?<br>
+<br>
+Grato pela atenção.<br>
+<br>
+sbispo</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_14533" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile14533">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content14533">
+
+<time datetime="2010-02-08T11:30">posted: 2010-02-08 &nbsp; 11:30</time>
+<span class="permalink"><a href="./update-t2227.html#p14533" title="permalink">#2</a></span>
+
+<div class="content">Caro sbispo, o Synaptic se usa para instalar ou remover programas mas não para a atualização do sistema como um todo. Não me pergunte o porquê mas é talvez por ter sido criado com esta finalidade.<br>
+Para a atualização do sistema convém utilizar diretamente o apt-get pela linha de comando. Antes de tudo é preciso executar 'apt-get update' como root para que a base de dados dos repositórios seja atualizada.<br>
+Em seguida usa-se o comando 'apt-get dist-upgrade'.<br>
+<br>
+Há alguns problemas que vc encontrará na atualização pelo fato de o antiX 8.2 já ter sido lançado há algum tempo.<br>
+Antes de atualizar faça a seguinte modificação:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>gksu leafpad /etc/apt/apt.conf</code></pre></div>
+será pedida a senha de root. Altere a linha seguinte de 20... para 40...
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>APT::Cache-Limit 40000000;</code></pre></div>
+Isto é porque há muitas atualizações e é preciso aumentar o cache do apt.<br>
+Durante o processo você encontrará um erro para a atualização dos pacotes firmware-linux, para resolvê-lo force a instalação dos mesmos com
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg -i --force-overwrite /var/cache/apt/archives/firmware-linux-nonfree*.deb</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get -f install</code></pre></div>
+O mais simples para a manutenção do sistema é usar o comando 'smxi'. Ele por padrão usa 'apt-get dist-upgrade' para atualizar o sistema e também pode ser usado para a instalação de drivers de vídeo (se for o caso), kernels e outras coisas mais. Há uma postagem aqui na seção em português sobre ele.<br>
+<br>
+Anexo há um arquivo html com algumas perguntas frequentes para o antiX.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

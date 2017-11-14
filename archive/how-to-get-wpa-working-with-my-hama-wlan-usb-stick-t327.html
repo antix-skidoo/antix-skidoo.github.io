@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How to get WPA working with my HAMA Wlan USB Stick? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html">How to get WPA working with my HAMA Wlan USB Stick?</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_1688" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile1688">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1</span></div>
+
+</div>
+</div>
+<span class="username">imho74</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1688">
+<time datetime="2007-12-30T17:35">posted: 2007-12-30 &nbsp; 17:35</time>
+<span class="permalink"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html#p1688" title="permalink">#1</a></span>
+
+<div class="content">Hi all,<br>
+<br>
+I am new to antiX. Before it I used Debian Lenny on on my Tecra 8000. With Lenny my HAMA USB WLAN stick with RT73 chipset worked very well. Also WPA encryption was no problem.<br>
+<br>
+Now with antiX-M7 Lysistrata the stick works too but I cannot connect with WPA encryption to the router.<br>
+<br>
+In"Admin/Tools -&gt; Mepis Admin -&gt; Network" I have filled in MYSSID and my WPA passphrase with and without quotation marks. I have rebooted the laptop but it won't work.<br>
+<br>
+This is my /etc/network/interfaces:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#mapping hotplug
+#script echo
+
+auto lo
+iface lo inet loopback
+
+# DO NOT EDIT BELOW THIS LINE
+auto eth0
+allow-hotplug eth0
+iface eth0 inet dhcp
+  address 192.168.79.1
+  netmask 255.255.255.0
+  broadcast 192.168.79.255
+  gateway 192.168.79.1
+#auto eth1
+allow-hotplug eth1
+iface eth1 inet dhcp
+  address 192.168.79.1
+  netmask 255.255.255.0
+  broadcast 192.168.79.255
+  gateway 192.168.79.1
+#auto eth2
+allow-hotplug eth2
+iface eth2 inet dhcp
+  address 192.168.79.1
+  netmask 255.255.255.0
+  broadcast 192.168.79.255
+  gateway 192.168.79.1
+#auto ath0
+allow-hotplug ath0
+iface ath0 inet dhcp
+  address 192.168.79.1
+  netmask 255.255.255.0
+  broadcast 192.168.79.255
+  gateway 192.168.79.1
+#auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+  address 192.168.79.1
+  netmask 255.255.255.0
+  broadcast 192.168.79.255
+  gateway 192.168.79.1
+#auto ra0
+allow-hotplug ra0
+iface ra0 inet dhcp
+  address 192.168.79.1
+  netmask 255.255.255.0
+  broadcast 192.168.79.255
+  gateway 192.168.79.1
+#auto rausb0
+allow-hotplug rausb0
+iface rausb0 inet dhcp
+  address 192.168.79.1
+  netmask 255.255.255.0
+  broadcast 192.168.79.255
+  gateway 192.168.79.1
+#auto wifi0
+allow-hotplug wifi0
+iface wifi0 inet dhcp
+  address 192.168.79.1
+  netmask 255.255.255.0
+  broadcast 192.168.79.255
+  gateway 192.168.79.1
+# DO NOT EDIT ABOVE THIS LINE</code></pre></div>
+This is the output of iwconfig:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># iwconfig
+lo        no wireless extensions.
+
+irda0     no wireless extensions.
+
+eth0      no wireless extensions.
+
+wlan0     RT73 WLAN  ESSID:""  
+          Mode:Managed  Frequency=2.412 GHz  Bit Rate=54 Mb/s   
+          RTS thr:off   Fragment thr:off
+          Encryption key:off
+          Link Quality=0/100  Signal level:-86 dBm  Noise level:-115 dBm
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+</code></pre></div>
+And this says dhclient:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dhclient wlan0
+Internet Systems Consortium DHCP Client V3.0.6
+Copyright 2004-2007 Internet Systems Consortium.
+All rights reserved.
+For info, please visit http://www.isc.org/sw/dhcp/
+
+Listening on LPF/wlan0/00:0e:2e:dc:24:e4
+Sending on   LPF/wlan0/00:0e:2e:dc:24:e4
+Sending on   Socket/fallback
+DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 4
+DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 11
+DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 8
+DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 9
+DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 7
+DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 13
+DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 8
+DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 1
+No DHCPOFFERS received.
+No working leases in persistent database - sleeping.</code></pre></div>
+Any further ideas?<br>
+<br>
+BTW: I am glad that I have changed to antiX despite this problem. The other things works fantastic. It is really the perfect Distro for this old piece of hardware. I think I will fix the problem with the WPA encryption sooner or later. But I hope with your help it will be sooner. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Regards,<br>
+Christian</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1689" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile1689">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1689">
+
+<time datetime="2007-12-30T18:36">posted: 2007-12-30 &nbsp; 18:36</time>
+<span class="permalink"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html#p1689" title="permalink">#2</a></span>
+
+<div class="content">Try to set it up again with mepis network. This time make sure to hit"apply" after every change or entry. It can be fussy but the chip is recognized and should work.<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_1692" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile1692">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content1692">
+
+<time datetime="2007-12-30T19:08">posted: 2007-12-30 &nbsp; 19:08</time>
+<span class="permalink"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html#p1692" title="permalink">#3</a></span>
+
+<div class="content">Follow eriefisher's advice and it should work. If it doesn't then I'm sure others will be able to get it to work.<br>
+<br>
+And welcome to antiX!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16207" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16207">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">handheldcar</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jun 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16207">
+
+<time datetime="2010-06-18T23:31">posted: 2010-06-18 &nbsp; 23:31</time>
+<span class="permalink"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html#p16207" title="permalink">#4</a></span>
+
+<div class="content">Hello, I'm not finding a solution to my problem, so I'll post here. From the live CD, I can't select WPA to get on the Web.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16208" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16208">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16208">
+
+<time datetime="2010-06-19T00:46">posted: 2010-06-19 &nbsp; 00:46</time>
+<span class="permalink"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html#p16208" title="permalink">#5</a></span>
+
+<div class="content">This looks like your first post so.....<br>
+<br>
+This thread is old and about the RT73, is this what you have.<br>
+<br>
+What have you done to get this device to work?<br>
+<br>
+antix has wicd and ceni for net connections have you tried either?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16209" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16209">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">handheldcar</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jun 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16209">
+
+<time datetime="2010-06-19T04:34">posted: 2010-06-19 &nbsp; 04:34</time>
+<span class="permalink"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html#p16209" title="permalink">#6</a></span>
+
+<div class="content">sorry about that. I overlooked the date. This was the more relevant out of two threads. Do you want me to start another thread?<br>
+<br>
+Yes, I tried both. I clicked on the wrench and screwdriver icon that opened up the Control Center and clicked on the Network tab. rutlit was the app I was describing. It still doesn't see my wireless as wpa. It sees is as WEP.<br>
+<br>
+I tried ceni, and it has eth0 wireless which is configured. (it wants to configure something) I tried to configure wpa-mappings and selected the wpa file, but it was also configured already. ("No logical interfaces to be mapped") There were two other files that gave the same results.<br>
+<br>
+Wicd doesn't detect wireless networks. Do you need more details? I'm typing off the top of my head, remembering what I just did instead of going through everything for a third time, but I don't mind doing that if you need more details.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16214" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16214">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16214">
+
+<time datetime="2010-06-19T12:39">posted: 2010-06-19 &nbsp; 12:39</time>
+<span class="permalink"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html#p16214" title="permalink">#7</a></span>
+
+<div class="content">I don't have wireless but we hear sometimes changing from dhcpcd to dhclient in wicd's preferences makes it start to work.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16215" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16215">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">handheldcar</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jun 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16215">
+
+<time datetime="2010-06-19T13:22">posted: 2010-06-19 &nbsp; 13:22</time>
+<span class="permalink"><a href="./how-to-get-wpa-working-with-my-hama-wlan-usb-stick-t327.html#p16215" title="permalink">#8</a></span>
+
+<div class="content">That was close. On the first tab, I noticed that the wired interface was eth0 and that the wireless interface was blank, so since eth0 was showing up as wireless in ceni, I cut and pasted; and it worked. Thanks</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

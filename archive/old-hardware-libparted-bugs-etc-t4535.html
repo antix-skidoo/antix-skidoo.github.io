@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Old hardware, libparted bugs, etc. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./old-hardware-libparted-bugs-etc-t4535.html">Old hardware, libparted bugs, etc.</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_30637" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30637">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30637">
+<time datetime="2013-08-09T11:02">posted: 2013-08-09 &nbsp; 11:02</time>
+<span class="permalink"><a href="./old-hardware-libparted-bugs-etc-t4535.html#p30637" title="permalink">#1</a></span>
+
+<div class="content">I've been trying to get antiX 13.1"base" installed on my laptop -- for about the past week or more. This is complicated by the fact that the laptop is at the lower end of the antiX hardware specs; it's a fifteen year old Pentium II, 300 MHz, with 192 MiB RAM and a 4 GiB hard disk. In fact, using PLOP Boot Manager, I can get the laptop to boot to antiX on USB, at least part of the time (only from a cold start, and then only if I haven't had a system crash -- those seem to sometimes render the LiveUSB unbootable). It'll also boot from CD, but that old CD-ROM drive is so slow it literally takes close to a half hour to get into fluxbox.<br>
+<br>
+Where the major fight has come in is in trying to get a backup of the Win98 (system and data) off the machine before wiping it all to install antiX: every attempt I've made so far to get either an image backup or a file-by-file copy with grsync has ended in a crash, causing an incomplete backup and a write protected USB stick (formatted FAT32 in order to make the contents accessible to the other Win98 install on my secondary desktop, if the two FATs don't match, Linux will refuse to write it and fsck can't/won't fix it). Further, one abortive attempt to partition (when I thought I had a good backup, first time I tried to use grsync) revealed a bug in libparted that prevents both gparted and fdisk (at least as found on the antiX CD) from being able to partition the HDD (gparted won't even run; it crashes when it tries to scan the hard disk partitions, I suspect because they're FAT16 -- gparted runs from the LiveCD, LiveUSB, and installed on both my desktop systems).<br>
+<br>
+I'd use Parted Magic to get the backup, but it won't boot on the laptop -- not enough RAM (it apparently won't run in less than 256 MiB). I can probably get a Clonezilla LiveCD to run on it, but there are really only a few folders I want to save out of the nearly 3 GiB of system/software/data on the laptop's HDD, and an rsync type backup would be preferred; I have a USB stick to receive the backup that's four times the size of the HDD.<br>
+<br>
+So, is there a way to trace down what's causing the rsync to fail and correct it?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30639" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30639">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30639">
+
+<time datetime="2013-08-09T11:19">posted: 2013-08-09 &nbsp; 11:19</time>
+<span class="permalink"><a href="./old-hardware-libparted-bugs-etc-t4535.html#p30639" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>then only if I haven't had a system crash -- those seem to sometimes render the LiveUSB unbootable</div></blockquote>
+Pendrives hate hard shutdowns. It unmounts them improperly and makes them unbootable.<br>
+<blockquote class="uncited"><div>Where the major fight has come in is in trying to get a backup of the Win98 (system and data) off the machine before wiping it all to install antiX: every attempt I've made so far to get either an image backup or a file-by-file copy with grsync has ended in a crash</div></blockquote>
+Hmmm. I don't know if low specs or media being written to is causing this. How are you backing up Windows 98. Something I did once long ago. I have since erased that sd card.<br>
+<br>
+post16991.html#p16991<br>
+<br>
+Basically I used a gui version of the"dd" command to make of byte by byte copy of Windows XP to a external SD card. It would boot even into XP also. <br>
+I trashed it though because Windows XP ran slow on that netbook and if I ever sold it. I would install XP lite instead which is available on the net anyways.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30658" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30658">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+ <span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30658">
+
+<time datetime="2013-08-09T18:31">posted: 2013-08-09 &nbsp; 18:31</time>
+<span class="permalink"><a href="./old-hardware-libparted-bugs-etc-t4535.html#p30658" title="permalink">#3</a></span>
+
+<div class="content">I think your main problem is lack of ram. Try either copying out the files you want, one or two at a time, or try using SliTaz live cd, it uses very little in the way of ram. (Puppy is another.)<br>
+<br>
+Have you tried getting a backup of your data using W98 ?<br>
+<br>
+How many files, MB are you trying to get backed up ?<br>
+<br>
+If you are trying to get a copy of W98, including your data, the only way may be to use 'tar' to back up the disk to a 'file', which can be accessed to gain files from within. If you need to copy the MBR, use 'dd if=&lt;your drive&gt; of=&lt;your file&gt; bs=512 count=1' from a command line/terminal.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30672" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30672">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 18</span></div>
+
+</div>
+</div>
+<span class="username">Tom</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Jul 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30672">
+
+<time datetime="2013-08-10T11:37">posted: 2013-08-10 &nbsp; 11:37</time>
+<span class="permalink"><a href="./old-hardware-libparted-bugs-etc-t4535.html#p30672" title="permalink">#4</a></span>
+
+<div class="content">I use antix with 96MB ram, but have 512MB swap. Do you have swap enabled?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30684" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30684">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30684">
+
+<time datetime="2013-08-11T01:27">posted: 2013-08-11 &nbsp; 01:27</time>
+<span class="permalink"><a href="./old-hardware-libparted-bugs-etc-t4535.html#p30684" title="permalink">#5</a></span>
+
+<div class="content">This is probably moot at this point; it occurred to me that the libparted bug wasn't occurring when I tried the same operations, live or installed, on my secondary desktop system (albeit six or seven years newer hardware), and the only thing unique to the laptop (that I can do anything about) is the FAT16 file system. The obvious step was to convert the drives to FAT32 using the converter built into Win98. I was successful, first try, with the two smaller partitions (~1 GiB each). The larger partition (about 2 GiB and more than 90% full) gave an error, complaining of too little RAM to convert, so I moved a couple hundred MiB of files to one of the other partitions temporarily, converted, and was in process of moving the files back when I started getting errors -- a blue screen complaining of inability to write to HD0 and warning that files or data might be lost; and then an extremely slow transfer rate (ten minutes or so on a file that should have taken a few seconds), presumably because of needing many retries for each transferred block. Eventually, I killed the transfer, and then couldn't even get the system to shut down (HDD light was on continuously); after ten minutes more I used the power button, figuring I'd probably lose one or two of the thousands of unimportant files and be very unlikely to damage one of the few dozen I actually cared about). Afterward, the system wouldn't recognize the HDD during startup (though it would still correctly read out the number of head, sectors, and cylinders in BIOS setup), and wouldn't boot with the PLOP Boot Manager/LiveUSB antiX combination I'd been using until I <em>physically disconnected</em> the HDD; I can only conclude that either the 1998 vintage hard disk finally couldn't stand the stress of three partition conversions, accompanying defragments, and moving a big chunk of data a couple times, or shutting down with a rogue transfer process still running damaged the MBR and/or FAT on the boot partition badly enough to prevent booting even to another OS (this last just occurred to me, I may try reinstalling the HDD and seeing if I can boot the Win98 CD and repair the MBR -- should only take a half hour or so).<br>
+<br>
+But, for whatever it's worth...<br>
+<br>
+No, I don't have a swap while running Live; that only works (as far as I've been able to tell) if I have a Linux swap partition already present, and partitioning wasn't working due to a reported libparted bug (else I could easily have shrunk one of the smaller partitions enough to give a 192 MiB or so swap partition, if I'd though it would matter).<br>
+<br>
+I had considered trying to backup from Win98, but Win98 doesn't recognize USB storage devices natively, and I'd never been able to afford a thumb drive until long after Win98 was obsolete and that machine was running only as a bedside stereo, so had never installed the USB storage driver -- and it wasn't connected to my network for the past several years, because Win98 wasn't safe to use on the Internet since about 2005. The only way I'd have been able to get a backup from the Win98 install would have been to connect the laptop to the network, reboot my main desktop system into WinXP (to offer shares, since I've never been able to get Samba to share with a Windows system) and backup through the network -- a many-hour process even with 100 Mbps, since peer-to-peer networking never comes close to the network's actual speed (in my experience). I was just about to try the file-by-file method from Live antiX if the FAT32 conversion didn't fix grsync and/or the antiX partition image utility (which, I believe, uses dd -- works pretty much the same as Clonezilla, except a little less user friendly, but does at least run in 192 MiB RAM until it crashes).<br>
+<br>
+When/if I get the"new" hard disk I'm bidding on (a Toshiba 40 GiB, the smallest/cheapest I could find on eBay, and according to its label, compatible heads/sectors geometry and probably compatible number of cylinders with the laptop's BIOS, despite 10x capacity -- and two similar ones that end over the few days following the one I've got the bid on, for similar price and even less shipping), assuming it works with the laptop, this will all be a moot point; I'll install antiX fresh to the new HDD with separate swap and the only question will be whether antiX can recognize the laptop's sound hardware.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

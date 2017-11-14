@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>EEEPC 701SD AntiX 13 RC1 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./eeepc-701sd-antix-13-rc1-t4336.html">EEEPC 701SD AntiX 13 RC1</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_29234" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29234">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29234">
+<time datetime="2013-05-24T20:40">posted: 2013-05-24 &nbsp; 20:40</time>
+<span class="permalink"><a href="./eeepc-701sd-antix-13-rc1-t4336.html#p29234" title="permalink">#1</a></span>
+
+<div class="content">Just posting some weird bugs and adventures.<br>
+<br>
+I broke my 8.5 install during dist-upgrade with a <br>
+<blockquote class="uncited"><div> (gtk-update-icon-cache-3.0:3113): GdkPixbuf-WARNING **: Cannot open pixbuf loader module file '/usr/lib/i386-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache': No such file or directory<br>
+<br>
+This likely means that your installation is broken.<br>
+Try running the command<br>
+gdk-pixbuf-query-loaders &gt; /usr/lib/i386-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache<br>
+to make things work again for the time being..</div></blockquote>
+I tried fixing it but no success.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#  gdk-pixbuf-query-loaders &gt; /usr/lib/i386-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache
+#gdk-pixbuf-query-loaders command not found</code></pre></div> <br>
+<br>
+So I broke out my backup 8gig SD card and booted up live AntiX 13 rc1 pendrive and copied what I wanted to keep. Ran the installer. Pendrive saw internal ssd drive as sdb so grub install would not boot. Since on reboot. Kernel sits on sda. I used blkid and UUID to fix via live usb boot again. <br>
+<br>
+Sooooo. I used Sid repos when I installed and did a apt-get update &amp;&amp; apt-get dist-upgrade. It bit me in the ass with the same pixbuf problem as the 8.5 install gave me (I was on testing repos in 8.5). Sooooo. Reinstall again and set repos to wheezy. Reset /boot/grub/menu.lst to <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiX at sda, kernel 3.6.11-antix.1-486-smp
+kernel /boot/vmlinuz-3.6.11-antix.1-486-smp root=UUID=a1e22662-f813-43bb-a587-1266f6dcc816 quiet
+initrd /boot/initrd.img-3.6.11-antix.1-486-smp
+boot</code></pre></div>
+from unbootable (dropped to intrafms command prompt) <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title antiX at sdb1, kernel 3.6.11-antix.1-486-smp
+kernel /boot/vmlinuz-3.6.11-antix.1-486-smp root=/dev/sdb1  quiet
+initrd /boot/initrd.img-3.6.11-antix.1-486-smp
+boot
+</code></pre></div>
+ran apt-get update, tried installing newest iceweasel from meta-package installer.<br>
+Sheesh. Experimental Iceweasel and Debian wheezy repos don't mix i guess because that failed also with needs later xulrunner and such but it is not going to be installed. <br>
+<br>
+Anyhows. I got a <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxz
+System:    Host: scooter Kernel: 3.6.11-antix.1-486-smp i686 (32 bit, gcc: 4.7.2) 
+           Desktop: IceWM 1.3.7 Distro: antiX-13-rc1_386-full Luddite 4 May 2013
+Machine:   System: ASUSTeK product: 701SD version: 0303
+           Mobo: ASUSTeK model: 701SD version: x.xx Bios: American Megatrends version: 0303 date: 07/23/2008
+CPU:       Single core Intel Celeron M (-UP-) cache: 512 KB flags: (nx pae sse sse2) bmips: 1795.39 clocked at 897.695 MHz 
+Graphics:  Card: Intel Mobile 915GM/GMS/910GML Express Graphics Controller bus-ID: 00:02.0 
+           X.Org: 1.12.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 800x480@60.0hz 
+           GLX Renderer: N/A GLX Version: N/A Direct Rendering: N/A
+Audio:     Card: Intel 82801FB/FBM/FR/FW/FRW (ICH6 Family) High Definition Audio Controller 
+           driver: snd_hda_intel bus-ID: 00:1b.0 
+           Sound: Advanced Linux Sound Architecture ver: 1.0.25
+Network:   Card-1: Realtek RTL8187SE Wireless LAN Controller driver: r8180 port: d800 bus-ID: 01:00.0
+           IF: wlan0 state: up mac: &lt;filter&gt;
+           Card-2: Atheros AR8121/AR8113/AR8114 Gigabit or Fast Ethernet driver: ATL1E port: ec00 bus-ID: 03:00.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 8.1GB (-) 1: id: /dev/sda model: ASUS size: 8.1GB 
+Partition: ID: / size: 7.4G used: 2.6G (36%) fs: ext2 
+Sensors:   System Temperatures: cpu: 53.0C mobo: N/A 
+           Fan Speeds (in rpm): cpu: 1390 
+Info:      Processes: 83 Uptime: 48 min Memory: 218.2/1000.3MB Runlevel: 5 Gcc sys: 4.7.2 
+           Client: Shell (bash 4.2.37) inxi: 1.9.6 </code></pre></div>
+working install going on this eeepc 701SD with working wireless wpa encrypted and am going to treat this with kid gloves till I figure out why pixbuf or maybe gdk is killing installs.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29235" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29235">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29235">
+
+<time datetime="2013-05-24T20:52">posted: 2013-05-24 &nbsp; 20:52</time>
+<span class="permalink"><a href="./eeepc-701sd-antix-13-rc1-t4336.html#p29235" title="permalink">#2</a></span>
+
+<div class="content">Active repos in this install<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -r
+Repos:     Active apt sources in file: /etc/apt/sources.list.d/antix.list
+           deb http://www.daveserver.info/antiX/debs testing main
+           Active apt sources in file: /etc/apt/sources.list.d/debian.list
+           deb http://ftp.us.debian.org/debian/ wheezy main contrib non-free
+           deb http://security.debian.org/ wheezy/updates main contrib non-free
+           Active apt sources in file: /etc/apt/sources.list.d/various.list
+           deb http://mozilla.debian.net/ experimental iceweasel-beta
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29237" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29237">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29237">
+
+<time datetime="2013-05-24T21:39">posted: 2013-05-24 &nbsp; 21:39</time>
+<span class="permalink"><a href="./eeepc-701sd-antix-13-rc1-t4336.html#p29237" title="permalink">#3</a></span>
+
+<div class="content">x86_64-linux-gnu is for 64bit and antiX-8.5 is 32 bit. No idea why that is happening.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29239" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29239">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29239">
+
+<time datetime="2013-05-24T22:24">posted: 2013-05-24 &nbsp; 22:24</time>
+<span class="permalink"><a href="./eeepc-701sd-antix-13-rc1-t4336.html#p29239" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>x86_64-linux-gnu is for 64bit and antiX-8.5 is 32 bit. No idea why that is happening.</div></blockquote>
+I can see how I confused you Anti. I lost the errors on my reinstall (forgot to copy) so borrowed the message frm Ubuntu forums and their error was on a 64bit install.<br>
+<br>
+This eeepc can only handle i686/i386 so the error was a i386 error not x86_64.<br>
+<br>
+Sorry bro. I can be a clutz sometimes. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

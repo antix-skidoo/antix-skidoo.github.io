@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>HD controller support missing in initrd.img ? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-intifada-f28/index.html"><span>antiX-M8 Intifada!</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./hd-controller-support-missing-in-initrd-img-t1670.html">HD controller support missing in initrd.img ?</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_10518" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10518">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">koinsky67</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Apr 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10518">
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10518/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-30T15:54">posted: 2009-04-30 &nbsp; 15:54</time>
+<span class="permalink"><a href="./hd-controller-support-missing-in-initrd-img-t1670.html#p10518" title="permalink">#1</a></span>
+
+<div class="content">Hello!<br>
+<br>
+I've installed antiX-M8 on an old laptop (ACER Travelmate 202T) without network connection by cloning a HD partition from a desktop PC where I had an up-to-date system (originally antiX-M7.5, later upgraded to antiX-M8).<br>
+<br>
+The kernel can't access the root filesystem (ext3); the error message is:<br>
+<br>
+kernel panic - not syncing : VFS : unable to mount root fs on unknown-block (0,0)<br>
+<br>
+I guess the cause is missing support for the HD controller in initrd.img?<br>
+<br>
+Desktop: chipset = VIA Apollo Pro 133<br>
+Laptop: chipset = ALi M1621 / M1535<br>
+<br>
+I don't think this matters but anyway...<br>
+The HD on the desktop PC is a 20GB Seagate (parallel IDE/ATA);<br>
+the only thing I know about the laptop HD is its size: 5GB. <br>
+---------------<br>
+<br>
+(Assuming I'm right about the cause of the problem) my question is:<br>
+What's the easiest way to create a suitable initrd.img for the laptop?<br>
+<br>
+Can I just boot from any liveCD (I've been using grml-2008.11), mount<br>
+the root partition (eg. on /mnt/sda1) and run mkinitrd with suitable<br>
+options, ie. [-d confdir] [-r root] -o /mnt/sda1/boot/mkinitrd.img?<br>
+<br>
+Should I use: -d /mnt/sda1/etc/mkinitrd OR &lt;default&gt;<br>
+-r /dev/sda1<br>
+<br>
+Should I add whatever module is required by"ALi M1621" (WHICH?) to<br>
+/mnt/sda1/etc/mkinitrd/modules beforehand? Or is it better to replace the laptop's /etc/mkinitrd/modules and /etc/mkinitrd/mkinitrd.conf with those from the liveCD?<br>
+<br>
+OR can I just chroot to /mnt/sda1 and re-install the kernel (using a previously downloaded kernel package, via pendrive) as this will recreate initrd.img?<br>
+<br>
+Thanks for any help!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10520" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10520">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10520">
+
+<ul class="post-buttons">
+ <li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10520/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-30T17:10">posted: 2009-04-30 &nbsp; 17:10</time>
+<span class="permalink"><a href="./hd-controller-support-missing-in-initrd-img-t1670.html#p10520" title="permalink">#2</a></span>
+
+<div class="content">Before you do all that, usually a kernel panic with that error message can be resolved, first post the contents of your fstab, and device map and your menu.lst and then we will see if we can sort it out.<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10530" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10530">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">koinsky67</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Apr 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10530">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10530/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-30T20:04">posted: 2009-04-30 &nbsp; 20:04</time>
+<span class="permalink"><a href="./hd-controller-support-missing-in-initrd-img-t1670.html#p10530" title="permalink">#3</a></span>
+
+<div class="content">Hi oldhoghead! Thanks for helping!<br>
+<br>
+The HD in the original PC was named"sda", but I cloned it onto another HD in another PC to reduce the partition size (so that it would fit into the laptop's 5GB HD. On this PC the HD was named"hda" so I had to edit fstab and menu.lst to make the system bootable.<br>
+<br>
+I don't know why a cloned system would change the HD device name<br>
+from"sda" to"hda" as both HDs were parallel ATA!!<br>
+<br>
+Faced with the boot problem on the laptop (after finally cloning the partition onto its HD) I decided to label the partitions and use labels in fstab and menu.ist to avoid this device naming issue (hda vs sda).<br>
+-----------------<br>
+<br>
+This is the current device.map but I'm not sure it's the original one because I changed"sda" to"hda" (or vice-versa) once in my trials and I can't remember whether I've restored it.<br>
+<br>
+rock:~/acer-202t# cat device.map <br>
+(fd0) /dev/fd0<br>
+(hd0) /dev/sda<br>
+-----------------<br>
+<br>
+Here is the fstab (current and original versions):<br>
+<br>
+rock:~/acer-202t# cat fstab<br>
+# Pluggable devices are handled by uDev, they are not in fstab<br>
+LABEL=ROOT / ext3 defaults,noatime 1 1<br>
+LABEL=SWAP swap swap sw,pri=1 0 0<br>
+proc /proc proc defaults 0 0<br>
+# procbususb /proc/bus/usb usbfs devmode=0666 0 0<br>
+# devpts /dev/pts devpts mode=0622 0 0<br>
+# sysfs /sys sysfs defaults 0 0<br>
+<br>
+rock:~/acer-202t# cat fstab.old<br>
+# Pluggable devices are handled by uDev, they are not in fstab<br>
+/dev/sda3 / ext3 defaults,noatime 1 1<br>
+/dev/sda4 swap swap sw,pri=1 0 0<br>
+proc /proc proc defaults 0 0<br>
+procbususb /proc/bus/usb usbfs devmode=0666 0 0<br>
+devpts /dev/pts devpts mode=0622 0 0<br>
+sysfs /sys sysfs defaults 0 0<br>
+# Dynamic entries below<br>
+/dev/sda1 /mnt/sda1 ext3 noauto,users,exec 0 0<br>
+/dev/sda2 /mnt/sda2 ext3 noauto,users,exec 0 0<br>
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+/dev/scd0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+-----------------<br>
+<br>
+Here is the menu.lst (current and original versions):<br>
+<br>
+rock:~/acer-202t# cat menu.lst<br>
+timeout 15<br>
+color cyan/blue white/blue<br>
+foreground ffffff<br>
+background 0639a1<br>
+<br>
+gfxmenu /boot/grub/message<br>
+<br>
+title MEPIS at hda1, newest kernel<br>
+root (hd0,0)<br>
+kernel /boot/vmlinuz root=LABEL=ROOT nomce quiet splash vga=787 resume=LABEL=SWAP<br>
+boot<br>
+<br>
+title MEPIS at hda1, previous kernel (if any)<br>
+root (hd0,0)<br>
+kernel /boot/vmlinuz.old root=LABEL=ROOT nomce quiet splash vga=787 resume=LABEL=SWAP<br>
+boot<br>
+<br>
+rock:~/acer-202t# cat menu.lst.old.1<br>
+timeout 15<br>
+color cyan/blue white/blue<br>
+foreground ffffff<br>
+background 0639a1<br>
+<br>
+gfxmenu /boot/grub/message<br>
+<br>
+title MEPIS at sda3, newest kernel<br>
+root (hd0,2)<br>
+kernel /boot/vmlinuz root=/dev/sda3 nomce quiet splash vga=791 resume=/dev/sda4 <br>
+boot<br>
+<br>
+title MEPIS at sda2, previous kernel (if any)<br>
+root (hd0,2)<br>
+kernel /boot/vmlinuz.old root=/dev/sda3 nomce quiet splash vga=791 resume=/dev/s<br>
+boot<br>
+<br>
+#title MEPIS at sda3, kernel 2.6.27-1-mepis-smp<br>
+#root (hd0,2)<br>
+#kernel /boot/vmlinuz-2.6.27-1-mepis-smp root=/dev/sda3 nomce quiet splash vga=7<br>
+#boot<br>
+<br>
+NOTE: I've kept the previous kernel (2.6.22) alongside the current one (2.6.27). vmlinuz.old/ vmlinuz are just symlinks to them (likewise for System.map and initrd.img).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10531" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10531">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10531">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10531/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-30T20:13">posted: 2009-04-30 &nbsp; 20:13</time>
+<span class="permalink"><a href="./hd-controller-support-missing-in-initrd-img-t1670.html#p10531" title="permalink">#4</a></span>
+
+<div class="content">You could use the antiX livecd (or grml), mount the partition that antiX got cloned too, cd into it and run as root<br>
+update-grub<br>
+<br>
+and see what that comes out with. Then try booting into antiX.<br>
+<br>
+(save a copy of your menu.lst though)<br>
+<br>
+If you use antiX livecd, there is a restore/repair/fix grub in msystem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10535" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10535">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">koinsky67</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Apr 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10535">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10535/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-30T21:07">posted: 2009-04-30 &nbsp; 21:07</time>
+<span class="permalink"><a href="./hd-controller-support-missing-in-initrd-img-t1670.html#p10535" title="permalink">#5</a></span>
+
+<div class="content">Hi Anticapitalista!<br>
+<br>
+I've already done that. Not exactly as you suggest but equivalent I think:<br>
+<br>
+grub-install --recheck --root-directory=/mnt/sda1 /dev/sda1<br>
+<br>
+From the grub-install manpage:<br>
+<br>
+--root-directory=DIR<br>
+install GRUB images under the directory DIR instead of the root directory<br>
+<br>
+--recheck<br>
+probe a device map even if it already exists<br>
+<br>
+<br>
+In fact I did it right after cloning the partition because what was on the MBR was the Windows bootloader. Then I did it again after the failed boot attemps.<br>
+<br>
+I don't think there is a grub configuration problem as it runs, presents the boot options in menu.lst and loads the selected kernel. I've tried both kernels, and the displayed messages are different but both end with<br>
+<br>
+kernel panic - not syncing : VFS : unable to mount root fs on unknown-block (0,0)<br>
+<br>
+Thanks for your help!<br>
+<br>
+PS:<br>
+A luta continua! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10542" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10542">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10542">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10542/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-30T23:24">posted: 2009-04-30 &nbsp; 23:24</time>
+<span class="permalink"><a href="./hd-controller-support-missing-in-initrd-img-t1670.html#p10542" title="permalink">#6</a></span>
+
+<div class="content"><blockquote class="uncited"><div>
+rock:~/acer-202t# cat device.map<br>
+(fd0) /dev/fd0<br>
+(hd0) /dev/sda
+</div></blockquote>
+try changing<br>
+(hd0) /dev/sda to<br>
+(hd0) /dev/hda<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

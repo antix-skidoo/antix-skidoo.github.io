@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Trying to login after X starts but it logs right out - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html">Trying to login after X starts but it logs right out</a></div>
+<div class="pagination">
+24 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_32428" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32428">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32428">
+<time datetime="2013-12-20T22:57">posted: 2013-12-20 &nbsp; 22:57</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32428" title="permalink">#1</a></span>
+
+<div class="content">Hi all,<br>
+<br>
+I think AntiX 13.2 might be my favorite live distribution so far mainly in my case because it's so low on resources and still has a debian base. I'm having a problem though on a laptop which I installed AntiX to the hdd.<br>
+<br>
+<strong>History:</strong><br>
+<br>
+I decided to go from stable to testing so I changed the apt/sources.list to reflect the change removing the stable and adding the testing by editing the appropriate hash marks. Then I ran apt-get update and apt-get dist-upgrade.<br>
+<br>
+<strong>Current Problem:</strong><br>
+I rebooted after a dist-upgrade and it starts up slim with the login prompt and I enter my login name and password and then I see the desktop for 2 seconds then it immediately logs me out and I'm returned to the slim (standard gui login screen). I have been able to login as root though. Nothing was changed besides the upgrade to testing repository.<br>
+<br>
+<strong>Looked at /var/log/slim.log and it repeats </strong><br>
+slim: waiting for X server to begin accepting connections.<br>
+slim: open_session: Unable to open session: Process /usr/lib/dbus-1.0/dbus-daemon-launch-helper received signal 11<br>
+followed later by<br>
+slim: unexpected signal 15<br>
+<br>
+<strong>Looked at ~/.xsession-errors:0.0</strong><br>
+Last section of error log shows:<br>
+Invalid MIT-MAGIC-COOKIE-1 keyConky: can't open display: :0.0<br>
+***** ImLib2 Developer Warning ***** :<br>
+This program is calling the Imlib call:<br>
+imlib_context_free();<br>
+With the parameter:<br>
+context<br>
+being NULL. Please fix your program.<br>
+<br>
+Btw still new to this and if you have any files I need to run or check can you be a little specific with it and include file paths if possible. <br>
+<br>
+Any ideas? Thanks for any help</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32432" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32432">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32432">
+
+<time datetime="2013-12-21T02:40">posted: 2013-12-21 &nbsp; 02:40</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32432" title="permalink">#2</a></span>
+
+<div class="content">Signal 11 is a segmentation fault. It means a program was trying to access memory it is not allowed to touch. Since this happened right after a software upgrade, I suspect it means something is really screwed up in some of the software you installed. Most likely there is a version mismatch between a library and an application program that uses that library. This could cause miscommunication and result in a segfault.<br>
+<br>
+The other possibility is that your hardware suddenly went bad but I think this is unlikely.<br>
+<br>
+It might be possible to track down which program is seg-faulting but it might be much better to have someone give you instructions on how to redo the repo change and upgrade correctly. I don't know how to do this but there should be people here tomorrow who can help you. From what little I know, changing repos like this is fraught with peril. It is possible they will suggest you do a re-install.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32435" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32435">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32435">
+
+<time datetime="2013-12-21T02:49">posted: 2013-12-21 &nbsp; 02:49</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32435" title="permalink">#3</a></span>
+
+<div class="content">Thanks, how does one normally upgrade (or in other words change) to testing? I knew it was during the install which gave me the option but I thought I could just run upgrade with the new repos and dist upgrade it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32439" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32439">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32439">
+
+<time datetime="2013-12-21T11:12">posted: 2013-12-21 &nbsp; 11:12</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32439" title="permalink">#4</a></span>
+
+<div class="content">Are you running live or installed?<br>
+<br>
+Post your sources list<br>
+<br>
+inxi -r<br>
+<br>
+Also your .xinitrc in home/username folder</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32441" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32441">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32441">
+
+<time datetime="2013-12-21T14:02">posted: 2013-12-21 &nbsp; 14:02</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32441" title="permalink">#5</a></span>
+
+<div class="content">The system I had running which would immediately log out after seeing the desktop load up for 2 seconds was an installed antix from a livecd. <br>
+I'm finishing up a complete reinstall and did a full format and check of the 2 resized partitions I put it on. It is an old laptop which had Windows 2000 on it. 256meg RAM, 1 Ghz PIII &amp; 30 Gig HD which I gave about 8 Gig to Antix and a 600 Meg Swap. This time I chose the testing repo during install and did an update and dist-upgrade after it was installed. It's finishing that part up and I'm going to reboot after that.<br>
+<br>
+A note during the dist-upgrade both times (first initially choosing stable and this second time initially choosing testing) it stopped twice in the middle with the following messages I chose YES on each one.<br>
+<br>
+-----------------------------------------<br>
+<em>Configuring uswsusp<br>
+The swap file or partition that was found in uswsusp's configuration<br>
+file is not active.<br>
+In most cases this means userspace software suspend will not work as<br>
+expected. You should choose another swap space.<br>
+However, in some rare cases, this configuration may be intentional.<br>
+Continue without a valid swap space?</em><br>
+-----------------------------------------<br>
+<em>Configuring libc6:i386<br>
+There are services installed on your system which need to be restarted<br>
+when certain libraries, such as libpam, libc, and libssl, are upgraded.<br>
+Since these restarts may cause interruptions of service for the system,<br>
+you will normally be prompted on each upgrade for the list of services<br>
+you wish to restart. You can choose this option to avoid being<br>
+prompted; instead, all necessary restarts will be done for you<br>
+automatically so you can avoid being asked questions on each library<br>
+upgrade.<br>
+Restart services during packages upgrades without asking?</em><br>
+-----------------------------------------<br>
+<br>
+The sources list I never changed from the downloaded Antix 13.2 live CD which I directly and immediately ran install after boot (Edit: I just had to run WiCD to get the usb net adapter working first). I am at a handicap now and can't post it cause it's doing the dist-upgrade a second time from this 2nd install. <br>
+I will also post the .xinitrc for you too if I come up with the same issue. <br>
+BTW is the .xinitrc the script that starts the apps/services during starting the X environment?<br>
+<br>
+I forgot earlier and I should bring it up now is that there have been issues with it booting from USB. The BIOS doesn't support it so I installed plop boot manager from a ploplinux CD which allows booting from the USB. For some reason it just freezes during the bootup of any linux I tried booting from (with using the USB using the plop boot manager which is giving the new option to boot from USB). This is why I had burned a CD of Antix and ran the full install.<br>
+<br>
+Thanks very much for the information and help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32442" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32442">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32442">
+
+<time datetime="2013-12-21T14:30">posted: 2013-12-21 &nbsp; 14:30</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32442" title="permalink">#6</a></span>
+
+<div class="content">OK the plot thickens. Reinstall originally from testing gives the same results. Login which quickly logs out. It's looking that I didn't run as many tests as I should have. Guest (my account for now) and Root both function identically as noted below. I might have originally (during first install) tried to log in using jwm as root and not clicked on an app to test it out which is why I originally said my guest account logs back out but the root doesn't log back out. Both seem to be doing the exact same thing:<br>
+<br>
+rox-fluxbox: Logs in and immediately back out<br>
+space-fluxbox: Does login but starting an app logs out<br>
+fluxbox: Does login but starting an app logs out<br>
+rox-icewm: Logs in and immediately back out<br>
+space-icewm: Logs in and immediately back out<br>
+icewm: Does login but starting an app logs out<br>
+rox-jwm: Logs in and immediately back out<br>
+space-jwm: Logs in and immediately back out<br>
+jwm: Does login but starting an app logs out<br>
+wmii: Logs into a black desktop with no seeming left or right click action but a small vertical line on the top that can be dragged left and right horizontally (very strange)<br>
+<br>
+I'm trying now to figure out how I can send over (or paste) those files you asked for if the laptop doesn't open to a X gui. I will work on that probably mounting a flash drive.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32444" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32444">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32444">
+
+<time datetime="2013-12-21T16:22">posted: 2013-12-21 &nbsp; 16:22</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32444" title="permalink">#7</a></span>
+
+<div class="content">did everything work before the dist-upgrade?<br>
+<br>
+are you sure the dist-upgrade completed successfully? I tried to do one this morning with the testing repos (32 bit) and I had to restart the operation twice to complete.<br>
+<br>
+if you can get to the command prompt, try running as root apt-get install -f and then apt-get dist-upgrade again.<br>
+<br>
+if you have the grub boot, select the option that says init 3 to boot to a command prompt.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32448" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32448">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32448">
+
+<time datetime="2013-12-21T22:21">posted: 2013-12-21 &nbsp; 22:21</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32448" title="permalink">#8</a></span>
+
+<div class="content">Here goes trying to paste it again. I was having problems now with a Forbidden error.<br>
+<br>
+OK got it thanks for the tip anticapitalista. I had to do a search and replace for ' /' and replace it with ' ' (space slash with space). Here is the .xinitrc:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#----------------------------------------------------------------------
+# .xinitrc 
+#
+# Created by usr/share/antiX/lib/make-xinitrc
+# on 4 November 2013 @ 17:44:28 EST
+# Please add any modifications to .xinitrc-custom and not this file.
+# This file will be re-written by update-default-desktop.  The
+# DEFAULT_DESKTOP line will be edited by antiX-init if you select
+# a desktop via the bootloader menu or a"desktop=xxx" boot parameter.
+#----------------------------------------------------------------------
+
+[ -x ~/.xinitrc-custom ] &amp;&amp; ~/.xinitrc-custom
+
+[ -f ~/.Xmodmap ] &amp;&amp; xmodmap ~/.Xmodmap
+
+DEFAULT_DESKTOP="rox-icewm"
+DESKTOP_CODE="$(echo"${1:-$DEFAULT_DESKTOP}" | tr"[A-Z]""[a-z]")"
+
+sdir=$HOME/.antix-session
+mkdir -p $sdir
+display=${DISPLAY%.[0-9]}
+echo"$DESKTOP_CODE" &gt; $sdir/desktop-code$DISPLAY
+echo $$              &gt; $sdir/xinitrc-pid:$display
+
+case"$DESKTOP_CODE" in
+    rox-fluxbox)
+        rox --pinboard=antiX-fluxbox
+        exec usr/bin/startfluxbox
+        ;;
+    space-fluxbox)
+        spacefm --desktop &amp;
+        exec usr/bin/startfluxbox
+        ;;
+    fluxbox)
+        exec usr/bin/startfluxbox
+        ;;
+    rox-icewm)
+        rox --pinboard=antiX-icewm
+        exec usr/bin/icewm-session
+        ;;
+    space-icewm)
+        spacefm --desktop &amp;
+        exec usr/bin/icewm-session
+        ;;
+    icewm)
+        exec usr/bin/icewm-session
+        ;;
+    rox-jwm)
+        rox --pinboard=antiX-jwm
+        exec usr/bin/jwm
+        ;;
+    space-jwm)
+        spacefm --desktop &amp;
+        exec usr/bin/jwm
+        ;;
+    jwm)
+        exec usr/bin/jwm
+        ;;
+    wmii)
+        exec wmii
+        ;;
+    *)
+        echo"Unknown DESKTOP_CODE: $DESKTOP_CODE" &gt;&amp;2
+        echo"Setting DESKTOP_CODE to rox-icewm" &gt;&amp;2
+        DESKTOP_CODE="rox-icewm"
+        echo"$DESKTOP_CODE" &gt; $HOME/.antix-session/desktop-code$DISPLAY
+        rox --pinboard=antiX-icewm
+        exec usr/bin/icewm-session
+        ;;
+esac</code></pre></div>
+Here is the sources list:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Repos:    Active apt sources in file: etc/apt/sources.list.d/antix.list
+            deb http://antix.daveserver.info/testing testing main
+            Active apt sources in file: etc/apt/sources.list.d/debian.list
+            deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+            deb http://security.debian.org/ testing/updates main contrib non-free</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32449" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32449">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32449">
+
+<time datetime="2013-12-21T22:26">posted: 2013-12-21 &nbsp; 22:26</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32449" title="permalink">#9</a></span>
+
+<div class="content">Great idea dolphin I will give it a try. It was working great before the dist-upgrade. Never thought about the apt-get install -f option.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32450" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32450">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32450">
+
+<time datetime="2013-12-21T22:41">posted: 2013-12-21 &nbsp; 22:41</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32450" title="permalink">#10</a></span>
+
+<div class="content">@dolphin. OK ran those commands in init 3. It notified me of about 11 meg that had to be removed using apt-get autoremove. Nothing new was installed. Rebooted and still the same issue. Thanks though.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32451" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32451">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32451">
+
+<time datetime="2013-12-21T23:10">posted: 2013-12-21 &nbsp; 23:10</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32451" title="permalink">#11</a></span>
+
+<div class="content">@dolphin, by the way the install original 2 dist-upgrades returned to the command line without any errors. (Just the 2 confirmations in the middle of installation as I mentioned in my earlier post) I'm curious though about you mentioning you had to"restart the operation twice to complete". Do you recall where during the upgrade it did this.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32454" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32454">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32454">
+
+<time datetime="2013-12-22T01:00">posted: 2013-12-22 &nbsp; 01:00</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32454" title="permalink">#12</a></span>
+
+<div class="content">Mine just looked like it finished, but it didn't. I had problems with x starting. I noticed in the dist-upgrade there was quite a bit of xserver stuff getting upgraded. I also had a error concerning libaudit0 being removed but being a dependency for systemd and xserver-xorg-core, but the dist-upgrade continued and removed it. But my"testing" system is still working, but I though it was worth passing on.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32459" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32459">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32459">
+
+<time datetime="2013-12-22T10:05">posted: 2013-12-22 &nbsp; 10:05</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32459" title="permalink">#13</a></span>
+
+<div class="content">Your problem sounds similar to a distro that didn't create a /home/user dir when installing. <br>
+Perhaps check that the permissions haven't been altered (?).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32460" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32460">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32460">
+
+<time datetime="2013-12-22T11:53">posted: 2013-12-22 &nbsp; 11:53</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32460" title="permalink">#14</a></span>
+
+<div class="content">Before linux-image-3.7.10-antix.7-486-smp was"finalized" and offered as a complete iso on sourceforge, I used the apt-get dist-upgrade steps listed at the antix.mepis main page, dated 5 November 2013. Somebody had mentioned about having to apt-get dist-upgrade TWICE as root terminal to make sure ALL the libs loaded properly. I was just getting in to antiX and hadn't realized the way things were working weren't NORMAL.<br>
+<br>
+Once the 12 Nov release of the"finalized" image was out, I downloaded it and installed it. Haven't really had a problem with it since. But then I'm still in kindergarten learning (actually relearning) coding.<br>
+<br>
+They get 3 hot meals a day, all the drugs they want, get to watch tv most of the day, and don't have to work. Now think who is CRAZY?,</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32462" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32462">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32462">
+
+<time datetime="2013-12-22T12:13">posted: 2013-12-22 &nbsp; 12:13</time>
+<span class="permalink"><a href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746.html#p32462" title="permalink">#15</a></span>
+
+<div class="content">Also check that the home directory isn't full.<br>
+<br>
+You could try boooting using the init 3 option and at the black screen, type usernabe and password then startx.<br>
+<br>
+If this works, then there is an issue with either slim login manger or something in /home. Possibly your .xinitrc file permissions got changed to root?<br>
+<br>
+Also, post etc/slim.conf</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+24 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./trying-to-login-after-x-starts-but-it-logs-right-o-t4746-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

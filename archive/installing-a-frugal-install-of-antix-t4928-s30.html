@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Installing a frugal install of Antix - Page 3 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installing-a-frugal-install-of-antix-t4928-s30.html">Installing a frugal install of Antix</a></div>
+<div class="pagination">
+31 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./installing-a-frugal-install-of-antix-t4928-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./installing-a-frugal-install-of-antix-t4928.html" role="button">1</a></li>
+<li><a class="button" href="./installing-a-frugal-install-of-antix-t4928-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34204" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34204">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34204">
+<time datetime="2014-03-25T22:05">posted: 2014-03-25 &nbsp; 22:05</time>
+<span class="permalink"><a href="./installing-a-frugal-install-of-antix-t4928-s30.html#p34204" title="permalink">#31</a></span>
+
+<div class="content"><blockquote><div><cite>rmcellig wrote:</cite>I think I got it! I was able to boot into the frugal install. </div></blockquote>Congratulations! I'm sorry I misled you with my original post.
+<blockquote class="uncited"><div> How can I know for sure? </div></blockquote>Run the command"df -h". It should show several things mounted under /live.
+<blockquote class="uncited"><div>Where do we go from here regarding persistent boots? Is this where all the fun starts? <span class="emoticon"> __{{emoticon}}__ </span></div></blockquote>
+Yes! This is where the fun starts. <br>
+<br>
+Navigate to RemasterCC in the desktop menus and run the program that enables persistence. If you have plenty of space on your drive I suggest about 1 Gig for root and 1 Gig for home but much smaller values will work just fine.<br>
+<br>
+To run with persistence, you must add a <strong>persist=xxx</strong> boot parameter to a grub entry and then reboot. Here are the ones that we provide in the Live bootloader but there are other possibilities as well.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>       Root Persistence: persist=root!,home 
+Static Root Persistence: persist=root!,home,static
+       Home Persistence: persist=home! </code></pre></div>
+The exclamation point means that we will throw an error if that form of persistence cannot be enabled. So the first example will give an error if root persistence cannot be enabled and it will try to enable home persistence but won't complain (much) if it cannot.<br>
+<br>
+Static root persistence is generally slow because it saves file system change directly in the rootfs file instead of saving them in RAM while you are running. The up-side is that it does not use any RAM. If you want to do a big system upgrade or install a lot of packages then it might be best to do this while static root persistence is enabled and then run the remaster program (also in the RemasterCC) to transfer all of those changes to the compressed squashfs file we call linuxfs. You need to reboot to use the new linuxfs file that was created.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+31 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./installing-a-frugal-install-of-antix-t4928-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./installing-a-frugal-install-of-antix-t4928.html" role="button">1</a></li>
+<li><a class="button" href="./installing-a-frugal-install-of-antix-t4928-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

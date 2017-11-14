@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>remastering antiX - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./remastering-antix-t4262.html">remastering antiX</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_28631" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28631">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 28</span></div>
+
+</div>
+</div>
+<span class="username">mrt-prodz</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Jan 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28631">
+<time datetime="2013-04-11T19:05">posted: 2013-04-11 &nbsp; 19:05</time>
+<span class="permalink"><a href="./remastering-antix-t4262.html#p28631" title="permalink">#1</a></span>
+
+<div class="content">Hello, after a couple attempt I finally managed to remaster my antiX install.<br>
+Thanks a lot for the remaster.sh script, it works amazingly well.<br>
+<br>
+I don't know if this tip is a clean way of doing things, but to remaster your<br>
+current install you can do the following:<br>
+<br>
+To make things easier to follow I will use two terminals, I will call them <strong><span style="color: #40FF00">TTY1</span></strong> and <strong><span style="color: #FF0000">TTY2</span></strong>. TTY1 will be your current install with your current user and TTY2 will be the remaster.<br>
+<br>
+<strong><span style="color: #FF0000">TTY2</span></strong><br>
+-follow Dave HowTo: how-to-run-remaster-sh-t3295.html<br>
+to start the remaster.sh script. Then run:
+<blockquote class="uncited"><div>apt-get update</div></blockquote>
+<blockquote class="uncited"><div>apt-get upgrade</div></blockquote>
+-while in remaster.sh (<strong>do not exit/Ctrl-D</strong>) switch to your other terminal<br>
+<br>
+<strong><span style="color: #40FF00">TTY1</span></strong><br>
+-run the command:
+<blockquote class="uncited"><div>dpkg -l | awk '/ii/{print $2}' &gt; /home/<strong>your-user</strong>/<strong>my-remaster</strong>/remaster/new-squashfs/tmp/packages.txt</div></blockquote>
+where <strong>your-user</strong> is your current install user name and <strong>my-remaster</strong> is the folder you created for<br>
+your remaster. This will save all packages currently installed in a text file inside the remaster chroot in the /tmp folder.<br>
+<br>
+<strong><span style="color: #40FF00">TTY1</span></strong><br>
+-copy all your sources list to your remaster by running:
+<blockquote class="uncited"><div>sudo cp /etc/apt/sources.list.d/*.* /home/<strong>your-user</strong>/<strong>my-remaster</strong>/remaster/new-squashfs/etc/apt/sources.list.d</div></blockquote>
+<strong><span style="color: #FF0000">TTY2</span></strong><br>
+-<strong>back</strong> inside remaster run:
+<blockquote class="uncited"><div>apt-get update</div></blockquote>
+<blockquote class="uncited"><div>apt-get upgrade</div></blockquote>
+<blockquote class="uncited"><div>while read pkgname; do apt-get install -y"$pkgname"; done &lt; /tmp/packages.txt</div></blockquote>
+wait because it can take a while.
+<blockquote class="uncited"><div>apt-get clean</div></blockquote>
+-while in remaster.sh again (<strong>do not exit/Ctrl-D</strong>) switch again to your other terminal<br>
+<br>
+<strong><span style="color: #40FF00">TTY1</span></strong><br>
+-copy your home folder files as default settings for your remaster when you add a new user:
+<blockquote class="uncited"><div>cp -a /home/<strong>your-user</strong>/. /home/<strong>your-user</strong>/<strong>my-remaster</strong>/remaster/new-squashfs/etc/skel</div></blockquote>
+you might want to remove some files from there, like .bash_history or any other logs / error logs.<br>
+If you don't have many files there just copy manually all the configuration files you would like to keep.<br>
+(.xinitrc / .xinitrc-custom / etc..)<br>
+<br>
+-You might want to keep some specific program configuration files located in /etc/ for example, do not<br>
+forget to copy these inside /home/<strong>your-user</strong>/<strong>my-remaster</strong>/remaster/new-squashfs/etc<br>
+or any other location your configuration file is and should be inside remaster.<br>
+<br>
+<strong><span style="color: #FF0000">TTY2</span></strong><br>
+-<strong>back</strong> inside remaster press Ctrl-D and follow the procedure to finish the ISO.<br>
+<br>
+<br>
+<br>
+Here is my current install, with the remastered.iso running in virtualbox:<br>
+<a href="http://i.imgur.com/5kGICdG.jpg" class="postlink"><img src="http://i.imgur.com/5kGICdGl.jpg" class="postimage" alt="Image"></a><br>
+<br>
+As you can see it's an exact copy of my current install running in the background. If you forgot anything<br>
+and would like to add it, just go back to your my-remaster folder, and run remaster.sh -c as root. Make your<br>
+modifications and then press Ctrl-D and create your ISO again.<br>
+<br>
+I don't really know if it's the correct way to do things, if there is a cleaner way or better commands to<br>
+run to copy your current install into the remaster I would be happy to know how.<br>
+<br>
+I have some programs compiled from source (herbstluftwm, xombrero, udevil) and I just ran make install to have them<br>
+installed correctly in the remaster. So far it seems to work great, I will test it on my netbook soon.</div>
+<div class="notice">
+Last edited by <b>mrt-prodz</b> on 15 Apr 2013, 18:58, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28639" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28639">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28639">
+
+<time datetime="2013-04-11T20:51">posted: 2013-04-11 &nbsp; 20:51</time>
+<span class="permalink"><a href="./remastering-antix-t4262.html#p28639" title="permalink">#2</a></span>
+
+<div class="content">There is another way to do it, using the antix-snapshot application.<br>
+This makes an exact copy of your running installed antiX and creates a live iso (with persistence).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28648" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28648">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 28</dd>
+<span class="username">mrt-prodz</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Jan 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28648">
+
+<time datetime="2013-04-12T09:25">posted: 2013-04-12 &nbsp; 09:25</time>
+<span class="permalink"><a href="./remastering-antix-t4262.html#p28648" title="permalink">#3</a></span>
+
+<div class="content">Thanks anticapitalista, I kind of feel like an idiot because I did saw antixsnapshot<br>
+but totally forgot about it when I wanted to remaster.<br>
+<br>
+I will try it as well <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

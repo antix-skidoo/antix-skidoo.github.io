@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>System can't find this laptop's soundcard [SOLVED] - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html">System can't find this laptop's soundcard [SOLVED]</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_31623" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31623">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 37</span></div>
+
+</div>
+</div>
+<span class="username">rustiguzzi</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31623">
+<time datetime="2013-11-05T20:31">posted: 2013-11-05 &nbsp; 20:31</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31623" title="permalink">#1</a></span>
+
+<div class="content">The problem: antiX-core on an old laptop, system reports"no soundcards found", suspect missing firmware. Would appreciate any suggestions.<br>
+<br>
+Background: <br>
+I've been using the full version of Antix on a Dell Dimension for two years now and am very happy with it, so when I was offered an old laptop"to play with" I thought I'd have a go at installing Antix on it to see what it would do. It's an NEC LaVie, with 64MB RAM (which made it top of the range when it was new) and it used to run Japanese Win98, which I've wiped. Antix-base wouldn't install, but core did. Given that most, if not all, other versions of linux need more than 64MB RAM I was delighted. I now have a working OS, and have given it a nice big swap file, so what'll it do?<br>
+<br>
+Answer: quite a lot. One small disappointment is although that it will play video files using mplayer, there is no sound. I believe the reason can be found in these messages in the boot sequence:<br>
+<br>
+[ 11.209978] microcode: Missing Free firmware<br>
+[ 12.620141] 0000:00:09.0: Missing Free firmware<br>
+[ 12.6340731] ALSA sound/pci/ymfpci/ymfpci_main.c:2453 firmware request failed: -22    <br>
+<br>
+even though later on it displays <br>
+<br>
+"[ok] Setting up ALSA . . .done."<br>
+<br>
+I tried, in root, 'alsactl init' but got the result"No soundcards found". In the shutdown sequence it also reports"no soundcards found", although according to inxi there is one (see below).<br>
+<br>
+Searching in the antiX forum produced this:<br>
+<br>
+viewtopic.php?f=13&amp;t=3224&amp;hilit=no%20sound%20cards<br>
+<br>
+which sounds similar, as this user also had a Yamaha card that wasn't being detected. I followed the instructions and put the resulting 'yamaha' directory and its four files in /lib/firmware, with the result that I lost video as well as sound so gave up on that idea. Mind you, I'm on Luddite, and things might have changed since that thread in 2011.<br>
+<br>
+Here's some inxi output that might be useful:<br>
+<br>
+System: Host: antiX1 Kernel: 3.7.10-gnu-antix.3-486-smp i686 (32 bit) <br>
+Console: tty 1 Distro: antiX-13.1_386-core-libre Luddite 19 June 2013<br>
+Machine: Mobo: N/A model: N/A Bios: N/A version: N/A date: N/A<br>
+CPU: Single core Celeron (Coppermine) (-UP-) cache: 128 KB <br>
+flags: (pae sse) clocked at 497.839 MHz <br>
+Graphics: Card: Advanced Micro Devices [AMD] nee ATI Rage Mobility P/M AGP 2x <br>
+X.org: 1.12.4 drivers: ati FAILED: mach64 tty size: 80x25 <br>
+Advanced Data: N/A out of X<br>
+Audio: Card: Yamaha YMF-754 [DS-1E Audio Controller] Sound: ALSA <br>
+ver: k3.7.10-gnu-antix.3-486-smp<br>
+<br>
+There's a FAILED in the Graphics section, but for the time being that's not a problem. <br>
+<br>
+Also this from lspci:<br>
+<br>
+00:09.0 Multimedia audio controller: Yamaha Corporation YMF-754 [DS-1E Audio Controller]<br>
+Subsystem: NEC Corporation Device 80b5<br>
+Flags: medium devsel, IRQ 5<br>
+Memory at febf0000 (32-bit, non-prefetchable) <span style="font-size: 32K%; line-height: normal"><br>
+I/O ports at ef00 <span style="font-size: 64%; line-height: normal"><br>
+I/O ports at efe4 <span style="font-size: 4%; line-height: normal"><br>
+Capabilities: [50] Power Management version 1<br>
+<br>
+And this from lsmod | grep snd:<br>
+<br>
+snd_ymfpci 22521 0 <br>
+snd_mpu401_uart 4131 1 snd_ymfpci<br>
+snd_opl3_lib 5966 1 snd_ymfpci<br>
+snd_hwdep 4072 1 snd_opl3_lib<br>
+snd_seq_midi 3497 0 <br>
+snd_seq_midi_event 3597 1 gameport 5365 1 snd_ymfpcisnd_seq_midi<br>
+snd_rawmidi 12946 2 snd_mpu401_uart,snd_seq_midi<br>
+snd_ac97_codec 78826 1 snd_ymfpci<br>
+snd_pcm 50892 2 snd_ymfpci,snd_ac97_codec<br>
+joydev 6702 0 <br>
+snd_page_alloc 5095 2 snd_ymfpci,snd_pcm<br>
+snd_seq 35033 2 snd_seq_midi_event,snd_seq_midi<br>
+snd_seq_device 3878 4 snd_seq,snd_rawmidi,snd_opl3_lib,snd_seq_midi<br>
+snd_timer 12249 4 snd_ymfpci,snd_pcm,snd_seq,snd_opl3_lib<br>
+snd 36962 11 snd_ymfpci,snd_ac97_codec,snd_hwdep,snd_timer,snd_pcm,snd_seq,snd_rawmidi,<br>
+snd_mpu401_uart,snd_seq_device,snd_opl3_lib,snd_seq_midi<br>
+soundcore 3463 1 snd<br>
+ac97_bus 691 1 snd_ac97_codec<br>
+gameport 5365 1 snd_ymfpci<br>
+<br>
+FWIW, I couldn't get alsamixer to run until after I'd installed pulseaudio, and it confirms"no soundcards" in /prom/asound/cards. Once pulseaudio is running, alsamixer doesn't work (something to sort out later, I reckon).<br>
+<br>
+After much searching, I came across the suggestion that 'alsa-tools-firmware' might get over this problem, but I haven't found it in the usual repos. Is it available for debian users? Or is there another answer?<br>
+<br>
+Would it be possible to overcome this lack of sound, or should I just shrug my shoulders and say"C'est LaVie"?<br>
+<br>
+rustiguzzi</span></span></span></div>
+<div class="notice">
+Last edited by <b>rustiguzzi</b> on 18 Nov 2013, 19:32, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31624" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31624">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">rokytnji</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31624">
+
+<time datetime="2013-11-05T20:47">posted: 2013-11-05 &nbsp; 20:47</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31624" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Would it be possible to overcome this lack of sound, or should I just shrug my shoulders and say"C'est LaVie"?</div></blockquote>
+Yamaha sound card huh. I used to ride a chopper 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.nippon-bobbers.com/Yamaha_XS650_1977/images-yam0004/1977_Yamaha_XS650_Hardtail_Bobber_468x322.jpg"<br>linktext was:"650 twin british norton yamaha copy"<br>====================================<br>
+ back in the late 70's.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://debian.2.n7.nabble.com/Linux-kernel-image-2-6-23-1-sound-card-yamaha-YMF-754-td225 6927.html"<br>linktext was:"http://debian.2.n7.nabble.com/Linux-ker ... 56927.html"<br>====================================<br>
+<br>
+<br>
+It sounds like Anti missed the flag on <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># CONFIG_SND_YMFPCI_FIRMWARE_IN_KERNEL is not set </code></pre></div>
+Edit: my bad, maybe not?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>snd_ymfpci 22521 0 </code></pre></div>
+Have you tried antix control center&gt;configure sound card and reboot? End of Edit.<br>
+<br>
+Maybe. I aint no kernel expert though. Maybe running smxi in AntiX (as root in terminal, then drop out of x)<br>
+<br>
+Don't dist-upgrade or anything. Just continue to kernel installation and try a older Debian kernel like 2.6 through 2.8 maybe?<br>
+Heck. I am guessing though. Howdy and Welcome by the way.<br>
+<br>
+2nd edit: I never install and use pulseaudio in any of my Linux installs to get sound working. Using using the F6 key and selecting my sound card is enough. The firmware message is different though for you than what I go through though.<br>
+<br>
+3rd Edit. <blockquote class="uncited"><div>There's a FAILED in the Graphics section, but for the time being that's not a problem. </div></blockquote>
+I get that even when I ran the open source ati radeon driver available in smxi/sgfxi install process. It shows that way in inxi but X works just fine in that old clunker IBM Laptop of mine.<br>
+<br>
+4th edit: Thanks Bitjam.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31625" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31625">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31625">
+
+<time datetime="2013-11-05T20:58">posted: 2013-11-05 &nbsp; 20:58</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31625" title="permalink">#3</a></span>
+
+<div class="content">The first hit from Google(linux yamaha ymf-754) was to 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/snd-ymfpci"<br>linktext was:"these instructions"<br>====================================<br>
+ which tell you how to create and install the firmware.<br>
+<br>
+The instructions say to use"aptitude" for the installation but people around here generally use"apt-get" instead.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31635" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31635">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 37</span></div>
+
+</div>
+</div>
+<span class="username">rustiguzzi</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31635">
+
+<time datetime="2013-11-06T10:34">posted: 2013-11-06 &nbsp; 10:34</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31635" title="permalink">#4</a></span>
+
+<div class="content">Thanks for the above. I gather Debian dropped support for these older devices some while back, but it looks as though BitJam has hit on the answer, which I will try out ASAP and report back. <br>
+<br>
+Incidentally, unless I'm missing something, I couldn't try rokytnji's suggestion of using the Control Centre, as antiX-core doesn't have this facility. Or maybe it's hidden somewhere and I just haven't found it yet.<br>
+<br>
+Also, FWIW: I'd ticked the box for email notification of any replies, and duly received one - marked"Suspicious message" by the ISP. When I clicked on the link I got this, from Cisco Security:<br>
+<br>
+<span style="color: #408040">The requested web page has been blocked<br>
+viewtopic.php?f=49&amp;t=4675<br>
+<br>
+Cisco Security has identified Malware on the requested page.<br>
+<br>
+Cisco Email and Web Security protects your organization's network from malicious software. Malware is designed to look like a legitimate email or website which accesses your computer, hides itself in your system, and damages files. Your email administrator has configured this prevention system to ensure against such damage.<br>
+</span><br>
+Is this normal?<br>
+<br>
+rustiguzzi</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31636" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31636">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31636">
+
+<time datetime="2013-11-06T10:58">posted: 2013-11-06 &nbsp; 10:58</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31636" title="permalink">#5</a></span>
+
+<div class="content">I don't get email notifications from these forums even though I asked for them so maybe it is normal for them to be swallowed up by spam filters.<br>
+<br>
+There is no Control Centre for core but there are vague plans to make one. It might be more like a CLI applications menu. I think that would be a great feature for the core system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31639" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31639">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 37</span></div>
+
+</div>
+</div>
+<span class="username">rustiguzzi</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31639">
+
+<time datetime="2013-11-06T16:18">posted: 2013-11-06 &nbsp; 16:18</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31639" title="permalink">#6</a></span>
+
+<div class="content">Thanks. I'll forget about email notifications then, and manage without CC unless/until it gets developed for this system.<br>
+<br>
+I got rid of pulseaudio, then went through the instructions at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/snd-ymfpci"<br>linktext was:"https://wiki.debian.org/snd-ymfpci"<br>====================================<br>
+, and all went well until step 5, which is"Reload the snd-ymfpci module" using the command<br>
+# modprobe -r snd-ymfpci ; modprobe snd-ymfpci<br>
+which produced the by-now-familiar lines:<br>
+<br>
+[ 12.620141] 0000:00:09.0: Missing Free firmware<br>
+[ 12.6340731] ALSA sound/pci/ymfpci/ymfpci_main.c:2453 firmware request failed: -22 <br>
+<br>
+Unfortunately, in trying to find out more I screwed up some files and decided that nothing short of a nice, clean re-installation would do. I've done it and got back up-to-date, but it will be some time before I get everything back to where it was before, and I'll probably have to put the project on hold for a while. Could be a couple of weeks before I get to a position where I can start again with this problem. <br>
+<br>
+Meanwhile, thanks for your help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31666" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31666">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 37</span></div>
+
+</div>
+</div>
+<span class="username">rustiguzzi</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31666">
+
+<time datetime="2013-11-07T15:45">posted: 2013-11-07 &nbsp; 15:45</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31666" title="permalink">#7</a></span>
+
+<div class="content">Just a thought . . . step 4 in the method described at https:wiki.debian.org/snd-ymfpci requires the creation of a new directory called 'yamaha' in /usr/local/lib/firmware. Would this be correct? I note that, in my antiX-core system, /usr/local/lib contains only the one directory, called antiX, which contains mostly .sh files. There is no existing 'firmware' directory. However, in /lib/firmware there is loads of stuff - .bin files, .fw files, and directories containing more of the same. This looks like a more suitable home for the yamaha .fw files.<br>
+<br>
+Might this be worth trying instead?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31702" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31702">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 37</span></div>
+
+</div>
+</div>
+<span class="username">rustiguzzi</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31702">
+
+<time datetime="2013-11-10T19:00">posted: 2013-11-10 &nbsp; 19:00</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31702" title="permalink">#8</a></span>
+
+<div class="content">Back up and running and have been through the above setting-up instructions again, this time putting the firmware in BOTH possible locations - but still get the same error messages. I have, however, found this:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.jpberlin.de/st.pofahl/html/science-and-software/Gnu-Linux/alsa-sound.html"<br>linktext was:"http://www.jpberlin.de/st.pofahl/html/s ... sound.html"<br>====================================<br>
+<br>
+<br>
+though finding it hard to understand. I'll persevere and see what, if anything, I can make of it - but so far, I've not found a way to get this firmware into the system. <br>
+At least it's given me an interersting command: dmesg | grep -i firmware<br>
+which, for what it's worth, results in the same"Missing Free firmware" messages.<br>
+<br>
+Pass the aspirin, someone . . .</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31705" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31705">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31705">
+
+<time datetime="2013-11-10T19:42">posted: 2013-11-10 &nbsp; 19:42</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31705" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>rustiguzzi wrote:</cite>Back up and running and have been through the above setting-up instructions again, this time putting the firmware in BOTH possible locations - but still get the same error messages.</div></blockquote>
+There are more than 2 possible locations. In the antiX iso, the only"firmware" directory is /lib/firmware, so I suggest you put the yamaha modules in /lib/firmware/yamaha/. It should contain three files:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ls /lib/firmware/yamaha   
+ds1_ctrl.fw  ds1_dsp.fw  ds1e_ctrl.fw</code></pre></div>
+You should be able to do this starting from the tarball with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ tar xjf alsa-firmware-1.0.25.tar.bz2
+$ cd alsa-firmware-1.0.25
+$ ./configure
+$ cd ymfpc
+$ make
+$ sudo make install
+$ ls /lib/firmware/yamaha</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31713" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31713">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31713">
+
+<time datetime="2013-11-10T21:16">posted: 2013-11-10 &nbsp; 21:16</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31713" title="permalink">#10</a></span>
+
+<div class="content">There is some yamaha firmware here that used to work. No idea if it still does.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepisimo.com/antix/Tarballs/"<br>linktext was:"http://www.mepisimo.com/antix/Tarballs/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31768" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31768">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 37</span></div>
+
+</div>
+</div>
+<span class="username">rustiguzzi</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31768">
+
+<time datetime="2013-11-12T19:19">posted: 2013-11-12 &nbsp; 19:19</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31768" title="permalink">#11</a></span>
+
+<div class="content">Tried out the above, to no avail - but all is not yet lost. <br>
+<br>
+It can be difficult for the experts to sort out problems for other people when they can't see what's going on. Fortunately, a linux-fluent family member is paying us a visit this weekend, so maybe he will be able to spot where I'm going wrong. I'll let you know what progress we make, as there may be others out there with trailing-edge technology machines who will run into the same problem.<br>
+<br>
+By the way, I continue to be impressed by what can be done with core antiX, equipped with fluxbox and ROX-filer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31864" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31864">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">candlerb</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31864">
+
+<time datetime="2013-11-18T17:31">posted: 2013-11-18 &nbsp; 17:31</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31864" title="permalink">#12</a></span>
+
+<div class="content">I have been helping rustiguzzi with this laptop, and the problem is now solved.<br>
+<br>
+Short version: the kernel with"-gnu" in its name was broken by design. Install the kernel without"-gnu" in its name, remember to"update-grub", then reboot into this kernel.<br>
+<br>
+Long version:<br>
+<br>
+1. When the kernel needs to load the firmware, via udev it calls a userland helper script, /lib/udev/firmware.agent to do it<br>
+<br>
+2. I modified /lib/udev/firmware.agent and found that instead of being passed the name of the firmware to be loaded, it is getting the string"/*(DEBLOBBED)*/". And since there is obviously no firmware with this name, it is failing.<br>
+<br>
+To demonstrate this, I made the following patch to /lib/udev/firmware.agent:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>--- /lib/udev/firmware.agent.orig    2013-04-28 22:44:19.000000000 +0100
++++ /lib/udev/firmware.agent.test    2013-11-16 12:07:20.466660459 +0000
+@@ -3,6 +3,11 @@
+ # firmware loader agent
+ #
+
++printenv &gt;/tmp/fwname
++
++set -x
++exec &gt;/tmp/fff 2&gt;&amp;1
++
+ cd /lib/udev/
+ . ./hotplug.functions
+
+</code></pre></div>
+The environment passed to the script, recorded in /tmp/fwname, is:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>UDEV_LOG=3
+ACTION=add
+SEQNUM=1631
+USEC_INITIALIZED=7432826344
+FIRMWARE=/*(DEBLOBBED)*/
+DEVPATH=/devices/pci0000:00/0000:00:09.0/firmware/!*(DEBLOBBED)*!
+ASYNC=0
+SUBSYSTEM=firmware
+TIMEOUT=60
+PWD=/
+</code></pre></div>
+Googling around for 'deblobbed' I came a cross a project called 'linux-libre', which distributes a patchset against the kernel to disable the loading of binary drivers without source. It seems that the self-styled Open Source Police have decreed that:<br>
+<br>
+1. The Yamaha firmware is not Worthy to be loaded into the Holy Kernel of Linux<br>
+2. The Great Unwashed cannot be trusted to decide for themselves whether or not to load said firmware<br>
+3. Rather than simply remove the offending driver entirely, they have decided to break its functionality in a strange way, such that there will be Weeping there, and Gnashing of Teeth, when you see other sound drivers loaded in the Kernel of Linux, but you yourself Thrown Out.<br>
+<br>
+AFAICS their approach is to remove the freedoms I have now, in the hope of obtaining greater freedoms later.<br>
+<br>
+Anyway, the default Antix kernel (-gnu) has these patches, but an unmodified kernel is also available and you can install it explicitly.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31871" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31871">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31871">
+
+<time datetime="2013-11-19T02:26">posted: 2013-11-19 &nbsp; 02:26</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31871" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>candlerb wrote:</cite>AFAICS their approach is to remove the freedoms I have now, in the hope of obtaining greater freedoms later.</div></blockquote>
+candlerb, thank you for fixing this problem and thank you for taking the time to report your fix here. I can see how frustrating it must be to encounter something that seems broken by design.<br>
+<br>
+I was surprised when I first heard about the libre version of the kernel. I thought that since the kernel was written under the GPL-2, it had to all be under GPL-2 and hence Free. But, as you say, non-Free binary blobs can be linked into a non-libre kernel. I really don't think their intent was ever to limit people's freedom of choice in the here and now. They are not trying to force anyone to use the libre kernel. It is an option for people who want it.<br>
+<br>
+Your experience shows that it can be non-trivial for a user to know if the kernel is loading non-Free binary blobs so ISTM the libre kernel provides a useful service (for those who want it). If anyone has restricted your freedom it has been the antiX devs (if we only provide a libre version of core). I will see if we can include a non-libre core version in the next release so the choice between libre and non-libre is more clear. I will also see if we can include a more visible warning about the limitations of the libre version.<br>
+<br>
+Again, thank you for diagnosing and fixing this problem. AFAIK, we were all stumped here. Now that you have figured it out, we can be on alert for it when similar problems are reported in the future. I'm sorry you had a negative experience. Now that we are aware of the potential problems, I hope that by communicating better and by offering a non-libre core version we can prevent similar negative experiences in the future.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31872" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31872">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31872">
+
+<time datetime="2013-11-19T13:08">posted: 2013-11-19 &nbsp; 13:08</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31872" title="permalink">#14</a></span>
+
+<div class="content">Thanks to this post, the first thing I did with my core install last nite was change the kernel to the standard one. Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31980" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31980">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">candlerb</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31980">
+
+<time datetime="2013-11-23T22:08">posted: 2013-11-23 &nbsp; 22:08</time>
+<span class="permalink"><a href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675.html#p31980" title="permalink">#15</a></span>
+
+ <div class="content"><blockquote><div><cite>BitJam wrote:</cite>Now that you have figured it out, we can be on alert for it when similar problems are reported in the future.</div></blockquote>
+I am glad of that, and it was a learning experience for me too <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I think it could have been made a whole load easier if the libre people had include a more informative printk() message. The hint is there, but it's just three words:"Missing Free firmware". I would suggest something like this:<br>
+<br>
+"Loading of non-free firmware disabled. For more information please see 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linux-libre.fsfla.org/"<br>linktext was:"http://linux-libre.fsfla.org/"<br>====================================<br>
+"<br>
+<br>
+Regards,<br>
+<br>
+Brian,</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./system-can-t-find-this-laptop-s-soundcard-solved-t4675-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

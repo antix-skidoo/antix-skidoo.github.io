@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-16 dual-boot installation FAT32 boot sector corruption - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html">antiX-16 dual-boot installation FAT32 boot sector corruption</a></div>
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_48080" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48080">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">openmind</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Sep 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48080">
+<time datetime="2016-09-05T20:33">posted: 2016-09-05 &nbsp; 20:33</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48080" title="permalink">#1</a></span>
+
+<div class="content">I have several old Dell Dimension 4100 workstations having 256MB RAM and 20GB disk drives all with operational Windows 2000 systems installed on FAT32 file systems allocated the entire disk. Most modern Linux distributions require at least 512MB of RAM and about 8GB of disk to install and run them successfully. I was delighted to hear of a modern Linux distribution that could install in less than 3GB and run in less than 256MB of RAM because a number of the machines were about half full of files that were advantageous to keep. If antiX could be installed on them they could all be made useful again without finding additional memory.<br>
+<br>
+I have now successfully installed antiX-16 on two of them and am pleased with the system. However, after performing a manual dual boot repartitioning of the disk, neither would boot the original Windows 2000 systems that had been operational before the install.<br>
+<br>
+The installation was performed in two steps. The first step was to clean up the FAT32 file system to free as much space as possible and then defrag them twice after running chkdsk. Once the FAT32 system had been prepared as described above, the antiX-16 ISO was run from a thumbdrive that was booted using the diskette image of plpbt R5.0.15 (this really does work well BTW). With antiX-16 booted live, gparted was used to"shrink" the FAT32 partition to about 10GB and configure swap and Linux partiitions before installing. No errors or failures of any kind were encountered during any of the above procedures. After antiX-16 was successfully installed, the system was rebooted immediately and the antiX recommended update procedures were successfully applied followed by another system reboot. After installing a few"missing" packages, the system was rebooted again this time selecting the Windows 2000 Professional option in Grub2 that had been automatically configured in the antiX-16 install. The Windows 2000 boot just sat there with a blank screen. Everything about the Grub configuration was in proper order but Win2k would not boot as it had before antiX-16 was installed.<br>
+<br>
+The reason Win2k would not boot after the antiX-16 install is that the gparted utility in antiX-16 corrupts the microcode section of the boot sector and fills it with extraneous garbage from some unknown FAT32 directory (the jump instruction at the beginning of the boot sector is also corrupt) but both the BPB and the extended BPB have correct data from the partition reconfiguration in them. Both the primary and back-up FAT32 boot sectors were identically corrupt.<br>
+<br>
+Getting Win2k to boot after the faulty antiX-16"shrinking" of the FAT32 file system required the use of 'dd' and 'xxd' in conjunction with 'vi' to paste correct microcode obtained from another machine into the boot sector. I am surprised, at this late stage in antiX development, that this kind of problem is being encountered installing a Linux distribution intended to be run on old hardware running existing software and would recommend, for the future of antiX, that someone discover the reason FAT32 boot sector corruption is occuring and fix the problem before more unsuspecting users lose access to their original Windows systems.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48082" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48082">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48082">
+
+<time datetime="2016-09-05T20:53">posted: 2016-09-05 &nbsp; 20:53</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48082" title="permalink">#2</a></span>
+
+<div class="content">I was going to reply. Then thought better not. But what the heck. <br>
+Being familiar myself with Windows 2000 Pro SP4 enterprise edition &lt; I have the cd &gt;<br>
+<br>
+My workaround on old kits is to use on floppy or cd<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://partitionlogic.org.uk/"<br>linktext was:"http://partitionlogic.org.uk/"<br>====================================<br>
+<br>
+<br>
+A good iso to keep on external hard drive as it takes up no space .<br>
+<br>
+Resize Windows drives, fat32 even, then make sure everything boots before booting my AntiX cd.<br>
+<br>
+Back then in those days. I was running AntiX 7. Using a even older version of gparted and a AntiX installer.<br>
+<br>
+I don't hold much hope for accommodating fat32 Windows installations as the world has moved a long ways since then.<br>
+But I guess it don't hurt to ask.<br>
+<br>
+Howdy and Welcome from the scooter tramp on this forum.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48084" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48084">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48084">
+
+<time datetime="2016-09-05T22:34">posted: 2016-09-05 &nbsp; 22:34</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48084" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>openmind wrote:</cite>The reason Win2k would not boot after the antiX-16 install is that the gparted utility in antiX-16 corrupts the microcode section of the boot sector and fills it with extraneous garbage from some unknown FAT32 directory (the jump instruction at the beginning of the boot sector is also corrupt) but both the BPB and the extended BPB have correct data from the partition reconfiguration in them. Both the primary and back-up FAT32 boot sectors were identically corrupt.</div></blockquote>
+If the problem is due to the resizing then it is an upstream problem because we use a standard unmodified version of gparted. I did a quick Google and found these instructions: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.howtogeek.com/howto/windows-vista/using-gparted-to-resize-your-windows-vista-partition/"<br>linktext was:"Using GParted to Resize Your Windows 7 or Vista Partition"<br>====================================<br>
+. It appears that when gparted resizes the partition it can move the physical location on the disk of the file \Windows\system32\winload.exe. The Windows boot loader relies on the physical location which is why you will need to repair Windows after resizing.<br>
+<br>
+If this is what happened then I don't think there is much we can do to avoid putting users through this convenience.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48086" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48086">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">openmind</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Sep 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48086">
+
+<time datetime="2016-09-05T23:26">posted: 2016-09-05 &nbsp; 23:26</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48086" title="permalink">#4</a></span>
+
+<div class="content">Thanks for your reply. I like your R.P. Feynman quote. Although I've not tried the antiX install on a Win7 or Vista machine, they typically have NTFS file systems rather than FAT32. I've shrunk Win7 volumes and installed other Linux distributions on those machines without post install boot problems. I have had problems shrinking NTFS with a WinXP system not booting but that was because gparted didn't move the"hidden part-info sector" that WinXP writes on the last sector of the volume (I found a utility that fixes that--search"ntfsfixboot"). The problem described in this post applies to FAT32 file systems with Windows 2000 having the system installed in C:\winnt (there is no \Windows\system32\winload.exe file in Win2K and moving it in a Win7 or Vista volume wouldn't be a problem anyway as long as it can be located by the boot sector microcode). This problem much worse than moving the location of an existing file. It is about gparted corrupting the boot sector itself when shrinking FAT32 file systems. This really is a serious problem. Most ordinary users would have no idea how to determine what went wrong or how to recover even though the utilities to do so are right there in their antiX-16 system. Do distribution maintainers report these kinds of failures upstream or do ordinary users have to do it?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48090" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48090">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48090">
+
+<time datetime="2016-09-06T04:42">posted: 2016-09-06 &nbsp; 04:42</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48090" title="permalink">#5</a></span>
+
+<div class="content">It would be much more efficient for you to report it directly because there is nothing useful we would add to the conversation. We would just waste our time and slow down the communication. It would be like a comedy sketch where two people aren't talking to each other so a third person has to repeat everything that gets said.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48091" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48091">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48091">
+
+<time datetime="2016-09-06T05:31">posted: 2016-09-06 &nbsp; 05:31</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48091" title="permalink">#6</a></span>
+
+
+<div class="content"><blockquote class="uncited"><div>gparted corrupting the boot sector itself when shrinking FAT32 file systems</div></blockquote>FWIW, there's no way it's an across-the-board"gparted resizing FAT32 smaller" problem.<br>
+I've done that (used gparted to resize FAT32 smaller) countless times without incident.<br>
+<br>
+backstory:<br>
+At some point, unetbootinForWindows quit working (due to its outdated extlinux version) so I changed to using rufus (under winXP)...<br>
+...but rufus insists on formatting the entire target drive, so I'm resigned to firing up (g)parted to shrink the rufus-created FAT32 partition and to create additional (swap, et al) partitions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48100" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48100">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">openmind</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Sep 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48100">
+
+<time datetime="2016-09-06T13:28">posted: 2016-09-06 &nbsp; 13:28</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48100" title="permalink">#7</a></span>
+
+<div class="content">FWIW, I haven't otherwise had a problem with gparted corrupting boot sectors installing other Linux distributions either. I did have a problem with it crashing during a Linux Lite repartitioning procedure but it didn't corrupt the FAT32 boot sector. The FAT32 boot sector corruption using gparted has only occurred with using the version in antiX-16 twice in a row. This makes me think there is something uniquely wrong with it in the antiX-16 ISO.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48105" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48105">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48105">
+
+<time datetime="2016-09-06T23:17">posted: 2016-09-06 &nbsp; 23:17</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48105" title="permalink">#8</a></span>
+
+<div class="content">antiX-16 uses the gparted-0.24.0-1mx150+1 package which contains gparted-0.24.0. Debian Stretch has already upgraded to version 0.25.0-1. Versions below 0.26.0 are not even available in Gentoo stable. I suggest you make sure you are using the latest 0.25.0-1 version and see if the problem still exists. If not, then the bug was probably already found and fixed.<br>
+<br>
+Please let us know if an upgrade fixes the problem because that might be a good reason for us to make an antiX-16.1 release.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48110" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48110">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">openmind</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Sep 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48110">
+
+<time datetime="2016-09-07T03:08">posted: 2016-09-07 &nbsp; 03:08</time>
+<span class="permalink"><a href="./antix-16-dual-boot-installation-fat32-boot-sector--t6581.html#p48110" title="permalink">#9</a></span>
+
+<div class="content">Without testing it directly, I'm almost certain that the FAT32 boot sector corruption problem is a gparted 0.24.0 issue. I acquired five of these old Dell Dimension 4100 computers and have been working on them for a while. One already had an old version of FreeBSD on it so I reconfigured its networking parameters and left it alone (I removed its 256MB RAM SIMM so I could have the 512MB minimum to install Linux Lite 3.0 on two of the other four machines (moving it between them as necessary). One of the two that could accommodate Linux Lite had a completely corrupt HD that needed to be low-level initialized before it could be used and that, of course, wiped it completely clean--Lite was installed on the entire drive. The other machine could accomodate Lite because there was very little on it besides Windows 2000 Pro (very few apps and almost no user files). Linux Lite comes with gparted 0.25.0 and it does not corrupt FAT32 boot sectors. However, in the process of"shrinking" the 20GB Win2k partition, that version of gparted running on the live USB ISO crashed before it was finished and the FAT32 file system was left in a corrupted state. I used PartedMagic on"The Ultimate Boot CD R5.1.1" to fix it (it has gparted Release 0.9.0 if you can believe it). Apparently, gparted has introduced new"bugs" of one kind or another as development has progressed (R0.9.0 fixed the FAT32 file system corrupted by the unstable R0.25.0 and created the partitions used to install Lite 3.0 as well). The other two boxes (Dell 4100 Win2k machines) both had many apps and user files that were advantageous to keep so antiX-16 (that had just been released) was perfect for the task (it also has the latest kernel of any Linux distribution I've tried). Installing antiX-16 on those boxes led to this thread.<br>
+<br>
+So, that's all five boxes and I don't have any more available to test with (I might be able to find something else to work with but it would take me a while). If I were you, I'd follow the Gentoo stable lead and go with gparted 0.26.0 if you can get it to run with the antiX kernel.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

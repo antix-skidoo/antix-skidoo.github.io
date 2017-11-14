@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Need Locale for Ireland - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-intifada-f28/index.html"><span>antiX-M8 Intifada!</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./need-locale-for-ireland-t1592.html">Need Locale for Ireland</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_10044" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10044">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">jarlath</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Mar 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10044">
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10044/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-03T18:32">posted: 2009-04-03 &nbsp; 18:32</time>
+<span class="permalink"><a href="./need-locale-for-ireland-t1592.html#p10044" title="permalink">#1</a></span>
+
+<div class="content">Hi folks. Antix is running well on my parents machine. I just need to install the locale for Ireland. The Meta Installer only shows locales I don't need.<br>
+<br>
+Does anyone know how I can go about this? I'm thinking there' might be a repository I can use but I'd need a little help there. Haven't used the command line in years and I'm rusty.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10045" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10045">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10045">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10045/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-03T19:06">posted: 2009-04-03 &nbsp; 19:06</time>
+<span class="permalink"><a href="./need-locale-for-ireland-t1592.html#p10045" title="permalink">#2</a></span>
+
+<div class="content">In a terminal you need to run as root<br>
+<br>
+dpkg-reconfigure locales<br>
+<br>
+and make sure the ones for Ireland are chosen (Gaelic is ga_IE.UTF-8 and Irish English is en_IE.UTF-8)<br>
+<br>
+Select it for default.<br>
+Now if you want to set the computer to default the language you have chosen above, you need to add this line to /etc/profile (eg Gaelic)<br>
+<br>
+export LANG=ga_IE.UTF-8<br>
+<br>
+and add this to /etc/X11/xorg.conf<br>
+<br>
+Option"XkbLayout""us,ie"<br>
+Option"XKbOptions""grp:alt_shift_toggle,grp_led:scroll"<br>
+<br>
+Logout/login and then as user in a terminal for icewm, or as root in a terminal for fluxbox<br>
+<br>
+update-menus<br>
+<br>
+Logout/login<br>
+<br>
+Now the menu of apps that support Gaelic will be in Gaelic.<br>
+<br>
+Added:<br>
+For the browser to have Irish/gaelic support, search for iceweasel ga in synaptic and install iceweasel-l10n-ga-ie</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10069" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10069">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10069">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10069/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-04T14:34">posted: 2009-04-04 &nbsp; 14:34</time>
+<span class="permalink"><a href="./need-locale-for-ireland-t1592.html#p10069" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>
+Logout/login and then as user in a terminal for icewm, <br>
+<br>
+update-menus<br>
+</div></blockquote>
+<br>
+You can also put in your .icewm/preferences the following option:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>AutoReloadMenus=1
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10071" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10071">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10071">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10071/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-04T15:06">posted: 2009-04-04 &nbsp; 15:06</time>
+<span class="permalink"><a href="./need-locale-for-ireland-t1592.html#p10071" title="permalink">#4</a></span>
+
+<div class="content">hey, that's a nice tip, macondo.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10077" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10077">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,081</span></div>
+
+</div>
+</div>
+<span class="username">OU812</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10077">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10077/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-04-04T18:12">posted: 2009-04-04 &nbsp; 18:12</time>
+<span class="permalink"><a href="./need-locale-for-ireland-t1592.html#p10077" title="permalink">#5</a></span>
+
+<div class="content">macondo -<br>
+<br>
+is this already in the preferences file? If so, i couldn't find it. How about a line # if it is? (I'd like to use it in the next release). If it's not in the file, then where would be a logical place to insert it?<br>
+<br>
+Thanks.<br>
+<br>
+john</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10860" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile10860">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>10</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">jarlath</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Mar 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10860">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10860/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-05-18T20:41">posted: 2009-05-18 &nbsp; 20:41</time>
+<span class="permalink"><a href="./need-locale-for-ireland-t1592.html#p10860" title="permalink">#6</a></span>
+
+<div class="content">Thank you so much, those instructions are running in a terminal as I write this.<br>
+<br>
+Anticapitalista, are you Greek? My sister lived in Greece for about five years and I stayed with her for quite a while from time to time. She started work in Athens but moved to Syros, Zakintos (?) and Lutraki (excuse my spelling!)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_10887" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile10887">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content10887">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/10887/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-05-19T18:55">posted: 2009-05-19 &nbsp; 18:55</time>
+<span class="permalink"><a href="./need-locale-for-ireland-t1592.html#p10887" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>jarlath wrote:</cite>Thank you so much, those instructions are running in a terminal as I write this.<br>
+<br>
+Anticapitalista, are you Greek? My sister lived in Greece for about five years and I stayed with her for quite a while from time to time. She started work in Athens but moved to Syros, Zakintos (?) and Lutraki (excuse my spelling!)</div></blockquote>
+Not Greek, but an"Englishman in Thessaloniki" (Northern Greece). I have been living here for 20 years. Love it on the whole</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

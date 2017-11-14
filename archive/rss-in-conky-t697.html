@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>RSS in Conky - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./rss-in-conky-t697.html">RSS in Conky</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_3830" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3830">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3830">
+<time datetime="2008-05-13T13:05">posted: 2008-05-13 &nbsp; 13:05</time>
+<span class="permalink"><a href="./rss-in-conky-t697.html#p3830" title="permalink">#1</a></span>
+
+<div class="content">Along the line of practical items, I have adapted <a href="http://howto.wikia.com/wiki/Howto_add_an_RSS_feed_to_Conky/conky-rss.sh" class="postlink"><strong>this script</strong></a> to display the current top item on CNN.com in Conky. (It requires the installation of curl from the repos.) My procedure (be sure to change my username"jb" to your own):<br>
+<br>
+1) Open up Leafpad and paste in this code:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># RSS Feed Display Script by Hellf[i]re v0.1
+#
+# This script is designed for most any RSS Feed. As some feeds may not be
+# completely compliant, it may need a bit of tweaking
+#
+# This script depends on curl.
+# Gentoo: emerge -av net-misc/curl
+# Debian: apt-get install curl
+# Homepage: http://curl.haxx.se/
+#
+# Usage:
+# .conkyrc: ${execi [time] /path/to/script/conky-rss.sh}
+#
+# Usage Example
+# ${execi 300 /home/youruser/scripts/conky-rss.sh}
+
+#RSS Setup
+URI=http://rss.cnn.com/rss/cnn_topstories.rss #URI of RSS Feed
+LINES=1 #Number of headlines
+
+#Environment Setup
+EXEC="/usr/bin/curl -s" #Path to curl
+
+#Work Start
+$EXEC $URI | grep title |\
+sed -e :a -e 's/&lt;[^&gt;]*&gt;//g;/&lt;/N' |\
+sed -e 's/[ \t]*//' |\
+sed -e 's/\(.*\)/ \1/' |\
+sed -e 's/\.//' |\
+sed -e 's/\"//' |\
+sed -e 's/\"//' |\
+head -n $(($LINES + 2)) |\
+tail -n $(($LINES))</code></pre></div>
+Change LINES= to as many feeds as you would like displayed.<br>
+2) save as conky-rss_CNN.sh in /home/jb/scripts , then right-click --&gt; Permissions and click Yes to make it executable<br>
+3) paste the following at the bottom of conkyrc (colors personal):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${color white}News:
+ ${color green}${execi 300 /home/jb/scripts/conky-rss_CNN.sh}</code></pre></div>
+Then save the file.<br>
+4) click Menu --&gt; WM's --&gt; Conky on/off twice to activate new config<br>
+<br>
+NOTES: 1) You can add other feeds by creating additional copies of the script and changing the URL and the name. 2) Not all feeds work for me, especially those ending in xml such as from the BBC--maybe somebody can solve that?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3833" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3833">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 251</span></div>
+
+</div>
+</div>
+<span class="username">JawsThemeSwimming428</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Mar 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3833">
+
+<time datetime="2008-05-13T20:45">posted: 2008-05-13 &nbsp; 20:45</time>
+<span class="permalink"><a href="./rss-in-conky-t697.html#p3833" title="permalink">#2</a></span>
+
+<div class="content">Thanks, I plan to try that later tonight. Nice job.</div>
+<div class="postcontent_footer">
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3841" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3841">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 251</span></div>
+
+</div>
+</div>
+<span class="username">JawsThemeSwimming428</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Mar 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3841">
+
+<time datetime="2008-05-14T01:23">posted: 2008-05-14 &nbsp; 01:23</time>
+<span class="permalink"><a href="./rss-in-conky-t697.html#p3841" title="permalink">#3</a></span>
+
+<div class="content">OK, not sure why it doesn't work with feeds ending in .xml but I am getting the same result as you. At first it wasn't working but then I realized I hadn't installed curl. After installing curl everything worked fine. The only question I have is how do I allow the headline to take up more than one line in conky? For example, right now it says"Philadelphia's municipal WiFi n" and then it cuts it off because there is a character or line limit. I want it to show the entire title of the article. Thanks !</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3868" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3868">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3868">
+
+<time datetime="2008-05-14T10:21">posted: 2008-05-14 &nbsp; 10:21</time>
+<span class="permalink"><a href="./rss-in-conky-t697.html#p3868" title="permalink">#4</a></span>
+
+<div class="content">I found that you can get a certain increase in width by changing this entry in your conkyrc file:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>maximum_width 300</code></pre></div>
+But numbers greater than that seem to have no further effect. Something else must be limiting it, haven't figured out what yet.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3879" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3879">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 251</span></div>
+
+</div>
+</div>
+<span class="username">JawsThemeSwimming428</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Mar 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3879">
+
+<time datetime="2008-05-14T14:18">posted: 2008-05-14 &nbsp; 14:18</time>
+<span class="permalink"><a href="./rss-in-conky-t697.html#p3879" title="permalink">#5</a></span>
+
+<div class="content">Alright thanks. I will play around a little bit and let you know if I figure it out.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

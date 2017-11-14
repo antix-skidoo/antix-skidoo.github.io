@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Weather in Conky - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./weather-in-conky-t671.html">Weather in Conky</a></div>
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_3642" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3642">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3642">
+<time datetime="2008-05-05T14:05">posted: 2008-05-05 &nbsp; 14:05</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p3642" title="permalink">#1</a></span>
+
+<div class="content">I tend to like more basic info than probably many other people, so was really glad to get this simple weather package working:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://conky.sourceforge.net/weather.tar.gz"<br>linktext was:"http://conky.sourceforge.net/weather.tar.gz"<br>====================================<br>
+<br>
+<br>
+Requirements: <ul><li>Place the two scripts in the same location</li><li>Adjust the parameters for your local situation</li><li>Install curl from the repos</li></ul>. Here are the only changed parts of my weather.sh script:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># s=standard units, m=metric units
+UNITS=s
+
+# where this script and the XSLT lives
+RUNDIR=/home/jb/scripts</code></pre></div>
+I didn't want any forecast, so omitted the Tomorrow entry from the XLST script, which I have now corrected so the"feels like" feature runs correctly:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt;xsl:text&gt;  Temperature: &lt;/xsl:text&gt;&lt;xsl:value-of select="tmp"/&gt;&lt;xsl:value-of select="/weather/head/ut"/&gt;
+&lt;xsl:if test="tmp != /weather/cc/flik"&gt;
+&lt;xsl:text&gt;
+  Feels Like: &lt;/xsl:text&gt;&lt;xsl:value-of select="flik"/&gt;&lt;xsl:value-of select="/weather/head/ut"/&gt;
+&lt;/xsl:if&gt;
+&lt;xsl:text&gt;
+  Conditions: &lt;/xsl:text&gt;&lt;xsl:value-of select="t"/&gt;
+&lt;xsl:text&gt;
+  Wind: &lt;/xsl:text&gt;
+&lt;xsl:choose&gt;
+    &lt;xsl:when test="wind/s = 'calm'"&gt;&lt;xsl:text&gt;0&lt;/xsl:text&gt;&lt;/xsl:when&gt;
+    &lt;xsl:otherwise&gt;&lt;xsl:value-of select="wind/s"/&gt;&lt;/xsl:otherwise&gt;
+&lt;/xsl:choose&gt;
+&lt;xsl:value-of select="/weather/head/us"/&gt; 
+&lt;xsl:choose&gt;
+    &lt;xsl:when test="wind/s = 'calm'"&gt;&lt;xsl:text&gt;(0mph)&lt;/xsl:text&gt;&lt;/xsl:when&gt;
+    &lt;xsl:otherwise&gt;&lt;xsl:text&gt; (&lt;/xsl:text&gt;&lt;xsl:value-of select="round(wind/s * 0.6214)"/&gt;&lt;xsl:text&gt;mph)&lt;/xsl:text&gt;&lt;/xsl:otherwise&gt;
+&lt;/xsl:choose&gt;
+&lt;xsl:text&gt; (&lt;/xsl:text&gt;&lt;xsl:value-of select="wind/t"/&gt;
+&lt;xsl:text&gt;)&lt;/xsl:text&gt;
+    &lt;/xsl:template&gt;
+
+    &lt;xsl:template match="dayf/day[@d='1']"&gt;
+&lt;xsl:text&gt;</code></pre></div>
+And finally here is the entry in my conkyrc:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${color white}Weather:
+${color green}${execi 1800 /home/jb/scripts/weather.sh 14456}</code></pre></div><a href="http://www.imageposter.com/uploads/get/370804" class="postlink"><img src="http://www.imageposter.com/storage/t91/856522008-05-05_1280x800.jpg" class="postimage" alt="Image"></a>[/code][/list]</div>
+<div class="notice">
+Last edited by <b>Jerry</b> on 19 May 2008, 13:08, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3658" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile3658">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3658">
+
+<time datetime="2008-05-05T22:16">posted: 2008-05-05 &nbsp; 22:16</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p3658" title="permalink">#2</a></span>
+
+<div class="content">Can you post your whole conkyrc file?<br>
+<br>
+eriefisher</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_3669" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile3669">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content3669">
+
+<time datetime="2008-05-06T02:05">posted: 2008-05-06 &nbsp; 02:05</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p3669" title="permalink">#3</a></span>
+
+<div class="content">Sure, but it's pretty boring compared to what I have seen around here and elsewhere. Also, I have divided it up into sections so I could get around more easily:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#This Conky configuration file has 5 sections:
+##BASE SETTINGS##
+##STYLE VARIABLES##
+##CONTENT VARIABLES##
+##EXAMPLES##
+##OUTPUT##
+----------
+##BASE SETTINGS##
+----------
+# set to yes if you want Conky to be forked in the background
+background yes
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+out_to_console no
+----------
+##STYLE VARIABLES##
+----------
+# X font when Xft is disabled, you can pick one with program xfontsel
+#font 7x12
+#font 6x10
+#font 7x13
+ font 8x12
+#font 7x12
+#font *mintsmild.se*
+#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
+#font -artwiz-snap-normal-r-normal-*-*-100-*-*-p-*-iso8859-1
+
+# Use Xft?
+use_xft no
+
+# Xft font when Xft is enabled
+xftfont Kristen ITC-7
+
+own_window_transparent yes
+own_window_colour hotpink
+
+# Text alpha when using Xft
+xftalpha 0.8
+
+#on_bottom no
+
+# mail spool
+mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 1
+
+# Create own window instead of using desktop (required in nautilus)
+own_window no
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 5 5
+maximum_width 200
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 10
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+default_color white
+default_shade_color white
+default_outline_color white
+
+# Text alignment, other possible values are commented
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+
+gap_x 10
+gap_y 10
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer yes
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# boinc (seti) dir
+# seti_dir /opt/seti
+
+#For details, see http://conky.sourceforge.net/config_settings.html
+----------
+##CONTENT VARIABLES##
+----------
+# Possible variables to be used:
+#
+#      Variable         Arguments                  Description                
+#  acpiacadapter                     ACPI ac adapter state.                   
+#  acpifan                           ACPI fan state                           
+#  acpitemp                          ACPI temperature.                        
+#  adt746xcpu                        CPU temperature from therm_adt746x       
+#  adt746xfan                        Fan speed from therm_adt746x             
+#  battery           (num)           Remaining capasity in ACPI or APM        
+#                                    battery. ACPI battery number can be      
+#                                    given as argument (default is BAT0).     
+#  buffers                           Amount of memory buffered                
+#  cached                            Amount of memory cached                  
+#  color             (color)         Change drawing color to color            
+#  cpu                               CPU usage in percents                    
+#  cpubar            (height)        Bar that shows CPU usage, height is      
+#                                    bar's height in pixels                   
+#  downspeed         net             Download speed in kilobytes              
+#  downspeedf        net             Download speed in kilobytes with one     
+#                                    decimal                                  
+#  exec              shell command   Executes a shell command and displays    
+#                                    the output in torsmo. warning: this      
+#                                    takes a lot more resources than other    
+#                                    variables. I'd recommend coding wanted   
+#                                    behaviour in C and posting a patch :-).  
+#  execi             interval, shell Same as exec but with specific interval. 
+#                    command         Interval can't be less than              
+#                                    update_interval in configuration.        
+#  fs_bar            (height), (fs)  Bar that shows how much space is used on 
+#                                    a file system. height is the height in   
+#                                    pixels. fs is any file on that file      
+#                                    system.                                  
+#  fs_free           (fs)            Free space on a file system available    
+#                                    for users.                               
+#  fs_free_perc      (fs)            Free percentage of space on a file       
+#                                    system available for users.              
+#  fs_size           (fs)            File system size                         
+#  fs_used           (fs)            File system used space                   
+#  hr                (height)        Horizontal line, height is the height in 
+#                                    pixels                                   
+#  i2c               (dev), type, n  I2C sensor from sysfs (Linux 2.6). dev   
+#                                    may be omitted if you have only one I2C  
+#                                    device. type is either in (or vol)       
+#                                    meaning voltage, fan meaning fan or temp 
+#                                    meaning temperature. n is number of the  
+#                                    sensor. See /sys/bus/i2c/devices/ on     
+#                                    your local computer.                     
+#  kernel                            Kernel version                           
+#  loadavg           (1), (2), (3)   System load average, 1 is for past 1     
+#                                    minute, 2 for past 5 minutes and 3 for   
+#                                    past 15 minutes.                         
+#  machine                           Machine, i686 for example                
+#  mails                             Mail count in mail spool. You can use    
+#                                    program like fetchmail to get mails from 
+#                                    some server using your favourite         
+#                                    protocol. See also new_mails.            
+#  mem                               Amount of memory in use                  
+#  membar            (height)        Bar that shows amount of memory in use   
+#  memmax                            Total amount of memory                   
+#  memperc                           Percentage of memory in use              
+#  new_mails                         Unread mail count in mail spool.         
+#  nodename                          Hostname                                 
+#  outlinecolor      (color)         Change outline color                     
+#  pre_exec          shell command   Executes a shell command one time before 
+#                                    torsmo displays anything and puts output 
+#                                    as text.                                 
+#  processes                         Total processes (sleeping and running)   
+#  running_processes                 Running processes (not sleeping),        
+#                                    requires Linux 2.6                       
+#  shadecolor        (color)         Change shading color                     
+#  stippled_hr       (space),        Stippled (dashed) horizontal line        
+#                    (height)        
+#  swapbar           (height)        Bar that shows amount of swap in use     
+#  swap                              Amount of swap in use                    
+#  swapmax                           Total amount of swap                     
+#  swapperc                          Percentage of swap in use                
+#  sysname                           System name, Linux for example           
+#  time              (format)        Local time, see man strftime to get more 
+#                                    information about format                 
+#  totaldown         net             Total download, overflows at 4 GB on     
+#                                    Linux with 32-bit arch and there doesn't 
+#                                    seem to be a way to know how many times  
+#                                    it has already done that before torsmo   
+#                                    has started.                             
+#  totalup           net             Total upload, this one too, may overflow 
+#  updates                           Number of updates (for debugging)        
+#  upspeed           net             Upload speed in kilobytes                
+#  upspeedf          net             Upload speed in kilobytes with one       
+#                                    decimal                                  
+#  uptime                            Uptime                                   
+#  uptime_short                      Uptime in a shorter format               
+#
+#  seti_prog                         Seti@home current progress
+#  seti_progbar      (height)        Seti@home current progress bar
+#  seti_credit                       Seti@hoome total user credit
+
+For more details, see http://conky.sourceforge.net/variables.html
+
+----------
+##EXAMPLES##
+----------
+## antiX additives examples.Add to below Text##
+##${color blue}battery: ${color white}$acpiacadapter, ${battery_percent BAT1}% 
+##Witeless example##
+#${color white}Wireless:
+#${color green}essid: ${wireless_essid wlan0}
+#${color red}IP:${color white} ${addr wlan0}
+#${color red}speed: ${color white} ${wireless_bitrate wlan0}
+#${color red}link strength: ${color white} ${wireless_link_bar 7,50 wlan0}
+
+# stuff after 'TEXT' will be formatted on screen
+----------
+##OUTPUT##
+----------
+TEXT
+${color white}$sysname $kernel
+${color green}Uptime: $uptime
+${color red}${time %a %d %b %k:%M}
+
+${color white}System monitors:
+${color green}cpu: ${color green}${cpu}%
+${color red}ram : ${color white}$mem${color white}/${color white}$memmax ${color white}- ${color green}$memperc%
+${color red}swap: ${color white}$swap${color white}/${color white}$swapmax ${color white}- ${color green}$swapperc%
+${color red}processes: ${color white}$processes${color white} running: ${color green}$running_processes
+${color red}free space:${color white} ${fs_free /} ${color green}= ${fs_free_perc /}%
+${color red}battery state:${color white} ${battery}
+${color red}battery strength:${color green} ${battery_bar 7,50}
+
+${color white}Wireless:
+${color green}essid: ${wireless_essid wlan0}
+${color red}IP:${color white} ${addr wlan0}
+${color red}link strength: ${color white} ${wireless_link_bar 7,50 wlan0}
+
+${color white}Weather:
+${color green}${execi 1800 /home/jb/scripts/weather.sh 14456}
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_4108" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile4108">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content4108">
+
+<time datetime="2008-05-19T13:04">posted: 2008-05-19 &nbsp; 13:04</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p4108" title="permalink">#4</a></span>
+
+<div class="content">Finally got the"feels like" correct in this script. This line should read <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt;xsl:if test="tmp != /weather/cc/flik"&gt;</code></pre></div>which provides the script with the complete path for the variable. I have edited my original post to correct for this.<br>
+<br>
+Today when the wind is 25mph and the temperature is 42F, that"feels like" carries an important: dress warmly!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_11858" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile11858">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 128</span></div>
+
+</div>
+</div>
+<span class="username">Hannes Worst</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content11858">
+
+<time datetime="2009-07-19T20:23">posted: 2009-07-19 &nbsp; 20:23</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p11858" title="permalink">#5</a></span>
+
+<div class="content">I know this is an old thread, but I thought: 'Let's give it a try', but so far I didn't succeed. In Conky I get the message: 'Invalid Partner Code'. What am I doing wrong? Do you have to sign up with xoap weather services? That didn't work for me .. <br>
+I defined my location in weather.sh as:<br>
+LOCID=$NLXX0017<br>
+<br>
+In my .conkyrc I stated: <br>
+${color green}${execi 1800 /home/strijards/scripts/weather.sh NLXX0017}<br>
+<br>
+It's a small problem, but I can't get it to work so far. Anyone with the same experience, and a solution perhaps? <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_11859" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile11859">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content11859">
+
+<p class="author">
+<a href="./weather-in-conky-t671.html#p11859" title="Post"> 19 Jul 2009, 21:38 <span style="padding-left:10px">#6</span></a>
+<time class="hide" datetime="2009-07-19 &nbsp; 21:38">2009-07-19 &nbsp; 21:38</time>
+ </p>
+<div class="content">Hannes Worst, just pointing that without curl the weather wont show up.<br>
+EDIT - sorry, I didn't pay attention to the message. What may be happening is that maybe you shouldn't edit weather.sh (I never tried this script, so this is just a guess), just add the location code to your .conkyrc<br>
+One other possibility is that you may have to put the location code inside quotes
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${color green}${execi 1800 /home/strijards/scripts/weather.sh"NLXX0017"}</code></pre></div>
+in accuweather.com, for instance, that is the case when the location is outside the US.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_11869" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile11869">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 128</span></div>
+
+</div>
+</div>
+<span class="username">Hannes Worst</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content11869">
+
+<time datetime="2009-07-20T06:06">posted: 2009-07-20 &nbsp; 06:06</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p11869" title="permalink">#7</a></span>
+
+<div class="content">Secipolla, thanks for your reaction. I tried out what you suggested, but no luck so far.. I'll keep on searching on the internet though, what it means: 'Invalid Partner Code'</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_11870" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile11870">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content11870">
+
+<time datetime="2009-07-20 &nbsp; 11:17">posted: 2009-07-20 &nbsp; 11:17</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p11870" title="permalink">#8</a></span>
+
+<div class="content">Hannes Worst,<br>
+<br>
+Here is a link to one of Masinick's scripts for weather,<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepislovers.org/forums/showthread.php?t=20546&amp;highlight=weather"<br>linktext was:"http://www.mepislovers.org/forums/showt ... ht=weather"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+Have a look, maybe what you want.<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_11872" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile11872">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content11872">
+
+<time datetime="2009-07-20T12:30">posted: 2009-07-20 &nbsp; 12:30</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p11872" title="permalink">#9</a></span>
+
+<div class="content">Make sure that everything else is pointing to the right place (like 'CURLCMD=/usr/bin/curl', 'XSLTCMD=/usr/bin/xsltproc' etc.)<br>
+and you must have 'curl' and this 'xsltproc' thing.<br>
+<br>
+HW, I've tried those codes in the browser and I suspect it's a 'problem' with weather.com since they don't work. You may keep those scripts and change the URL to fetch the weather to other ones like rss.accuweather.com in CURLURL="" (either search the the net or later I'll see the one I have in antiX in VirtualBox), and the location code must also be changed accordingly.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_11873" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile11873">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 128</span></div>
+
+</div>
+</div>
+<span class="username">Hannes Worst</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Jan 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content11873">
+
+<time datetime="2009-07-20">posted: 19:43</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p11873" title="permalink">#10</a></span>
+
+<div class="content">So far I've tried all kinds of weather.pl and weather.sh and weatherscript.py. Non of them worked, partially because they work with zipcodes and locationcodes that only work for the American continent and the UK. However I found a simple solution based on this thread: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ubuntuforums.org/showthread.php?p=7587652"<br>linktext was:"http://ubuntuforums.org/showthread.php?p=7587652"<br>====================================<br>
+" onclick="window.open(this.href);return false, and based on Secipolla's referal to rss.accuweather.com. It only requires a simple extra script in my .conky.rc. The result is a simple weatherdescription in Conky, but that is all I need.<br>
+Thanks for your advice!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21131" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21131">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1</span></div>
+
+</div>
+</div>
+<span class="username">birkopf</span>
+</dt>
+
+<dd class="profile-joined">Joined: 26 Jun 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21131">
+
+<time datetime="2011-06-26T12:16">posted: 2011-06-26 &nbsp; 12:16</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p21131" title="permalink">#11</a></span>
+
+<div class="content">Hi Jerry, Hannes and rest. <br>
+I would like to ask for your help as I am FED UP with weather problems ins conky. Seriously. I am not a novice. since 1 week I tried over 10 different configurations. Most doesn't work. One that works is a standard and looks rubbish. <br>
+<br>
+This topic started by Jerry was great relief as it was clear and methodical but I get the same error as Hannes : 'Invalid Partner Code'. I want to get if for my city in France, but will settle even for Paris. All components (curls, etc) are installed and in right places - checked 3 times. My location code is FRXX2284<br>
+<br>
+I agree that something is wrong with url for curl as after extensive search it came back to me that server is not responding. <br>
+<br>
+Please have a look at my code. Maybe some ideas will come. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>###############
+# - WEATHER - #
+###############
+${voffset 4}${font Droid Sans:style=Bold:size=8}CLIMA $stippled_hr${font}
+
+${execi 1800 /home/rich/.conkycolors/scripts/weather/weather.sh"FRXX2284"}</code></pre></div>
+Help me to replace this topics url with weather <span class="emoticon"> __{{emoticon}}__ </span> <br>
+I tried everything... <br>
+<br>
+My weather.sh
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+# your Location ID: use http://xoap.weather.com/search/search?where=[yourcity] to find it 
+# U.S. users can just use their zip code; doubt that works for anyone else though (YMMV)
+LOCID=$"FRXX2284"
+
+# s=standard units, m=metric units
+UNITS=m
+
+# where this script and the XSLT lives
+RUNDIR=/home/rich/.conkycolors/scripts/
+
+# there's probably other stuff besides CURL that will work for this, but i haven't 
+# tried any others. 
+# you can get curl at http://curl.haxx.se/
+CURLCMD=/usr/bin/curl
+
+# get it at http://xmlsoft.org/XSLT/
+XSLTCMD=/usr/bin/xsltproc
+
+# you probably don't need to modify anything below this point....
+
+# CURL url. Use cc=* for current forecast or dayf=10 to get a multi-day forecast
+CURLURL="http://xoap.weather.com/weather/local/$LOCID?cc=*&amp;unit=$UNITS&amp;dayf=2"
+
+# The XSLT to use when translating the response from weather.com
+# You can modify this xslt to your liking 
+XSLT=$RUNDIR/weather.xslt 
+
+#filter (if you want to convert stuff to lower-case or upper case or something)
+#FILTER="|gawk '{print(tolower(\$0));}'"
+#####
+eval"$CURLCMD \"$CURLURL\" 2&gt;/dev/null| $XSLTCMD $XSLT - $FILTER"</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21567" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21567">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21567">
+
+<time datetime="2011-08-12T07:36">posted: 2011-08-12 &nbsp; 07:36</time>
+<span class="permalink"><a href="./weather-in-conky-t671.html#p21567" title="permalink">#12</a></span>
+
+<div class="content">Up late. bleary eyed as usual, bored, so<br>
+<br>
+<br>
+<br>
+My .weather.sh sits in /home/harry/.weather.sh<br>
+<br>
+Stole this idea from Arch Forum because I like their simple approach to stuff verses Ubuntu conkys. <br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bbs.archlinux.org/viewtopic.php?id=37381"<br>linktext was:"https://bbs.archlinux.org/viewtopic.php?id=37381"<br>====================================<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+#AccuWeather (r) RSS weather tool for conky
+#
+#USAGE: weather.sh &lt;locationcode&gt;
+#
+#(c) Michael Seiler 2007
+
+METRIC=0 #Should be 0 or 1; 0 for F, 1 for C
+
+if [ -z $1 ]; then
+    echo
+    echo"USAGE: weather.sh &lt;79772&gt;"
+    echo
+    exit 0;
+fi
+
+curl -s http://rss.accuweather.com/rss/liveweather_rss.asp\?metric\=${METRIC}\&amp;locCode\=$1 | perl -ne 'if (/Currently/) {chomp;/\&lt;title\&gt;Currently: (.*)?\&lt;\/title\&gt;/; print"$1"; }'
+
+</code></pre></div>
+It is executable. You need perl and curl installed from synaptic or apt-get.<br>
+<br>
+My .conkyrc<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#avoid flicker
+double_buffer yes
+
+#own window to run simultanious 2 or more conkys
+own_window  yes
+own_window_transparent yes
+own_window_type normal
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager 
+
+#borders
+#shades
+draw_shades no
+
+#position
+gap_x 0
+gap_y 4
+alignment top_left
+
+#behaviour
+update_interval 1
+
+#colour
+default_color  green yellow
+#default_shade_color 000000
+own_window_colour 262729
+
+#font
+use_xft yes
+xftfont sans:size=8
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+#to prevent window from moving
+use_spacer none
+minimum_size 1024 0
+
+#mpd
+#mpd_host localhost
+#mpd_port 6600
+
+TEXT
+Date: ${color e0e0e0}${time %d/%m/%y} ${color} Time: ${color e0e0e0}${time %H:%M}${color}  |  Kernel: ${color e0e0e0}$kernel${color}  |  Cpu: ${color e0e0e0}${cpu}%${color}  Ram: ${color e0e0e0} $memperc% ${color} Swap: ${color e0e0e0} $swapperc% ${color} Disk: ${color e0e0e0}${fs_used_perc /}%${color} Home: ${color e0e0e0}${fs_used_perc /home}%${color}  |   Cpu: ${color e0e0e0}${acpitemp}Â°C${color}  | Signal: ${wireless_link_bar 7,50 wlan0} | ${color}Batt: ${color}$acpiacadapter, ${battery_bar BAT0}
+
+$memmax         ${execi 300 /home/harry/.weather.sh 79772} 
+
+ 
+
+</code></pre></div>
+Too tired and bleary eyed to try and figure out .weather.sh to forecast weather yet for next few days in a straight line and keep it simple (though the weather is boring here. Always hot and no rain). As you guys know. I am not a coder per se but just a biker. I'll have to dig some more to try and keep this clean and slim without icons. Don't expect much help from me on this as I am in virgin territory also. Goodnight Bros.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

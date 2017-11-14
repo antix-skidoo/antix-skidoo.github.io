@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-14R alpha3 available for testing - Page 10 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-releases-f45/index.html"><span>Development releases</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html">antiX-14R alpha3 available for testing</a></div>
+<div class="pagination">
+223 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-14r-alpha3-available-for-testing-t5305-s120.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s105.html" role="button">8</a></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s120.html" role="button">9</a></li>
+<li class="active"><span>10</span></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s150.html" role="button">11</a></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s165.html" role="button">12</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s210.html" role="button">15</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-14r-alpha3-available-for-testing-t5305-s150.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_37580" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37580">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37580">
+<time datetime="2014-10-21T20:20">posted: 2014-10-21 &nbsp; 20:20</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37580" title="permalink">#136</a></span>
+
+<div class="content">Thanks for the detailed information D.O.!<br>
+<br>
+Just so I'm absolutely clear: both your HP Pavilion notebook and your ASUS EEEPC 904ha don't shutdown with antiX-14-a3 but work fine with everything earlier. BTW: Sometimes my laptop takes about 10 seconds between when it says"Ready to xxxx" and when it actually does xxxx. I hate to ask but is it possible you just need to wait longer?<br>
+<br>
+After the dreaded"wait test", there is another test you can try. Right before you shut down, copy <strong>/</strong>etc/init.d/debian/{sendsigs,umountfs} to <strong>/</strong>etc/init.d/. This should revert to the standard Debian shutdown process. If it works then we have isolated the problem to the busybox shutdown app. Of course, don't run persist-save after you do the copy unless you want to permanently disable our live shutdown process.<br>
+<br>
+<strong>As for the intel graphics driver,</strong> here is a 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://lkml.org/lkml/2014/6/30/178"<br>linktext was:"similar regression posted in the LKML"<br>====================================<br>
+ (Linux Kernel Mailing List). <blockquote class="uncited"><div>I encountered a new problem in the i915 driver the first time I booted a 3.16-rc kernel on this computer. When it switched over to the frame buffer driver, the screen went blank and stayed that way.</div></blockquote>
+I looked at their patch and it is already in the 3.17 kernel source. I am pretty sure this patch is what made the driver work on my ValleyView Gen3 chip set. There have been a lot of other changes so I don' t think that patch is related to your problem but maybe this will give you a path forward. See if anyone else has reported a more recent regression that matches your problem, and if not then report the problem. <br>
+<br>
+Here is another example: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://lkml.org/lkml/2014/9/1/26%5Bquote%5DI"<br>linktext was:"https://lkml.org/lkml/2014/9/1/26"<br>====================================<br>
+<blockquote class="uncited"><div>
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://lkml.org/lkml/2014/9/1/26%5Bquote%5DI"<br>linktext was:"I tried to upgrade my kernel from 3.16 to 3.17-rc2 and I found that my laptop was unable to boot. The boot process hangs after 2-3 seconds"<br>====================================<br>
+</div></blockquote><a href="https://lkml.org/lkml/2014/9/1/26%5Bquote%5DI" class="postlink">Note that most systems try to load the video driver ASAP (and we might be joining the club) so the hang you get later on in the boot process could correspond to this bug of hanging at the start of the boot process.<br>
+<br>
+I hope this gives you enough info to get started. If you want more help please send me an email or a PM.</a></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37581" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37581">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37581">
+
+<time datetime="2014-10-21T20:31">posted: 2014-10-21 &nbsp; 20:31</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37581" title="permalink">#137</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Just so I'm absolutely clear: both your HP Pavilion notebook and your ASUS EEEPC 904ha don't shutdown with antiX-14-a3 but work fine with everything earlier. BTW: Sometimes my laptop takes about 10 seconds between when it says"Ready to xxxx" and when it actually does xxxx. I hate to ask but is it possible you just need to wait longer?</div></blockquote>
+Only the 32bit (v vs. d doesn't matter) with the 3.15 kernel have problems shutting down. The 64 bit versions with the 3.17 kernel have no issues with startup or shutdown that I've found. for whatever reason, the dell optiplex shutdown OK even on the 32 bit.<br>
+<br>
+The 3.17 kernels also are OK with the intel video, so perhaps that is a clue that perhaps the patch indeed fixed the (earlier) regression. I cannot test those versions on the EEEPC (32bit only), but this hold's true of the dell optiplex desktop and the HP laptop (which only the optiplex had a problem anyway).<br>
+<br>
+***edit***
+<blockquote class="uncited"><div>BTW: Sometimes my laptop takes about 10 seconds between when it says"Ready to xxxx" and when it actually does xxxx. I hate to ask but is it possible you just need to wait longer?
+</div></blockquote>
+I actually tried that during testing. I let both the eeepc and the HP sit for almost 5 minutes (I didn't mean to wait that long, but I had to go to the bathroom).<br>
+<br>
+Here's a pic (I hope smaller than my last one <span class="emoticon"> __{{emoticon}}__ </span> ) I don't know if the dell has similar language about umounts failing because it flashes by too fast to read.<br>
+<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37584" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37584">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37584">
+
+<time datetime="2014-10-21T23:46">posted: 2014-10-21 &nbsp; 23:46</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37584" title="permalink">#138</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>Here's a pic (I hope smaller than my last one <span class="emoticon"> __{{emoticon}}__ </span> ) I don't know if the dell has similar language about umounts failing because it flashes by too fast to read.</div></blockquote>
+Wow! You never cease to impress. You have captured a picture of the elusive systemd live antiX shutdown process. Despite many such shutdowns, I have only spotted this creature once and it dashed by so fast I could barely see it. Dave says he has only seen it once or twice.<br>
+<br>
+THANK YOU. I've really wanted to see what that looks like.<br>
+<br>
+If that is the systemd shutdown then the problem has nothing to do with busybox. So, far I've been unsuccessful in getting control back from systemd in order to shut down the live system in a more orderly way. Here are the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.freedesktop.org/wiki/Software/systemd/InitrdInterface/"<br>linktext was:"official instructions"<br>====================================<br>
+. Part of the difficulty is there is no text displayed at shutdown on my system. The screen goes blank and then the system powers off (or reboots). If I can ever get the official systemd-way of transferring control to work then it would only happen after all of those systemd messages about trying to umount things and failing to umount. Perhaps it is needless for me to say that I think this approach is sub-optimal for developers and for users.<br>
+<br>
+The shutdown problem on your system running systemd is either in systemd or in the kernel. You say it can't shutdown with svsV either or from an early breakpoint during boot. This means the problem must be in the kernel. It is the only common factor. Therefore I think this problem should be kicked upstream too. The first step is to look for similar bug reports. 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bugzilla.kernel.org/show_bug.cgi?id=66171"<br>linktext was:"For example:"<br>====================================<br>
+<blockquote class="uncited"><div>i cannot shutdown at all, i have to poweroff pressing and holding power off button on case. This problem appeared using 3.12 kernel.</div></blockquote>The last post in the bug report said:<blockquote class="uncited"><div>My problem was solved when upgraded from kernel 3.16.1 to 3.16.2.</div></blockquote>
+BTW: can anyone else see the systemd shutdown messages? On my systems I've only ever seen them once and that was after I had messed around with the mounting. There was a delay of 5 or 10 seconds then I got the messages and the system shutdown. All the other times, the screen went blank so I could not see anything.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37585" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37585">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37585">
+
+<time datetime="2014-10-21T23:56">posted: 2014-10-21 &nbsp; 23:56</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37585" title="permalink">#139</a></span>
+
+<div class="content">I agree its probably in the kernel. I've done enough iso swapping to think that is the culprit. <br>
+<br>
+Is there some reason we can't use 3.17 with the 32 bit?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37586" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37586">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37586">
+
+<time datetime="2014-10-22T00:45">posted: 2014-10-22 &nbsp; 00:45</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37586" title="permalink">#140</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>Is there some reason we can't use 3.17 with the 32 bit?</div></blockquote>
+anticapitalista told me:<blockquote class="uncited"><div>You may wonder why the 386 versions use a 3.15-2 kernel - or not <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+For some reason, whenever vga=xxx (some number is chosen), there is nothing<br>
+printed to the screen. It just boots to desktop. No messages at all. When<br>
+the vga=xxx is removed or vga=normal is used, boot is normal with print out<br>
+on the screen.</div></blockquote>
+I think it is becoming clear that we need move away from having the vga=xxx parameter on by default. I have experimented with putting the graphics drivers into the live initrd and loading them as soon as possible. For people who have a modeset driver, this will enable the framebuffer early in the boot process before we put any text on the screen. For these people, there will be no flickering or resizing after that. As a bonus, the console decorations (fbcondecor) also work from the get-go (at least when there is no vga=xxx parameter).<br>
+<br>
+The only downside is for people who don't have a modeset driver (in Virtual Box, for example) or people who need to use"nomodeset". In these cases, the consoles will be at the default 640x480 resolution with no decoration. It would be nice if the kernel supported vga=xxx so we could leave it in as an option at boot-time for systems that can't use a modeset driver. I really don't know what proportion of our user base this is. ISTM that <br>
+<br>
+The positive note here is that fbcondecor still works even without vga=xxx as long as a modeset video driver is available. If we load the video driver ASAP then this will get the screen artifacts and flicker over with as soon as possible so the user gets a solid display thereafter. I must admit that part of my push in this direction is that I finally (finally) have a system that is able to use a modeset driver. None of my systems worked with modeset until I ran antiX-14 on the laptop I bought this past summer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37587" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37587">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37587">
+
+<time datetime="2014-10-22T01:36">posted: 2014-10-22 &nbsp; 01:36</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37587" title="permalink">#141</a></span>
+
+<div class="content">i don't know if its related, but on one of the boots I saw a note about vga= being deprecated. I found this link searching around but I haven't messed with it.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/GrubTransition"<br>linktext was:"https://wiki.debian.org/GrubTransition"<br>====================================<br>
+<br>
+<br>
+i realize the info is old, but grub2 is new to antiX as well.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37588" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37588">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37588">
+
+<time datetime="2014-10-22T02:35">posted: 2014-10-22 &nbsp; 02:35</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37588" title="permalink">#142</a></span>
+
+<div class="content">Take a look at the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.gnu.org/software/grub/manual/html_node/gfxpayload.html#gfxpayload"<br>linktext was:"Grub2 documentation on what they replaced it with"<br>====================================<br>
+:<blockquote class="uncited"><div>If this variable is set, it controls the video mode in which the Linux kernel starts up, replacing the ‘vga=’ boot option (see linux). It may be set to ‘text’ to force the Linux kernel to boot in normal text mode, ‘keep’ to preserve the graphics mode set using ‘gfxmode’, or any of the permitted values for ‘gfxmode’ to set a particular graphics mode (see gfxmode).<br>
+<br>
+<strong>Depending on your kernel, your distribution, your graphics card, and the phase of the moon, note that using this option may cause GNU/Linux to suffer from various display problems, particularly during the early part of the boot sequence.</strong> If you have problems, set this variable to ‘text’ and GRUB will tell Linux to boot in normal text mode.</div></blockquote>
+Partially because we cater to older systems, we have been holding off on adopting some of these"new and improved" technologies for as long as possible. At least we escaped from having to deal with Grub2's XML madness. Note too that we are still not using Grub2 on the live media.<br>
+<br>
+We aren't against new technologies in general.<blockquote><div><cite>John Brunner wrote:</cite>"There are two kinds of fools. One says,"This is old, and therefore good." And one says,"This is new, and therefore better."</div></blockquote>
+BTW: I highly recommend some of Brunner's books, such as <em>The Shockwave Rider</em>, <em>The Sheep Look Up</em>, and <em>Stand on Zanzibar</em>. Perhaps a little dated but they are still prophetic.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37589" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37589">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37589">
+
+<time datetime="2014-10-22T03:11">posted: 2014-10-22 &nbsp; 03:11</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37589" title="permalink">#143</a></span>
+
+<div class="content">Updated keys pack, hopefully addresses the key mismatch and"Capital" openings.<br>
+Attached. Download. Unzip. Move to appropriate WM folder. Restart Session. Open Keys.ods to referance key combinations/shortcuts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37590" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37590">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37590">
+
+<time datetime="2014-10-22T06:37">posted: 2014-10-22 &nbsp; 06:37</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37590" title="permalink">#144</a></span>
+
+<div class="content">D.O., what about this problem?<blockquote class="uncited"><div>As I shift machines, the network interfaces shift by 1. [...]</div></blockquote>Does male's solution of deleting 70-persistent-net.rules work? If so, I wonder what our policy should be. We could add it to the exclude list for root persistence and for live remastering. I can imagine situations were someone would want that file to survive across reboots but for the vast majority of people (who have only one wired and one wireless Internet connection) deleting/forgetting it would be the right thing to do.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37591" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37591">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37591">
+
+<time datetime="2014-10-22T07:55">posted: 2014-10-22 &nbsp; 07:55</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37591" title="permalink">#145</a></span>
+
+<div class="content">I used to get wifi interfaces increasing between machines, but that was because it was using the mac addresses in the configuration, (at least that is what seemed to be happening). If i plugged it back into a machine, I could just use ifup wlan1, or ifup wlan2, depending on how many machines I had setup wifi on, each had its own settings. Not sure if that is what you are experiencing, but i thought I'd mention it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37592" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37592">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37592">
+
+<time datetime="2014-10-22T09:50">posted: 2014-10-22 &nbsp; 09:50</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37592" title="permalink">#146</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite>I used to get wifi interfaces increasing between machines, but that was because it was using the mac addresses in the configuration, (at least that is what seemed to be happening). If i plugged it back into a machine, I could just use ifup wlan1, or ifup wlan2, depending on how many machines I had setup wifi on, each had its own settings. Not sure if that is what you are experiencing, but i thought I'd mention it.</div></blockquote>
+i expect this is the case. and udev apparently stores this information in a binary database file.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37593" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37593">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37593">
+
+<time datetime="2014-10-22T13:37">posted: 2014-10-22 &nbsp; 13:37</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37593" title="permalink">#147</a></span>
+
+<div class="content">IBM M41 Wireless Desktop. I used wicd to connect wireless usb on this desktop with wpa2 wireless encryption.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antix1:~
+$ inxi -zv7
+System:    Host: antix1 Kernel: 3.15.2-antix.1-486 i686 (32 bit gcc: 4.9.0) 
+           Desktop: IceWM 1.3.8 dm: slim 
+           Distro: antiX-14-a3-RD_386-full Killah P 11 October 2014 
+Machine:   System: IBM product: 679421U Chassis: type: 6
+           Mobo: IBM model: IBM Bios: IBM v: 20KT46AUS date: 06/04/2004
+CPU:       Single core Intel Pentium 4 (-UP-) cache: 256 KB
+           flags: (pae sse sse2) bmips: 3588 clocked at 1794 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] RV250 [Radeon 9000 Series]
+           bus-ID: 01:00.0 chip-ID: 1002:4966
+           Display Server: X.Org 1.16.1 drivers: ati,radeon (unloaded: fbdev,vesa)
+           Resolution: 1024x768@85.00hz
+           GLX Renderer: Mesa DRI R200 (RV250 4966) x86/MMX/SSE2 TCL DRI2
+           GLX Version: 1.3 Mesa 10.2.6 Direct Rendering: Yes
+Audio:     Card Intel 82801BA/BAM AC'97 Audio Controller 
+           driver: snd_intel8x0 ports: 1c00 1840 bus-ID: 00:1f.5 chip-ID: 8086:2445 
+           Sound: Advanced Linux Sound Architecture v: k3.15.2-antix.1-486
+Network:   Card-1: Intel 82801BA/BAM/CA/CAM Ethernet Controller
+           driver: e100 v: 3.5.24-k2-NAPI port: 3000
+           bus-ID: 02:08.0 chip-ID: 8086:2449
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card-2: Realtek RTL8187B Wireless 802.11g 54Mbps Network Adapter
+           usb-ID: 002-002 chip-ID: 0bda:8189
+           IF: N/A state: N/A mac: N/A
+           WAN IP: &lt;filter&gt; IF: eth0 ip: N/A ip-v6: N/A 
+           IF: wlan0 ip: &lt;filter&gt; ip-v6: &lt;filter&gt; 
+Drives:    HDD Total Size: NA (-)
+           ID-1: /dev/sda model: ST3160215ACE size: 160.0GB serial: 9RX1K407
+           ID-2: /dev/sdb model: IC35L040AVVA07 size: 40.0GB serial: VNC202A2LXS0KA
+           Optical: /dev/sr0 model: SAMSUNG CDRW/DVD SM-308B 
+           rev: t101 dev-links: cdrom,cdrw,dvd
+           Features: speed: 32x multisession: yes
+           audio: yes dvd: yes rw: cd-r,cd-rw state: running 
+RAID:      No RAID data: /proc/mdstat missing-is md_mod kernel module loaded?
+Unmounted: ID-1: /dev/sda1 size: 148.84G 
+           label: /data uuid: ee7bdb53-cea8-4e61-ba99-2a4e6e1adf7a 
+           ID-2: /dev/sda2 size: 11.20G 
+           label: N/A uuid: debc6f9b-3740-4147-89ed-07791222ab9b 
+           ID-3: /dev/sdb1 size: 9.60G 
+           label: N/A uuid: 5e6d4bb9-198e-4a6d-a39e-0d6451e8a949 
+           ID-4: /dev/sdb2 size: 29.25G 
+           label: N/A uuid: e4580da0-929f-4c3e-81b0-32384ac179f9 
+           ID-5: /dev/sdb3 size: 1.17G 
+           label: N/A uuid: 48072200-9a78-49a3-a8f2-2446cb94e45c 
+           ID-6: /dev/fd0 size: 0.00G label: N/A uuid: N/A 
+Sensors:   System Temperatures: cpu: 23.0C mobo: N/A 
+           Fan Speeds (in rpm): cpu: N/A 
+Info:      Processes: 78 Uptime: 10 min Memory: 216.1/1131.2MB 
+           Init: systemd v: 215 runlevel: 5 default: 5 Gcc sys: 4.9.1 
+           Client: Shell (bash 4.3.271 running in roxterm) inxi: 2.1.28 
+demo@antix1:~
+</code></pre></div>
+Still not sure why I get a kernel panic yet on My Amrel RT 786EX<br>
+Specs:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    $ inxi -F -z
+    System:    Host: Biker Kernel: 3.7.8-antix.1-486-smp i686 (32 bit)
+               Desktop: LXDE (Openbox 3.5.0) Distro: antiX-core--a1 20 June 2010
+    Machine:   System: Intel product: Montara Family of Chipsets
+               Mobo: Phoenix model: RT786EX version: 41118 Bios: Phoenix version: MGM-ALL1.86C.1009.D.0604271130 date: 04/27/06
+    CPU:       Single core Intel Pentium M (-UP-) cache: 2048 KB flags: (sse sse2) clocked at 1600.00 MHz
+    Graphics:  Card: Intel 82852/855GM Integrated Graphics Device X.Org: 1.12.3 driver: intel Resolution: 1024x768@60.0hz
+               GLX Renderer: Mesa DRI Intel 852GM/855GM x86/MMX/SSE2 GLX Version: 1.3 Mesa 8.0.4
+    Audio:     Card: Intel 82801DB/DBL/DBM (ICH4/ICH4-L/ICH4-M) AC'97 Audio Controller driver: snd_intel8x0
+               Sound: Advanced Linux Sound Architecture ver: k3.7.8-antix.1-486-smp
+    Network:   Card-1: Atheros AR5212/AR5213 Wireless Network Adapter driver: ath5k
+               IF: wlan0 state: up mac: &lt;filter&gt;
+               Card-2: Realtek RTL-8139/8139C/8139C+ driver: 8139too
+               IF: eth1 state: down mac: &lt;filter&gt;
+    Drives:    HDD Total Size: 30.0GB (19.6% used) 1: id: /dev/sda model: IC25N030ATCS04 size: 30.0GB
+    Partition: ID: / size: 17G used: 7.0G (44%) fs: ext3 ID: swap-1 size: 0.58GB used: 0.00GB (0%) fs: swap
+    Sensors:   System Temperatures: cpu: 40.0C mobo: N/A
+               Fan Speeds (in rpm): cpu: N/A
+    Info:      Processes: 96 Uptime: 9 min Memory: 178.0/491.6MB Client: Shell (bash) inxi: 1.8.38 </code></pre></div>
+I tried both cd drives I have for it. But kernel panic just the same.<br>
+<br>
+On my Installation on hardrive on my Emachine 3507.<br>
+xfburn works on my burning needs,<br>
+Mirage works fine for viewing images.<br>
+xmms and gnome mplayer work fine.<br>
+clipit works fine.<br>
+xarchiver works fine<br>
+mtpaint and screenshot work fine.<br>
+Dosbox games open and work OK in dosbox.<br>
+geany like I and male mentioned earlier needed fixing as far as permissions.<br>
+I don't use connect shares so someone else will have to chime in on those applications.<br>
+Midnight Commander works fine, even tested in init3 boot.<br>
+dillo always works fine.<br>
+<br>
+That is it for now. Laterz.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37594" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37594">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37594">
+
+<time datetime="2014-10-22T13:57">posted: 2014-10-22 &nbsp; 13:57</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37594" title="permalink">#148</a></span>
+
+<div class="content">IBM M41 Test with the other 32 bit cd (non systemd)<br>
+<br>
+Used Wicd to connect wireless again.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antix1:~
+$ inxi -Fxz
+System:    Host: antix1 Kernel: 3.15.2-antix.1-486 i686 (32 bit gcc: 4.9.0) 
+           Desktop: IceWM 1.3.8 
+           Distro: antiX-14-a3-RV_386-full Killah P 11 October 2014 
+Machine:   System: IBM product: 679421U
+           Mobo: IBM model: IBM Bios: IBM v: 20KT46AUS date: 06/04/2004
+CPU:       Single core Intel Pentium 4 (-UP-) cache: 256 KB
+           flags: (pae sse sse2) bmips: 3588 clocked at 1794 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] RV250 [Radeon 9000 Series]
+           bus-ID: 01:00.0
+           Display Server: X.Org 1.16.1 drivers: ati,radeon (unloaded: fbdev,vesa)
+           Resolution: 1024x768@85.00hz
+           GLX Renderer: Mesa DRI R200 (RV250 4966) x86/MMX/SSE2 TCL DRI2
+           GLX Version: 1.3 Mesa 10.2.6 Direct Rendering: Yes
+Audio:     Card Intel 82801BA/BAM AC'97 Audio Controller 
+           driver: snd_intel8x0 ports: 1c00 1840 bus-ID: 00:1f.5 
+           Sound: Advanced Linux Sound Architecture v: k3.15.2-antix.1-486
+Network:   Card-1: Intel 82801BA/BAM/CA/CAM Ethernet Controller
+           driver: e100 v: 3.5.24-k2-NAPI port: 3000 bus-ID: 02:08.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card-2: Realtek RTL8187B Wireless 802.11g 54Mbps Network Adapter
+           usb-ID: 002-002
+           IF: N/A state: N/A mac: N/A
+Drives:    HDD Total Size: 200.1GB (0.6% used)
+           ID-1: /dev/sda model: ST3160215ACE size: 160.0GB
+           ID-2: /dev/sdb model: IC35L040AVVA07 size: 40.0GB
+Partition: ID-1: swap-1 size: 1.17GB used: 0.00GB (0%) fs: swap dev: /dev/sdb3 
+Sensors:   System Temperatures: cpu: 26.0C mobo: N/A 
+           Fan Speeds (in rpm): cpu: N/A 
+Info:      Processes: 71 Uptime: 2 min Memory: 72.5/1131.2MB 
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.1 
+           Client: Shell (bash 4.3.271) inxi: 2.1.28 
+demo@antix1:~
+$ 
+</code></pre></div>
+<br>
+Is it me or is gstatic giving anyone else problems loading up pages on this forum? I have to hit the x in iceweasel to stop page from searching/loading. Then hit the refresh button to load the page. Just a observation.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37595" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37595">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37595">
+
+<time datetime="2014-10-22T14:20">posted: 2014-10-22 &nbsp; 14:20</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37595" title="permalink">#149</a></span>
+
+<div class="content">Here's another machine I managed to test the 32bit RD version on.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Lenovo ThinkPad T420
+$ inxi -F
+System:    Host: antix1 Kernel: 3.15.2-antix.1-486 i686 (32 bit) 
+           Desktop: IceWM 1.3.8 
+           Distro: antiX-14-a3-RD_386-full Killah P 11 October 2014 
+Machine:   System: LENOVO product: 4177QKU v: ThinkPad T420
+           Mobo: LENOVO model: 4177QKU
+           Bios: LENOVO v: 83ET69WW (1.39 ) date: 03/26/2012
+CPU:       Single core Intel Core i5-2410M (-UP-) cache: 3072 KB
+           clocked at 802 MHz
+Graphics:  Card: Intel 2nd Generation Core Processor Family Integrated Graphics Controller
+           Display Server: X.Org 1.16.1 driver: vesa
+           Resolution: 1024x768@71.00hz
+           GLX Renderer: Gallium 0.4 on llvmpipe (LLVM 3.4, 256 bits)
+           GLX Version: 3.0 Mesa 10.2.6
+Audio:     Card Intel 6 Series/C200 Series Family High Definition Audio Controller 
+           driver: snd_hda_intel 
+           Sound: Advanced Linux Sound Architecture v: k3.15.2-antix.1-486
+Network:   Card-1: Intel Centrino Wireless-N 1000 [Condor Peak]
+           driver: iwlwifi
+           IF: wlan0 state: down mac: 8c:a9:82:9a:be:9e
+           Card-2: Intel 82579LM Gigabit Network Connection driver: e1000e
+           IF: eth0 state: down mac: 00:21:cc:62:6a:4b
+Drives:    HDD Total Size: 352.1GB (0.8% used)
+           ID-1: /dev/sda model: TOSHIBA_MK3261GS size: 320.1GB
+           ID-2: USB /dev/sdb model: Cruzer_Glide size: 32.0GB
+Partition: ID-1: /home size: 969M used: 28M (3%) fs: ext4 dev: /dev/loop1 
+Sensors:   System Temperatures: cpu: 47.0C mobo: N/A 
+           Fan Speeds (in rpm): cpu: 3187 
+Info:      Processes: 103 Uptime: 0 min Memory: 103.3/3450.1MB 
+           Client: Shell (bash) inxi: 2.1.28 
+demo@antix1:~
+$ lspci
+00:00.0 Host bridge: Intel Corporation 2nd Generation Core Processor Family DRAM Controller (rev 09)
+00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+00:16.0 Communication controller: Intel Corporation 6 Series/C200 Series Chipset Family MEI Controller #1 (rev 04)
+00:19.0 Ethernet controller: Intel Corporation 82579LM Gigabit Network Connection (rev 04)
+00:1a.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #2 (rev 04)
+00:1b.0 Audio device: Intel Corporation 6 Series/C200 Series Chipset Family High Definition Audio Controller (rev 04)
+00:1c.0 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 1 (rev b4)
+00:1c.1 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 2 (rev b4)
+00:1c.3 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 4 (rev b4)
+00:1c.4 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 5 (rev b4)
+00:1d.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #1 (rev 04)
+00:1f.0 ISA bridge: Intel Corporation QM67 Express Chipset Family LPC Controller (rev 04)
+00:1f.2 SATA controller: Intel Corporation 6 Series/C200 Series Chipset Family 6 port SATA AHCI Controller (rev 04)
+00:1f.3 SMBus: Intel Corporation 6 Series/C200 Series Chipset Family SMBus Controller (rev 04)
+03:00.0 Network controller: Intel Corporation Centrino Wireless-N 1000 [Condor Peak]
+0d:00.0 System peripheral: Ricoh Co Ltd PCIe SDXC/MMC Host Controller (rev 08)
+</code></pre></div>
+This system also will not shut down, AND it has the intel driver problem. X will not start with the intel driver. When I ran"reboot" from the commandline on this system while running persistence, the graphics driver (vesa) crashed, rendering my screen corrupted (white and black bars, and the backlight went a little nuts I think). Running shutdown from the normal logout was OK, but the system did not power off, stopping at the"Ready to Poweroff" notice.<br>
+<br>
+I'm still working on the udev rules idea. Everytime I find a system with a video driver problem, I get a corrupted rootfs that won't boot anymore.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37596" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37596">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37596">
+
+<time datetime="2014-10-22T15:01">posted: 2014-10-22 &nbsp; 15:01</time>
+<span class="permalink"><a href="./antix-14r-alpha3-available-for-testing-t5305-s135.html#p37596" title="permalink">#150</a></span>
+
+<div class="content">If the poweroff problem happens with both 32-bit (kernel 3.15) and 64-bit (kernel 3.17) then maybe it is due to something in our kernel config and not a problem upstream.<br>
+<blockquote><div><cite>dolphin_oracle wrote:</cite>I'm still working on the udev rules idea. Everytime I find a system with a video driver problem, I get a corrupted rootfs that won't boot anymore.</div></blockquote>Can't win for losin'.<br>
+<br>
+This alpha has been particularly unkind to you. I'm very interested in the rootfs problems. I wouldn't be terribly surprised if you had problems like this with systemd because it bypasses our shutdown code but even then, if you do a manual persist-save and don't save on shutdown, the rootfs file should be okay. <br>
+<br>
+Does the LiveUSB try to fsck the rootfs and inform you of problems at boot time?<br>
+<br>
+Is it possible there is a hardware problem (usb stick starting to fail)?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+223 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-14r-alpha3-available-for-testing-t5305-s120.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s105.html" role="button">8</a></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s120.html" role="button">9</a></li>
+<li class="active"><span>10</span></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s150.html" role="button">11</a></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s165.html" role="button">12</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-14r-alpha3-available-for-testing-t5305-s210.html" role="button">15</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-14r-alpha3-available-for-testing-t5305-s150.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

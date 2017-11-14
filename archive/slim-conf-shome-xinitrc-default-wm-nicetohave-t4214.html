@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>slim.conf, SHOME/.xinitrc, default WM, nicetohave - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./slim-conf-shome-xinitrc-default-wm-nicetohave-t4214.html">slim.conf, SHOME/.xinitrc, default WM, nicetohave</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_28247" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28247">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 8</span></div>
+
+</div>
+</div>
+<span class="username">pendekar</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28247">
+<time datetime="2013-03-12T23:05">posted: 2013-03-12 &nbsp; 23:05</time>
+<span class="permalink"><a href="./slim-conf-shome-xinitrc-default-wm-nicetohave-t4214.html#p28247" title="permalink">#1</a></span>
+
+<div class="content">Hi all, <br>
+after installing Lxde i found, slim did not respect my default WM when forgetting to touch F1 key while login. So, ... <br>
+<br>
+(1) i introduced the *lxde,* sth in the line *sessions* in 7etc/slim.conf, like this:<br>
+sessions lxde,icewm,Rox-icewm,fluxbox,Rox-fluxbox,jwm,Rox-jwm,dwm,wmii<br>
+<br>
+(2) i put a somehow tricky para in 7home/myhomedir/.xinitrc, just instead of the old *case $1*<br>
+XINITRC_DEFAULT="startfluxbox"<br>
+#REFURBISH=${1} or first item of 7etc/slim.conf ###slash problem on editing<br>
+REFURBISH=$( 'sed' -rn -e 's/^sessions[ \t\r]+([^,]+).*$/\1/p ' 7etc/slim.conf )<br>
+REFURBISH="${1:-$REFURBISH}"<br>
+<br>
+#case $1 in<br>
+case $REFURBISH in<br>
+<br>
+That helped, no need to press F1 whilst slim-login. Whoever liked to adopt this version may do so. (works for antix M11 too, would be nice such a solution could find a way in the next M13 distro <span class="emoticon"> __{{emoticon}}__ </span> )<br>
+<br>
+Best regards</div>
+</div>
+</div>
+
+</div>
+</div>
+<script>
+    function prebidGetScreenWidth(win) {
+        const w = win || window;
+        const docElem = w.document.documentElement;
+        const body = w.document.getElementsByTagName('body')[0];
+        if (w.innerWidth) {
+            return w.innerWidth;
+        }
+        else if (docElem && docElem.clientWidth) {
+            return docElem.clientWidth;
+        }
+        else if (body && body.clientWidth) {
+            return body.clientWidth;
+        }
+        return 800;
+    }
+    var PREBID_TIMEOUT = 750;
+    var adUnits = [];
+    if (prebidGetScreenWidth() >= 800) {
+        console.log("Showing big ads");
+        adUnits.push({
+            code: 'div-gpt-ad-1487065984029-0',
+            sizes: [[728, 90]],
+            bids: [
+                {
+                    bidder: 'openx',
+                    params: {
+                        unit: '538768179',
+                        delDomain: 'tapatalkbidder-d.openx.net',
+                    }
+                },
+                {
+                    bidder: 'pulsepoint',
+                    params: {
+                        cf: '728X90',
+                        cp: '561088',
+                        ct: '568906'
+                    }
+                },
+                {
+                    bidder: 'rubicon',
+                    params: {
+                        accountId: '15664',
+                        siteId: '106890',
+                        zoneId: '502162',
+                        sizes: [2]
+                    }
+                },
+                /* {
+                    bidder: 'onedisplay',
+                    params: {
+                        placement: '4671589',
+                        network: '11227.1'
+                    }
+                },
+               {
+                    bidder: 'criteo',
+                    params: {
+                        zoneId: '1080103'
+                    }
+                }*/
+            ]
+        });
+        adUnits.push({
+            code: 'div-gpt-ad-1487066738615-0',
+            sizes: [[728, 90]],
+            bids: [
+
+                {
+                    bidder: 'rubicon',
+                    params: {
+                        accountId: '15664',
+                        siteId: '106890',
+                        zoneId: '528606',
+                        sizes: [2],
+                    }
+                },
+                {
+                    bidder: 'pulsepoint',
+                    params: {
+                        cf: '728X90',
+                        cp: '561088',
+                        ct: '568908'
+                    }
+                },
+                {
+                    bidder: 'openx',
+                    params: {
+                        unit: '538768178',
+                        delDomain: 'tapatalkbidder-d.openx.net',
+                    }
+                },
+              /*  {
+                    bidder: 'onedisplay',
+                    params: {
+                        placement: '4671590',
+                        network: '11227.1'
+                    }
+                },
+              {
+                    bidder: 'criteo',
+                    params: {
+                        zoneId: '1080121'
+                    }
+                }*/
+            ]
+        });
+    }
+    else {
+        console.log("Showing small ads");
+        adUnits.push({
+            code: 'div-gpt-ad-1487065984029-0',
+            sizes: [[300, 250]],
+            bids: [
+
+                {
+                    bidder: 'rubicon',
+                    params: {
+                        accountId: '15664',
+                        siteId: '106890',
+                        zoneId: '502162',
+                        sizes: [15],
+                    }
+                },
+                {
+                    bidder: 'pulsepoint',
+                    params: {
+                        cf: '300X250',
+                        cp: '561088',
+                        ct: '568910'
+                    }
+                },
+                {
+                    bidder: 'openx',
+                    params: {
+                        unit: '538768179',
+                        delDomain: 'tapatalkbidder-d.openx.net',
+                    }
+               },
+               /* {
+                    bidder: 'onedisplay',
+                    params: {
+                        placement: '4671591',
+                        network: '11227.1'
+                    }
+                },
+               {
+                    bidder: 'criteo',
+                    params: {
+                        zoneId: '1080102'
+                    }
+                }*/
+            ]
+        });
+        adUnits.push({
+            code: 'div-gpt-ad-1487066738615-0',
+            sizes: [[300, 250]],
+            bids: [
+
+                {
+                    bidder: 'rubicon',
+                    params: {
+                        accountId: '15664',
+                        siteId: '106890',
+                        zoneId: '528606',
+                        sizes: [15],
+                    }
+                },
+                {
+                    bidder: 'pulsepoint',
+                    params: {
+                        cf: '300X250',
+                        cp: '561088',
+                        ct: '568911'
+                    }
+                },
+                {
+                    bidder: 'openx',
+                    params: {
+                        unit: '538768178',
+                        delDomain: 'tapatalkbidder-d.openx.net',
+                    }
+                },
+               /* {
+                    bidder: 'onedisplay',
+                    params: {
+                        placement: '4671592',
+                        network: '11227.1'
+                    }
+                },
+               {
+                    bidder: 'criteo',
+                    params: {
+                        zoneId: '1080120'
+                    }
+                }*/
+            ]
+        });
+    }
+    var pbjs = pbjs || {};
+    pbjs.que = pbjs.que || [];
+
+</script>
+ 
+<div id="p_28249" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28249">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28249">
+
+<time datetime="2013-03-12T23:34">posted: 2013-03-12 &nbsp; 23:34</time>
+<span class="permalink"><a href="./slim-conf-shome-xinitrc-default-wm-nicetohave-t4214.html#p28249" title="permalink">#2</a></span>
+
+<div class="content">If the program /usr/local/bin/change-default-desktop exists then it will do all of this for you.<br>
+<br>
+In the next release it will be called update-default-desktop.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

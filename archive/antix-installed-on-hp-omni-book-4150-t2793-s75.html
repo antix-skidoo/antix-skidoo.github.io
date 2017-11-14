@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX installed on HP Omni Book 4150 - Page 6 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html">antiX installed on HP Omni Book 4150</a></div>
+<div class="pagination">
+93 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-installed-on-hp-omni-book-4150-t2793-s60.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793-s45.html" role="button">4</a></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793-s60.html" role="button">5</a></li>
+<li class="active"><span>6</span></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793-s90.html" role="button">7</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-installed-on-hp-omni-book-4150-t2793-s90.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_18333" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18333">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>516</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18333">
+<time datetime="2010-11-27T05:19">posted: 2010-11-27 &nbsp; 05:19</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p18333" title="permalink">#76</a></span>
+
+<div class="content">TheForsaken,<br>
+<br>
+Please read the whole post before trying anything, there are no guarantees about doing this, you do so at your own risk, with that in mind it would help if you:<br>
+<br>
+Would you post the results using terminal as user using a live-cd<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>fdisk -l</code></pre></div> (thats an L, lowercase)<br>
+<br>
+and<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>df</code></pre></div>
+and also post the files from your install using a live-cd<br>
+<br>
+your /boot/grub/menu.lst (thats and L, lowercase)<br>
+<br>
+your /boot/grub/device.map<br>
+<br>
+<br>
+In answer to your question about checking the drive, e2fsck is the command to use manually . It is to be noted that it <strong>should not be run</strong> on a mounted drive.<br>
+The proper way to check the disk is using a live-cd, if you use antiX 8.5 Live-cd, then you can repair and do a badblock test without using the cli. You would boot the livecd, then:<br>
+<br>
+Open the Control Center (two wrenches on taskbar), <br>
+click on System Tab<br>
+click on Configure System<br>
+input the root password (root)<br>
+When the Mepis System Applet opens click on Repair Partition<br>
+Choose the correct disk<br>
+Choose the correct Partition<br>
+check the Bad Blocks<br>
+then hit apply.<br>
+<br>
+If you prefer the cli:<br>
+<br>
+As root in terminal You would have to unmount the drive you want to check, then run e2fsck, like so if your hdd is sda1, that can be ascertained from the info you posted when you ran the fdisk -l (that's an L, lowercase)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>unmount /dev/sda1</code></pre></div>
+then only if the unmount was successful,<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>e2fsck  /dev/sda1</code></pre></div>
+if you want to include a badblocks check then run instead<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>e2fsck -c-p /dev/sda1</code></pre></div>
+The -c This option causes e2fsck to use badblocks(8) program to do a read-only scan of the device in order to find any bad blocks.<br>
+<br>
+The -p Automatically repair ("preen") the file system. This option will cause e2fsck to automatically fix any filesystem problems that can be safely fixed without human intervention.<br>
+<br>
+If you would feel more comfortable reading before doing anything, <em>which I would encourage</em>, then take a look at:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.netadmintools.com/html/e2fsck.man.html"<br>linktext was:"http://www.netadmintools.com/html/e2fsck.man.html"<br>====================================<br>
+<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18334" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18334">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">pcalvert</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Jan 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18334">
+
+<time datetime="2010-11-27T07:46">posted: 2010-11-27 &nbsp; 07:46</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p18334" title="permalink">#77</a></span>
+
+<div class="content"><blockquote><div><cite>TheForsaken wrote:</cite>
+<blockquote class="uncited"><div>GRUB loading stage1.5<br>
+Grub loading, please wait ...<br>
+Error 2
+</div></blockquote>
+IS ALL WHAT I GOT.
+</div></blockquote>
+We really do need to see menu.lst, like oldhoghead suggested.<br>
+<br>
+Using a live CD, you created and formatted the partitions using GParted, and then you formatted them a second time using the commands I gave you. Which live CD did you use?<br>
+<br>
+Phil</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18361" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18361">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">TheForsaken</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18361">
+
+<time datetime="2010-11-28T18:52">posted: 2010-11-28 &nbsp; 18:52</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p18361" title="permalink">#78</a></span>
+
+<div class="content">I'm sorry, I'm totally lost. This e2fsck is showing weird stuff and I have no idea whether I have badblock (or bad sector) or just errors.<br>
+<br>
+I'm using an old CD for Windows Me. I'm formatting the HDD (full format - format C:) and I'll try to check it with some tools I'm more familiar with.<br>
+<br>
+It's not that I want to do it the Windows-Way but I'm really lost with Linux. This command doesn't seem to work or it could be me.<br>
+I suspect the HDD is having bad block (sector). If that's the case, I might just install DOS/FreeDOS and that's it.<br>
+After all, the idea was a new experience, that's all.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18362" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18362">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">TheForsaken</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18362">
+
+<time datetime="2010-11-28T20:57">posted: 2010-11-28 &nbsp; 20:57</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p18362" title="permalink">#79</a></span>
+
+<div class="content">The Hard Disc is damaged and the SCANDISK can't even finish 24% surface scan. Always stuck there. This explain all the weird stuff that happened for the last one month. Not sure what to do now but hope I could install Windows or any thing could work.<br>
+<br>
+With e2fsck, it was showing error messages when it reaches block 3xx and asked me to ignore error then rewrite something. It was doing that for very long time (-p didn't work so had to do everything manually - keep pressing Y).<br>
+<br>
+I have a feeling that it became damaged because of the formatting and stuff. It's more than 11 years old now and it's really good it was alive all these years.<br>
+<br>
+There's no point to keep trying.<br>
+<br>
+THANK YOU everyone and please forgive me for wasting your time.<br>
+<br>
+Hope to see you soon!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18430" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18430">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">TheForsaken</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18430">
+
+<time datetime="2010-12-04T21:03">posted: 2010-12-04 &nbsp; 21:03</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p18430" title="permalink">#80</a></span>
+
+<div class="content">Hi everyone,<br>
+<br>
+I really miss this forum. It's one of the best forum ever. I'm addicted to Ubuntu's forum but this one is really so nice and helpful. I love it.<br>
+<br>
+Okay I'm here to tell you a very good news and a bit of bad news.<br>
+<br>
+Good news: I managed to fix the problem on the HDD. Apparently, it had bad blocks or at least this is what Linux CLI commands showed. I did my best to find a tool to fix that so I found this:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://hddguru.com/"<br>linktext was:"http://hddguru.com/"<br>====================================<br>
+<br>
+<br>
+It's Windows application. I used it to fix the HDD and it's working perfectly now.<br>
+I installed Linux Mint 9 LXDE just for the sake of testing, nothing more. It was so much slow (obviously) and I couldn't do anything so I removed it and installed WattOS which is also slow. I guess I'll install either Windows 98/ME, DOS or FreeDOS.<br>
+<br>
+The bad news is: neither AntiX nor any other distribution with GRUB Legacy was able to be installed. THIS IS what I came to find out after billion times of installation. As you already know, immediately after installing antiX or any OS with GRUB Legacy, once I reboot, I got an error message. It never ever happened with me whenever I use an OS with GRUB2. I guess it's because I'm installing while the laptop's hard drive is connected to my PC through <strong>USB Connection</strong>. <br>
+<br>
+This is a bit of a problem. Every OS with GRUB2 needs minimum 128MB-192MB if not 265MB.<br>
+I perhaps need to tweak WattOS or other OS by installing lighter WM like Fluxbox, Openbox, etc.<br>
+<br>
+Honestly, I've done what I was looking for. It's working with Linux even though it's so slow <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I made 700MB SWAP Partition but that did nothing, it's slow.<br>
+<br>
+Just thought I have to let you know <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18432" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18432">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18432">
+
+<time datetime="2010-12-04T21:33">posted: 2010-12-04 &nbsp; 21:33</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p18432" title="permalink">#81</a></span>
+
+<div class="content">Thanks for the kind words. Sometimes things just have to work out because of Hardware glitches. Good luck with whatever you run on that ominibook.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18433" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18433">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">TheForsaken</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18433">
+
+<time datetime="2010-12-04T21:48">posted: 2010-12-04 &nbsp; 21:48</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p18433" title="permalink">#82</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>Thanks for the kind words. Sometimes things just have to work out because of Hardware glitches. Good luck with whatever you run on that ominibook.</div></blockquote>
+Actually I have to thank everyone here for being so nice, patient and so much helpful.<br>
+I'd love to try antiX but unfortunately, it's useless. However, I have antiX installed on one of my PCs.<br>
+<br>
+The best thing about antiX that I have noticed is the simple and helpful guide on the left side of the installation program. It's very informative.<br>
+<br>
+Just out of curiosity ... is it able to upgrade GRUB Legacy in antiX to GRUB2? I mean after installation?<br>
+<br>
+And ... is it possible that antiX's team use GRUB2 or it's too early for that?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18896" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18896">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">TheForsaken</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18896">
+
+<time datetime="2011-01-03T09:05">posted: 2011-01-03 &nbsp; 09:05</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p18896" title="permalink">#83</a></span>
+
+<div class="content">Hello again everyone <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Happy New Year and hope all your wishes and dreams will come true <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+WOW, it's been a month since I have posted here last time. I do miss antiX forum a lot. That's why I installed antiX on my other PC and I'm willing to use it (hopefully) on daily basis to discover and learn more about it.<br>
+<br>
+Just wanted to say hi and I was wondering if there are some answers to my below old questions <span class="emoticon"> __{{emoticon}}__ </span><br>
+<blockquote><div><cite>TheForsaken wrote:</cite>Just out of curiosity ... is it able to upgrade GRUB Legacy in antiX to GRUB2? I mean after installation?<br>
+<br>
+And ... is it possible that antiX's team use GRUB2 or it's too early for that?</div></blockquote>
+<br>
+I'll have more Questions but that for another thread.<br>
+<br>
+Thank you!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19089" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19089">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">pcalvert</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Jan 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19089">
+
+<time datetime="2011-01-20T06:31">posted: 2011-01-20 &nbsp; 06:31</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p19089" title="permalink">#84</a></span>
+
+<div class="content">This is what I would do to get antiX working on that laptop:<br>
+<br>
+1. Install the Plop Boot Manager in the MBR of the hard disk drive (HDD).<br>
+2. Create a bootable"live USB" version of antiX.<br>
+3. Boot the"live USB" version of antiX on the old laptop with the help of Plop Boot Manager.<br>
+4. Install antiX on the laptop's HDD. Do *not* install GRUB into the MBR, as that will overwrite the Plop Boot Manager. Install GRUB in the boot sector of the root partition.<br>
+<br>
+The reason why you should leave Plop Boot Manager in the MBR is versatility. In addition to booting antiX from the HDD, you will be able to boot from USB devices. Since the laptop has neither a CD-ROM drive or nor a floppy drive, it is important to retain the extra functionality that having Plop Boot Manager in the MBR gives you.<br>
+<br>
+Phil</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19090" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19090">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">TheForsaken</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19090">
+
+<time datetime="2011-01-20T08:41">posted: 2011-01-20 &nbsp; 08:41</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p19090" title="permalink">#85</a></span>
+
+<div class="content"><blockquote><div><cite>pcalvert wrote:</cite>This is what I would do to get antiX working on that laptop:<br>
+<br>
+1. Install the Plop Boot Manager in the MBR of the hard disk drive (HDD).<br>
+2. Create a bootable"live USB" version of antiX.<br>
+3. Boot the"live USB" version of antiX on the old laptop with the help of Plop Boot Manager.<br>
+4. Install antiX on the laptop's HDD. Do *not* install GRUB into the MBR, as that will overwrite the Plop Boot Manager. Install GRUB in the boot sector of the root partition.<br>
+<br>
+The reason why you should leave Plop Boot Manager in the MBR is versatility. In addition to booting antiX from the HDD, you will be able to boot from USB devices. Since the laptop has neither a CD-ROM drive or nor a floppy drive, it is important to retain the extra functionality that having Plop Boot Manager in the MBR gives you.<br>
+<br>
+Phil</div></blockquote>
+Hello Phil,<br>
+<br>
+Two things are preventing me from doing so or"were" preventing me:<br>
+<br>
+1) I already formatted the HDD so there is no OS installed anymore. As far as I remember, Plop can't be installed on a wiped HDD.<br>
+<br>
+2) I already tried that before I format the HDD but antiX never worked from LiveUSB.<br>
+<br>
+Thank you <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19093" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19093">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">pcalvert</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 28 Jan 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19093">
+
+<time datetime="2011-01-20T20:17">posted: 2011-01-20 &nbsp; 20:17</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p19093" title="permalink">#86</a></span>
+
+<div class="content">#1 is a minor obstacle. #2 I don't have a solution for. It's probably just as well since I don't think you would have been satisfied with the performance.<br>
+<br>
+Phil</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19094" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19094">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">TheForsaken</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19094">
+
+<time datetime="2011-01-20T21:05">posted: 2011-01-20 &nbsp; 21:05</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p19094" title="permalink">#87</a></span>
+
+<div class="content"><blockquote><div><cite>pcalvert wrote:</cite>#1 is a minor obstacle. #2 I don't have a solution for. It's probably just as well since I don't think you would have been satisfied with the performance.<br>
+<br>
+Phil</div></blockquote>
+Well, I already achieved what I wanted from the beginning, to install Linux on that old crappy laptop and I did <span class="emoticon"> __{{emoticon}}__ </span><br>
+It's true that I'm not using it right now because I have no time for it but again, the whole point was a challenge and yet another proof that Linux beats Windows all the way <span class="emoticon"> __{{emoticon}}__ </span><br>
+I'm very satisfied with this <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+In case I got some free time, I might start all over again or perhaps find another old machine.<br>
+<br>
+Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19465" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19465">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">TheForsaken</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19465">
+
+<time datetime="2011-02-12T14:10">posted: 2011-02-12 &nbsp; 14:10</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p19465" title="permalink">#88</a></span>
+
+<div class="content"><blockquote><div><cite>TheForsaken wrote:</cite><blockquote><div><cite>pcalvert wrote:</cite>#1 is a minor obstacle. #2 I don't have a solution for. It's probably just as well since I don't think you would have been satisfied with the performance.<br>
+<br>
+Phil</div></blockquote>
+Well, I already achieved what I wanted from the beginning, to install Linux on that old crappy laptop and I did <span class="emoticon"> __{{emoticon}}__ </span><br>
+It's true that I'm not using it right now because I have no time for it but again, the whole point was a challenge and yet another proof that Linux beats Windows all the way <span class="emoticon"> __{{emoticon}}__ </span><br>
+I'm very satisfied with this <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+<strong><span style="color: #FF0000">In case I got some free time, I might start all over again or perhaps find another old machine.</span></strong><br>
+<br>
+Thanks!</div></blockquote>
+Well, looks like I'm in love with that old machine and I can't stop thinking of it <span class="emoticon"> __{{emoticon}}__ </span><br>
+I'm trying to play around with it yet again. I'm interested to install antiX now and hope it will work this time. However, I might wait for a while until the new release of antiX will be ready.<br>
+<br>
+Honesty, I'm so much interested in Mint 9 Fluxbox and antiX. Not sure which one will be lighter on that laptop? I know antiX might be lighter but Mint Fluxbox has the driver for the Wireless Card. <br>
+That laptop has very limited input devices and NO LAN so it will be harder but ... I guess it's good to try.<br>
+<br>
+I'll start with antiX and see what will happen and will let you know.<br>
+Mint Flux worked on that laptop but ... slow or so slow when opening anything.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19466" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile19466">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 98</span></div>
+
+</div>
+</div>
+<span class="username">TheForsaken</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19466">
+
+<time datetime="2011-02-12T14:57">posted: 2011-02-12 &nbsp; 14:57</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p19466" title="permalink">#89</a></span>
+
+<div class="content">Ok, those who have been following this thread from the beginning, they know it's not possible to install antiX to an USB HDD using the normal installation procedure.<br>
+Also, they know I don't have another choice but to take the HDD out from that laptop, connected to my PC using an USB-Enclosure and install from there.<br>
+All the attempts to install antiX to that HDD which is connected via USB Enclosure had failed.<br>
+<br>
+Above is just a quick summary of what happened before.<br>
+<br>
+<span style="color: #FF4000">Now, I found out there's a feature to install antiX to an USB Drive"antix2usb" in the Control Panel but <strong>my question is</strong>:<br>
+Is this the right way to install antiX in my case?</span><br>
+<br>
+I really doubt that for one good reason. I'm going to use that HDD (which is connected via USB Enclosure to my PC) with its laptop so that HDD is NO longer connected via USB, it will be internal IDE HDD.<br>
+<br>
+Have anyone tried this before? if he/she is very sure antiX2usb will work just fine, please let me know.<br>
+<br>
+Also, I was checking Mint's Blog and it says Mint 9 Fluxbox needs minimum 265MB of RAM. This is not very true. From the LiveCD, it took 133MB of RAM. <br>
+<br>
+I'm going to try LXDE (Lubuntu) and see how much it takes from the RAM. LXDE is very light indeed.<br>
+<br>
+I can remove unneeded/unnecessary services and packages from Mint Fluxbox or Lubuntu after installation and while it's connected to my PC. BOTH, Lubuntu and Mint Fluxbox are very easy and straight forward to be installed to USB Devices.<br>
+<br>
+What do you guys think?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_19470" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19470">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19470">
+
+<time datetime="2011-02-12T16:29">posted: 2011-02-12 &nbsp; 16:29</time>
+<span class="permalink"><a href="./antix-installed-on-hp-omni-book-4150-t2793-s75.html#p19470" title="permalink">#90</a></span>
+
+<div class="content">My antiX2usb installs are all on pendrives. They boot on everything I own OK (that can boot from USB in bios). So I have no experience to pass on for your particular situation.<br>
+<br>
+That said. Try it. It does not take long and antiX2usb works damn well. If it works out for you. Write up exactly what you did with screenshots. Maybe it will make it into the wiki. I experiment all the time with stuff like this. Then write it up. If I had a IDE to USB adapter. I'd give this idea a shot. <br>
+<br>
+One thing to remember with a antix2usb install. Do not try to update the kernel. But any other installs through synaptic or apt-get like browser, office,games,music players, etc..... will take and be saved in your persistent partition made with antix2usb. Good luck and I hope you have total success with this. Damn, I wish I had a USB to IDE connector to try this. Would make a heck of a write upp.
+<blockquote class="uncited"><div>Ok, those who have been following this thread from the beginning, they know it's not possible to install antiX to an USB HDD using the normal installation procedure.</div></blockquote>
+It wasn't a external IDE hard drive and I did it with AntiX 8.2 way back when.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://yatsite.blogspot.com/2009/07/install-antix-82-final-on-asus-eee-900.html"<br>linktext was:"http://yatsite.blogspot.com/2009/07/ins ... e-900.html"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+93 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-installed-on-hp-omni-book-4150-t2793-s60.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793-s45.html" role="button">4</a></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793-s60.html" role="button">5</a></li>
+<li class="active"><span>6</span></li>
+<li><a class="button" href="./antix-installed-on-hp-omni-book-4150-t2793-s90.html" role="button">7</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-installed-on-hp-omni-book-4150-t2793-s90.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

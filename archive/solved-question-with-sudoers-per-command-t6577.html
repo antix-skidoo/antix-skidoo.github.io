@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] Question with sudoers per command - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-question-with-sudoers-per-command-t6577.html">[SOLVED] Question with sudoers per command</a></div>
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_48017" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48017">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48017">
+<time datetime="2016-09-01T02:49">posted: 2016-09-01 &nbsp; 02:49</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48017" title="permalink">#1</a></span>
+
+<div class="content">Hi antixers...<br>
+<br>
+I am running AntiX 13.2 on desktop PC with few space in hard disk. I maked two users: (1) tesistas (this is the principal) and (2) pruebas (this is for test default settings only).<br>
+<br>
+The tesistas user is used by several people, and as I want use some commands as fdisk, lsblk, lspcmcia, cat /var/log/*, etc., without have that write password, so I maked a sudoers per command file (named antiusers) in sudoers.d directory:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ sudo visudo -f / etc/sudoers.d/antiusers
+# sudoers file.
+#
+# --&gt; This file was modified by tesistas user at 17/07/2016 18:43.
+# --&gt; The sudo package version is sudo_1.8.5p2-1+nmu3+deb7u1.
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in / etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+
+# ***********************
+#    DEFINED ALIAS
+# ***********************
+# ### User alias specification ### ##################
+#
+
+# At present, User_Alias have not been makes.
+# ### Runas alias specification ### #################
+#
+
+# At present, Runas_Alias have not been makes.
+# ### Host alias specification ### ###################
+#
+
+# At present, Host_Alias have not been makes.
+# ### Cmnd alias specification ### ###################
+#
+Cmnd_Alias  SUDO_SET = /usr/sbin/visudo
+Cmnd_Alias  LOGOUT = /usr/local/bin/restart-X
+Cmnd_Alias  REBOOT = /usr/local/bin/shutdown -r now, /usr/local/bin/reboot
+Cmnd_Alias  POWEROFF = /usr/local/bin/shutdown -h now, /usr/local/bin/halt, /usr/local/bin/poweroff
+Cmnd_Alias  X_DM = /usr/local/bin/slim-login, /usr/local/bin/antixccslim.sh, / etc/init.d/slim *
+Cmnd_Alias  DESKTOP_CHNG = /usr/local/bin/update-default-desktop
+Cmnd_Alias  DESKTOP_ENV_SET = /usr/bin/rox, /bin/mknod -m 666 /dev/nvidia*, /sbin/modprobe -v nvidia, \
+                              /sbin/modprobe -v nvidia-uvm, /usr/local/bin/nvidia-dev_creator.sh 
+
+ 
+Cmnd_Alias  NET = sudoedit / etc/network/interfaces, /usr/local/bin/connectshares.sh, /usr/local/bin/disconnectshares.sh
+Cmnd_Alias  WIDE_SET = sudoedit / etc/profile, sudoedit / etc/X11/*, sudoedit / etc/crontab, sudoedit / etc/fstab, \
+                       sudoedit / etc/inittab, sudoedit / etc/udev/*, sudoedit /lib/udev/rules.d/*, \
+                       sudoedit / etc/default/keyboard, sudoedit / etc/grub.d/*, sudoedit /boot/grub/menu.lst, \
+                       sudoedit / etc/sudoers, sudoedit / etc/sudoers.d/*, sudoedit /usr/local/bin/*, \
+               sudoedit /usr/local/share/doc/*, sudoedit / etc/apt/sources.list.d/*, \
+                       sudoedit / etc/apt/preferences.d/*, sudoedit / etc/sysctl.conf, sudoedit / etc/sysctl.d/*, \
+                       sudoedit /opt/*, sudoedit / etc/pam.d/*, sudoedit / etc/clamav/freshclam.conf               
+
+                              
+Cmnd_Alias  SEARCH = / etc/cron.daily/mlocate, /usr/bin/mlocate
+Cmnd_Alias  DEV_SET = /sbin/fdisk -l, /sbin/fdisk.distrib, /sbin/blkid, /bin/lsblk -flm, /sbin/lspcmcia, \
+                      /sbin/pccardctl, /sbin/udevadm
+Cmnd_Alias  SYSTEM_CLEAN = /usr/bin/apt-get autoclean, /usr/bin/apt-get clean, /usr/bin/apt-get autoremove, \
+                           /usr/sbin/orphaner, /usr/sbin/editkeep, /usr/bin/freshclam, /usr/bin/dpkg --purge
+Cmnd_Alias  DIR_SYNC = /usr/bin/grsync, /usr/bin/grsync-batch
+Cmnd_Alias  BACKUP = /usr/local/bin/remaster.sh, /usr/local/bin/remastercc.sh, /usr/local/bin/persist-makefs, \
+                     /usr/local/bin/persist-save, /usr/local/bin/persist-config, /usr/local/bin/persist-enabled, \
+                     /usr/local/bin/remaster-live, /usr/local/bin/run-mksquashfs, /usr/local/bin/antix2usb.py, \
+             /usr/local/bin/antix2usb.sh, /usr/bin/luckybackup, /usr/local/bin/antixsnapshot-gui, \
+             /usr/local/bin/antixsnapshot, /usr/sbin/partimage, /usr/sbin/gparted, /usr/bin/testdisk, \
+             /usr/bin/photorec, /usr/bin/extundelete
+Cmnd_Alias  UTILS = /usr/bin/sudoedit, /usr/bin/apt-get update, /usr/bin/apt-get upgrade, /usr/bin/apt-get -f install, \
+                    /usr/bin/apt-get -s install, /bin/cp -u / etc/default/keyboard / etc/default/keyboard.old             
+
+                
+Cmnd_Alias  APPS_EXE = /bin/*, /usr/bin/gksu, /usr/bin/su-to-root, /usr/bin/ktsuss, /usr/bin/sux, /usr/sbin/synaptic, \ 
+                       /usr/local/bin/antix-system.sh, /usr/bin/gparted, /usr/local/bin/grub-repair-antix, \
+               /usr/sbin/update-grub, /usr/sbin/sysv-rc-conf, /usr/local/bin/user-management, \ 
+               /usr/sbin/dpkg-reconfigure, /usr/bin/rutilt, /usr/bin/gufw, /usr/bin/ceni, /usr/bin/install-meta, \ 
+               /usr/local/bin/group-management, /usr/bin/Xorg, /usr/bin/dpkg, /usr/bin/apt-get remove *, \ 
+               /usr/bin/apt-get purge *, /usr/bin/apt-get install *, /usr/bin/apt-get autoremove, \ 
+               /usr/bin/apt-get install --reinstall *, /usr/bin/apt-key, /usr/sbin/dmidecode, /usr/sbin/smartctl, \ 
+               /usr/bin/gsmartcontrol, /usr/bin/make *, /usr/bin/install *, /sbin/swapoff, /sbin/swapon, \
+               /sbin/sysctl            
+Cmnd_Alias  LOGS_READ = /bin/cat /var/log/*
+            
+#
+# ***********************
+#    DEFINED OPTIONS
+# ***********************
+Defaults  env_reset
+Defaults env_keep +="RESTARTED"
+Defaults  mail_badpass
+Defaults  secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Defaults  timestamp_timeout=5
+# ***********************
+#     DEFINED RULES
+# ***********************
+# ### Root user privilege specification ###
+
+root  ALL=(ALL:ALL) ALL
+
+# ### Regulars users privileges specification ###
+
+%users ALL=(root) NOPASSWD: LOGOUT, REBOOT, POWEROFF, DESKTOP_CHNG, DESKTOP_ENV_SET, NET, SEARCH, DEV_SET, \
+                  SYSTEM_CLEAN, DIR_SYNC, UTILS, LOGS_READ
+          
+%users ALL=(root) PASSWD: SUDO_SET, X_DM, WIDE_SET, BACKUP, APPS_EXE
+# ### Allow members of group sudo to execute any command ###
+
+%sudo  ALL=(ALL:ALL) ALL
+
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ sudo visudo -cf / etc/sudoers.d/antiusers
+[sudo] password for tesistas: 
+/ etc/sudoers.d/antiusers: parsed OK</code></pre></div>
+<br>
+The anothers sudoers files are intact; here is the content of sudoers.d folder:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>total 36
+-rw-r--r-- 1 root root 21215 Aug 31 21:28 antiusers
+-r--r----- 1 root root   921 Aug 30 15:52 antixers
+-r--r----- 1 root root   674 May 26  2013 antixers.dpkg-dist
+-r--r----- 1 root root   958 Mar  1  2013 README</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ sudo visudo -f / etc/sudoers.d/antixers
+# sudoers file.
+
+%users ALL=(root) NOPASSWD: /sbin/halt
+
+%users ALL=(root) NOPASSWD: /sbin/reboot
+
+%users ALL=(root) NOPASSWD: /sbin/poweroff
+
+%users ALL=(root) NOPASSWD: /sbin/blkid
+
+%users ALL=(root) NOPASSWD: /sbin/fdisk.distrib
+
+%users ALL=(root) NOPASSWD: /usr/bin/ceni
+
+%users ALL=(root) NOPASSWD: /usr/bin/rox
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-config
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-save
+
+%users ALL=(root) NOPASSWD: /usr/sbin/minstall
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/connectshares.sh
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/disconnectshares.sh
+
+Defaults env_keep +="RESTARTED"
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/update-default-desktop
+</code></pre></div>
+<br>
+Here is the command"id" output:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ id
+uid=1000(tesistas) gid=1000(tesistas) groups=1000(tesistas),7(lp),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),100(users),102(crontab),103(fuse),109(netdev),110(mlocate),1001(storage)</code></pre></div>
+and the command"groups" output:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ groups
+tesistas lp dialout cdrom floppy sudo audio dip video plugdev users crontab fuse netdev mlocate storage</code></pre></div>
+<br>
+I can read logs (per example), but when I use command"sudo fdisk -l", the prompt request the password. I not understand why?<br>
+<br>
+I read the sudoers manpage and several sources on sudo/sudoers on net. I read that"users" group (%users in sudoers files) is a traditional group in Unix systems but Debian prefer use a group per user. So I think that maybe it could be that tesistas user is added to"users" group and lack a own group.<br>
+<br>
+Please, can guide me...?<br>
+<br>
+<br>
+<br>
+Sorry by my English use... <span class="emoticon"> __{{emoticon}}__ </span></div>
+<div class="notice">
+Last edited by <b>tuto</b> on 06 Sep 2016, 23:33, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48020" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48020">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48020">
+
+<time datetime="2016-09-01T07:51">posted: 2016-09-01 &nbsp; 07:51</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48020" title="permalink">#2</a></span>
+
+<div class="content">Excellent post -- you provided plenty of detail.
+<blockquote class="uncited"><div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>total 36
+-rw-r--r-- 1 root root 21215 Aug 31 21:28 antiusers
+-r--r----- 1 root root   921 Aug 30 15:52 antixers
+-r--r----- 1 root root   674 May 26  2013 antixers.dpkg-dist
+-r--r----- 1 root root   958 Mar  1  2013 README</code></pre></div></div></blockquote>
+refer to <strong>/</strong>etc/sudoers.d/README<br>
+It states that all files within the sudoers.d directory are expected to bear 0440 permissions mask.<br>
+<br>
+<strong>sudo chmod 440 <em>/</em>etc/sudoers.d/antiusers</strong><br>
+After this change, retest. Do your rules now accomplish the desired result?</div>
+<div class="postcontent_footer">
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48021" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48021">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48021">
+
+<time datetime="2016-09-01T17:04">posted: 2016-09-01 &nbsp; 17:04</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48021" title="permalink">#3</a></span>
+
+<div class="content">Hi <strong>skidoo</strong>. Thanks by your aswering.<br>
+<br>
+Small detail... It missed me by read the README file <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+I did the changes on antiusers file:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ sudo chmod 440 / etc/sudoers.d/*
+tesistas@Tesistas:~
+$ ls -l / etc/sudoers.d
+total 36
+-r--r----- 1 root root 21309 Sep  1 11:54 antiusers
+-r--r----- 1 root root   921 Aug 30 15:52 antixers
+-r--r----- 1 root root   674 May 26  2013 antixers.dpkg-dist
+-r--r----- 1 root root   958 Mar  1  2013 README
+</code></pre></div>
+Then, reboot the system, and when I use the commands <blockquote class="uncited"><div>sudo fdisk -l</div></blockquote> or <blockquote class="uncited"><div>sudo lsblk -flm</div></blockquote>, the prompt request me the password yet.<br>
+<br>
+I did another changes:<br>
+<br>
+(1) I modified the rules on %users into antiusers file:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo visudo -f / etc/sudoers.d/antiusers
+# sudoers file.
+#
+# --&gt; This file was modified by tesistas user at 17/07/2016 18:43.
+# --&gt; The sudo package version is sudo_1.8.5p2-1+nmu3+deb7u1.
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in / etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+
+# ***********************
+#    DEFINED ALIAS
+# ***********************
+# ### User alias specification ### ##################
+#
+
+# At present, User_Alias have not been makes.
+# ### Runas alias specification ### #################
+#
+
+# At present, Runas_Alias have not been makes.
+# ### Host alias specification ### ###################
+#
+
+# At present, Host_Alias have not been makes.
+# ### Cmnd alias specification ### ###################
+#
+Cmnd_Alias  SUDO_SET = /usr/sbin/visudo
+Cmnd_Alias  LOGOUT = /usr/local/bin/restart-X
+Cmnd_Alias  REBOOT = /usr/local/bin/shutdown -r now, /usr/local/bin/reboot
+Cmnd_Alias  POWEROFF = /usr/local/bin/shutdown -h now, /usr/local/bin/halt, /usr/local/bin/poweroff
+Cmnd_Alias  X_DM = /usr/local/bin/slim-login, /usr/local/bin/antixccslim.sh, / etc/init.d/slim *
+Cmnd_Alias  DESKTOP_CHNG = /usr/local/bin/update-default-desktop
+Cmnd_Alias  DESKTOP_ENV_SET = /usr/bin/rox, /bin/mknod -m 666 /dev/nvidia*, /sbin/modprobe -v nvidia, \
+                              /sbin/modprobe -v nvidia-uvm, /usr/local/bin/nvidia-dev_creator.sh 
+Cmnd_Alias  NET = sudoedit / etc/network/interfaces, /usr/local/bin/connectshares.sh, /usr/local/bin/disconnectshares.sh
+Cmnd_Alias  WIDE_SET = sudoedit / etc/profile, sudoedit / etc/X11/*, sudoedit / etc/crontab, sudoedit / etc/fstab, \
+                       sudoedit / etc/inittab, sudoedit / etc/udev/*, sudoedit /lib/udev/rules.d/*, \
+                       sudoedit / etc/default/keyboard, sudoedit / etc/grub.d/*, sudoedit /boot/grub/menu.lst, \
+                       sudoedit / etc/sudoers, sudoedit / etc/sudoers.d/*, sudoedit /usr/local/bin/*, \
+             sudoedit /usr/local/share/doc/*, sudoedit / etc/apt/sources.list.d/*, \
+                       sudoedit / etc/apt/preferences.d/*, sudoedit / etc/sysctl.conf, sudoedit / etc/sysctl.d/*, \
+                       sudoedit /opt/*, sudoedit / etc/pam.d/*, sudoedit / etc/clamav/freshclam.conf             
+
+                          
+Cmnd_Alias  SEARCH = / etc/cron.daily/mlocate, /usr/bin/mlocate
+Cmnd_Alias  DEV_SET = /sbin/fdisk -l, /sbin/fdisk.distrib, /sbin/blkid, /bin/lsblk -flm, /sbin/lspcmcia, \
+                      /sbin/pccardctl, /sbin/udevadm
+Cmnd_Alias  SYSTEM_CLEAN = /usr/bin/apt-get autoclean, /usr/bin/apt-get clean, /usr/bin/apt-get autoremove, \
+                           /usr/sbin/orphaner, /usr/sbin/editkeep, /usr/bin/freshclam, /usr/bin/dpkg --purge
+Cmnd_Alias  DIR_SYNC = /usr/bin/grsync, /usr/bin/grsync-batch
+Cmnd_Alias  BACKUP = /usr/local/bin/remaster.sh, /usr/local/bin/remastercc.sh, /usr/local/bin/persist-makefs, \
+                     /usr/local/bin/persist-save, /usr/local/bin/persist-config, /usr/local/bin/persist-enabled, \
+                     /usr/local/bin/remaster-live, /usr/local/bin/run-mksquashfs, /usr/local/bin/antix2usb.py, \
+           /usr/local/bin/antix2usb.sh, /usr/bin/luckybackup, /usr/local/bin/antixsnapshot-gui, \
+           /usr/local/bin/antixsnapshot, /usr/sbin/partimage, /usr/sbin/gparted, /usr/bin/testdisk, \
+           /usr/bin/photorec, /usr/bin/extundelete
+Cmnd_Alias  UTILS = /usr/bin/sudoedit, /usr/bin/apt-get update, /usr/bin/apt-get upgrade, /usr/bin/apt-get -f install, \
+                    /usr/bin/apt-get -s install, /bin/cp -u / etc/default/keyboard / etc/default/keyboard.old           
+
+              
+Cmnd_Alias  APPS_EXE = /bin/*, /usr/bin/gksu, /usr/bin/su-to-root, /usr/bin/ktsuss, /usr/bin/sux, /usr/sbin/synaptic, \ 
+                       /usr/local/bin/antix-system.sh, /usr/bin/gparted, /usr/local/bin/grub-repair-antix, \
+             /usr/sbin/update-grub, /usr/sbin/sysv-rc-conf, /usr/local/bin/user-management, \ 
+             /usr/sbin/dpkg-reconfigure, /usr/bin/rutilt, /usr/bin/gufw, /usr/bin/ceni, /usr/bin/install-meta, \ 
+             /usr/local/bin/group-management, /usr/bin/Xorg, /usr/bin/dpkg, /usr/bin/apt-get remove *, \ 
+             /usr/bin/apt-get purge *, /usr/bin/apt-get install *, /usr/bin/apt-get autoremove, \ 
+             /usr/bin/apt-get install --reinstall *, /usr/bin/apt-key, /usr/sbin/dmidecode, /usr/sbin/smartctl, \ 
+             /usr/bin/gsmartcontrol, /usr/bin/make *, /usr/bin/install *, /sbin/swapoff, /sbin/swapon, \
+             /sbin/sysctl         
+Cmnd_Alias  LOGS_READ = /bin/cat /var/log/*
+         
+#
+# ***********************
+#    DEFINED OPTIONS
+# ***********************
+Defaults  env_reset
+Defaults env_keep +="RESTARTED"
+Defaults  mail_badpass
+Defaults  secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Defaults  timestamp_timeout=5
+# ***********************
+#     DEFINED RULES
+# ***********************
+# ### Root user privilege specification ###
+
+root  ALL=(ALL:ALL) ALL
+
+# ### Regulars users privileges specification ###
+
+%users ALL=(ALL:ALL) NOPASSWD: LOGOUT, REBOOT, POWEROFF, DESKTOP_CHNG, DESKTOP_ENV_SET, NET, SEARCH, DEV_SET, \
+                  SYSTEM_CLEAN, DIR_SYNC, UTILS, LOGS_READ
+        
+%users ALL=(root) PASSWD: SUDO_SET, X_DM, WIDE_SET, BACKUP, APPS_EXE
+# ### Allow members of group sudo to execute any command ###
+
+%sudo  ALL=(ALL:ALL) ALL
+
+</code></pre></div>
+(2) I avoided the read of anothers sudoers files in / etc/sudoers.d directory:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ ls -l / etc/sudoers.d
+total 36
+-r--r----- 1 root root 21309 Sep  1 11:54 antiusers
+-r--r----- 1 root root   921 Aug 30 15:52 antixers~
+-r--r----- 1 root root   674 May 26  2013 antixers.dpkg-dist~
+-r--r----- 1 root root   958 Mar  1  2013 README</code></pre></div>
+Reboot the system, and the prompt request me the password yet for run commands"<em>sudo lsblk -flm</em>" or"<em>sudo fdisk -l</em>".<br>
+<br>
+I believe that a possible cause maybe that tesistas user pertain to group users (%users) and haven't your own group added to sudo group.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48022" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48022">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48022">
+
+<time datetime="2016-09-02T04:52">posted: 2016-09-02 &nbsp; 04:52</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48022" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div>think that maybe it could be that tesistas user is added to"users" group and lack a own group</div></blockquote>I don't think this should be necessary, but you could<br>
+(consult <strong>man sudo</strong> to verify this is the correct syntax, and)<br>
+manually assign 'sudo' group membership to user 'testistas'<br>
+<span style="color: red">#</span> <strong>usermod -aG sudo testistas</strong><br>
+<br>
+<br>
+This, I think, is the hangup:<br>
+<span style="color: blue">When multiple rules match for a user, they are applied in order.<br>
+When multiple rules match, the last match (even though it is not necessarily the most specific) is used.</span><br>
+<br>
+As posted, your last line is<br>
+<span style="color: green">%sudo ALL=(ALL:ALL) ALL</span><br>
+You probably just need to move the <span style="color: green"> <strong>NOPASSWORD</strong> [...] SEARCH, DEV_SET, \ SYSTEM_CLEAN, DIR_SYNC,[...]</span> line to the bottom</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48033" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48033">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48033">
+
+<time datetime="2016-09-02T19:34">posted: 2016-09-02 &nbsp; 19:34</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48033" title="permalink">#5</a></span>
+
+<div class="content">After read sudoers manpage again, I verified that the latest rule, from several rules, is applied. So, I changed the rules for use own only, being as the tesistas user pertain to sudo group<br>
+<blockquote><div><cite>skidoo wrote:</cite>Código:<br>
+tesistas@Tesistas:~<br>
+$ id<br>
+uid=1000(tesistas) gid=1000(tesistas) groups=1000(tesistas),7(lp),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),100(users),102(crontab),103(fuse),109(netdev),110(mlocate),1001(storage)</div></blockquote>:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+
+# ### Regulars users privileges specification ###
+
+# %users ALL=(ALL:ALL) NOPASSWD: LOGOUT, REBOOT, POWEROFF, DESKTOP_CHNG, DESKTOP_ENV_SET, NET, SEARCH, DEV_SET, \
+                  SYSTEM_CLEAN, DIR_SYNC, UTILS, LOGS_READ
+        
+# %users ALL=(root) PASSWD: SUDO_SET, X_DM, WIDE_SET, BACKUP, APPS_EXE
+# ### Allow members of group sudo to execute any command ###
+
+%sudo  ALL=(ALL:ALL) NOPASSWD: LOGOUT, REBOOT, POWEROFF, DESKTOP_CHNG, DESKTOP_ENV_SET, NET, SEARCH, DEV_SET, \
+                  SYSTEM_CLEAN, DIR_SYNC, UTILS, LOGS_READ, PASSWD: SUDO_SET, X_DM, WIDE_SET, BACKUP, APPS_EXE
+</code></pre></div>
+After reboot, I can use without password almost every commands into Cmnd_List tagged with no PASSWD in the rule. However, I can't yet run without password the commands"<em>blkid, lsblk</em>". Well I added the user tesistas at sudo group explicitly. <br>
+This result tells me that these commands may be executed by root user only or another user with superuser privileges inserting the password, possibly by lack of another administrative, group as <strong>adm</strong> or <strong>wheel groups</strong>.<br>
+<br>
+I have to do the tests...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48089" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48089">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48089">
+
+<time datetime="2016-09-06T03:23">posted: 2016-09-06 &nbsp; 03:23</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48089" title="permalink">#6</a></span>
+
+<div class="content">Hello... again... <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Here I posts the updates on the intent for set my antiusers sudoers file per command (path / etc/sudoers.d):<br>
+<br>
+1 -) I added the tesistas user to adm group with the order"sudo usermod -aG adm tesistas".<br>
+After reboot, the the execution of commands"blkid, lsblk" from terminal requests the password.<br>
+<br>
+2 -) I added the tesistas user to your own group (tesistas). Reboot and re-test and same result.<br>
+<br>
+3 -) As a positive control (and for to test this time only), I changed the principal sudoers file (in directory / etc), adding the tesistas user below root's rule:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in / etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults        env_reset
+Defaults        mail_badpass
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+tesistas ALL=(ALL:ALL) NOPASSWD: ALL
+
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on"#include" directives:
+
+#includedir / etc/sudoers.d
+</code></pre></div>
+and I avoided that antiusers file was readed, adding the"~" symbol as suffix:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ ls -l / etc/sudoers.d
+total 36
+-r--r----- 1 root root 23854 Sep  5 22:18 antiusers~
+-r--r----- 1 root root   921 Sep  2 10:55 antixers~
+-r--r----- 1 root root   674 Sep  2 10:56 antixers.dpkg-dist~
+-r--r----- 1 root root   958 Mar  1  2013 README
+</code></pre></div>
+Then, after system reboot, the execution of commands"blkid, lsblk" from terminal requests the password.<br>
+<br>
+Ok, my conclussion is that these commands could be running as superuser necessarily.<br>
+<br>
+Then I use the antiusers sudoers file in / etc/sudoers.d and I will keep without changes the original / etc/sudoers file. Anymore, I will keep the tesistas user joined to sudo, users and adm groups. In this case (antiX), is not necessary that each user be joined to your own group, while be added to users group.<br>
+<br>
+<span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48092" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48092">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48092">
+
+<time datetime="2016-09-06T06:18">posted: 2016-09-06 &nbsp; 06:18</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48092" title="permalink">#7</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Then, after system reboot, the execution of commands"blkid, lsblk" from terminal requests the password.<br>
+<br>
+Ok, my conclusion is that these commands could be running as superuser necessarily.</div></blockquote>
+Under the default (not modified) policy, my non-root"demo" antix user can launch 'blkid' and 'lsblk' ~~ sudo not needed to launch these.<br>
+If I command"sudo blkid" yes (of course) a password prompt is displayed; the same prompt would occur if commanding"sudo ls" or anything else.<br>
+<br>
+Hmm, this is a liveboot session. Maybe a more strict default policy is applied after install to hard disk?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48102" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48102">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48102">
+
+<time datetime="2016-09-06T14:20">posted: 2016-09-06 &nbsp; 14:20</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48102" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>
+Under the default (not modified) policy, my non-root"demo" antix user can launch 'blkid' and 'lsblk' ~~ sudo not needed to launch these.<br>
+If I command"sudo blkid" yes (of course) a password prompt is displayed; the same prompt would occur if commanding"sudo ls" or anything else.<br>
+<br>
+Hmm, this is a liveboot session. Maybe a more strict default policy is applied after install to hard disk?</div></blockquote>
+Ok, I verified well this behavior from antiX-13.2 live-CD. From session tesistas although with lsblk can be launch as regular user, blkid need sudo:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tesistas@Tesistas:~
+$ blkid
+bash: blkid: command not found</code></pre></div>
+Precisely, a sudoers file per command with NOPASSWD tag that act on a specified command COMMAND, allow that COMMAND it could be launched by regular user without need password, using the order"sudo COMMAND". This behavior I'v used before on a installation Debian Wheezy+IceWM+SpaceFM (before of to use antiX) in this same hardware, and it worked without problems.<br>
+<br>
+I believe is possible that be some policy of antiX system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48107" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48107">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 26</span></div>
+
+</div>
+</div>
+<span class="username">tuto</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Aug 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48107">
+
+<time datetime="2016-09-06T23:32">posted: 2016-09-06 &nbsp; 23:32</time>
+<span class="permalink"><a href="./solved-question-with-sudoers-per-command-t6577.html#p48107" title="permalink">#9</a></span>
+
+<div class="content">Update:<br>
+<br>
+Talking systematically, for my low level of programming knowledge, there are many variables in play, this topic was turning it a bit confusing. So, I applied on I know, the scientific research method. Inferring that the possible wrong was in my antiusers sudoers file, I follow these steps:<br>
+<br>
+<strong>1</strong>) I commented all Cmnd_List in the antiusers file, using the rule with %users group. Saved changes and rebooted system.<br>
+<br>
+<strong>2</strong>) I uncommented a Cmnd_List each time, saving changes and rebooting system, probing launch from terminal the commands"sudo blikd -o full" and"sudo / etc/cron.daily/mlocate". Thus, I able to determine that the problem was the generic path to commands"/bin/*" into the Cmnd_List APPS_EXE, because that directory's commands are signalling in others Cmnd_List.<br>
+<br>
+<strong>3</strong>) So, I remove the expression"/bin/*" from Cmnd_List APPS_EXE, and now I can use my own sudoers file as I as wished.<br>
+<br>
+Finally, the sudoers per command (antiusers) file, it was thus:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># sudoers file.
+#
+# --&gt; This file was modified by tesistas user at 17/07/2016 18:43.
+# --&gt; The tesistas user pertain at users group. 
+# --&gt; The users group pertain at sudo group.
+# --&gt; The sudo package version is sudo_1.8.5p2-1+nmu3+deb7u1.
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in / etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+
+# ***********************
+#    DEFINED ALIAS
+# ***********************
+
+# ### User alias specification ### ####################
+
+User_Alias ANTIX_USERS = tesistas, pruebas
+# ### Runas alias specification ### ##################
+
+# At present, Runas_Alias have not been makes.
+# ### Host alias specification ### ##################
+
+# At present, Host_Alias have not been makes.
+# ### Cmnd alias specification ### ##################
+Cmnd_Alias  SUDO_SET = /usr/sbin/visudo -f / etc/sudoers.d/antiusers
+
+Cmnd_Alias  SUDO_CHECK = /usr/sbin/visudo -cf / etc/sudoers.d/antiusers
+
+Cmnd_Alias  LOGOUT = /usr/local/bin/restart-X
+
+Cmnd_Alias  REBOOT = /usr/local/bin/shutdown -r now, /usr/local/bin/reboot
+
+Cmnd_Alias  POWEROFF = /usr/local/bin/shutdown -h now, /usr/local/bin/halt, /usr/local/bin/poweroff
+
+Cmnd_Alias  X_DM = /usr/local/bin/slim-login, /usr/local/bin/antixccslim.sh, / etc/init.d/slim *
+
+Cmnd_Alias  DESKTOP_CHNG = /usr/local/bin/update-default-desktop
+
+Cmnd_Alias  DESKTOP_ENV_SET = /usr/bin/rox, /bin/mknod -m 666 /dev/nvidia*, /sbin/modprobe -v nvidia, \
+/sbin/modprobe -v nvidia-uvm, /usr/local/bin/nvidia-dev_creator.sh 
+
+Cmnd_Alias  NET = sudoedit / etc/network/interfaces, /usr/local/bin/connectshares.sh, /usr/local/bin/disconnectshares.sh
+
+Cmnd_Alias  WIDE_SET = sudoedit / etc/profile, sudoedit / etc/X11/*, sudoedit / etc/crontab, sudoedit / etc/fstab, \
+sudoedit / etc/inittab, sudoedit / etc/udev/*, sudoedit /lib/udev/rules.d/*, \
+sudoedit / etc/default/keyboard, sudoedit / etc/grub.d/*, sudoedit /boot/grub/menu.lst, \
+sudoedit / etc/sudoers, sudoedit / etc/sudoers.d/*, sudoedit /usr/local/bin/*, \
+sudoedit /usr/local/share/doc/*, sudoedit / etc/apt/sources.list.d/*, \
+sudoedit / etc/apt/preferences.d/*, sudoedit / etc/sysctl.conf, sudoedit / etc/sysctl.d/*, \
+sudoedit /opt/*, sudoedit / etc/pam.d/*, sudoedit / etc/clamav/freshclam.conf
+                              
+Cmnd_Alias  SEARCH = / etc/cron.daily/mlocate, /usr/bin/mlocate, /usr/bin/updatedb
+
+Cmnd_Alias  DEV_SET = /sbin/fdisk -l, /sbin/fdisk.distrib, /sbin/blkid -o full, /bin/lsblk -flm, /sbin/lspcmcia *, \
+/sbin/pccardctl *, /sbin/udevadm *
+
+Cmnd_Alias  SYSTEM_CLEAN = /usr/bin/apt-get autoclean, /usr/bin/apt-get clean, /usr/bin/apt-get autoremove, \
+/usr/sbin/orphaner, /usr/sbin/editkeep, /usr/bin/freshclam, /usr/bin/dpkg --purge
+
+Cmnd_Alias  DIR_SYNC = /usr/bin/grsync, /usr/bin/grsync-batch
+
+Cmnd_Alias  BACKUP = /usr/local/bin/remaster.sh, /usr/local/bin/remastercc.sh, /usr/local/bin/persist-makefs, \
+/usr/local/bin/persist-save, /usr/local/bin/persist-config, /usr/local/bin/persist-enabled, \
+/usr/local/bin/remaster-live, /usr/local/bin/run-mksquashfs, /usr/local/bin/antix2usb.py, \
+/usr/local/bin/antix2usb.sh, /usr/bin/luckybackup, /usr/local/bin/antixsnapshot-gui, \
+/usr/local/bin/antixsnapshot, /usr/sbin/partimage, /usr/sbin/gparted, /usr/bin/testdisk, \
+/usr/bin/photorec, /usr/bin/extundelete
+
+Cmnd_Alias  UTILS = /usr/bin/sudoedit, /usr/bin/apt-get update, /usr/bin/apt-get upgrade, /usr/bin/apt-get -f install, \
+/usr/bin/apt-get -s install, /usr/bin/apt-get --simulate install, /usr/bin/apt-get -s remove, \
+/usr/bin/apt-get --simulate remove, /bin/cat / etc/sudoers.d/README                   
+
+Cmnd_Alias FILES_BACKUP = /bin/cp -u / etc/default/keyboard / etc/default/keyboard.old, \
+/bin/cp -u / etc/fstab / etc/fstab.old, /bin/cp -u /boot/grub/menu.lst /boot/grub/menu.lst.old, \
+/bin/cp -u / etc/slim.conf / etc/slim.conf.old, /bin/cp -u / etc/rc.local / etc/rc.local.old, \
+/bin/cp -u / etc/network/interfaces / etc/network/interfaces.old, \
+/bin/cp -u / etc/inittab / etc/inittab.old, /bin/cp -u / etc/X11/xorg.conf / etc/X11/xorg.conf.old
+
+Cmnd_Alias  APPS_EXE = /usr/bin/gksu, /usr/bin/su-to-root, /usr/bin/ktsuss, /usr/bin/sux, /usr/sbin/synaptic, \
+/usr/local/bin/antix-system.sh, /usr/bin/gparted, /usr/local/bin/grub-repair-antix, \
+/usr/sbin/update-grub, /usr/sbin/sysv-rc-conf, /usr/local/bin/user-management, \ 
+/usr/sbin/dpkg-reconfigure, /usr/bin/rutilt, /usr/bin/gufw, /usr/bin/ceni, /usr/bin/install-meta, \ 
+/usr/local/bin/group-management, /usr/bin/Xorg, /usr/bin/dpkg, /usr/bin/apt-get remove *, \ 
+/usr/bin/apt-get purge *, /usr/bin/apt-get install *, /usr/bin/apt-get autoremove, \ 
+/usr/bin/apt-get install --reinstall *, /usr/bin/apt-key, /usr/sbin/dmidecode, /usr/sbin/smartctl, \ 
+/usr/bin/gsmartcontrol, /usr/bin/make *, /usr/bin/install *, /sbin/swapoff, /sbin/swapon, \
+/sbin/sysctl            
+
+Cmnd_Alias  LOGS_READ = /bin/cat /var/log/*, /var/log/*
+
+            
+#
+# ***********************
+#    DEFINED OPTIONS
+# ***********************
+
+Defaults  env_reset
+
+Defaults env_keep +="RESTARTED"
+
+Defaults  mail_badpass
+
+Defaults  secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+Defaults  timestamp_timeout=5
+# ***********************
+#     DEFINED RULES
+# ***********************
+
+ANTIX_USERS  ALL=(ALL:ALL) NOPASSWD: SUDO_CHECK, LOGOUT, REBOOT, POWEROFF, DESKTOP_CHNG, DESKTOP_ENV_SET, NET, SEARCH, \
+                                          DEV_SET, SYSTEM_CLEAN, DIR_SYNC, UTILS, FILES_BACKUP, LOGS_READ, PASSWD: SUDO_SET, X_DM, \
+                                          WIDE_SET, BACKUP, APPS_EXE
+</code></pre></div>
+<br>
+I give this topic as solved, and I thanks to <strong>skidoo</strong> by your help. He gave me very good ideas where to look <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

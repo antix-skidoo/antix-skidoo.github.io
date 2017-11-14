@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Install PCMan File Manager 0.5 in antiX-12 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./install-pcman-file-manager-0-5-in-antix-12-t3793.html">Install PCMan File Manager 0.5 in antiX-12</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_25603" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25603">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25603">
+<time datetime="2012-08-04T22:56">posted: 2012-08-04 &nbsp; 22:56</time>
+<span class="permalink"><a href="./install-pcman-file-manager-0-5-in-antix-12-t3793.html#p25603" title="permalink">#1</a></span>
+
+<div class="content">I have never been completely satisfied with the file managers that are currently available. Rox-filer is not terrible by any means and has some nice features but antiX-8/8.5 also had pcmanFM 0.5-3 and it was a great file manager. Auto-mounting of USB/partitions/ takes place when you open pcmanFM 0.5-3 and you can easily open pcmanFM 0.5-3 from a root terminal and pretty much do anything you want with your installed system (be careful!)<br>
+So, I have always installed this"old" version of pcmanFM on each antiX install right up to antiX-12.<br>
+Installation does require a few extra steps besides downloading and installing the pcmanFM 0.5-3 deb file and I am going to show you how to do so in this narrative.<br>
+1. Download pcmanfm_0.5-3_i386.deb and shared-mime-info_0.30-2_i386.deb from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.oats.webuda.com/iso/"<br>linktext was:"http://www.oats.webuda.com/iso/"<br>====================================<br>
+<br>
+2. 2. Enable ONLY the debian unstable repository and in a root terminal:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@E4300:/home/afab4
+# apt-get update
+</code></pre></div>
+then
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@E4300:/home/afab4
+# apt-get install hal
+</code></pre></div>
+This should pull in a couple of library files also.<br>
+then
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@E4300:/home/afab4
+# apt-get install gamin
+</code></pre></div>
+then
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@E4300:/home/afab4
+# apt-get purge winff
+</code></pre></div>
+(as winff conflicts with the older version of shared-mime-info we need to install).<br>
+Navigate to the directory that you downloaded the two files into and as root run:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@E4300:/home/afab4/Downloads
+# dpkg -i *.deb
+</code></pre></div>
+apt will whine a bit about downgrading shared-mime-info but it will indeed downgrade it.<br>
+At this point, pcmanFM 0.5-3 is fully functional.<br>
+Re-enable the default testing repositories.<br>
+Finally, you MUST put both pcmanFM and shared-mime-info on hold in both apt and in synaptic to avoid wiping out your efforts the next time you upgrade.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25604" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25604">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25604">
+
+<time datetime="2012-08-04T22:59">posted: 2012-08-04 &nbsp; 22:59</time>
+<span class="permalink"><a href="./install-pcman-file-manager-0-5-in-antix-12-t3793.html#p25604" title="permalink">#2</a></span>
+
+<div class="content">Doesn't SpaceFM do what you want? It is supposed to be based on the positives of pcmanFM 0.5-3 series.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25605" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25605">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25605">
+
+<time datetime="2012-08-04T23:05">posted: 2012-08-04 &nbsp; 23:05</time>
+<span class="permalink"><a href="./install-pcman-file-manager-0-5-in-antix-12-t3793.html#p25605" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Doesn't SpaceFM do what you want? It is supposed to be based on the positives of pcmanFM 0.5-3 series.</div></blockquote>
+I haven't tried the"latest" spaceFM but I will do so and see if it works for me. <br>
+I guess my bad experience with Thunar led me to go back to pcmanFM 0.5.</div>
+<div class="notice">
+Last edited by <b>afab4</b> on 05 Aug 2012, 12:29, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25606" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25606">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25606">
+
+<time datetime="2012-08-04T23:15">posted: 2012-08-04 &nbsp; 23:15</time>
+<span class="permalink"><a href="./install-pcman-file-manager-0-5-in-antix-12-t3793.html#p25606" title="permalink">#4</a></span>
+
+<div class="content">Let us know how you find SpaceFM. I think it has tremendous potential (though I still prefer rox) and I agree that using thunar is/was a disaster for antiX.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25608" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25608">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25608">
+
+<time datetime="2012-08-05T02:47">posted: 2012-08-05 &nbsp; 02:47</time>
+<span class="permalink"><a href="./install-pcman-file-manager-0-5-in-antix-12-t3793.html#p25608" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Let us know how you find SpaceFM. I think it has tremendous potential (though I still prefer rox) and I agree that using thunar is/was a disaster for antiX.</div></blockquote>
+I ran SpaceFm through the paces tonight and found it easily performs most functions that pcmanFM 0.5 does plus has many more features. <br>
+EDIT: I still cannot get SpaceFM to automount the other partitions on my hard drive though and will have to figure out a workaround on that.<br>
+EDIT: I modified fstab to load my other working partitions (changed noauto to auto) and now SpaceFM can see all my partitions.<br>
+I was able to use SpaceFM to mount my workgroup network shares using smbnetfs. This was on a stock, un-upgraded antiX-12 RC2 install. I didn't have to configure anything in SpaceFM. It worked"right out of the antiX box". <span class="emoticon"> __{{emoticon}}__ </span> <br>
+The only bump in the networking with smbnetfs is that it seems the user is not automatically added to the fuse group and so you must add your user name to the fuse group in a root terminal:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@E4300:/home/afab4
+# adduser afab4 fuse
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

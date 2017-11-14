@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>New initrd.gz for  AntiX 15 b3-V LiveUSBs - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html">New initrd.gz for AntiX 15 b3-V LiveUSBs</a></div>
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_41267" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41267">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41267">
+<time datetime="2015-06-18T06:02">posted: 2015-06-18 &nbsp; 06:02</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41267" title="permalink">#1</a></span>
+
+<div class="content">Time is short. It would be great if <strong>Dolphin_Oracle</strong>, <strong>SamK</strong>, and <strong>skidoo</strong> would download 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.dropbox.com/sh/l9szqbe3cgab5xn/AACMcn-K6qLfNaHJXG27EFkha?dl=0"<br>linktext was:"this new initrd.gz"<br>====================================<br>
+, install it on an antiX-15-beta3 LiveUSB and see if it fixes the following problems:<br>
+<ul>
+<li><strong>Dolphin_Oracle:</strong> does it (still) use the correct xorg driver?</li>
+<li><strong>SamK:</strong> does X use the sisimedia driver without you needing to give any extra boot options?</li>
+<li><strong>skidoo:</strong> are you happy with no /live/aufs-ram/.wh..wh.plnk/ directory? You can use the"plink" cheat to return to the old behaviour.</li></ul>
+You can install this on a LiveUSB by copying it to /live/boot-dev/antiX/initrd.gz. You might want to back up the original initrd.gz file. If the LiveUSB is plugged into another system then just copy it to the /antiX/ directory on the LiveUSB device. There should be an existing initrd.gz already there.<br>
+<br>
+I suggest you delete any existing /live/boot-dev/antiX/state/ directory and all of its contents before using this new initrd.gz.<br>
+<br>
+I don't know if an existing /live/aufs-ram/.wh..wh.plnk/ directory will get automatically deleted.<br>
+<br>
+Here are the major changes:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    Update video module detection add code for making sisimedia xorg.conf
+    Disable default xorg.conf if we detect hardware for"any" video driver
+
+    Restore state even if persistence is enabled
+    Add persist-save.log and live-remaster.log to general-state-files
+    Mount aufs with noplink mount option
+    Add"plink","noplink" cheats.  Default is"noplink".
+
+    Saving/restoring state
+     o Change file lists
+     o add comments to file lists
+     o Save permissions on vfat liveUSBs
+     o Improve mounting LiveUSB if"toram" was used
+     o Make"savestate" and"nosavestate" sticky
+     o Delete files in state dirs that no longer exist in FS
+     o Change save state cheats to: nosavestate, savestate</code></pre></div>
+If you don't want to download it from dropbox, I will be happy to email it to you. It's only 4 meg. Others are, of course, welcome to try it and give feedback. I'm particularly interested in the X driver that gets used. If your hardware supports a particular X driver (such as nouveau, intel, radeon, etc) and that driver is not being used by default, I'd like to know. If X doesn't start or if you end up with the fbdev driver at a resolution of 800x600, I'd like to know that too.<br>
+<br>
+If we can verify that the three problems above are fixed, this will help us short-circuit the development cycle and help us get a really solid antiX-15 out the door before anticapitalista leaves for the summer.<br>
+<br>
+I could also provide an xdelta-3 patch but I think it is much easier to just copy over the initrd.gz if you are already have a running antiX-15-beta3 LiveUSB. I have a bunch of other changes for live-remaster, save-persist and other things but they are not included in the initrd.gz.<br>
+<br>
+We might end up doing several iterations but this is much faster than creating and downloading an entire iso file.<br>
+<br>
+Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41269" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41269">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41269">
+
+<time datetime="2015-06-18T10:49">posted: 2015-06-18 &nbsp; 10:49</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41269" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>
+Time is short. It would be great if Dolphin_Oracle, SamK, and skidoo would download this new initrd.gz, install it on an antiX-15-beta3 LiveUSB and see if it fixes the following problems:<br>
+<br>
+Dolphin_Oracle: does it (still) use the correct xorg driver?
+</div></blockquote>
+yep.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41270" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41270">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41270">
+
+<time datetime="2015-06-18T11:45">posted: 2015-06-18 &nbsp; 11:45</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41270" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>yep.</div></blockquote>
+Brilliant! Thank you!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41274" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41274">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41274">
+
+<time datetime="2015-06-18T15:42">posted: 2015-06-18 &nbsp; 15:42</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41274" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>...does X use the sisimedia driver without you needing to give any extra boot options?</div></blockquote><span style="color: #BF0000">No it fails to produce a GUI desktop.</span><br>
+<br>
+The boot begins normally. During the text phase, it reports<ul>
+<li>found sis kernel modules</li>
+<li>found xorg driver</li>
+<li>found video module(s) sis-agp</li>
+<li><em>/</em>etc/X11/xorg.conf file with sisimedia</li></ul>The boot continues to the login stage, where it fails. The screen is totally blanked with an on-screen message <em>Input Not Supported</em> the system has to be rebooted at this point.<br>
+<br>
+<span style="color: #0000BF">The problem is related to a missing subsection in xorg.conf</span>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat / etc/X11/xorg.conf
+#----------------------------------------------------------------------
+# xorg.conf file
+#
+# Generated by make-xorg-conf sometime around Thu Mar 26 08:53:16 GMT 2015
+#
+# If you want to save customizations, delete the line above or this
+# file will get automatically deleted on the next live boot.
+#----------------------------------------------------------------------
+
+Section"Monitor"
+    Identifier"Monitor0"
+    Option"DPMS""true"
+EndSection
+
+Section"Device"
+    Identifier"Device0"
+    Driver    "sisimedia"
+EndSection
+
+Section"Screen"
+    Identifier"Screen0"
+    Monitor"Monitor0"
+    Device "Device0"
+    SubSection"Display"   -----------------------------------------------&gt; Manually added
+        Modes "1280x1024""1333x768""1024x768""800x600"   ---&gt; Manually added
+    EndSubSection   ------------------------------------------------------&gt; Manually added
+EndSection</code></pre></div>Ref my original report, <br>
+post40203.html#p40203<br>
+in it there are two xorg.conf files. <br>
+<br>
+The first was automatically produced by a version of antiX that did not contain any SIS driver.<br>
+The second was produced automatically by antiX after I had compiled and added sisimedia<br>
+<span style="color: #0000BF">Note in both cases they contain the subsection missing in your latest initrd.gz.</span><br>
+<br>
+After re-booting to console, once the subsection is added manually, then the startx command issued, X starts as expected and uses the sisimedia driver to produce a resolution 1280x1024@75.00hz</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41276" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41276">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41276">
+
+<time datetime="2015-06-18T19:43">posted: 2015-06-18 &nbsp; 19:43</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41276" title="permalink">#5</a></span>
+
+<div class="content">Thanks SamK!<br>
+<br>
+I think I understand what happened. There were two changes. One change detected more video related hardware. This was the fix for D.O. The other changes detected hardware that uses the sisimedia xorg driver and if this happens, I set <strong>xorg=sisimedia</strong> internally. But I had forgotten that detecting your video hardware would disable a"default" parameter that normally gets added to the xorg= boot parameter when no video hardware is found. So now when I detect hardware for the sisimedia driver I set <strong>xorg=default,sismedia</strong> and this should fix your problem and get you to X at 1280x1024.<br>
+<br>
+I renamed the previous initrd.gz to initrd-1.gz and I uploaded a new initrd.gz called initrd-2.gz to 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.dropbox.com/sh/l9szqbe3cgab5xn/AACMcn-K6qLfNaHJXG27EFkha?dl=0"<br>linktext was:"the same dropbox folder"<br>====================================<br>
+.<br>
+<br>
+Could you please replace your initrd.gz with the initrd-2.gz that I just uploaded? It needs to end up being named"initrd.gz" in the antiX/ directory.<br>
+<br>
+I'm sorry the previous version didn't work. I appreciate your detailed bug report which allowed me to track down the problem. Please let me know if this version boots to X for you. I'm glad we're doing field tests now instead of waiting for the next iso release. This is a big time saver overall.<br>
+<br>
+Thank you all for you help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41278" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41278">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41278">
+
+<time datetime="2015-06-18T20:22">posted: 2015-06-18 &nbsp; 20:22</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41278" title="permalink">#6</a></span>
+
+<div class="content"><blockquote class="uncited"><div>are you happy with no /live/aufs-ram/.wh..wh.plnk/ directory? You can use the"plink" cheat to return to the old behaviour.</div></blockquote><strong>short answer:</strong> Yep, HAPPY. Dynamic root persistence seems to be working fine without plink.<br>
+<span style="color: silver">...and, FWIW, I never understood why plink was enabled (nor why the aufs author's help page at sourceforge discourages omitting plink 'feature').</span><br>
+==============<br>
+<br>
+Under the new initrd.gz, across 8+ test runs so far, the only scenario in which"non ideal" persist-related behavior occurs is this:<br>
+boot init 3, manually run persist-save... immediately followed by shutdown (er, 'halt').<br>
+The quirk is this: during shutdown, persist-autosave still prompts Y/N to perform a (redundant) persist-save.<br>
+Not reporting this as a"bug" though, because I'm <span style="color: green"><strong>_NOT_ sure</strong></span> I've retrieved from github the latest copies of all scripts + excludes files.<br>
+<span style="color: green"><br>
+The excludes files are currently replicated across (er, redundantly contained within) two antix *.debs<br>
+Difficult to track/maintain and, even at this moment (i just checked) these are not"in sync" (see: live-remaster-exclude.list)<br>
+so... during build, whichever package is installed later/last"wins". Later, the most-recently-upgraded package"wins".<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/antix-libs/tree/master/excludes"<br>linktext was:"https://github.com/antiX-Linux/antix-li ... r/excludes"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/Persist-Scripts/tree/master/excludes"<br>linktext was:"https://github.com/antiX-Linux/Persist- ... r/excludes"<br>====================================<br>
+<br>
+<strong>antix-common.sh</strong> (sourced by persist-save.sh) is similarly replicated (but, AFAICT, the copies are currently"in sync"):<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/antix-libs/tree/master/lib/antiX"<br>linktext was:"https://github.com/antiX-Linux/antix-li ... /lib/antiX"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/Persist-Scripts/tree/master/lib"<br>linktext was:"https://github.com/antiX-Linux/Persist- ... master/lib"<br>====================================<br>
+<br>
+Anyhow, I'm just pointing this out to explain why I didn't post back to the thread where you invited"can grab the latest from github to test".</span><br>
+<br>
+<strong>a question, for future reference:</strong><br>
+Last night when I retrieved zipfile from github 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/antiX-Linux/Live-initrd-1"<br>linktext was:"https://github.com/antiX-Linux/Live-initrd-1"<br>====================================<br>
+<br>
+and tried using <em>/</em>usr/local/bin/ps_initrd.sh ...I came up short. The resulting initrd.gz was only 1.7Mb instead of the expected 3Mb+ size.<br>
+Deja vu ~~ but I coundn't recall which"piece" is missed. As I type this, I'm guessing"vmlinuz".<br>
+Instead of deleting the content of initrdgz-image directory, then copying zipfile content into that path, then closing...<br>
+...<strong>I should have just tried overwriting the existing content with the zipfile content?</strong></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41279" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41279">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+ </dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41279">
+
+<time datetime="2015-06-18T20:49">posted: 2015-06-18 &nbsp; 20:49</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41279" title="permalink">#7</a></span>
+
+<div class="content">skidoo - I'll upload all the new debs to the repo once we are pretty sure it doesn't break anything.<br>
+Should be within 24 hours, probably much sooner.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41281" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41281">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41281">
+
+<time datetime="2015-06-18T22:40">posted: 2015-06-18 &nbsp; 22:40</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41281" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite><strong>short answer:</strong> Yep, HAPPY. Dynamic root persistence seems to be working fine without plink.</div></blockquote>Great! Thanks for testing.<blockquote class="uncited"><div><span style="color: silver">...and, FWIW, I never understood why plink was enabled (nor why the aufs author's help page at sourceforge discourages omitting plink 'feature').</span></div></blockquote> I'm in the same boat as you. Although it seems that using plink and the auplink tool ends up with some minor space savings compared to noplink. We tired using the auplink tool but despite the current documentation saying it could be"run at any time", it can make the root file system inaccessible for a few seconds (depending on how much work it has to do) which is VERY BAD<span style="font-size: 40%; line-height: normal">(TM)</span>.
+<blockquote class="uncited"><div>Under the new initrd.gz, across 8+ test runs so far, the only scenario in which"non ideal" persist-related behavior occurs is this:<br>
+boot init 3, manually run persist-save... immediately followed by shutdown (er, 'halt').</div></blockquote>
+Thanks!<br>
+<br>
+I wasn't sure what this policy should be. Currently the lockout timeout is only triggered by automatically run persist-saves. This seemed to be a more conservative approach: if someone wanted to do a manual persist-save right before shutting down then maybe they had a good reason and they still want the automatic persist-save to run. Do you think I should assume that I know better than the user and have manually run persist-saves also lockout automatic persist-saves for 15 seconds? These kinds of policy choices are often obvious to people who are using the software but much less obvious to me when I'm writing it.<br>
+<blockquote class="uncited"><div>The excludes files are currently replicated across (er, redundantly contained within) two antix *.debs<br>
+Difficult to track/maintain and, even at this moment (i just checked) these are not"in sync" (see: live-remaster-exclude.list)<br>
+so... during build, whichever package is installed later/last"wins". Later, the most-recently-upgraded package"wins" [...]</div></blockquote>
+This is not my area of expertise although I wouldn't be surprised if I have added to the confusion. I imagine the solution will involve package dependencies.<br>
+<br>
+Thanks for you feedback skidoo! It's been very helpful. So was the feedback from D.O. and SamK. Thank you all!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41285" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41285">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41285">
+
+<time datetime="2015-06-19T00:09">posted: 2015-06-19 &nbsp; 00:09</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41285" title="permalink">#9</a></span>
+
+<div class="content"><blockquote class="uncited"><div>have manually run persist-saves also lockout automatic persist-saves for 15 seconds?</div></blockquote>Fine as-is, really ~~ amounts to"erring on the safe side".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41288" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41288">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41288">
+
+<time datetime="2015-06-19T01:52">posted: 2015-06-19 &nbsp; 01:52</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41288" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite><blockquote class="uncited"><div>have manually run persist-saves also lockout automatic persist-saves for 15 seconds?</div></blockquote>Fine as-is, really ~~ amounts to"erring on the safe side".</div></blockquote>
+skidoo, I trust your perspective on this and want to try it your way.<br>
+<br>
+The existing rule is that if an auto-save has been started but either aborted by the user or failed for some reason we still start the 15 seconds lockout countdown. Otherwise if you have selected semi-automatic and you said"no" the first time, you will still be asked again a few seconds later. Likewise if the if the save failed for some reason the first time, it is likely to fail again for the same reason.<br>
+<br>
+But dealing with previous manual saves has to be different. For these, ISTM the save has to complete successfully in order to start the lockout countdown. It had seemed to me that doing a manual save less that 15 seconds before shutting down would be uncommon but we might as well deal with it correctly. This rule may not be perfect but I think it is simple and easy and may be close enough.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41292" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41292">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41292">
+
+<time datetime="2015-06-19T14:03">posted: 2015-06-19 &nbsp; 14:03</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41292" title="permalink">#11</a></span>
+
+<div class="content"><strong>Re: sisimedia driver</strong><br>
+<br>
+initrd-2.gz produced the expected GUI desktop.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /proc/cmdline
+vga=788 lang=en_GB quiet splash=off disable_srv=LX
+
+inxi -c 0 -G
+Graphics:  Card: Silicon Integrated Systems [SiS] 65x/M650/740 PCI/AGP VGA Display Adapter
+           Display Server: X.Org 1.16.4 driver: N/A Resolution: 1280x1024@75.00hz
+           GLX Renderer: Gallium 0.4 on llvmpipe (LLVM 3.5, 128 bits) GLX Version: 3.0 Mesa 10.3.2</code></pre></div>
+<br>
+<br>
+<strong>Re: antiX release</strong><br>
+<blockquote><div><cite>BitJam wrote:</cite>
+Time is short.<br>
+[...]<br>
+...this will help us short-circuit the development cycle...<br>
+[...]<br>
+This is a big time saver overall.</div></blockquote>These are quite odd remarks, particularly in view of the quiet patience the community has demonstrated since the last antiX release on 05 November 2013. It is curious that speed of community response is now introduced as a relevant factor.<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>...help us get a really solid antiX-15 out the door before anticapitalista leaves for the summer.</div></blockquote>Of course I don't decide when antiX has reached a sufficiently high quality threshold to trigger the release of another official version. What will happen if the trigger date is missed? The release will be delayed by a few weeks. This is likely to be a much shorter time period than it will take to repair any reputational damage caused by the release of an unfinished and insufficently polished final version, in an attempt to meet a spurious deadline. antiX has more to lose by attempting a premature release than it has to gain.<br>
+<br>
+In view of the state of beta-3, it will be beneficial to produce a minimum of one further ISO, (potentially followed by others) to enable testing, checking and verification of the work done since its release. Additionally, there might be new matters uncovered. In short, the beta-3 ISO was the last the community has seen. Because it was such a long way from being finished a further beta seems both an obvious and needed next step.<br>
+<br>
+In my opinion, antiX should be released only if and when the quality threshold has been reached. In other words it should be released when it is ready, not simply to meet an abitrary and artificial deadline.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41294" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41294">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41294">
+
+<time datetime="2015-06-19T15:08">posted: 2015-06-19 &nbsp; 15:08</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41294" title="permalink">#12</a></span>
+
+<div class="content">If antiX is not released before I go to the UK at the beginning of July, it will not get released until the end of September (at the earliest) when I return. That isn't a few weeks, but 3 months (minimum).<br>
+<br>
+A new iso is to be uploaded later this evening.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41300" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41300">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41300">
+
+<time datetime="2015-06-19T16:05">posted: 2015-06-19 &nbsp; 16:05</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41300" title="permalink">#13</a></span>
+
+<div class="content"><blockquote class="uncited"><div>In my opinion, antiX should be released only if and when the quality threshold has been reached. In other words it should be released when it is ready, not simply to meet an abitrary and artificial deadline.</div></blockquote>
+I agree whole heartedly, a few more weeks/months don't matter, it is more important to have a stable polished distro.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41304" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41304">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41304">
+
+<time datetime="2015-06-19T17:05">posted: 2015-06-19 &nbsp; 17:05</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41304" title="permalink">#14</a></span>
+
+<div class="content">I disagree that a few months won't matter, It will.<br>
+Also, I'm convinced that for well over 95% of antiX users, it is already stable and polished enough. (and that is down to the feedback from all testers, so thanks to you all).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41312" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41312">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,028</dd>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41312">
+
+<time datetime="2015-06-20T06:48">posted: 2015-06-20 &nbsp; 06:48</time>
+<span class="permalink"><a href="./new-initrd-gz-for-antix-15-b3-v-liveusbs-t5668.html#p41312" title="permalink">#15</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite><blockquote class="uncited"><div>In my opinion, antiX should be released only if and when the quality threshold has been reached. In other words it should be released when it is ready, not simply to meet an abitrary and artificial deadline.</div></blockquote>
+I agree whole heartedly, a few more weeks/months don't matter, it is more important to have a stable polished distro.</div></blockquote><blockquote><div><cite>anticapitalista wrote:</cite>I disagree that a few months won't matter, It will.</div></blockquote>Expressing differing opinions in a respectful, courteous, and considerate way is a hallmark of an empathetic community.<br>
+<br>
+@<strong>anticapitalista</strong> As always, you are rightly the ultimate judge of antiX matters. Assuming it doesn't impinge on personal concerns, will you give some insight into why"it will" matter if the release is delayed?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>No Sound ES1988 (aka ESS1988 Maestro3 Allegro) [SOLVED] - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html">No Sound ES1988 (aka ESS1988 Maestro3 Allegro) [SOLVED]</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_32517" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32517">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32517">
+<time datetime="2013-12-26T02:18">posted: 2013-12-26 &nbsp; 02:18</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32517" title="permalink">#1</a></span>
+
+<div class="content">Here we go again. TIs the season to be wrestling linux..<br>
+<br>
+I have a Compaq Presario Laptop 1700T which I just installed Antix 13.2 (stable) with the following sound controller:<br>
+Multimedia audio controller: ESS Technology ES1988 Allegro-1 (rev 12)<br>
+<br>
+There is no sound. Clicking on Control Centre /Hadware/Test Sound &amp; Adjust Mixer just flashes (opens up a console and quickly closes it). So I was doing a little research and someone mentioned a sound utility called alsaconf. I tried running it as root and it responded: bash:alsaconf: command not found.<br>
+I tried alsamixer as root at console :cannot open mixer: No such file or directory and tried the console version amixer and it returned: Mixer attach default error: No such file or directory<br>
+<br>
+<br>
+According to searching on google, the ESS Technology ES1988 Allegro-1 audio controller is also called an Maestro-3 so I did a dmesg to see if it got loaded during boot. <br>
+<br>
+dmesg | grep maestro shows these lines:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[    9.705185] snd_maestro3 0000:00:0a.0: found PCI INT A -&gt; IRQ 5
+[    9.705211] snd_maestro3 0000:00:0a.0: sharing IRQ 5 with 0000:00:07.2
+[    9.713234] snd_maestro3: probe of 0000:00:0a.0 failed with error -2
+</code></pre></div>
+lsmod shows:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Module                  Size  Used by
+acpi_cpufreq            5557  0 
+mperf                    866  1 acpi_cpufreq
+processor              23656  1 acpi_cpufreq
+thermal_sys            10455  1 processor
+speedstep_lib           2383  0 
+cpufreq_stats           2620  0 
+cpufreq_conservative     3558  0 
+cpufreq_powersave        575  0 
+parport_pc             23843  1 
+ppdev                   4112  0 
+lp                      6135  0 
+parport                21875  3 lp,ppdev,parport_pc
+uinput                  5148  1 
+af_packet              18696  6 
+dm_crypt               10775  0 
+arc4                    1397  2 
+rt2800usb              11940  0 
+rt2x00usb               6269  1 rt2800usb
+rt2800lib              38735  1 rt2800usb
+rt2x00lib              25802  3 rt2x00usb,rt2800lib,rt2800usb
+mac80211              189998  3 rt2x00lib,rt2x00usb,rt2800lib
+cfg80211              122014  2 mac80211,rt2x00lib
+rfkill                 10550  2 cfg80211
+snd_maestro3           11795  0 
+crc_ccitt               1004  1 rt2800lib
+snd_ac97_codec         78474  1 snd_maestro3
+snd_pcm                50454  2 snd_ac97_codec,snd_maestro3
+pcmcia                 24747  0 
+joydev                  6549  0 
+snd_page_alloc          5015  1 snd_pcm
+intel_agp               7584  1 
+intel_gtt              10365  1 intel_agp
+yenta_socket           15722  0 
+pcmcia_rsrc             5938  1 yenta_socket
+pcmcia_core             8459  3 pcmcia,pcmcia_rsrc,yenta_socket
+mac_hid                 2214  0 
+snd_seq                34663  0 
+snd_seq_device          3890  1 snd_seq
+snd_timer              12034  2 snd_pcm,snd_seq
+agpgart                18082  2 intel_agp,intel_gtt
+snd                    36700  6 snd_ac97_codec,snd_timer,snd_pcm,snd_seq,snd_maestro3,snd_seq_device
+evdev                   6643  5 
+i2c_piix4               6745  0 
+soundcore               3447  1 snd
+ac97_bus                 687  1 snd_ac97_codec
+shpchp                 18784  0 
+pci_hotplug            17120  1 shpchp
+microcode               8368  0 
+psmouse                52120  0 
+pcspkr                  1269  0 
+serio_raw               3181  0 
+btrfs                 547916  0 
+zlib_deflate           15483  1 btrfs
+dm_mod                 50861  1 dm_crypt
+tulip                  37455  0 
+</code></pre></div>
+I'm lost now. How should I proceed? Thanks.</div>
+<div class="notice">
+Last edited by <b>nassausky</b> on 26 Dec 2013, 19:31, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32526" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32526">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32526">
+
+<time datetime="2013-12-26T12:46">posted: 2013-12-26 &nbsp; 12:46</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32526" title="permalink">#2</a></span>
+
+<div class="content">Did you have sound during the live disk session, before the install? <br>
+<br>
+Run the following, and post any errors.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>aplay /usr/share/sounds/alsa/Noise.wav</code></pre></div>
+Post results of the following.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> cat /proc/asound/cards</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> aplay -L</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32528" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32528">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32528">
+
+<time datetime="2013-12-26T13:30">posted: 2013-12-26 &nbsp; 13:30</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32528" title="permalink">#3</a></span>
+
+<div class="content">I thought I did hear sound but it turns out I probably didn't since I just booted from a Live CD and it has the same symptoms without sound.<br>
+<br>
+Here are the results for commands:<br>
+You didn't specify root or my login id so I ran under both credentials and had the same results for<br>
+<strong>aplay /usr/share/sounds/alsa/Noise.wav</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ALSA lib confmisc.c:768:(parse_card) cannot find card '0'
+ALSA lib conf.c:4241:(_snd_config_evaluate) function snd_func_card_driver returned error: No such file or directory
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4241:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1251:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4241:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:4720:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2217:(snd_pcm_open_noupdate) Unknown PCM default
+aplay: main:682: audio open error: No such file or directory
+</code></pre></div>
+Same result for root and local user:<br>
+<strong>cat /proc/asound/cards</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>--- no soundcards ---
+</code></pre></div>
+Same result for root and local user:<br>
+<strong>aplay -L</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>null
+    Discard all samples (playback) or generate zero samples (capture)
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32531" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32531">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32531">
+
+<time datetime="2013-12-26">posted: 14:22</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32531" title="permalink">#4</a></span>
+
+<div class="content">Do the following as root..<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>alsa  force-unload</code></pre></div>
+Next as root.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe -r snd-maestro3 ; modprobe snd-maestro3</code></pre></div>
+Then as normal user
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>alsa reload</code></pre></div>
+Then as root run
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>adduser yourusername audio</code></pre></div>
+as normal user run
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>aplay -L </code></pre></div>
+If this dose not work your missing the driver for your card, Your card is listed in the driver matrix for alsa.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32533" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32533">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32533">
+
+<time datetime="2013-12-26T16:31">posted: 2013-12-26 &nbsp; 16:31</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32533" title="permalink">#5</a></span>
+
+<div class="content">Ok this is what I got:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#alsa force-unload
+Unloading ALSA sound driver modules: snd-maestro3 snd-ac97-codec snd-pcm snd-page-alloc snd-seq snd-seq-device snd-timer.
+#modprobe -r snd-maestro3; modprobe snd-maestro3
+$alsa reload
+bash: alsa: command not found
+#adduser guest audio
+The user `guest' is already a member of `audio'.
+$ aplay -L
+null
+    Discard all samples (playback) or generate zero samples (capture)
+</code></pre></div>
+Not sure what it means by it not reloading under my username but I tried reloading as root with the following success:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo alsa reload
+Unloading ALSA sound driver modules: snd-maestro3 snd-ac97-codec snd-pcm snd-page-alloc snd-seq snd-seq-device snd-timer.
+Loading ALSA sound driver modules: snd-maestro3 snd-ac97-codec snd-pcm snd-page-alloc snd-seq snd-seq-device snd-timer.
+</code></pre></div>
+and aplay -L returns the same as standard user (with audio group permission) or root after that coad looks like it got reloaded:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>null
+    Discard all samples (playback) or generate zero samples (capture)
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32539" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32539">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32539">
+
+<time datetime="2013-12-26T17:16">posted: 2013-12-26 &nbsp; 17:16</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32539" title="permalink">#6</a></span>
+
+<div class="content">Dose this show your sound card now?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /proc/asound/cards</code></pre></div>
+Can you open alsamixer now? <br>
+We may need to re-install ALSA.<br>
+<br>
+Re-install Steps <br>
+Run as root
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> alsa  force-unload
+apt-get purge alsa-base 
+apt-get update &amp;&amp; apt-get install alsa-base
+</code></pre></div>
+Then open alsamixer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32540" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32540">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32540">
+
+<time datetime="2013-12-26T17:31">posted: 2013-12-26 &nbsp; 17:31</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32540" title="permalink">#7</a></span>
+
+<div class="content">Thanks for every step so far. No luck yet. Here is what I ran and the results:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ cat /proc/asound/cards
+--- no soundcards ---
+
+# alsa force-unload
+Unloading ALSA sound driver modules: snd-maestro3 snd-ac97-codec snd-pcm snd-page-alloc snd-seq snd-seq-device snd-timer.
+# apt-get purge alsa-base
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  alsa-base* volumeicon-alsa*
+0 upgraded, 0 newly installed, 2 to remove and 51 not upgraded.
+After this operation, 319 kB disk space will be freed.
+Do you want to continue [Y/n]? y
+(Reading database ... 104347 files and directories currently installed.)
+Removing volumeicon-alsa ...
+Purging configuration files for volumeicon-alsa ...
+Removing alsa-base ...
+Purging configuration files for alsa-base ...
+Processing triggers for menu ...
+Processing triggers for man-db ...
+# apt-get update &amp;&amp; apt-get install alsa-base
+Hit http://ftp.us.debian.org wheezy Release.gpg
+Hit http://ftp.us.debian.org wheezy Release                                    
+Hit http://security.debian.org wheezy/updates Release.gpg                      
+Hit http://security.debian.org wheezy/updates Release                          
+Hit http://ftp.us.debian.org wheezy/main i386 Packages               
+Hit http://security.debian.org wheezy/updates/main i386 Packages
+Hit http://ftp.us.debian.org wheezy/contrib i386 Packages
+Hit http://ftp.us.debian.org wheezy/non-free i386 Packages           
+Hit http://ftp.us.debian.org wheezy/contrib Translation-en           
+Hit http://security.debian.org wheezy/updates/contrib i386 Packages  
+Hit http://ftp.us.debian.org wheezy/main Translation-en              
+Hit http://security.debian.org wheezy/updates/non-free i386 Packages 
+Hit http://ftp.us.debian.org wheezy/non-free Translation-en          
+Hit http://security.debian.org wheezy/updates/contrib Translation-en 
+Hit http://security.debian.org wheezy/updates/main Translation-en
+Hit http://security.debian.org wheezy/updates/non-free Translation-en
+Hit http://antix.daveserver.info stable Release.gpg
+Hit http://antix.daveserver.info stable Release
+Hit http://antix.daveserver.info stable/main i386 Packages
+Hit http://antix.daveserver.info stable/dev i386 Packages
+Ign http://antix.daveserver.info stable/dev Translation-en_US
+Ign http://antix.daveserver.info stable/dev Translation-en
+Ign http://antix.daveserver.info stable/main Translation-en_US
+Ign http://antix.daveserver.info stable/main Translation-en
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Suggested packages:
+  alsa-oss oss-compat
+The following NEW packages will be installed:
+  alsa-base
+0 upgraded, 1 newly installed, 0 to remove and 51 not upgraded.
+Need to get 0 B/61.1 kB of archives.
+After this operation, 134 kB of additional disk space will be used.
+Selecting previously unselected package alsa-base.
+(Reading database ... 104284 files and directories currently installed.)
+Unpacking alsa-base (from .../alsa-base_1.0.25+3~deb7u1_all.deb) ...
+Setting up alsa-base (1.0.25+3~deb7u1) ...
+# alsamixer
+cannot open mixer: No such file or directory
+</code></pre></div>
+Maybe some prayers might help <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32544" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32544">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32544">
+
+<time datetime="2013-12-26T18:33">posted: 2013-12-26 &nbsp; 18:33</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32544" title="permalink">#8</a></span>
+
+<div class="content">The dependencies for ALSA base was remove also. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> apt-get install alsa-base alsa-utils build-essential</code></pre></div>
+After this we need to install your drivers. <br>
+Download the tarball
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>wget http://mirrors.zerg.biz/alsa/firmware/alsa-firmware-1.0.25.tar.bz2</code></pre></div>
+Open the tarball
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tar xvf alsa-firmware-1.0.25.tar.bz2
+cd alsa-firmware-1.0.25
+./configure
+cd maestro3 &amp;&amp; make</code></pre></div>
+Install the driver as root run
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir -p /usr/local/lib/firmware/ess
+cp *fw /usr/local/lib/firmware/ess</code></pre></div>
+Reload the snd-maestro3 module
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe -r snd-maestro3 ; modprobe snd-maestro3</code></pre></div>
+Now open alasmixer and unmute the front channels.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32547" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32547">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32547">
+
+<time datetime="2013-12-26T19:15">posted: 2013-12-26 &nbsp; 19:15</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32547" title="permalink">#9</a></span>
+
+<div class="content">Excelllent now the text/console interface doesn't show how to unmute the front channels. I was able to move the volume level up though. I will post my code for anyone else following with a similar issue. I have to be honest. I did much research and tried compiling the alsa driver but I never saw it mention putting the items into the directory you mentioned /usr/local/lib/firmware/ess.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install alsa-base alsa-utils build-essential
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+alsa-base is already the newest version.
+alsa-utils is already the newest version.
+build-essential is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 51 not upgraded.
+
+# wget http://mirrors.zerg.biz/alsa/firmware/alsa-firmware-1.0.25.tar.bz2
+--2013-12-26 13:44:43--  http://mirrors.zerg.biz/alsa/firmware/alsa-firmware-1.0.25.tar.bz2
+Resolving mirrors.zerg.biz (mirrors.zerg.biz)... 85.25.110.143
+Connecting to mirrors.zerg.biz (mirrors.zerg.biz)|85.25.110.143|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 3866594 (3.7M) [application/x-bzip2]
+Saving to: `alsa-firmware-1.0.25.tar.bz2'
+
+100%[======================================&gt;] 3,866,594    670K/s   in 9.5s    
+
+2013-12-26 13:44:54 (396 KB/s) - `alsa-firmware-1.0.25.tar.bz2' saved [3866594/3866594]
+# tar xvf alsa-firmware-1.0.25.tar.bz2
+alsa-firmware-1.0.25/
+alsa-firmware-1.0.25/multisound/
+alsa-firmware-1.0.25/multisound/Makefile.in
+alsa-firmware-1.0.25/multisound/Makefile.am
+alsa-firmware-1.0.25/depcomp
+alsa-firmware-1.0.25/ltconfig
+alsa-firmware-1.0.25/ltmain.sh
+alsa-firmware-1.0.25/configure.in
+alsa-firmware-1.0.25/emi_26_62/
+alsa-firmware-1.0.25/emi_26_62/emi26-firmware.bin
+alsa-firmware-1.0.25/emi_26_62/emi26-loader.bin
+alsa-firmware-1.0.25/emi_26_62/emi62-firmware-midi.bin
+alsa-firmware-1.0.25/emi_26_62/emi62-firmware-spdif.bin
+alsa-firmware-1.0.25/emi_26_62/emi62-loader.bin
+alsa-firmware-1.0.25/emi_26_62/Makefile.in
+alsa-firmware-1.0.25/emi_26_62/license.txt
+alsa-firmware-1.0.25/emi_26_62/emi26-bitstream.bin
+alsa-firmware-1.0.25/emi_26_62/Makefile.am
+alsa-firmware-1.0.25/emi_26_62/emi62-bitstream.bin
+alsa-firmware-1.0.25/pcxhrloader/
+alsa-firmware-1.0.25/pcxhrloader/xlxc882e.dat
+alsa-firmware-1.0.25/pcxhrloader/pcxhr.conf
+alsa-firmware-1.0.25/pcxhrloader/xlxc1222e.dat
+alsa-firmware-1.0.25/pcxhrloader/dspb1222hr.b56
+alsa-firmware-1.0.25/pcxhrloader/xlxc1222hr.dat
+alsa-firmware-1.0.25/pcxhrloader/pcxhr4.conf
+alsa-firmware-1.0.25/pcxhrloader/dspb1222e.b56
+alsa-firmware-1.0.25/pcxhrloader/xlxc882hr.dat
+alsa-firmware-1.0.25/pcxhrloader/Makefile.in
+alsa-firmware-1.0.25/pcxhrloader/dspe882.e56
+alsa-firmware-1.0.25/pcxhrloader/e321_512.e56
+alsa-firmware-1.0.25/pcxhrloader/pcxhr2.conf
+alsa-firmware-1.0.25/pcxhrloader/dspb924.b56
+alsa-firmware-1.0.25/pcxhrloader/pcxhr5.conf
+alsa-firmware-1.0.25/pcxhrloader/dspb882e.b56
+alsa-firmware-1.0.25/pcxhrloader/pcxhr0.conf
+alsa-firmware-1.0.25/pcxhrloader/xc_1_882.dat
+alsa-firmware-1.0.25/pcxhrloader/xlxint.dat
+alsa-firmware-1.0.25/pcxhrloader/xi_1_882.dat
+alsa-firmware-1.0.25/pcxhrloader/dspd882.d56
+alsa-firmware-1.0.25/pcxhrloader/dspb882hr.b56
+alsa-firmware-1.0.25/pcxhrloader/xlxc924.dat
+alsa-firmware-1.0.25/pcxhrloader/dspd222.d56
+alsa-firmware-1.0.25/pcxhrloader/README
+alsa-firmware-1.0.25/pcxhrloader/d321_512.d56
+alsa-firmware-1.0.25/pcxhrloader/dspd1222.d56
+alsa-firmware-1.0.25/pcxhrloader/Makefile.am
+alsa-firmware-1.0.25/pcxhrloader/pcxhr3.conf
+alsa-firmware-1.0.25/pcxhrloader/xlxc222.dat
+alsa-firmware-1.0.25/pcxhrloader/b321_512.b56
+alsa-firmware-1.0.25/pcxhrloader/pcxhr1.conf
+alsa-firmware-1.0.25/pcxhrloader/dspe924.e56
+alsa-firmware-1.0.25/wavefront/
+alsa-firmware-1.0.25/wavefront/Makefile.in
+alsa-firmware-1.0.25/wavefront/yss225.c
+alsa-firmware-1.0.25/wavefront/Makefile.am
+alsa-firmware-1.0.25/wavefront/fw_writer.c
+alsa-firmware-1.0.25/ymfpci/
+alsa-firmware-1.0.25/ymfpci/Makefile.in
+alsa-firmware-1.0.25/ymfpci/Makefile.am
+alsa-firmware-1.0.25/ymfpci/fw_writer.c
+alsa-firmware-1.0.25/ymfpci/hwmcode.c
+alsa-firmware-1.0.25/asihpi/
+alsa-firmware-1.0.25/asihpi/dsp6400.bin
+alsa-firmware-1.0.25/asihpi/dsp6205.bin
+alsa-firmware-1.0.25/asihpi/Makefile.in
+alsa-firmware-1.0.25/asihpi/dsp5000.bin
+alsa-firmware-1.0.25/asihpi/dsp8900.bin
+alsa-firmware-1.0.25/asihpi/dsp6200.bin
+alsa-firmware-1.0.25/asihpi/dsp6600.bin
+alsa-firmware-1.0.25/asihpi/Makefile.am
+alsa-firmware-1.0.25/asihpi/dsp8700.bin
+alsa-firmware-1.0.25/asihpi/dsp2400.bin
+alsa-firmware-1.0.25/emu/
+alsa-firmware-1.0.25/emu/emu1010b_netlist.h
+alsa-firmware-1.0.25/emu/Makefile.in
+alsa-firmware-1.0.25/emu/hana_netlist.h
+alsa-firmware-1.0.25/emu/emu1010_notebook_netlist.h
+alsa-firmware-1.0.25/emu/Makefile.am
+alsa-firmware-1.0.25/emu/emu0404_netlist.h
+alsa-firmware-1.0.25/emu/fw_writer.c
+alsa-firmware-1.0.25/emu/micro_dock_netlist.h
+alsa-firmware-1.0.25/emu/audio_dock_netlist.h
+alsa-firmware-1.0.25/configure
+alsa-firmware-1.0.25/Makefile.in
+alsa-firmware-1.0.25/maestro3/
+alsa-firmware-1.0.25/maestro3/Makefile.in
+alsa-firmware-1.0.25/maestro3/maestro3.h
+alsa-firmware-1.0.25/maestro3/Makefile.am
+alsa-firmware-1.0.25/maestro3/fw_writer.c
+alsa-firmware-1.0.25/hdsploader/
+alsa-firmware-1.0.25/hdsploader/digiface_firmware_rev11.dat
+alsa-firmware-1.0.25/hdsploader/Makefile.in
+alsa-firmware-1.0.25/hdsploader/rpm_firmware.bin
+alsa-firmware-1.0.25/hdsploader/tobin.c
+alsa-firmware-1.0.25/hdsploader/digiface_firmware.dat
+alsa-firmware-1.0.25/hdsploader/README
+alsa-firmware-1.0.25/hdsploader/Makefile.am
+alsa-firmware-1.0.25/hdsploader/multiface_firmware_rev11.dat
+alsa-firmware-1.0.25/hdsploader/multiface_firmware.dat
+alsa-firmware-1.0.25/mixartloader/
+alsa-firmware-1.0.25/mixartloader/miXart8.xlx
+alsa-firmware-1.0.25/mixartloader/miXart8AES.xlx
+alsa-firmware-1.0.25/mixartloader/Makefile.in
+alsa-firmware-1.0.25/mixartloader/README
+alsa-firmware-1.0.25/mixartloader/miXart.conf
+alsa-firmware-1.0.25/mixartloader/Makefile.am
+alsa-firmware-1.0.25/mixartloader/miXart8.elf
+alsa-firmware-1.0.25/vxloader/
+alsa-firmware-1.0.25/vxloader/x1_1_vx2.rbt
+alsa-firmware-1.0.25/vxloader/bd563v2.boot
+alsa-firmware-1.0.25/vxloader/bx_1_vxp.b56
+alsa-firmware-1.0.25/vxloader/vxpocket.conf
+alsa-firmware-1.0.25/vxloader/l_1_vp4.d56
+alsa-firmware-1.0.25/vxloader/Makefile.in
+alsa-firmware-1.0.25/vxloader/x1_1_vp4.rbt
+alsa-firmware-1.0.25/vxloader/l_1_vxp.d56
+alsa-firmware-1.0.25/vxloader/bd56002.boot
+alsa-firmware-1.0.25/vxloader/vx222.conf
+alsa-firmware-1.0.25/vxloader/toxlx.c
+alsa-firmware-1.0.25/vxloader/l_1_v22.d56
+alsa-firmware-1.0.25/vxloader/README
+alsa-firmware-1.0.25/vxloader/vxboard.conf
+alsa-firmware-1.0.25/vxloader/Makefile.am
+alsa-firmware-1.0.25/vxloader/bx_1_vp4.b56
+alsa-firmware-1.0.25/vxloader/vxp440.conf
+alsa-firmware-1.0.25/vxloader/x1_1_vxp.rbt
+alsa-firmware-1.0.25/vxloader/bd563s3.boot
+alsa-firmware-1.0.25/vxloader/l_1_vx2.d56
+alsa-firmware-1.0.25/vxloader/x1_2_v22.rbt
+alsa-firmware-1.0.25/usx2yloader/
+alsa-firmware-1.0.25/usx2yloader/us224.rbt
+alsa-firmware-1.0.25/usx2yloader/tascam_loader.asm
+alsa-firmware-1.0.25/usx2yloader/us122.rbt
+alsa-firmware-1.0.25/usx2yloader/Makefile.in
+alsa-firmware-1.0.25/usx2yloader/us428.prepad
+alsa-firmware-1.0.25/usx2yloader/an2131.asm
+alsa-firmware-1.0.25/usx2yloader/us428.conf
+alsa-firmware-1.0.25/usx2yloader/tascam_loader.ihx
+alsa-firmware-1.0.25/usx2yloader/README
+alsa-firmware-1.0.25/usx2yloader/us122fw.ihx
+alsa-firmware-1.0.25/usx2yloader/us224.prepad
+alsa-firmware-1.0.25/usx2yloader/us428fw.ihx
+alsa-firmware-1.0.25/usx2yloader/us122.prepad
+alsa-firmware-1.0.25/usx2yloader/Makefile.am
+alsa-firmware-1.0.25/usx2yloader/us224.conf
+alsa-firmware-1.0.25/usx2yloader/us122.conf
+alsa-firmware-1.0.25/usx2yloader/us224fw.ihx
+alsa-firmware-1.0.25/usx2yloader/us428.rbt
+alsa-firmware-1.0.25/config.guess
+alsa-firmware-1.0.25/README
+alsa-firmware-1.0.25/Makefile.am
+alsa-firmware-1.0.25/aclocal.m4
+alsa-firmware-1.0.25/COPYING
+alsa-firmware-1.0.25/korg1212/
+alsa-firmware-1.0.25/korg1212/Makefile.in
+alsa-firmware-1.0.25/korg1212/k1212.dsp
+alsa-firmware-1.0.25/korg1212/Makefile.am
+alsa-firmware-1.0.25/sb16/
+alsa-firmware-1.0.25/sb16/sb16_csp_codecs.h
+alsa-firmware-1.0.25/sb16/Makefile.in
+alsa-firmware-1.0.25/sb16/Makefile.am
+alsa-firmware-1.0.25/sb16/fw_writer.c
+alsa-firmware-1.0.25/missing
+alsa-firmware-1.0.25/install-sh
+alsa-firmware-1.0.25/config.sub
+alsa-firmware-1.0.25/aica/
+alsa-firmware-1.0.25/aica/aica_firmware.bin
+alsa-firmware-1.0.25/aica/Makefile.in
+alsa-firmware-1.0.25/aica/Dreamcast_sound.txt
+alsa-firmware-1.0.25/aica/license.txt
+alsa-firmware-1.0.25/aica/Makefile.am
+alsa-firmware-1.0.25/echoaudio/
+alsa-firmware-1.0.25/echoaudio/Makefile.in
+alsa-firmware-1.0.25/echoaudio/DSP/
+alsa-firmware-1.0.25/echoaudio/DSP/Echo3gDSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/IndigoIODSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/Gina24_361DSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/LoaderDSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/Mona361DSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/MiaDSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/Darla24DSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/Darla20DSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/MonaDSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/Layla24DSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/IndigoIOxDSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/Layla20DSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/IndigoDJxDSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/IndigoDSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/Gina20DSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/IndigoDJDSP.c
+alsa-firmware-1.0.25/echoaudio/DSP/Gina24DSP.c
+alsa-firmware-1.0.25/echoaudio/ASIC/
+alsa-firmware-1.0.25/echoaudio/ASIC/3G_ASIC.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Gina24ASIC.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Mona1ASIC48.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Layla24_2A_ASIC.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Mona2ASIC.c
+alsa-firmware-1.0.25/echoaudio/ASIC/LaylaASIC.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Mona1ASIC96.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Layla24_2S_ASIC.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Gina24ASIC_361.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Mona1ASIC48_361.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Mona1ASIC96_361.c
+alsa-firmware-1.0.25/echoaudio/ASIC/Layla24_1ASIC.c
+alsa-firmware-1.0.25/echoaudio/Makefile.am
+alsa-firmware-1.0.25/echoaudio/fw_writer.c
+
+# cd alsa-firmware-1.0.25
+#./configure
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for style of include used by make... GNU
+checking dependency style of gcc... gcc3
+checking whether ln -s works... yes
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for ANSI C header files... yes
+checking for as31... no
+checking firmware installation directory... /lib/firmware
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating hdsploader/Makefile
+config.status: creating mixartloader/Makefile
+config.status: creating usx2yloader/Makefile
+config.status: creating vxloader/Makefile
+config.status: creating pcxhrloader/Makefile
+config.status: creating echoaudio/Makefile
+config.status: creating emi_26_62/Makefile
+config.status: creating emu/Makefile
+config.status: creating asihpi/Makefile
+config.status: creating korg1212/Makefile
+config.status: creating maestro3/Makefile
+config.status: creating multisound/Makefile
+config.status: creating sb16/Makefile
+config.status: creating wavefront/Makefile
+config.status: creating ymfpci/Makefile
+config.status: creating aica/Makefile
+config.status: executing depfiles commands
+# cd maestro3 &amp;&amp; make
+gcc -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DPACKAGE_VERSION=\"\" -DPACKAGE_STRING=\"\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"alsa-firmware\" -DVERSION=\"1.0.25\" -DSTDC_HEADERS=1 -I.     -g -O2 -MT fw_writer.o -MD -MP -MF .deps/fw_writer.Tpo -c -o fw_writer.o fw_writer.c
+mv -f .deps/fw_writer.Tpo .deps/fw_writer.Po
+gcc  -g -O2   -o fw_writer fw_writer.o  
+./fw_writer
+writing maestro3_assp_kernel.fw ...
+writing maestro3_assp_minisrc.fw ...
+
+# mkdir -p /usr/local/lib/firmware/ess
+# cp *fw /usr/local/lib/firmware/ess
+#modprobe -r snd-maestro3 ; modprobe snd-maestro3
+# alsamixer
+</code></pre></div>
+So alsamixer starts up. Tried a play with the sample sound you noted on the 2nd post but it's muted (i guess) since you mentioned umuting the front channels. I press F1 for help in the mixer and ROXTERM website comes up with it's instructions. <br>
+The lower lines of the alsamixer console gui shows the following information with the first column (Master) is red and not sure if that means it's muted and how to unmute it.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>  81&lt;&gt;81     34       0        0      56&lt;&gt;56    0&lt;&gt;0     0&lt;&gt;0      0        │
+│  &lt; Master &gt;Master M 3D Contr 3D Contr   PCM      Line      CD      Mic       │
+</code></pre></div>
+It's so close to perfect.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32548" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32548">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32548">
+
+<time datetime="2013-12-26T19:21">posted: 2013-12-26 &nbsp; 19:21</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32548" title="permalink">#10</a></span>
+
+<div class="content">IIrc, try hitting"m" under the collumn you think might be muted? also, the F5 or F6 will show all the"sliders"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32549" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32549">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32549">
+
+<time datetime="2013-12-26T19:26">posted: 2013-12-26 &nbsp; 19:26</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32549" title="permalink">#11</a></span>
+
+<div class="content">In the mixer anything the has MM in the box is muted Use your left, and right arrow keys to navigate then the M key to mute, or unmute them. use the up and down arrows to raise and lower the volumes.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32550" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32550">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32550">
+
+<time datetime="2013-12-26T19:36">posted: 2013-12-26 &nbsp; 19:36</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32550" title="permalink">#12</a></span>
+
+<div class="content">Excellent Thanks everyone! Thanks Eino for the clear concise instructions. ( I tried posting a moment ago and it didn't seem to post. If I see a duplicate here I will try to remove it)<br>
+<br>
+One last question. @rustcollector. Do you mean internet relay chat (irc) or does the acronym IIrc stand for something else. I haven't used irc in forever. From what I remember it needed a server and/or group to join. Are all irc connected no matter what server I join do I chose antix group if there is one?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32551" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32551">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32551">
+
+<time datetime="2013-12-26T20:02">posted: 2013-12-26 &nbsp; 20:02</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32551" title="permalink">#13</a></span>
+
+<div class="content">IIRc=if I recall correctly, but by all means, drop by the irc channel... it is #antix on freenode.<br>
+it is a nice and quiet place</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32559" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32559">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32559">
+
+<time datetime="2013-12-27T10:49">posted: 2013-12-27 &nbsp; 10:49</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32559" title="permalink">#14</a></span>
+
+<div class="content">Yesterday I found that your driver that was needed, was not in Debian's , or the non-free driver repositories. But it was in the ALSA driver matrix. <br>
+The driver has copyrights on it with license issues not yet settled.<br>
+<br>
+Please note <br>
+You may need to reinstall the driver, If, and when you do a kernel update.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32560" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32560">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32560">
+
+<time datetime="2013-12-27T13:49">posted: 2013-12-27 &nbsp; 13:49</time>
+<span class="permalink"><a href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759.html#p32560" title="permalink">#15</a></span>
+
+<div class="content">Thanks that's interesting, I will have to keep a note of that. I downloaded pithos before I tried the sound and it was showing me an odd error which is when I realized I had no sound and was hoping the sound issue fixed pithos (which it did).<br>
+<br>
+Thanks for the update.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./no-sound-es1988-aka-ess1988-maestro3-allegro-solve-t4759-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

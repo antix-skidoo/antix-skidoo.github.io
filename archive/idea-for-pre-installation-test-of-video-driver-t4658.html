@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Idea for Pre-Installation Test of Video Driver - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./idea-for-pre-installation-test-of-video-driver-t4658.html">Idea for Pre-Installation Test of Video Driver</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_31435" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31435">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31435">
+<time datetime="2013-10-21T10:48">posted: 2013-10-21 &nbsp; 10:48</time>
+<span class="permalink"><a href="./idea-for-pre-installation-test-of-video-driver-t4658.html#p31435" title="permalink">#1</a></span>
+
+<div class="content">The idea is to enable the video driver to be changed when running in live-usb mode.<br>
+<br>
+<br>
+<strong>Scenario</strong><br>
+I have been asked to replace Windows7 with antiX on a Toshiba laptop (Satellite Pro C660D-1D9). Usually before doing this a fall-back position is created in the form of a disk image. It is not practicable in this case.<br>
+<br>
+In order to verify the suitability of antiX on this hardware a live-usb was created of 13.1-Full. This has enabled most tests to be run. There is one noteable exeception, the video driver.<br>
+<br>
+A working X environment is obtained via all the F5 boot modes (default, safe, auto res, very safe). However, all are unable to adjust the screen brightness via the keyboard (FN+increase/decrease keys). These keys are known to work from a USB stick running Tinycore using Xorg-7.6 and an ATI/Radeon driver from Xorg (xf86-video-ati). In fact they also work in Tinycore using Xvesa with no driver.<br>
+<br>
+antiX reports
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -c 0 -G
+Graphics:  Card: Advanced Micro Devices [AMD] nee ATI Wrestler [Radeon HD 6320] 
+           X.Org: 1.12.4 drivers: ati,radeon (unloaded: fbdev,vesa) Resolution: 1366x768@60.0hz 
+           GLX Renderer: Gallium 0.4 on AMD PALM GLX Version: 2.1 Mesa 8.0.5</code></pre></div>Using smxi/sgfxi recommends installing the fglrx driver: 13.9.<br>
+<br>
+Starting smxi reports
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>smxi
+------------------------------------------------------------------
+Error No: (7) smxi cannot locate any /boot/grub/ config files. Unable to continue.
+smxi requires grub config files: /boot/grub/menu.lst or /boot/grub/grub.cfg
+smxi does not support lilo or unmounted /boot partitions.
+You can start smxi with option: -! 32 to override this at your own risk!!
+smxi cannot continue. Exiting now.
+------------------------------------------------------------------</code></pre></div>The live-usb was created with GRUB and root persistence. The live system was booted via GRUB with root persistence enabled. <br>
+Note: smxi was restarted using -! 32 to find the recommended video driver and version.<br>
+<br>
+The video driver is prevented from updating in live mode. Prior to installation on the hard disk it cannot be eliminated as the cause of the inability to alter screen brightness.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31437" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31437">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31437">
+
+<time datetime="2013-10-21T11:58">posted: 2013-10-21 &nbsp; 11:58</time>
+<span class="permalink"><a href="./idea-for-pre-installation-test-of-video-driver-t4658.html#p31437" title="permalink">#2</a></span>
+
+ <div class="content"><blockquote class="uncited"><div>However, all are unable to adjust the screen brightness via the keyboard (FN+increase/decrease keys). These keys are known to work from a USB stick running Tinycore using Xorg-7.6 and an ATI/Radeon driver from Xorg (xf86-video-ati). In fact they also work in Tinycore using Xvesa with no driver.</div></blockquote>
+@Samk. Can you check if acpi and acpi-tools are installed in Tiny Core as I am pretty sure they are not in AntiX but need to be installed after.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31439" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31439">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31439">
+
+<time datetime="2013-10-21T13:53">posted: 2013-10-21 &nbsp; 13:53</time>
+<span class="permalink"><a href="./idea-for-pre-installation-test-of-video-driver-t4658.html#p31439" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>@Samk. Can you check if acpi and acpi-tools are installed in Tiny Core as I am pretty sure they are not in AntiX but need to be installed after.</div></blockquote>
+TC<br>
+acpi and acpi-tools are not installed in the Tiny Core system<br>
+<br>
+<br>
+antiX
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache policy acpi
+acpi:
+  Installed: 1.6-1
+  Candidate: 1.6-1
+  Version table:
+ *** 1.6-1 0
+        100 /var/lib/dpkg/status
+apt-cache policy acpitool
+acpitool:
+  Installed: (none)
+  Candidate: 0.5.1-3
+  Version table:
+     0.5.1-3 0
+        500 http://ftp.uk.debian.org/debian/ wheezy/main amd64 Packages</code></pre></div>
+<br>
+<br>
+TC<br>
+Running Xvesa i.e. no video driver
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod | grep video
+uvcvideo        49152    0
+videodev        49152    1 uvcvideo
+video            16384    0
+backlight        12288    1 video</code></pre></div>
+<br>
+antiX
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod
+Module                  Size  Used by
+af_packet              22023  2 
+nfsd                  189634  2 
+auth_rpcgss            23739  1 nfsd
+nfs_acl                 1912  1 nfsd
+nfs                   104166  0 
+lockd                  51394  2 nfs,nfsd
+fscache                25151  1 nfs
+sunrpc                145522  6 nfs,nfsd,auth_rpcgss,lockd,nfs_acl
+dm_crypt               12549  0 
+dm_mod                 58787  1 dm_crypt
+ath3k                   4735  0 
+btusb                  10226  0 
+bluetooth             147946  3 ath3k,btusb
+joydev                  8578  0 
+snd_hda_codec_realtek    48871  1 
+snd_hda_intel          24005  1 
+snd_hda_codec          70735  2 snd_hda_codec_realtek,snd_hda_intel
+snd_hwdep               5302  1 snd_hda_codec
+snd_pcm_oss            30601  0 
+snd_mixer_oss          12303  1 snd_pcm_oss
+snd_pcm                62704  3 snd_pcm_oss,snd_hda_codec,snd_hda_intel
+snd_page_alloc          6099  2 snd_pcm,snd_hda_intel
+snd_seq_dummy           1288  0 
+snd_seq_oss            23853  0 
+snd_seq_midi            4097  0 
+snd_seq_midi_event      4509  2 snd_seq_oss,snd_seq_midi
+snd_rawmidi            15803  1 snd_seq_midi
+snd_seq                41867  6 snd_seq_midi_event,snd_seq_oss,snd_seq_dummy,snd_seq_midi
+snd_seq_device          4546  5 snd_seq,snd_rawmidi,snd_seq_oss,snd_seq_dummy,snd_seq_midi
+acpi_cpufreq            6422  0 
+mperf                   1118  1 acpi_cpufreq
+snd_timer              15560  2 snd_pcm,snd_seq
+kvm_amd                39805  0 
+kvm                   211712  1 kvm_amd
+snd                    49827  16 snd_hda_codec_realtek,snd_pcm_oss,snd_hwdep,snd_timer,snd_pcm,snd_seq,snd_rawmidi,snd_hda_codec,snd_hda_intel,snd_seq_oss,snd_seq_device,snd_mixer_oss,snd_seq_dummy,snd_seq_midi
+arc4                    1784  2 
+evdev                   8307  7 
+uvcvideo               60232  0 
+videobuf2_vmalloc       2001  1 uvcvideo
+psmouse                59815  0 
+microcode              11284  0 
+videobuf2_memops        1771  1 videobuf2_vmalloc
+ath9k                  77356  0 
+sp5100_tco              4057  0 
+videobuf2_core         17937  1 uvcvideo
+videodev               85860  2 uvcvideo,videobuf2_core
+ath9k_common            1761  1 ath9k
+k10temp                 2729  0 
+mac_hid                 2938  0 
+radeon                718323  2 
+pcspkr                  1745  0 
+serio_raw               4087  0 
+media                   8769  2 uvcvideo,videodev
+i2c_piix4               7453  0 
+toshiba_bluetooth       1978  0 
+soundcore               4355  1 snd
+ath9k_hw              319754  2 ath9k_common,ath9k
+battery                 6603  0 
+ac                      2313  0 
+ath                    13442  3 ath9k_common,ath9k,ath9k_hw
+mac80211              213920  1 ath9k
+i2c_algo_bit            4330  1 radeon
+toshiba_acpi           11833  0 
+sparse_keymap           2369  1 toshiba_acpi
+wmi                     7228  1 toshiba_acpi
+ttm                    51849  1 radeon
+drm_kms_helper         21006  1 radeon
+video                  10743  0 
+cfg80211              141737  3 ath,ath9k,mac80211
+rfkill                 13311  3 cfg80211,toshiba_acpi,bluetooth
+drm                   188891  4 ttm,drm_kms_helper,radeon
+r8169                  44908  0 
+agpgart                22859  2 drm,ttm
+processor              26225  3 acpi_cpufreq
+button                  4369  0 
+thermal_sys            12638  2 video,processor
+mii                     3276  1 r8169
+ums_realtek             6287  0 </code></pre></div>
+<br>
+As adjusting brightness works in TC when neither acpi or acpitools is present <br>
+it seems reasonable to tentatively infer that neither are obligatory.<br>
+<br>
+TC seems to have a kernel element"backlight" which antiX does not. <br>
+Perhaps this is pointing towards a clue.<br>
+<br>
+Whether or not missing packages or kernel modules are causing the <br>
+lack of adjustment in 13.1, I think being able to change driver in a pre-installation <br>
+(live-usb) environment will be a useful addition (if it is possible to implement).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31441" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31441">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31441">
+
+<time datetime="2013-10-21T21:23">posted: 2013-10-21 &nbsp; 21:23</time>
+<span class="permalink"><a href="./idea-for-pre-installation-test-of-video-driver-t4658.html#p31441" title="permalink">#4</a></span>
+
+<div class="content">I just did the following running antiX-13.5-full-amd64 beta live with persistence (set up using antix2usb.py) on a 4GB usb stick. <br>
+YMMV <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Firstly, my desktop has nvidia not ati, but maybe this will work.<br>
+<br>
+1. Boot live usb stick with persistence and choose safe option in F4 (vesa) and add 3 to the end of the menu line (only to save time killing X)<br>
+2. login as root<br>
+3. run sgfxi<br>
+4. sgfxi will download the drivers and packages needed to build the driver eg fakeroot, build-essentials.<br>
+5. sgfxi complained about no /boot/grub, but it continued to build the nvidia driver.<br>
+6. sgfxi completed successfully and boot into desktop.<br>
+7. inxi -G in a terminal verifies that the new ndidia driver is indeed running.<br>
+8. reboot via exitantix dialog so persistence is saved and reboot to desktop running nvidia.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31453" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31453">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31453">
+
+<time datetime="2013-10-22T10:00">posted: 2013-10-22 &nbsp; 10:00</time>
+<span class="permalink"><a href="./idea-for-pre-installation-test-of-video-driver-t4658.html#p31453" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>I just did the following running antiX-13.5-full-amd64 beta live with persistence (set up using antix2usb.py) on a 4GB usb stick. <br>
+YMMV <span class="emoticon"> __{{emoticon}}__ </span></div></blockquote>It does.<br>
+<br>
+Before making the opening post I had tried a similar procedure. <br>
+Because it was unsuccessful I did not mention it to help with clarity.<br>
+Your suggestion is annotated with my results.<br>
+<br>
+antiX-13.1-Full-amd64
+<ol style="list-style-type: decimal">
+<li><blockquote><div><cite>anticapitalista wrote:</cite>1. Boot live usb stick with persistence and choose safe option in F4 (vesa) and add 3 to the end of (only to save time killing X)</div></blockquote>In 13.1 all the F5 boot modes result in vesa unloaded.<br>
+Booted very safe.</li>
+<li>...</li>
+<li>...</li>
+<li>...</li>
+<li>...</li>
+<li>...</li>
+<li><blockquote><div><cite>anticapitalista wrote:</cite>inxi -G in a terminal verifies that the new ndidia driver is indeed running.</div></blockquote>In 13.1 the boot-time driver is still running.</li>
+<li><blockquote><div><cite>anticapitalista wrote:</cite>reboot via exitantix dialog so persistence is saved and reboot to desktop running nvidia.</div></blockquote>Saved changes, rebooted with root persistance enabled. <br>
+The new driver is not used, the original driver is used.</li></ol></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

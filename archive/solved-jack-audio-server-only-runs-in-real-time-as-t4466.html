@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>(SOLVED)Jack audio server only runs in real-time as root. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html">(SOLVED)Jack audio server only runs in real-time as root.</a></div>
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_30168" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30168">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30168">
+<time datetime="2013-07-07T18:27">posted: 2013-07-07 &nbsp; 18:27</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30168" title="permalink">#1</a></span>
+
+<div class="content">Jack audio server will only run in real-time as root. I have tried a fix to no avail.<br>
+<br>
+first fix was adding to limits.conf file <br>
+lines added
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@audio           hard    rtprio          65
+@audio           hard    nice            10
+@audio           hard    memlock         40000</code></pre></div>
+also tried my user name
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@Eino           hard    rtprio          65
+@Eino           hard    nice            10
+@Eino           hard    memlock         40000</code></pre></div>
+Jack works with muse, but I need to run them both as root for them to work.<br>
+I would like to find a workaround, so I can just open them from the menu.</div>
+<div class="notice">
+Last edited by <b>oldhoghead</b> on 14 Jul 2013, 22:22, edited 1 time in total.
+<br /><strong>Reason:</strong> <em>mark as solved</em> </div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30170" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30170">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30170">
+
+<time datetime="2013-07-07T19:44">posted: 2013-07-07 &nbsp; 19:44</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30170" title="permalink">#2</a></span>
+
+<div class="content">I already have a group name"audio" <br>
+So I just tried adding my self to the group by.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>usermod -a -G audio Eino</code></pre></div> <br>
+<br>
+It still did not work.<br>
+<br>
+Jack connection messages run a normal user.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>15:56:10.162 Patchbay deactivated.
+15:56:10.193 Statistics reset.
+15:56:10.197 ALSA connection change.
+Cannot connect to server socket err = No such file or directory
+Cannot connect to server request channel
+jack server is not running or cannot be started
+15:56:10.224 ALSA connection graph chang</code></pre></div>
+run as root.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Copyright 2001-2005 Paul Davis and others.
+Copyright 2004-2012 Grame.
+jackdmp comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome to redistribute it
+under certain conditions; see the file COPYING for details
+JACK server starting in realtime mode with priority 10
+control device hw:0
+control device hw:0
+audio_reservation_init
+Acquire audio card Audio0
+creating alsa driver ... hw:0|hw:0|1024|2|32000|0|0|nomon|swmeter|-|32bit
+control device hw:0
+configuring for 32000Hz, period = 1024 frames (32.0 ms), buffer = 2 periods
+ALSA: final selected sample format for capture: 16bit little-endian
+ALSA: use 2 periods for capture
+ALSA: final selected sample format for playback: 16bit little-endian
+ALSA: use 2 periods for playback
+15:57:51.127 JACK connection change.
+15:57:51.144 Server configuration saved to"/root/.jackdrc".
+15:57:51.146 Statistics reset.
+15:57:51.160 Client activated.
+15:57:51.204 JACK connection graph change.</code></pre></div></div>
+<div class="notice">
+Last edited by <b>Eino</b> on 07 Jul 2013, 20:19, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30171" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30171">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30171">
+
+<time datetime="2013-07-07T20:17">posted: 2013-07-07 &nbsp; 20:17</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30171" title="permalink">#3</a></span>
+
+<div class="content">Enio,<br>
+<br>
+Check this out, <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/JACK_Audio_Connection_Kit"<br>linktext was:"https://wiki.archlinux.org/index.php/JA ... ection_Kit"<br>====================================<br>
+<br>
+scroll to the bottom and start reading at:<br>
+<br>
+Create a /etc/profile.d/jack.sh file containing:<br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30172" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30172">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>1,308</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30172">
+
+<time datetime="2013-07-07T20:17">posted: 2013-07-07 &nbsp; 20:17</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30172" title="permalink">#4</a></span>
+
+<div class="content">From the jackd man page:<blockquote class="uncited"><div> -R, --realtime<br>
+<br>
+Use realtime scheduling. This is needed for reliable low-latency performance. On most systems, it requires jackd to run with special scheduler and memory allocation privileges, which may be obtained in several ways. The simplest, and least-secure method is to run jackd with root privileges. This means that all JACK clients must also run as root. With a Linux 2.6 kernel, ordinary users can run jackd and its clients using options of the realtime LSM. Linux 2.4 kernels need"POSIX draft capabilities" enabled (see the &lt;linux/capability.h&gt; include file). Using that method, ordinary users who invoke the daemon using jackstart, can later launch JACK clients without running them as root. See 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://jackaudio.org/faq"<br>linktext was:"http://jackaudio.org/faq"<br>====================================<br>
+ for more information.</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30173" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30173">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30173">
+
+<time datetime="2013-07-07T20:46">posted: 2013-07-07 &nbsp; 20:46</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30173" title="permalink">#5</a></span>
+
+<div class="content">I'm going to keep it simple and run it as root. <br>
+The only time I use it is when, I have my musical keyboard plugged in, and I'm making midi music.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30239" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30239">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span> 
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content30239">
+
+<time datetime="2013-07-12T08:07">posted: 2013-07-12 &nbsp; 08:07</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30239" title="permalink">#6</a></span>
+
+<div class="content">Taken from here:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linuxmusicians.com/viewtopic.php?f=4&amp;t=2588&amp;view=unread#p12107"<br>linktext was:"http://linuxmusicians.com/viewtopic.php ... ead#p12107"<br>====================================<br>
+<br>
+<blockquote class="uncited"><div>Adding two lines to /etc/security/limits.conf and adding yourself to the audio group should suffice.</div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>@audio - rtprio 90       # maximum realtime priority
+@audio - memlock unlimited  # maximum locked-in-memory address space (KB)</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30241" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30241">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30241">
+
+<time datetime="2013-07-12T16:28">posted: 2013-07-12 &nbsp; 16:28</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30241" title="permalink">#7</a></span>
+
+<div class="content">This is what i already have provided by jackd. I guess, I just need to join the audio group.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Provided by the jackd package.
+#
+# Changes to this file will be preserved.
+#
+# If you want to enable/disable realtime permissions, run
+#
+#    dpkg-reconfigure -p high jackd
+
+@audio   -  rtprio     95
+@audio   -  memlock    unlimited
+@audio   -  nice      -19</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30244" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30244">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30244">
+
+<time datetime="2013-07-12T20:28">posted: 2013-07-12 &nbsp; 20:28</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30244" title="permalink">#8</a></span>
+
+<div class="content">I'm missing my audio group. <br>
+I tried to fix it wiih anxticc Manage users to add the group, and it failed. .. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Eino@antiX1:~
+$ groups Eino 
+Eino : Eino lp dialout cdrom floppy sudo dip video plugdev users fuse netdev realtime</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30247" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30247">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30247">
+
+<time datetime="2013-07-12T21:42">posted: 2013-07-12 &nbsp; 21:42</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30247" title="permalink">#9</a></span>
+
+<div class="content"><strong>Edit:</strong> What I said before was wrong. It is true that you need to log in again for group changes like this to take effect. I was wrong when I said:<blockquote class="uncited"><div>
+opening up a new terminal window or even just running the"bash" command in your current terminal window should do the trick.</div></blockquote>Those WON'T work. You need to log out of X and log back in again.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30252" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30252">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30252">
+
+<time datetime="2013-07-13T15:33">posted: 2013-07-13 &nbsp; 15:33</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30252" title="permalink">#10</a></span>
+
+<div class="content">i now have audio in my groups,I added the lines to /etc/security/limits.conf<br>
+But the audio server will still only run as root. <br>
+Maybe I'm missing something.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Eino@antiX1:~
+$ groups
+Eino lp dialout cdrom floppy sudo dip video plugdev users fuse netdev realtime audio</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30253" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30253">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30253">
+
+<time datetime="2013-07-13T16:34">posted: 2013-07-13 &nbsp; 16:34</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30253" title="permalink">#11</a></span>
+
+<div class="content">Jack messages as a normal user. <br>
+<blockquote class="uncited"><div>12:30:57.760 Patchbay deactivated.<br>
+12:30:57.761 Statistics reset.<br>
+12:30:57.763 ALSA connection change.<br>
+Cannot connect to server socket err = No such file or directory<br>
+Cannot connect to server request channel<br>
+jack server is not running or cannot be started<br>
+12:30:57.779 ALSA connection graph change.<br>
+12:31:02.842 JACK is starting...<br>
+12:31:02.842 /usr/bin/jackd -t2000 -dalsa -dhw:0,2 -r48000 -p1024 -n3<br>
+Cannot connect to server socket err = No such file or directory<br>
+Cannot connect to server request channel<br>
+jack server is not running or cannot be started<br>
+12:31:02.873 JACK was started with PID=5025.<br>
+jackdmp 1.9.9<br>
+Copyright 2001-2005 Paul Davis and others.<br>
+Copyright 2004-2012 Grame.<br>
+jackdmp comes with ABSOLUTELY NO WARRANTY<br>
+This is free software, and you are welcome to redistribute it<br>
+under certain conditions; see the file COPYING for details<br>
+JACK server starting in realtime mode with priority 10<br>
+control device hw:0<br>
+control device hw:0<br>
+audio_reservation_init<br>
+Acquire audio card Audio0<br>
+creating alsa driver ... hw:0,2|hw:0,2|1024|3|48000|0|0|nomon|swmeter|-|32bit<br>
+control device hw:0<br>
+ALSA: Cannot open PCM device alsa_pcm for playback. Falling back to capture-only mode<br>
+configuring for 48000Hz, period = 1024 frames (21.3 ms), buffer = 3 periods<br>
+ALSA: final selected sample format for capture: 16bit little-endian<br>
+ALSA: got smaller periods 2 than 3 for capture<br>
+ALSA: cannot configure capture channel<br>
+Cannot initialize driver<br>
+JackServer::Open failed with -1<br>
+Failed to open server<br>
+12:31:03.258 JACK was stopped with exit status=255.<br>
+12:31:04.987 Could not connect to JACK server as client. - Overall operation failed. - Unable to connect to server. Please check the messages window for more info.<br>
+Cannot connect to server socket err = No such file or directory<br>
+Cannot connect to server request channel<br>
+jack server is not running or cannot be started</div></blockquote>
+As root, without an instrument plugged in.<br>
+<blockquote class="uncited"><div>12:42:55.544 Patchbay deactivated.<br>
+12:42:55.551 Statistics reset.<br>
+12:42:55.555 ALSA connection change.<br>
+12:42:55.576 ALSA connection graph change.<br>
+12:43:00.214 JACK is starting...<br>
+12:43:00.214 /usr/bin/jackd -t1000 -m -dalsa -dhw:0 -r44100 -p1024 -n2 -Xseq -D -Phw:0<br>
+Cannot connect to server socket err = No such file or directory<br>
+Cannot connect to server request channel<br>
+jack server is not running or cannot be started<br>
+12:43:00.241 JACK was started with PID=6903.<br>
+jackdmp 1.9.9<br>
+Copyright 2001-2005 Paul Davis and others.<br>
+Copyright 2004-2012 Grame.<br>
+jackdmp comes with ABSOLUTELY NO WARRANTY<br>
+This is free software, and you are welcome to redistribute it<br>
+under certain conditions; see the file COPYING for details<br>
+JACK server starting in realtime mode with priority 10<br>
+control device hw:0<br>
+control device hw:0<br>
+audio_reservation_init<br>
+Acquire audio card Audio0<br>
+creating alsa driver ... hw:0|hw:0|1024|2|44100|0|0|nomon|swmeter|-|32bit<br>
+control device hw:0<br>
+configuring for 44100Hz, period = 1024 frames (23.2 ms), buffer = 2 periods<br>
+ALSA: final selected sample format for capture: 16bit little-endian<br>
+ALSA: use 2 periods for capture<br>
+ALSA: final selected sample format for playback: 16bit little-endian<br>
+ALSA: use 2 periods for playback<br>
+12:43:00.617 ALSA connection graph change.<br>
+port created: Midi-Through:midi/playback_1<br>
+port created: Midi-Through:midi/capture_1<br>
+port created: SB-Audigy-2--SB0350b-:midi/playback_1<br>
+port created: SB-Audigy-2--SB0350b-:midi/capture_1<br>
+port created: SB-Audigy-2--SB0350b-:midi/playback_33<br>
+port created: SB-Audigy-2--SB0350b-:midi/capture_33<br>
+port created: Emu10k1-WaveTable:midi/capture_1<br>
+port created: Emu10k1-WaveTable:midi/capture_2<br>
+port created: Emu10k1-WaveTable:midi/capture_3<br>
+port created: Emu10k1-WaveTable:midi/capture_4<br>
+12:43:02.435 JACK connection change.<br>
+12:43:02.438 Server configuration saved to"/root/.jackdrc".<br>
+12:43:02.439 Statistics reset.<br>
+12:43:02.450 Client activated.<br>
+12:43:02.491 JACK connection graph change.</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30270" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30270">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30270">
+
+<time datetime="2013-07-14T11:36">posted: 2013-07-14 &nbsp; 11:36</time>
+<span class="permalink"><a href="./solved-jack-audio-server-only-runs-in-real-time-as-t4466.html#p30270" title="permalink">#12</a></span>
+
+<div class="content">I found the reason why jack was always needed to run as root. Without the Musical keyboard plugged in and running it will not start as a normal user. <br>
+All I needed to do is plugin the keyboard, and have it running before starting jack. <br>
+Problem solved.<br>
+<br>
+I was always starting jack, then turning on the keyboard.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

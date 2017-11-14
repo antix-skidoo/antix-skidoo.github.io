@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>The latest syslinux in antiX-14-a3 breaks our bootloader - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./the-latest-syslinux-in-antix-14-a3-breaks-our-boot-t5371.html">The latest syslinux in antiX-14-a3 breaks our bootloader</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_38010" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38010">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38010">
+<time datetime="2014-11-10T18:58">posted: 2014-11-10 &nbsp; 18:58</time>
+<span class="permalink"><a href="./the-latest-syslinux-in-antix-14-a3-breaks-our-boot-t5371.html#p38010" title="permalink">#1</a></span>
+
+<div class="content">The problem only shows up when you try to created a LiveUSB from within antiX-14-alpha-3.<br>
+<br>
+We use gfxboot to create the fancy popup menus and other effects in our live bootloader. Gfxboot works with syslinux (which we are using) and also with legacy grub (which we are not).<br>
+<br>
+The ABI (binary) interface in syslinux has changed in the version that comes with antiX-14-alpha-3. This change causes a lot of breakage and perhaps the most expedient thing to do would be to use an earlier version of syslinux in antiX-14.<br>
+<br>
+If you look in the /live/boot-dev/boot/syslinux directory on a running LiveUSB (or just /boot/syslinux on the LiveUSB itself), you will see a bunch of files including:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ldlinux.sys
+gfxboot.c32
+syslinux.bin
+init</code></pre></div>
+IIUC, the ldlinux.sys file is installed when the following command is run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>extlinux --install /live/boot-dev/boot/syslinux</code></pre></div>The other files carry over from our iso image. When the extlinux program is updated to version 6 (use"extlinux --version" to see the version) then the ldlinux.sys file is different and will not work with the existing .c32 files.<br>
+<br>
+The quick and obvious solution does not quite work. The 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.syslinux.org/wiki/index.php/Library_modules"<br>linktext was:"Arch syslinux documentation"<br>====================================<br>
+ explains the binary change. In theory, all we need to do is copy the following files from /usr/lib/syslinux/modules/bios/ into the syslinux directory:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>gfxboot.c32
+ldlinux.c32
+libcom32.c32</code></pre></div>This should make everything happy and binary compatible.<br>
+<br>
+Unfortunately it does not quite work. Our customized menus and so forth are in the binary"init" file above. For some reason I don't understand, our"init" file is not compatible with the new gfxboot.c32 module. I can get it to boot. I can use the up and down arrow keys to make a selection from the main menu <strong>BUT</strong> the screen is almost entirely blank (except for a thin horizontal rectangle) and typed-in boot parameters don't work. I tried copying in all the files from /usr/lib/syslinux/modules/bios/ but that had no effect.<br>
+<br>
+I think the fact that it boots at all might mean that our"init" code is working to some extent but certain features (such as drawing to the screen) are broken. Usually when our"init" code crashes, you cannot boot. AFAIK, we are using the latest version of gfxboot from: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://gitorious.org/gfxboot"<br>linktext was:"https://gitorious.org/gfxboot"<br>====================================<br>
+. <br>
+<br>
+One clue *might* be the existence of gfxboot.c32 in efi32/ and efi64/ subdirectories next to the /usr/lib/syslinux/modues/bios subdirectory. AFAIK, gfxboot relies heavily on BIOS calls for things such as drawing to the screen. I doubt the syslinux devs replicated the BIOS interface using UEFI so I doubt our"init" code would work with gfxboot.c32 from one of the efi directories. If we could get it to work, I would be joyful because that would allow us to have our standard Live bootloader UI when booting via UEFI.<br>
+<br>
+I don't know if the problem is that we have gone astray with our"init" code or if gfxboot is broken in general with the newer syslinux. I know gfxboot does not work with grub-2 at all (again, the problem seems to be porting all the BIOS calls to UEFI).<br>
+<br>
+The first incompatibility bug I ran into (not booting at all due to binary incompatibility) has been 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bugs.launchpad.net/ubuntu/+source/usb-creator/+bug/1325801"<br>linktext was:"reported on Ubuntu"<br>====================================<br>
+. I don't know if it leads to reports of the blank screen bug or not. <br>
+<br>
+Bottom line: I think all ways of creating an antiX LiveUSB (with our standard bootloader UI) on antiX-14-alpha3 are broken. The only solution I know of ATM is to downgrade the syslinux package, which should fix everything. If anyone is able to create an antiX liveUSB (with our standard bootloader) using antiX-14-alpha-3, PLMK. I don't know yet if other people have solved this problem or not. I think the most productive thing would be to find out how others have handled this. ATM ISTM that downgrading syslinux in antiX-14 would be the easiest solution.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38011" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38011">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38011">
+
+<time datetime="2014-11-10T21:42">posted: 2014-11-10 &nbsp; 21:42</time>
+<span class="permalink"><a href="./the-latest-syslinux-in-antix-14-a3-breaks-our-boot-t5371.html#p38011" title="permalink">#2</a></span>
+
+<div class="content">Okay, here is the syslinux bug report: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.syslinux.org/archives/2013-July/020379.html"<br>linktext was:"[syslinux] Problems with gfxboot.c32"<br>====================================<br>
+ and here is the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.syslinux.org/archives/2013-July/020385.html"<br>linktext was:"definitive answer"<br>====================================<br>
+:<blockquote class="uncited"><div>Right, unfortunately gfxboot.c32 is making use of the COMBOOT API which<br>
+was deleted in 5.00 (it's done directly from 16-bit assembly so I didn't<br>
+catch it when doing the removal). Which means that it's missing large<br>
+parts of functionality, like being able to open and read/write files. <br>
+<br>
+I'll take a look at fixing this.</div></blockquote>So syslinux + gfxboot was broken upstream and we will have to wait for them to fix it. I am going back to using syslinux version 4.0x which is what was used in the earlier antiX-14 alpha releases. This works and it works with what people already have.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38012" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38012">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38012">
+
+<time datetime="2014-11-10T21:47">posted: 2014-11-10 &nbsp; 21:47</time>
+<span class="permalink"><a href="./the-latest-syslinux-in-antix-14-a3-breaks-our-boot-t5371.html#p38012" title="permalink">#3</a></span>
+
+<div class="content">From the *downgrade* is also spoken here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.thomas-krenn.com/en/wiki/Installation_VMware_ESXi_5.0_from_a_USB-Stick"<br>linktext was:"http://www.thomas-krenn.com/en/wiki/Ins ... _USB-Stick"<br>====================================<br>
+<br>
+<br>
+I myself have the *on reserve*. 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://blog.jak.me/259"<br>linktext was:"http://blog.jak.me/259"<br>====================================<br>
+<br>
+So far I had no time to test the ...<br>
+<br>
+Edit: Ops, too slow ... <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

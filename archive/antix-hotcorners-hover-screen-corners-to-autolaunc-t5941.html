@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antix-hotcorners: hover screen corners to autolaunch apps - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html">antix-hotcorners: hover screen corners to autolaunch apps</a></div>
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43161" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43161">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43161">
+<time datetime="2015-09-17T05:05">posted: 2015-09-17 &nbsp; 05:05</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43161" title="permalink">#1</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:~
+$ antix-hotcorners -h
+
+antix-hotcorners description:
+   A utility which tracks mouse cursor during desktop session,
+   associates a user-configurable program (commandline) with each of
+   the 4 screen corners (top-left, bottom-left, top-right, bottom-right)
+   and launches the assigned program when cursor is moved to a corner of the screen.
+ 
+usage options:
+    long form   shorthand equivalent
+  --help       -h  show this message and exit
+  --kill       -k  attempt to kill any running instances
+  --config     -c  open the antix-hotcorners configfile in text editor
+  --daemon     -d  run daemon, listen for corner-hover cursor events
+  --silent     -s  run daemon, omit startup confirmation dialog
+                   (eliminates 7.9MB session overhead by not loading pygtk lib)
+
+When antix-hotcorners starts, it reads the configuration file
+   ~/.config/antix-hotcorners/.hotcornersrc 
+which specifies launch actions associated with each corner.
+
+During first-run, a configuration file is automatically created
+and is presented to you in a text editor window, for editing.
+The preconfigured default actions associated with each of the 4 corners are: 
+       top-left:  NO DEFAULT ASSIGNED FOR THIS CORNER 
+    bottom-left:  launch  roxterm   (multi-tabbed terminal emulator
+      top-right:  launch  spacefm   (multi-tabbed file manager)
+   bottom-right:  launch  leafpad /tmp/blah.txt 
+The latter serves to illustrate that any corner-associated command
+can pass commandline args along with the to-be-launched program name.
+ 
+When you edit the config file, changes will take effect immediately
+(next time you hover a corner) without needing to restart the daemon.
+</code></pre></div>
+to install:<br>
+After downloading and extracting the attached zipped python script,<br>
+<br>
+<span style="color: green">sudo mv antix-hotcorners /usr/local/bin/antix-hotcorners<br>
+sudo chmod 755 antix-hotcorners<br>
+sudo apt update &amp;&amp; apt install python-xlib</span><br>
+<br>
+<span style="color: blue">The antix-hotcorners"program" is a python script.<br>
+About 200 lines long, it is easily readable in a text editor, and I invite you to `take a peek` prior to using.<br>
+(to rule out suspicion of malware, and so you'll get a sense of"what makes it tick")</span><br>
+<br>
+During first run it will open the autocreated config file in a text editor, and exit.<br>
+You can customize the program associated with each corner then, for a test drive, run <strong>antix-hotcorners -d</strong><br>
+To adopt it as a permanent feature of your desktop environment, add a line<br>
+<span style="color: green">antix-hotcorners &amp;</span><br>
+to your session startup file.<br>
+FWIW, <strong>antix-hotcorners -s</strong> adds approx 8Mb overhead to your desktop session.<br>
+<br>
+What to expect / how to use it:<br>
+<br>
+When you move your mouse cursor to a corner of the screen, after a half-second hover delay (to preclude accidental launches)<br>
+the utility will kick/bounce the mouse cursor away from the corner<br>
+(serves as feedback that it has activated -- in case the associated program being launched has a startup delay, or has no GUI)<br>
+and your preconfigured program-of-choice for that corner hotspot will launch.<br>
+<br>
+On-the-fly, you can edit the config file. Changes will take effect immediately (next time you hover a corner) without needing to restart the daemon.<br>
+<br>
+<br>
+The default configfile illustrates the optional use of inline comments <blockquote class="uncited"><div>
+[HotCorners]<br>
+top_left_corner_command =<br>
+top_right_corner_command = roxterm<br>
+bottom_left_corner_command = spacefm<br>
+bottom_right_corner_command = leafpad /tmp/blah.txt<br>
+#<br>
+#bottom_right_corner_command = iceweasel about:newtab<br>
+#<br>
+# INLINE COMMENTS ARE FINE<br>
+# LINES BEGINNING WITH HASH CHARACTER ARE IGNORED<br>
+# do NOT tack"comments" to end of line (ouch! would be interpreted as intended commandline args)<br>
+# and do NOT leave BLANK LINES</div></blockquote>
+technical note:<br>
+The script employs os.system() to launch associated commands.<br>
+Consider the merit in modding it to utilize subprocess.call() instead 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://docs.python.org/2/library/subprocess.html"<br>linktext was:"https://docs.python.org/2/library/subprocess.html"<br>====================================<br>
+</div>
+</div>
+<div class="notice">
+Last edited by <b>skidoo</b> on 19 Sep 2015, 03:03, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43165" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43165">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43165">
+
+<time datetime="2015-09-17T10:45">posted: 2015-09-17 &nbsp; 10:45</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43165" title="permalink">#2</a></span>
+
+<div class="content">interesting, thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43178" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43178">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43178">
+
+<time datetime="2015-09-17T20:54">posted: 2015-09-17 &nbsp; 20:54</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43178" title="permalink">#3</a></span>
+
+<div class="content">Indeed, interesting! I'll compare it with brightside (available for Wheezy) and report if it is better. Yours has an advantage, because it is more KISS.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43179" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43179">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43179">
+
+<time datetime="2015-09-18T00:51">posted: 2015-09-18 &nbsp; 00:51</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43179" title="permalink">#4</a></span>
+
+<div class="content">wondering / asking:<br>
+Does brightside enable you to define"custom actions"?<br>
+What memory overhead does it add to the desktop session?<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.webupd8.org/2011/04/set-up-hot-corners-edge-flipping-in.html"<br>linktext was:"http://www.webupd8.org/2011/04/set-up-h ... ng-in.html"<br>====================================<br>
+<br>
+When I've seen blog/news pages describing brightside, I didn't expect it would be useful to me because<br>
+the"available actions" described aren't me (don't have a notebook, don't mess with powermanagement, nor screensaver, nor lockscreen).<br>
+The"warping" to another workspace that many reviewers seemed to be excited about... is redundant with my mouse scrollwheel navigation in fluxbox.<br>
+<br>
+Apparently, Ubuntu Tweak Tool does support"custom actions" AND supports"edge bumps" in addition to corner bumps.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://techgotcha.com/hot-corners-in-ubuntu/"<br>linktext was:"http://techgotcha.com/hot-corners-in-ubuntu/"<br>====================================<br>
+<br>
+<br>
+brightside carries a lot of dependencies (28Mb worth) including libbonobo and libgnomevfs (wtf? why?)<br>
+and AFAICT it presumes (requires?)"metacity" window decorator is present.<br>
+It's neat that it includes a"mute audio" action (toggles/untoggles?) but many reviewers claim that feature does not work in their testing.<br>
+From glancing at its source code today<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://http.debian.net/debian/pool/main/b/brightside/brightside_1.4.0.orig.tar.gz"<br>linktext was:"http://http.debian.net/debian/pool/main ... rig.tar.gz"<br>====================================<br>
+<br>
+yeah, no wonder ~~ looks like it's written specificly for muting"oss" (pulseaudio?)<br>
+<br>
+In contrast to those other utilities, I expect the antix-hotcorners script should be usable in <strong>any</strong> desktop environment.<br>
+In the spirit of"KISS", I suppose adding a <strong><span style="color: blue">-c</span></strong> option should be a TODO list item.<br>
+(typing"antix-hotcorners -c" at commandline would open the config file in a text editor)<br>
+<br>
+I typically have a boatload of program windows open, and bumping a corner to"raise icewease window, bring to front, open new tab" feels pretty handy.<br>
+Other than that, so far, I haven't made much use of hot corners. FWIW, ultimately (as in, the reason i messed with this in the first place) i intend to setup<br>
+<span style="color: green">"bump a corner raises a dialog where I type a string...<br>
+which gets (appended to a logfile and) fed to"at" command (atd scheduler daemon) so that 15min from now<br>
+i get a popup reminder (my reminder note string is displayed back to me)".</span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43185" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43185">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43185">
+
+<time datetime="2015-09-18T09:28">posted: 2015-09-18 &nbsp; 09:28</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43185" title="permalink">#5</a></span>
+
+<div class="content">Hi skidoo!<br>
+I simply upload some screenshots of brightside and skippy-xd which I use as one custom acion for a hot corner:<br>
+<a href="http://postimg.org/image/svdowtbmb/full/" class="postlink"><img src="http://s13.postimg.org/m4x7ndogn/brightside.png" class="postimage" alt="Image"></a><br>
+Here I issued the command brightside-properties and got the dialog"Screen actions".<br>
+So you are completely right, it uses up to 30MB and up to 3% of 64Bit 2.1GHz CPU.<br>
+Dependencies:<br>
+alsa-lib<br>
+gconf<br>
+libglade<br>
+libgnomeui<br>
+libwnck<br>
+popt<br>
+I also upload an image of skippy-xd to show you that there is a visual bug. This is a bit off-topic but might be interesting:<br>
+<a href="http://postimage.org/" class="postlink"><img src="http://s10.postimg.org/j6yhtbdeh/skippy_xd_2.png" class="postimage" alt="Image"></a><br>
+<br>
+About switching virtual desktops, brightside makes it possible without a click or a mousewheel rolling, just place the cursor for an adjustable time at your screen border then pull it a bit into the new virtual desktop or back, depending on where you want to stay.<br>
+<br>
+So, I would say your points are all valid.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43194" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43194">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43194">
+
+<time datetime="2015-09-19T03:31">posted: 2015-09-19 &nbsp; 03:31</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43194" title="permalink">#6</a></span>
+
+<div class="content">That visual glitch looks familiar. I wound up with that a while back (geforce8600+generic driver) testdriving various distros.<br>
+It didn't clear up until a later version of Xorg, or the video driver, I can't recall which.<br>
+<br>
+I've updated the first post &amp; uploaded a revised version of the script.<br>
+Changes:<br>
+<br>
+~~ first run opens the config file in text editor for editing. Later, <br>
+you can run"antix-hotcorners <strong>-c</strong>" as a shortcut to reaching the config file.<br>
+<br>
+~~ At launch, the daemon kills any earlier running instances of itself. <br>
+(Until now, you could wind up running multiple simultaneous copies. That worked, but wasted memory.)<br>
+<br>
+~~ added the"<strong>-s</strong>" silent startup option to startup without gtk dialog box"success".<br>
+The"success" box, a visual confirmation in case launched via menu or gexec rather than via terminal, is now a feature of the <strong>-d</strong> option.<br>
+<br>
+~~ changed the autocreated config so that one of the default corners is unassociated with a program, by default.<br>
+Hopefully this clearly illustrates the point that although lines mentioning each of the<br>
+4 corners are expected (are required) any of them can have an empty assignment.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43197" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43197">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43197">
+
+<time datetime="2015-09-19T18:34">posted: 2015-09-19 &nbsp; 18:34</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43197" title="permalink">#7</a></span>
+
+<div class="content">A good app to add as a hot corner is Slingshot or Slingscold applications menu. It is not in the repos but available (as soursecode?) on Sourceforge 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://sourceforge.net/projects/slingscold/"<br>linktext was:"http://sourceforge.net/projects/slingscold/"<br>====================================<br>
+ and from Noobslab PPA 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.noobslab.com/2015/03/slingscold-launcher-fixed-for-all.html"<br>linktext was:"http://www.noobslab.com/2015/03/slingsc ... r-all.html"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43198" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43198">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43198">
+
+<time datetime="2015-09-19T20:54">posted: 2015-09-19 &nbsp; 20:54</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43198" title="permalink">#8</a></span>
+
+<div class="content">In the context of antiX, I can't agree that slingshot is"A good app".<br>
+It was written for elementaryOS (Pantheon desktop environment), written in vala programming language (no bindings for vala preinstalled in antiX),<br>
+uses"synapseSearch" (alien to antix) as its search backend... and is rife with bugs, vis 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bugs.launchpad.net/slingshot"<br>linktext was:"https://bugs.launchpad.net/slingshot"<br>====================================<br>
+<br>
+<br>
+Click into some of those bug reports. Weird dependencies (the app"breaks" if certain iconset is not installed?)<br>
+Not so much the number or severity of the bugs, but consider how long (years!) most of the reported bugs have remained unpatched.<br>
+Slingscold is??? a hacked version, from someone who struggled"to get the thing to actually run, in ubuntu v.xx, with yy desktop..."<br>
+<br>
+BTW:<br>
+"synapseSearch" oh-so-coincidentally sounds like"synaptic" (longtime staple program for many users).<br>
+I wouldn't touch it with a pole. In my book, it's even worse than KDE's adonadi+nepomuk<br>
+issues: performance, security, privacy</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43199" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43199">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43199">
+
+<time datetime="2015-09-19T21:56">posted: 2015-09-19 &nbsp; 21:56</time>
+<span class="permalink"><a href="./antix-hotcorners-hover-screen-corners-to-autolaunc-t5941.html#p43199" title="permalink">#9</a></span>
+
+<div class="content">Oops, that's good to know. I only have it on Manjaro yet, but apparently not using it enough to have noticed the bug. And I don't use its search function. <br>
+Let me correct then not a"good app", but a good concept if you like visual effects on your desktop.<br>
+But I understand that I'm talking completely out of context here. antiX is about window managers, it is not supposed to look like Gnome 3.16. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

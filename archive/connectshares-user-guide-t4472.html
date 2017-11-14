@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Connectshares User Guide - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-development-f24/index.html"><span>antiX-development</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./documentation-f18/index.html"><span>Documentation</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./connectshares-user-guide-t4472.html">Connectshares User Guide</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_30215" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30215">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30215">
+<time datetime="2013-07-10T17:26">posted: 2013-07-10 &nbsp; 17:26</time>
+<span class="permalink"><a href="./connectshares-user-guide-t4472.html#p30215" title="permalink">#1</a></span>
+
+<div class="content">Attached is a user guide for Connectshares which was introduced in antiX-13. Download it, uncompress it and view it in your browser. I prefer the look in Iceweasel, but Dillo works OK also. The differences in look are cosmetic.<br>
+<br>
+Connectshares cherry-picks the best features of SMBNetFS and pyNeighborhood and also adds some features neither of them provide.<br>
+<br>
+<strong>SMBNetFS</strong><br>
+Likes<ul><li> Works in CLI (no X) and GUI environments</li>
+<li> Can be scripted to automatically run at system startup</li>
+<li> Local mounting of remote share does not require root password</li>
+<li> Local unmounting of remote share does not require root password</li>
+<li> Can optionally be configured to automatically send user credentials to remote server</li></ul>
+Dislikes<ul><li> Configuration, management and report via CLI only, no GUI interface</li>
+<li> No visual representation of remote shares published on the LAN</li>
+<li> Cannot unmount one of multiple shares as they are all mounted under a common mountpoint</li>
+<li> Upload speeds are slow (see below for speed comparison)</li>
+<li> Does not work with NFS shares (exports)</li></ul>
+<strong>pyNeighborhood</strong><br>
+Likes<ul><li> Configuration, management and report via GUI</li>
+<li> Visual representation of remote shares published on the LAN</li>
+<li> Can optionally be configured to automatically send user credentials to remote server</li>
+<li> Can unmount one of multiple shares</li>
+<li> Upload speeds are fast (see below for speed comparison)</li></ul>
+Dislikes<ul><li> Works only in GUI environments</li>
+<li> Cannot be scripted to automatically run at system startup</li>
+<li> Cannot mount multiple shares simultaneously, only individually</li>
+<li> Local mounting of remote share requires root password</li>
+<li> Local unmounting of remote share requires root password</li>
+<li> Does not work with NFS shares (exports)</li></ul>
+<strong>Connectshares</strong>
+<ul><li> Works in CLI (no X) and GUI environments</li>
+<li> Configuration, management and report via GUI</li>
+<li> Visual representation of remote shares published on the LAN</li>
+<li> Can be scripted to automatically run at system startup</li>
+<li> Can mount multiple shares simultaneously</li>
+<li> Local mounting of remote share does not require root password</li>
+<li> Local unmounting of remote share does not require root password</li>
+<li> Can optionally be configured to automatically send user credentials to remote server</li>
+<li> Can unmount one of multiple shares</li>
+<li> Mounting and unmounting of shares can be done via desktop shortcuts</li>
+<li> Upload speeds are fast (see below for speed comparison)</li>
+<li> Works with Windows/Samba shares and NFS shares (exports)</li>
+<li> Does not require entries in fstab</li>
+<li> Mounting shares or exports may optionally be disabled without access to files owned by root</li>
+<li> Tiny amount of storage space used by Connectshares and related files</li></ul>
+<strong>Speed Comparison SMBNetFS v Standard Mount</strong><br>
+Create 250MB file from local system on remote share<br>
+Note: Before each test, share unmounted and remounted to eliminate caching<br>
+<strong><span style="color: #0000FF">Demonstrates an increase in speed of over 2x via standard mount</span></strong><br>
+<br>
+SMBNetFS<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>time dd if=/dev/zero of=/path/to/SMBNetFS-mountpoint-of-share/testfile bs=16k count=16k
+
+16384+0 records in
+16384+0 records out
+268435456 bytes (268 MB) copied, 54.0577 s, 5.0 MB/s
+
+real 0m54.165s
+user 0m0.176s
+sys 0m2.448s</code></pre></div><strong><span style="color: #0000FF">Speed=5.0 MB/s</span></strong><br>
+<br>
+Standard Mount<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>time dd if=/dev/zero of=/path/to/standard-mountpoint-of-share/testfile bs=16k count=16k
+
+16384+0 records in
+16384+0 records out
+268435456 bytes (268 MB) copied, 23.6811 s, 11.3 MB/s
+
+real 0m23.690s
+user 0m0.052s
+sys 0m2.988s</code></pre></div><strong><span style="color: #0000FF">Speed=11.3 MB/s</span></strong></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

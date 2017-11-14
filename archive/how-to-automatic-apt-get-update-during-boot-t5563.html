@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How to automatic apt-get update during boot? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-automatic-apt-get-update-during-boot-t5563.html">How to automatic apt-get update during boot?</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_40025" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40025">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">pronto5703</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Mar 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40025">
+<time datetime="2015-03-16T21:14">posted: 2015-03-16 &nbsp; 21:14</time>
+<span class="permalink"><a href="./how-to-automatic-apt-get-update-during-boot-t5563.html#p40025" title="permalink">#1</a></span>
+
+<div class="content">Cheers all.<br>
+<br>
+For some old folks I'm busy with this Thinkpad as writen in my signature. They use this laptop maby once or twice a month, so I want each time they use it that it is fully updated.<br>
+<br>
+Please note that I am new with this, and follow guideliness I found. Therefore, I'm not completely sure what I'm writing.<br>
+I wrote: <br>
+#!/bin/sh<br>
+/usr/bin/apt-get -y update<br>
+/usr/bin/apt-get -y dist-upgrade<br>
+/usr/bin/apt-get -y autoremove<br>
+/usr/bin/apt-get -y autoclean<br>
+exit 0<br>
+<br>
+and saved in / etc/init.d<br>
+<br>
+I tried to symlink with <br>
+update-rc.d MYSCRIPT start 20 5 . stop 20 5<br>
+update-rc.d: using dependency based boot sequencing<br>
+insserv: warning: script 'S01updatescriptje' missing LSB tags and overrides<br>
+insserv: warning: script 'updatescriptje' missing LSB tags and overrides<br>
+insserv: warning: current start runlevel(s) (0 1 2 3 4 5 6 S) of script `updatescriptje' overrides LSB defaults (2 3 4 5).<br>
+insserv: warning: current stop runlevel(s) (empty) of script `updatescriptje' overrides LSB defaults (0 1 6).<br>
+insserv: can not symlink(../init.d/updatescriptje, <br>
+../rc5.d/S20updatescriptje): File exists<br>
+<br>
+Something is missing, so I took a look in the other scripts in init.d. Updated my script to:<br>
+<br>
+#!/bin/sh<br>
+<br>
+### BEGIN INIT INFO<br>
+# Provides: updatescriptje<br>
+# Required-Start: <br>
+# Required-Stop: <br>
+# Default-Start: 5<br>
+# Default-Stop: 5<br>
+# Short-Description: script update<br>
+### END INIT INFO<br>
+<br>
+/usr/bin/apt-get -y update<br>
+/usr/bin/apt-get -y dist-upgrade<br>
+/usr/bin/apt-get -y autoremove<br>
+/usr/bin/apt-get -y autoclean<br>
+exit 0<br>
+<br>
+This gives errors in update-rc-d will overrides LSB defaults. <br>
+Changed script to: <br>
+<br>
+#!/bin/sh <br>
+<br>
+### BEGIN INIT INFO <br>
+# Provides: updatescriptje <br>
+# Required-Start: <br>
+# Required-Stop: <br>
+# Default-Start: 2 3 4 5 <br>
+# Default-Stop: 5 <br>
+# Short-Description: script update <br>
+### END INIT INFO <br>
+<br>
+/usr/bin/apt-get -y update <br>
+/usr/bin/apt-get -y dist-upgrade <br>
+/usr/bin/apt-get -y autoremove <br>
+/usr/bin/apt-get -y autoclean <br>
+exit 0 <br>
+<br>
+Than<br>
+update-rc.d updatescriptje defaults<br>
+which gave again the override errors.<br>
+<br>
+I gave up and <br>
+ln -s / etc/init.d/updatescriptje / etc/rc5.d<br>
+which gave me also a symbolic link.<br>
+<br>
+But during boot there is no apt-get update.<br>
+<br>
+Changed script back to only:<br>
+#!/bin/sh <br>
+/usr/bin/apt-get -y update <br>
+/usr/bin/apt-get -y dist-upgrade <br>
+/usr/bin/apt-get -y autoremove <br>
+/usr/bin/apt-get -y autoclean <br>
+exit 0 <br>
+<br>
+Resulted in still no update process.<br>
+<br>
+As solution I am looking for an automatic update procedure each time this machine is turned on, and it must be complete before it shows the desktop GUI. This to avoid they press all buttons.<br>
+<br>
+I want to know exactly what to write and place where.<br>
+<br>
+Thanks a lot.<br>
+<br>
+<br>
+$ inxi -r<br>
+Repos: Active apt sources in file: / etc/apt/sources.list.d/antix.list<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.daveserver.info/stable/"<br>linktext was:"http://antix.daveserver.info/stable/"<br>====================================<br>
+ stable main<br>
+Active apt sources in file: / etc/apt/sources.list.d/debian.list<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.hu.debian.org/debian/"<br>linktext was:"http://ftp.hu.debian.org/debian/"<br>====================================<br>
+ wheezy main contrib non-free<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org/"<br>linktext was:"http://security.debian.org/"<br>====================================<br>
+ wheezy/updates main contrib non-free<br>
+<br>
+<br>
+$ inxi -zv7<br>
+System: Host: antiX Kernel: 3.7.10-antix.7-486-smp i686 (32 bit gcc: 4.7.2)<br>
+Desktop: JWM 2.1.0 dm: slim<br>
+Distro: antiX-13.2_386-full Luddite 4 November 2013<br>
+Machine: Mobo: IBM model: 26284VG<br>
+Bios: IBM v: IWET48WW (1.04 ) date: 12/21/1999<br>
+CPU: Single core Pentium III (Coppermine) (-UP-) cache: 256 KB<br>
+flags: (pae sse) bmips: 1194 speed/min/max: 600/500/600 MHz<br>
+Memory: Using dmidecode: you must be root to run dmidecode<br>
+Graphics: Card: Advanced Micro Devices [AMD] ATI Rage Mobility P/M AGP 2x<br>
+bus-ID: 01:00.0 chip-ID: 1002:4c4d<br>
+Display Server: X.Org 1.12.4 drivers: ati (unloaded: fbdev,vesa) FAILED: mach64<br>
+Resolution: 1024x768@87.0hz<br>
+GLX Renderer: Gallium 0.4 on softpipe<br>
+GLX Version: 2.1 Mesa 8.0.5 Direct Rendering: Yes<br>
+Audio: Card Cirrus Logic CS 4614/22/24/30 [CrystalClear SoundFusion Audio Accelerator]<br>
+driver: snd_cs46xx bus-ID: 00:05.0 chip-ID: 1013:6003<br>
+Sound: ALSA v: k3.7.10-antix.7-486-smp<br>
+Network: Card: Intel 82557/8/9/0/1 Ethernet Pro 100<br>
+driver: e100 v: 3.5.24-k2-NAPI port: 1800<br>
+bus-ID: 00:03.0 chip-ID: 8086:1229<br>
+IF: eth0 state: up speed: 100 Mbps duplex: full mac: &lt;filter&gt;<br>
+WAN IP: &lt;filter&gt; IF: irda0 ip: N/A ip-v6: N/A<br>
+IF: eth0 ip: &lt;filter&gt; ip-v6: &lt;filter&gt;<br>
+Drives: HDD Total Size: 40.0GB (12.7% used)<br>
+ID-1: /dev/sda model: HTS424040M9AT00 size: 40.0GB serial: MPA25CQ4G08HSE<br>
+Optical: /dev/sr0 model: MATSHITA DVD-ROM SR-8174<br>
+rev: C221 dev-links: cdrom,dvd<br>
+Features: speed: 24x multisession: yes<br>
+audio: yes dvd: yes rw: none state: running<br>
+Partition: ID-1: / size: 35G used: 2.9G (9%) fs: ext4 dev: /dev/sda1<br>
+label: N/A uuid: 2454b2c6-cf1c-4c57-a1f7-6aa6adac8816<br>
+ID-2: swap-1 size: 2.18GB used: 0.00GB (0%) fs: swap dev: /dev/sda2<br>
+label: N/A uuid: ceaa9538-002b-49b4-82f7-b8d0c2b125d2<br>
+RAID: No RAID data: /proc/mdstat missing-is md_mod kernel module loaded?<br>
+Unmounted: No unmounted partitions detected<br>
+Sensors: System Temperatures: cpu: 53.0C mobo: 49.0C<br>
+Fan Speeds (in rpm): cpu: 0<br>
+Info: Processes: 77 Uptime: 1:42 Memory: 172.8/246.9MB<br>
+Init: SysVinit v: 2.88 runlevel: 5 default: 5 Gcc sys: 4.7.2<br>
+Client: Shell (bash 4.2.371 running in roxterm) inxi: 2.2.16</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40027" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40027">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40027">
+
+<time datetime="2015-03-16T23:38">posted: 2015-03-16 &nbsp; 23:38</time>
+<span class="permalink"><a href="./how-to-automatic-apt-get-update-during-boot-t5563.html#p40027" title="permalink">#2</a></span>
+
+ <div class="content">I wouldn't run that as part of the init system. sometimes services get updated and you might want a settled system before applying the updates. <br>
+<br>
+One thing to check...is your script executable?<br>
+<br>
+if you really want to run that at boot, put the call to the update script in / etc/rc.local before the exit 0. rc.local is the last script to run before x starts.<br>
+<br>
+if you want to avoid potential pitfalls with the update, I wouldn't run the apt-get autoremove or apt-get autoclean unattended. you're not likely to save more than a few MB on deleting lib files, and sometimes those processes can go awry.<br>
+<br>
+something to consider... this could make boot up an extremely long event. Even running with the stable repos, if something like libreoffice gets updated upstream (and that does happen sometimes) then you could be looking at 200 MB+ downloads during your boot process. and an awful lot of scrolling text for whomever booted up that machine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40160" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40160">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">pronto5703</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Mar 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40160">
+
+<time datetime="2015-03-21T18:20">posted: 2015-03-21 &nbsp; 18:20</time>
+<span class="permalink"><a href="./how-to-automatic-apt-get-update-during-boot-t5563.html#p40160" title="permalink">#3</a></span>
+
+<div class="content">Thank you for your reply.<br>
+<br>
+I want to run an automatic apt-get update during, or after, boot BEFORE the GUI desktop shows up.<br>
+<br>
+I made the script executable with chmod +x namescript<br>
+<br>
+Edit rc.local to:<br>
+#!/bin/sh -e<br>
+#<br>
+# rc.local<br>
+#<br>
+# This script is executed at the end of each multiuser runlevel.<br>
+# Make sure that the script will"exit 0" on success or any other<br>
+# value on error.<br>
+#<br>
+# In order to enable or disable this script just change the execution<br>
+# bits.<br>
+#<br>
+# By default this script does nothing.<br>
+/home/gabi/Documents/updatescriptje<br>
+exit 0<br>
+<br>
+and <br>
+<br>
+#!/bin/sh -e<br>
+#<br>
+# rc.local<br>
+#<br>
+# This script is executed at the end of each multiuser runlevel.<br>
+# Make sure that the script will"exit 0" on success or any other<br>
+# value on error.<br>
+#<br>
+# In order to enable or disable this script just change the execution<br>
+# bits.<br>
+#<br>
+# By default this script does nothing.<br>
+sleep 10<br>
+/home/gabi/Documents/updatescriptje<br>
+exit 0<br>
+<br>
+But nothing happens during boot.<br>
+<br>
+What I do wrong?<br>
+It would be very kind to know how what rc.local must contains exactly to make it work.<br>
+<br>
+Thanks agian.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40161" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40161">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40161">
+
+<time datetime="2015-03-21T18:33">posted: 2015-03-21 &nbsp; 18:33</time>
+<span class="permalink"><a href="./how-to-automatic-apt-get-update-during-boot-t5563.html#p40161" title="permalink">#4</a></span>
+
+<div class="content">You could try using cron-apt<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.techrepublic.com/article/automatically-update-your-ubuntu-system-with-cron-apt/"<br>linktext was:"http://www.techrepublic.com/article/aut ... -cron-apt/"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41264" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41264">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1</span></div>
+
+</div>
+</div>
+<span class="username">asaoppenheimer</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41264">
+
+<time datetime="2015-06-17T20:58">posted: 2015-06-17 &nbsp; 20:58</time>
+<span class="permalink"><a href="./how-to-automatic-apt-get-update-during-boot-t5563.html#p41264" title="permalink">#5</a></span>
+
+<div class="content">during boot thats mean while staring system?</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41400" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41400">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41400">
+
+<time datetime="2015-06-23T17:40">posted: 2015-06-23 &nbsp; 17:40</time>
+<span class="permalink"><a href="./how-to-automatic-apt-get-update-during-boot-t5563.html#p41400" title="permalink">#6</a></span>
+
+<div class="content">Rather than in init, I think you should probably add the"apt-get update" command to [slash]etc[slash]rc.local</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

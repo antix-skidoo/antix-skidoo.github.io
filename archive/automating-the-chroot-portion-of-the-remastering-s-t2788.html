@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Automating the chroot portion of the remastering script - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./welcome-to-antix-f1/index.html"><span>Welcome to antiX</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./automating-the-chroot-portion-of-the-remastering-s-t2788.html">Automating the chroot portion of the remastering script</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_18145" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18145">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">swiftlinuxcreator</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18145">
+<time datetime="2010-11-17T01:42">posted: 2010-11-17 &nbsp; 01:42</time>
+<span class="permalink"><a href="./automating-the-chroot-portion-of-the-remastering-s-t2788.html#p18145" title="permalink">#1</a></span>
+
+<div class="content">I've been working on automating the remastering script, which I run by entering"remaster.sh" with no arguments. It's important for Swift Linux, because the remastering process not only takes a long time but also requires user input at various points throughout the process. (The long wait wouldn't be so bad if user input were only required at the very beginning and very end of the process.) In fact, the process of running the remastering script reminds me of the process of installing Windows.<br>
+<br>
+I've been able to automate the process of copying files from the installed system to the new-squashfs system that makes up the ISO output file. The one part of the script that I haven't been able to fully automate is the chroot portion in the middle. This is the portion of the remastering script where I need to enter the apt-get command to give the new ISO the updated Synaptic settings, enter the dpkg -i commands in order to have the new packages installed, enter the apt-get remove --purge commands in order to remove packages from the new ISO, and enter"exit" to leave the chroot environment.<br>
+<br>
+What I'm trying to do is automate the chroot portion of the script. Exactly how and where to I insert all those commands that I want executed automatically?<br>
+<br>
+I'm pretty sure that what I need to change is in the chroot_env function, which I am reprinting here:<br>
+# Mounts filesystems and chroots to remastering environment, at exit unmounts all filesystems and perform cleanup for remastering environment<br>
+function chroot_env {<br>
+mount_all $1<br>
+<br>
+# Assume root in our new squashfs <br>
+echo -e"Chrooting into your / \n"<br>
+echo -e"You should now be in the environment you want to remaster. To check please type \"ls\" - you should see a root directory tree."<br>
+echo -e"When done please type \"exit\" or press CTRL-D \n"<br>
+set_chroot_commands $1<br>
+chroot $1<br>
+umount_all $1<br>
+cleanup $1<br>
+}<br>
+<br>
+The code for the set_chroot_commands function is:<br>
+# Execute commands automatically after you enter the chroot environment and at log out. <br>
+function set_chroot_commands {<br>
+# Backup original bash.bashrc<br>
+cp $1/etc/bash.bashrc $1/etc/bash.bashrc_original<br>
+echo '<br>
+# Commands to be run automatically after entering chroot<br>
+<br>
+# Restore original file<br>
+mv /etc/bash.bashrc_original /etc/bash.bashrc<br>
+<br>
+# Start a new session <br>
+/bin/bash<br>
+<br>
+# Commands to run automatically when exiting from chroot environment (e.g., clean-up commands) <br>
+echo<br>
+echo -e"Cleaning chroot environment..."<br>
+apt-get clean<br>
+echo -e"Exiting chroot.\n"<br>
+exit' &gt;&gt; $1/etc/bash.bashrc<br>
+}</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18148" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18148">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18148">
+
+<time datetime="2010-11-17">posted: 04:38</time>
+<span class="permalink"><a href="./automating-the-chroot-portion-of-the-remastering-s-t2788.html#p18148" title="permalink">#2</a></span>
+
+<div class="content">my best guess would be to enter it
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>echo -e"When done please type \"exit\" or press CTRL-D \n"
+set_chroot_commands $1
+######### HERE  ##########
+
+</code></pre></div>
+just to clarify though are you wanting the script to do the ( apt-get update )( apt-get -f install )( apt-get purge )( dpkg -i ) commands by itself. To me this seems kind of not needed because you only need to do it once per iso, and trying to get all the command / timing / waiting issues solved would be just as much work as doing the modifications yourself. Also would the commands that are automatically done not need to be changed for each new iso? This does not seem to make sense to me so I would just like to clarify that it is what you are trying to do.</div>
+<div class="notice">
+Last edited by <b>Dave</b> on 18 Nov 2010, 01:40, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18149" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18149">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">swiftlinuxcreator</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18149">
+
+<time datetime="2010-11-17T06:13">posted: 2010-11-17 &nbsp; 06:13</time>
+<span class="permalink"><a href="./automating-the-chroot-portion-of-the-remastering-s-t2788.html#p18149" title="permalink">#3</a></span>
+
+<div class="content">Yes, I really do want the script to enter those commands automatically. If I can fully automate the remastering process, then I can make changes to Swift Linux more frequently. At least I can let the remastering script do its work all by itself while I do other things. With the status quo, the remastering process stops and requires me to provide input during the middle of the process. I don't mind having to provide input at the very beginning and very end - I just hate having to provide input in the middle of the process. That's why I've automated everything that can be done outside chroot, but I want to extend to automation to within chroot.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18160" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18160">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18160">
+
+<time datetime="2010-11-18T01:42">posted: 2010-11-18 &nbsp; 01:42</time>
+<span class="permalink"><a href="./automating-the-chroot-portion-of-the-remastering-s-t2788.html#p18160" title="permalink">#4</a></span>
+
+<div class="content">Edited what I had said before but what is now said above that is were I would put all the commands.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18163" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18163">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">jhsu</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18163">
+
+<time datetime="2010-11-18T03:10">posted: 2010-11-18 &nbsp; 03:10</time>
+<span class="permalink"><a href="./automating-the-chroot-portion-of-the-remastering-s-t2788.html#p18163" title="permalink">#5</a></span>
+
+<div class="content">OK, I figured it out. The command to add is chroot $1 (command) for each command I want automatically executed in chroot.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>X server will not start - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./x-server-will-not-start-t3952.html">X server will not start</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_26469" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26469">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1</span></div>
+
+</div>
+</div>
+<span class="username">davec60</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26469">
+<time datetime="2012-10-11T12:37">posted: 2012-10-11 &nbsp; 12:37</time>
+<span class="permalink"><a href="./x-server-will-not-start-t3952.html#p26469" title="permalink">#1</a></span>
+
+<div class="content">Hi,<br>
+<br>
+I have installed Antix-M11 CORE and have added numerous debian packages (xorg, gdm, xfce4, jwm and fluxbox) in order to try to get a gui working. Most of them seem to have been set-up without any issues except gdm and xserver/xorg. As a result, I still don’t have a gui. <br>
+On booting up, the message at the cli is as follows: <br>
+<em><strong>Starting Hardware abstraction layer: haldStarting GNOME Display Manager: gdmgdm{1219]: WARNING: gdm_config_parse: Authdir /var/lib/gdm does not exist: Aborting. <br>
+Startpar: service(s) returned failure...gdm...FAILED!<br>
+</strong></em><br>
+I have checked the 'var' directory and /var/lib/gdm DOES exist although the only file in it is one called .cookie<br>
+I do seem to be able to get gdm functioning by running:<br>
+<strong><em>invoke-rc.d gdm reload then <br>
+invoke-rc.d gdm restart</em><br>
+</strong><br>
+This appears to then try and start x but that fails with the following message in the xorg log file:<br>
+<strong><em>vesa: Ignoring device with a bound kernel driver<br>
+Screens found but none have a usable configuration<br>
+Fatal server error: no screens found.<br>
+Server terminated with error (1).</em></strong><br>
+Running startx and xinit also produce the same error messages.<br>
+I don't really have much knowledge of Linux and none at all of Antix so I don't know how I can fix this. I wonder whether anyone can please enlighten me as to how to resolve it? <br>
+Thanks<br>
+davec60</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26506" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26506">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26506">
+
+<time datetime="2012-10-16T08:55">posted: 2012-10-16 &nbsp; 08:55</time>
+<span class="permalink"><a href="./x-server-will-not-start-t3952.html#p26506" title="permalink">#2</a></span>
+
+<div class="content">I ran into something like this with a slim upgrade instead of gdm. I ended up uninstalling slim and installing xdm instead.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-cache show xdm
+Package: xdm
+Version: 1:1.1.11-1
+Installed-Size: 705
+Maintainer: Debian X Strike Force &lt;debian-x@lists.debian.org&gt;
+Architecture: i386
+Provides: x-display-manager
+Depends: libc6 (&gt;= 2.11), libpam0g (&gt;= 0.99.7.1), libselinux1 (&gt;= 1.32), libx11-6, libxau6, libxaw7, libxdmcp6, libxext6, libxft2 (&gt;&gt; 2.1.1), libxinerama1, libxmu6, libxpm4, libxrender1, libxt6, debconf (&gt;= 1.2.9) | debconf-2.0, x11-utils | xbase-clients | xmessage, cpp, lsb-base (&gt;= 3.2-14), x11-xserver-utils, procps
+Description-en: X display manager
+ xdm manages a collection of X servers, which may be on the local host or
+ remote machines.  It provides services similar to those provided by init,
+ getty, and login on character-based terminals: prompting for login name and
+ password, authenticating the user, and running a session.  xdm supports XDMCP
+ (X Display Manager Control Protocol) and can also be used to run a chooser
+ process which presents the user with a menu of possible hosts that offer
+ XDMCP display management.
+Description-md5: 694e41e6a6a3354a405a31d15199acb2
+Tag: admin::login, implemented-in::c, interface::daemon, network::server,
+ role::program, security::authentication, uitoolkit::athena, use::login,
+ x11::display-manager
+Section: x11
+Priority: optional
+Filename: pool/main/x/xdm/xdm_1.1.11-1_i386.deb
+Size: 207992
+MD5sum: 19eec4fbcc3204a16940d54288b4164b
+SHA1: 3786822b81963a47f2015b69bee17d75e0b98d54
+SHA256: 9424d6bf24407f99ec15c406bd255b7c65fcc3232fba67d69229b32da9334753
+</code></pre></div>
+Not sure if this applies to you though since you run Gnome Display Manager (gdm). Like I said. I was running slim instead.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26508" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26508">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">xhack</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26508">
+
+<time datetime="2012-10-16T12:07">posted: 2012-10-16 &nbsp; 12:07</time>
+<span class="permalink"><a href="./x-server-will-not-start-t3952.html#p26508" title="permalink">#3</a></span>
+
+<div class="content">Hey davec60,<br>
+<br>
+Can you post the output of lspci -n as well as what xorg drivers you have installed. Just a wild ass scientific guess here but from experience, the"screens found but non with usable configuration" typically means you don't have a correct video driver installed.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

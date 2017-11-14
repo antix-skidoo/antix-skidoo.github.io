@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Hibernation with live-usb-stick? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./hibernation-with-live-usb-stick-t3732.html">Hibernation with live-usb-stick?</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24944" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24944">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">jono</span>
+</dt>
+<dd class="profile-joined">Joined: 06 Jun 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24944">
+<time datetime="2012-06-06T22:35">posted: 2012-06-06 &nbsp; 22:35</time>
+<span class="permalink"><a href="./hibernation-with-live-usb-stick-t3732.html#p24944" title="permalink">#1</a></span>
+
+<div class="content">I have installed the new M12 antiX-486.iso both on harddisk and on a 32GB persistent live-usb-stick including a swap-partition. <br>
+<br>
+On harddisk hibernation works fine but I would like to know a way for use of hibernation on the live-stick as well. <br>
+<br>
+On the live-stick the necessary<br>
+<br>
+&gt; dpkg-reconfigure uswsusp<br>
+<br>
+failed by leaving initrd.gz unchanged.<br>
+<br>
+So on reboot the resume-partition was not found after hibernating with the antixhibernate.sh script.<br>
+<br>
+Therefore I tried to create a new ISO from the correctly hibernating harddisk-installation using the"antixsnapshot" script. I tried special values for some variables in /etc/antixsnapshot.conf at no avail (I have excluded the mounted partition on /media/sda5/ in /usr/lib/antixsnapshot/snapshot_exclude.list):<br>
+<br>
+work_dir="/media/sda5/m12versions/work"<br>
+snapshot_dir="/media/sda5/m12versions/snapshot"<br>
+<br>
+kernel_image="/boot/vmlinuz-3.3.5-antix.1-486-smp"<br>
+initrd_image="/boot/initrd.img-3.3.5-antix.1-486-smp"<br>
+<br>
+The special paths to the kernel and the initrd were ignored in the generated ISO. Instead the defaults for vmlinuz an initrd.gz were put into the generated snapshot-ISO. So the method"antixsnapshot" failed as well.<br>
+<br>
+What I didn't try yet is a full antix remaster.<br>
+<br>
+Any help much appreciated.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24990" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24990">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24990">
+
+<time datetime="2012-06-08T23:00">posted: 2012-06-08 &nbsp; 23:00</time>
+<span class="permalink"><a href="./hibernation-with-live-usb-stick-t3732.html#p24990" title="permalink">#2</a></span>
+
+<div class="content">I am hardly an expert on this topic, particularly with regard to hibernation when used in conjunction with a Live USB stick, but I can tell you this much: In the past, when I have experimented with either using suspend or hibernate in a hard disk configuration, I found that unless I had a swap partition defined and loaded containing AT LEAST as much space as the memory available on the system - and usually twice that amount, neither hibernation nor suspend would work at all. Having double the amount of swap space as recognized memory isn't a guarantee that hibernation will work, but unless the requirements have changed, I'd suggest at least as much swap space as memory available is a necessary condition for hibernation to work properly.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.linux.com/news/hardware/laptops/8253-how-to-suspend-and-hibernate-a-laptop-under-linux"<br>linktext was:"https://www.linux.com/news/hardware/lap ... nder-linux"<br>====================================<br>
+ offers some background, and may give you a few clues on the operation of both suspend and hibernate.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.brighthub.com/environment/green-computing/articles/9738.aspx"<br>linktext was:"http://www.brighthub.com/environment/gr ... /9738.aspx"<br>====================================<br>
+ offers some similar suggestions, so chances are high that these two articles will put you on the right track.<br>
+<br>
+I hope that they help you out!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24992" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24992">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24992">
+
+<time datetime="2012-06-09T01:38">posted: 2012-06-09 &nbsp; 01:38</time>
+<span class="permalink"><a href="./hibernation-with-live-usb-stick-t3732.html#p24992" title="permalink">#3</a></span>
+
+<div class="content">Just my experience with flash drives. The read and write cycles are to slow on flash drives vs a internal hardrive install.<br>
+<br>
+The only fast usb installs i have are Puppy Linux because Puppy runs in ram. Haven't never tried Tiny core Linux yet. <br>
+<br>
+My test with a Antix SD card install (this is a full install. Not live flash with persistence) vs a internal hardrive install was miles apart with the same test for hibernation and suspend. The poor flash drive just could not stand the strain I guess with the poor read and write speeds. <br>
+<br>
+Not sure if my situation applies to yours jono. Just passing on what I found out with my flash installs.<br>
+<br>
+Edit: Found my posts. Look above and below that post link on what I found out.<br>
+<br>
+post24652.html#p24652</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

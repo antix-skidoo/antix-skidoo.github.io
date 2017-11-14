@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>iso-snapshot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-development-f24/index.html"><span>antiX-development</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-f6/index.html"><span>Development</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./iso-snapshot-t6829.html">iso-snapshot</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_50133" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50133">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50133">
+<time datetime="2017-02-04T15:21">posted: 2017-02-04 &nbsp; 15:21</time>
+<span class="permalink"><a href="./iso-snapshot-t6829.html#p50133" title="permalink">#1</a></span>
+
+<div class="content">I've been playing a lot with iso-snapshot and the antiX 17 alpha"net" iso. <br>
+<br>
+This morning did a completely fresh install, with every app I wanted to install. made my customizations, and ran the snapshot. The tool reported I had a 3.8 GB / file system. Running the install left me with a 890 something MB iso.<br>
+<br>
+Immediately after running (successfully) iso-snapshot, I copied my iso off the HD, and deleted the /home/snapshot folder. I relaunched iso-snapshot, to be told that my / file system was now 4.6 GB. So is something being left behind, and where should I look?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50134" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50134">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50134">
+
+<time datetime="2017-02-04T15:30">posted: 2017-02-04 &nbsp; 15:30</time>
+<span class="permalink"><a href="./iso-snapshot-t6829.html#p50134" title="permalink">#2</a></span>
+
+<div class="content">/usr/local/share/excludes.list</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50136" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50136">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50136">
+
+<time datetime="2017-02-04T16:01">posted: 2017-02-04 &nbsp; 16:01</time>
+<span class="permalink"><a href="./iso-snapshot-t6829.html#p50136" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>/usr/local/share/excludes.list</div></blockquote>
+Thanks. I went through that list but I couldn't figure out what would be eating the space. This some quick math told me that the difference was just about the size of the isos, so I did a search and found...<br>
+<br>
+its still picking up the root trash files<br>
+<br>
+adding <br>
+<br>
+/root/.local/share/Trash<br>
+<br>
+should do the trick.<br>
+<br>
+FYI for whatever reason, the"supersuser" caja still will put files in the"Trash" but the trash isn't accessible through the usual methods. So the trash icons look empty but the trash isn't empty.<br>
+<br>
+in caja, shift+delete is the"permanent" deletion keyboard shortcut in mate/caja.<br>
+<br>
+This wouldn't be a problem in the usual antiX/mx setups.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50150" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50150">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50150">
+
+<time datetime="2017-02-06T00:55">posted: 2017-02-06 &nbsp; 00:55</time>
+<span class="permalink"><a href="./iso-snapshot-t6829.html#p50150" title="permalink">#4</a></span>
+
+<div class="content">one more iso-snapshot problem...the contents of /etc/grub.d don't seem to be wrapped up into the iso. the effect is that while a snapshot iso will boot, you cannot install it.<br>
+<br>
+/etc/grub.d certainly exists on the installed system I'm snap-shotting, but not on the finished iso. <br>
+<br>
+its not excluded I don't think, but here are the two excludes list in question<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#--------------------------------------------------------------------
+# general-remaster-exclude.list
+#
+# Additional files to be excluded when a general-purpose remaster
+# is created.
+#
+# The original list is available in general-remaster-exclude.orig.
+#--------------------------------------------------------------------
+
+etc/NetworkManager/system-connections/*
+etc/X11/xorg.conf
+etc/network/interfaces
+etc/network/interfaces.d/*
+etc/udev/*-persistent-net.rules
+etc/wicd/*.conf
+etc/wicd/dhclient.conf.template
+etc/wicd/manager-settings.conf
+etc/wicd/wired-settings.conf
+etc/wicd/wireless-settings.conf
+var/lib/wicd/configurations/*
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># rsync excludes file for iso-snapshot
+# version 15.2.20
+
+# Do NOT edit this entry block unless you know what you are doing
+.bind-root
+dev/*
+cdrom/*
+media/*
+swapfile
+mnt/*
+sys/*
+proc/*
+tmp
+live/*
+boot/grub/*
+etc/adjtime
+etc/bcm-ckd
+etc/blkid.tab.old
+etc/defaultdomain
+etc/fstab.backup
+etc/ioctl.save
+etc/issue
+etc/live/protect
+etc/mailname
+etc/mtab
+etc/udev/rules.d/70-persistent-cd.rules
+etc/udev/rules.d/70-persistent-net.rules
+etc/resolv.conf
+home/snapshot
+lost+found
+grub/*
+run/*
+root/.bash_history
+root/.config/Trolltech.conf
+root/.dbus
+root/.gconf
+root/.gnome2
+root/.local/share/Trash
+#var/tmp/*
+var/cache/apt/archives/*.deb
+var/cache/apt/*.bin
+var/lib/apt/lists/*
+var/lib/dhcp/*
+var/cache/debconf/*-old
+var/cache/lightdm
+var/lib/dpkg/*-old
+var/lib/lightdm/.cache
+var/lib/lightdm/.Xauthority
+var/lib/nfs/rpc_pipefs/*
+var/lib/sudo/*
+var/lib/udisks/*
+var/lib/urandom/*
+var/log/!(samba)
+var/log/samba/*
+var/mail/*
+var/spool/mail/*
+
+# Entries below this can be edited by the user. If you have any large
+# files or directories, you should exclude them from being copied
+# by adding them to this list.
+
+home/*/.mozilla/firefox/*/Cache/*
+home/*/.mozilla/seamonkey/*/Cache/*
+home/*/.adobe
+home/*/.macromedia
+home/*/.thumbnails/large/*
+home/*/.thumbnails/normal/*
+home/*/.Trash*
+home/*/.local/share/Trash/*
+# home/*/.cache
+home/*/.gvfs
+home/*/.bash_history
+home/*/.recently-used
+home/*/.recently-used.xbel
+home/*/.VirtualBox
+home/*/VirtualBox VMs
+
+# Examples:
+# home/*/Desktop/*
+# home/*/Downloads/*
+# home/*/Music/*
+# home/*/Pictures/*
+# home/*/Videos/*
+# Other possible exclusions
+# usr/share/doc/*
+# To exclude all hidden files and directories in your home, uncomment
+# the next line. You will lose custom desktop configs if you do.
+# home/*/.[a-z,A-Z,0-9]*
+
+# This stops any nvidia drivers from loading - safe option.
+etc/X11/xorg.conf
+etc/X11/xorg.conf.d/20-nvidia.conf</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50169" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50169">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50169">
+
+<time datetime="2017-02-07T14:02">posted: 2017-02-07 &nbsp; 14:02</time>
+<span class="permalink"><a href="./iso-snapshot-t6829.html#p50169" title="permalink">#5</a></span>
+
+<div class="content">in further testing... I think any folder that starts with /grub* is being excluded from the snapshot. I tried commenting out /grub int he excludes file, but to no affect. In an odd turn of events, grub install works both uefi and mbr, but the grub.cfg file is empty.<br>
+<br>
+again all this is with the antiX-17 stretch net iso.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50180" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50180">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50180">
+
+<time datetime="2017-02-07T15:33">posted: 2017-02-07 &nbsp; 15:33</time>
+<span class="permalink"><a href="./iso-snapshot-t6829.html#p50180" title="permalink">#6</a></span>
+
+<div class="content">I think it is a bug with the net iso.<br>
+I'll test more and upload a newer version</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50183" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50183">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50183">
+
+<time datetime="2017-02-07T15:43">posted: 2017-02-07 &nbsp; 15:43</time>
+<span class="permalink"><a href="./iso-snapshot-t6829.html#p50183" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>I think it is a bug with the net iso.<br>
+I'll test more and upload a newer version</div></blockquote>
+<br>
+cool. just so you know, the files are present on the net-iso, but they are not on the snapshot iso.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

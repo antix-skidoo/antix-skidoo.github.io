@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Samba server not working properly - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./samba-server-not-working-properly-t3682.html">Samba server not working properly</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24553" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24553">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">franko</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24553">
+<time datetime="2012-05-01T01:48">posted: 2012-05-01 &nbsp; 01:48</time>
+<span class="permalink"><a href="./samba-server-not-working-properly-t3682.html#p24553" title="permalink">#1</a></span>
+
+<div class="content">I have installed Samba and I can easily browse shared folders in Thunar. But I want it also the other way arouond, to share some of the folders on my antiX machine with others.<br>
+<br>
+So I have added myself to the sambashares group to be able to make usershares and configured /etc/samba/smb.conf to allow guest access to shared folders. On the antiX machine everything seems fine, but other machines can't access it's shares.<br>
+And it is not all! If I try to browse from my Ubuntu machine the workgroup where the antiX machine is, I can't access the whole workgroup whatsoever, not even to see the Ubuntu machine's own shares. So I tried to change the workgroup names, and I found out that I am unable to access any workgroup where antiX is... while the others are easily accessible. If I try to browse it with smbc I get an"Access Denied" message. It's obvious that the antiX machine is denying access through samba, but I can't figure out why... Am I missing something?<br>
+<br>
+I thought it could be because of some firewall, but the problem persists even when I disable them all... Or, is antiX using another firewall other than ufw, that I am not aware of?<br>
+<br>
+I am desperate and out of ideas...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24558" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24558">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24558">
+
+<time datetime="2012-05-01T10:10">posted: 2012-05-01 &nbsp; 10:10</time>
+<span class="permalink"><a href="./samba-server-not-working-properly-t3682.html#p24558" title="permalink">#2</a></span>
+
+<div class="content"><blockquote><div><cite>franko wrote:</cite>
+I am desperate and out of ideas...</div></blockquote>
+Try mapping your machines IP address in the /etc/hosts file. I have never been able to make the newer samba or workgroup printing work without doing so. <br>
+It sounds like you have may antiX set up as the master browser. <br>
+Try adding this to your GLOBAL settings<br>
+<br>
+browse list = No<br>
+local master = No<br>
+preferred master = No<br>
+<br>
+Good luck.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24560" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24560">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">franko</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24560">
+
+<time datetime="2012-05-01T13:45">posted: 2012-05-01 &nbsp; 13:45</time>
+<span class="permalink"><a href="./samba-server-not-working-properly-t3682.html#p24560" title="permalink">#3</a></span>
+
+<div class="content">What exactly do you mean by"mapping machines IP address"? (WARNING! Ubuntu user :-p) What should I write there? I never did this before.<br>
+<br>
+Those options in the GLOBAL settings didn't work, either... :-/<br>
+<br>
+I tried to ping my antiX machine from the Ubuntu one, and it works when I ping its IP address, but not when I ping its hostname... So I tried to sniff my network traffic a little bit and I found out that the antiX machine's name is seen as the MAC address of its wireless device (which is my only means to connect), instead of its hostname. Then I tried to ping to it with that name, and it works. I wonder if all this samba issue could have something to do with this situation... But I don't know hot to test it.<br>
+Is there a way to manually assign the computer's hostname to a particular device?<br>
+Also, I see that on my Ubuntu machine the wireless device is assigned to eth2, and not wlan0, like the antiX one... if this is of any relevance.<br>
+<br>
+Thank you very much for any help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24562" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24562">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24562">
+
+<time datetime="2012-05-01T16:15">posted: 2012-05-01 &nbsp; 16:15</time>
+<span class="permalink"><a href="./samba-server-not-working-properly-t3682.html#p24562" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>franko wrote:</cite>What exactly do you mean by"mapping machines IP address"?</div></blockquote>
+contents of my /etc/hosts file:<br>
+<br>
+127.0.0.1    localhost <br>
+127.0.0.1    E4300<br>
+192.168.1.111 E4300<br>
+192.168.1.101    DELLE6400<br>
+192.168.1.105 DEBSTHINKPAD<br>
+192.168.1.106 COWPUTER <br>
+<br>
+<br>
+Where E4300 is my local client name<br>
+DELLE6400 is my file/print server name<br>
+The other 2 are clients on my network.<br>
+Yours should already have the IP for localhost and your local machine.<br>
+Map each computer name in your workgroup to its IP address.<br>
+You should set up your server to have a static (fixed) IP address so that it doesn't get changed by your router when you reboot. <br>
+Likewise, any workstations should have a fixed IP address for the same reason.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24568" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24568">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">franko</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24568">
+
+<time datetime="2012-05-01T20:00">posted: 2012-05-01 &nbsp; 20:00</time>
+<span class="permalink"><a href="./samba-server-not-working-properly-t3682.html#p24568" title="permalink">#5</a></span>
+
+<div class="content">Wow! Thank you a LOT! This did the trick, finally. <span class="emoticon"> __{{emoticon}}__ </span><br>
+Now I can ping the name of the machine and, of couorse, browse samba shares, too.<br>
+So this was the last piece of the puzzle I missed. Thank you again! It's always nice to learn something new. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+But it is fascinating how Ubuntu machines communicate between themselves thruough Samba by default, without all these settings...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24631" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24631">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 81</span></div>
+
+</div>
+</div>
+<span class="username">FreeOS-LuvR</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Mar 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24631">
+
+<time datetime="2012-05-09T11:12">posted: 2012-05-09 &nbsp; 11:12</time>
+<span class="permalink"><a href="./samba-server-not-working-properly-t3682.html#p24631" title="permalink">#6</a></span>
+
+<div class="content">Greetings franko,
+<blockquote class="uncited"><div>But it is fascinating how Ubuntu machines communicate between themselves thruough Samba by default, without all these settings...</div></blockquote>
+Ubuntu also utilizes GVFS which isn't Samba ... <br>
+GVFS = <strong><span style="text-decoration: underline">G</span></strong>rid <strong><span style="text-decoration: underline">V</span></strong>irtual <strong><span style="text-decoration: underline">F</span></strong>ile <strong><span style="text-decoration: underline">S</span></strong>ystem<br>
+If I'm not mistaken it's GNOME related ... therefore ... should it mean:<br>
+<strong><span style="text-decoration: underline">GNOME</span></strong> <strong><span style="text-decoration: underline">V</span></strong>irtual <strong><span style="text-decoration: underline">F</span></strong>ile <strong><span style="text-decoration: underline">S</span></strong>ystem <span class="emoticon"> __{{emoticon}}__ </span> <br>
+When you share a folder (directory) through your Ubuntu file manager (Nautilus) a hidden<br>
+<span style="color: #0000FF">.gvfs</span> folder is created ... in the home directory.<br>
+You could do a
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls -a</code></pre></div>
+to see if a .gvfs directory exists.<br>
+<br>
+You could also do a
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mount
+
+sudo mount</code></pre></div>
+I pray this was informative and helps you in the future.<br>
+Take care ...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24634" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24634">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">franko</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24634">
+
+<time datetime="2012-05-09T19:52">posted: 2012-05-09 &nbsp; 19:52</time>
+<span class="permalink"><a href="./samba-server-not-working-properly-t3682.html#p24634" title="permalink">#7</a></span>
+
+<div class="content">I have GVFS on both my Ubuntu and antiX machines. I don't really think it is related to the problem I was talking here before...<br>
+<br>
+GVFS is not Samba, as you say, but it is not a Samba replacement, either, as you seem to suggest... It is basically just a tool which allows users easy access to remote data via various protocols, including Samba (see: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://en.wikipedia.org/wiki/GVFS"<br>linktext was:"http://en.wikipedia.org/wiki/GVFS"<br>====================================<br>
+). It doesn't serve nor reach shares, it just mounts them, once reached.<br>
+I didn't have any problem in mounting any shares, but in reaching the antiX Samba shares from other machines. But that is sloved now thanks to IP mapping.<br>
+<br>
+Still don't know how it comes that Samba shares from an Ubuntu machine are reacheable from any other OS without any (manual) IP mapping...<br>
+<br>
+But thanks for you comment! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24661" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24661">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 81</span></div>
+
+</div>
+</div>
+<span class="username">FreeOS-LuvR</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Mar 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24661">
+
+<time datetime="2012-05-10T15:19">posted: 2012-05-10 &nbsp; 15:19</time>
+<span class="permalink"><a href="./samba-server-not-working-properly-t3682.html#p24661" title="permalink">#8</a></span>
+
+<div class="content">Greetings fanko,<br>
+<br>
+I'm happy that you appreciated my comment.<br>
+<br>
+I never implied, intended nor stated that GVFS was a replacement for<br>
+Samba. Please read the first line in my post, I used 'also'
+<blockquote class="uncited"><div>Posted: Wed May 09, 2012 1:12 pm by FreeOS-LuvR<br>
+Ubuntu also utilizes GVFS which isn't Samba ... </div></blockquote>
+I was merely attempting to introduce you to the fact that Ubuntu<br>
+utilizes other protocols in it's intrinsic sharing methods that<br>
+aren't always Samba. From your response, you've proven to be<br>
+well versed in GVFS <span class="emoticon"> __{{emoticon}}__ </span> ... which is pretty cool.<br>
+<br>
+I'm truly happy immensely that you were able to solve your issue<br>
+through IP mapping.<br>
+<br>
+In Slackware when I found out about the host file, I too, was HAPPY!!! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

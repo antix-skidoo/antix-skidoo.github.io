@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Battery Monitor [SOLVED} - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./battery-monitor-solved-t4968.html">Battery Monitor [SOLVED}</a></div>
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./battery-monitor-solved-t4968-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./battery-monitor-solved-t4968-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34535" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34535">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34535">
+<time datetime="2014-04-14T13:34">posted: 2014-04-14 &nbsp; 13:34</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34535" title="permalink">#1</a></span>
+
+<div class="content">I am trying to get a battery monitor working on my T22 laptop. I haved tried several ideas posted on here and none have worked. Under System Information, when I select battery, it says No battery found on this system.<br>
+When I check via acpi -b I get:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ acpi -b
+Battery 0: Discharging, 54%, 00:52:07 remaining
+</code></pre></div>
+So, it does recognize there is a battery, I just cannot get it to display on the screen. It is a needed item on a laptop.</div>
+<div class="notice">
+Last edited by <b>chzuck</b> on 19 Apr 2014, 15:59, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34537" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34537">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34537">
+
+<time datetime="2014-04-14T14:04">posted: 2014-04-14 &nbsp; 14:04</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34537" title="permalink">#2</a></span>
+
+<div class="content">Try this, and add it to your conky<br>
+Open the terminal and type:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ls /proc/acpi/battery</code></pre></div>
+There can be various kinds of output:<br>
+CMB0<br>
+BAT1<br>
+BAT0<br>
+...etc<br>
+<br>
+If it is BAT0 <br>
+add the following to your conky below the TEXT line
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${battery BAT0}
+${battery_bar 7,90 BAT0}
+${battery_percent BAT0}
+</code></pre></div>
+You can put the percentage and the bar together on the same line by doing this.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${battery_percent BAT0}${battery_bar 7,90 BAT0}</code></pre></div></div>
+<div class="postcontent_footer">
+ 
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34570" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34570">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34570">
+
+<time datetime="2014-04-15T02:54">posted: 2014-04-15 &nbsp; 02:54</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34570" title="permalink">#3</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ls /proc/acpi/battery
+ls: cannot access /proc/acpi/battery: No such file or directory</code></pre></div>
+Here is what I got. I went ahead and added your code anyway, but still did not get any battery info.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34581" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34581">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34581">
+
+<time datetime="2014-04-15T14:46">posted: 2014-04-15 &nbsp; 14:46</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34581" title="permalink">#4</a></span>
+
+<div class="content">Try changing BAT0 to BAT1, &amp; see if that helps.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_34582" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34582">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34582">
+
+<time datetime="2014-04-15T15:40">posted: 2014-04-15 &nbsp; 15:40</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34582" title="permalink">#5</a></span>
+
+<div class="content">Did not change anything.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ acpi -b</code></pre></div>
+Above is the only way I can find info on the battery.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34585" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34585">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34585">
+
+<time datetime="2014-04-15T18:32">posted: 2014-04-15 &nbsp; 18:32</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34585" title="permalink">#6</a></span>
+
+<div class="content">Another good ending. I went to the antiX-FAQ page and read some of the info under Conky. I followed their example of code for a battery monitor. Some of my unsuccessful attempts before may have been my fault. When I made a code change, I would restart antiX to hopefully reflect changes in Conky. In the write up it was mentioned to toggle Conky from the desktop. I added the code, toggled Conky and now I have a battery monitor. Still learning! Little successes are good!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34586" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34586">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34586">
+
+<time datetime="2014-04-15T18:34">posted: 2014-04-15 &nbsp; 18:34</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34586" title="permalink">#7</a></span>
+
+<div class="content">You'll soon be up with the rest of us........</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34589" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34589">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34589">
+
+<time datetime="2014-04-15T19:06">posted: 2014-04-15 &nbsp; 19:06</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34589" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>fatmac wrote:</cite>You'll soon be up with the rest of us........</div></blockquote>
+batti-gtk-solved-t4662.html<br>
+<br>
+<span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34590" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34590">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34590">
+
+<time datetime="2014-04-15T19:10">posted: 2014-04-15 &nbsp; 19:10</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34590" title="permalink">#9</a></span>
+
+<div class="content">fatmac,<br>
+I think that will be quite some time, if ever!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34598" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34598">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34598">
+
+<time datetime="2014-04-16T00:15">posted: 2014-04-16 &nbsp; 00:15</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34598" title="permalink">#10</a></span>
+
+<div class="content">Thought I had it, but each time I reboot I have to turn conky off then back on for the monitor to show. It is probably something easy, but I don't know what to do to make it appear when antiX boots up.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34599" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34599">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34599">
+
+<time datetime="2014-04-16T00:33">posted: 2014-04-16 &nbsp; 00:33</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34599" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>chzuck wrote:</cite>Thought I had it, but each time I reboot I have to turn conky off then back on for the monitor to show. It is probably something easy, but I don't know what to do to make it appear when antiX boots up.</div></blockquote>
+I had the same problem before. It appears to be linked to which kernel you use with with desktop manager theme. I'll have to see how my conky was setup to work. (I'm on a different computer.)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34600" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34600">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34600">
+
+<time datetime="2014-04-16T01:00">posted: 2014-04-16 &nbsp; 01:00</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34600" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>chzuck wrote:</cite>Thought I had it, but each time I reboot I have to turn conky off then back on for the monitor to show. It is probably something easy, but I don't know what to do to make it appear when antiX boots up.</div></blockquote>
+This is probably because of the default wm being icewm and the default conky ~/.conkyrc. If you take the battery code out of the ~ / . Conkyrc and put it in ~/.conky/icewm-conkyrc or whatever the exact name is, then it should work when you reboot. I cannot recall the reason why there are two conkyrcs, but it seems to me that this is more than likely the cause of confusion.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34601" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34601">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34601">
+
+<time datetime="2014-04-16T02:35">posted: 2014-04-16 &nbsp; 02:35</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34601" title="permalink">#13</a></span>
+
+<div class="content">I could not find the second conky file.<br>
+Strike the above. I kept looking and found it. I have it both places now and it appears to work when I reboot. I also changed to a 12 hour time format.</div>
+<div class="postcontent_footer">
+
+ </div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34632" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34632">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34632">
+
+<time datetime="2014-04-17T18:38">posted: 2014-04-17 &nbsp; 18:38</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34632" title="permalink">#14</a></span>
+
+<div class="content">I had this probllem back in 2012:<br>
+<br>
+post26689.html#p26689<br>
+<br>
+but couldn't find any help. <br>
+<br>
+Are you using a Dell? There do seem problems which are specifically connected with Dell machines - see:<br>
+<br>
+post26228.html#p26228<br>
+<br>
+Thanks for your post. I will see if I can (now) get my battery to show under conky!<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34644" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34644">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">chzuck</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34644">
+
+<time datetime="2014-04-17T22:20">posted: 2014-04-17 &nbsp; 22:20</time>
+<span class="permalink"><a href="./battery-monitor-solved-t4968.html#p34644" title="permalink">#15</a></span>
+
+ <div class="content">Not using a Dell. This is on an IBM T22 ThinkPad.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./battery-monitor-solved-t4968-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./battery-monitor-solved-t4968-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

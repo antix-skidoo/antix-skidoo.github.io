@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>On to the next damn problem, Can't access SAMBA share. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-intifada-f28/index.html"><span>antiX-M8 Intifada!</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./on-to-the-next-damn-problem-can-t-access-samba-sha-t1520.html">On to the next damn problem, Can't access SAMBA share.</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_9643" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9643">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">indubitableness</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9643">
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/9643/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-03-13T08:56">posted: 2009-03-13 &nbsp; 08:56</time>
+<span class="permalink"><a href="./on-to-the-next-damn-problem-can-t-access-samba-sha-t1520.html#p9643" title="permalink">#1</a></span>
+
+<div class="content">Okay, So I've replaced ubuntu on my desktop with antix-m8 and I can no longer access my samba share using the same smb.conf configuration i was using in ubuntu.<br>
+<br>
+I've followed the instructions here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/access-shares-via-samba-fuse-t634.html"<br>linktext was:"antix.freeforu ms.org/access-shar ... -t634.html"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+tried using both fusesmb and smbnetfs.<br>
+<br>
+When i try to run either of these (ie"sudo fusesmb /media/Iomega_HDD" style) I get a message saying use the nonempty option, and when i run it with the nonempty option it gives me this:
+<blockquote class="uncited"><div>
+fuse: bad mount point `/media/Iomega_HDD': Permission denied
+</div></blockquote>
+I've set up the ~/.icewm/startup file to contain the code"fusesmb -o nonempty /media/Iomega_HDD" ... maybe it's preventing me from doing it at the command line? or maybe it fails with the same error at startup?<br>
+<br>
+This laptop was able to mount my share easily when i ran ubuntu, and can still mount it when i boot my desktop into windows, but since i've switched to antiX it's giving me the following error:<br>
+<blockquote class="uncited"><div>
+CIFS VFS: cifs_mount failed w/return code = -6
+</div></blockquote>
+Then it tells me error 6: no such file or directory and to check the man page for mount.cifs, which was no help; and it WAS telling me permission denied.<br>
+<br>
+So I ran"smbpasswd -a indubitableness" and picked a password, at which point it stopped telling me permission denied.<br>
+<br>
+This is the command I'm using:<br>
+<br>
+sudo mount -t smbfs -o user=indubitableness,password=passwd //192.168.0.xx/media/Iomega_HDD /media/iomega<br>
+<br>
+of course that's not the password i'm using, but the rest of it's pretty much exact. Like i said this command works fine with windows running and it used to work perfectly in ubuntu. My smb.conf share folder section looks like this:<br>
+<blockquote class="uncited"><div>
+[MyFiles]<br>
+path = /media/Iomega_HDD<br>
+browseable = yes<br>
+read only = yes<br>
+guest ok = yes<br>
+create mask = 0644<br>
+directory mask = 0755<br>
+force user = indubitableness<br>
+force group = indubitableness
+</div></blockquote>
+I figured this is a problem with samba, and I was trying to avoid posting here for a while, but I can't find anything that's helped me even get a clue as to what might be going on.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9657" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile9657">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9657">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/9657/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-03-13T22:22">posted: 2009-03-13 &nbsp; 22:22</time>
+<span class="permalink"><a href="./on-to-the-next-damn-problem-can-t-access-samba-sha-t1520.html#p9657" title="permalink">#2</a></span>
+
+<div class="content">Ok, a couple of things.<br>
+<br>
+1. There is a bug in smbclient. It has been this way for a while, so connecting can be a little flakey at times. There seems to be some time out errors.<br>
+<br>
+2. Forget about sudo.<br>
+<br>
+3. Fuse should be run as a user not root. So"fusesmb /path/to/mount/point". The mount point must already exist. <br>
+<br>
+4. Forget about sudo.<br>
+<br>
+5. To unmount run fusermount -u /path/to/mount/point<br>
+<br>
+6. Forget about sudo</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[antiX M12] Core version in Virtualbox - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-m12-core-version-in-virtualbox-t3852.html">[antiX M12] Core version in Virtualbox</a></div>
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="viewtopic_wrapper">
+<div id="p_25811" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25811">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25811">
+<time datetime="2012-08-15T12:29">posted: 2012-08-15 &nbsp; 12:29</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25811" title="permalink">#1</a></span>
+
+<div class="content">Hi,<br>
+<br>
+Yesterday I finally succeeded installing M12 in Virtualbox, so today I tried installing the Antix Core M12 and failed three times. Then I had a look at what was mounted (because there were hundreds lines saying"can't copy blablabla") and the device sda1 was not mounted. I mounted it on /mnt and restarted the cli-installer script, then it installed successfully.<br>
+<br>
+I am about to reboot to the new install to discover it. <br>
+<br>
+Have other people met with a similar issue with the core version, be it in a real or a virtual machine ? Is it possible that something has been forgotten in the install script ?<br>
+<br>
+PS: It does not reboot, but stalls with two lines saying:<br>
+/usr/local/lib/antiX/antiX-get-param.sh: line 17: /usr/bin/gettext: Input/output error<br>
+<br>
+This happens just after deactivating swap and umounting local file systems.<br>
+<br>
+I have to force the shutdown and try to reboot anyhow. (typing"q" in front of a ':' which was at the bottom left, and hit Enter did the trick).<br>
+<br>
+PS-2 : there is a full tree directory in /root which is almost the same as in / : there might be a mistake somewhere ? I have done a few diff on several directories : diff /root/bin /bin and same with /usr and others, there are definitely differences, but : what are these directories doing there ?<br>
+<br>
+PS-3 : here is a screenshot : <br>
+<br>
+<img src="http://meets.free.fr/antiX/shots/strange-antiX-Core-M12.png" class="postimage" alt="Image"></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25813" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25813">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25813">
+
+
+<time datetime="2012-08-15T13:21">posted: 2012-08-15 &nbsp; 13:21</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25813" title="permalink">#2</a></span>
+
+<div class="content">If I were you I would install again (It only takes a few minutes).<br>
+If you have your partition(s) set up already in VB, then all you have to do is correctly point the installer to the partition you want to install to. If you get this wrong, then the installer will stil try to install, but will not be able to.<br>
+<br>
+eg type sda1.<br>
+<br>
+When the script finishes, it promts to use<br>
+<br>
+reboot.sh<br>
+<br>
+(This will shut it down cleanly, reboot will not).<br>
+<br>
+Also do not save the contents of home. Best to add them later. And the answer to the Is this a remastered version is the default N (unless of course it is a snapshot).<br>
+<br>
+I just ran it in VB with no issues. My guess is that the partitions have not been set properly.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25814" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25814">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25814">
+
+<time datetime="2012-08-15T13:29">posted: 2012-08-15 &nbsp; 13:29</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25814" title="permalink">#3</a></span>
+
+<div class="content">Yes I have had the problem of cannot copy before...<br>
+On a actual install I think it is from the cdrom drive not reading the cd correctly. As soon as I seen those messages run across the screen I hit control + C and reboot. The reboot always fixes the issue and installation will work fine.<br>
+<br>
+I have had it on a Vbox install, again reboot and it fixed itself.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25820" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25820">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25820">
+
+<time datetime="2012-08-15T15:07">posted: 2012-08-15 &nbsp; 15:07</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25820" title="permalink">#4</a></span>
+
+<div class="content">Hi,<br>
+<br>
+I suppressed the install and I am now reinstalling.<br>
+<br>
+I use the puel extensions, therefor is is as if I had the Vbox non free edition (in Archlinux it is the latest). I have booted from the ISO (as I do usually). I have booted to the first entry, cli install, therefore the new"hard drive" file has not been partitioned yet, and as before I will let it create a partition table, and a ext3 partition using the whole space. Then I will tell it to use sda1 : which is what I have done before.<br>
+<br>
+This is where up to now it has blocked. <br>
+<br>
+I am sure the iso is good, I had downloaded it with wget, and I just checked the md5sum additionnally.<br>
+<br>
+Do I have to worry about having the sda1 mounted, or not ?<br>
+<br>
+I seems that after partitioning with cfdisk the installer formats again : should I skip the formatting step in cfdisk therefore ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25821" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25821">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25821">
+
+<time datetime="2012-08-15T15:15">posted: 2012-08-15 &nbsp; 15:15</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25821" title="permalink">#5</a></span>
+
+<div class="content">Ok, here is what the slaughter looks like here:<br>
+<br>
+<img src="http://meets.free.fr/antiX/shots/cli-installer-core.png" class="postimage" alt="Image"><br>
+<br>
+If you don't know why the partition (just created, with the integrated cfdisk) is not mounted before the installar starts to copy, I don't know either.<br>
+<br>
+Would you have any other clues about your setup in vbox ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25823" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25823">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25823">
+
+<time datetime="2012-08-15T15:26">posted: 2012-08-15 &nbsp; 15:26</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25823" title="permalink">#6</a></span>
+
+<div class="content">Shouldn't matter. However IMO it is best to set up the vb pertition(s) before running antiX-core eg by using antiX-base or full (live) and via gparted.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25826" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25826">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25826">
+
+<time datetime="2012-08-15T20:40">posted: 2012-08-15 &nbsp; 20:40</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25826" title="permalink">#7</a></span>
+
+<div class="content">come to think of it, the only times i had the failed to copy problem was after partitioning the drive with cfdisk. after a reboot might have solved it because i did not repartition. maybe the script is to ambitious and cfdisk has not yet finished writing the changes to the drive?<br>
+<br>
+maybe i will take a look while writing the antix gui cli installer.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25827" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25827">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25827">
+
+<time datetime="2012-08-15T21:58">posted: 2012-08-15 &nbsp; 21:58</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25827" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>come to think of it, the only times i had the failed to copy problem was after partitioning the drive with cfdisk. after a reboot might have solved it because i did not repartition. maybe the script is to ambitious and cfdisk has not yet finished writing the changes to the drive?</div></blockquote>
+If you are right perhaps after the partioning the script should rather as for a reboot prior to continuing ? <br>
+<blockquote class="uncited"><div>maybe i will take a look while writing the antix gui cli installer.</div></blockquote>
+Thank you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25828" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25828">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25828">
+
+<time datetime="2012-08-16T01:59">posted: 2012-08-16 &nbsp; 01:59</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25828" title="permalink">#9</a></span>
+
+<div class="content">Hi,<br>
+<br>
+The try before last I have used cfdisk, then tried to use cli-installer, then again a row of errors can't copy, then I tried to mount the partition freshly created by what looks like a cfdisk tool.<br>
+<br>
+Here is what I got: <br>
+<br>
+<img src="http://meets.free.fr/antiX/shots/antix-core-m12-fun-installer.png" class="postimage" alt="Image"><br>
+<br>
+<br>
+Ok, fun I thought !<br>
+<br>
+I redid a new one. Then paritionned with cfdisk then rebooted. Then I tried to mount it got the same result as above : I did a"mkfs.ext4" on the partition and then I mounted it to /media. Then I launched the installer. Then install went well.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25829" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25829">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25829">
+
+<time datetime="2012-08-16T02:23">posted: 2012-08-16 &nbsp; 02:23</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25829" title="permalink">#10</a></span>
+
+<div class="content">So it seems as if cfdisk does not build a valid partition. <br>
+<br>
+If you do the same as above, (run cfdisk then cli-installer) so that it fails again, at that point reboot with a live copy of antiX full, and run gparted, what does it show the partitions as being? <br>
+if it is valid was it the format you were looking for?<br>
+if it was not valid what format were you attempting to make i assume ext.4 from your previous post)?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25831" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25831">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25831">
+
+<time datetime="2012-08-16T12:57">posted: 2012-08-16 &nbsp; 12:57</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25831" title="permalink">#11</a></span>
+
+<div class="content">Yes, you assumed right. I found the idea of booting another antix to look at the partition too complicated for what I needed. I can confirm cfdisk created the partition table (msdos), created a partition, but was unable to format it to a partition type.<br>
+<br>
+What is the shell used in antiX core ? Isn't it one of these buggy busybox shells ? I ask because I could not use tab for completion ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25832" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25832">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25832">
+
+<time datetime="2012-08-16T15:22">posted: 2012-08-16 &nbsp; 15:22</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p25832" title="permalink">#12</a></span>
+
+<div class="content">ok, so there was no format, thank you.<br>
+<br>
+It is bash I believe, not sure, and I use core for almost everything and tab completion works fine for me. So I am unsure why it does not for you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26460" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26460">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">abcdelix</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26460">
+
+<time datetime="2012-10-10T11:58">posted: 2012-10-10 &nbsp; 11:58</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p26460" title="permalink">#13</a></span>
+
+<div class="content">I have the same problem here.<br>
+First cfdisk asked for description of the disk type. I didn't choose msdos but gpt (?).<br>
+Than I tried to format the disk with ext3 -- didn't work.<br>
+Than I tried ext2 -- yes, worked.<br>
+Now the copy of the .iso (I used antiX-base) went smoothly through.<br>
+<br>
+I tried both grub in the MBR and in the filesystem. When I did it once, the disk space shown in VB was 1,3 GB. After the second attempt it was 2,3 GB. So, nothing was deleted in contrast to the messages during the installation.<br>
+<br>
+I shut the VM down and restarted it.<br>
+Now I always get the message : no bootable media found.<br>
+No matter whether I installed grub in MBR or not.<br>
+<br>
+And yes, I flagged the sda1 bootable in cfdisk.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_26462" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26462">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">abcdelix</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26462">
+
+<time datetime="2012-10-10T12:32">posted: 2012-10-10 &nbsp; 12:32</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p26462" title="permalink">#14</a></span>
+
+<div class="content">as suggested, I started the antiX-base.iso in VB and searched for the GPArted program in the fluxbox menu . The deletion and creation of the sda1 partition worked smoothly.<br>
+Then I stopped the virtual machine, rebooted the .iso and used the cli-installer. I skipped cfdisk and the installation was sucessful -- now AntiX booted from the virtual disk.<br>
+<br>
+btw -- VB runs on a 64-bit machine in a 64-bit version. Maybe this causes the problems of cfdisk (?).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26526" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26526">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26526">
+
+<time datetime="2012-10-17T22:26">posted: 2012-10-17 &nbsp; 22:26</time>
+<span class="permalink"><a href="./antix-m12-core-version-in-virtualbox-t3852.html#p26526" title="permalink">#15</a></span>
+
+<div class="content">I'm away from the machine I use for VB right now but I run antiX (plus several other distro's) on it without trouble. As I remember it, you open VB, select new and follow the bouncing ball to do a basic setup:: name (say: antiX-test), OS (Linux - Debian, I guess although I just chose the kernel), RAM and the amount of disk space. I always create a new disk, usually allow 10Gb and check the dynamic box.<br>
+<br>
+I always use a live disk. If it is one I have downloaded from a systems website, I have the .iso's to my hard disk (distro's off magazines -LXF- are slightly different). Once you've done this, double click on antiX-test, a Wizard will open up. and suggest that you boot from the CD drive. Click on 'Browse', find the directory holding your .iso &amp; take it from there.<br>
+<br>
+If you are using a live image, you can either run that &amp; take snapshots as you go or you can install it. When the cfdisk screen comes up, I usually choose ext3 which seems to work ok. If anything goes wrong, I close the virtual machine, destroy it and start again.<br>
+<br>
+Hope this helps<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+15 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

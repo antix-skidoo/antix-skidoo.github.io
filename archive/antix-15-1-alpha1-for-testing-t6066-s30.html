@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-15.1 alpha1 for testing - Page 3 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./announcements-and-news-old-f38/index.html"><span>Announcements and News (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html">antiX-15.1 alpha1 for testing</a></div>
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-15-1-alpha1-for-testing-t6066-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066.html" role="button">1</a></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-15-1-alpha1-for-testing-t6066-s45.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_44283" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44283">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44283">
+<p class="author">
+<a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44283" title="Post"> 17 Dec 2015, 10:13 <span style="padding-left:10px">#31</span></a>
+<time class="hide" datetime="2015-12-17 &nbsp; 10:13">2015-12-17 &nbsp; 10:13</time>
+ </p>
+<div class="content"><strong>Discrepancy Booting 15.1-a1 Installed v Live</strong><br>
+<br>
+The system is initially booted from 15.1a ISO burned to CD, which is used to conduct a conventional hard disk installation. At the live boot loader screen:
+<ul>
+<li>F7 is left at default (GUI video driver)</li>
+<li>F8 is used to select a resolution of 1024x768 (console resolution)</li> </ul>
+<br>
+<strong>When booting live from CD</strong><br>
+<span style="color: #008000">No bootloader error is reported</span><br>
+The console resolution is honoured as expected, i.e. /proc/cmdline includes vga=791 (which equates to 1024x768x16)<br>
+The GUI is successfully presented via the correct video driver at an appropriate resolution
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -c0 -G
+Graphics:  Card: Silicon Integrated Systems [SiS] 630/730 PCI/AGP VGA Display Adapter
+           Display Server: X.Org 1.16.4 driver: N/A Resolution: 1024x768@60.00hz
+           GLX Renderer: Gallium 0.4 on llvmpipe (LLVM 3.5, 128 bits) GLX Version: 3.0 Mesa 10.3.2
+</code></pre></div>
+<br>
+In the above state a conventional hard disk installation is conducted. No errors are reported.<br>
+<br>
+<br>
+<br>
+<strong>When booting the installation from hard disk</strong><br>
+<span style="color: #FF0000">A bootloader error message is obtained</span>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Loading Linux 4.2.1-antix.2-486-smp ...
+vga=791 is deprecated, Use gfxpayload=1024x768x16, 1024x768 before linux command instead.
+Loading initial ramdisk ...
+[...]
+</code></pre></div>
+The console resolution is honoured as expected, i.e. /proc/cmdline includes vga=791 (which equates to 1024x768x16)<br>
+The GUI is successfully presented via the correct video driver at an appropriate resolution
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -c0 -G
+Graphics:  Card: Silicon Integrated Systems [SiS] 630/730 PCI/AGP VGA Display Adapter
+           Display Server: X.Org 1.16.4 driver: N/A Resolution: 1024x768@60.00hz
+           GLX Renderer: Gallium 0.4 on llvmpipe (LLVM 3.5, 128 bits) GLX Version: 3.0 Mesa 10.3.2
+</code></pre></div>
+Abstract from /boot/grub/grub.cfg used during the boot process
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[...]
+echo    'Loading Linux 4.2.1-antix.2-486-smp ...'
+linux    /boot/vmlinuz-4.2.1-antix.2-486-smp root=blah ro  vga=791 quiet nosysv=LX
+echo    'Loading initial ramdisk ...'
+initrd    /boot/initrd.img-4.2.1-antix.2-486-smp
+</code></pre></div>
+<br>
+<strong>Summary</strong><br>
+When a console resolution is maually selected in the live bootloader screen it is carried across to the hard disk installation. The format of the parameter carried across (vga=xxx) is deprecated by GRUB. When the antiX default bootloader for hard disk installations (GRUB) is used to boot the system, an error message is obtained. This behaviour differs from booting in live mode, in which an error message is not produced.<br>
+<br>
+<br>
+<strong>Suggestion</strong><br>
+The default bootloaders used by antiX should be equitable in use, rather than favouring one. <br>
+<br>
+In cases where:
+<ul>
+<li>The user has manually selected a console resolution other than the default in the live bootloader screen</li>
+<li>Then goes on to carry out an installation to hard disk to be booted via GRUB</li></ul>antiX should carry over the required parameter and apply it in a form that is not deprecated by GRUB.<br>
+<br>
+<em>Note: Did not test whether accepting the F8 default console resolution 800x600 (vga=788 equivalent to 800x600x16) in the live bootloader screen produces a similar error message. It seems highly likely that all parameters carried across in a deprecated form will produce an error message, </em></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44289" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44289">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44289">
+
+<time datetime="2015-12-17T19:40">posted: 2015-12-17 &nbsp; 19:40</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44289" title="permalink">#32</a></span>
+
+<div class="content">debian wiki describes howto fix manually. An update-grub wrapper script might be preferable to (just) scripting this into the installer.
+<blockquote class="uncited"><div>
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/GrubTransition"<br>linktext was:"https://wiki.debian.org/GrubTransition"<br>====================================<br>
+<br>
+<br>
+In Grub2 the vga= parameter is deprecated.<br>
+To set a screen resolution for your console, do the following:<br>
+<br>
+edit <strong>/</strong>etc/default/grub uncomment the GRUB_GFXMODE=640x480 and change the resolution to something you can use e.g. 1024x768<br>
+<br>
+Add the line<br>
+GRUB_GFXPAYLOAD_LINUX=keep<br>
+to the file to have the same resolution at the Linux console. <br>
+<br>
+run update-grub</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44298" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44298">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44298">
+
+<time datetime="2015-12-18T09:43">posted: 2015-12-18 &nbsp; 09:43</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44298" title="permalink">#33</a></span>
+
+<div class="content"><strong>Re: Discrepancy Booting 15.1-a1 Installed v Live</strong><br>
+<blockquote><div><cite>skidoo wrote:</cite>An update-grub wrapper script might be preferable to (just) scripting this into the installer.</div></blockquote>If such a script is to be run after the installation routine has ended, but not before the first boot of the hard disk installation, the goal of <blockquote><div><cite>SamK wrote:</cite>The default bootloaders used by antiX should be equitable in use, rather than favouring one.</div></blockquote> would be missed. <br>
+<br>
+If such a script is not integrated into the shipped installation process, the hard disk installation will probably require booting at least twice to achieve the desired outcome. The result being, parity between the default antiX bootloaders is not obtained.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44327" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44327">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44327">
+
+<time datetime="2015-12-18T19:42">posted: 2015-12-18 &nbsp; 19:42</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44327" title="permalink">#34</a></span>
+
+<div class="content">@Anti. Take a look see over here about news on what is happening when 2 of us are trying to install the 64bit version of 15.1.<br>
+<br>
+antix-15-1-64-bit-installer-doesn-t-mount-hdd-t6088.html<br>
+<br>
+Just finished the 32 bit install on internal hard drive on this Dell T3400 shop computer . Live session ran OK. On install I had to change wicd preferences to wlan0 after checking with ifconfig -a. Here is the required inxi output for feedback<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@test:~
+$ inxi -Fxz
+System:    Host: test Kernel: 4.2.1-antix.2-486-smp i686 (32 bit gcc: 4.9.2)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-15.1-a1-V_386-full Killah P 25 November 2015
+Machine:   System: Dell product: Precision WorkStation T3400
+           Mobo: Dell model: 0TP412 Bios: Dell v: A08 date: 08/14/2008
+CPU:       Dual core Intel Core2 Duo E7300 (-MCP-) cache: 3072 KB
+           flags: (lm nx pae sse sse2 sse3 sse4_1 ssse3) bmips: 10640
+           clock speeds: max: 2660 MHz 1: 2660 MHz 2: 2660 MHz
+Graphics:  Card: NVIDIA G86 [Quadro NVS 290] bus-ID: 01:00.0
+           Display Server: X.Org 1.16.4 drivers: nouveau (unloaded: fbdev,vesa)
+           Resolution: 1280x1024@85.02hz
+           GLX Renderer: Gallium 0.4 on NV86
+           GLX Version: 3.0 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Intel 82801I (ICH9 Family) HD Audio Controller
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture v: k4.2.1-antix.2-486-smp
+Network:   Card-1: Broadcom NetXtreme BCM5754 Gigabit Ethernet PCI Express
+           driver: tg3 v: 3.137 bus-ID: 04:00.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card-2: Realtek RTL8187B Wireless 802.11g 54Mbps Network Adapter
+           driver: rtl8187 usb-ID: 002-002
+           IF: wlan0 state: N/A mac: N/A
+Drives:    HDD Total Size: 80.0GB (8.3% used)
+           ID-1: /dev/sda model: ST380815AS size: 80.0GB
+Partition: ID-1: / size: 24G used: 2.4G (11%) fs: ext4 dev: /dev/sda1
+           ID-2: swap-1 size: 4.29GB used: 0.00GB (0%) fs: swap dev: /dev/sda3
+Sensors:   System Temperatures: cpu: 31.0C mobo: N/A gpu: 50.0
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 119 Uptime: 7 min Memory: 230.9/2016.7MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.2.25 
+harry@test:~
+$ 
+</code></pre></div>
+Next I will try later on the MX-15 RC1 on another partition on here. See how dual boot goes.<br>
+Still waiting for my download to complete on that one.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44333" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44333">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44333">
+
+<time datetime="2015-12-18T23:00">posted: 2015-12-18 &nbsp; 23:00</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44333" title="permalink">#35</a></span>
+
+<div class="content">USB stick working fine.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> inxi -Fxz
+System:    Host: antiX1 Kernel: 4.2.1-antix.2-amd64-smp x86_64 (64 bit gcc: 5.2.1)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-15.1-a1-V_x64-full Killah P 25 November 2015
+Machine:   System: Dell product: Latitude D630
+           Mobo: Dell model: 0KU184 Bios: Dell v: A15 date: 11/24/2008
+CPU:       Dual core Intel Core2 Duo T7250 (-MCP-) cache: 2048 KB
+           flags: (lm nx sse sse2 sse3 ssse3 vmx) bmips: 7980
+           clock speeds: max: 2001 MHz 1: 2001 MHz 2: 800 MHz
+Graphics:  Card: Intel Mobile GM965/GL960 Integrated Graphics Controller (primary)
+           bus-ID: 00:02.0
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1280x800@60.02hz
+           GLX Renderer: Mesa DRI Intel 965GM
+           GLX Version: 2.1 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Intel 82801H (ICH8 Family) HD Audio Controller
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Sound: ALSA v: k4.2.1-antix.2-amd64-smp
+Network:   Card-1: Broadcom NetXtreme BCM5755M Gigabit Ethernet PCI Express
+           driver: tg3 v: 3.137 bus-ID: 09:00.0
+           IF: enp9s0 state: down mac: &lt;filter&gt;
+           Card-2: Broadcom BCM4321 802.11a/b/g/n
+           driver: b43-pci-bridge bus-ID: 0c:00.0
+           IF: wlan0 state: up mac: &lt;filter&gt;
+Drives:    HDD Total Size: 152.0GB (3.4% used)
+           ID-1: /dev/sda model: SSD2SC120G1CS175 size: 120.0GB
+           ID-2: USB /dev/sdb model: USB_Flash_Drive size: 32.0GB
+Partition: ID-1: swap-1 size: 4.69GB used: 0.00GB (0%) fs: swap dev: /dev/sda2
+Sensors:   System Temperatures: cpu: 50.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 126 Uptime: 4 min Memory: 193.6/3946.0MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.2.28 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44334" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44334">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44334">
+
+<time datetime="2015-12-19T00:48">posted: 2015-12-19 &nbsp; 00:48</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44334" title="permalink">#36</a></span>
+
+<div class="content">Other than no internet. . .
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> inxi -Fxz
+System:    Host: antiX1 Kernel: 4.2.1-antix.2-amd64-smp x86_64 (64 bit gcc: 5.2.1)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-15.1-a1-V_x64-full Killah P 25 November 2015
+Machine:   System: TOSHIBA product: Satellite E45W-C v: PSLZAU-00L00E
+           Mobo: FF40 model: 06A0 v: 2.0 Bios: INSYDE v: 5.00 date: 07/01/2015
+CPU:       Dual core Intel Core i3-5015U (-HT-MCP-) cache: 3072 KB
+           flags: (lm nx sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx) bmips: 8385
+           clock speeds: max: 2100 MHz 1: 2101 MHz 2: 2001 MHz 3: 2100 MHz
+           4: 2099 MHz
+Graphics:  Card: Intel Broadwell-U Integrated Graphics bus-ID: 00:02.0
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1366x768@60.00hz
+           GLX Renderer: Gallium 0.4 on llvmpipe (LLVM 3.5, 256 bits)
+           GLX Version: 3.0 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card-1 Intel Wildcat Point-LP High Definition Audio Controller
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Card-2 Intel Broadwell-U Audio Controller
+           driver: snd_hda_intel bus-ID: 00:03.0
+           Sound: ALSA v: k4.2.1-antix.2-amd64-smp
+Network:   Card: Intel Wireless 3160 bus-ID: 02:00.0
+           IF: N/A state: N/A mac: N/A
+Drives:    HDD Total Size: 508.1GB (0.1% used)
+           ID-1: /dev/sda model: HGST_HTS545050A7 size: 500.1GB
+           ID-2: USB /dev/sdb model: JumpDrive size: 8.0GB
+Sensors:   System Temperatures: cpu: 45.0C mobo: 27.8C
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 138 Uptime: 1 min Memory: 228.8/5885.6MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.2.25 
+demo@antiX1:~
+$ lspci
+00:00.0 Host bridge: Intel Corporation Broadwell-U Host Bridge -OPI (rev 09)
+00:02.0 VGA compatible controller: Intel Corporation Broadwell-U Integrated Graphics (rev 09)
+00:03.0 Audio device: Intel Corporation Broadwell-U Audio Controller (rev 09)
+00:14.0 USB controller: Intel Corporation Wildcat Point-LP USB xHCI Controller (rev 03)
+00:16.0 Communication controller: Intel Corporation Wildcat Point-LP MEI Controller #1 (rev 03)
+00:1b.0 Audio device: Intel Corporation Wildcat Point-LP High Definition Audio Controller (rev 03)
+00:1c.0 PCI bridge: Intel Corporation Wildcat Point-LP PCI Express Root Port #1 (rev e3)
+00:1c.2 PCI bridge: Intel Corporation Wildcat Point-LP PCI Express Root Port #3 (rev e3)
+00:1c.5 PCI bridge: Intel Corporation Wildcat Point-LP PCI Express Root Port #6 (rev e3)
+00:1d.0 USB controller: Intel Corporation Wildcat Point-LP USB EHCI Controller (rev 03)
+00:1f.0 ISA bridge: Intel Corporation Wildcat Point-LP LPC Controller (rev 03)
+00:1f.2 SATA controller: Intel Corporation Wildcat Point-LP SATA Controller [AHCI Mode] (rev 03)
+00:1f.3 SMBus: Intel Corporation Wildcat Point-LP SMBus Controller (rev 03)
+02:00.0 Network controller: Intel Corporation Wireless 3160 (rev cb)
+03:00.0 Unassigned class [ff00]: Realtek Semiconductor Co., Ltd. RTS5229 PCI Express Card Reader (rev 01)
+demo@antiX1:~
+$ lspci -vv -s 02:00.0
+02:00.0 Network controller: Intel Corporation Wireless 3160 (rev cb)
+    Subsystem: Intel Corporation Dual Band Wireless AC 3160
+    Control: I/O- Mem+ BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+    Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast &gt;TAbort- &lt;TAbort- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-
+    Interrupt: pin A routed to IRQ 18
+    Region 0: Memory at b1100000 (64-bit, non-prefetchable) [size=8K]
+    Capabilities: &lt;access denied&gt;</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44336" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44336">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44336">
+
+<time datetime="2015-12-19T03:28">posted: 2015-12-19 &nbsp; 03:28</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44336" title="permalink">#37</a></span>
+
+<div class="content">Live usb ran ok for me Shay in 64bit iso.<br>
+<br>
+It is when you run the installer and then reboot. All hell breaks loose. At least for a couple of us so far.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44340" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44340">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44340">
+
+<time datetime="2015-12-19T04:11">posted: 2015-12-19 &nbsp; 04:11</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44340" title="permalink">#38</a></span>
+
+<div class="content">OK, will do a install and see what flies.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44341" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44341">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44341">
+
+<time datetime="2015-12-19T05:32">posted: 2015-12-19 &nbsp; 05:32</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44341" title="permalink">#39</a></span>
+
+<div class="content">Will not even boot up.<br>
+<img src="https://scontent-ord1-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/12360289_10205366243818820_2519390648675001103_n.jpg?oh=9c0aa27f0696c8125763448f0b5aeb30&amp;oe=5719DD6D" class="postimage" alt="Image"><br>
+<br>
+<img src="https://scontent-ord1-1.xx.fbcdn.net/hphotos-xlp1/v/t1.0-9/12360429_10205366243778819_7384150567083163983_n.jpg?oh=428d73de0c24dc3a5161c83945dd2fe6&amp;oe=571A727E" class="postimage" alt="Image"><br>
+<br>
+A old list for this computer.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -Fxz
+System:    Host: antix14R Kernel: 3.16.7-antix.2-486 i686 (32 bit gcc: 4.9.1)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-14-a4-RV_386-full Killah_P 28 December 2014
+Machine:   System: Dell product: OptiPlex 755
+           Mobo: Dell model: 0GM819 Bios: Dell v: A21 date: 12/07/2011
+CPU:       Single core Intel Core2 Duo E6750 (-UP-) cache: 4096 KB
+           flags: (lm nx pae sse sse2 sse3 ssse3 vmx) bmips: 5319 speed/max: 2000/2667 MHz
+Graphics:  Card: Intel 82Q35 Express Integrated Graphics Controller
+           bus-ID: 00:02.0
+           Display Server: X.Org 1.16.2.901 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1600x900@60.00hz
+           GLX Renderer: Mesa DRI Intel Q35 x86/MMX/SSE2
+           GLX Version: 2.1 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Intel 82801I (ICH9 Family) HD Audio Controller
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture v: k3.16.7-antix.2-486
+Network:   Card: Intel 82566DM-2 Gigabit Network Connection
+           driver: e1000e v: 2.3.2-k port: ecc0 bus-ID: 00:19.0
+           IF: eth0 state: up speed: 1000 Mbps duplex: full mac: &lt;filter&gt;
+Drives:    HDD Total Size: 1000.2GB (0.3% used)
+           ID-1: /dev/sda model: HITACHI_HUA72101 size: 1000.2GB
+Partition: ID-1: / size: 52G used: 3.3G (7%) fs: ext4 dev: /dev/sda1
+Sensors:   System Temperatures: cpu: 37.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 102 Uptime: 1:07 Memory: 324.8/1976.3MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.1
+           Client: Shell (bash 4.3.301) inxi: 2.2.16 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44348" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44348">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44348">
+
+<time datetime="2015-12-19T15:44">posted: 2015-12-19 &nbsp; 15:44</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44348" title="permalink">#40</a></span>
+
+<div class="content">Looks like you make 3 of us now. As the daughter kept saying in"Oh Brother where art thou"<br>
+<br>
+"He's Bonifide".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44349" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44349">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44349">
+
+<time datetime="2015-12-19T18:08">posted: 2015-12-19 &nbsp; 18:08</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44349" title="permalink">#41</a></span>
+
+<div class="content">Yet again.<br>
+<br>
+<img src="https://scontent-ord1-1.xx.fbcdn.net/hphotos-xlf1/v/t1.0-9/10295757_10205368474314581_1065508541554553115_n.jpg?oh=dadb70869867dfc023992a63ba846745&amp;oe=571C7733" class="postimage" alt="Image"><br>
+<br>
+Antix-15 output<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -Fxz
+System:    Host: antix15 Kernel: 4.0.5-antix.2-amd64-smp x86_64 (64 bit gcc: 4.9.2)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-15-V_x64-full Killah P 30 June 2015
+Machine:   System: TOSHIBA product: Satellite A505D v: PSAQ0U-00C002
+           Mobo: TOSHIBA model: Portable PC
+           Bios: Insyde v: 1.40 date: 06/08/2009
+CPU:       Dual core AMD Turion X2 Mobile RM-72 (-MCP-) cache: 1024 KB
+           flags: (lm nx sse sse2 sse3 svm) bmips: 8398
+           clock speeds: max: 2100 MHz 1: 2100 MHz 2: 2100 MHz
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] RS780MC [Mobility Radeon HD 3100]
+           bus-ID: 01:05.0
+           Display Server: X.Org 1.16.4 drivers: ati,radeon (unloaded: fbdev,vesa)
+           Resolution: 1366x768@60.00hz
+           GLX Renderer: Gallium 0.4 on AMD RS780
+           GLX Version: 3.0 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Advanced Micro Devices [AMD/ATI] SBx00 Azalia (Intel HDA)
+           driver: snd_hda_intel bus-ID: 00:14.2
+           Sound: ALSA v: k4.0.5-antix.2-amd64-smp
+Network:   Card-1: Realtek RTL8192E/RTL8192SE Wireless LAN Controller
+           driver: rtl819xE port: 6000 bus-ID: 02:00.0
+           IF: wlan0 state: up mac: &lt;filter&gt;
+           Card-2: Realtek RTL8101E/RTL8102E PCI Express Fast Ethernet controller
+           driver: r8169 v: 2.3LK-NAPI port: 4000 bus-ID: 03:00.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 120.0GB (14.2% used)
+           ID-1: /dev/sda model: CT120BX100SSD1 size: 120.0GB
+Partition: ID-1: / size: 96G used: 2.4G (3%) fs: ext4 dev: /dev/sda1
+           ID-2: swap-1 size: 15.17GB used: 0.00GB (0%) fs: swap dev: /dev/sda2
+Sensors:   System Temperatures: cpu: 57.8C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 135 Uptime: 3 min Memory: 192.7/3701.6MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.2.28 </code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44363" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44363">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">bedna</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44363">
+
+<time datetime="2015-12-21T22:39">posted: 2015-12-21 &nbsp; 22:39</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44363" title="permalink">#42</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>I don't know what else to say.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://lmgtfy.com/?q=linux+echi-orion"<br>linktext was:"http://lmgtfy.com/?q=linux+echi-orion"<br>====================================<br>
+<br>
+<br>
+If inbuilt support for the orion driver existed, your kernel config would contain a line specifically mentioning"orion", like<br>
+<span style="color: green">CONFIG_USB_EHCI_HCD_ORION=y</span><br>
+or<br>
+<span style="color: green">CONFIG_USB_EHCI_HCD_ORION=m</span></div></blockquote>
+cat /proc/config.gz | grep -i ORION<br>
+<br>
+Outpup is empty.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44377" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44377">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>146</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44377">
+
+<time datetime="2015-12-23T06:23">posted: 2015-12-23 &nbsp; 06:23</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44377" title="permalink">#43</a></span>
+
+<div class="content">According to my tests on my installed 64 bit system upgraded to AntiX testing + Debian testing, the above boot error (hdd not found / root fs not present) comes with kernels &gt;= 4.0. I'm writing this post using 3.19.1-antix.2-amd64-smp kernel, wich works fine. I get the same error with the 64 bit live iso, but not with the 32 bit version.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44406" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44406">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>5,955</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44406">
+
+<time datetime="2015-12-26T10:01">posted: 2015-12-26 &nbsp; 10:01</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44406" title="permalink">#44</a></span>
+
+<div class="content">Thanks for all the feedback.<br>
+<br>
+It seems the 64 bit kernel used in this alpha is no good. I'll go back to using the original that shipped with antiX-15 and (at some point) release an iso with the 'legacy' 3.7.10 kernel.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44464" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44464">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">dzz</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Dec 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44464">
+
+<time datetime="2015-12-29T17:39">posted: 2015-12-29 &nbsp; 17:39</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s30.html#p44464" title="permalink">#45</a></span>
+
+<div class="content">Just done a long overdue antiX"real install", using antiX-15.1-a1-V_x64-base.iso. The live system booted and ran fine but the installation did not, with errors as earlier described.<br>
+<br>
+I first got it to boot using a stock jessie kernel, installed from a chroot. The 4x (antiX) kernel does boot if udev/jessie (systemd-udev) is installed but I want to use eudev.<br>
+<br>
+The problem seems to be in eudev's /usr/share/initramfs-tools/scripts/init-top/udev at line 14. This seems only to apply with post-Jessie kernels, from when I don't know. The script tries to write to /sys/kernel which is not possible, then udev pukes before processing /dev/disk/ (therefore, rootfs is not found)<br>
+<br>
+Now got 4x working nicely here. The solution was:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>-echo &gt; /sys/kernel/uevent_helper
++if [ -w /sys/kernel/uevent_helper ]; then
++    echo &gt; /sys/kernel/uevent_helper
++fi</code></pre></div>
+then regenerate initrd. Alternatively, unpack the initrd, edit scripts/init-top/udev then repack and use it.<br>
+<br>
+Here are some references which helped debug this:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://aptosid.com/index.php?name=PNphpBB2&amp;file=viewtopic&amp;p=17510#17510"<br>linktext was:"http://aptosid.com/index.php?name=PNphp ... 7510#17510"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://aptosid.com/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=2820"<br>linktext was:"http://aptosid.com/index.php?name=PNphp ... pic&amp;t=2820"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://aptosid.com/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=2819"<br>linktext was:"http://aptosid.com/index.php?name=PNphp ... pic&amp;t=2819"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=+752742"<br>linktext was:"https://bugs.debian.org/cgi-bin/bugrepo ... ug=+752742"<br>====================================<br>
+<br>
+<br>
+This eudev version will need updating to use on newer kernels. The initramfs scripts used for the deb package were lifted from (probably an older version of) systemd-udev so the eudev source itself is not responsible.<br>
+<br>
+BTW thanks antiX team for this system, I like it.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-15-1-alpha1-for-testing-t6066-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066.html" role="button">1</a></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-15-1-alpha1-for-testing-t6066-s45.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

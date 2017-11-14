@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How to get wifi working with wicd - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-get-wifi-working-with-wicd-t3290.html">How to get wifi working with wicd</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_21648" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile21648">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21648">
+<time datetime="2011-08-20T16:47">posted: 2011-08-20 &nbsp; 16:47</time>
+<span class="permalink"><a href="./how-to-get-wifi-working-with-wicd-t3290.html#p21648" title="permalink">#1</a></span>
+
+<div class="content">This is from Dave.<br>
+wifi-wicd-t3289.html<br>
+<br>
+If you know the wireless interface skip to step 2 if not follow this:<br>
+menu --&gt; run<br>
+type: gksu roxterm<br>
+press: ok<br>
+type: your root password<br>
+press: ok<br>
+type: ifconfig -a<br>
+press: enter / return<br>
+<br>
+Now there should be an interface along the lines of wlan0, wlan1 wlan2, etc... It should not be eth* or lo, remember the interface name and continue with the following.<br>
+<br>
+STEP 2<br>
+menu --&gt; run<br>
+type: wicd-client -n<br>
+press: ok<br>
+press: preferences<br>
+Wireless interface = wlan* ( interface found in step 1 )<br>
+press: ok<br>
+press: refresh<br>
+<br>
+That is it, your wireless interface should now show up in wicd.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21651" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21651">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 609</span></div>
+
+</div>
+</div>
+<span class="username">dark-D</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21651">
+
+<time datetime="2011-08-20T17:50">posted: 2011-08-20 &nbsp; 17:50</time>
+<span class="permalink"><a href="./how-to-get-wifi-working-with-wicd-t3290.html#p21651" title="permalink">#2</a></span>
+
+<div class="content">another way to find out your wireless card info is to use inxi in a terminal:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -Nxi</code></pre></div>
+the output should be something like this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Network:   Card-1: Broadcom NetLink BCM5787M Gigabit Ethernet PCI Express driver: tg3 ver: 3.117 bus-ID: 04:00.0
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: &lt;filter&gt;
+           Card-2: Intel PRO/Wireless 3945ABG [Golan] Network Connection driver: iwl3945 ver: in-tree:s bus-ID: 03:00.0
+           IF: wlan0 state: down mac: &lt;filter&gt;
+           WAN IP: &lt;filter&gt; IF: eth0 ip: N/A ip-v6: N/A IF: wlan0 ip: N/A ip-v6: N/A 
+           IF: ppp0 ip: &lt;filter&gt; ip-v6: N/A 
+</code></pre></div>
+in mine i used the z option to filter out my ip and mac.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23990" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23990">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23990">
+
+<time datetime="2012-03-20T21:51">posted: 2012-03-20 &nbsp; 21:51</time>
+<span class="permalink"><a href="./how-to-get-wifi-working-with-wicd-t3290.html#p23990" title="permalink">#3</a></span>
+
+<div class="content">That's a good suggestion, dark-D!<br>
+<br>
+I get thIs when I run the command:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -Nxiz</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Network:   Card-1: Intel PRO/100 VE Network Connection driver: e100 ver: 3.5.24-k2-NAPI port: 4000 bus-ID: 04:08.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card-2: Broadcom BCM4311 802.11b/g WLAN driver: b43-pci-bridge bus-ID: 03:00.0
+           IF: wlan0 state: up mac: &lt;filter&gt;
+           WAN IP: &lt;filter&gt; IF: eth0 ip: N/A ip-v6: N/A IF: wlan0 ip: &lt;filter&gt; ip-v6: &lt;filter&gt; 
+</code></pre></div></div>
+<div class="postcontent_footer">
+ 
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23995" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23995">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23995">
+
+<time datetime="2012-03-21T00:13">posted: 2012-03-21 &nbsp; 00:13</time>
+<span class="permalink"><a href="./how-to-get-wifi-working-with-wicd-t3290.html#p23995" title="permalink">#4</a></span>
+
+<div class="content">anti,<br>
+<br>
+I tried the steps you listed, but shouldn't the ifconfig -a be iwconfig, still did not work for me, then I hit the button network and clicked on find hidden networks, then it requested my essid, and knowing my essid I put it in and bada-bing it came up, then typed in the pw and then I was online!! <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+cheers,<br>
+ohh</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

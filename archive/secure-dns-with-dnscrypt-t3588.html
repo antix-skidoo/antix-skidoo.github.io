@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Secure DNS with DNScrypt - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./secure-dns-with-dnscrypt-t3588.html">Secure DNS with DNScrypt</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23679" class="post has-profile bg2">
+<div class="inner">
+ <dl class="postprofile" id="profile23679">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23679">
+<time datetime="2012-02-19T06:59">posted: 2012-02-19 &nbsp; 06:59</time>
+<span class="permalink"><a href="./secure-dns-with-dnscrypt-t3588.html#p23679" title="permalink">#1</a></span>
+
+<div class="content"><span style="text-decoration: underline"><strong>Securing DNS queries with DNScrypt from OpenDNS.</strong></span><br>
+<blockquote class="uncited"><div>Why 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.opendns.com/technology/dnscrypt/"<br>linktext was:"DNSCrypt"<br>====================================<br>
+ is so significant<br>
+<br>
+In the same way the SSL turns HTTP web traffic into HTTPS encrypted Web traffic, DNSCrypt turns regular DNS traffic into encrypted DNS traffic that is secure from eavesdropping and man-in-the-middle attacks. It doesn't require any changes to domain names or how they work, it simply provides a method for securely encrypting communication between our customers and our DNS servers in our data centers. <br>
+<br>
+DNSCrypt has the potential to be the most impactful advancement in Internet security since SSL, significantly improving every single Internet user's online security and privacy.</div></blockquote>
+(1) Download &amp; install the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/opendns/dnscrypt-proxy/downloads"<br>linktext was:"dnscrypt-proxy"<br>====================================<br>
+ deb. <br>
+<br>
+<strong>*EDIT #2*</strong> - latest deb build is now on the github link above (it's really 1.0 but called 0.10) <br>
+<br>
+<strong>*EDIT*</strong> - I noticed today on github the source is 0.93 &amp; the deb 0.90 so to compile &amp; build the latest deb grab the latest source from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/opendns/dnscrypt-proxy/zipball/master"<br>linktext was:"here"<br>====================================<br>
+ &amp; in the source directory:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>./autogen.sh
+./configure --prefix=/usr
+make
+checkinstall
+### &amp; if you are upgrading
+sudo service dnscrypt restart</code></pre></div>
+I have put the dnscrypt-proxy_0.93 deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/file/6l6ttq7icknx41c/dnscrypt-proxy_0.93-1_i386.deb"<br>linktext was:"here"<br>====================================<br>
+. You can also find a deb for 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.keepassx.org/"<br>linktext was:"KeypassX"<br>====================================<br>
+ 0.43 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/file/jhodplgiuhy4y7h/keepassx_0.4.3-1_i386.deb"<br>linktext was:"here"<br>====================================<br>
+.<br>
+<br>
+(2) Install a caching DNS Server:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install unbound</code></pre></div>
+(3) Bring up a 2nd local IP Address for DNScrypt:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ifconfig lo:1 127.0.0.2 up</code></pre></div>
+Add the following to <strong>/etc/network/interfaces</strong> (so the interface survives reboots):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>auto lo:1
+iface lo:1 inet static
+address 127.0.0.2
+netmask 255.0.0.0</code></pre></div> <br>
+(4) Add the following to the server section of <strong>/etc/unbound/unbound.conf</strong>:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>forward-zone:
+  name:"."
+  forward-addr: 127.0.0.2@40</code></pre></div>
+(5) If you obtain your IP Address by DHCP add the following to <strong>/etc/dhcp/dhclient.conf</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>supersede domain-name-servers 127.0.0.1;</code></pre></div>
+If you <strong><span style="text-decoration: underline">do not</span></strong> use DHCP change <strong>/etc/resolv.conf</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>nameserver 127.0.0.1</code></pre></div>
+(6) Create <strong>/etc/init.d/dnscrypt</strong> &amp; add the following:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          dnscrypt
+# Required-Start:    $network $remote_fs $syslog
+# Required-Stop:     $network $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start dnscrypt
+# Description:       Encrypt DNS queries.
+### END INIT INFO
+DAEMON="/usr/sbin/dnscrypt-proxy"
+NAME="dnscrypt"
+
+dnscrypt_start()
+{
+    echo"Starting dnscrypt"
+    dnscrypt-proxy --local-port=40 --local-address=127.0.0.2 --daemonize    
+}
+
+dnscrypt_stop()
+{
+    echo"Stopping dnscrypt"
+    start-stop-daemon --oknodo --stop --quiet --retry=0/3/KILL/3 --exec"$DAEMON" &gt; /dev/null
+}
+
+case"$1" in
+    start)
+    dnscrypt_start
+    ;;
+  stop)
+    dnscrypt_stop
+  ;;
+  restart|force-reload)
+    dnscrypt_stop
+  dnscrypt_start
+    ;;
+    *)
+    echo"Usage: /etc/init.d/$NAME {start|stop|restart|force-reload}" &gt;&amp;2
+    exit 1
+    ;;
+esac
+
+exit 0</code></pre></div>
+make the script executable &amp; set to start on boot:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>chmod +x /etc/init.d/dnscrypt
+update-rc.d dnscrypt defaults</code></pre></div>
+(7) Start services:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>killall dhclient
+service dnscrypt start
+service unbound start</code></pre></div>
+Reconfigure your normal interface (eth0 or wlan0) - or reboot:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ifdown eth0 &amp;&amp; ifup eth0</code></pre></div>
+Test DNS is resolving correctly:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>host www.google.com</code></pre></div></div>
+<div class="notice">
+Last edited by <b>tradetaxfree</b> on 20 Jun 2012, 17:02, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24749" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24749">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1</span></div>
+
+</div>
+</div>
+<span class="username">ShinyPC</span>
+</dt>
+<dd class="profile-joined">Joined: 20 May 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24749">
+
+<time datetime="2012-05-20T07:29">posted: 2012-05-20 &nbsp; 07:29</time>
+<span class="permalink"><a href="./secure-dns-with-dnscrypt-t3588.html#p24749" title="permalink">#2</a></span>
+
+<div class="content">I tried this and have 1 problem. Unbound is not forwarding to dnscrypt. I can get dnscrypt to work correctly by itself and I can get unbound to work corrctly by itself. But I cannot get unbound to forward to dnscrypt. Ifconfig shows my second loop address 127.0.0.2 but there is no activity on port 40. I use wireshark to monitor my server activity. Can you suggest anything? Also, thanks for writing an exellent and useful article.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24750" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24750">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24750">
+
+<time datetime="2012-05-20T12:04">posted: 2012-05-20 &nbsp; 12:04</time>
+<span class="permalink"><a href="./secure-dns-with-dnscrypt-t3588.html#p24750" title="permalink">#3</a></span>
+
+<div class="content">To check DNScrypt was listening I used:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>netstat -lnptu | grep 127.0.0.2:40</code></pre></div>
+Which should show an output of:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>tcp        0      0 127.0.0.2:40            0.0.0.0:*               LISTEN      -               
+udp        0      0 127.0.0.2:40            0.0.0.0:* </code></pre></div>
+Are you using wireless &amp; not restarted the wireless interface <strong>wlan0</strong> so it uses the new settings for DNS ?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo -s
+killall dhclient
+service dnscrypt restart
+service unbound restart
+ifdown wlan0 &amp;&amp; ifup wlan0</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26333" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26333">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26333">
+
+<time datetime="2012-09-29T19:32">posted: 2012-09-29 &nbsp; 19:32</time>
+<span class="permalink"><a href="./secure-dns-with-dnscrypt-t3588.html#p26333" title="permalink">#4</a></span>
+
+<div class="content">I'm unable to modify the original post due to the forum bug.<br>
+<br>
+<strong>**EDIT** - v1.1 was released 25/9/12 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/opendns/dnscrypt-proxy/downloads"<br>linktext was:"here"<br>====================================<br>
+ - change line 17 of the init script to"dnscrypt-proxy --local-address=127.0.0.2:40 --daemonize" (with no quotes)</strong><br>
+<br>
+&amp; after changing run"sudo update-rc.d dnscrypt defaults"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31097" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31097">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31097">
+
+<time datetime="2013-09-22T23:10">posted: 2013-09-22 &nbsp; 23:10</time>
+<span class="permalink"><a href="./secure-dns-with-dnscrypt-t3588.html#p31097" title="permalink">#5</a></span>
+
+<div class="content">Am unable to update the original post due to the forum bug.<br>
+<br>
+Today I've built the latest 32 bit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/opendns/dnscrypt-proxy"<br>linktext was:"dnscrypt-proxy"<br>====================================<br>
+ (v.1.3.3) &amp; it's new crypto dependency 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/jedisct1/libsodium"<br>linktext was:"libsodium"<br>====================================<br>
+. A zip with both files can be found 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/download/jc2v2sgg11udocl/dnscrypt-proxy_1.3.3_i386.deb.zip"<br>linktext was:"here"<br>====================================<br>
+ <br>
+<br>
+After installing the libsodium deb run:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo ldconfig</code></pre></div>
+Then install dnscrypt-proxy.<br>
+<br>
+The instructions in the 1st post above for compiling from source will work for both libsodium &amp; dnscrypt-proxy. <br>
+<br>
+<strong>Don't forget to change line 17 of the init script above to:</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dnscrypt-proxy --local-address=127.0.0.2:40 --daemonize</code></pre></div>
+<strong>** If you are running the current Debian Stable (Wheezy)</strong> then version 1.3.3 of DNScrypt will not work for you (it requires LibC 2.15 or 2.17) - there is a 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.mediafire.com/download/e9u4yt8t5vkt2kc/dnscrypt-proxy_1.2-1_i386.deb"<br>linktext was:"32 bit deb here of DNScrypt v1.2"<br>====================================<br>
+ which will work with Wheezy. To compile the 1.2.1 branch look 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/opendns/dnscrypt-proxy/releases/tag/1.2.1"<br>linktext was:"here"<br>====================================<br>
+.<br>
+<br>
+There are now some 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/opendns/dnscrypt-proxy"<br>linktext was:"alternative DNS servers"<br>====================================<br>
+ that can be queried by DNScrypt which keep no logs. Just add the new setting to line 17 of the script:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>--resolver-address=&lt;ip&gt;[:port] --provider-name=&lt;certificate provider FQDN&gt; --provider-key=&lt;provider public key&gt;</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

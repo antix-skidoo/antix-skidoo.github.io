@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Alt+Shift doesn't work to switch languages. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./alt-shift-doesn-t-work-to-switch-languages-t4620.html">Alt+Shift doesn't work to switch languages.</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_31158" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31158">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">nikos.ontheroad</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31158">
+<time datetime="2013-09-30T00:57">posted: 2013-09-30 &nbsp; 00:57</time>
+<span class="permalink"><a href="./alt-shift-doesn-t-work-to-switch-languages-t4620.html#p31158" title="permalink">#1</a></span>
+
+<div class="content">Hello! Ijust started using antiX on a samsung nc10 netbook, coming from windows xp. I really like it so far!<br>
+Problem is that while for the first days i was using alt+shift to switch from english to greek, now it doesn't work. Any ideas what might have happened and how can i make it work?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31159" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31159">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">BitJam</a> </span> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31159">
+
+<time datetime="2013-09-30T02:08">posted: 2013-09-30 &nbsp; 02:08</time>
+<span class="permalink"><a href="./alt-shift-doesn-t-work-to-switch-languages-t4620.html#p31159" title="permalink">#2</a></span>
+
+<div class="content">These settings are stored in the /@etc/default/keyboard file (note: remove the @ between"/" and"etc". The @ is needed to work around a bug in the forum software).<br>
+<br>
+The file is explained 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/Keyboard"<br>linktext was:"here"<br>====================================<br>
+:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># KEYBOARD CONFIGURATION FILE
+
+# Consult the keyboard(5) manual page.
+
+XKBMODEL="pc105"
+XKBLAYOUT="us,de,fr,ua,ru"
+XKBVARIANT=""
+XKBOPTIONS="grp:alt_shift_toggle"
+
+BACKSPACE="guess"</code></pre></div>Make sure XKBOPTIONS includes"grp:alt_shift_toggle" and that XKBLAYOUT has the list of languages you want supported. If you change this file you will have to log out of X and log in again to have the changes take effect.<br>
+<br>
+You can also make changes immediately from the command line with the"setxkbmap" program but these changes won't be saved. <br>
+<br>
+Use"setxkbmap -query" to see the current settings. <br>
+<br>
+Use"setxkbmap us,el" to set the layout choice to US English and Greek (I think).<br>
+<br>
+use"setxkbmap -option grp:alt_shift_toggle" to enable Alt-Shift to toggle through the layouts.<br>
+<br>
+use"setxkbmap -option" to clear all existing options.<br>
+<br>
+use"man setxkbmap" to get descriptions of all of its tricks.<br>
+<br>
+HTH</div>
+</div>
+
+</div>
+
+</div>
+</div>
+<div id="p_31162" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31162">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">nikos.ontheroad</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31162">
+
+<time datetime="2013-09-30T09:55">posted: 2013-09-30 &nbsp; 09:55</time>
+<span class="permalink"><a href="./alt-shift-doesn-t-work-to-switch-languages-t4620.html#p31162" title="permalink">#3</a></span>
+
+<div class="content">Hi and thanks for the reply!<br>
+<br>
+I am completely new at this and do not know where i can find the /@etc/default/keyboard file .<br>
+I used ROXTerm and got this:<br>
+<br>
+$ setxkbmap -query<br>
+rules: evdev<br>
+model: pc105<br>
+layout: gr,gr-utf8,us<br>
+options: grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll<br>
+<br>
+If I understand this correctly, it means that alt+shift toggle is enabled, right?<br>
+It still won't work though. Any ideas?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31163" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31163">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31163">
+
+<time datetime="2013-09-30T11:45">posted: 2013-09-30 &nbsp; 11:45</time>
+<span class="permalink"><a href="./alt-shift-doesn-t-work-to-switch-languages-t4620.html#p31163" title="permalink">#4</a></span>
+
+<div class="content">Are you using antiX live or installed?<br>
+<br>
+If using live, you will need to edit the startup files in /home/demo/.icewm to something like this.<br>
+<br>
+setxkbmap -layout"us,gr" -option"grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"<br>
+<br>
+You may need to logout/login for it to change</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31174" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31174">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">nikos.ontheroad</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31174">
+
+<time datetime="2013-09-30T20:19">posted: 2013-09-30 &nbsp; 20:19</time>
+<span class="permalink"><a href="./alt-shift-doesn-t-work-to-switch-languages-t4620.html#p31174" title="permalink">#5</a></span>
+
+<div class="content">I am using the installed version... I tried a few things and nothing worked. I installed antiX 13 again and now its ok... If it happens ag'vain i'll post here.<br>
+<br>
+By the way, I've never used anything other than msdos, when i was a kid, and windows.<br>
+However, it took me 10 minutes to install antiX 13 and do everything i used to do on windows xp, minus the hang ups.<br>
+So consider me converted! <br>
+<br>
+Thanks a lot for the help.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31180" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile31180">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31180">
+
+<time datetime="2013-10-01T00:09">posted: 2013-10-01 &nbsp; 00:09</time>
+<span class="permalink"><a href="./alt-shift-doesn-t-work-to-switch-languages-t4620.html#p31180" title="permalink">#6</a></span>
+
+<div class="content">Do you remember if you installed any packages or changed settings between when it was working and when it broke? Did you have an unexpected shutdown due to a power failure?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_31185" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile31185">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">nikos.ontheroad</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Sep 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content31185">
+
+<time datetime="2013-10-01T12:41">posted: 2013-10-01 &nbsp; 12:41</time>
+<span class="permalink"><a href="./alt-shift-doesn-t-work-to-switch-languages-t4620.html#p31185" title="permalink">#7</a></span>
+
+<div class="content">Yes and yes. I installed Geogebra and had an unexpected shutdown due to battery failure.<br>
+Also i had fiddled with the language settings and now i think that that was the reason for my problem. <br>
+Now everything is allright. <br>
+Well almost everything... I made conky show how much battery i have left, but it only does so, after i turn it off and then on again. So every time i boot. i have to turn conky off and then on again to make it display any changes i made to it. I'll be making a separate thread about this.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

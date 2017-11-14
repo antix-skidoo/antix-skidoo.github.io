@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How to: Set up /boot/grub/menu.lst for automatic updates - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-intifada-f28/index.html"><span>antiX-M8 Intifada!</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-set-up-boot-grub-menu-lst-for-automatic-upd-t1244.html">How to: Set up /boot/grub/menu.lst for automatic updates</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_7889" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7889">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7889">
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/7889/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2008-11-24T16:28">posted: 2008-11-24 &nbsp; 16:28</time>
+<span class="permalink"><a href="./how-to-set-up-boot-grub-menu-lst-for-automatic-upd-t1244.html#p7889" title="permalink">#1</a></span>
+
+<div class="content">Sometimes your boot/grub/menu.lst will show that the partition is seen as sd other times hd.<br>
+This might cause problems if you wish to install a sidux kernel as the upgrade-grub feature (in a terminal or via the smxi script) fails to put the new kernel entry into the menu.lst.<br>
+<br>
+The simple solution to this is to check that the /boot/grub/device.map shows the correct information:<br>
+ie <strong>(hd0)    /dev/sda</strong> or <strong>(hd0)    /dev/hda</strong> <br>
+depending on how grub labels you partition.<br>
+<br>
+You should then be able to run <br>
+#update-grub<br>
+and see a much longer grub menu with any new kernels added at the bottom.<br>
+<br>
+To clean up this menu, make the following changes.<br>
+<br>
+1. Remove all the first 2 entries that refer to the newest kernel and previous kernel.<br>
+2. In this section ### BEGIN AUTOMAGIC KERNELS LIST make the following changes<br>
+<br>
+# kopt=root=UUID=47c2cebc-2aa0-4v92-9006-d4cd3c4a6e8b ro nomce quiet nosplash vga=791<br>
+(your UUID will be different)<br>
+<br>
+## should update-grub create alternative automagic boot options<br>
+## e.g. alternative=true<br>
+## alternative=false<br>
+# alternative=false<br>
+<br>
+## altoption boot targets option<br>
+## multiple altoptions lines are allowed<br>
+## e.g. altoptions=(extra menu suffix) extra boot options<br>
+## altoptions=(single-user) single<br>
+# altoptions=<br>
+<br>
+## should update-grub create memtest86 boot option<br>
+## e.g. memtest86=true<br>
+## memtest86=false<br>
+# memtest86=false<br>
+<br>
+3. In /boot/grub remove the vmlinuz, vmlinuz.old, initrd.img.old, initrd.img sym links<br>
+4. #update-grub in a terminal should show a cleaned up list of available kernels.<br>
+<br>
+You should now be able to install any kernel and have it automatically added to the /boot/grub/menu.lst</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7893" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7893">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+
+</dl>
+<div class="postbody">
+<div id="post_content7893">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/7893/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2008-11-24T17:55">posted: 2008-11-24 &nbsp; 17:55</time>
+<span class="permalink"><a href="./how-to-set-up-boot-grub-menu-lst-for-automatic-upd-t1244.html#p7893" title="permalink">#2</a></span>
+
+<div class="content">Thanks! Those are a handy set of tips, ones that perhaps the veterans could figure out, but are, nevertheless, very handy! The beginners would have no way of figuring that out, so this is a most useful tip indeed!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7898" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7898">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7898">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/7898/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2008-11-24T22:58">posted: 2008-11-24 &nbsp; 22:58</time>
+<span class="permalink"><a href="./how-to-set-up-boot-grub-menu-lst-for-automatic-upd-t1244.html#p7898" title="permalink">#3</a></span>
+
+<div class="content">Just to add to anti's tip. If you have any special arguments to pass to the kernel at boot such as acpi=force etc, add them to the end of the kopt line. The boot codes or argument/helpers will be automatically added to the new any new kernel you install. This just prevents you from having to edit the /boot/grub/menu.lst with every new kernel. Hey, why do more than you have to. The smxi script will automatically do"update-grub" but if you use any other method you will need to do it yourself.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_8305" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile8305">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content8305">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/8305/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2008-12-26T16:35">posted: 2008-12-26 &nbsp; 16:35</time>
+<span class="permalink"><a href="./how-to-set-up-boot-grub-menu-lst-for-automatic-upd-t1244.html#p8305" title="permalink">#4</a></span>
+
+<div class="content">In my experience, when you run update-grub on the vast majority of systems, it will scan /boot on the current system and update the grub menu with the current list of kernels that can be found in /boot on the partition that you are using. Is there, however, a clean and easily maintainable way of having update-grub look at ALL partitions containing a /boot directory, and examine each of them, then add a copy of each kernel, so that your grub menu contains all the available kernels on all systems?<br>
+<br>
+It appears that a few distributions have a technique to do this when they <strong>initially install </strong>their software, but very few, if any, of them implement a version of update-grub that consistently <strong>scans all partitions </strong>for instances of a <strong>/boot/vmlinuz*</strong> in all partitions?<br>
+<br>
+Is there a clean way to do this, or does it require hackery of some sort? Seems to me that if this functionality is available at install time, it ought to be available in general. If I were clever enough and had the time to do it, I suppose that I could write a script to do what I want to do, but it seems that such a tool ought to be out there already. Does anyone know of such a tool, and if so, where to get it and how to use it?<br>
+<br>
+Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9033" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile9033">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">h2</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9033">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/9033/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+ </div>
+</li>
+</ul>
+<time datetime="2009-02-14T18:09">posted: 2009-02-14 &nbsp; 18:09</time>
+<span class="permalink"><a href="./how-to-set-up-boot-grub-menu-lst-for-automatic-upd-t1244.html#p9033" title="permalink">#5</a></span>
+
+<div class="content">I tested this, and I'd like to update a few points:<br>
+<br>
+You want to set: # alternative=false<br>
+<br>
+This makes the system not create doubled sets of menu.list entries when you run update-grub<br>
+<br>
+There is no need to remove the vmlinuz, vmlinuz.old, initrd.img.old, initrd.img sym links, at least not that I can see.<br>
+<br>
+Also on the top, remove the memtest item that appears above the automagic stuff, with the original Mepis items.<br>
+<br>
+I can add a test in smxi to allow Debian kernel installs if UUID= or LABEL= is used for root= in kopt= section of menu.lst, this would be fairly safe then, at least reasonably.<br>
+<br>
+You might also want to add: default 0<br>
+to the top data, timeout, gfxmenu section, that lets you tell grub which OS to use by default.<br>
+<br>
+So I'll modify the smxi test for antix to check for a corrected kopt=, with root=UUID= or root=LABEL=, if that's present, Debian kernel install will be activated, and I'll assume that the person has corrected their menu.lst manually and it's safe to proceed with debian kernel install.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_9035" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile9035">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">h2</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content9035">
+
+<ul class="post-buttons">
+<li class="dropdown-container">
+<a href="javascript:void(0");" class="dropdown-trigger button button-icon-only"></a>
+<div class="dropdown">
+<div class="pointer">
+<div class="pointer-inner"></div>
+</div>
+<ul class="dropdown-contents dropdown-nonscroll">
+<li>
+<a href="/groups/antix/app.php/post/9035/report" title="Report this post" class="button-icon-only"><span>Report this post</span></a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+<time datetime="2009-02-14T18:38">posted: 2009-02-14 &nbsp; 18:38</time>
+<span class="permalink"><a href="./how-to-set-up-boot-grub-menu-lst-for-automatic-upd-t1244.html#p9035" title="permalink">#6</a></span>
+
+<div class="content">Sorry, let me update, on testing, you do need to delete the files: /boot/grub/vmlinuz.old initrd.img.old<br>
+but nothing else in there that I can see needs to be deleted.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

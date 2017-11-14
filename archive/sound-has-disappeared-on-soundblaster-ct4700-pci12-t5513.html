@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Sound Has Disappeared on Soundblaster CT4700 PCI128 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./sound-has-disappeared-on-soundblaster-ct4700-pci12-t5513.html">Sound Has Disappeared on Soundblaster CT4700 PCI128</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_39556" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39556">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 39</span></div>
+
+</div>
+</div>
+<span class="username">frogprince</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39556">
+<time datetime="2015-02-13T02:34">posted: 2015-02-13 &nbsp; 02:34</time>
+<span class="permalink"><a href="./sound-has-disappeared-on-soundblaster-ct4700-pci12-t5513.html#p39556" title="permalink">#1</a></span>
+
+<div class="content">Hi: At some point after a recent update, my sound quit. I'm running a basic Soundblaster CT4700 PCI128 sound card, which shows up as being supported on the ALSA site, but I can't even get ALSA to run. I searched and found:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/post32517.html?hilit=snd_mixer_attach#p32517"<br>linktext was:"antix.freeforu ms.org/post32517.h ... ach#p32517"<br>====================================<br>
+<br>
+<br>
+and tried to follow that. What I found was:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>aplay /usr/share/sounds/alsa/Noise.wav
+ALSA lib confmisc.c:768:(parse_card) cannot find card '0'
+ALSA lib conf.c:4241:(_snd_config_evaluate) function snd_func_card_driver returned error: No such file or directory
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:4241:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1251:(snd_func_refer) error evaluating name
+ALSA lib conf.c:4241:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:4720:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2217:(snd_pcm_open_noupdate) Unknown PCM default
+aplay: main:682: audio open error: No such file or directory
+mikeb@antiX1:~
+$ cat /proc/asound/cards
+--- no soundcards ---
+mikeb@antiX1:~
+$ aplay -L
+null
+    Discard all samples (playback) or generate zero samples (capture)
+</code></pre></div>
+But I was unable to figure out the correct driver to modprobe. Can someone give me a little guidance here?<br>
+<br>
+Thanks in advance.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39557" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39557">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39557">
+
+<time datetime="2015-02-13T03:18">posted: 2015-02-13 &nbsp; 03:18</time>
+<span class="permalink"><a href="./sound-has-disappeared-on-soundblaster-ct4700-pci12-t5513.html#p39557" title="permalink">#2</a></span>
+
+
+<div class="content">there was an update not to long ago that broke a package called oss-compat, which is used to provide sound effects from some of the older games in antix. The breakage caused a problem with alsa loading at boot. It also caused a lag at boot right around the step for populating udev.<br>
+<br>
+You can safely remove the oss-compat package. I think the only thing that uses it is bejeweled, and the games still plays, just no sound.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39563" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39563">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 173</span></div>
+
+</div>
+</div>
+<span class="username">DeepDayze</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39563">
+
+<time datetime="2015-02-13T15:45">posted: 2015-02-13 &nbsp; 15:45</time>
+<span class="permalink"><a href="./sound-has-disappeared-on-soundblaster-ct4700-pci12-t5513.html#p39563" title="permalink">#3</a></span>
+
+<div class="content">That card uses the es1370 module you can check to see if that module is loaded:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod | grep es1370</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39566" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39566">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 39</span></div>
+
+</div>
+</div>
+<span class="username">frogprince</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39566">
+
+<time datetime="2015-02-13T17:41">posted: 2015-02-13 &nbsp; 17:41</time>
+<span class="permalink"><a href="./sound-has-disappeared-on-soundblaster-ct4700-pci12-t5513.html#p39566" title="permalink">#4</a></span>
+
+<div class="content">dolphin_oracle: Thanks for your suggestion; I ran apt-get remove oss-compat, and rebooted. Audacious then ran without error messages, <br>
+but still with no sound. I moved the sound output cable from the sound card to the onboard audio, and voila! sound.<br>
+<br>
+DeepDayze: I opened the antiX Control Center, clicked on Adjust Mixer, and when the also gui appeared, hit F2 for system information, <br>
+and then /proc/asound/cards. Both the onboard ALI5451 and ENS1370 drivers were shown. So I ran:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> lsmod | grep ens1370
+snd_ens1370            14413  1 
+snd_rawmidi            12946  2 snd_ens1370,snd_seq_midi
+snd_pcm                50892  4 snd_ac97_codec,snd_ens1370,snd_ali5451
+snd_page_alloc          5091  2 snd_pcm,snd_ens1370
+snd                    36962  14 snd_ac97_codec,snd_timer,snd_pcm,snd_seq,snd_rawmidi,snd_ens1370,snd_seq_device,snd_seq_midi,snd_ali5451
+gameport                5365  1 snd_ens1370
+</code></pre></div>
+which looks good. /dev populate ran much faster at reboot, but did generate an error message about"sound codec 'AC97 not valid". <br>
+Since I'm listening to the system play a radio station right now, I'm not sure what that's about. <br>
+<br>
+Running F6 in the alsa gui to select the sound card instead of the onboard chip shows the sound card as having been selected, but<br>
+the actual physical output doesn't change. So..is there a config file somewhere that I need to edit, or ?<br>
+<br>
+Thanks for all your help!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39567" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39567">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39567">
+
+<time datetime="2015-02-13T18:41">posted: 2015-02-13 &nbsp; 18:41</time>
+<span class="permalink"><a href="./sound-has-disappeared-on-soundblaster-ct4700-pci12-t5513.html#p39567" title="permalink">#5</a></span>
+
+<div class="content">go ahead and run<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /proc/asound/cards
+</code></pre></div>
+and post the output. Having more than one sound card is a classic problem, and its likely your system is seeing the wrong one (for you) as the default. If the cards all show up, you should be able to make a .asoundrc file in your home folder that will point to the card you want.<br>
+<br>
+the contents of .asoundrc would then look like this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#replace the number in the phrase"card 1" with the number of the soundcard you wish to use
+#make sure to replace both instances
+   pcm.!default {
+           type hw
+           card 1
+        }
+
+        ctl.!default {
+           type hw           
+           card 1
+        }
+</code></pre></div>
+replacing the"card 1" statements with whatever card number provided by the <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /proc/asound/cards
+</code></pre></div>
+more info here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepiscommunity.org/doc_mx/sound.html"<br>linktext was:"http://www.mepiscommunity.org/doc_mx/sound.html"<br>====================================<br>
+<br>
+<br>
+look under trouble shooting. the doc is technically for mx, but the alsa sound system is the same in both mx and antix.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_39571" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39571">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 173</span></div>
+
+</div>
+</div>
+<span class="username">DeepDayze</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39571">
+
+<time datetime="2015-02-13T22:41">posted: 2015-02-13 &nbsp; 22:41</time>
+<span class="permalink"><a href="./sound-has-disappeared-on-soundblaster-ct4700-pci12-t5513.html#p39571" title="permalink">#6</a></span>
+
+<div class="content">You can disable the onboard sound if you want to use the Soundblaster. To do this you'll have to go into the BIOS and in the configuration section look for something like"Onboard Audio" and set that to Disabled.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

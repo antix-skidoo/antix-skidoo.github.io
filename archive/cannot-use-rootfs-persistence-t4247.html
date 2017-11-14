@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Cannot use rootfs persistence - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./cannot-use-rootfs-persistence-t4247.html">Cannot use rootfs persistence</a></div>
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_28548" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28548">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28548">
+<time datetime="2013-04-05T14:55">posted: 2013-04-05 &nbsp; 14:55</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28548" title="permalink">#1</a></span>
+
+<div class="content">I am using antix12, usb live with persistence. Everything was working well, including setting up root and home persistence and a few remasters. Problem started with dist-upgrade. I tried several times, but was never able to get through all the unpacking, always ending with"E: Sub-process /usr/bin/dpkg returned an error code (2)". Until the last attempt, I was always able to continue using antix with no problems. After last attempt, antix completely froze, and I had to use power button to restart. Now I cannot use root persistence. If I boot using root persistence, I get a desktop and menu, but no reaction to menu selections including exiting, requiring me to use the power button to shutdown. If I boot using only home persistence, antix seems to work perfectly.<br>
+<br>
+I assume that the rootfs file is corrupted or broken. Should I try using a rootfs.bak or rootfs.old file? If so, how? Any other suggestions?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28549" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28549">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28549">
+
+<time datetime="2013-04-05T16:34">posted: 2013-04-05 &nbsp; 16:34</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28549" title="permalink">#2</a></span>
+
+<div class="content">I think the problem is that you've run out of RAM. On the Live system we store all filesystem changes in RAM which makes it very fast. When root persistence is enabled we store these changes in the rootfs file between reboots. I imagine that a dist-upgrade caused enough filesystem changes to eat up all of your available RAM and after that nothing much would work.<br>
+<br>
+The way to _avoid_ this problem is to use the remaster-me program more frequently. This transfers all persist-root changes to the linuxfs file which clears up RAM usage. The existence of a rootfs.old file indicates that you might have run remaster-me sometime in the past. If you also have a linuxfs.old file then it is likely that you have. In this case you can boot with the"rollback" boot parameter which will take your system back to the state it was in the last time you ran remaster-me.<br>
+<br>
+If rolling back isn't an option (or isn't a good option for you) then you could try to boot into command line mode (using a boot parameter"3" for run-level 3) and from there run the remaster-me program. Unfortunately, I doubt that booting into command-line mode will save enough RAM to free up the space needed to run remaster-me but it might work.<br>
+<br>
+One final (untested) suggestion if all of the above fails. You can save even more memory at boot time by using the"bp=9" boot parameter which drops you to a busybox shell right before starting the init process. From there you can try running /usr/local/bin/remaster-me.<br>
+<br>
+I apologize for not having anticipated this failure mode. I'll try to add some better workarounds in the next release but that probably won't help you now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28551" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28551">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28551">
+
+<time datetime="2013-04-05T16:48">posted: 2013-04-05 &nbsp; 16:48</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28551" title="permalink">#3</a></span>
+
+<div class="content">It could also be due to lack of space either in the rootfs or on the device/partition itself.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28552" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28552">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28552">
+
+<time datetime="2013-04-05T17:16">posted: 2013-04-05 &nbsp; 17:16</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28552" title="permalink">#4</a></span>
+
+<div class="content">But jsr said:<blockquote><div><cite>jsr wrote:</cite>I tried several times, but was never able to get through all the unpacking, [...]</div></blockquote>ISTM this indicates the problem was running out of RAM since the rootfs file is out of the picture until persist-save is run.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28553" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28553">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28553">
+
+<time datetime="2013-04-05T17:42">posted: 2013-04-05 &nbsp; 17:42</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28553" title="permalink">#5</a></span>
+
+<div class="content">BitJam &amp; anticapitalista, thank you for the quick replies.<br>
+<br>
+Bitjam: Rollback worked! When I tried dist-upgrade, I had root persistence enabled. I suspected that the size of the rootfs file might be a limiting factor so I remastered before dist-upgrade. Maybe I sized the new rootfs file too small. I have 1g ram and 1018mb is max rootfs file size. What if I remastered again, size the new rootfs file at max, try dist-upgrade in stages, e.g., update libreoffice separately, and remaster again until I get all files updated? Worst case, I could just rollback again and live with it, since antix12 works great now and I don't know benefits of dist-upgrade anyway. Besides, antix13 will be out soon?<br>
+<br>
+anticapitalista: I did not max size the new rootfs file after remastering. USB device is 7.6gb with 4.5gb available.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28554" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28554">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28554">
+
+<time datetime="2013-04-05T17:47">posted: 2013-04-05 &nbsp; 17:47</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28554" title="permalink">#6</a></span>
+
+<div class="content">How big is the rootfs?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28555" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28555">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28555">
+
+<time datetime="2013-04-05T17:54">posted: 2013-04-05 &nbsp; 17:54</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28555" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>How big is the rootfs?</div></blockquote>
+I do not recall the size when I last tried dist-upgrade, either 512 or 768. Max size offered is 1018.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28556" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28556">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28556">
+
+<time datetime="2013-04-05T17:57">posted: 2013-04-05 &nbsp; 17:57</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28556" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>jsr wrote:</cite>What if I remastered again, size the new rootfs file at max, try dist-upgrade in stages, e.g., update libreoffice separately, and remaster again until I get all files updated?</div></blockquote>This.<br>
+<br>
+You don't even need to have root persistence enabled when you do this. I'm so glad you thought ahead and did a remaster before doing the dist-upgrade.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28557" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28557">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28557">
+
+<time datetime="2013-04-05T18:11">posted: 2013-04-05 &nbsp; 18:11</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28557" title="permalink">#9</a></span>
+
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>You don't even need to have root persistence enabled when you do this.</div></blockquote>
+I do not understand. I thought I could not save updates or dist-upgrade unless root persistence is enabled.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28558" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28558">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28558">
+
+<time datetime="2013-04-05T18:33">posted: 2013-04-05 &nbsp; 18:33</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28558" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>jsr wrote:</cite><blockquote><div><cite>BitJam wrote:</cite>You don't even need to have root persistence enabled when you do this.</div></blockquote>I do not understand. I thought I could not save updates or dist-upgrade unless root persistence is enabled.</div></blockquote>The remaster-me program directly saves whatever changes you've made to the filesystem whether you have root persistence enabled or not. If you don't run remaster-me and you don't have root persistence enabled then, of course, your changes will be lost. But you don't need both. If remaster-me was really fast and didn't take up extra disk space then there would be no need for root-persistence, we would just have people run remaster-me instead of running persist-save.<br>
+<br>
+In fact, for your situation, I think you are better off without root persistence until you get through the dist-upgrade because it saves you from having to do a rollback if you run out of RAM before you are able to run remaster-me.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28559" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28559">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28559">
+
+<time datetime="2013-04-05T18:48">posted: 2013-04-05 &nbsp; 18:48</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28559" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>In fact, for your situation, I think you are better off without root persistence until you get through the dist-upgrade because it saves you from having to do a rollback if you run out of RAM before you are able to run remaster-me.</div></blockquote>
+Thank you for clarifying how remaster works. Your suggestion makes sense - I will try it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28723" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28723">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28723">
+
+<time datetime="2013-04-15T15:51">posted: 2013-04-15 &nbsp; 15:51</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28723" title="permalink">#12</a></span>
+
+<div class="content">BitJam,<br>
+I tried dist-upgrade and even just libreoffice update without root persistence enabled - no success. Also tried from command line to minimize resource usage, since that is where antix boots, but still no go. I have 1gb ram and am now convinced that it is not enough capacity for the dist-upgrade. Will eagerly await antix13, assuming at release it will be more up-to-date and not require such a massive upgrade.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28727" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28727">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28727">
+
+<time datetime="2013-04-15T16:26">posted: 2013-04-15 &nbsp; 16:26</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28727" title="permalink">#13</a></span>
+
+<div class="content">What error do you get when doing a dist-upgrade without root persistence set?<br>
+How much is being upgraded?<br>
+Can you upgrade a few apps while running root persistence and reboot ok?<br>
+If so, then make a new remaster using the remaster-me application in the antiX control centre (don't forget to make a new-rootfs as well) and if that works, on next reboot, you can clean out all the old unused saved rootfs/linuxrc files. The persistence app in the control centre has this option.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28768" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28768">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28768">
+
+<time datetime="2013-04-18T18:29">posted: 2013-04-18 &nbsp; 18:29</time>
+<span class="permalink"><a href="./cannot-use-rootfs-persistence-t4247.html#p28768" title="permalink">#14</a></span>
+
+<div class="content">anticapitalista: I will try your suggestion. However, I have another problem, cannot shutdown or reboot from Log Out window, so want to solve that first and will post new topic.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+14 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

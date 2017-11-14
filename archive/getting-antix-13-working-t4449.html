@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Getting antiX 13 working - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./getting-antix-13-working-t4449.html">Getting antiX 13 working</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./getting-antix-13-working-t4449-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./getting-antix-13-working-t4449-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_30067" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30067">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">Slaizer</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jun 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30067">
+<time datetime="2013-06-27T18:14">posted: 2013-06-27 &nbsp; 18:14</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30067" title="permalink">#1</a></span>
+
+<div class="content">Hi,<br>
+<br>
+I downloaded the distro: antix-13_x64-full.iso image. When I am during the install process it works just fine. When I am booting it up it reads: Target filesystem doesn't have requested /sbin/init. No init found. Try passing init=bootarg; and: /bin/sh:can't access tty; job control turned off.<br>
+<br>
+Anyone here who might help a fellow out?<br>
+<br>
+Thanks all</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30068" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30068">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30068">
+
+<time datetime="2013-06-27T18:40">posted: 2013-06-27 &nbsp; 18:40</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30068" title="permalink">#2</a></span>
+
+<div class="content">It seems the Grub entry is pointing to the wrong root filesystem. This would explain the errors you got. You need to boot with the LiveCD/USB in order to diagnose and fix this problem. If there are not a lot of partitions on this machine I suggest you use the"F4 Options" menu --&gt;"mount all" option in the bootloader to mount all partitions under /media.<br>
+<br>
+You need to do two things: (1) find out which partition antiX was installed to, and (2) fix the /boot/grub/menu.lst file on that partition.<br>
+<br>
+If you used the"mount all" option then you should be able to find the menu.lst file with this command:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ls /media/*/boot/grub/menu.lst</code></pre></div>
+If you can find menu.lst then please post the contents here (or on pastebin) along with the output of the command above and the output of:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo blkid</code></pre></div>This should be enough for someone to tell you how to edit menu.lst to get antiX to boot.<br>
+<br>
+It is possible that something went horribly wrong with the install and you will have to do it again.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30072" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30072">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30072">
+
+<time datetime="2013-06-27T22:41">posted: 2013-06-27 &nbsp; 22:41</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30072" title="permalink">#3</a></span>
+
+<div class="content">Also, to make sure all dogs and cats are in a row.<br>
+<br>
+Make sure bios is telling the right drive to boot first. Believe it or not. That screwed with my head till I checked and fixed that.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30078" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30078">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">Slaizer</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jun 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30078">
+
+<time datetime="2013-06-28T12:20">posted: 2013-06-28 &nbsp; 12:20</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30078" title="permalink">#4</a></span>
+
+<div class="content">My installation process is like this: installing media--&gt;chose wheezy---&gt;install on sdd (my 80Gb hard drive which don't have anything installed on it)---&gt; Chose not to install GRUB for antiX and Windows (should I choose this option?). <br>
+<br>
+Well that is about it, and it doesn't work. Should I install the Grub for antiX and which system boot disk in that case, sda is the first one. <br>
+<br>
+I understand kind of how to change in the boot/grub/menu.lst, but I want to know if to install this GRUB and where first. <br>
+<br>
+I have another operating system on my 120GB drive, that one is my dev/sdc. My first drive is /dev/sda, if this helps. <br>
+<br>
+Thanks for answering, and hope my reply can make you guys understand my situation better.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30079" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30079">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30079">
+
+<time datetime="2013-06-28T12:41">posted: 2013-06-28 &nbsp; 12:41</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30079" title="permalink">#5</a></span>
+
+<div class="content"><blockquote class="uncited"><div>&gt;install on sdd (my 80Gb hard drive which don't have anything installed on it)</div></blockquote>
+Without the info bitjam asked for. It is still hard to advise you. <br>
+<br>
+My question is is the 80 gig drive the first in bios boot order and was grub installed to mbr of the 80 gig drive with the defaults used in the installer"use initrd, it is recommended" box checked?<br>
+<br>
+It sounds like you have dual ide hard drives and are trying to dual boot Windows on one hard drive and AntiX on another hard drive. I hope I got that right.<br>
+I do this also, (quad boot on 2 drives but no Windows on any drive) but without the info Bitjam requested. It is hard to advise you like I said.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30083" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30083">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">Slaizer</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Jun 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30083">
+
+<time datetime="2013-06-28T14:16">posted: 2013-06-28 &nbsp; 14:16</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30083" title="permalink">#6</a></span>
+
+<div class="content">bitjam,<br>
+<br>
+the first (1), the OS is installed on the sdd disk, and (2), the GRUB, I did not install it. I have since before Opensuse 12.3 KDE installed on my sdc disk, and GRUB has been working just fine. I don't know the boot-order on these disks. This is the output from blkid: <iframe data-s9e-mediaembed="pastebin" allowfullscreen="" scrolling="" src="//pastebin.com/embed_iframe.php?i=FEgAQvve" style="border:0;height:300px;resize:vertical;width:100%"></iframe> Didn't get any answer from the ls /media/*/boot/grub/menu.lst command. <br>
+<br>
+Best regards</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30084" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30084">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30084">
+
+<time datetime="2013-06-28T14:43">posted: 2013-06-28 &nbsp; 14:43</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30084" title="permalink">#7</a></span>
+
+<div class="content">I'm confused. So you booted the live media and installed to /dev/sdd correct? Your blkid shows /dev/sdd1 as an ntfs drive with a label of"Stockholm". Is that the drive you installed to?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30087" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30087">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">Slaizer</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Jun 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30087">
+
+<time datetime="2013-06-28T14:52">posted: 2013-06-28 &nbsp; 14:52</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30087" title="permalink">#8</a></span>
+
+<div class="content">I am also kind of confused. I use Gparted when I looked at the drives on antiX, and it showed the 80GB drive as sdd, the drive also has antiX files installed on this drive. When I am using Fedora 18 operating system it shows /dev/sdb/, that the 80GB is located at. (Sorry, I am using Fedora as the other OS, not opensuse KDE 12.3). It is showing the 120GB as the disk containing Fedora, as dev/sda. Well this is the output from my disks when I took a look with the Fedora disk analyser. And exactly like you said, dolphin, my sdd is my STOCKHOLM 1TB disk.<br>
+<br>
+Hope this helps.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30088" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30088">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+ 
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30088">
+
+<time datetime="2013-06-28T15:03">posted: 2013-06-28 &nbsp; 15:03</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30088" title="permalink">#9</a></span>
+
+<div class="content">Sometimes things get screwy with that many drives and operating systems.<br>
+<br>
+hmm...so you are using the fedora bootloader, which I assume is grub2. You'll need to configure the grub2 line to point to the partition that fedora thinks its located. so if /dev/sdb1 is the 80gb antix partition, point the grub2 entry that way. <br>
+<br>
+<strong>this is the grub-legacy entry that would match sdb1 being the antix partition. I don't know how it translates to grub2.</strong><br>
+<br>
+if you were using grub-legacy and the 64bit version of antix:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title  antiX at sdb1, kernel 3.7.10-antix.4-amd64-smp
+root   (hd1,0)
+kernel /boot/vmlinuz-3.7.10-antix.4-amd64-smp root=/dev/sdb1  quiet 
+initrd /boot/initrd.img-3.7.10-antix.4-amd64-smp
+boot
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30089" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30089">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">Slaizer</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jun 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30089">
+
+<time datetime="2013-06-28T15:12">posted: 2013-06-28 &nbsp; 15:12</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30089" title="permalink">#10</a></span>
+
+<div class="content">Ok. I have some progress here. I can see Debian/GNU (antiX) in the boot menu, that I always have been seeing. But now it doesn't return any error message, it is just blank. And the disks are in the right boot order, first 120GB IDE drive (Fedora), then 80GB IDE drive (antiX9), after that the two sata drives. <br>
+<br>
+That one didn't work, dolphin. Is my problem here that GRUB2 doesn't point the disks right?<br>
+<br>
+Appreciate your time.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30090" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30090">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30090">
+
+<time datetime="2013-06-28T15:36">posted: 2013-06-28 &nbsp; 15:36</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30090" title="permalink">#11</a></span>
+
+<div class="content">that is my guess. either that or it can't find the boot images for some reason. I honestly don't know much about grub2.<br>
+<br>
+you could try reinstalling antix on the drive, this time selecting install grub to root partition. then you could change your fedora boot manager to simply chainload to the antix grub, which would then finish booting antix.<br>
+<br>
+i'm setting up a similar scenario right now to test.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30091" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30091">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content30091">
+
+<time datetime="2013-06-28T15:48">posted: 2013-06-28 &nbsp; 15:48</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30091" title="permalink">#12</a></span>
+
+<div class="content">man grub is very helpful.</div>
+<div class="notice">
+Last edited by <b>Guest</b> on 29 Jun 2013, 08:50, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30092" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30092">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30092">
+
+<time datetime="2013-06-28T16:28">posted: 2013-06-28 &nbsp; 16:28</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30092" title="permalink">#13</a></span>
+
+<div class="content">Ok, I just setup a scenario whereby I installed antix to a second parition and chainloaded the bootloader (grub). worked fine, although there are a couple of caveats.<br>
+<br>
+when you install antix and it asks to install grub, unmark the dot that says"mbr". it will then install to the root drive for the current installation. so if you install to sdb1, then the grub system will be on sdb1. unfortuantely on my test system menu.lst was not generated. you will need to modify this on your own, this as plain/jane starter<br>
+<br>
+assuming 64bit<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 5
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+title  antiX at sdb1, kernel 3.7.10-antix.4-amd64-smp
+kernel /boot/vmlinuz-3.7.10-antix.4-amd64-smp root=/dev/sdb1  quiet
+initrd /boot/initrd.img-3.7.10-antix.4-amd64-smp
+boot
+[/boot]
+
+then you can set grub2 to chain load to sdb1 however one does that.</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30106" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30106">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">Slaizer</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jun 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30106">
+
+<time datetime="2013-06-30T15:58">posted: 2013-06-30 &nbsp; 15:58</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30106" title="permalink">#14</a></span>
+
+<div class="content">I have actually got antiX working through using Super Grub2 Disk. But I could just install Grub2 with the MBR on my sdd disk. My fedora install which is on my sdc disk, I could not find to install Grub2 and the MBR. <br>
+<br>
+On my antiX my disks sorts my disk as follows<br>
+sdc, Fedora<br>
+sdd, antiX<br>
+<br>
+And on Fedora OS<br>
+sda, Fedora<br>
+sdb, antiX<br>
+<br>
+This is kind of confusing, why do they mix the disk order?<br>
+<br>
+This is my antiX menu.lst, <iframe data-s9e-mediaembed="pastebin" allowfullscreen="" scrolling="" src="//pastebin.com/embed_iframe.php?i=FjiPGNEy" style="border:0;height:300px;resize:vertical;width:100%"></iframe> Can i write a entry on this script to my Fedora 18 OS?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30169" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30169">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30169">
+
+<time datetime="2013-07-07T19:08">posted: 2013-07-07 &nbsp; 19:08</time>
+<span class="permalink"><a href="./getting-antix-13-working-t4449.html#p30169" title="permalink">#15</a></span>
+
+<div class="content">Basically in Linux :-<br>
+First HDD First partition = /dev/sda1 Second partition = /dev/sda2<br>
+Second HDD First partition = /dev/sdb1 Second partition = /dev/sdb2<br>
+Third HDD First partition = /dev/sdc1 Second partition = /dev/sdc2<br>
+Fourth HDD First partition = /dev/sdd1 Second partition = /dev/sdd2<br>
+<br>
+Then for Grub (legacy):-<br>
+First HDD First partition = hd0,0 Second partition = hd0,1<br>
+Second HDD First partition = hd1,0 Second partition = hd1,1<br>
+Third HDD First partition = hd2,0 Second partition = hd2,1<br>
+Fourth HDD First partition = hd3,0 Second partition = hd3,1<br>
+<br>
+Hope this helps.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./getting-antix-13-working-t4449-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./getting-antix-13-working-t4449-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[closed]No screen - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./closed-no-screen-t5065.html">[closed]No screen</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_35420" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35420">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35420">
+<time datetime="2014-05-13T20:16">posted: 2014-05-13 &nbsp; 20:16</time>
+<span class="permalink"><a href="./closed-no-screen-t5065.html#p35420" title="permalink">#1</a></span>
+
+<div class="content">I tried to update my graphics driver with smxi. Now I don't have a GUI. I had to boot up my fallback OS (Ubuntu 12.04) to come here.<br>
+Symptoms: Screen 0 deleted. Same failure with fallback user, root, and X -configure. Fluxbox also fails to start.<br>
+interesting part from Xorg.0.log:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[   644.991] (--) using VT number 7
+
+[   645.011] (II) [KMS] drm report modesetting isn't supported.
+[   645.011] (EE) Screen 0 deleted because of no matching config section.
+[   645.011] (II) UnloadModule:"radeon"
+[   645.011] (EE) Device(s) detected, but none match those in the config file.
+[   645.011] (EE) 
+Fatal server error:
+[   645.011] (EE) no screens found(EE) </code></pre></div>
+I have an ATI Radeon 9200SE 5964 (AGP).<br>
+<br>
+xorg.conf: it was working for 2 years
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"ServerLayout"
+    Identifier    "Layout0"
+    Screen      0 "Screen0"
+    InputDevice   "Keyboard0""CoreKeyboard"
+    InputDevice   "Mouse0""CorePointer"
+EndSection
+
+Section"Files"
+EndSection
+
+Section"InputDevice"
+    # generated from default
+    Identifier    "Mouse0"
+    Driver        "mouse"
+    Option        "Protocol""auto"
+    Option        "Device""/dev/psaux"
+    Option        "Emulate3Buttons""no"
+    Option        "ZAxisMapping""4 5"
+EndSection
+
+Section"InputDevice"
+    # generated from default
+    Identifier    "Keyboard0"
+    Driver        "kbd"
+EndSection
+
+Section"Monitor"
+    Identifier    "Monitor0"
+    VendorName    "LG :)"
+    ModelName     "LG 32LD465"
+    HorizSync       29.6 - 66.6
+    VertRefresh     59.0 - 70.1
+    Option        "DPMS"
+   
+    Modeline   "1360x768_60.00"   84.75  1360 1432 1568 1776  768 771 781 798 -hsync +vsync
+    Modeline   "1280x1024_60.00"  109.00  1280 1368 1496 1712  1024 1027 1034 1063 -hsync +vsync
+    Modeline   "1280x768_60.00"   79.50  1280 1344 1472 1664  768 771 781 798 -hsync +vsync
+    Modeline   "1024x768_60.00"   63.50  1024 1072 1176 1328  768 771 775 798 -hsync +vsync
+    Modeline   "800x600_60.00"   38.25  800 832 912 1024  600 603 607 624 -hsync +vsync
+    Modeline   "640x480_60.00"   23.75  640 664 720 800  480 483 487 500 -hsync +vsync     
+    Option     "PreferredMode""1360x768_60.00"
+EndSection
+
+Section"Device"
+    Identifier    "Device0"
+    Driver   "ati"
+    VendorName    "AMD/ATI Corporation"
+    BusID"PCI:1:0:0"
+    Option        "VGA-0" "Monitor0"
+EndSection
+
+Section"Screen"
+    Identifier    "Screen0"
+    Device        "Device0"
+    Monitor       "Monitor0"
+    DefaultDepth    16
+
+    SubSection"Display"
+        Viewport   0 0
+        Depth     16
+    Modes"1360x768_60.00""1280x1024_60.00""1280x768_60.00""1024x768_60.00""800x600_60.00""640x480_60.00"
+    EndSubSection
+
+    SubSection"Display"
+        Viewport   0 0
+        Depth     24
+    Modes"1360x768_60.00""1280x1024_60.00""1280x768_60.00""1024x768_60.00""800x600_60.00""640x480_60.00"
+    EndSubSection
+
+EndSection
+
+Section"Module"
+    Load   "radeon"
+    Load   "glx"
+EndSection
+Section"Extensions"
+#    Option     "Composite"   "disable"
+#    Option     "RENDER"   "disable"
+EndSection
+</code></pre></div>
+Any help appreciated.</div>
+<div class="notice">
+Last edited by <b>Eperbab</b> on 17 May 2014, 09:30, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35421" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35421">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">rokytnji</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35421">
+
+<time datetime="2014-05-13T20:22">posted: 2014-05-13 &nbsp; 20:22</time>
+<span class="permalink"><a href="./closed-no-screen-t5065.html#p35421" title="permalink">#2</a></span>
+
+<div class="content">Back up the old xorg.conf and run sgfxi again. Ubuntu should be able to rename the file.<br>
+Boot into run level 3 on grub menu for antix sgfxi.<br>
+<br>
+Edit: did you update the kernel?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35422" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35422">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35422">
+
+<time datetime="2014-05-13T21:07">posted: 2014-05-13 &nbsp; 21:07</time>
+<span class="permalink"><a href="./closed-no-screen-t5065.html#p35422" title="permalink">#3</a></span>
+
+<div class="content">With recent versions of X-org, you should be able to start the server without an xorg.conf. You could try copying <em>/</em>etc/X11/xorg.conf to <em>/</em>etc/X11/xorg.conf.save and see if you can start X.<br>
+<br>
+It looks like installing the new driver created a conflict with your existing xorg.conf file:<blockquote><div><cite>Xorg.0.log wrote:</cite>UnloadModule:"<strong>radeon</strong>"</div></blockquote>
+<blockquote><div><cite>xorg.conf wrote:</cite> Driver"<strong>ati</strong>"</div></blockquote>
+You could also try editing your xorg.conf and replace"ati" with"radeon".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35439" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35439">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35439">
+
+<time datetime="2014-05-14T16:25">posted: 2014-05-14 &nbsp; 16:25</time>
+<span class="permalink"><a href="./closed-no-screen-t5065.html#p35439" title="permalink">#4</a></span>
+
+<div class="content">- Yes, I have mounted AntiX root in Ubuntu to see my files. <br>
+- I need xorg.conf, because my TV-monitor has a broken implementation of EDID services. Without xorg.conf, I would have 640x480 43 Hz interlaced mode or something even more weird on a full HD display.<br>
+- I have run smxi /sgfxi with various kernels from tty2, including 3.5.0-antix.2-486-smp. I have used the 3.14-1-rt-686-pae kernel for a few days. I have rebooted several times with that kerner without issues before graphics driver update.<br>
+- {Driver"ati" -&gt;"radeon"} This is the fastest &amp; easiest attempt to fix it, going to try it first. Strange, that it worked for two years.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35441" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35441">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35441">
+
+<time datetime="2014-05-14T18:45">posted: 2014-05-14 &nbsp; 18:45</time>
+<span class="permalink"><a href="./closed-no-screen-t5065.html#p35441" title="permalink">#5</a></span>
+
+<div class="content">Update:<br>
+- changing driver name to"radeon" doesn't help<br>
+- Boot into run level 3 on grub menu for antix sgfxi: I have used smxi, doesn't help<br>
+<br>
+- removing xorg.conf: half way success. Now I have screen with"1024x768 0 Hz". Last time I had 320x240, or 640x480 without xorg.conf. This time 1024x768. As Neo would say:"Hm. Updates." <br>
+Glxgears animation is running. Now I need to build a new xorg.conf to get back 1360x768 16 bit.<br>
+I will try again X -configure. Thanks.<br>
+Any idea what is wrong with the above xorg.conf after adding the ati -&gt; radeon change?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -G
+Graphics:  Card: Advanced Micro Devices [AMD/ATI] RV280 [Radeon 9200 SE]
+           Display Server: X.Org 1.15.1 drivers: fbdev,ati,radeon (unloaded: vesa)
+           Resolution: 1024x768@0.0hz
+           GLX Renderer: Gallium 0.4 on llvmpipe (LLVM 3.4, 128 bits)
+           GLX Version: 2.1 Mesa 10.1.1
+
+$ xrandr
+xrandr: Failed to get size of gamma for output default
+Screen 0: minimum 1024 x 768, current 1024 x 768, maximum 1024 x 768
+default connected 1024x768+0+0 0mm x 0mm
+   1024x768        0.0* 
+
+$ glxinfo
+name of display: :0.0
+display: :0  screen: 0
+direct rendering: Yes
+server glx vendor string: SGI
+server glx version string: 1.4
+server glx extensions:
+    GLX_ARB_multisample, GLX_EXT_import_context, GLX_EXT_texture_from_pixmap, 
+    GLX_EXT_visual_info, GLX_EXT_visual_rating, GLX_MESA_copy_sub_buffer, 
+    GLX_OML_swap_method, GLX_SGIS_multisample, GLX_SGIX_fbconfig, 
+    GLX_SGIX_pbuffer, GLX_SGI_make_current_read
+client glx vendor string: Mesa Project and SGI
+client glx version string: 1.4
+...
+OpenGL vendor string: VMware, Inc.
+OpenGL renderer string: Gallium 0.4 on llvmpipe (LLVM 3.4, 128 bits)
+OpenGL version string: 2.1 Mesa 10.1.1
+OpenGL shading language version string: 1.30
+
+$ glxgears
+354 frames in 5.0 seconds = 70.754 FPS
+379 frames in 5.0 seconds = 75.733 FPS
+386 frames in 5.0 seconds = 77.039 FPS
+374 frames in 5.0 seconds = 74.745 FPS
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35457" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35457">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35457">
+
+<time datetime="2014-05-14T22:15">posted: 2014-05-14 &nbsp; 22:15</time>
+<span class="permalink"><a href="./closed-no-screen-t5065.html#p35457" title="permalink">#6</a></span>
+
+<div class="content">Two ideas. First, you can use the /usr/sbin/buildxconfig to create a minimal xorg.conf in your current directory:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CMDLINE=xres=1360x768 /usr/sbin/buildxconfig</code></pre></div>Examine the xorg.conf file it created and try copying it to the <em>/</em>etc/X11/ directory. You can also use xdrv to try to force which driver is used:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CMDLINE="xres=1360x768 xdrvr=radeon" /usr/sbin/buildxconfig</code></pre></div>
+Next, since X is using the frame buffer, you could try booting with a higher frame buffer resolution. Try using the boot parameter"vga=795" to get a 1280x1024 resolutions on the virtual consoles. This resolution often carries over to X with no further effort. I've been able to get 1600x1200 resolution with this trick (using vga=839, YMMV because many of these codes are not standardized). <br>
+<br>
+Use"vga=ask" (and then press &lt;enter&gt; when requested) to get a list of all vga modes available on your machine. It will then give you a choice to pick one. Write down the resolution you picked. It will be in hex. For example the 1280x1024x24 resolution I suggested above is"31B" in hex. So you either need to convert it to decimal (795) or enter it as"vga=0x31b". The size 1360x768 is not standard so there may not be a vga= code for it. You can find out using"vga=ask".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35495" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35495">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35495">
+
+<time datetime="2014-05-16T15:47">posted: 2014-05-16 &nbsp; 15:47</time>
+<span class="permalink"><a href="./closed-no-screen-t5065.html#p35495" title="permalink">#7</a></span>
+
+<div class="content">- This one doesn't generate xorg.conf anywhere i have checked: (including /home/user)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CMDLINE=xres=1360x768 /usr/sbin/buildxconfig</code></pre></div>
+- It generated xorg.conf in etc with sudo (only when there was no xorg.conf), but this configuration failed. Also tried it with the xdrv switch and 1024x768, but X failed. Also failed after some modifications. Strange, but with xdrv=radeon it added a section for nvidia tweaks and I have seen a second monitor (Monitor1) as well.<br>
+<br>
+- Resolution transferred to X (640x480 when entering from init 3 boot, 1024x768 with vga=791).<br>
+The vga=ask options displays values for 1280x1024, but anything above vga=792 gives an OSD warning about"invalid format". BTW, at the top of the screen there is a warning about EDID scan turned off. (Thanks, LG, for the broken implementation. Next time I will by a Samsung TV.)<br>
+At vga=792 I have seen strange colors, duplicated ghost icons shifted to the left of the screen, so it was unusable. 1360x768 didn't appear even after scan for more options.<br>
+<br>
+- X -configure as root from tty1 fails with segfault at adress 0x00 / 0x11. xorg.conf is generated, but fails with no screen found. After adding a vesa driver X starts, and shows a blank screen without error message.<br>
+<br>
+Anyhow, I have ordered my new desktop (planned aquisition since 2008), so<span style="color: #0000BF"> I leave it like it is at 1024x768</span>, and we will see what happens when I move the HDD to the new PC. I will keep this 32 bit installation with a pae kernel as a fallback option. Next task is to install 64 bit Antix-base from usb to SSD.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35525" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35525">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35525">
+
+<ul class="post-buttons">
+ </ul>
+<time datetime="2014-05-17T09:28">posted: 2014-05-17 &nbsp; 09:28</time>
+<span class="permalink"><a href="./closed-no-screen-t5065.html#p35525" title="permalink">#8</a></span>
+
+<div class="content">New stuff arrived. Now I have free way up to 1920x1080 32 bit. I will post the new problems with the new pc in a separate topic.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

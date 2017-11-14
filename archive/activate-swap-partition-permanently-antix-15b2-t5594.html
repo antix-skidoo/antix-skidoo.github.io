@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>activate swap partition permanently - antiX-15b2? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html">activate swap partition permanently - antiX-15b2?</a></div>
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_40438" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40438">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">Jon_J</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40438">
+<time datetime="2015-04-19T14:44">posted: 2015-04-19 &nbsp; 14:44</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40438" title="permalink">#1</a></span>
+
+<div class="content">I have installed antiX-15-beta2 and selected"use existing swap partition" in the installer.<br>
+I have no swap enabled in antiX-15 install.<br>
+So I issued the command:<br>
+swapon /dev/sda5 (I looked in gparted to see which partition the swap is located.)<br>
+This is only a temporary solution. Upon rebooting the swap partition is not enabled.<br>
+Next I decided to edit / etc/fstab in the control center. There was no entry in fstab for a swap partition.<br>
+I didn't know exactly what to do, so I copied an entry in fstab from ubuntu on my handheld Zaurus device.<br>
+I changed the partition name to /dev/sda5<br>
+That borked my antiX installation and the window manager didn't load.<br>
+I had to boot the Live antiX media to access the readonly file system to change my / etc/fstab back to its original condition. This got me back to loading the window manager. <span class="emoticon"> __{{emoticon}}__ </span><br>
+nano could not write out when I was outside of X on my installed antiX - readonly file system<br>
+Is there an easier way to permanently enable my swap partition in antiX-15?<br>
+<br>
+Thank you,<br>
+Jon</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40439" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40439">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40439">
+
+<time datetime="2015-04-19T15:53">posted: 2015-04-19 &nbsp; 15:53</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40439" title="permalink">#2</a></span>
+
+<div class="content">Do you have a swap (not temporary), then identify and so Add:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>male@antix1:~
+$ su
+Passwort: 
+root@antix1:/home/male# blkid -c /dev/null -o list
+device             fs_type   label      mount point            UUID
+---------------------------------------------------------------------------------------------------
+/dev/sda1          ext4                 (not mounted)          e37b89aa-7295-4cc9-9f2b-2bd3705e622f
+/dev/sda5          swap                 &lt;swap&gt;                 155fec67-8fb0-425e-b474-93a8fe189abc
+/dev/sda6          ext4      DATEN      /media/DATEN           6df0602b-0ba8-468e-b543-5c826468cc63
+/dev/sda7          ext4      antiX15    /                      0ec896c8-cce7-4240-9771-cd1c0dcddbf6
+root@antix1:/home/male# </code></pre></div>etc/fstab
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+UUID=0ec896c8-cce7-4240-9771-cd1c0dcddbf6 / auto defaults,noatime 1 1
+# Added by make-fstab /dev/sda1
+UUID=e37b89aa-7295-4cc9-9f2b-2bd3705e622f  /media/sda1                                 ext4       noauto,exec,users               0 0
+# Added by make-fstab /dev/sda5
+UUID=155fec67-8fb0-425e-b474-93a8fe189abc  swap                                        swap       defaults                        0 0
+# Added by make-fstab /dev/sda6  label=DATEN
+UUID=6df0602b-0ba8-468e-b543-5c826468cc63  /media/DATEN                                ext4       auto,exec,users               0 0
+</code></pre></div>
+reboot</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40441" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40441">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40441">
+
+<time datetime="2015-04-19T19:55">posted: 2015-04-19 &nbsp; 19:55</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40441" title="permalink">#3</a></span>
+
+<div class="content">@<strong>Jon_J</strong>, please post the output of:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo blkid</code></pre></div>or even better:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo blkid | grep swap</code></pre></div>The first will list all of your partitions including any swap partitions. The 2nd only lists the swap partitions. If a swap partition exists then it should show up in these outputs. Likewise, any swap partitions that are listed should have been added to your new fstab on the installed system.<br>
+<br>
+Here is what I get here:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo blkid | grep swap
+/dev/sda6: UUID="42f0ed56-0643-437a-8772-5a6e86240c4b" TYPE="swap" PARTUUID="0005b2b8-06" </code></pre></div>and here is the fstab entry for it that got created:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>UUID=42f0ed56-0643-437a-8772-5a6e86240c4b  swap    swap    defaults    0 0</code></pre></div>(I removed extra whitespace to make it fit better in this post)<br>
+<br>
+You will probably not get a PARTUUID in your blkid output.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40442" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40442">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">Jon_J</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40442">
+
+<time datetime="2015-04-19T20:00">posted: 2015-04-19 &nbsp; 20:00</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40442" title="permalink">#4</a></span>
+
+<div class="content">Thank you, that worked.<br>
+The entry that I used which got me into trouble didn't have a UUID number, just /dev/sda5</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40446" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40446">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40446">
+
+<time datetime="2015-04-20T04:05">posted: 2015-04-20 &nbsp; 04:05</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40446" title="permalink">#5</a></span>
+
+<div class="content">The swap partition entry in fstab should have been created automatically during the install process. I'm concerned that it didn't. So there is a swap partition in the output of"lsblk" but it didn't show up in the fstab when you did the install? This is why I wanted to see the output of"sudo lsblk | grep swap".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40450" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40450">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">Jon_J</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40450">
+
+<time datetime="2015-04-20T16:19">posted: 2015-04-20 &nbsp; 16:19</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40450" title="permalink">#6</a></span>
+
+<div class="content"><strong>Edit:</strong> BitJam, I think I may have found why swap wasn't working on my antiX-15 install.<br>
+I just noticed when booting MX-14.4, my swap is also missing. I used male's suggestion to enable swap in MX-14 as well.<br>
+The UUID number for sda5 (swap) was different in my MX-14 / etc/fstab <br>
+I put in the new number and swap now works again in MX-14.<br>
+Before I installed antiX-15b2, I deleted my Crunchbang partition which is sda7 and also resized it.<br>
+That may have changed the UUID numbers for the other partitions. Then I used sda7 to install antiX-15b2.<br>
+sda4 is the extended partition, and sda5 (swap) resides inside sda4. <br>
+Could that be the problem in detecting swap?
+<blockquote><div><cite>BitJam wrote:</cite>@<strong>Jon_J</strong>, please post the output of:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo blkid</code></pre></div>or even better:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo blkid | grep swap</code></pre></div>The first will list all of your partitions including any swap partitions. The 2nd only lists the swap partitions. If a swap partition exists then it should show up in these outputs. Likewise, any swap partitions that are listed should have been added to your new fstab on the installed system.<br>
+<br>
+Here is what I get here:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo blkid | grep swap
+/dev/sda6: UUID="42f0ed56-0643-437a-8772-5a6e86240c4b" TYPE="swap" PARTUUID="0005b2b8-06" </code></pre></div>and here is the fstab entry for it that got created:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>UUID=42f0ed56-0643-437a-8772-5a6e86240c4b  swap    swap    defaults    0 0</code></pre></div>(I removed extra whitespace to make it fit better in this post)<br>
+<br>
+You will probably not get a PARTUUID in your blkid output.</div></blockquote>
+BitJam, I missed your post yesterday because I clicked"go to last post".<br>
+Here's my output of the commands: (This is after I enabled swap using the suggestion that male posted)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>bill@antix15:~
+$ sudo blkid
+/dev/sda1: LABEL="win-xp" UUID="A290F08690F061E9" TYPE="ntfs" PARTUUID="a42d04a3-01"
+/dev/sda2: UUID="e7d9ae34-8eb3-474a-b7b9-1d267b77c4fd" TYPE="ext4" PARTUUID="a42d04a3-02"
+/dev/sda3: LABEL="MX-14.4" UUID="333d73df-5ed9-4b42-a5d6-2cd800ea920c" TYPE="ext4" PARTUUID="a42d04a3-03"
+/dev/sda5: UUID="be8880e3-982b-49f4-8a03-33c50cf0b9a0" TYPE="swap" PARTUUID="a42d04a3-05"
+/dev/sda6: LABEL="debian608" UUID="2419ccbf-9c18-452b-ad0e-fb9a399ad2a0" SEC_TYPE="ext2" TYPE="ext3" PARTUUID="a42d04a3-06"
+/dev/sda7: LABEL="antiX15root" UUID="637377da-6485-4334-af76-6d9947b3f508" TYPE="ext4" PARTUUID="a42d04a3-07"
+/dev/sda8: UUID="bff62785-ab13-4b1a-8c74-92d595874a87" TYPE="ext4" PARTUUID="a42d04a3-08"
+bill@antix15:~
+$ 
+
+$ sudo blkid | grep swap
+/dev/sda5: UUID="be8880e3-982b-49f4-8a03-33c50cf0b9a0" TYPE="swap" PARTUUID="a42d04a3-05"
+bill@antix15:~
+$ </code></pre></div>
+Here is lsblk<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>bill@antix15:~
+$ lsblk
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda      8:0    0 149.1G  0 disk 
+├─sda1   8:1    0    20G  0 part 
+├─sda2   8:2    0    10G  0 part 
+├─sda3   8:3    0  21.8G  0 part 
+├─sda4   8:4    0     1K  0 part 
+├─sda5   8:5    0     2G  0 part [SWAP]
+├─sda6   8:6    0    30G  0 part 
+├─sda7   8:7    0    30G  0 part /
+└─sda8   8:8    0  35.3G  0 part 
+bill@antix15:~
+$ </code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40494" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40494">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40494">
+
+<time datetime="2015-04-21T17:38">posted: 2015-04-21 &nbsp; 17:38</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40494" title="permalink">#7</a></span>
+
+<div class="content">Did the swap partition exist when you installed antiX-15-beta2? Or did you create the swap partition after you did the install?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40499" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40499">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40499">
+
+<time datetime="2015-04-21T18:27">posted: 2015-04-21 &nbsp; 18:27</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40499" title="permalink">#8</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Before I installed antiX-15b2, I deleted my Crunchbang partition which is sda7 and also resized it.<br>
+That may have changed the UUID numbers for the other partitions. Then I used sda7 to install antiX-15b2.</div></blockquote>
+Did you delete and remake the swap partition. that would do it. Its also possible that during one of your installs, the swap partition was formated again, which will change the uuid.<br>
+<br>
+in the antiX installer, if you choose a particular partition for swap from the drop down list rather than use the"none or existing" choice, the swap partition will get reformatted and therefore change the UUID.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40504" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40504">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40504">
+
+<time datetime="2015-04-22T01:52">posted: 2015-04-22 &nbsp; 01:52</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40504" title="permalink">#9</a></span>
+
+<div class="content">New for antiX-15, we are running"make-fstab --install /mnt/antiX" during the install process. It should find all swap partitions that exist at that time and add them to the fstab of the new system. If no swap partition showed up in the fstab of the new system then either there is bug in make-fstab or the swap partition was added after the installation. Changes to the swap UUID before the installation should have no effect. If the swap partition was removed or overwritten before the install then that would explain everything.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40508" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40508">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 94</span></div>
+
+</div>
+</div>
+<span class="username">james c</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Apr 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40508">
+
+<time datetime="2015-04-22T06:01">posted: 2015-04-22 &nbsp; 06:01</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40508" title="permalink">#10</a></span>
+
+<div class="content">For what it's worth, AntiX 15 has been finding and creating a correct fstab for my installs,two swap partitions on this particular box..<br>
+<br>
+Much easier than the manual editing required in earlier versions.<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>james@antix1:~
+$ sudo blkid | grep swap
+/dev/sda5: UUID="0681c3ae-23e2-4918-aeee-3f5ebe73a538" TYPE="swap" PARTUUID="80895fa3-05"
+/dev/sdb5: UUID="0271a7ac-54d8-4503-91a0-86e1b532ec37" TYPE="swap" PARTUUID="8c3f2c41-05"</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40514" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40514">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40514">
+
+<time datetime="2015-04-22T15:04">posted: 2015-04-22 &nbsp; 15:04</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40514" title="permalink">#11</a></span>
+
+<div class="content">I think the problem here is that when some of us experiment, adding, removing, and moving around our distributions, especially test instances, quite often - I'd say in most cases, the swap partition gets rewritten, creating a new UUID.<br>
+<br>
+Frankly, this is a problem that I have with the UUID design in the first place, combined with the changes in GRUB 2. In the old scheme, we used to simply edit partition names in our file system table and our boot manager. With the new system, the boot manager can be rerun using the root administrator command update-grub, but we have no simple provision that goes into the mount table of each distribution we have installed, updating any changes to the UUID of the MODIFIED swap partition, and therefore it's fairly common to run into these issues.<br>
+<br>
+The antiX installation tools can probably overcome these issues by updating the file system table and the boot loader at the latest possible time at the end of an installation, thereby ensuring that the kernel names, initrd references, and mount points are current as of the invocation of these tools at the end of an installation.<br>
+<br>
+What even a well-written tool cannot account for are system changes made after the time the tools are invoked. Only rerunning the tools as a maintenance task might be a workaround to resolve changes in the file systems caused by other (possibly extraneous) activities.<br>
+<br>
+Perhaps a couple of things would help:<br>
+<br>
+1. I think the tools are probably correct when they run during installation time, but there may be a need for either another tool or the flexibility of the tool to be run outside of the installation window.<br>
+<br>
+2. A document that describes when the boot loader is updated, when the mount points are created and updated, and information about how to modify either the boot loader or the mount points, including swap, particularly when modified externally by some program outside the scope of our project's software might help newcomers diagnose and figure out these problems - if such documentation is well organized and easily accessed. I know we have a lot of great documentation already; not sure if any of it needs to be changed or not, but I'll take a look, and if I have any suggestions, I'll either make them or provide the changes to them, depending on where the information is located and what my access is to it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40516" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40516">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40516">
+
+<time datetime="2015-04-22T16:13">posted: 2015-04-22 &nbsp; 16:13</time>
+<span class="permalink"><a href="./activate-swap-partition-permanently-antix-15b2-t5594.html#p40516" title="permalink">#12</a></span>
+
+<div class="content">
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepis.org/docs/en/index.php?title=Fstab"<br>linktext was:"http://www.mepis.org/docs/en/index.php?title=Fstab"<br>====================================<br>
+ contains a pretty decent article about managing swap. There are other sources on the Internet that also provide very good information; the Arch Linux Wiki has good information about swap that is generally applicable to our projects: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/Swap"<br>linktext was:"https://wiki.archlinux.org/index.php/Swap"<br>====================================<br>
+<br>
+<br>
+The Linux.com site has an article about space space, too, that may provide additional useful information. You can read it at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.linux.com/news/software/applications/8208-all-about-linux-swap-space"<br>linktext was:"http://www.linux.com/news/software/appl ... swap-space"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+12 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

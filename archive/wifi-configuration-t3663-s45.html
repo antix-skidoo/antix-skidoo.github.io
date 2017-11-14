@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>WIFI configuration - Page 4 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./wifi-configuration-t3663-s45.html">WIFI configuration</a></div>
+<div class="pagination">
+98 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./wifi-configuration-t3663-s30.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./wifi-configuration-t3663.html" role="button">1</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s15.html" role="button">2</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s30.html" role="button">3</a></li>
+<li class="active"><span>4</span></li>
+<li><a class="button" href="./wifi-configuration-t3663-s60.html" role="button">5</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s75.html" role="button">6</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s90.html" role="button">7</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./wifi-configuration-t3663-s60.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24583" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24583">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24583">
+<time datetime="2012-05-03T01:38">posted: 2012-05-03 &nbsp; 01:38</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24583" title="permalink">#46</a></span>
+
+<div class="content"><blockquote><div><cite>JXR wrote:</cite>We tried the Wicd"eth1" idea way back when in this post.<br>
+<br>
+Did any other ideas come as a result of the Holy Cow Batman. Or down south we say,"Well, Alrighty then" information?</div></blockquote>
+as root in terminal<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe atmel_cs</code></pre></div>
+to make sure the firmware is activated.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24586" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24586">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24586">
+
+<time datetime="2012-05-03T18:29">posted: 2012-05-03 &nbsp; 18:29</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24586" title="permalink">#47</a></span>
+
+<div class="content">I think you are on the right track, Roky. However, if the correct firmware is installed and if this device physically works elsewhere on other operating systems, what that tells me is that the firmware is being blocked from being properly executed. <br>
+<br>
+If modprobe atmel_cs<br>
+<br>
+gets it done, great, nearly there (just may have to repeat that). But if it doesn't, what that tells me is that there is ANOTHER firmware driver out there somewhere that is conflicting with the atmel_cs firmware. In that case, more research is needed. What firmware is conflicting? Once we know that, we can put that firmware into a blacklist, then at last we'll get the device enabled. Then, if it still doesn't come up automatically, we can explicitly prove for it in a modprobe.conf file and be done with this.<br>
+<br>
+So the next challenge is to determine whether the probe works or not, and if not, why not. I think we can get this, ESPECIALLY if it's working on Ubuntu and other systems. Very worst case is that if it works on Windows, we can snag its firmware, blacklist any other similar firmware, and use ndiswrapper to get this going. It can definitely be done; ndiswrapper, in my opinion, is a last resort. The superior solution, and the one that will perform the best, is getting rid of conflicting firmware and/or blacklisting it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24753" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24753">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24753">
+
+<time datetime="2012-05-20T17:07">posted: 2012-05-20 &nbsp; 17:07</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24753" title="permalink">#48</a></span>
+
+<div class="content">...just when you thought it was safe to get back in the water...<br>
+<br>
+thanks for the continued interest... <br>
+<br>
+I issued modprobe atmel_cs (a few times) unplugged the ethernet cable -- no go.<br>
+Restarted (wo ethernet cable) issued modprobe atmel_cs (a few times) -- still no go.<br>
+<br>
+...replugged in the ethernet cable<br>
+<br>
+So... to go on to the next step, how do I"determine if the probe works"?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24754" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24754">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24754">
+
+<time datetime="2012-05-20T18:31">posted: 2012-05-20 &nbsp; 18:31</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24754" title="permalink">#49</a></span>
+
+<div class="content">I guess looking through /var/log/messages might be next on the list.<br>
+Also see if you have a /etc/pcmcia/atmel.conf file also and look in there.<br>
+Also type in
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dmesg</code></pre></div>
+and post reults.<br>
+Feel free to jump in here Brian. I am at a bit of a loss here.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24756" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24756">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24756">
+
+<time datetime="2012-05-21T01:07">posted: 2012-05-21 &nbsp; 01:07</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24756" title="permalink">#50</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dmesg
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 2.6.36-1-mepis-smp (MEPIS 2.6.36-4mepis2) (max@stro.at) (gcc version 4.4.5 (Debian 4.4.5-8) ) #1 SMP Thu Mar 31 17:07:18 CDT 2011
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000]  BIOS-e820: 0000000000000000 - 000000000009f000 (usable)
+[    0.000000]  BIOS-e820: 000000000009f000 - 00000000000a0000 (reserved)
+[    0.000000]  BIOS-e820: 00000000000dc000 - 0000000000100000 (reserved)
+[    0.000000]  BIOS-e820: 0000000000100000 - 000000000fef0000 (usable)
+[    0.000000]  BIOS-e820: 000000000fef0000 - 000000000feff000 (ACPI data)
+[    0.000000]  BIOS-e820: 000000000feff000 - 000000000ff00000 (ACPI NVS)
+[    0.000000]  BIOS-e820: 000000000ff00000 - 000000000ff80000 (usable)
+[    0.000000]  BIOS-e820: 000000000ff80000 - 0000000010000000 (reserved)
+[    0.000000]  BIOS-e820: 00000000ff800000 - 00000000ffc00000 (reserved)
+[    0.000000]  BIOS-e820: 00000000fff00000 - 0000000100000000 (reserved)
+[    0.000000] Notice: NX (Execute Disable) protection missing in CPU or disabled in BIOS!
+[    0.000000] DMI 2.3 present.
+[    0.000000] e820 update range: 0000000000000000 - 0000000000001000 (usable) ==&gt; (reserved)
+[    0.000000] e820 remove range: 00000000000a0000 - 0000000000100000 (usable)
+[    0.000000] last_pfn = 0xff80 max_arch_pfn = 0x100000
+[    0.000000] MTRR default type: uncachable
+[    0.000000] MTRR fixed ranges enabled:
+[    0.000000]   00000-9FFFF write-back
+[    0.000000]   A0000-BFFFF uncachable
+[    0.000000]   C0000-C7FFF write-protect
+[    0.000000]   C8000-EFFFF uncachable
+[    0.000000]   F0000-FFFFF write-protect
+[    0.000000] MTRR variable ranges enabled:
+[    0.000000]   0 base 000000000 mask FF0000000 write-back
+[    0.000000]   1 base 00FF80000 mask FFFF80000 uncachable
+[    0.000000]   2 base 00FF80000 mask FFFF80000 uncachable
+[    0.000000]   3 disabled
+[    0.000000]   4 disabled
+[    0.000000]   5 disabled
+[    0.000000]   6 disabled
+[    0.000000]   7 disabled
+[    0.000000] x86 PAT enabled: cpu 0, old 0x7040600070406, new 0x7010600070106
+[    0.000000] initial memory mapped : 0 - 01800000
+[    0.000000] init_memory_mapping: 0000000000000000-000000000ff80000
+[    0.000000]  0000000000 - 0000400000 page 4k
+[    0.000000]  0000400000 - 000fc00000 page 2M
+[    0.000000]  000fc00000 - 000ff80000 page 4k
+[    0.000000] kernel direct mapping tables up to ff80000 @ 7000-c000
+[    0.000000] RAMDISK: 0f5b0000 - 0fee0000
+[    0.000000] ACPI: RSDP 000f6740 00014 (v00 DELL  )
+[    0.000000] ACPI: RSDT 0fefadcf 00028 (v01 DELL     RSDT   06040000  LTP 00000000)
+[    0.000000] ACPI: FACP 0fefef8c 00074 (v01 INTEL  845M     06040000 PTL  0000004B)
+[    0.000000] ACPI: DSDT 0fefadf7 04195 (v01 DELL   845M     06040000 MSFT 0100000D)
+[    0.000000] ACPI: FACS 0fefffc0 00040
+[    0.000000] 0MB HIGHMEM available.
+[    0.000000] 255MB LOWMEM available.
+[    0.000000]   mapped low ram: 0 - 0ff80000
+[    0.000000]   low ram: 0 - 0ff80000
+[    0.000000]   node 0 low ram: 00000000 - 0ff80000
+[    0.000000]   node 0 bootmap 00008000 - 00009ff0
+[    0.000000] (9/32 early reservations) ==&gt; bootmem [0000000000 - 000ff80000]
+[    0.000000]   #0 [0000001000 - 0000002000]    EX TRAMPOLINE ==&gt; [0000001000 - 0000002000]
+[    0.000000]   #1 [0001000000 - 000163b758]    TEXT DATA BSS ==&gt; [0001000000 - 000163b758]
+[    0.000000]   #2 [000f5b0000 - 000fee0000]          RAMDISK ==&gt; [000f5b0000 - 000fee0000]
+[    0.000000]   #3 [000009f000 - 0000100000]    BIOS reserved ==&gt; [000009f000 - 0000100000]
+[    0.000000]   #4 [000163c000 - 00016421bc]              BRK ==&gt; [000163c000 - 00016421bc]
+[    0.000000]   #5 [0000002000 - 0000003000]       TRAMPOLINE ==&gt; [0000002000 - 0000003000]
+[    0.000000]   #6 [0000003000 - 0000007000]      ACPI WAKEUP ==&gt; [0000003000 - 0000007000]
+[    0.000000]   #7 [0000007000 - 0000008000]          PGTABLE ==&gt; [0000007000 - 0000008000]
+[    0.000000]   #8 [0000008000 - 000000a000]          BOOTMAP ==&gt; [0000008000 - 000000a000]
+[    0.000000] Zone PFN ranges:
+[    0.000000]   DMA      0x00000001 -&gt; 0x00001000
+[    0.000000]   Normal   0x00001000 -&gt; 0x0000ff80
+[    0.000000]   HighMem  empty
+[    0.000000] Movable zone start PFN for each node
+[    0.000000] early_node_map[3] active PFN ranges
+[    0.000000]     0: 0x00000001 -&gt; 0x0000009f
+[    0.000000]     0: 0x00000100 -&gt; 0x0000fef0
+[    0.000000]     0: 0x0000ff00 -&gt; 0x0000ff80
+[    0.000000] On node 0 totalpages: 65294
+[    0.000000] free_area_init_node: node 0, pgdat c1544800, node_mem_map c1644020
+[    0.000000]   DMA zone: 32 pages used for memmap
+[    0.000000]   DMA zone: 0 pages reserved
+[    0.000000]   DMA zone: 3966 pages, LIFO batch:0
+[    0.000000]   Normal zone: 479 pages used for memmap
+[    0.000000]   Normal zone: 60817 pages, LIFO batch:15
+[    0.000000] Using APIC driver default
+[    0.000000] ACPI: PM-Timer IO Port: 0x1008
+[    0.000000] SMP: Allowing 1 CPUs, 0 hotplug CPUs
+[    0.000000] Local APIC disabled by BIOS -- you can enable it with"lapic"
+[    0.000000] APIC: disable apic facility
+[    0.000000] APIC: switched to apic NOOP
+[    0.000000] nr_irqs_gsi: 16
+[    0.000000] PM: Registered nosave memory: 000000000009f000 - 00000000000a0000
+[    0.000000] PM: Registered nosave memory: 00000000000a0000 - 00000000000dc000
+[    0.000000] PM: Registered nosave memory: 00000000000dc000 - 0000000000100000
+[    0.000000] PM: Registered nosave memory: 000000000fef0000 - 000000000feff000
+[    0.000000] PM: Registered nosave memory: 000000000feff000 - 000000000ff00000
+[    0.000000] Allocating PCI resources starting at 10000000 (gap: 10000000:ef800000)
+[    0.000000] Booting paravirtualized kernel on bare hardware
+[    0.000000] setup_percpu: NR_CPUS:32 nr_cpumask_bits:32 nr_cpu_ids:1 nr_node_ids:1
+[    0.000000] PERCPU: Embedded 13 pages/cpu @c1c00000 s31040 r0 d22208 u4194304
+[    0.000000] pcpu-alloc: s31040 r0 d22208 u4194304 alloc=1*4194304
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 64783
+[    0.000000] Kernel command line: root=/dev/sda6 nomce quiet nosplash nouveau.modeset=0 vga=791
+[    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)
+[    0.000000] Enabling fast FPU save and restore... done.
+[    0.000000] Enabling unmasked SIMD FPU exception support... done.
+[    0.000000] Initializing CPU#0
+[    0.000000] Initializing HighMem for node 0 (00000000:00000000)
+[    0.000000] Memory: 243008k/261632k available (3673k kernel code, 18168k reserved, 1740k data, 412k init, 0k highmem)
+[    0.000000] virtual kernel memory layout:
+[    0.000000]     fixmap  : 0xffd36000 - 0xfffff000   (2852 kB)
+[    0.000000]     pkmap   : 0xff800000 - 0xffc00000   (4096 kB)
+[    0.000000]     vmalloc : 0xd0780000 - 0xff7fe000   ( 752 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xcff80000   ( 255 MB)
+[    0.000000]       .init : 0xc154a000 - 0xc15b1000   ( 412 kB)
+[    0.000000]       .data : 0xc1396489 - 0xc1549530   (1740 kB)
+[    0.000000]       .text : 0xc1000000 - 0xc1396489   (3673 kB)
+[    0.000000] Checking if this processor honours the WP bit even in supervisor mode...Ok.
+[    0.000000] SLUB: Genslabs=13, HWalign=128, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] Hierarchical RCU implementation.
+[    0.000000]     RCU dyntick-idle grace-period acceleration is enabled.
+[    0.000000]     RCU-based detection of stalled CPUs is disabled.
+[    0.000000]     Verbose stalled-CPUs detection is disabled.
+[    0.000000] NR_IRQS:1280
+[    0.000000] Console: colour dummy device 80x25
+[    0.000000] console [tty0] enabled
+[    0.000000] Fast TSC calibration using PIT
+[    0.000000] Detected 1795.084 MHz processor.
+[    0.004008] Calibrating delay loop (skipped), value calculated using timer frequency.. 3590.16 BogoMIPS (lpj=7180336)
+[    0.004017] pid_max: default: 32768 minimum: 301
+[    0.004049] Security Framework initialized
+[    0.004058] SELinux:  Disabled at boot.
+[    0.004076] Mount-cache hash table entries: 512
+[    0.004315] Initializing cgroup subsys ns
+[    0.004323] Initializing cgroup subsys cpuacct
+[    0.004332] Initializing cgroup subsys devices
+[    0.004336] Initializing cgroup subsys freezer
+[    0.004340] Initializing cgroup subsys net_cls
+[    0.004345] Initializing cgroup subsys blkio
+[    0.004409] CPU0: Hyper-Threading is disabled
+[    0.004432] Performance Events: Netburst events, 
+[    0.004441] no APIC, boot with the"lapic" boot parameter to force-enable it.
+[    0.004445] no hardware sampling interrupt available.
+[    0.004448] Netburst P4/Xeon PMU driver.
+[    0.004485] ... version:                0
+[    0.004488] ... bit width:              40
+[    0.004492] ... generic registers:      18
+[    0.004496] ... value mask:             000000ffffffffff
+[    0.004500] ... max period:             0000007fffffffff
+[    0.004504] ... fixed-purpose events:   0
+[    0.004508] ... event mask:             000000000003ffff
+[    0.005311] SMP alternatives: switching to UP code
+[    0.020576] Freeing SMP alternatives: 20k freed
+[    0.020604] ACPI: Core revision 20100702
+[    0.028567] ACPI: setting ELCR to 0200 (from 0c00)
+[    0.032131] weird, boot CPU (#0) not listed by the BIOS.
+[    0.032135] SMP motherboard not detected.
+[    0.032140] Local APIC not detected. Using dummy APIC emulation.
+[    0.032143] SMP disabled
+[    0.032291] Brought up 1 CPUs
+[    0.032296] Total of 1 processors activated (3590.16 BogoMIPS).
+[    0.032438] devtmpfs: initialized
+[    0.033143] regulator: core version 0.5
+[    0.033222] NET: Registered protocol family 16
+[    0.033406] ACPI: bus type pci registered
+[    0.037126] PCI: PCI BIOS revision 2.10 entry at 0xfd9c5, last bus=2
+[    0.037131] PCI: Using configuration type 1 for base access
+[    0.038629] bio: create slab &lt;bio-0&gt; at 0
+[    0.039810] ACPI: EC: Look up EC in DSDT
+[    0.042818] ACPI: Interpreter enabled
+[    0.042831] ACPI: (supports S0 S1 S3 S4 S5)
+[    0.042870] ACPI: Using PIC for interrupt routing
+[    0.049464] ACPI: EC: GPE = 0x1c, I/O: command/status = 0x66, data = 0x62
+[    0.049662] ACPI: No dock devices found.
+[    0.049671] PCI: Ignoring host bridge windows from ACPI; if necessary, use"pci=use_crs" and report a bug
+[    0.052652] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+[    0.054697] pci_root PNP0A03:00: host bridge window [io  0x0000-0x0cf7] (ignored)
+[    0.054704] pci_root PNP0A03:00: host bridge window [io  0x0d00-0xffff] (ignored)
+[    0.054709] pci_root PNP0A03:00: host bridge window [mem 0x000a0000-0x000bffff] (ignored)
+[    0.054715] pci_root PNP0A03:00: host bridge window [mem 0x000d0000-0x000d3fff] (ignored)
+[    0.054720] pci_root PNP0A03:00: host bridge window [mem 0x000d4000-0x000d7fff] (ignored)
+[    0.054725] pci_root PNP0A03:00: host bridge window [mem 0x000d8000-0x000dbfff] (ignored)
+[    0.054733] pci_root PNP0A03:00: host bridge window [mem 0x10000000-0xfebfffff] (ignored)
+[    0.054767] pci 0000:00:00.0: reg 10: [mem 0xec000000-0xefffffff pref]
+[    0.054964] pci 0000:00:1d.0: reg 20: [io  0x1800-0x181f]
+[    0.055064] pci 0000:00:1d.1: reg 20: [io  0x1820-0x183f]
+[    0.055250] pci 0000:00:1f.0: quirk: [io  0x1000-0x107f] claimed by ICH4 ACPI/GPIO/TCO
+[    0.055258] pci 0000:00:1f.0: quirk: [io  0x1180-0x11bf] claimed by ICH4 GPIO
+[    0.055302] pci 0000:00:1f.1: reg 10: [io  0x0000-0x0007]
+[    0.055316] pci 0000:00:1f.1: reg 14: [io  0x0000-0x0003]
+[    0.055330] pci 0000:00:1f.1: reg 18: [io  0x0000-0x0007]
+[    0.055344] pci 0000:00:1f.1: reg 1c: [io  0x0000-0x0003]
+[    0.055358] pci 0000:00:1f.1: reg 20: [io  0x1840-0x184f]
+[    0.055372] pci 0000:00:1f.1: reg 24: [mem 0x00000000-0x000003ff]
+[    0.055465] pci 0000:00:1f.3: reg 20: [io  0x1860-0x187f]
+[    0.055527] pci 0000:00:1f.5: reg 10: [io  0x1c00-0x1cff]
+[    0.055541] pci 0000:00:1f.5: reg 14: [io  0x1880-0x18bf]
+[    0.055631] pci 0000:00:1f.6: reg 10: [io  0x2400-0x24ff]
+[    0.055645] pci 0000:00:1f.6: reg 14: [io  0x2000-0x207f]
+[    0.055754] pci 0000:01:00.0: reg 10: [mem 0xe0000000-0xe0ffffff]
+[    0.055767] pci 0000:01:00.0: reg 14: [mem 0xf0000000-0xf7ffffff pref]
+[    0.055808] pci 0000:01:00.0: reg 30: [mem 0x00000000-0x0000ffff pref]
+[    0.055879] pci 0000:00:01.0: PCI bridge to [bus 01-01]
+[    0.055886] pci 0000:00:01.0:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.055893] pci 0000:00:01.0:   bridge window [mem 0xe0000000-0xe7ffffff]
+[    0.055899] pci 0000:00:01.0:   bridge window [mem 0xf0000000-0xf7ffffff pref]
+[    0.055953] pci 0000:02:01.0: reg 10: [io  0x3000-0x307f]
+[    0.055968] pci 0000:02:01.0: reg 14: [mem 0xe8000000-0xe800007f]
+[    0.056037] pci 0000:02:01.0: reg 30: [mem 0x00000000-0x0001ffff pref]
+[    0.056063] pci 0000:02:01.0: supports D1 D2
+[    0.056067] pci 0000:02:01.0: PME# supported from D0 D1 D2 D3hot D3cold
+[    0.056074] pci 0000:02:01.0: PME# disabled
+[    0.056122] pci 0000:02:04.0: reg 10: [mem 0x00000000-0x00000fff]
+[    0.056148] pci 0000:02:04.0: supports D1 D2
+[    0.056153] pci 0000:02:04.0: PME# supported from D0 D1 D2 D3hot D3cold
+[    0.056160] pci 0000:02:04.0: PME# disabled
+[    0.056209] pci 0000:00:1e.0: PCI bridge to [bus 02-02] (subtractive decode)
+[    0.056217] pci 0000:00:1e.0:   bridge window [io  0x3000-0x3fff]
+[    0.056225] pci 0000:00:1e.0:   bridge window [mem 0xe8000000-0xe80fffff]
+[    0.056233] pci 0000:00:1e.0:   bridge window [mem 0xfff00000-0x000fffff pref] (disabled)
+[    0.056238] pci 0000:00:1e.0:   bridge window [io  0x0000-0xffff] (subtractive decode)
+[    0.056244] pci 0000:00:1e.0:   bridge window [mem 0x00000000-0xffffffff] (subtractive decode)
+[    0.056293] pci_bus 0000:03: [bus 03-06] partially hidden behind transparent bridge 0000:02 [bus 02-02]
+[    0.056312] pci_bus 0000:00: on NUMA node 0
+[    0.056318] ACPI: PCI Interrupt Routing Table [\_SB_.PCI0._PRT]
+[    0.056554] ACPI: PCI Interrupt Routing Table [\_SB_.PCI0.AGPB._PRT]
+[    0.056651] ACPI: PCI Interrupt Routing Table [\_SB_.PCI0.PCIB._PRT]
+[    0.059388] ACPI: PCI Interrupt Link [LNKA] (IRQs 3 4 5 7 9 *10 11 12 14 15)
+[    0.059563] ACPI: PCI Interrupt Link [LNKB] (IRQs 3 4 5 7 9 *10 11 12 14 15)
+[    0.059701] ACPI: PCI Interrupt Link [LNKC] (IRQs 3 4 5 7 9 10 11 12 14 15) *0, disabled.
+[    0.059865] ACPI: PCI Interrupt Link [LNKD] (IRQs 3 4 5 7 9 10 *11 12 14 15)
+[    0.059930] HEST: Table is not found!
+[    0.060070] vgaarb: device added: PCI:0000:01:00.0,decodes=io+mem,owns=io+mem,locks=none
+[    0.060078] vgaarb: loaded
+[    0.060281] SCSI subsystem initialized
+[    0.060359] libata version 3.00 loaded.
+[    0.060422] usbcore: registered new interface driver usbfs
+[    0.060455] usbcore: registered new interface driver hub
+[    0.060499] usbcore: registered new device driver usb
+[    0.060599] PCI: Using ACPI for IRQ routing
+[    0.060607] PCI: pci_cache_line_size set to 64 bytes
+[    0.060680] reserve RAM buffer: 000000000009f000 - 000000000009ffff 
+[    0.060686] reserve RAM buffer: 000000000fef0000 - 000000000fffffff 
+[    0.060691] reserve RAM buffer: 000000000ff80000 - 000000000fffffff 
+[    0.060894] Switching to clocksource tsc
+[    0.060971] pnp: PnP ACPI init
+[    0.060991] ACPI: bus type pnp registered
+[    0.062783] pnp 00:04: disabling [mem 0x00010000-0x0001ffff] because it overlaps 0000:02:01.0 BAR 6 [mem 0x00000000-0x0001ffff pref]
+[    0.065427] pnp: PnP ACPI: found 9 devices
+[    0.065432] ACPI: ACPI bus type pnp unregistered
+[    0.065441] PnPBIOS: Disabled by ACPI PNP
+[    0.065463] system 00:04: [io  0x0600-0x060f] has been reserved
+[    0.065469] system 00:04: [io  0x0700-0x070f] has been reserved
+[    0.065475] system 00:04: [io  0x1000-0x107f] has been reserved
+[    0.065480] system 00:04: [io  0x1180-0x11bf] has been reserved
+[    0.065486] system 00:04: [io  0x1200-0x120f] has been reserved
+[    0.065491] system 00:04: [io  0xfe00-0xfe01] has been reserved
+[    0.065496] system 00:04: [io  0xfff0-0xfffe] has been reserved
+[    0.065503] system 00:04: [mem 0xfebffc00-0xfebfffff] has been reserved
+[    0.065508] system 00:04: [mem 0xfff80000-0xffffffff] has been reserved
+[    0.103059] pci 0000:00:1e.0: BAR 15: assigned [mem 0x10000000-0x15ffffff pref]
+[    0.103067] pci 0000:00:1f.1: BAR 5: assigned [mem 0x16000000-0x160003ff]
+[    0.103091] pci 0000:00:1f.1: BAR 5: set to [mem 0x16000000-0x160003ff] (PCI address [0x16000000-0x160003ff]
+[    0.103100] pci 0000:01:00.0: BAR 6: assigned [mem 0xe1000000-0xe100ffff pref]
+[    0.103105] pci 0000:00:01.0: PCI bridge to [bus 01-01]
+[    0.103109] pci 0000:00:01.0:   bridge window [io  disabled]
+[    0.103117] pci 0000:00:01.0:   bridge window [mem 0xe0000000-0xe7ffffff]
+[    0.103123] pci 0000:00:01.0:   bridge window [mem 0xf0000000-0xf7ffffff pref]
+[    0.103135] pci 0000:02:04.0: BAR 15: assigned [mem 0x10000000-0x13ffffff pref]
+[    0.103141] pci 0000:02:04.0: BAR 16: assigned [mem 0x18000000-0x1bffffff]
+[    0.103147] pci 0000:02:01.0: BAR 6: assigned [mem 0x14000000-0x1401ffff pref]
+[    0.103153] pci 0000:02:04.0: BAR 0: assigned [mem 0xe8001000-0xe8001fff]
+[    0.103162] pci 0000:02:04.0: BAR 0: set to [mem 0xe8001000-0xe8001fff] (PCI address [0xe8001000-0xe8001fff]
+[    0.103168] pci 0000:02:04.0: BAR 13: assigned [io  0x3400-0x34ff]
+[    0.103173] pci 0000:02:04.0: BAR 14: assigned [io  0x3800-0x38ff]
+[    0.103178] pci 0000:02:04.0: CardBus bridge to [bus 03-06]
+[    0.103183] pci 0000:02:04.0:   bridge window [io  0x3400-0x34ff]
+[    0.103190] pci 0000:02:04.0:   bridge window [io  0x3800-0x38ff]
+[    0.103197] pci 0000:02:04.0:   bridge window [mem 0x10000000-0x13ffffff pref]
+[    0.103205] pci 0000:02:04.0:   bridge window [mem 0x18000000-0x1bffffff]
+[    0.103212] pci 0000:00:1e.0: PCI bridge to [bus 02-02]
+[    0.103218] pci 0000:00:1e.0:   bridge window [io  0x3000-0x3fff]
+[    0.103227] pci 0000:00:1e.0:   bridge window [mem 0xe8000000-0xe80fffff]
+[    0.103235] pci 0000:00:1e.0:   bridge window [mem 0x10000000-0x15ffffff pref]
+[    0.103262] pci 0000:00:1e.0: setting latency timer to 64
+[    0.103353] pci 0000:02:04.0: power state changed by ACPI to D0
+[    0.103385] pci 0000:02:04.0: power state changed by ACPI to D0
+[    0.103633] ACPI: PCI Interrupt Link [LNKA] enabled at IRQ 10
+[    0.103640] PCI: setting IRQ 10 as level-triggered
+[    0.103648] pci 0000:02:04.0: PCI INT A -&gt; Link[LNKA] -&gt; GSI 10 (level, low) -&gt; IRQ 10
+[    0.103658] pci 0000:02:04.0: setting latency timer to 64
+[    0.103665] pci_bus 0000:00: resource 0 [io  0x0000-0xffff]
+[    0.103670] pci_bus 0000:00: resource 1 [mem 0x00000000-0xffffffff]
+[    0.103676] pci_bus 0000:01: resource 1 [mem 0xe0000000-0xe7ffffff]
+[    0.103681] pci_bus 0000:01: resource 2 [mem 0xf0000000-0xf7ffffff pref]
+[    0.103686] pci_bus 0000:02: resource 0 [io  0x3000-0x3fff]
+[    0.103690] pci_bus 0000:02: resource 1 [mem 0xe8000000-0xe80fffff]
+[    0.103695] pci_bus 0000:02: resource 2 [mem 0x10000000-0x15ffffff pref]
+[    0.103700] pci_bus 0000:02: resource 4 [io  0x0000-0xffff]
+[    0.103705] pci_bus 0000:02: resource 5 [mem 0x00000000-0xffffffff]
+[    0.103710] pci_bus 0000:03: resource 0 [io  0x3400-0x34ff]
+[    0.103714] pci_bus 0000:03: resource 1 [io  0x3800-0x38ff]
+[    0.103719] pci_bus 0000:03: resource 2 [mem 0x10000000-0x13ffffff pref]
+[    0.103724] pci_bus 0000:03: resource 3 [mem 0x18000000-0x1bffffff]
+[    0.103796] NET: Registered protocol family 2
+[    0.103906] IP route cache hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.104235] TCP established hash table entries: 8192 (order: 4, 65536 bytes)
+[    0.104322] TCP bind hash table entries: 8192 (order: 4, 65536 bytes)
+[    0.104399] TCP: Hash tables configured (established 8192 bind 8192)
+[    0.104403] TCP reno registered
+[    0.104410] UDP hash table entries: 128 (order: 0, 4096 bytes)
+[    0.104424] UDP-Lite hash table entries: 128 (order: 0, 4096 bytes)
+[    0.104541] NET: Registered protocol family 1
+[    0.104637] pci 0000:01:00.0: Boot video device
+[    0.104651] PCI: CLS 32 bytes, default 64
+[    0.104748] Trying to unpack rootfs image as initramfs...
+[    0.620660] Freeing initrd memory: 9408k freed
+[    0.642032] audit: initializing netlink socket (disabled)
+[    0.642065] type=2000 audit(1337533115.636:1): initialized
+[    0.657453] HugeTLB registered 4 MB page size, pre-allocated 0 pages
+[    0.660082] VFS: Disk quotas dquot_6.5.2
+[    0.660182] Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+[    0.661054] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.661413] NTFS driver 2.1.29 [Flags: R/W].
+[    0.661811] aufs 2.1-standalone.tree-36-20110328
+[    0.661822] msgmni has been set to 493
+[    0.662154] alg: No test for stdrng (krng)
+[    0.662263] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
+[    0.662270] io scheduler noop registered
+[    0.662273] io scheduler deadline registered
+[    0.662300] io scheduler cfq registered (default)
+[    0.663741] vesafb: framebuffer at 0xf0000000, mapped to 0xd0800000, using 3072k, total 16384k
+[    0.663748] vesafb: mode is 1024x768x16, linelength=2048, pages=1
+[    0.663752] vesafb: protected mode interface info at c000:da80
+[    0.663757] vesafb: pmi: set display start = c00cdac5, set palette = c00cdb4a
+[    0.663761] vesafb: pmi: ports = b4c3 b503 ba03 c003 c103 c403 c503 c603 c703 c803 c903 cc03 ce03 cf03 d003 d103 d203 d303 d403 d503 da03 ff03 
+[    0.663788] vesafb: scrolling: redraw
+[    0.663794] vesafb: Truecolor: size=0:5:6:5, shift=0:11:5:0
+[    0.692552] Console: switching to colour frame buffer device 128x48
+[    0.721093] fb0: VESA VGA frame buffer device
+[    0.721201] ERST: Table is not found!
+[    0.721222] isapnp: Scanning for PnP cards...
+[    1.031896] isapnp: No Plug &amp; Play device found
+[    1.032194] Linux agpgart interface v0.103
+[    1.032388] agpgart-intel 0000:00:00.0: Intel 845G Chipset
+[    1.036495] agpgart-intel 0000:00:00.0: AGP aperture is 64M @ 0xec000000
+[    1.036625] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    1.037414] ACPI: PCI Interrupt Link [LNKB] enabled at IRQ 10
+[    1.037425] serial 0000:00:1f.6: PCI INT B -&gt; Link[LNKB] -&gt; GSI 10 (level, low) -&gt; IRQ 10
+[    1.037435] serial 0000:00:1f.6: PCI INT B disabled
+[    1.039390] brd: module loaded
+[    1.040406] loop: module loaded
+[    1.040429] Uniform Multi-Platform E-IDE driver
+[    1.040542] ide-cd driver 5.00
+[    1.040852] ata_piix 0000:00:1f.1: version 2.13
+[    1.040872] ata_piix 0000:00:1f.1: enabling device (0005 -&gt; 0007)
+[    1.041134] ACPI: PCI Interrupt Link [LNKC] enabled at IRQ 11
+[    1.041139] PCI: setting IRQ 11 as level-triggered
+[    1.041148] ata_piix 0000:00:1f.1: PCI INT A -&gt; Link[LNKC] -&gt; GSI 11 (level, low) -&gt; IRQ 11
+[    1.041241] ata_piix 0000:00:1f.1: setting latency timer to 64
+[    1.041408] scsi0 : ata_piix
+[    1.041560] scsi1 : ata_piix
+[    1.042526] ata1: PATA max UDMA/100 cmd 0x1f0 ctl 0x3f6 bmdma 0x1840 irq 14
+[    1.042533] ata2: PATA max UDMA/100 cmd 0x170 ctl 0x376 bmdma 0x1848 irq 15
+[    1.043287] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    1.043319] uhci_hcd: USB Universal Host Controller Interface driver
+[    1.043382] uhci_hcd 0000:00:1d.0: PCI INT A -&gt; Link[LNKA] -&gt; GSI 10 (level, low) -&gt; IRQ 10
+[    1.043396] uhci_hcd 0000:00:1d.0: setting latency timer to 64
+[    1.043402] uhci_hcd 0000:00:1d.0: UHCI Host Controller
+[    1.043494] uhci_hcd 0000:00:1d.0: new USB bus registered, assigned bus number 1
+[    1.043531] uhci_hcd 0000:00:1d.0: irq 10, io base 0x00001800
+[    1.043607] usb usb1: New USB device found, idVendor=1d6b, idProduct=0001
+[    1.043613] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.043617] usb usb1: Product: UHCI Host Controller
+[    1.043621] usb usb1: Manufacturer: Linux 2.6.36-1-mepis-smp uhci_hcd
+[    1.043625] usb usb1: SerialNumber: 0000:00:1d.0
+[    1.043806] hub 1-0:1.0: USB hub found
+[    1.043815] hub 1-0:1.0: 2 ports detected
+[    1.044266] ACPI: PCI Interrupt Link [LNKD] enabled at IRQ 11
+[    1.044276] uhci_hcd 0000:00:1d.1: PCI INT B -&gt; Link[LNKD] -&gt; GSI 11 (level, low) -&gt; IRQ 11
+[    1.044289] uhci_hcd 0000:00:1d.1: setting latency timer to 64
+[    1.044295] uhci_hcd 0000:00:1d.1: UHCI Host Controller
+[    1.044384] uhci_hcd 0000:00:1d.1: new USB bus registered, assigned bus number 2
+[    1.044417] uhci_hcd 0000:00:1d.1: irq 11, io base 0x00001820
+[    1.044492] usb usb2: New USB device found, idVendor=1d6b, idProduct=0001
+[    1.044498] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.044502] usb usb2: Product: UHCI Host Controller
+[    1.044506] usb usb2: Manufacturer: Linux 2.6.36-1-mepis-smp uhci_hcd
+[    1.044510] usb usb2: SerialNumber: 0000:00:1d.1
+[    1.044681] hub 2-0:1.0: USB hub found
+[    1.044689] hub 2-0:1.0: 2 ports detected
+[    1.044834] Initializing USB Mass Storage driver...
+[    1.044877] usbcore: registered new interface driver usb-storage
+[    1.044881] USB Mass Storage support registered.
+[    1.044909] usbcore: registered new interface driver ums-alauda
+[    1.044932] usbcore: registered new interface driver ums-cypress
+[    1.044955] usbcore: registered new interface driver ums-datafab
+[    1.044977] usbcore: registered new interface driver ums-freecom
+[    1.044998] usbcore: registered new interface driver ums-isd200
+[    1.045022] usbcore: registered new interface driver ums-jumpshot
+[    1.045045] usbcore: registered new interface driver ums-karma
+[    1.045068] usbcore: registered new interface driver ums-onetouch
+[    1.045095] usbcore: registered new interface driver ums-sddr09
+[    1.045118] usbcore: registered new interface driver ums-sddr55
+[    1.045142] usbcore: registered new interface driver ums-usbat
+[    1.045227] PNP: PS/2 Controller [PNP0303:PS2K,PNP0f13:PS2M] at 0x60,0x64 irq 1,12
+[    1.060544] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    1.060555] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    1.060780] mice: PS/2 mouse device common for all mice
+[    1.060953] rtc_cmos 00:01: rtc core: registered rtc_cmos as rtc0
+[    1.060977] rtc0: alarms up to one month, y3k, 242 bytes nvram
+[    1.060999] cpuidle: using governor ladder
+[    1.061003] cpuidle: using governor menu
+[    1.061008] No iBFT detected.
+[    1.061523] TCP cubic registered
+[    1.061779] NET: Registered protocol family 10
+[    1.062444] lo: Disabled Privacy Extensions
+[    1.062818] Mobile IPv6
+[    1.062824] NET: Registered protocol family 17
+[    1.062832] Registering the dns_resolver key type
+[    1.062875] Using IPI No-Shortcut mode
+[    1.063030] PM: Resume from disk failed.
+[    1.063050] registered taskstats version 1
+[    1.063318] rtc_cmos 00:01: setting system clock to 2012-05-20 16:58:36 UTC (1337533116)
+[    1.085037] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input0
+[    1.216682] ata2.00: ATAPI: HL-DT-STCD-RW/DVD-ROM GCC-4240N, D110, max UDMA/33
+[    1.216791] ata1.00: ATA-5: HITACHI_DK23EA-30, 00K4A0C1, max UDMA/100
+[    1.216797] ata1.00: 58605120 sectors, multi 16: LBA 
+[    1.224376] ata1.00: configured for UDMA/100
+[    1.224577] scsi 0:0:0:0: Direct-Access     ATA      HITACHI_DK23EA-3 00K4 PQ: 0 ANSI: 5
+[    1.224864] sd 0:0:0:0: Attached scsi generic sg0 type 0
+[    1.225067] sd 0:0:0:0: [sda] 58605120 512-byte logical blocks: (30.0 GB/27.9 GiB)
+[    1.225169] sd 0:0:0:0: [sda] Write Protect is off
+[    1.225175] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[    1.225219] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    1.259521]  sda: sda1 sda2 sda3 &lt; sda5 sda6 &gt;
+[    1.260076] sd 0:0:0:0: [sda] Attached SCSI disk
+[    1.344204] ata2.00: configured for UDMA/33
+[    1.349381] scsi 1:0:0:0: CD-ROM            HL-DT-ST RW/DVD GCC-4240N D110 PQ: 0 ANSI: 5
+[    1.360489] sr0: scsi3-mmc drive: 24x/24x writer cd/rw xa/form2 cdda tray
+[    1.360495] cdrom: Uniform CD-ROM driver Revision: 3.20
+[    1.360685] sr 1:0:0:0: Attached scsi CD-ROM sr0
+[    1.360794] sr 1:0:0:0: Attached scsi generic sg1 type 5
+[    1.360879] Freeing unused kernel memory: 412k freed
+[    1.476280] &lt;30&gt;udev[56]: starting version 167
+[    1.882909] Floppy drive(s): fd0 is 1.44M
+[    1.914524] FDC 0 is a National Semiconductor PC87306
+[    1.926154] 3c59x 0000:02:01.0: PCI INT A -&gt; Link[LNKB] -&gt; GSI 10 (level, low) -&gt; IRQ 10
+[    1.926181] 3c59x: Donald Becker and others.
+[    1.926193] 0000:02:01.0: 3Com PCI 3c905C Tornado at d0b40000.
+[    2.723122] EXT3-fs: barriers not enabled
+[    2.734345] kjournald starting.  Commit interval 5 seconds
+[    2.734380] EXT3-fs (sda6): mounted filesystem with ordered data mode
+[    4.853135] &lt;30&gt;udev[268]: starting version 167
+[    5.535225] input: Lid Switch as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0D:00/input/input1
+[    5.535318] ACPI: Lid Switch [LID]
+[    5.535427] input: Power Button as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0C:00/input/input2
+[    5.535436] ACPI: Power Button [PWRB]
+[    5.535548] input: Sleep Button as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0E:00/input/input3
+[    5.535556] ACPI: Sleep Button [SLPB]
+[    5.535680] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input4
+[    5.535688] ACPI: Power Button [PWRF]
+[    5.624909] ACPI: acpi_idle registered with cpuidle
+[    5.625000] Marking TSC unstable due to TSC halts in idle
+[    5.633791] Switching to clocksource acpi_pm
+[    5.658748] dcdbas dcdbas: Dell Systems Management Base Driver (version 5.6.0-3.2)
+[    5.666906] ACPI: Battery Slot [BAT1] (battery present)
+[    5.671619] ACPI: AC Adapter [ACAD] (on-line)
+[    5.776714] pci_hotplug: PCI Hot Plug PCI Core version: 0.5
+[    5.895311] intel_rng: FWH not detected
+[    6.145408] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+[    6.193776] parport_pc 00:07: reported by Plug and Play ACPI
+[    6.193838] parport0: PC-style at 0x378, irq 7 [PCSPP]
+[    6.464106] ata_id[477]: segfault at 0 ip (null) sp bfa88d0c error 4
+[    6.482381] input: Video Bus as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A03:00/device:00/LNXVIDEO:00/input/input5
+[    6.482546] ACPI: Video Device [VGA] (multi-head: yes  rom: no  post: no)
+[    7.108619] Synaptics Touchpad, model: 1, fw: 5.9, id: 0x254ab1, caps: 0x804713/0x0/0x0
+[    7.163399] input: SynPS/2 Synaptics TouchPad as /devices/platform/i8042/serio1/input/input6
+[    7.193641] yenta_cardbus 0000:02:04.0: CardBus bridge found [1028:00f3]
+[    7.193671] yenta_cardbus 0000:02:04.0: O2: enabling read prefetch/write burst
+[    7.320803] yenta_cardbus 0000:02:04.0: ISA IRQ mask 0x0038, PCI irq 10
+[    7.320811] yenta_cardbus 0000:02:04.0: Socket status: 30000411
+[    7.320819] pci_bus 0000:02: Raising subordinate bus# of parent bus (#02) from #02 to #06
+[    7.320840] yenta_cardbus 0000:02:04.0: pcmcia: parent PCI bridge window: [io  0x3000-0x3fff]
+[    7.320847] pcmcia_socket pcmcia_socket0: cs: IO port probe 0x3000-0x3fff: excluding 0x3000-0x307f 0x3400-0x34ff 0x3800-0x38ff
+[    7.327434] yenta_cardbus 0000:02:04.0: pcmcia: parent PCI bridge window: [mem 0xe8000000-0xe80fffff]
+[    7.327442] pcmcia_socket pcmcia_socket0: cs: memory probe 0xe8000000-0xe80fffff: excluding 0xe8000000-0xe800ffff
+[    7.327465] yenta_cardbus 0000:02:04.0: pcmcia: parent PCI bridge window: [mem 0x10000000-0x15ffffff pref]
+[    7.327470] pcmcia_socket pcmcia_socket0: cs: memory probe 0x10000000-0x15ffffff: excluding 0x10000000-0x15ffffff
+[    7.693027] [drm] Initialized drm 1.1.0 20060810
+[    8.220075] pcmcia_socket pcmcia_socket0: pccard: PCMCIA card inserted into slot 0
+[    8.220089] pcmcia_socket pcmcia_socket0: cs: memory probe 0xe8010000-0xe80fffff:
+[    8.224180] pcmcia_socket pcmcia_socket0: cs: IO port probe 0x100-0x3af: excluding 0x170-0x177 0x1f0-0x1f7 0x370-0x37f
+[    8.226323] pcmcia_socket pcmcia_socket0: cs: IO port probe 0x3e0-0x4ff: excluding 0x3f0-0x3f7 0x4d0-0x4d7
+[    8.227250] pcmcia_socket pcmcia_socket0: cs: IO port probe 0x820-0x8ff: clean.
+[    8.232113] pcmcia_socket pcmcia_socket0: cs: IO port probe 0xc00-0xcf7: clean.
+[    8.232970] pcmcia_socket pcmcia_socket0: cs: memory probe 0x0c0000-0x0fffff: excluding 0xc0000-0xcffff 0xdc000-0xfffff
+[    8.233074] pcmcia_socket pcmcia_socket0: cs: memory probe 0xa0000000-0xa0ffffff: clean.
+[    8.233179] pcmcia_socket pcmcia_socket0: cs: memory probe 0x60000000-0x60ffffff: clean.
+[    8.233287] pcmcia_socket pcmcia_socket0: cs: IO port probe 0xa00-0xaff: clean.
+[    8.251582]  excluding 0xe80fe000-0xe810bfff
+[    8.252352] pcmcia 0.0: pcmcia: registering new device pcmcia0.0 (IRQ: 3)
+[    9.145236] eth1: Atmel at76c50x. Version 0.98. MAC 00:30:bd:d1:89:fc
+[    9.201370] Intel ICH Modem 0000:00:1f.6: PCI INT B -&gt; Link[LNKB] -&gt; GSI 10 (level, low) -&gt; IRQ 10
+[    9.201402] Intel ICH Modem 0000:00:1f.6: setting latency timer to 64
+[    9.308085] MC'97 1 converters and GPIO not ready (0xff00)
+[    9.309088] Intel ICH 0000:00:1f.5: PCI INT B -&gt; Link[LNKB] -&gt; GSI 10 (level, low) -&gt; IRQ 10
+[    9.309118] Intel ICH 0000:00:1f.5: setting latency timer to 64
+[    9.888053] intel8x0_measure_ac97_clock: measured 55337 usecs (2660 samples)
+[    9.888060] intel8x0: clocking to 48000
+[   11.497451] Adding 537596k swap on /dev/sda5.  Priority:1 extents:1 across:537596k 
+[   11.807988] EXT3-fs (sda6): using internal journal
+[   13.215944] fuse init (API version 7.15)
+[   14.145310] eth0:  setting full-duplex.
+[   14.468776] eth1: card type is unknown: assuming at76c502 firmware is OK.
+[   14.468784] eth1: if not, use the firmware= module parameter.
+[   14.624150] ADDRCONF(NETDEV_UP): eth1: link is not ready
+[   16.533728] input: ACPI Virtual Keyboard Device as /devices/virtual/input/input7
+[   18.662231] lp0: using parport0 (interrupt-driven).
+[   18.695213] ppdev: user-space parallel port driver</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24759" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24759">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24759">
+
+<time datetime="2012-05-21T05:07">posted: 2012-05-21 &nbsp; 05:07</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24759" title="permalink">#51</a></span>
+
+<div class="content">Looking in /var/log/messages there is a 279 Kb message file dated today (with an"X" mark on it) but I am unable to open it or to get to it as root through the terminal window.<br>
+<br>
+Looking for /etc/pcmcia/atmel.conf the file reads as follows:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># PCMCIA configuration for Atmel at76c50x wireless devices
+# and in-kernel device driver.
+# Version 20040125
+
+device"atmel_cs"
+  class"network" module"atmel_cs"
+
+card"ATMEL 11 Mbps Wireless RFMD PCMCIA Card"
+  version"ATMEL","AT76C502AR"
+  bind"atmel_cs"
+
+card"ATMEL 11 Mbps Wireless 504 PCMCIA Card"
+  version"ATMEL","AT76C504"
+  bind"atmel_cs"
+
+card"ATMEL 11 Mbps Wireless 504A PCMCIA Card"
+  version"ATMEL","AT76C504A"
+  bind"atmel_cs"
+
+card"ATMEL 11 Mbps Wireless 504+2958 PCMCIA Card"
+  version"ATMEL","AT76C504_R"
+  bind"atmel_cs"
+
+card"ATMEL 11 Mbps Wireless RFMD Revision D PCMCIA Card"
+  version"ATMEL","AT76C502AR_D"
+  bind"atmel_cs"
+
+card"ATMEL 11 Mbps Wireless RFMD Revision E PCMCIA Card"
+  version"ATMEL","AT76C502AR_E"
+  bind"atmel_cs"
+ 
+card"Sitecom WLAN-011"
+  manfid 0xd601, 0x0007
+  bind"atmel_cs"
+
+card"Belkin F5D6020"
+  version"Belkin","11Mbps-Wireless-Notebook-Network-Adapter"
+  manfid 0x01bf, 0x3302
+  bind"atmel_cs"
+
+card"3Com 3CRWE62092B 11Mbps WLAN PC Card"
+  manfid 0x0101, 0x0620
+  bind"atmel_cs"
+
+card"3Com 3CRSHPW_96 Wireless LAN PC Card"
+  manfid 0x0101, 0x696
+  bind"atmel_cs"
+
+card"SMC 2632W V2 11Mbps 802.11b WLAN Card"
+  version"SMC","2632W-V2"
+  bind"atmel_cs"
+
+card"SMC 2632W V3 11Mbps 802.11b WLAN Card"
+  version"SMC","2632W"
+  bind"atmel_cs"
+
+card"Actiontec 802CAT1"
+  version"WLAN","802.11b PC CARD"
+  bind"atmel_cs"
+
+card"BT Voyager 1020"
+  version"BT","Voyager 1020 Laptop Adapter"
+  bind"atmel_cs"
+
+card"Siemens Gigaset PC Card II"
+  version"IEEE 802.11b","Wireless LAN PC Card"
+  bind"atmel_cs"
+
+card"Siemens Gigaset PC Card II"
+  version"IEEE 802.11b","Wireless LAN Card S"
+  bind"atmel_cs"
+
+card"CNet CNWLC-811ARL"
+  version"CNet","CNWLC 11Mbps Wireless PC Card V-5"
+  bind"atmel_cs"
+
+card"Planet WL-3552"
+  version"Wireless","PC_CARD"
+  bind"atmel_cs"
+
+card"OEM 11Mbps WLAN PCMCIA Card"
+  version"OEM","11Mbps Wireless LAN PC Card V-3"
+  bind"atmel_cs"
+
+card"11WAVE WaveBuddy RFMD Revision E PC Card"
+  version"11WAVE","11WP611AL-E"
+  bind"atmel_cs"
+
+card"LG LW2100N 11Mbps WLAN PCMCIA Card"
+  version"LG","LW2100N"
+  bind"atmel_cs"
+</code></pre></div>
+The WLAN card is referred to multiple times in this file.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24760" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24760">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24760">
+
+<time datetime="2012-05-21T05:12">posted: 2012-05-21 &nbsp; 05:12</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24760" title="permalink">#52</a></span>
+
+<div class="content">...however, in atmel.conf there seem to be no references to anything"Belkin".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24761" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24761">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24761">
+
+<time datetime="2012-05-21T05:14">posted: 2012-05-21 &nbsp; 05:14</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24761" title="permalink">#53</a></span>
+
+<div class="content">oops, I stand corrected:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>card"Belkin F5D6020"
+version"Belkin","11Mbps-Wireless-Notebook-Network-Adapter"
+manfid 0x01bf, 0x3302
+bind"atmel_cs"</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24762" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24762">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24762">
+
+<time datetime="2012-05-21T05:57">posted: 2012-05-21 &nbsp; 05:57</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24762" title="permalink">#54</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eth1: card type is unknown: assuming at76c502 firmware is OK.</code></pre></div>
+Hmm dmseg showed that (above in code tags) which does not seem right.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>bind"atmel_cs"</code></pre></div>
+I found this 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.linuxquestions.org/wiki/Belkin_F5D6020_ver.2"<br>linktext was:"http://wiki.linuxquestions.org/wiki/Bel ... 6020_ver.2"<br>====================================<br>
+<br>
+<br>
+also a downloadable manual for
+<blockquote class="uncited"><div>3.22 Atmel PCI and Pcmcia alternate driver Driver status : in development Driver name : PCI : atmel_pci.o Pcmcia : atmel_cs.o ... Flavio created a Debian package for this driver, and documented how to install and use this driver.</div></blockquote>
+from here<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.docstoc.com/docs/43269088/Linux-Wireless-LAN-Howto"<br>linktext was:"http://www.docstoc.com/docs/43269088/Li ... -LAN-Howto"<br>====================================<br>
+<br>
+<br>
+It is way past my bed time and I am not thinking clear headed right now. So Hopefully. Either you or someone else on the forum can figure what is needed done next with the info I dug up (Fingers crossed here). We are getting closer I think to the problem. I am beat. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24768" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24768">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24768">
+
+<time datetime="2012-05-22T21:11">posted: 2012-05-22 &nbsp; 21:11</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24768" title="permalink">#55</a></span>
+
+<div class="content">Do me a favor and run this command also<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /etc/modprobe.d/blacklist</code></pre></div>
+I am wondering if blacklisting at76c502 may be the way to go in fixing this. I am in unchartered waters here though.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24770" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24770">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24770">
+
+<time datetime="2012-05-23T03:38">posted: 2012-05-23 &nbsp; 03:38</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24770" title="permalink">#56</a></span>
+
+<div class="content">cat /etc/modprobe.d/blacklist<br>
+cat: /etc/modprobe.d/blacklist: No such file or directory<br>
+<br>
+I think I did something terrible. I can't seem to find the /etc directory!<br>
+<br>
+ls<br>
+Desktop mcthemes Wallpaper wireless configuration.doc<br>
+Documents Terminal commands.abw WIFI problem.abw<br>
+<br>
+I know I never deleted the files.(I've never issued a rm...)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24771" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24771">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24771">
+
+<time datetime="2012-05-23T04:28">posted: 2012-05-23 &nbsp; 04:28</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24771" title="permalink">#57</a></span>
+
+<div class="content"><blockquote class="uncited"><div>cat /etc/modprobe.d/blacklist<br>
+cat: /etc/modprobe.d/blacklist: No such file or directory</div></blockquote>
+Don't sweat it. I get the same so I <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@Biker:~$ cat /etc/modprobe.d/blacklist
+cat: /etc/modprobe.d/blacklist: No such file or directory
+harry@Biker:~$ cd /etc/modprobe.d
+harry@Biker:/etc/modprobe.d$ ls
+alsa-base-blacklist.conf  ipw2100.conf                 pcsp.conf
+alsa-base.conf            ipw2200.conf                 pnp-hotplug.conf
+b43.conf                  iwl3945.conf                 psmouse.conf
+display_class.conf        libpisock9.conf              radeon.conf
+fbdev-blacklist.conf      linux-sound-base_noOSS.conf  radeon-kms.conf
+i915-kms.conf             ltserial.conf
+harry@Biker:/etc/modprobe.d$ 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24772" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24772">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24772">
+
+<time datetime="2012-05-23T15:02">posted: 2012-05-23 &nbsp; 15:02</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24772" title="permalink">#58</a></span>
+
+<div class="content">Before trying what I am going to suggest here. I wanted to make sure you did not have atmel_cs blacklisted first. That is what my post above covers. If atmel_cs is blackisted. It should show in the above commands I posted.<br>
+<br>
+Ok. Lets say atmel_cs does not show as blacklisted. <br>
+<br>
+Open rox as root in terminal and go to /etc/modprobe.d and open the file.<br>
+Make a new text file.<br>
+Name it something like blacklist-custom.conf<br>
+<br>
+inside type in<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># /etc/modprobe.d/blacklist-custom.conf
+# Custom blacklist file so I don't mess with any of the files that come with
+# the module-init-tools package.
+blacklist at76c502</code></pre></div>
+save it. Reboot. See if atmel_cs takes over as driver for the Xircom card then. This is all experimental to me<br>
+as I have never had to blacklist a module from loading in AntiX ever since I have ran it since AntiX 7. So if I am off base here. I hope other forum members will correct my post/me. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24773" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24773">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24773">
+
+<time datetime="2012-05-23T15:22">posted: 2012-05-23 &nbsp; 15:22</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24773" title="permalink">#59</a></span>
+
+<div class="content">OK<br>
+<br>
+/etc/modprobe.d# ls<br>
+aliases.conf eeepc.conf radeon-kms.conf<br>
+alsa-base-blacklist.conf fbdev-blacklist.conf snd-hda-intel.conf<br>
+alsa-base.conf i915-kms.conf<br>
+blacklist.conf linux-sound-base_noOSS.conf<br>
+<br>
+Now this is all in terminal. <br>
+I created the file in Leafpad (not in terminal). (Where's my UNIX recall when I need it.) in my home directory. Since I can't get to /etc/modprobe.d# by directory surfing, how to I move that text file to /etc/modprobe.d# using terminal?<br>
+<br>
+(This is interesting. I've never blacklisted anything.)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24774" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24774">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 57</span></div>
+
+</div>
+</div>
+<span class="username">JXR</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24774">
+
+<time datetime="2012-05-23T15:45">posted: 2012-05-23 &nbsp; 15:45</time>
+<span class="permalink"><a href="./wifi-configuration-t3663-s45.html#p24774" title="permalink">#60</a></span>
+
+<div class="content">moved the file and am rebooting now</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+98 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./wifi-configuration-t3663-s30.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./wifi-configuration-t3663.html" role="button">1</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s15.html" role="button">2</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s30.html" role="button">3</a></li>
+<li class="active"><span>4</span></li>
+<li><a class="button" href="./wifi-configuration-t3663-s60.html" role="button">5</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s75.html" role="button">6</a></li>
+<li><a class="button" href="./wifi-configuration-t3663-s90.html" role="button">7</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./wifi-configuration-t3663-s60.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

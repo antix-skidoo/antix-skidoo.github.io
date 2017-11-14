@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How to set the default graphics driver in X? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html">How to set the default graphics driver in X?</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./how-to-set-the-default-graphics-driver-in-x-t5554-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./how-to-set-the-default-graphics-driver-in-x-t5554-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_39921" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39921">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39921">
+<time datetime="2015-03-08T23:05">posted: 2015-03-08 &nbsp; 23:05</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39921" title="permalink">#1</a></span>
+
+<div class="content">The default graphics driver used to be"vesa" and all was well with the world. Now, if the console framebuffer is enabled, the default becomes"fbdev" and the resolution in X becomes the same resolution in the consoles. This is a problem if we enable the framebuffer by default (on the antiX-15 live system) to a resolution of 800x600. See attached image.<br>
+<br>
+I'm writing code now to circumvent this by having the system automatically create an xorg.conf file specifying the"vesa" driver if the framebuffer is enabled and if there is no xdrvr=xxx boot parameter and if there is no graphics driver (nouveau, i915, nvidia, nouveau, radeon) already loaded. This may cause a problem with persistent systems that have the nvidia driver installed but there are simple ways to circumvent this problem so I figure we can deal with it when we encounter it. Right now, having a default X resolution of 800x600 seems unacceptable to me.<br>
+<br>
+If anyone knows, how to change the default graphics driver in X back to"vesa", this would make things much easier. Thanks.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39939" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39939">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39939">
+
+<time datetime="2015-03-10T03:12">posted: 2015-03-10 &nbsp; 03:12</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39939" title="permalink">#2</a></span>
+
+<div class="content">Not really sure at the moment as I have not really looked, but I will post my first place to look so at least you will get some useful information in the event my looking takes to long...<br>
+<br>
+My first place to look would be in / etc/X11/ with the various directories but iirc they are mostly empty. So perhaps the main lib folders that the etc folder is supposed to expand on????<br>
+<br>
+/usr/lib/X11/ and /usr/share/X11?<br>
+<br>
+I really have not thought about it before. Typically to solve that default issue I make a specific xorg.conf. But obviously that is a problem because it is machine specific. I do have a script to build a standard but useful Xorg if it is of help. I use it for the multi seat computers I do, but it could be easily adapted if needed (remove the kdm update stuff) . That way I do not need to manually reconfigure every time the machine is restarted or the seats are added / removed / rearranged. It is based off automseat script if it is of useful information</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39942" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39942">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39942">
+
+<time datetime="2015-03-10T03:35">posted: 2015-03-10 &nbsp; 03:35</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39942" title="permalink">#3</a></span>
+
+<div class="content">I've got code written and working that makes an xorg.conf specifying the vesa driver if there is no graphics driver loaded and no existing xorg.conf (and maybe a few other things). Generating the file in vbox took about 0.2 seconds so I don't think this is a big slowdown. <br>
+<br>
+We already had a script for building an xorg.conf file at /usr/sbin/buildxconfig. I modified it and moved it to /sbin/make-xorg-conf (which goes along with /sbin/make-fstab). This seems like the long way around. It would be much better if we could just tell the xserver to use vesa as the default driver. My guess is that ours is a bit of a corner case that hasn't gotten much attention. Must newer systems use a hardware specific graphics driver and on top of that, AFAIK, not many distros are enabling the vga frame buffer by default.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39948" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39948">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39948">
+
+<time datetime="2015-03-10T08:12">posted: 2015-03-10 &nbsp; 08:12</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39948" title="permalink">#4</a></span>
+
+<div class="content">A request for more information to clarify what is creating the need for this extra code at boot-up.<br>
+<br>
+For many years, and in many distros, it has been a widely used practice to specify a resolution at the earliest stages of the boot process, without the adverse affects illustrated in the screen shot of the opening post.<br>
+<br>
+Example
+<ul>
+<li>In antiX-13.2 a resolution of 800x600 is specified</li>
+<li>Framebuffer is enabled (demonstrated by the on screen text size during the earliest stages of the boot process)</li>
+<li>When booting to console only (no X) the resolution is 800x600</li>
+<li>In console mode, mplayer can show successfully play a video using fbdev2 for video output.</li>
+<li>When booting to GUI (X), framebuffer hands over to the driver for the video adaptor which uses its highest resolution without reference to (and without being restricted to) the lower resolution specified in the earlier boot process.</li> <li>In GUI mode, mplayer can successfully show a video without explicitly specifying a video output driver (i.e. it works with X).</li>
+<li>From the GUI switch to console (e.g. CTRL+ALT+F2) mplayer can run the same video using fbdev2 for video output.</li></ul>
+Note: <em>In neither case, (booted to console only, or to GUI) was framebuffer explicitly enabled. The action of specifying a resolution automatically enables framebuffer without affecting the defaults.</em><br>
+<br>
+Summary
+<ul>
+<li>The defaults are used</li>
+<li>Framebuffer is automatically enabled by specifying the resolution at boot-up</li>
+<li>The boot resolution does not affect the GUI (X) display which works as expected</li>
+<li>Framebuffer works as expected</li>
+<li>MPlayer plays videos in both console mode, and GUI mode (i.e. successfully uses framebuffer or video card driver as appropriate)</li>
+<li>It is a long established mechanism that does not require additional code during the boot process</li></ul>
+<br>
+What has changed in antiX-15 to make it necessary to explicitly enable framebuffer with its consequent adverse affects that require additional code to address?
+<ul>
+<li>The boot loader?</li>
+<li>The kernel?</li>
+<li>X-org?</li>
+<li>Something else? If so, specifically what is it?</li></ul>
+<br>
+Edit: Typo</div>
+<div class="notice">
+Last edited by <b>SamK</b> on 10 Mar 2015, 15:05, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39954" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39954">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39954">
+
+<time datetime="2015-03-10T14:50">posted: 2015-03-10 &nbsp; 14:50</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39954" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>
+<br>
+What has changed in antiX-15 to make it necessary to explicitly enable framebuffer with its consequent adverse affects that require additional code to address?
+<ul>
+<li>The boot loader?</li>
+<li>The kernel?</li>
+<li>X-org?</li>
+<li>Something else? If so, specifically what is it?</li></ul></div></blockquote>
+<br>
+I believe the frambuffer setup is required for the new console decoration schemed that BitJam has been working on.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39958" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39958">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39958">
+
+<time datetime="2015-03-10T18:48">posted: 2015-03-10 &nbsp; 18:48</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39958" title="permalink">#6</a></span>
+
+<div class="content">*I* had already turned the framebuffer off by default due to this problem. There were vocal complaints from testers, perhaps based on the erroneous assumption that:<blockquote class="uncited"><div>The vga=xxx parameter only affects console mode. It is irrelevant to, and does not affect GUI (X-server) mode. However, because antiX boots initially to console and (when a GUI is wanted) subsequently hands over to X, an inappropriate vga=xxx parameter will cause a boot failure in both modes.</div></blockquote>So anti asked me to enable the 800x600 framebuffer by default which leads to this problem in X.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39959" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39959">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39959">
+
+<time datetime="2015-03-10T19:34">posted: 2015-03-10 &nbsp; 19:34</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39959" title="permalink">#7</a></span>
+
+<div class="content">I am still not exactly sure, nor have I had a chance to try it. However with a little bit of time it seems to me (=my next move) would be to edit (add before?) a"section Device" that would specify the vesa driver rather than the"@@XMODULE@@" that is currently there. Opening that file seems to have a list of defaults for inputs and only 1 default for displays. <br>
+<br>
+If that does not work my next move would be to add a similar generic config to the xorg.conf.d directory similar to the 50-synaptic.conf that is in there or the 10-evdev.conf file. Both those seem to have an if this than that, otherwise try and match next. This seems to be repeated till something is found else X crashes.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39960" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39960">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39960">
+
+<time datetime="2015-03-11T06:16">posted: 2015-03-11 &nbsp; 06:16</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39960" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>There were vocal complaints from testers...</div></blockquote>I don't recall this. Will you help by posting the forum links to this feedback so I can become familiar with it (or just as possible, to refresh my fallible memory). <br>
+<br>
+<blockquote><div><cite>dolphin_oracle wrote:</cite>I believe the frambuffer setup is required for the new console decoration schemed that BitJam has been working on.</div></blockquote><blockquote><div><cite>BitJam wrote:</cite>...enable the 800x600 framebuffer by default which leads to this problem in X.</div></blockquote>Can you confirm the suggestion by <strong>dolphin_oracle</strong>? If it is correct it will enable the discussion to continue with the certainty that the cited problem with X resolution is a symptom of console decoration rather than framebuffer being the primary cause. <br>
+<br>
+One acid test for this will be to run a test in which all aspects of console decoration are removed from the antiX-15 boot process. If that enables/restores the"standard" boot behaviour (as per 13.2 and other distros) the cause of the problem will be unequivocally established, which in turn will point to other ways of addressing the matter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39976" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39976">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">Alanarchy</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">Alanarchy</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content39976">
+
+<time datetime="2015-03-12T11:27">posted: 2015-03-12 &nbsp; 11:27</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39976" title="permalink">#9</a></span>
+
+<div class="content">Can using framebuffers lead to conflicts with / etc/ modprobed/ fbdev-blacklist.conf if you have a machine such as my old SIS machine?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39987" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39987">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39987">
+
+<time datetime="2015-03-13T07:55">posted: 2015-03-13 &nbsp; 07:55</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39987" title="permalink">#10</a></span>
+
+<div class="content"><strong>Re</strong>
+<blockquote><div><cite>SamK wrote:</cite><blockquote><div><cite>BitJam wrote:</cite>
+There were vocal complaints from testers...</div></blockquote>I don't recall this. Will you help by posting the forum links to this feedback so I can become familiar with it (or just as possible, to refresh my fallible memory).</div></blockquote>In a trawl of the forum I have been unable to find these posts. It will be helpful if the links to the feedback are posted.<br>
+<br>
+The trawl did turn up some pertinent information.<br>
+<br>
+<br>
+<br>
+<strong>Re</strong>
+<blockquote><div><cite>SamK wrote:</cite><blockquote><div><cite>dolphin_oracle wrote:</cite>I believe the frambuffer setup is required for the new console decoration schemed that BitJam has been working on.</div></blockquote><blockquote><div><cite>BitJam wrote:</cite>...enable the 800x600 framebuffer by default which leads to this problem in X.</div></blockquote>Can you confirm the suggestion by dolphin_oracle? If it is correct it will enable the discussion to continue with the certainty that the cited problem with X resolution is a symptom of console decoration rather than framebuffer being the primary cause.<br>
+<br>
+One acid test for this will be to run a test in which all aspects of console decoration are removed from the antiX-15 boot process. If that enables/restores the"standard" boot behaviour (as per 13.2 and other distros) the cause of the problem will be unequivocally established, which in turn will point to other ways of addressing the matter.</div></blockquote>Abstract from this post<br>
+post38193.html#p38193<br>
+<blockquote><div><cite>SamK wrote:</cite><blockquote><div><cite>BitJam wrote:</cite>...fbcondecor code gets fooled. It sets the console decoration using the vga=xxx framebuffer then the video module gets loaded creating a different frame buffer and we lose the decoration.<br>
+[...]<br>
+While there are ways of dealing with this...</div></blockquote>
+It seems we are unnecessarily creating our own problems for which we then have to invent resolutions/workarounds.<br>
+<br>
+From your earlier comments it looks as though we agree that shipped defaults for the crucial boot role should be as catholic as practicable. Hopefully this is not an unintentional misrepresentation of your view.<br>
+<br>
+Console decoration is essentially eye-candy. It is not required to achieve a successful boot up. In such a case it is suboptimal to allow it to fundamentally influence the boot up process. When using it as a shipped default is adversely affecting reaching the agreed goal, it is a strong argument in favour of it becoming something the user elects to use, rather than something from which the user has to opt out. In this way its constraints do not have to be accommodated at the earliest stage of the boot up, for every user irrespective of whether or not they use it.</div></blockquote>From this it is reasonable to conclude (with extremely high levels of certainty) that fbcondecor is the causing the cascade of issues and workarounds rather than the action of specifying any particular screen resolution or conventional use of framebuffer.<br>
+<br>
+<em>Note: despite having limited personal free time, and should absolute certainty be required, if a further version of antiX-15 is made available from which all aspects of fbcondecor (including patch) have been removed, I will test on a range of kit and report the findings, if requested to do so.</em><br>
+<br>
+<br>
+<br>
+<strong>Re Console Decoration</strong><br>
+Abstract from this post<br>
+post39774.html#p39774<br>
+<blockquote><div><cite>BitJam wrote:</cite>You might wonder why we added this eye-candy bling to antiX which is supposed to be lean and mean. The answer is that it is bling for the virtual consoles and we want to provide good support for console-only use. I think it serves a useful purpose to let you know visually which virtual console you are on.<br>
+[...]<br>
+Each workspace has a different background image.<br>
+[...]<br>
+I spend a lot of my development time using the virtual consoles and I much prefer working with fbcondecor enabled. With the framebuffer and fbcondecor I can often be much more productive in the virtual consoles then in X.</div></blockquote>Although there are no figures that I know of on this, it is likely the percentage of the antiX user-base that work in GUI mode is exceedingly close to 100%. The number of users that work exclusively or predominately in the console is likely to be the tiniest of fractions of the total antiX user-base. That should not be interpreted as meaning a minority should be ignored. When the feature is incidental/inessential (e.g. eye candy bling), and is relevant to very few users, and is introducing adverse affects for every user (current problems), it is only right to consider its value.<br>
+<br>
+Prior to the antiX alpha series, when a user chooses to use fbcondecor on their own system(s), it is entirely the responsibility of that user to handle any issues that arise. The number of problems may well be fewer for a console only user than a GUI only user. The case is different for a distro. There are potentially many thousands of users, with a myriad of different hardware configurations. It is the developers plus user community that will have to handle any problems that crop up. At a distro level the potential scope of issues that might be encountered is greater than that of an individual user.<br>
+<br>
+We do not know what the full scope or extent of those issues might be, because we cannot know in advance what we do not know now. It is clear even at this alpha stage that problems are beginning to emerge for which there is comparatively little published information. Rather than address the cause of the problems, antiX is moving away from the accumulated published knowledge that has a proven to be reliable over many years and many distros, and is currently considering introducing workarounds to the"standard" practice. There is a risk that antiX might be placing itself in a position where it cannot make full use of known good, documented practices and fixes.<br>
+<br>
+In cases where a user habitually uses multiple consoles, it might be preferred and helpful to have a visual key to distinguish which workspace is being used, although switching via the key combination serves as a hint. As is often the case, Linux helps with this by offering more than one method of providing a visual clue. The following are extensions of a technique currently employed in antiX-13.2 and antiX-15-alpha. Any one, or combination of them might be used on a per console basis.
+<ul>
+<li>A different background colour</li>
+<li>A different text colour</li>
+<li>A different text size</li>
+<li>A different prompt colour</li>
+<li>A different prompt wording (possibly including the console identity)</li></ul>Because these are done at the end/after boot-up (rather than at the very start of boot-up) they have zero impact on the boot process and they are risk free.<br>
+<br>
+<strong>Summary of benefits of an alternative method of console decoration</strong>
+<ul>
+<li>The desired visual differentiation is achieved</li>
+<li>antiX retains the standard and unmodified boot practices</li>
+<li>antiX is able to make full use of published reference material</li>
+<li>The antiX community is able to continue offering advice and guidance based on known standard practice</li>
+<li>The current adverse affects are eliminated</li>
+<li>Risk is eliminated</li>
+<li>Has no adverse affect on the majority group of GUI (X) only users</li>
+<li>Is able to be automatically or manually switched on or off by the user after boot-up i.e. toggled without a reboot</li>
+<li>Is able to be tailored to suit the preference of an interested user</li>
+<li>Caters for the minority group of console only (no X) users</li>
+<li>The entire screen remains usable rather than reduced to accommodate the unusable areas of a displayed background image</li>
+<li>Reduced storage footprint (ISO and installed and live) as additional apps and support files are not required</li>
+<li>Reduced maintenance as kernel patching and workaround code are not required</li>
+<li>Allows a user who currently uses fbcondecor to choose to continue to do so by continuing to provide their own patched kernel and files</li></ul>
+<br>
+<br>
+<strong>Conclusion</strong><br>
+A win-win outcome is achievable by making a minor change to way in which console decoration is provided within antiX-15.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39992" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39992">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39992">
+
+<time datetime="2015-03-13T22:09">posted: 2015-03-13 &nbsp; 22:09</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39992" title="permalink">#11</a></span>
+
+<div class="content">The kernel set up we have been using for antiX-14/15 with fbcondecor 'eye-candy' will not change. We will keep to using it in the kernel. As has been pointed out, there are options to have it turned off (either default) or through choosing the no vga option in F7 on a cd. What we default to can be up for discussion.<br>
+<br>
+To test mplayer in a console, I created an iso antiX-base Jessie with the standard Debian kernel and the result seems to be the same as with our fbcondecor kernel. mplayer in a console doesn't work with our kernels, nor with the debian Jessie one. It is supposed to work, but it doesn't. Maybe this has something to do with our choice not to use systemd and nothing to do with fbcondecor?<br>
+We will really only know once we test out a debian Jessie live iso (if there is one) and compare. Then we can really 'prove' that including fbcondecor is causing issues outlined in SamK's post.<br>
+<br>
+Jessie has brought in a huge number of changes under the hood that the 'normal' end user neither cares about, nor notices. 'As long as I can do what I could before' is not as easy to implement as it seems, especially since systemd junk got added, amongst other 'improvements'.<br>
+<br>
+We will make sure as much as we can that antiX-15 will remain a mean and lean light distro that is up to date and appealing. That means some tough choices will have to be made. PI and &lt;128MB RAM is no longer a possibility on a Jessie base. Most distros (including ones that claim to be light) have even dumped support for PII/PIII and less than 1GB RAM. The fact that someone (me) can run antiX-15-beta with a 3.19.1 kernel on an old Dell Latitude crt PIII with 384 MB RAM (idle it shows 46MB usage) is a success IMO despite iceweasel or any other modern browser eating all the memory.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39994" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile39994">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39994">
+
+<time datetime="2015-03-14T10:40">posted: 2015-03-14 &nbsp; 10:40</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39994" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>To test mplayer in a console, I created an iso antiX-base Jessie with the standard Debian kernel and the result seems to be the same as with our fbcondecor kernel. mplayer in a console doesn't work with our kernels, nor with the debian Jessie one. It is supposed to work, but it doesn't. </div></blockquote>I've managed to establish the reason for this.<br>
+<br>
+Using the most recent Debian8 weekly build XFCE ISO (Jessie Testing)<br>
+<br>
+mplayer is now mplayer2
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache search ^mplayer
+mplayer2 - next generation movie player for Unix-like systems
+mplayer2-dbg - Debugging symbols for mplayer2
+mplayerthumbs - video thumbnail generator using mplayer</code></pre></div>
+The following abstract describes mplayer2 supports fbdev (same as mplayer)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache show mplayer2
+[...]
+Another big feature of MPlayer is the wide range of supported output
+ drivers. It works with X11, Xv, DGA, OpenGL, SVGAlib, fbdev...</code></pre></div>
+Install mplayer2
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install mplayer2</code></pre></div>
+Verify which video output drivers are avilable
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mplayer --vo=help
+MPlayer2 2.0-728-g2c378c7-4+b1 (C) 2000-2012 MPlayer Team
+Available video output drivers:
+    vdpau    VDPAU with X11
+    xv    X11/Xv
+    gl3    OpenGL 3.x
+    gl    OpenGL
+    x11    X11 ( XImage/Shm )
+    sdl    SDL YUV/RGB/BGR renderer (SDL v1.1.7+ only!)
+    caca    libcaca
+    v4l2    V4L2 MPEG Video Decoder Output
+    null    Null video output
+    directfb    Direct Framebuffer Device
+    yuv4mpeg    yuv4mpeg output for mjpegtools
+    png    PNG file
+    jpeg    JPEG file
+    gif89a    animated GIF output
+    tga    Targa output
+    pnm    PPM/PGM/PGMYUV file
+    md5sum    md5sum of each frame
+    gl_nosw    OpenGL no software rendering</code></pre></div><em>Note: fbdev and fbdev2 are not listed</em><br>
+<br>
+There is obviously inaccurate and misleading information about mplayer2 in Debian8.<br>
+<br>
+This means testing in a console environment using mplayer2 is no longer useful.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_39996" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile39996">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content39996">
+
+<time datetime="2015-03-14T15:54">posted: 2015-03-14 &nbsp; 15:54</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p39996" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Maybe this has something to do with our choice not to use systemd and nothing to do with fbcondecor?</div></blockquote>The above discovery means systemd can be ruled out as the cause. The lack of framebuffer support in mplayer2 accounts for the observed behaviour of being able to play a video in the GUI (X) but not in the console (no X) in antiX-14/15. It is a regrettable decision. It was a most useful feature.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40020" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile40020">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40020">
+
+<time datetime="2015-03-16T07:03">posted: 2015-03-16 &nbsp; 07:03</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p40020" title="permalink">#14</a></span>
+
+<div class="content">The following should not be interpreted as a dogmatic attempt to prove anyone (me included) is either right or wrong. The only motivation is to use this alpha/beta stage to ensure we understand where the problems are rooted, and are able to make choices based on that knowledge. It is done with the best interests of antiX as the only focus.<br>
+<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>...there are options to have it turned off (either default) or through choosing the no vga option in F7 on a cd.</div></blockquote>The capability to switch it on/off may not provide the 100% certainty that tests with it removed will show. In order to accommodate the two states antiX must include the kernel patch, software, workarounds, etc. This means antiX will include elements that move it away from the standard adopted by 13.2 and other distros, even when the off option is selected.<br>
+<br>
+If"...choosing the no vga option in F7..." means specifying no screen resolution, do you mean producing a console mode resolution of 80x25? If so then as described in post39472.html#p39472 this boots OK but the resolution is so low that the system is severely limited and practically unusable in console mode.<br>
+<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>We will really only know once we test out a debian Jessie live iso (if there is one) and compare. Then we can really 'prove' that including fbcondecor is causing issues outlined in SamK's post.</div></blockquote>It is possible to get that information from what is presently available. <br>
+<br>
+To try and help with this, the following are the results of such tests. They record the outcome after installing to hard disk the most recent weekly build of the Debian8 beta ISO. It is the XFCE version. It was installed to real physical hardware rather than a virtual machine.<br>
+<br>
+The test hardware is able to boot using a vga screen resolution greater than 800x600.<br>
+<br>
+Immediately after installation inxi was installed<br>
+<br>
+<br>
+TEST1<br>
+<span style="color: #0000FF">Boot code: none<br>
+Outcome: boots as expected to GUI (X)</span>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -c0 -G
+Graphics:  Card: Intel Mobile 915GM/GMS/910GML Express Graphics Controller
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 1280x800@60.04hz
+           GLX Renderer: Mesa DRI Intel 915GM x86/MMX/SSE2 GLX Version: 2.1 Mesa 10.3.2</code></pre></div>
+<br>
+TEST2<br>
+<span style="color: #0000FF">Boot code: vga=788<br>
+Outcome, boots as expected to GUI (X)</span><br>
+Initially boots using 800x600 as indicated by the on-screen text. Very quickly (2ish seconds) it changes to a higher resolution as indicated by the on screen text. Here it spends the rest of the boot up time setting everything up. The text display then hands over to the GUI and the desktop is displayed.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -c0 -G
+Graphics:  Card: Intel Mobile 915GM/GMS/910GML Express Graphics Controller
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 1280x800@60.04hz
+           GLX Renderer: Mesa DRI Intel 915GM x86/MMX/SSE2 GLX Version: 2.1 Mesa 10.3.2</code></pre></div><em>Note: although vga= is deprecated in GRUB2 it is honoured and works.</em><br>
+<br>
+<br>
+TEST3<br>
+<span style="color: #0000FF">Boot code: set gfxpayload=800x600x16<br>
+Outcome, boots as expected to GUI (X)</span><br>
+Initially boots using 800x600 as indicated by the on-screen text. Very quickly (2ish seconds) it changes to a higher resolution as indicated by the on screen text. Here it spends the rest of the boot up time setting everything up. The text display then hands over to the GUI and the desktop is displayed.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -c0 -G
+Graphics:  Card: Intel Mobile 915GM/GMS/910GML Express Graphics Controller
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 1280x800@60.04hz
+           GLX Renderer: Mesa DRI Intel 915GM x86/MMX/SSE2 GLX Version: 2.1 Mesa 10.3.2</code></pre></div>
+<br>
+<span style="color: #0000FF">In each of the above three tests everything works as expected without any hitch or workaround. While the Debian boot loader is GRUB2 v antiX-15-Live isolinux/syslinux the results are relevant. The Debian boot implementation is what might be termed"standard" and exhibits none of the resolution issues present in antiX-15. <strong>It is evident that setting a screen resolution in the"standard" manner is not the cause or source of the problems currently being faced in antiX-15.</strong></span><br>
+<br>
+In short the above tests demonstrate the current antiX-15 issues do not stem from the tested Debian boot process. In this case comparing against an equivalent live version of Debian8 (if it is ever produced) will be of limited value (if any).<br>
+<br>
+It is possible (although highly improbable) the outcome of such a test might indicate a problem presently exists with either or both syslinux/isolinux. If that is the case, one would expect to see current bug reports of issues when specifying the screen resolution as a parameter. Specifically, there are none in either Debian Testing (Jessie) or Debian Unstable bug tracking systems and cannot find anything in recent Syslinux mailing list.<br>
+<br>
+There are two major differences (that I am aware of) between the Debian and antiX configurations.
+<ul>
+<li>Unlike antiX-15, Debian8 does not include fbcondecor in the boot process and kernel</li>
+<li>Unlike antiX-15, Debian8 has not moved the video drivers into initrd</li></ul>The only 100% certain way of establishing whether either or both are contributing to the problems is to directly compare antiX-15 with them included v antiX-15 with them excluded. Having investigated the non-antiX elements, these antiX specific elements have not yet undergone the same investigation to rule them out.<br>
+<br>
+<br>
+Off Topic<br>
+Incidental info only; this post was made from Iceweasel in Debian8 XFCE<br>
+<br>
+<br>
+<br>
+Edit: Added that the installation was done on physical hardware rather than a virtual machine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_40388" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40388">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40388">
+
+<time datetime="2015-04-16T01:11">posted: 2015-04-16 &nbsp; 01:11</time>
+<span class="permalink"><a href="./how-to-set-the-default-graphics-driver-in-x-t5554.html#p40388" title="permalink">#15</a></span>
+
+<div class="content">BitJam, I found <strong>this -----v</strong> in archwiki 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/Xorg"<br>linktext was:"https://wiki.archlinux.org/index.php/Xorg"<br>====================================<br>
+<br>
+<blockquote class="uncited"><div> etc/X11/xorg.conf.d/10-monitor.conf<br>
+=================<br>
+Section"Monitor"<br>
+Identifier"Monitor0"<br>
+EndSection<br>
+<br>
+Section"Device"<br>
+Identifier"Device0"<br>
+Driver <span style="color: blue">"vesa"</span> #Choose the driver used for this monitor<br>
+EndSection<br>
+<br>
+Section"Screen"<br>
+Identifier"Screen0" #Collapse Monitor and Device section to Screen section<br>
+Device"Device0"<br>
+Monitor"Monitor0"<br>
+DefaultDepth 16 #Choose the depth (16||24)<br>
+SubSection"Display"<br>
+Depth 16<br>
+Modes"1024x768_75.00" #Choose the resolution<br>
+EndSubSection<br>
+EndSection</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./how-to-set-the-default-graphics-driver-in-x-t5554-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./how-to-set-the-default-graphics-driver-in-x-t5554-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

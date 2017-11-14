@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>A few minor issues - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./a-few-minor-issues-t5750.html">A few minor issues</a></div>
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_41832" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile41832">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41832">
+<time datetime="2015-07-07T01:25">posted: 2015-07-07 &nbsp; 01:25</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p41832" title="permalink">#1</a></span>
+
+<div class="content">I am very impressed by how stable and trouble free antiX-15 has been so far. BTW, the number of downloads per day has been 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://sourceforge.net/projects/antix-linux/files/Final/MX-krete/stats/timeline?dates=2015-06-30+to+2015-07-06"<br>linktext was:"almost steady for the past 3 days"<br>====================================<br>
+ at around 940. This includes downloads of md5 files (674) but they are canceled out by the bittorrent downloads (797) which aren't counted.<br>
+<br>
+I have seen a few minor issues:<br>
+<ol style="list-style-type: decimal">
+<li> The firmware for the <strong>Intel Wireless 7260</strong> chipset was for older kernels. I needed to download the firrmware for 3.19+ kernels from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi"<br>linktext was:"this page"<br>====================================<br>
+. I now have dual-band wireless plus bluetooth. There may be a similar problem with firmware for other Intel wireless chipsets.</li>
+<li> The directories /sbin and /usr/sbin don't get added to the PATH in .bashrc. This is due to a small bug. Change"&amp;&amp;" to"||" to make the line in .bashrc:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[ -z"${PATH##*/sbin*}" ] || PATH=$PATH:/sbin:/usr/sbin</code></pre></div></li>
+<li> There is a funny bug in one (and AFAIK only one) geany call in /usr/local/bin/antixcc.sh, the control centre script. It is the"Edit Bootloader Menu" action in the Live tab. You can work around the bug by adding doublequotes to the action so it becomes:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>&lt;action&gt;gksu"$EDITOR /live/boot-dev/boot/syslinux/syslinux.cfg /live/boot-dev/boot/syslinux/gfxboot.cfg" &amp;&lt;/action&gt;</code></pre></div>I have no idea why they are needed here and not elsewhere. On my system, without this change I only got to edit gfxboot.cfg and not syslinux.cfg.</li>
+<li> This is not really a bug, just a slight annoyance. YMMV. I like my X11 terminals to scroll to the bottom when I hit a key so I can see what I'm typing. This is off by default on roxterm but can be enabled either via their preferences GUI or by adding the following line to the ~/.config/roxterm.sourceforge.net/Profiles/Default file:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>scroll_on_keystroke=1</code></pre></div></li>
+<li>The live-remaster-exclude.list does not correctly exclude the udev persistent-net.rules file. The line should be:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>etc/udev/rules.d/*-persistent-net.rules</code></pre></div>This bug was already fixed in the default machine-state-files file. This bug made changing my wireless mini-card (after a remaster) a little interesting.</li></ol>
+<strong>Edit:</strong> added (5).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41872" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41872">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41872">
+
+<time datetime="2015-07-08T01:28">posted: 2015-07-08 &nbsp; 01:28</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p41872" title="permalink">#2</a></span>
+
+<div class="content">these files pathed in /usr/local/bin are not set executable:<br>
+<br>
+/usr/local/bin/fancy-prompts.bash<br>
+/usr/local/bin/droopy</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41876" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41876">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41876">
+
+<time datetime="2015-07-08 &nbsp; 06:31">posted: 2015-07-08 &nbsp; 06:31</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p41876" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>these files pathed in /usr/local/bin are not set executable:<br>
+<br>
+[...]<br>
+/usr/local/bin/droopy</div></blockquote>
+ls -1lh /usr/local/bin/droopy*
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>-rw-r--r-- 1 root root  35K Jan 22  2014 /usr/local/bin/droopy
+-rwxr-xr-x 1 root root 6.3K Apr 25 11:06 /usr/local/bin/droopy.sh</code></pre></div>In antiX, droopy is started from droopy.sh to pick up its configuration. The executable bit is not required on droopy.<br>
+<br>
+If you want to run droopy directly and handle the configuration yourself, you can of course manually set it to be executable. Note in that case the Droopy video and Droopy FAQ will no longer apply.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41902" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41902">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41902">
+
+<time datetime="2015-07-08T18:08">posted: 2015-07-08 &nbsp; 18:08</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p41902" title="permalink">#4</a></span>
+
+<div class="content">Thanks for explaining. (Really, thanks. I'm not being argumentative; I'm just trying to understand.) Still, it seem like an oddity to me.<br>
+Is this analagous to the approach of creating a wrapper for mumble?<br>
+If so, I would similarly question the advisability of disabling executable bit for mumble (just) because 1-to-1-voice exists on the system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41907" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41907">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41907">
+
+<time datetime="2015-07-08T18:35">posted: 2015-07-08 &nbsp; 18:35</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p41907" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>Is this analagous to the approach of creating a wrapper for mumble?<br>
+If so, I would similarly question the advisability of disabling executable bit for mumble (just) because 1-to-1-voice exists on the system.</div></blockquote>No change was made to the executable status of Mumble by 1-to-1 Voice. It is installed directly from the Debian repo. You may be better served by raising your concerns there.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42119" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42119">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42119">
+
+<time datetime="2015-07-19T19:53">posted: 2015-07-19 &nbsp; 19:53</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p42119" title="permalink">#6</a></span>
+
+<div class="content">isosnapshot bug:<br>
+<br>
+If user has chosen a custom output directory,<br>
+then, on the following screen, clicks the"edit the configuration file" button (even just to review the file content, not actually performing an edit)...<br>
+the program discards/ignores the chosen output directory and, instead, writes to /home/snapshot/</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42291" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42291">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42291">
+
+<time datetime="2015-07-31T03:03">posted: 2015-07-31 &nbsp; 03:03</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p42291" title="permalink">#7</a></span>
+
+<div class="content">ControlCentre --} System --} Choose Startup Services<br>
+<br>
+thought we covered this during betatesting but I can't find the post.<br>
+As evidenced here<br>
+antix-control-center-choose-startup-services-broken-t5823.html<br>
+the"odd" item (compared to other items, this requires root user password, user password for sudo not accepted) is a source of confusion.<br>
+Clicking opens a roxterm window, no explanation, prompting simply"Password:"<br>
+-=-<br>
+should be revised to either accept user's paswowrd for sudo, or to at least prompt"enter password for the ROOT USER account"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42601" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42601">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42601">
+
+<time datetime="2015-08-19T06:06">posted: 2015-08-19 &nbsp; 06:06</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p42601" title="permalink">#8</a></span>
+
+<div class="content">the keybind assignment files for jwm/icewm/fluxbox<br>
+all contain a"help" keybind pointing to a non-existent path:<br>
+file://usr/share/antix/help-docs/index.html</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43984" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43984">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43984">
+
+<time datetime="2015-11-26T03:12">posted: 2015-11-26 &nbsp; 03:12</time>
+<span class="permalink"><a href="./a-few-minor-issues-t5750.html#p43984" title="permalink">#9</a></span>
+
+<div class="content">bug exists in /sbin/localize-repo script<br>
+<br>
+if UTC is selected as timezone via boot menu, during init an error message is displayed"localize-repo error... no code found for"<br>
+and content of <strong>/</strong>etc/apt/sources.list.d/antix.list is changed to<br>
+<span style="color: green">deb http:///jessie jessie main nosystemd dev</span> (path only, no hostname)<br>
+and multiple lines within of <strong>/</strong>etc/apt/sources.list.d/debian.list are changed to <span style="color: green">ftp..debian</span> (invalid hostname, double dots)</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

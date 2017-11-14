@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Firewall (Iptables + Squid) no Debian Squeeze - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./other-languages-f29/index.html"><span>Other Languages</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./portuguese-f32/index.html"><span>Portuguese</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./firewall-iptables-squid-no-debian-squeeze-t3027.html">Firewall (Iptables + Squid) no Debian Squeeze</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_19943" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile19943">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 40</span></div>
+
+</div>
+</div>
+<span class="username">clandestine</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jan 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content19943">
+<time datetime="2011-03-30T03:39">posted: 2011-03-30 &nbsp; 03:39</time>
+<span class="permalink"><a href="./firewall-iptables-squid-no-debian-squeeze-t3027.html#p19943" title="permalink">#1</a></span>
+
+<div class="content">creditos: Edinaldo P. Silva &lt;<a href="mailto:h4rder@gmail.com">h4rder@gmail.com</a>&gt;<br>
+Data: 08/10/2009<br>
+<br>
+Firewall (Iptables + Squid) no Debian Squeeze<br>
+<br>
+Olá pessoal, hoje venho apresentar a configuração do firewall que uso em meu Debian Squeeze.<br>
+<br>
+A construção do mesmo segue várias dicas do mestre Carlos Morimoto, as quais soma-se algumas coletadas aqui mesmo no VOL.<br>
+<br>
+Perdoem-me pela falta de referência quanto aos autores, mas a base do script é o kurumin-firewall, apenas adaptei-o às minhas necessidades.<br>
+<br>
+* Redes e Servidores Linux, 2ed.: Capítulo 11: Firewall <br>
+<br>
+<br>
+Para utilizar o Squid, presumo que aquele que utilizar este script saiba como configurá-lo, senão os artigos abaixo oferecem uma boa base de como fazê-lo:<br>
+<br>
+* Montando o Squid [Artigo]<br>
+* Configurar Squid - squid.conf<br>
+* Configurando o Squid no Slackware [Artigo]<br>
+* Destrinchando a compilação do Squid [Artigo] <br>
+<br>
+<br>
+No script há as regras para as portas usadas pelo aMule e Transmission e BitTorrent, para aqueles que não usam, basta desativá-las ou removê-las.<br>
+<br>
+O script é chamado ip-guardian, salve-o como quiser, depois siga os seguintes passos. Substitua &lt;script&gt; pelo nome correspondente:<br>
+<br>
+$ sudo mv &lt;script&gt; /etc/init.d/<br>
+$ sudo chmod +x /etc/init.d/&lt;script&gt;<br>
+$ sudo /etc/init.d/&lt;script&gt; start<br>
+<br>
+Rode o comando abaixo para verificar o status:<br>
+<br>
+$ sudo /etc/init.d/&lt;script&gt; status<br>
+<br>
+Outra dica interessante é instalar o pacote rcconf, para que o mesmo configure o script para rodar em todos os runlevels:<br>
+<br>
+$ sudo apt-get install rcconf &amp; sudo rcconf<br>
+<br>
+Ao abrir o programa, selecione o script que o rcconf se encarrega do resto, se quiserem fazer na unha, basta:<br>
+<br>
+$ sudo ln -sf /etc/init.d/&lt;script&gt; /etc/rc1.d/S20&lt;script&gt;<br>
+$ sudo ln -sf /etc/init.d/&lt;script&gt; /etc/rc2.d/S20&lt;script&gt;<br>
+$ sudo ln -sf /etc/init.d/&lt;script&gt; /etc/rc3.d/S20&lt;script&gt;<br>
+$ sudo ln -sf /etc/init.d/&lt;script&gt; /etc/rc4.d/S20&lt;script&gt;<br>
+$ sudo ln -sf /etc/init.d/&lt;script&gt; /etc/rc5.d/S20&lt;script&gt;<br>
+$ sudo ln -sf /etc/init.d/&lt;script&gt; /etc/rc6.d/K20&lt;script&gt;<br>
+<br>
+Agora vamos testar a eficácia do mesmo acessando o site:<br>
+<br>
+* 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.grc.com/x/ne.dll?bh0bkyd2"<br>linktext was:"https://www.grc.com/x/ne.dll?bh0bkyd2"<br>====================================<br>
+ <br>
+<br>
+<br>
+Na primeira tela clique em"Proceed", depois em"Enviar" e na tela que abrir clique"All Service Ports".<br>
+<br>
+Ao término, todo o gráfico deve ficar verde, sinal que todas as portas estão fechadas (stealth).<br>
+<br>
+Segue abaixo o conteúdo do script:<br>
+<br>
+#!/bin/sh<br>
+#ip-guardian<br>
+<br>
+echo""<br>
+uname -s -r -m -o<br>
+echo""<br>
+echo" Script de configuração do Firewall Iptables"<br>
+echo""<br>
+<br>
+echo" ========================================================="<br>
+echo" Para testar a funcionalidade do firewall, acesse: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.grc.com/x/ne.dll?bh0bkyd2"<br>linktext was:"https://www.grc.com/x/ne.dll?bh0bkyd2"<br>====================================<br>
+"<br>
+echo""<br>
+echo" Clique em Proceed &gt; Enviar &gt; All Service Ports."<br>
+echo""<br>
+echo" Ao término, todo o gráfico deve ficar verde, sinal que todas as portas estão fechadas"<br>
+echo" ========================================================="<br>
+echo""<br>
+<br>
+firewall_start(){<br>
+<br>
+echo""<br>
+echo" Iniciando as Regras do Firewall ..............."<br>
+echo""<br>
+<br>
+echo" Definindo Política Padrão ..............."<br>
+echo""<br>
+<br>
+iptables -P INPUT DROP<br>
+iptables -P OUTPUT ACCEPT<br>
+iptables -P FORWARD DROP<br>
+<br>
+echo" Limpando as Regras Anteriores .......... [ OK ]"<br>
+echo""<br>
+<br>
+iptables -F INPUT<br>
+iptables -F OUTPUT<br>
+iptables -F FORWARD<br>
+iptables -t filter -F<br>
+iptables -t nat -F<br>
+iptables -t mangle -F<br>
+iptables -t raw -F<br>
+<br>
+echo" Ativando o Proxy Transparente SQUID .......... [ OK ]"<br>
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3128<br>
+iptables -t nat -A PREROUTING -i ppp0 -p tcp --dport 80 -j REDIRECT --to-port 3128<br>
+iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE<br>
+<br>
+echo" Ativando o IP forward .......... [ OK ]"<br>
+echo 1 &gt; /proc/sys/net/ipv4/ip_forward<br>
+echo" Protegendo contra Pings ( ignorando ) .......... [ OK ]"<br>
+echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all<br>
+echo" Protegendo contra IP spoofing .......... [ OK ]"<br>
+echo 1 &gt; /proc/sys/net/ipv4/conf/default/rp_filter<br>
+echo" Protegendo contra diversos ataques .......... [ OK ]"<br>
+echo 1 &gt; /proc/sys/net/ipv4/conf/all/accept_source_route<br>
+echo" Protegendo contra bogus responses .......... [ OK ]"<br>
+echo 1 &gt; /proc/sys/net/ipv4/icmp_ignore_bogus_error_responses<br>
+echo" Protegendo contra IP synflood .......... [ OK ]"<br>
+echo 1 &gt; /proc/sys/net/ipv4/tcp_syncookies<br>
+<br>
+iptables -A FORWARD -p tcp --syn -m limit --limit 1/s -j ACCEPT<br>
+<br>
+echo" Protegendo contra ICMP Broadcasting .......... [ OK ]"<br>
+echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts<br>
+echo" Protegendo contra alteração de rota .......... [ OK ]"<br>
+echo 0 &gt; /proc/sys/net/ipv4/conf/all/accept_redirects<br>
+<br>
+echo" Protegendo contra Pings da Morte .......... [ OK ]"<br>
+iptables -A FORWARD -p icmp --icmp-type echo-request -m limit --limit 1/s -j ACCEPT<br>
+<br>
+echo" Protegendo contra traceroute .......... [ OK ]"<br>
+iptables -A INPUT -p udp --dport 33435:33525 -j LOG --log-prefix"_BLOCKED_:"<br>
+iptables -A INPUT -p udp --dport 33435:33525 -j DROP<br>
+<br>
+echo" Protegendo contra portscanners, ping of death, ataques DoS, etc. .......... [ OK ]"<br>
+iptables -A INPUT -m state --state INVALID -j LOG --log-prefix"_BLOCKED_:"<br>
+iptables -A INPUT -m state --state INVALID -j DROP<br>
+<br>
+echo" Redirecionando portas DNS e NTP para o SQUID .......... [ OK ]"<br>
+iptables -t nat -A PREROUTING -i ppp0 -p udp --dport 53 -j REDIRECT --to-port 3128<br>
+iptables -t nat -A PREROUTING -i ppp0 -p udp --dport 123 -j REDIRECT --to-port 3128<br>
+iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE<br>
+<br>
+echo" Liberando portas para aMule e Transmission ( p2p ) .......... [ OK ]"<br>
+iptables -A INPUT -m multiport -p tcp --dport 4661,4662,51413 -j ACCEPT<br>
+iptables -A INPUT -m multiport -p udp --dport 4665,4672 -j ACCEPT<br>
+<br>
+echo" Fechando portas UDP 1:1024 .......... [ OK ]"<br>
+iptables -A INPUT -p udp --dport 1:1024 -j LOG --log-prefix"_BLOCKED_UDP_:"<br>
+iptables -A INPUT -p udp --dport 1:1024 -j DROP<br>
+<br>
+echo" Permitindo apenas respostas a conexões iniciadas pela máquina .......... [ OK ]"<br>
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT<br>
+<br>
+echo" Liberando a interface de loopback .......... [ OK ]"<br>
+iptables -A INPUT -i lo -j ACCEPT<br>
+<br>
+echo" Bloqueando qualquer conexão que não tenha sido permitida acima .......... [ OK ]"<br>
+iptables -A INPUT -p tcp --syn -j LOG --log-prefix"_BLOCKED_:"<br>
+iptables -A INPUT -p tcp --syn -j DROP<br>
+<br>
+echo" Firewall em operação .......... [ OK ]"<br>
+sleep 1<br>
+<br>
+}<br>
+<br>
+firewall_stop(){<br>
+<br>
+iptables -F<br>
+iptables -X<br>
+iptables -P INPUT ACCEPT<br>
+iptables -P FORWARD ACCEPT<br>
+iptables -P OUTPUT ACCEPT<br>
+<br>
+}<br>
+<br>
+case"$1" in<br>
+<br>
+"start")<br>
+firewall_start<br>
+;;<br>
+<br>
+"stop")<br>
+firewall_stop<br>
+echo" Desativando todas as Regras do Firewall .......... [ OK ]"<br>
+sleep 1<br>
+;;<br>
+<br>
+status)<br>
+echo -e" ============================== Table Filter ============================";<br>
+iptables -t filter -L -n<br>
+echo -e" ============================== Table Nat =============================";<br>
+iptables -t nat -L -n<br>
+echo -e" ============================== Table Mangle ===========================";<br>
+iptables -t mangle -L -n<br>
+echo -e" ============================== Table Raw ============================";<br>
+iptables -t raw -L -n<br>
+;;<br>
+<br>
+"restart")<br>
+echo" Reativando todas as Regras do Firewall .......... [ OK ]"<br>
+sleep 1<br>
+firewall_stop; firewall_start<br>
+;;<br>
+<br>
+*)<br>
+iptables -L -n<br>
+<br>
+esac</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

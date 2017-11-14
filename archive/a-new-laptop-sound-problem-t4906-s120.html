@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>A new laptop sound problem - Page 9 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./a-new-laptop-sound-problem-t4906-s120.html">A new laptop sound problem</a></div>
+<div class="pagination">
+130 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./a-new-laptop-sound-problem-t4906-s105.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s60.html" role="button">5</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s75.html" role="button">6</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s90.html" role="button">7</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s105.html" role="button">8</a></li>
+<li class="active"><span>9</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_35717" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35717">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35717">
+<time datetime="2014-05-25T12:18">posted: 2014-05-25 &nbsp; 12:18</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35717" title="permalink">#121</a></span>
+
+<div class="content"><blockquote><div><cite>Eino wrote:</cite><blockquote><div><cite>fatmac wrote:</cite>Just thinking aloud, but if it is a usb device, perhaps giving the system more time to find &amp; initiate usb devices might help.<br>
+Try adding rootdelay=10 to your grub boot line, wouldn't hurt to try.</div></blockquote>
+I can see that being a issue.</div></blockquote>
+<br>
+I find that snd_usb_audio was already loaded; I'll try adding rootdelay=10 to my boot line -- that'll potentially fix the failure to detect on start, but I'm not sure it'll do anything for"detected and still doesn't work". Latest lsmod | grep"snd" shows some synth related stuff:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lsmod | grep"snd"
+snd_opl3sa2            17539  0 
+snd_mpu401_uart        13299  1 snd_opl3sa2
+snd_opl3_lib           17206  1 snd_opl3sa2
+snd_wss_lib            22464  1 snd_opl3sa2
+snd_seq_midi           12744  0 
+snd_usb_audio         101153  1 
+snd_seq_midi_event     13124  1 snd_seq_midi
+snd_usbmidi_lib        22821  1 snd_usb_audio
+snd_hwdep              12910  2 snd_usb_audio,snd_opl3_lib
+snd_pcm_oss            44023  0 
+snd_rawmidi            22278  3 snd_usbmidi_lib,snd_mpu401_uart,snd_seq_midi
+snd_mixer_oss          21705  1 snd_pcm_oss
+snd_pcm                69459  3 snd_pcm_oss,snd_usb_audio,snd_wss_lib
+snd_page_alloc         12882  2 snd_wss_lib,snd_pcm
+snd_seq                43264  2 snd_seq_midi_event,snd_seq_midi
+snd_seq_device         12980  4 snd_seq,snd_rawmidi,snd_opl3_lib,snd_seq_midi
+snd_timer              22187  4 snd_wss_lib,snd_pcm,snd_seq,snd_opl3_lib
+snd                    46786  16 snd_pcm_oss,snd_opl3sa2,snd_usb_audio,snd_hwdep,snd_timer,snd_wss_lib,snd_pcm,snd_seq,snd_rawmidi,snd_usbmidi_lib,snd_mpu401_uart,snd_seq_device,snd_mixer_oss,snd_opl3_lib
+soundcore              12890  1 snd
+usbcore               137870  5 uhci_hcd,snd_usb_audio,snd_usbmidi_lib,ehci_hcd,usbhid
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35740" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35740">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35740">
+
+<time datetime="2014-05-26T12:27">posted: 2014-05-26 &nbsp; 12:27</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35740" title="permalink">#122</a></span>
+
+<div class="content">Just got a new clue: this may in fact be a USB port issue, but not hardware related. I was trying to copy some files from a thumb drive to my hard disk, with the USB sound device plugged in at the same time. When I mounted the thumb drive with mountbox, the light in the USB sound dongle went out; I got an IO error trying to read the thumb drive, and noticed the CPU had gone to 100% -- htop said it was volumeicon hogging all the CPU again, despite my having (as far as I know) written nothing to the sound hardware. I've gotten good reads from and writes to this thumb drive, on this machine, recently (used it to back up my music folder, wallpaper, etc. for my reinstall) -- but as I recall, I had the USB sound unplugged during that operation. I'm going to do a bit more testing to try to discover if the USB sound dongle is causing trouble on the USB ports; if so, it's cheap to get another USB sound device (this one was under $2 shipped) -- or I might look on eBay for one that goes into the PCMCIA slot (and will go beneath the network card, which is extended/bulges and can only live in the upper PC card slot).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35742" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35742">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35742">
+
+<time datetime="2014-05-26T14:26">posted: 2014-05-26 &nbsp; 14:26</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35742" title="permalink">#123</a></span>
+
+<div class="content">so - I've been keeping up with this thread trying to understand what was happening and how you were solving it. It's a good write-up. Thanks for that. <br>
+<br>
+From what I have read and from other forums with similar problems, it appears that the USB is giving everyone the headaches. The USB sound seems to want to have priority over the other USB devices. As you said, using the PCMIA may be a better solution after all.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35746" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35746">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35746">
+
+<time datetime="2014-05-26T15:20">posted: 2014-05-26 &nbsp; 15:20</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35746" title="permalink">#124</a></span>
+
+<div class="content">Well, I had a revelation an hour or so ago. I pulled the USB sound dongle in order to be able to copy those files off the thumb drive -- and then I plugged it back in, I ran the speakertest from Control Centre again. And. It. Ran.<br>
+<br>
+I've reproduced this at least three times, on AC and on battery, after logouts and a full hard shutdown at 3% battery and restart; I'm currently playing an internet radio stream via Streamtuner2 and xmms, while on battery (also trying to test my battery level safeguards, that's another thread). This looks like *the* solution, if I can just find a software method to simulate unplugging/replugging the USB sound dongle. Perhaps just force a rescan of the USB ports?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35767" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35767">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35767">
+
+<time datetime="2014-05-27T23:04">posted: 2014-05-27 &nbsp; 23:04</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35767" title="permalink">#125</a></span>
+
+<div class="content">Okay, you may consider me officially flabbergasted.<br>
+<br>
+The sound, as reported in my last post above, was hard to reproduce after posting, so I was figuratively scratching my head over the problem -- and then it struck me that the last aplay -L and lsmod | grep"snd" had both included a bunch of references to OPL3 hardware, which has never shown up in the USB sound card diagnostics in the past. Additionally, when I opened the mixer once yesterday, it started with an OPL3 mixer setup that seemed to include channels other than synth (like PCM, which I'm used to seeing as bit-stream sound). This wouldn't get out of my head all day, until I finally recalled that the NeoMagic sound chipset in the Solo 2500 includes an OPL3 work-alike synth. I have no idea how it could happen, but could Linux have started recognizing the synth chip in the original sound hardware?<br>
+<br>
+When I got home from work, after dealing with more urgent matters, I unplugged the USB sound and started up the laptop; I noted volumeicon started during boot, and when I opened the mixer, I found the same OPL3 and other stuff. I ran speaker-test from the Control Centre, and could just faintly hear the voice coming from the built-in speakers! Plugging my external speakers into the appropriate jack made it perfectly clear -- I appear to have at least most of the internal sound hardware working (without any idea how it got that way). I don't understand it, but I'm not going to complain...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35771" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35771">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 630</span></div>
+
+</div>
+</div>
+<span class="username">Eino</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Oct 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35771">
+
+<time datetime="2014-05-28T11:37">posted: 2014-05-28 &nbsp; 11:37</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35771" title="permalink">#126</a></span>
+
+<div class="content">Even tho ALSA dose not support your sound internal sound card, it found the chip being used installing the driver needed.<br>
+I'm glad that it's working, even with the inappropriate driver.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35777" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35777">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35777">
+
+<time datetime="2014-05-28T23:40">posted: 2014-05-28 &nbsp; 23:40</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35777" title="permalink">#127</a></span>
+
+<div class="content">Still puzzling; there's no indication in aplay -L of any sound hardware other than the OPL3, which is supposed to be just a synthesizer (not a bitstream playback chipset. However it's doing it, it keeps doing it through multiple reboots. However it's working, and looks to keep working.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_35782" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35782">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35782">
+
+<time datetime="2014-05-29T08:37">posted: 2014-05-29 &nbsp; 08:37</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35782" title="permalink">#128</a></span>
+
+<div class="content">Perhaps the 'gods' have favoured you because you kept at it. <span class="emoticon"> __{{emoticon}}__ </span><br>
+Just enjoy.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_35783" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile35783">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35783">
+
+<time datetime="2014-05-29T08:54">posted: 2014-05-29 &nbsp; 08:54</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35783" title="permalink">#129</a></span>
+
+<div class="content">+1 from me for your perseverence S.O</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_35800" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile35800">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+ <div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content35800">
+
+<time datetime="2014-05-29T23:48">posted: 2014-05-29 &nbsp; 23:48</time>
+<span class="permalink"><a href="./a-new-laptop-sound-problem-t4906-s120.html#p35800" title="permalink">#130</a></span>
+
+<div class="content">I won't argue against perseverance -- but I would be interested in preserving these settings in case of a need to reinstall again, or upgrade the OS. What files would I look in for the settings that are making alsa work with the NeoMagic sound hardware?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+130 posts
+<ul>
+
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./a-new-laptop-sound-problem-t4906-s105.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906.html" role="button">1</a></li>
+<li class="ellipsis" role="separator"><span>…</span></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s60.html" role="button">5</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s75.html" role="button">6</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s90.html" role="button">7</a></li>
+<li><a class="button" href="./a-new-laptop-sound-problem-t4906-s105.html" role="button">8</a></li>
+<li class="active"><span>9</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

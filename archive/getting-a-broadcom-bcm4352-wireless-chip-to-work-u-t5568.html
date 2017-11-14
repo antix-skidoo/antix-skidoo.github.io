@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Getting a Broadcom BCM4352 Wireless Chip to Work Under antiX - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./getting-a-broadcom-bcm4352-wireless-chip-to-work-u-t5568.html">Getting a Broadcom BCM4352 Wireless Chip to Work Under antiX</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_40095" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile40095">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 127</span></div>
+
+</div>
+</div>
+<span class="username">KrunchTime</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Dec 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content40095">
+<time datetime="2015-03-19T02:12">posted: 2015-03-19 &nbsp; 02:12</time>
+<span class="permalink"><a href="./getting-a-broadcom-bcm4352-wireless-chip-to-work-u-t5568.html#p40095" title="permalink">#1</a></span>
+
+<div class="content">A couple of days ago, I finally found a solution to get the Broadcom BCM4352 wireless chip in my ASUS AIO ET2322 to work under antiX.<br>
+<br>
+Note: Currently, this will only work using the Debian Testing/Unstable repos. Performed under a 64-bit install of antiX 13-2 tracking Debian Testing.<br>
+<em><br>
+sudo apt-get update<br>
+sudo apt-get install dkms (if applicable; present in antiX 13.2 after fresh install)<br>
+sudo apt-get install broadcom-sta-dkms<br>
+</em><br>
+The current version of the <em>broadcom-sta-dkms</em> package from the Debian Testing repo is 6.30.223.248-3. Installation of the <em>broadcom-sta-dkms</em> package should fire off <em>dkms</em> to build and install the driver in the kernel. If this doesn't happen, then fire up a terminal emulator and:<br>
+<br>
+<em>sudo dkms build broadcom-sta-dkms/6.30.223.248-3</em><br>
+<br>
+Substitute the appropriate version number in the above command if applicable.<br>
+<br>
+If you are using a custom kernel, then the build and installation of <em>broadcom-sta-dkms</em> may fail. When I first installed the <em>broadcom-sta-dkms</em> package, I was using antiX custom kernel 3.19.1 and the build and installation failed. If installation fails, try using the latest available kernel, currently 3.16.0-4, from the Debian Testing/Unstable repos and try the above <em>dkms build</em> command.<br>
+<br>
+If you want to build and install <em>broadcom-sta-dkms</em> in more than one kernel, from a terminal emulator enter:<br>
+<br>
+<em>sudo dkms build broadcom-sta-dkms/6.30.223.248-3 -k applicable-kernel-version</em><br>
+<br>
+Again, substitute the appropriate version number for <em>broadcom-sta-dkms</em> in the above command if applicable.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

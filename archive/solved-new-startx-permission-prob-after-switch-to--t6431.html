@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] NEW startx permission prob. after switch to testing - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-new-startx-permission-prob-after-switch-to--t6431.html">[SOLVED] NEW startx permission prob. after switch to testing</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47213" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47213">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47213">
+<time datetime="2016-06-26T22:43">posted: 2016-06-26 &nbsp; 22:43</time>
+<span class="permalink"><a href="./solved-new-startx-permission-prob-after-switch-to--t6431.html#p47213" title="permalink">#1</a></span>
+
+<div class="content">NEW startx permission problem after switching sources to testing for rolling release<br>
+<br>
+I'll admit to being stubborn. But I insist on booting to runlevel 3 and then, when/if I'm ready for the GUI, I run startx as a user. OK I'll also admit to the fact that nine times out of ten, startx is the first thing I run after logging in.<br>
+<br>
+That said, it used to work properly with my new antiX-15.1 installation.<br>
+<br>
+I disabled slim so that I'd boot to runlevel 3.<br>
+<br>
+Then after making Xorg setuid, my regular user could get openbox running via startx. I was about to start installing my usual applications when I realized that anything I installed <span style="text-decoration: underline"><strong>BEFORE</strong></span> I switched my sources lists to the testing repos was likely going to need to be reinstalled by the apt-get dist-upgrade.<br>
+<br>
+So I edited my sources... and ran
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update
+apt-get dist-upgrade
+</code></pre></div>
+These are the active repos:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>deb http://antix.daveserver.info/testing testing main nosystemd
+deb http://ftp.us.debian.org/debian/ testing main contrib non-free
+deb http://security.debian.org/ testing/updates main contrib non-free 
+deb http://www.deb-multimedia.org testing main non-free
+deb http://deb.opera.com/opera/ stable non-free
+</code></pre></div>
+I note that I had already added the opera repo to the liveUSB because I wanted Opera 12.16, which the hard drive install kept. But the apt-get dist-upgrade tossed out because it needed gstreamer0.10-plugins-good, which is no longer installable<br>
+<br>
+But that's for a different thread...<br>
+<br>
+I wasn't surprised that I needed to make Xorg setuid again. But I was disappointed that even after I did so, I got:<br>
+<br>
+<blockquote><div><cite>user startx run wrote:</cite>
+X.Org X Server 1.18.3<br>
+Release Date: 2016-04-04<br>
+X Protocol Version 11, Revision 0<br>
+Build Operating System: Linux 4.4.2-gnu-antix-sid.1-amd64-smp x86_64 antiX<br>
+Current Operating System: Linux MyAntix-5 4.3.0-antix.3-amd64-smp #3 SMP PREEMPT Thu Feb 4 17:50:57 EET 2016 x86_64<br>
+Kernel command line: root=LABEL=MyAntix-5 nosplash vga=normal<br>
+Build Date: 05 April 2016 05:00:18PM<br>
+xorg-server 2:1.18.3-1.0nosystemd1 (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian.org/support"<br>linktext was:"http://www.debian.org/support"<br>====================================<br>
+)<br>
+Current version of pixman: 0.33.6<br>
+Before reporting problems, check 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.x.org"<br>linktext was:"http://wiki.x.org"<br>====================================<br>
+<br>
+to make sure that you have the latest version.<br>
+Markers: (--) probed, (**) from config file, (==) default setting,<br>
+(++) from command line, (!!) notice, (II) informational,<br>
+(WW) warning, (EE) error, (NI) not implemented, (??) unknown.<br>
+(==) Log file:"/home/jtwdyp/.local/share/xorg/Xorg.0.log", Time: Sun Jun 26 15:33:03 2016<br>
+(==) Using config directory:"<em>/</em>etc/X11/xorg.conf.d"<br>
+(==) Using system config directory"/usr/share/X11/xorg.conf.d"<br>
+ional information.(EE) (EE) Server terminated with error (1). Closing log file./xorg/Xorg.0.log" for additxinit: giving up<br>
+xinit: unable to connect to X server: Connection refused<br>
+xinit: server error
+</div></blockquote>
+So I quickly checked that root could startx. Root had no problem starting up openbox with startx. Then I tried again with my user account, only this time I used:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo startx
+</code></pre></div>
+Which sort of worked. Openbox started up using my configuration files {not root's} and everything seemed to work just fine. <strong><span style="text-decoration: underline">Until</span></strong> I noticed that everything I did was working with sudo permissions.<br>
+<br>
+Which I tested by opening a regular roxterm, going to /root where my regular user was able to chown root's .bashrc to belong to another user. Of course I chowned it right back. But if the sudo permissions are going to apply to everything I do, it's unsafe to run X that way...<br>
+<br>
+<span style="color: blue"><strong><br>
+Does anybody know what (besides Xorg) could be refusing ordinary users to connect to the X server with testing repos configured, that doesn't care when using stable????<br>
+</strong></span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47214" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47214">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47214">
+
+<time datetime="2016-06-26T23:04">posted: 2016-06-26 &nbsp; 23:04</time>
+<span class="permalink"><a href="./solved-new-startx-permission-prob-after-switch-to--t6431.html#p47214" title="permalink">#2</a></span>
+
+<div class="content">On a guess, I tried also making xinit setuid...<br>
+<br>
+Works now!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47215" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47215">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 2,238</dd>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47215">
+
+<time datetime="2016-06-26T23:53">posted: 2016-06-26 &nbsp; 23:53</time>
+<span class="permalink"><a href="./solved-new-startx-permission-prob-after-switch-to--t6431.html#p47215" title="permalink">#3</a></span>
+
+<div class="content">thanks for posting the update with solution!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47229" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47229">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 71</dd>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47229">
+
+<time datetime="2016-06-27T18:26">posted: 2016-06-27 &nbsp; 18:26</time>
+<span class="permalink"><a href="./solved-new-startx-permission-prob-after-switch-to--t6431.html#p47229" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>thanks for posting the update with solution!</div></blockquote>
+Well if I was gonna mark it solved... I thought the solution was called for...<br>
+<br>
+I still don't really know what caused the problem, I've never had to touch xinit before. But while I was buzy scratching my head, I focused on this line from that terminal output:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>xinit: unable to connect to X server: Connection refused
+</code></pre></div>
+And suddenly it hit me. it was xinit that was being refused. So while I doubted it could be so easy I gave it a try. Maybe someday, somebody else who wants startx to work will find my post useful. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

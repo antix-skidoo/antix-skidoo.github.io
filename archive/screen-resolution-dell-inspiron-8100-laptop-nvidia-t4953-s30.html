@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Screen resolution Dell Inspiron 8100 Laptop NVidia [SOLVED] - Page 3 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html">Screen resolution Dell Inspiron 8100 Laptop NVidia [SOLVED]</a></div>
+<div class="pagination">
+38 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953.html" role="button">1</a></li>
+<li><a class="button" href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34577" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34577">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34577">
+<time datetime="2014-04-15T11:00">posted: 2014-04-15 &nbsp; 11:00</time>
+<span class="permalink"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html#p34577" title="permalink">#31</a></span>
+
+<div class="content">Ok, here is what I tried...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>SYSSRC=/lib/modules/3.7.10-antix.7-486-smp/build
+sgfxi -! 6
+</code></pre></div>
+But I still get the error. I am guessing there is some source or headers it needs that it can't find? LOL, but *I* don't know what its looking for!!!<br>
+<br>
+Thanks for any ideas? I tried looking for anyone with debian or mepis with this that got it fixed, but didn't find any posted. Maybe I just wasn't searching correctly...<br>
+<br>
+<br>
+This page might have the cause/answer, but its beyond me to know what to do with it to implement because the directory structure appears different here and I don't know what I'm looking for<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://weltall.heliohost.org/wordpress/2012/01/20/linux-kernel-3-3-rc1-and-nvidia-drivers/"<br>linktext was:"http://weltall.heliohost.org/wordpress/ ... a-drivers/"<br>====================================<br>
+<br>
+<br>
+I pasted in the most relevant looking stuff below
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>There are two ways this can be fixed:
+
+The first way is fixing the nvidia installer side.
+
+Extract the nvidia installer package with -x as argument passed to the sh package then go in the folder it was extracted to (should be /tmp)
+
+Then go to the kernel sub folder and open the conftest.sh search for
+
+CFLAGS=”$CFLAGS -I$SOURCES/arch/x86/include”  and replace it with CFLAGS=”$CFLAGS -I$SOURCES/arch/x86/include -I$SOURCES/arch/x86/include/generated”
+
+this way the files needed for the conftest will be included and it will succeed.
+
+You can use this script to get it done easily. It will cleanup after running the installer so it will look like a normal install.
+
+The second way is hacking a bit the include folders
+
+Go in /lib/modules/&lt;kernelname&gt;/source/arch/x86/include/ and do cp generated/asm/unistd*.h ./asm/
+
+This will copy the required files where they were expected and all will go well.
+
+Enjoy the new kernel with your nvidia drivers!
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34580" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34580">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34580">
+
+<time datetime="2014-04-15">posted: 14:41</time>
+<span class="permalink"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html#p34580" title="permalink">#32</a></span>
+
+<div class="content">I think you missed the 2 scripts on offer on that page, they look like they will do the necessary for you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34584" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34584">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34584">
+
+<time datetime="2014-04-15T18:17">posted: 2014-04-15 &nbsp; 18:17</time>
+<span class="permalink"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html#p34584" title="permalink">#33</a></span>
+
+<div class="content">Ok, I ran the sed to fix the conftest.sh and then tried the nvidia-installer, but got the same error.<br>
+<br>
+So then I tried the sgfxi -! 6 again, but it reextracted the package, overwriting the conftest.sh again, and therefore also failing again.<br>
+<br>
+If I run the script given, do I need to pass the nvidia-installer any parameters?<br>
+<br>
+Is there a way to get sgfxi not to reextract so that the fixed conftest.sh gets left there to be used?<br>
+<br>
+I wish I could be more helpful in identifying the problem, but I can't even read the scripts well enough to really know what they are trying to do, and have very little experience compiling C or C++ programs.<br>
+<br>
+I'm hoping someone can suggest something. I did find a message from someone on that page that had debian that was successful using the sed method. I looked at the kernel versions available, and noticed that the ones with 3.5 or lower were not antiX, so would guess they wouldn't be a good idea.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34592" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34592">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34592">
+
+<time datetime="2014-04-15T20:45">posted: 2014-04-15 &nbsp; 20:45</time>
+<span class="permalink"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html#p34592" title="permalink">#34</a></span>
+
+<div class="content">I figured I was completely done for at this point anyway, so I tried loading an older, non-antix kernel Linux-3.2.0-4-486 and headers via synaptic, then went to term under root and did a update-grub, and rebooted, and ran sgfxi, and then started X, and it came up 1600x1200 and is working, thus far.<br>
+<br>
+I'm not sure why the newer kernels don't work, but recall reading that they don't above 3.5, so that's why I tried the 3.2.0-4. I did lose SOME memory compared to the antiX I was running, now up to 32% with nothing running, but thats still a lot better than any of the other distros, and it seems to be running fine.<br>
+<br>
+I still have to get my soundcard and wifi working, but getting the screen working right was top priority. <br>
+<br>
+Thanks for all the help.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34602" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34602">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34602">
+
+<time datetime="2014-04-16T05:58">posted: 2014-04-16 &nbsp; 05:58</time>
+<span class="permalink"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html#p34602" title="permalink">#35</a></span>
+
+<div class="content"><blockquote><div><cite>thriftee wrote:</cite>...I tried loading an older, non-antix kernel Linux-3.2.0-4-486...</div></blockquote>Good to hear you got a working solution. I came to post the same method to find you had had also found it.<br>
+<br>
+I managed to locate a system that uses a GeForce2 card. It's not exactly the same but close enough to illustrate the case. After creating a virgin installation of 13.2-Stable, then installing the alternative Debian kernel (linux-image-486), and subsequently installing the video driver via sgfxi, it works as shown below.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -G
+Graphics:  Card: NVIDIA NV11 [GeForce2 MX/MX 400] X.Org: 1.12.4 driver: nvidia Resolution: 1280x1024@50.0hz 
+           GLX Renderer: GeForce2 MX/AGP/SSE/3DNOW! GLX Version: 1.5.8 NVIDIA 96.43.23</code></pre></div>
+I wonder if there might be any value in having an antiX kernel in the antiX repo specifically to handle cases such as this? It might be beneficial to have an in-house solution that fits with one of the prime antiX goals of extending the life of otherwise redundant kit.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34605" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34605">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34605">
+
+<time datetime="2014-04-16T08:29">posted: 2014-04-16 &nbsp; 08:29</time>
+<span class="permalink"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html#p34605" title="permalink">#36</a></span>
+
+<div class="content">Sam,<br>
+<br>
+I do appreciate you and the others helping, as without the help, I might have given up. Sometimes ideas are close enough that eventually even someone like me if trying enough permutations, will find the right one, but with people like you guys around, I had much better odds.<br>
+<br>
+I have to admit that I don't notice what's different other than I think its using more memory with the linux kernel vs the antiX, and as a result, when I get 1/2 dozen things going, it gets slow as it needs to swap out to disk.<br>
+<br>
+The sound is working now, I just needed to install firmware. As for the wifi, the windows partition won't boot at all, now, so I can't identify what chip is in the wireless adapter, so I'm not sure what to install. I suppose I should start a new thread for that. Once I get that going, I want to find a"lite" panel program. I liked the panel that came with jessie xfce, and will look for something along those lines, or maybe try to figure out how antiX puts the cpu, ram and disk numbers on the screen, and find a way to add functions to that. I see on screenshots that others have, but don't understand how, etc. And once I have that going, I'll set it up on my bigger, faster laptops the same as on the Dell, and on those, with 12x memory and 4x cpus, they will fly, and then I might also try the desktops, which are even faster with 40x memory and 6x cpus. I will need to dual boot them all with windows for the apps that absolutely need it, but I just hope to get to where I am happy working with the linux and don't use the windows often.<br>
+<br>
+Again, thanks to all for the help getting the screen working.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34606" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34606">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34606">
+
+<time datetime="2014-04-16T09:40">posted: 2014-04-16 &nbsp; 09:40</time>
+<span class="permalink"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html#p34606" title="permalink">#37</a></span>
+
+<div class="content"><blockquote><div><cite>thriftee wrote:</cite>...its using more memory with the linux kernel vs the antiX, and as a result, when I get 1/2 dozen things going, it gets slow as it needs to swap out to disk.</div></blockquote>This is the sort of thing I was meaning.<br>
+<br>
+antiX is aimed at both newer powerful kit, and older less capable kit. The latter often has little RAM by today's standards, and one has to make a judgement about the economic cost v benefit of upgrading the hardware. antiX helps greatly with this as it strives to produce a usable, working system while at the same time reducing the demand for system resources.<br>
+<br>
+<br>
+<strong>Off Topic</strong><br>
+<br>
+<blockquote><div><cite>thriftee wrote:</cite>...the windows partition won't boot at all, now, so I can't identify what chip is in the wireless adapter, so I'm not sure what to install. I suppose I should start a new thread for that.</div></blockquote>A new thread is a good idea, probably two. <br>
+<br>
+It is usually possible to acheive a dual boot with antiX and Windows. There are forum members that will be able to chip in with their experiences. If my memory can be trusted <strong>dolphin_oracle</strong> touches on this subject in one of the Youtube videos. <br>
+<br>
+Identifying wireless chipsets and get them running can usually be done within antiX.<br>
+<br>
+
+<blockquote><div><cite>thriftee wrote:</cite>...I want to find a"lite" panel program. I liked the panel that came with jessie xfce, and will look for something along those lines...</div></blockquote>Again think about a separate thread. <br>
+<br>
+antiX-13.2 ships with two window managers that provide a panel (taskbar) as part of their default set up. Both IceWM (default WM for antiX-13.2) and JWM are lighter-weight than XFCE. They are highly configurable and have lots of themes (skins) - refer to the antiX FAQ as a starting point.<br>
+<br>
+<blockquote><div><cite>thriftee wrote:</cite>...antiX puts the cpu, ram and disk numbers on the screen, and find a way to add functions to that.</div></blockquote>Again suitable for a separate thread. <br>
+<br>
+You are probably referring to an app named Conky. There is lots of information about it in the forum and again the FAQ will help get you started. <br>
+<br>
+Keep in mind it places a demand for resources. This demand increases as you add more monitors and bling to it. If you are intending to run it on low powered kit, these will eventually become increasingly noticeable.<br>
+<br>
+Lots of users integrate Conky into the desktop which I find inconvenient due to it usually being covered by open windows. My preference is to run it only on demand, in a standard window. This also has the added benefit of using system resources only when neccessary i.e. when you want to see the window.<br>
+<br>
+In the end it's your choice that matters and antiX provides lots of options.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34608" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34608">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34608">
+
+<time datetime="2014-04-16T13:04">posted: 2014-04-16 &nbsp; 13:04</time>
+<span class="permalink"><a href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s30.html#p34608" title="permalink">#38</a></span>
+
+<div class="content">Sam, <br>
+<br>
+Thanks for all the thought and ideas that went into that post. You'd be surprised how close some of your comments there are to where I'm trying to get to. And yes, I did and do intend to put questions in separate threads. But it was real nice of you to help with the benefit of your experience in that reply, anyway. <br>
+<br>
+Its just nice to see light at the end of the tunnel after the nvidia troubles.......</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+38 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s15.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953.html" role="button">1</a></li>
+<li><a class="button" href="./screen-resolution-dell-inspiron-8100-laptop-nvidia-t4953-s15.html" role="button">2</a></li>
+<li class="active"><span>3</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

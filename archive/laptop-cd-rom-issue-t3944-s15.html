@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Laptop CD-ROM Issue - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./laptop-cd-rom-issue-t3944-s15.html">Laptop CD-ROM Issue</a></div>
+<div class="pagination">
+20 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./laptop-cd-rom-issue-t3944.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./laptop-cd-rom-issue-t3944.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_26493" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26493">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26493">
+<time datetime="2012-10-15T16:23">posted: 2012-10-15 &nbsp; 16:23</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944-s15.html#p26493" title="permalink">#16</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite><strong>TL;DR</strong></div></blockquote>The details were only included to indicate how the conclusions were arrived at. They have been tranferred from the post to an attached file, which should improve readability.<br>
+<blockquote><div><cite>Bitjam wrote:</cite>We've already eliminated antiX specific stuff that could be causing the problem. The source of the problem likely lies elsewhere and we are not interested in making the journey there.</div></blockquote>Perfectly understandable.<br>
+<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>...try editing / etc/init.d/udev (as root) and above the lines that say:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    # clean up parts of the database created by the initramfs udev
+    udevadm info --cleanup-db</code></pre></div> add code that says:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    if [ -x /bin/busybox ]; then
+        printf"Running mdev from busybox\n"
+        /bin/busybox mdev -s
+        sleep 2
+        /bin/busybox mdev -s
+    fi</code></pre></div></div></blockquote>This has been done but it produces the following error messages to be displayed during the early stages of bootup, for which I cannot spot the cause.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>INIT: version 2.88 booting
+[info] Using makefile-style concurrent boot in runlevel S
+/ etc/init.d/udev: 314 / etc/init.d/udev:  Syntax error:";;" unexpected (expecting"fi")
+...
+[FAIL]startpar: services returned failure: udev ... failed!
+INIT: Entering runlevel 3
+...</code></pre></div>
+A copy of / etc/inid.d/udev is attached. Perhaps your more skilled eyes can see the problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26500" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26500">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26500">
+
+<time datetime="2012-10-15T18:37">posted: 2012-10-15 &nbsp; 18:37</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944-s15.html#p26500" title="permalink">#17</a></span>
+
+<div class="content">The problem is that some of the leading white-space in the code you added are non-ascii characters and these confuse the shell. See: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linux.byexamples.com/archives/108/beware-of-non-ascii-characters/"<br>linktext was:"http://linux.byexamples.com/archives/10 ... haracters/"<br>====================================<br>
+<br>
+<br>
+You can test this yourself with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ grep -A 2 -B 2 busybox udev.txt  | cat -v
+
+    ####### Start of Entry Added by SamK #######
+    if [ -x /bin/busybox ]; then
+M-BM-  M-BM-  M-BM-  M-BM-  printf"Running mdev from busybox\n"
+M-BM-  M-BM-  M-BM-  M-BM-  /bin/busybox mdev -s
+M-BM-  M-BM-  M-BM-  M-BM-  sleep 2
+M-BM-  M-BM-  M-BM-  M-BM-  /bin/busybox mdev -s
+M-BM-  M-BM-  fi
+    ####### End of Entry Added by SamK #######
+</code></pre></div>
+The grep extracts the code you added and the cat -v makes the non-ascii characters visible. They show up as"M-MB-". I tried to replicate the problem by doing a simple copy and paste of the code I posted into an editor (gVim) but no non-ascii characters showed up.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26515" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26515">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26515">
+
+<time datetime="2012-10-17T10:19">posted: 2012-10-17 &nbsp; 10:19</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944-s15.html#p26515" title="permalink">#18</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>The problem is that some of the leading white-space in the code you added are non-ascii characters and these confuse the shell. <br>
+...I tried to replicate the problem by doing a simple copy and paste of the code I posted into an editor (gVim) but no non-ascii characters showed up.</div></blockquote>I also originally copied and pasted the code, but then edited the file using a variety of editors. From this distance I can't recall where this particular self-induced problem was introduced.<br>
+<br>
+Unfortunately, even the correct code did not resolve the issues. The symptoms reported are still present.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26516" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26516">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+ 
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26516">
+
+<time datetime="2012-10-17T10:58">posted: 2012-10-17 &nbsp; 10:58</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944-s15.html#p26516" title="permalink">#19</a></span>
+
+<div class="content">Reporting success.<br>
+<br>
+On the basis that udev was a potential cause, it seemed reasonable that both Parted Magic and Tinycore might have found ways to overcome the issues. On closer inspection both of them have a udev rule that is used to identify/name the CD-ROM.<br>
+<br>
+Parted Magic uses the rule in conjunction with a further app, whereas Tinycore uses the rule only, so the latter was used.<br>
+<br>
+The antiX system was first cleaned of all edits etc that had been used for diagnosis. The following rule was added to / etc/udev/rules/60-cdrom_id.rules.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ACTION=="remove", GOTO="cdrom_end"
+SUBSYSTEM!="block", GOTO="cdrom_end"
+KERNEL!="sr[0-9]*|xvd*", GOTO="cdrom_end"
+ENV{DEVTYPE}!="disk", GOTO="cdrom_end"
+
+# unconditionally tag device as CDROM
+KERNEL=="sr[0-9]*", ENV{ID_CDROM}="1"
+
+LABEL="cdrom_end"</code></pre></div>
+The CD-ROM tray, mounting/unmounting and eject command now all work as expected in CLI and GUI modes.<br>
+<br>
+Not being particularly familiar with udev rules, I don't know whether this might benefit from"polishing" to better suit antiX, and perhaps it might also be good to be tested by others. If it"passes muster", might it be worth it being added as a standard rule within antiX?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26521" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26521">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26521">
+
+<time datetime="2012-10-17T21:44">posted: 2012-10-17 &nbsp; 21:44</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944-s15.html#p26521" title="permalink">#20</a></span>
+
+<div class="content">Kudos SamK for fixing this problem. I admire your perseverance and creativity that finally led to a solution.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+20 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./laptop-cd-rom-issue-t3944.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./laptop-cd-rom-issue-t3944.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

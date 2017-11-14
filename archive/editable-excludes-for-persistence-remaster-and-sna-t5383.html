@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Editable excludes for persistence, remaster, and snapshot - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./editable-excludes-for-persistence-remaster-and-sna-t5383.html">Editable excludes for persistence, remaster, and snapshot</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_38089" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38089">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38089">
+<time datetime="2014-11-16T03:16">posted: 2014-11-16 &nbsp; 03:16</time>
+<span class="permalink"><a href="./editable-excludes-for-persistence-remaster-and-sna-t5383.html#p38089" title="permalink">#1</a></span>
+
+<div class="content">Skidoo has suggested that we store the excludes for these programs in a central place and make them easy for users to edit. I think this is a terrific idea and it is time to do it.<br>
+<br>
+Remaster-live and persist-save (now) store their exclude lists in variables in the file /usr/local/lib/antiX/antiX-excludes.sh. I believe the snapshot program holds its exclude info in a different format and in a different location. I like the idea of"common excludes" that are combined with specific excludes for persistence, remastering and snapshots. To make them easier to edit, the lists should be stored directly in 4 files:<br>
+<ul>
+<li> common-excludes</li>
+<li> remaster-excludes</li>
+<li> persist-excludes</li>
+<li> snapshot-excludes</li></ul>
+The logic would be we combine the common-excludes list with the specific excludes for the particular program. We would honor comments both before and after the file names. I already have some simple code that does this sort of thing as part of our build system.<br>
+<br>
+We should try to make it as easy for the user as possible and then work around that. I don't know if combining common-excludes with a specific $PROGRAM-excludes will be easier for the user but I would hate to have four different lists that are almost the same. That sort of thing drives me bonkers. We can also have a .orig copy of each file that is read-only.<br>
+<br>
+Does anyone have ideas or suggestions?</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id="p_38098" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38098">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38098">
+
+<time datetime="2014-11-16T07:18">posted: 2014-11-16 &nbsp; 07:18</time>
+<span class="permalink"><a href="./editable-excludes-for-persistence-remaster-and-sna-t5383.html#p38098" title="permalink">#2</a></span>
+
+<div class="content">Sorry to hear that"different, but almost the same, lists" drive you bonkers. I'm convinced such is necessary.<br>
+For your default lists (the lists you distribute), an entry YOU deem desirable for the"common" list... I may disagree.<br>
+For that item, I may wish to exclude it from ONLY remaster operations... and I need to go hunt/kill it over in common.<br>
+A good example here, I think, is <em>/</em>var/cache/apt/archives/*.deb<br>
+-=-<br>
+Hmm, phrase it like this:<br>
+The separate lists are task-specific ~~ that's why they are (should be) separate, separately maintained.<br>
+The"common" list, I'm suggesting that should only contain the MUST exclude (or else will break things) entries.<br>
+<br>
+If I never remaster, I probably don't (ever) care to look inside the remaster list.<br>
+When I perform a snapshot, I damn sure want to see every relevant entry... and referring back-n-forth between lists is PITA.<br>
+It's reasonable to expect a user will need to tweak his list(s) often, incrementally (outweighs infrequent dev PITA in"maintaining" the default lists).<br>
+<br>
+A"default" remaster list cannot <em>responsibly</em> cover every consideration.<br>
+For that list, an inline comment should remind the would-be remasterer to consider what<br>
+(tweaked configs for installed apps) needs to be copied to etc/skel, in addition to what should/must be excluded.<br>
+<br>
+Regarding"persist-excludes", exposing its content to the user would be enlightening, even if s/he never has need to edit it.<br>
+<br>
+Ideally (eventually) a comment line would precede each entry, explaining why excluded (and whether or not user might change).<br>
+Some of the patterns can be commented in blocks ( proc / run / srv ) but many do merit individual explanation.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38158" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38158">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38158">
+
+<time datetime="2014-11-18T03:11">posted: 2014-11-18 &nbsp; 03:11</time>
+<span class="permalink"><a href="./editable-excludes-for-persistence-remaster-and-sna-t5383.html#p38158" title="permalink">#3</a></span>
+
+<div class="content">reminder: an issue illustrated in the July 2014"snapshots not working as expected" thread<br>
+snapshots-not-working-as-expected-t5211.html<br>
+In this example case, botched snapshot result occurred due to the pattern <span style="color: blue"><strong>media/*</strong></span> within <strong>/</strong>usr/lib/antixsnapshot/snapshot_exclude.list<br>
+<br>
+related (usability issue):<br>
+because EVERY non-commented, non-blank line within the <strong>excludes</strong> file is an EXCLUDE pattern<br>
+<span style="color: red">{</span><strong> - </strong><span style="color: red">}</span> usr/share/fuzzydice<br>
+<span style="color: red">{</span><strong> - </strong><span style="color: red">}</span> home/*/thumbsuckers/large/*<br>
+having the parser expect/require a BOL minussign character for each pattern line within the excludes file is $!#&amp;@ ...um, is not ideal. compared to refractasnapshot<br>
+<br>
+======================<br>
+<br>
+<strong>proposed conventions for content and format of excludes lists:<br>
+<br>
+1) </strong>Each item (aka path, rule, pattern, regex pattern) in an excludes file should begin with a forward slash character, which serves to"anchor" it.<br>
+<br>
+<strong>2)</strong> A comment paragraph atop each list should describe, in a nutshell, the intended purpose of its associated script.<br>
+This header should also provide a reference link ( /path/to/local/doc or URL to online wiki / discussion thread ).<br>
+Ideally (for best results) the user should thoroughly review the external documentation.<br>
+Nonetheless, generous inclusion of Inline comments throughout each excludes file is recommended.<br>
+<span style="color: green">#Bear in mind that users will<br>
+#typically edit the list using<br>
+#a text editor and that<br>
+#linewrapped comment<br>
+#text is $!#&amp;@ hard to digest.</span><br>
+<br>
+<br>
+<strong>3)</strong> In the default list(s), 3 hash chars BOL to preface an"important" line item (or group of lines)<br>
+<span style="color: purple"><strong>### these paths, if present, MUST be excluded ! (else bad things will happen)<br>
+### Yes, some of the top-level dirs listed here, e.g."cdrom", might not currently exist in your system.<br>
+### If so, no problem... and it's advisable to, just In case</strong><br>
+<strong>/</strong>cdrom/*<br>
+<strong>/</strong>dev/*<br>
+<strong>/</strong>live<br>
+<strong>/</strong>media/*<br>
+<strong>/</strong>mnt/*<br>
+<strong>/</strong>proc/*<br>
+<strong>/</strong>swapfile</span><br>
+<span style="color: red"><strong>/srv/*</strong></span> this line is absent from the current antiX default excludes list? <span style="color: purple"><br>
+<strong>/</strong>sys/* <br>
+<strong>/</strong>tmp/*<br>
+<strong>###</strong></span> perhaps followed by a matching"end of section" marker, at least for large multiline groupings<br>
+<br>
+<br>
+<strong>4)</strong> In the default list(s), a comment line bearing a single hash char BOL precedes an"optional" line item (or group of lines)<br>
+<span style="color: green">#OPTIONAL: can safely exclude the following, if present; the system will automatically regenerate it during boot.<br>
+# filesize is typically 2Mb+ (its"squashed" size within the resulting snapshot will be considerably less, though)<br>
+# (its exclusion yields a smaller snapshot image. OTOH, regenerating it each live session adds 2-3secs boot overhead)<br>
+# <em>/</em>var/lib/mlocate/mlocate.db</span><br>
+^--- just serves as a formatting example here.<br>
+Admittedly, for an optional item which would be outcomented by default and is accompanied by several comment lines...<br>
+...mentioning it within the external docs instead of cluttering the excludes file may be preferable.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38167" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38167">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38167">
+
+<time datetime="2014-11-18T10:13">posted: 2014-11-18 &nbsp; 10:13</time>
+<span class="permalink"><a href="./editable-excludes-for-persistence-remaster-and-sna-t5383.html#p38167" title="permalink">#4</a></span>
+
+<div class="content">I think information headers ought to have multiple ###'s as I have seen in other files, it makes it easier to find section headers when a file becomes more than one or two screens.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38179" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38179">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38179">
+
+<time datetime="2014-11-18T21:20">posted: 2014-11-18 &nbsp; 21:20</time>
+<span class="permalink"><a href="./editable-excludes-for-persistence-remaster-and-sna-t5383.html#p38179" title="permalink">#5</a></span>
+
+<div class="content">Thanks for suggesting ### section headers, fatmac. My hope for the"number of hashes" suggestion was to visually emphasize optional vs advisable vs necessary exclusions.<br>
+I agree that section headers are helpful, but only to a point -- after which, they begin to seem too restrictive.<br>
+In my use, I've found that a ---DO NOT EDIT ANYTHING ABOVE THIS LINE--- approach, with optional items grouped further down the list... became a hassle.<br>
+When grouping items based on {to save space} {privacy} {system will recreate these each boot} {system will recreate if/when needed} too often a given item seems to 'overlap', defying placement in just one group.<br>
+<blockquote class="uncited"><div>We would honor comments both before and after the file names.</div></blockquote>That's interesting. I don't think I've ever tried tacking on end-of-line comments. I've just placed my comment line(s) immediately above the associated pattern line.<br>
+Placing comments end-of-line would reduce my snapshot exclusion list quite a bit.<br>
+<br>
+Reading"file names" in the post I've quoted reminds to mention confusion introduced by mix-n-match terminology.<br>
+In my post above, I was careful to write"Each item (aka path, rule, pattern, regex pattern) in an excludes file"<br>
+because a given item may result in the exclusion of<br>
+{one specific file}, or {a directory}, or {everything beneath the named directory, but not the directory itself} or {all files with matching names}, or...<br>
+<br>
+Pick a card, any card. Throughout the docs (and discussions) we need a consistent name/term for"a non-comment, non-blank, line within an excludes file".<br>
+Separately, typing"snapshot excludes file" (or"snapshot exclusions list") seems awkwardly verbose, yet necessary, with multiple exclusion lists in the mix.<br>
+<blockquote class="uncited"><div>We should try to make it as easy for the user as possible and then work around that.</div></blockquote>Without inline commentary, the user probably won't realize that new, empty, the top-level dirs 'media, proc, sys, tmp' et al<br>
+are created in the working directory... and is left wondering"Why do 'swapfile' and 'live' items lack tailend slash-asterisk compared to the others?"<br>
+<br>
+The default lists currently contain only a few dozen lines. These can be easily grouped, and commented.<br>
+I was suggesting expansion of the default lists, so that they contain additional, initially-outcommented, items<br>
+in order to convey recommendations and to illustrate useful regex-based patterns (relevant, useful, patterns. Just uncomment to activate)<br>
+<blockquote class="uncited"><div>I don't know if combining common-excludes with a specific $PROGRAM-excludes will be easier for the user<br>
+but I would hate to have four different lists that are almost the same.</div></blockquote>Back in 2012 (?) I posted"Consider the status quo, from a user perspective" and I spelled out (walked through) the scenario of"not being able to see the forest through the trees":<br>
+(I'm explaining, not ranting) <br>
+Find/open antixsnapshot... find/open the antix-common script which is"sourced" by antixsnapshot... figure out"who da hell defines 'du_excludes', and where"...<br>
+Ultimately, I reached the conclusion that the antixsnapshot mechanism wasn't usable for me (wasn't acceptable, didn't produce a desired result)<br>
+due to hard-coded exclusions stipulated in the"shared" (focused on remastering) exclusions list.<br>
+Under this status quo, user expects, but cannot acheive: <strong>snapshot == faithful copy of the running system</strong><br>
+<blockquote class="uncited"><div>We can also have a .orig copy of each file that is read-only</div></blockquote>That sounds like a good idea, along with advising user to backup his customized list(s).</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

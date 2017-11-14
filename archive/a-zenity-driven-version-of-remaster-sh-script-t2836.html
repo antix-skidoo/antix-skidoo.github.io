@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>A zenity-driven version of remaster.sh script - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./a-zenity-driven-version-of-remaster-sh-script-t2836.html">A zenity-driven version of remaster.sh script</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_18515" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18515">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18515">
+<time datetime="2010-12-11T01:33">posted: 2010-12-11 &nbsp; 01:33</time>
+<span class="permalink"><a href="./a-zenity-driven-version-of-remaster-sh-script-t2836.html#p18515" title="permalink">#1</a></span>
+
+<div class="content">Hi there<br>
+<br>
+I played with the remaster.sh script (/usr/local/bin/remaster.sh) just to learn how it works.<br>
+I added zenity dialogs to select the iso file and the path to the remaster directory, and some info dialogs<br>
+<br>
+Removed the --from-hard-disk option (tagged experimenta) I don't use it<br>
+A few small changes to the code, the promp is modified when you are in the chrooted environment, leafpad is called to modify the version file...<br>
+I hope I did not break the process!<br>
+<br>
+Note that you have to start the script from a terminal, the terminal in which you will be chrooted.<br>
+And the output of mksquashfs and mkisofs are also in this terminal.<br>
+the script can be run in the old style command line only when started with a -n --no-gui option (not really tested the option)<br>
+<br>
+I tried to start a X session from the chroot, using xnest. I can start a icewm session as root (no user in the liveCD-chrooted env), some appications start nicely (rox-term), others (iceape) crash the x-nested-session (you have still the terminal)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18537" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18537">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18537">
+
+<time datetime="2010-12-11T22:43">posted: 2010-12-11 &nbsp; 22:43</time>
+<span class="permalink"><a href="./a-zenity-driven-version-of-remaster-sh-script-t2836.html#p18537" title="permalink">#2</a></span>
+
+<div class="content">Hi there lagopus, great to see you.<br>
+<br>
+I have tested this and it works really well. I'll look at it more and see how we can add some extras like removing files etc.<br>
+It would also be great if we could get the remaster an existing hd install to work as well.<br>
+<br>
+Great stuff.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18602" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18602">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18602">
+
+<time datetime="2010-12-14T21:44">posted: 2010-12-14 &nbsp; 21:44</time>
+<span class="permalink"><a href="./a-zenity-driven-version-of-remaster-sh-script-t2836.html#p18602" title="permalink">#3</a></span>
+
+<div class="content">Hey lagopus,<br>
+I have tried this modified script as well. I like it, but I have found that it leaves (my chroot) in front of terminal prompt after building the iso. How do I change it back before building the iso so it is back to normal in the built iso?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18624" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18624">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18624">
+
+<time datetime="2010-12-16T09:54">posted: 2010-12-16 &nbsp; 09:54</time>
+<span class="permalink"><a href="./a-zenity-driven-version-of-remaster-sh-script-t2836.html#p18624" title="permalink">#4</a></span>
+
+<div class="content">Hi Dave<br>
+<br>
+The prompt is changed line 509
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    
+    # Change the prompt for the chrooted env
+    # from root@antiX: to  (mychroot)root@antiX
+    echo"mychroot" &gt; $REM/new-squashfs/etc/debian_chroot
+</code></pre></div>
+This creates the file /etc/debian_chroot in the new-squashfs file system with the content 'mychroot', added to the standard debian root prompt<br>
+The file does not exist in the original antiX iso; we can/should remove it before compressing the new squashfs file, at line 520, returning from the chroot call, or in cleanup_chroot_env<br>
+<br>
+Thanks for having tried it<br>
+<br>
+Yves</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

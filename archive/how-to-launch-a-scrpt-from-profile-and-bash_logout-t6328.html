@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>how to launch a scrpt from ~/.profile and ~/.bash_logout? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html">how to launch a scrpt from ~/.profile and ~/.bash_logout?</a></div>
+<div class="pagination">
+19 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46189" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46189">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46189">
+<time datetime="2016-04-10T21:52">posted: 2016-04-10 &nbsp; 21:52</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46189" title="permalink">#1</a></span>
+
+<div class="content">Hello,<br>
+I want to run a script at startup and shutdown by placing it in ~/.profile and ~/.bash_logout?<br>
+The script is an adaptation of 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/Firefox_on_RAM#The_script"<br>linktext was:"firefox-sync"<br>====================================<br>
+ and the idea is from 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/Firefox_on_RAM#Sync_at_login.2Flogout"<br>linktext was:"here"<br>====================================<br>
+. It works for me on a different distro with OpenRC, but there the .bash_profile and .bash_logout look much easier than in antiX. It was possible there to simply append ~/.bin/qupzilla-sync at the end of each file. On antiX this didn't have any effect. The script is running well in terminal. The code is FYI:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+
+static=56ucrisx.default.backup
+link=56ucrisx.default
+volatile=/dev/shm/palemoon-$USER
+
+IFS=
+set -efu
+
+cd ~/.moonchild\ productions/pale\ moon
+
+if [ ! -r $volatile ]; then
+    mkdir -m0700 $volatile
+fi
+
+if ["$(readlink $link)" !="$volatile" ]; then
+    mv $link $static
+    ln -s $volatile $link
+fi
+
+if [ -e $link/.unpacked ]; then
+    rsync -av --delete --exclude .unpacked ./$link/ ./$static/
+else
+    rsync -av ./$static/ ./$link/
+    touch $link/.unpacked
+fi</code></pre></div>
+I'm running antiX-16a1.<br>
+I know there are other options like cron or with / etc/init.d/rc.local like 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://crunchbang.org/forums/viewtopic.php?id=14453"<br>linktext was:"here"<br>====================================<br>
+.<br>
+But I would prefer a solution in $HOME.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46192" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46192">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46192">
+
+<time datetime="2016-04-11T03:10">posted: 2016-04-11 &nbsp; 03:10</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46192" title="permalink">#2</a></span>
+
+<div class="content">you can put your commands for login at the end of ~/.bashrc.<br>
+<br>
+i assume the same is true for ~/.bash-logout</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46197" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46197">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46197">
+
+<time datetime="2016-04-11T12:33">posted: 2016-04-11 &nbsp; 12:33</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46197" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>you can put your commands for login at the end of ~/.bashrc.<br>
+<br>
+i assume the same is true for ~/.bash-logout</div></blockquote>
+Thanks, but putting the command at the end of ~/.bashrc makes it start when I first time open the terminal.<br>
+<br>
+Do you think creating ~/.bash_profile, copying the code from ~/.profile to it and appending my command is a good idea?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46198" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46198">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46198">
+
+<time datetime="2016-04-11T12:40">posted: 2016-04-11 &nbsp; 12:40</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46198" title="permalink">#4</a></span>
+
+ <div class="content">oh, I see what you mean.<br>
+<br>
+I'm really not sure about how the profiles work.<br>
+<br>
+why not just run the script from the regular startup file entries? they will run everytime you log in to a x environment anyway.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46200" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46200">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46200">
+
+<time datetime="2016-04-11T14:46">posted: 2016-04-11 &nbsp; 14:46</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46200" title="permalink">#5</a></span>
+
+<div class="content">Several approaches didn't work:<br>
+- creating ~/.config/autostart folder and palemoon-sync.desktop<br>
+- editing ~/.desktop-session/autostart<br>
+With both the .desktop file and the autostart file I tried different command syntax<br>
+/bin/sh ~/bin/palemoon-sync.sh<br>
+/bin/bash ~/bin/palemoon-sync.sh<br>
+~/bin/palemoon-sync.sh<br>
+/bin/sh /home/eugen/bin/palemoon-sync.sh<br>
+/bin/bash /home/eugen/bin/palemoon-sync.sh<br>
+/bin/sh '/home/eugen/bin/palemoon-sync.sh'<br>
+/bin/bash '/home/eugen/bin/palemoon-sync.sh'<br>
+I also tried renaming the script deleting .sh ending. Nothing helps.<br>
+I made the script executable with chmod x+a. I can launch it with right-click-&gt;Execute.<br>
+I will now try adding it to JWM autostart.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46201" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46201">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46201">
+
+<time datetime="2016-04-11T15:02">posted: 2016-04-11 &nbsp; 15:02</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46201" title="permalink">#6</a></span>
+
+<div class="content">I believe the startup files are called startup no autostart.<br>
+<br>
+You could also enable xdg autostart in desktop-session.conf</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46202" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46202">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46202">
+
+<time datetime="2016-04-11T15:03">posted: 2016-04-11 &nbsp; 15:03</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46202" title="permalink">#7</a></span>
+
+<div class="content">Putting the command sleep 4 &amp;&amp; ~/bin/palemoon-sync to JWM autostart worked. I see a folder palemoon-eugen in /dev/shm and the folder in the profile is linked to it. But s.th. is not ok with other solutions. Why does ~/.desktop-session/startup (I mistook the file name in the previous post, but used the right one) not work, wrong syntax?<br>
+<br>
+How do I enable xdg/autostart in desktop-session.conf, where do I find desktop-session.conf? Will use searchmonkey. / etc/desktop-session/desktop-session.conf</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46204" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46204">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46204">
+
+<time datetime="2016-04-11T17:31">posted: 2016-04-11 &nbsp; 17:31</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46204" title="permalink">#8</a></span>
+
+<div class="content">Ok, this is likely a bug report:<br>
+- I tried putting the command /bin/sh /home/eugen/bin/palemoon-sync &amp; to / etc/desktop-session/startup as well as to ~/.desktop-session/startup. None of these works. <br>
+- However I can click"Execute" on / etc/desktop-session/startup and the script runs. (I see the effect in /dev/shm, where a folder with browser profile gets created.) <br>
+- The file ~/.desktop-session/startup is not executable. I made it executble by adding #!/bin/bash at the beginning and applying chmod x+a on it. Then I was able to execute startup and got the desired result.<br>
+-&gt; Question: Why don't these startup files get executed automatically? I will test if it work with the commad roxterm -e htop in startup file.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46205" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46205">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46205">
+
+<time datetime="2016-04-11T17:49">posted: 2016-04-11 &nbsp; 17:49</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46205" title="permalink">#9</a></span>
+
+<div class="content">No, puting roxterm -e htop into either of both startup files does not show htop at startup. Executing either of the startup files brings up roxterm with htop.<br>
+<br>
+Well, this is what alpha1 is supposed to be. So see this not as a complaint. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Will test enabling xdg/autostart now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46206" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46206">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46206">
+
+<time datetime="2016-04-11T17:56">posted: 2016-04-11 &nbsp; 17:56</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46206" title="permalink">#10</a></span>
+
+<div class="content">the startup file do work, its where the volumeicon in the system tray is launched from.<br>
+<br>
+<br>
+so just doing this doesn't work? The script is set executable correct?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46207" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46207">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 307</dd>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46207">
+
+<time datetime="2016-04-11T19:03">posted: 2016-04-11 &nbsp; 19:03</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46207" title="permalink">#11</a></span>
+
+<div class="content">Mine etc/desktop-session/startup looked similar:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+#volumeicon &amp; 
+#fbxkb &amp;
+#search-bar-icon &amp;
+/bin/sh /home/eugen/bin/palemoon-sync &amp;</code></pre></div>
+I mean I tried without /bin/sh, but no result. It is executable, it even launches the script when I right-click the autostart file.<br>
+The ~/.desktop-session/startup file initially was not executable, but I made it executable and it looks similar to the above.<br>
+<br>
+Further testing: I enabled xdg/autostart in etc/desktop-session/desktop-session.conf -&gt; LOAD_XDG_AUTOSTART="true" After reboot there was no result. I can execute both etc/xdg/autostart/palemoon-sync.desktop and ~/.config/autostart/palemoon-sync.desktop from right-click and the script starts.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[Desktop Entry]
+Name=palemoon-sync
+Exec=/home/eugen/bin/palemoon-sync
+Terminal=false
+Type=Application
+StartupNotify=false
+Version=1.0</code></pre></div>
+When I tested I always renamed one file to .bak either in etc or in ~/.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46208" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46208">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46208">
+
+<time datetime="2016-04-11T19:20">posted: 2016-04-11 &nbsp; 19:20</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46208" title="permalink">#12</a></span>
+
+<div class="content">I think you've got something wrong somewhere. This is my / etc/desktop-session/startup file and htop runs fine at login<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#! /bin/bash
+volumeicon &amp;
+
+#fbxkb &amp;
+
+#search-bar-icon &amp;
+
+(sleep 5 &amp;&amp; toram-eject) &amp;
+
+roxterm -e htop &amp;
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46209" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46209">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46209">
+
+<time datetime="2016-04-11">posted: 19:29</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46209" title="permalink">#13</a></span>
+
+<div class="content">From what I can guess I might be missing some daemon which reads these startup files or the /autostart/*.desktop files.<br>
+I tested with / etc/xdg/autostart/htop.desktop and ~/.config/autostart/htop.desktop - nothing happens. Executing the .desktop files manually works fine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46210" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46210">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46210">
+
+<time datetime="2016-04-11T19:31">posted: 2016-04-11 &nbsp; 19:31</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46210" title="permalink">#14</a></span>
+
+<div class="content">Ok more info.<br>
+<br>
+1. ~/.desktop-session/startup is not present by default. Its created when you save your changes in the editor.<br>
+2. if ~/.desktop-session/startup is present, the global version in / etc/desktop-session does NOT run. <br>
+3. after ~/.desktop-session/startup is created, its still not executable. chmod a+x ~/.desktop-session/startup.<br>
+<br>
+FYI, the window manager specific startup files ALWAYS run. ~/.icewm/startup ~/.fluxbox/startup and ~/.jwm/startup <br>
+<br>
+One of the things requested earlier in the antiX16 thread is that desktop-session configuration be simplified. This is a prime example of why.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46211" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46211">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46211">
+
+<time datetime="2016-04-11T19:33">posted: 2016-04-11 &nbsp; 19:33</time>
+<span class="permalink"><a href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328.html#p46211" title="permalink">#15</a></span>
+
+<div class="content"><blockquote><div><cite>eugen-b wrote:</cite>From what I can guess I might be missing some daemon which reads these startup files or the /autostart/*.desktop files.<br>
+I tested with / etc/xdg/autostart/htop.desktop and ~/.config/autostart/htop.desktop - nothing happens. Executing the .desktop files manually works fine.</div></blockquote>
+<br>
+i think when you created the home .desktop-session startup files, you used save-all, which probably enabled all the configuration for desktop-session into the home folder. which means you need to change the xdg autostart setting in ~/.desktop-session/desktop-session.conf</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+19 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./how-to-launch-a-scrpt-from-profile-and-bash_logout-t6328-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

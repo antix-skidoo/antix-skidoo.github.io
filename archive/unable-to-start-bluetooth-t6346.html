@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Unable to start bluetooth - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./unable-to-start-bluetooth-t6346.html">Unable to start bluetooth</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46453" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46453">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<span class="username">JMarlatt</span>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46453">
+<time datetime="2016-04-30T16:01">posted: 2016-04-30 &nbsp; 16:01</time>
+<span class="permalink"><a href="./unable-to-start-bluetooth-t6346.html#p46453" title="permalink">#1</a></span>
+
+<div class="content">AntiX-16-b.2<br>
+I am unable to start Bluetooth. See the following:<br>
+<br>
+demo@antix1:~<br>
+$ dmesg | grep tooth<br>
+[ 8.233305] usb 1-4.3: Product: Bluetooth Radio <br>
+[ 14.044733] Bluetooth: Core ver 2.21<br>
+[ 14.044756] Bluetooth: HCI device and connection manager initialized<br>
+[ 14.044763] Bluetooth: HCI socket layer initialized<br>
+[ 14.044766] Bluetooth: L2CAP socket layer initialized<br>
+[ 14.044775] Bluetooth: SCO socket layer initialized<br>
+[ 14.150658] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[ 14.150664] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[ 14.202375] bluetooth hci0: Direct firmware load for rtl_bt/rtl8723b_fw.bin failed with error -2<br>
+[ 14.202379] bluetooth hci0: Falling back to user helper<br>
+[ 14.649288] Bluetooth: hci0: Failed to load rtl_bt/rtl8723b_fw.bin<br>
+[ 14.783189] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[ 14.783193] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[ 14.783221] bluetooth hci0: Direct firmware load for rtl_bt/rtl8723b_fw.bin failed with error -2<br>
+[ 14.783222] bluetooth hci0: Falling back to user helper<br>
+[ 14.786114] Bluetooth: hci0: Failed to load rtl_bt/rtl8723b_fw.bin<br>
+<br>
+Notice the firmware load failure with error -2<br>
+<br>
+demo@antix1:~<br>
+$ hciconfig -a<br>
+hci0:    Type: BR/EDR Bus: USB<br>
+BD Address: 00:00:00:00:00:00 ACL MTU: 0:0 SCO MTU: 0:0<br>
+DOWN <br>
+RX bytes:28 acl:0 sco:0 events:2 errors:0<br>
+TX bytes:6 acl:0 sco:0 commands:2 errors:0<br>
+Features: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00<br>
+Packet type: DM1 DH1 HV1 <br>
+Link policy: <br>
+Link mode: SLAVE ACCEPT <br>
+<br>
+demo@antix1:~<br>
+$ hciconfig hci0 up<br>
+Can't init device hci0: Operation not permitted (1)<br>
+demo@antix1:~<br>
+<br>
+This is the hardware I am running AntiX on:<br>
+<br>
+demo@antix1:~<br>
+$ inxi -b<br>
+System: Host: antix1 Kernel: 4.4.8-antix.1-486-smp i686 (32 bit) Desktop: IceWM 1.3.8<br>
+Distro: antiX-16-b2.1_386-full Berta Cáceres 26 April 2016<br>
+Machine: System: Hewlett-Packard (portable) product: HP Stream Notebook PC 13 v: Type1 - ProductConfigId<br>
+Mobo: Hewlett-Packard model: 802A v: 56.12 Bios: Insyde v: F.14 date: 08/25/2015<br>
+Battery BAT0: charge: 30.4 Wh 100.0% condition: 30.4/30.4 Wh (100%)<br>
+CPU: Dual core Intel Celeron N2840 (-MCP-) speed/max: 1182/2582 MHz<br>
+Graphics: Card: Intel Atom Processor Z36xxx/Z37xxx Series Graphics &amp; Display<br>
+Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 1366x768@60.06hz<br>
+GLX Renderer: Mesa DRI Intel Bay Trail x86/MMX/SSE2 GLX Version: 3.0 Mesa 10.3.2<br>
+Network: Card: Realtek RTL8723BE PCIe Wireless Network Adapter driver: rtl8723be<br>
+Drives: HDD Total Size: 31.1GB (Used Error!)<br>
+Info: Processes: 139 Uptime: 20 min Memory: 153.6/1912.6MB Client: Shell (bash) inxi: 2.3.0</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46454" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46454">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46454">
+
+<time datetime="2016-04-30T16:26">posted: 2016-04-30 &nbsp; 16:26</time>
+<span class="permalink"><a href="./unable-to-start-bluetooth-t6346.html#p46454" title="permalink">#2</a></span>
+
+<div class="content">You could try the solution suggested in this thread<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://forums.linuxmint.com/viewtopic.php?t=216297"<br>linktext was:"https://forums.linuxmint.com/viewtopic.php?t=216297"<br>====================================<br>
+
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo mkdir /lib/firmware/rtl_bt
+cd /lib/firmware/rtl_bt
+sudo wget http://git.kernel.org/cgit/linux/kernel/git/firmware/linux-firmware.git/tree/rtl_bt/rtl8723b_fw.bin
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46468" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46468">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 36</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">JMarlatt</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 25 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46468">
+
+<time datetime="2016-05-01T13:58">posted: 2016-05-01 &nbsp; 13:58</time>
+<span class="permalink"><a href="./unable-to-start-bluetooth-t6346.html#p46468" title="permalink">#3</a></span>
+
+<div class="content">that cured the failure to load. Thank you. Now a different msg:<br>
+<br>
+root@antix1:~# hciconfig -a hci0 up<br>
+Can't init device hci0: Invalid argument (22)<br>
+root@antix1:~# hciconfig -a hci0 down<br>
+root@antix1:~# hciconfig -a hci0<br>
+hci0:    Type: BR/EDR Bus: USB<br>
+BD Address: 00:00:00:00:00:00 ACL MTU: 0:0 SCO MTU: 0:0<br>
+DOWN <br>
+RX bytes:126 acl:0 sco:0 events:12 errors:0<br>
+TX bytes:36 acl:0 sco:0 commands:12 errors:0<br>
+Features: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00<br>
+Packet type: DM1 DH1 HV1 <br>
+Link policy: <br>
+Link mode: SLAVE ACCEPT <br>
+<br>
+root@antix1:~# hciconfig -a hci0 up<br>
+Can't init device hci0: Invalid argument (22)<br>
+root@antix1:~# rfkill unblock all<br>
+root@antix1:~# hciconfig -a<br>
+hci0:    Type: BR/EDR Bus: USB<br>
+BD Address: 00:00:00:00:00:00 ACL MTU: 0:0 SCO MTU: 0:0<br>
+DOWN <br>
+RX bytes:147 acl:0 sco:0 events:14 errors:0<br>
+TX bytes:42 acl:0 sco:0 commands:14 errors:0<br>
+Features: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00<br>
+Packet type: DM1 DH1 HV1 <br>
+Link policy: <br>
+Link mode: SLAVE ACCEPT <br>
+<br>
+root@antix1:~# hciconfig -a hci0 up<br>
+Can't init device hci0: Invalid argument (22)<br>
+root@antix1:~# hciconfig -a hci0 UP<br>
+Warning: unknown command -"UP"<br>
+hci0:    Type: BR/EDR Bus: USB<br>
+BD Address: 00:00:00:00:00:00 ACL MTU: 0:0 SCO MTU: 0:0<br>
+DOWN <br>
+RX bytes:168 acl:0 sco:0 events:16 errors:0<br>
+TX bytes:48 acl:0 sco:0 commands:16 errors:0<br>
+Features: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00<br>
+Packet type: DM1 DH1 HV1 <br>
+Link policy: <br>
+Link mode: SLAVE ACCEPT <br>
+<br>
+root@antix1:~# dmesg | grep tooth<br>
+[ 8.234701] usb 1-4.3: Product: Bluetooth Radio <br>
+[ 14.176863] Bluetooth: Core ver 2.21<br>
+[ 14.176886] Bluetooth: HCI device and connection manager initialized<br>
+[ 14.176893] Bluetooth: HCI socket layer initialized<br>
+[ 14.176897] Bluetooth: L2CAP socket layer initialized<br>
+[ 14.176905] Bluetooth: SCO socket layer initialized<br>
+[ 14.304173] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[ 14.304179] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[ 14.349153] Bluetooth: hci0: rom_version status=0 version=1<br>
+[ 14.349159] Bluetooth: hci0: extension section signature mismatch<br>
+[ 15.039458] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[ 15.039461] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[ 15.057506] Bluetooth: hci0: rom_version status=0 version=1<br>
+[ 15.057509] Bluetooth: hci0: extension section signature mismatch<br>
+[ 153.837467] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[ 153.837472] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[ 153.839469] Bluetooth: hci0: rom_version status=0 version=1<br>
+[ 153.839475] Bluetooth: hci0: extension section signature mismatch<br>
+[ 258.090485] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[ 258.090508] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[ 258.092428] Bluetooth: hci0: rom_version status=0 version=1<br>
+[ 258.092447] Bluetooth: hci0: extension section signature mismatch<br>
+[23212.627688] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[23212.627712] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[23212.629689] Bluetooth: hci0: rom_version status=0 version=1<br>
+[23212.629711] Bluetooth: hci0: extension section signature mismatch<br>
+[23266.711218] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[23266.711233] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[23266.713165] Bluetooth: hci0: rom_version status=0 version=1<br>
+[23266.713178] Bluetooth: hci0: extension section signature mismatch<br>
+[23292.713753] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[23292.713775] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[23292.715682] Bluetooth: hci0: rom_version status=0 version=1<br>
+[23292.715692] Bluetooth: hci0: extension section signature mismatch<br>
+[23699.355160] Bluetooth: hci0: rtl: examining hci_ver=06 hci_rev=000b lmp_ver=06 lmp_subver=8723<br>
+[23699.355166] Bluetooth: hci0: rtl: loading rtl_bt/rtl8723b_fw.bin<br>
+[23699.356160] Bluetooth: hci0: rom_version status=0 version=1<br>
+[23699.356165] Bluetooth: hci0: extension section signature mismatch<br>
+<br>
+So the problem now is: extension section signature mismatch<br>
+<br>
+Does this look like a necessary update? 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://github.com/lwfinger/rtl8723au_bt/commit/727f0b01e50ffb48fc0bac6ce27a6718697335a3"<br>linktext was:"https://github.com/lwfinger/rtl8723au_b ... 18697335a3"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46469" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46469">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46469">
+
+<time datetime="2016-05-01T14:12">posted: 2016-05-01 &nbsp; 14:12</time>
+<span class="permalink"><a href="./unable-to-start-bluetooth-t6346.html#p46469" title="permalink">#4</a></span>
+
+<div class="content">You could give it a try and see.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[solved]Printing from antiX14-3 x86_64RD(Fluxbox;Icewm etc) - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./hardware-f13/index.html"><span>Hardware</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./solved-printing-from-antix14-3-x86_64rd-fluxbox-ic-t5307.html">[solved]Printing from antiX14-3 x86_64RD(Fluxbox;Icewm etc)</a></h2>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_37308" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37308">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 325</dd>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37308">
+
+<time datetime="2014-10-14T07:50">posted: 2014-10-14  &nbsp; 07:50</time>
+<span class="permalink"><a href="./solved-printing-from-antix14-3-x86_64rd-fluxbox-ic-t5307.html#p37308" title="permalink">#1</a></span>
+
+<div class="content">Hi,<br>
+<br>
+after a restart shows systemd<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ systemctl status systemd-hostnamed.service
+● systemd-hostnamed.service - Hostname Service
+   Loaded: loaded (/lib/systemd/system/systemd-hostnamed.service; static)
+   Active: inactive (dead)
+     Docs: man:systemd-hostnamed.service(8)
+           man:hostname(5)
+           man:machine-info(5)
+           http://www.freedesktop.org/wiki/Software/systemd/hostnamed
+$ systemctl status cups.socket
+● cups.socket - CUPS Printing Service Sockets
+   Loaded: loaded (/lib/systemd/system/cups.socket; enabled)
+  Drop-In: (/)etc/systemd/system/cups.socket.d
+           └─cupsd-listen.conf
+   Active: active (listening) since Di 2014-10-14 10:40:58 CEST; 1h 59min left
+   Listen: (/)var/run/cups/cups.sock (Stream)
+           127.0.0.1:631 (Stream)
+           [::1]:631 (Stream)
+$ systemctl status cups.service
+● cups.service - CUPS Printing Service
+   Loaded: loaded (/lib/systemd/system/cups.service; enabled)
+   Active: inactive (dead)
+     Docs: man:cupsd(8)
+           man:cupsd.conf(5)</code></pre></div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ systemctl --failed
+0 loaded units listed. Pass --all to see loaded but inactive units, too.
+To show all installed unit files use 'systemctl list-unit-files'.</code></pre></div>
+I click in antixcc &gt; Hardware &gt; Printer Settings<br>
+shows systemd me<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ systemctl --failed
+  UNIT                      LOAD   ACTIVE SUB    DESCRIPTION
+● cups.service              loaded failed failed CUPS Printing Service
+● systemd-hostnamed.service loaded failed failed Hostname Service
+● cups.socket               loaded failed failed CUPS Printing Service Sockets
+
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+
+3 loaded units listed. Pass --all to see loaded but inactive units, too.
+To show all installed unit files use 'systemctl list-unit-files'.</code></pre></div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ systemctl status systemd-hostnamed.service
+● systemd-hostnamed.service - Hostname Service
+   Loaded: loaded (/lib/systemd/system/systemd-hostnamed.service; static)
+   Active: failed (Result: exit-code) since Mo 2014-10-13 22:42:19 CEST; 17min ago
+     Docs: man:systemd-hostnamed.service(8)
+           man:hostname(5)
+           man:machine-info(5)
+           http://www.freedesktop.org/wiki/Software/systemd/hostnamed
+  Process: 19116 ExecStart=/lib/systemd/systemd-hostnamed (code=exited, status=226/NAMESPACE)
+ Main PID: 19116 (code=exited, status=226/NAMESPACE)
+$ systemctl status cups.socket
+● cups.socket - CUPS Printing Service Sockets
+   Loaded: loaded (/lib/systemd/system/cups.socket; enabled)
+  Drop-In: (/)etc/systemd/system/cups.socket.d
+           └─cupsd-listen.conf
+   Active: failed (Result: service-failed-permanent) since Mo 2014-10-13 22:42:18 CEST; 15min ago
+   Listen: (/)var/run/cups/cups.sock (Stream)
+           127.0.0.1:631 (Stream)
+           [::1]:631 (Stream)
+$ systemctl status cups.service
+● cups.service - CUPS Printing Service
+   Loaded: loaded (/lib/systemd/system/cups.service; enabled)
+   Active: failed (Result: start-limit) since Mo 2014-10-13 22:42:18 CEST; 8min ago
+     Docs: man:cupsd(8)
+           man:cupsd.conf(5)
+  Process: 19112 ExecStart=/usr/sbin/cupsd -f (code=exited, status=226/NAMESPACE)
+ Main PID: 19112 (code=exited, status=226/NAMESPACE)</code></pre></div></div>
+
+<div class="notice">
+Last edited by <b>male</b> on 04 Nov 2014, 15:41, edited 3 times in total.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37309" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37309">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 325</dd>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37309">
+
+<time datetime="2014-10-14T08:18">posted: 2014-10-14  &nbsp; 08:18</time>
+<span class="permalink"><a href="./solved-printing-from-antix14-3-x86_64rd-fluxbox-ic-t5307.html#p37309" title="permalink">#2</a></span>
+
+<div class="content">further<br>
+<br>
+I go on 'Applications'&gt; 'Settings'&gt; 'Printer Settings'<br>
+the"Printer Settings" window appears<br>
+<br>
+Here is the"Add" button gray and a printer can not be chosen.<br>
+<br>
+In ~ /fluxbox/menu-applications<br>
+changes the entry<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+...{gksu system-config-printer}...
+...</code></pre></div>on the gray Button nothing.<br>
+<br>
+The journal gives me the following error:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>journalctl -b -p err
+-- Logs begin at Di 2014-10-14 09:17:39 CEST, end at Di 2014-10-14 07:25:06 CEST. --
+Okt 14 09:17:39 antix14RD kernel: end_request: I/O error, dev fd0, sector 0
+Okt 14 09:17:41 antix14RD kernel: CX24123: cx24123_i2c_readreg: reg=0x0 (error=-121)
+Okt 14 09:17:41 antix14RD kernel: CX24123: wrong demod revision: 87
+Okt 14 09:17:44 antix14RD systemd-tmpfiles[494]: rm_rf(/tmp): Too many levels of symbolic links
+Okt 14 09:17:44 antix14RD ntpdate[614]: Can't find host 0.debian.pool.ntp.org: Name or service not known (-2)
+Okt 14 09:17:44 antix14RD ntpdate[614]: Can't find host 1.debian.pool.ntp.org: Name or service not known (-2)
+Okt 14 09:17:44 antix14RD ntpdate[614]: Can't find host 2.debian.pool.ntp.org: Name or service not known (-2)
+Okt 14 09:17:44 antix14RD ntpdate[614]: Can't find host 3.debian.pool.ntp.org: Name or service not known (-2)
+Okt 14 09:17:44 antix14RD ntpdate[614]: no servers can be used, exiting
+Okt 14 09:17:45 antix14RD kernel: fbcondecor: picture dimensions mismatch
+Okt 14 09:17:45 antix14RD kernel: 1280x1024 vs 1680x1050
+Okt 14 09:17:47 antix14RD slim[735]: PAM unable to dlopen(pam_gnome_keyring.so): /lib/security/pam_gnome_keyring.so: cannot open shared object file: No such file or directory
+Okt 14 09:17:47 antix14RD slim[735]: PAM adding faulty module: pam_gnome_keyring.so</code></pre></div>
+In which package is located?<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>pam_gnome_keyring.so
+</code></pre></div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-cache policy gnome-keyring*
+iceweasel-gnome-keyring:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+monodoc-gnome-keyring-manual:
+  Installiert:           (keine)
+  Installationskandidat: 1.0.0-4
+  Versionstabelle:
+     1.0.0-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+libgnome-keyring0:
+  Installiert:           3.12.0-1
+  Installationskandidat: 3.12.0-1
+  Versionstabelle:
+ *** 3.12.0-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+        100 /var/lib/dpkg/status
+libgnome-keyring-common:
+  Installiert:           3.12.0-1
+  Installationskandidat: 3.12.0-1
+  Versionstabelle:
+ *** 3.12.0-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+        100 /var/lib/dpkg/status
+libgnome-keyring1.0-cil-dev:
+  Installiert:           (keine)
+  Installationskandidat: 1.0.0-4
+  Versionstabelle:
+     1.0.0-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+libgnome-keyring0-dbg:
+  Installiert:           (keine)
+  Installationskandidat: 3.12.0-1
+  Versionstabelle:
+     3.12.0-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+gnome-keyring:
+  Installiert:           (keine)
+  Installationskandidat: 3.14.0-1
+  Versionstabelle:
+     3.14.0-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+libgnome-keyring1.0-cil:
+  Installiert:           (keine)
+  Installationskandidat: 1.0.0-4
+  Versionstabelle:
+     1.0.0-4 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+xul-ext-gnome-keyring:
+  Installiert:           (keine)
+  Installationskandidat: 0.6.11-3
+  Versionstabelle:
+     0.6.11-3 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+libpam-gnome-keyring:
+  Installiert:           (keine)
+  Installationskandidat: 3.14.0-1
+  Versionstabelle:
+     3.14.0-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+libgnome-keyring-dev:
+  Installiert:           (keine)
+  Installationskandidat: 3.12.0-1
+  Versionstabelle:
+     3.12.0-1 0
+        500 http://ftp.de.debian.org/debian/ testing/main amd64 Packages
+icedove-gnome-keyring:
+  Installiert:           (keine)
+  Installationskandidat: (keine)
+  Versionstabelle:
+</code></pre></div>
+Or was I respect PRINT wrong? <span class="emoticon"> __{{emoticon}}__ </span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37895" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37895">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 325</dd>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37895">
+
+<time datetime="2014-11-04T15:29">posted: 2014-11-04  &nbsp; 15:29</time>
+<span class="permalink"><a href="./solved-printing-from-antix14-3-x86_64rd-fluxbox-ic-t5307.html#p37895" title="permalink">#3</a></span>
+
+<div class="content">The solution of the printer problem is the following:<br>
+If the command<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>file /tmp
+/tmp: symbolic link to `/var/tmp'</code></pre></div>
+outputs, then these commands are successively as root<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>rm /tmp
+mv /var/tmp /tmp
+mkdir -m 1777 /var/tmp</code></pre></div>
+enter.<br>
+<br>
+Then the command is correct<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>file /tmp
+/tmp: sticky, directory</code></pre></div>
+Found here: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.forums.solydxk.com/viewtopic.php?f=32&amp;t=4351#p46752"<br>linktext was:"http://www.forums.solydxk.com/viewtopic ... 351#p46752"<br>====================================<br>
+<br>
+<br>
+...and the printer runs. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

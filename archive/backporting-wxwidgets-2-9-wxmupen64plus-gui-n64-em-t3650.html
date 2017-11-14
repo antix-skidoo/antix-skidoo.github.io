@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Backporting / wxwidgets 2.9 / wxmupen64plus GUI N64 Emulator - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./backporting-wxwidgets-2-9-wxmupen64plus-gui-n64-em-t3650.html">Backporting / wxwidgets 2.9 / wxmupen64plus GUI N64 Emulator</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24152" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24152">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+</div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24152">
+<time datetime="2012-04-04T06:18">posted: 2012-04-04 &nbsp; 06:18</time>
+<span class="permalink"><a href="./backporting-wxwidgets-2-9-wxmupen64plus-gui-n64-em-t3650.html#p24152" title="permalink">#1</a></span>
+
+<div class="content">The 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://sourceforge.net/projects/cutemupen/"<br>linktext was:"CuteMupen GUI"<br>====================================<br>
+ for the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://code.google.com/p/mupen64plus/"<br>linktext was:"Mupen64plus N64 Emulator"<br>====================================<br>
+ has stopped working on Wheezy so I decided to build the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bitbucket.org/auria/wxmupen64plus/wiki/Home"<br>linktext was:"wxMupen64plus GUI"<br>====================================<br>
+ which requires building 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.wxwidgets.org/downloads/"<br>linktext was:"wxwidgets 2.9"<br>====================================<br>
+ (the current default is 2.8 on Wheezy). I successfully backported <strong>wxwidgets</strong> using <strong>GCC-4.5</strong> (&amp; <span style="text-decoration: underline">not</span> the current default 4.6) - but in the end used my own deb package built to install under <strong>/opt</strong> which I also detail further below.<br>
+<br>
+If you would just like the debs:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/file/59gbwz5wseckqby/wxwidgets_2.9.2~wheezy.tar.bz"<br>linktext was:"Backported wxwidgets 2.9.2 for Wheezy"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/file/3mopld98kirt71e/wxwidgets_2.9.3-1_i386.deb"<br>linktext was:"wxwidgets 2.9.3"<br>====================================<br>
+ (which installs to /opt) - see notes below to manually add wxwidgets to the Library Path with ldconfig.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/file/ciyxlihnd38u64y/wxmupen64plus_0.3~wheezy_i386.tar.bz"<br>linktext was:"wxmuppen64plus 0.30 GUI"<br>====================================<br>
+<br>
+<br>
+<span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">First the <strong>Backporting</strong> (a variation of 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forums.debian.net/viewtopic.php?f=16&amp;t=38976"<br>linktext was:"these instructions"<br>====================================<br>
+):</span></span><br>
+<br>
+Download the <em>debianised</em> source code from the 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ppa.launchpad.net/fransschreuder1/usbpicprog-stable/ubuntu/pool/main/w/wxwidgets2.9/"<br>linktext was:"Ubuntu PPA"<br>====================================<br>
+ (the last 3 <strong>wxwidgets</strong> files <strong>.diff.gz</strong> / <strong>.dsc</strong> / <strong>.orig.tar.gz</strong>). Make sure your build folder has <span style="text-decoration: underline">no spaces</span> in the folder name.<br>
+<br>
+Install the build tools:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install debhelper dpkg-dev devscripts fakeroot build-essential pbuilder</code></pre></div>
+Open a Terminal in your build folder &amp; patch the source code:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg-source -x wxwidgets2.9_2.9.2-2.dsc</code></pre></div>
+Edit the changelog:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cd wxwidgets2.9-2.9.2/debian
+dch -i</code></pre></div>
+Edit the first few lines of the changelog, such as adding ~wheezy after the version number &amp; adding"repackaged for Debian Wheezy" after the * on the line below &amp; then:<br>
+<br>
+&lt;Ctl&gt;&lt;O&gt; (the letter 'O')<br>
+&lt;Bkspace&gt; four times<br>
+&lt;Enter&gt;<br>
+Y, to overwrite<br>
+&lt;Ctl&gt;&lt;X&gt; to exit nano.<br>
+<br>
+The <strong>debian/control</strong> &amp; <strong>control.in</strong> files contain the build dependencies which need one amendment to build <strong>wxwidgets</strong> on Wheezy. Change <strong>libjpeg62-dev</strong> to <strong>libjpeg8-dev</strong> &amp; save the files.<br>
+<br>
+You can go through the <em>control files</em> manually to get a list of the build dependencies - or the <span style="text-decoration: underline">easier way</span> (which may also require aptitude to be installed):
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>su -c /usr/lib/pbuilder/pbuilder-satisfydepends</code></pre></div>
+Install the dependencies shown &amp; re-run the above command until there is nothing left to install. You may find synaptic moans of a broken dependency for"pbuilder-dummy" - this is safe to uninstall from synaptic.<br>
+<br>
+For some reason trying to compile <strong>wxwidgets</strong> with <strong>GCC-4.6</strong> gave me seg faults. The easiest way to change the compiler version used when working with <em>debianised</em> sources is to change the symbolic link pointing to <strong>GCC</strong>. In this case to <strong>GCC-4.5</strong>:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mv /usr/bin/gcc /usr/bin/gcc.bak-4.6
+ln -s /usr/bin/gcc-4.5 /usr/bin/gcc</code></pre></div>
+To build deb packages <span style="text-decoration: underline">without</span> rebuilding the source packages or signing them:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>debuild -b </code></pre></div>
+<strong>Alternatively</strong> - if you do want to build the deb packages <span style="text-decoration: underline">AND</span> rebuild the sources, execute:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>debuild -us -uc</code></pre></div>
+The debs will be built one level above the source folder (where your original downloaded source files are) &amp; can be installed with:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo dpkg -i *.deb</code></pre></div>
+&amp; change the symlink back for GCC:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mv /usr/bin/gcc /usr/bin/gcc.bak-4.5
+mv /usr/bin/gcc.bak-4.6 /usr/bin/gcc</code></pre></div>
+This will give you a bunch of deb packages:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>libwxbase2.9-0_2.9.2-2.1~wheezy_i386.deb
+libwxbase2.9-dbg_2.9.2-2.1~wheezy_i386.deb
+libwxbase2.9-dev_2.9.2-2.1~wheezy_i386.deb
+libwxgtk2.9-0_2.9.2-2.1~wheezy_i386.deb
+libwxgtk2.9-dbg_2.9.2-2.1~wheezy_i386.deb
+libwxgtk2.9-dev_2.9.2-2.1~wheezy_i386.deb
+wx2.9-headers_2.9.2-2.1~wheezy_i386.deb
+wx2.9-i18n_2.9.2-2.1~wheezy_all.deb
+wx-common_2.9.2-2.1~wheezy_i386.deb</code></pre></div>
+But it's generally <span style="text-decoration: underline">not</span> a good idea to install the development version of anything on your system under <strong>/usr</strong> if you also run the stable libraries. A better option is to build a package that installs under <strong>/opt</strong> to avoid any version conflicts (the above files are 2.8 compatible however &amp; could become the <span style="text-decoration: underline">only</span> wx libraries on your system). <br>
+<br>
+The 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/file/59gbwz5wseckqby/wxwidgets_2.9.2~wheezy.tar.bz"<br>linktext was:"Backported wxwidgets-2.9.2 deb packages (minus the debug packages) can be found here"<br>====================================<br>
+ (8.6meg)<br>
+<br>
+<span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">The <strong>safer option</strong> (building your own deb package to install under <strong>/opt</strong>):</span></span><br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wxwidgets.org/downloads/v"<br>linktext was:"Download"<br>====================================<br>
+ &amp; unpack the wxwidgets development version &amp; open a Terminal in the source folder.<br>
+<br>
+This build <strong><span style="text-decoration: underline">has OpenGL / SDL &amp; Webkit support</span></strong> so I also installed:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install freeglut3-dev libsdl1.2-dev libwebkitgtk-dev</code></pre></div>
+&amp; ran <em>configure</em> in the source tree to use <strong>GCC-4.5</strong> (&amp; not 4.6). I also configured <strong>wxwidgets</strong> to use it's built in libraries to reduce any future conflicts with 3rd party libraries:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CC=gcc-4.5 ./configure --prefix=/opt/wx/2.9.3 \
+             --with-gtk \
+             --with-gnomeprint \
+             --with-opengl \
+             --enable-debug \
+             --enable-debug_gdb \
+             --enable-geometry \
+             --enable-graphics_ctx \
+             --enable-sound --with-sdl \
+             --enable-mediactrl \
+             --enable-display \
+              --enable-unicode \
+              --with-libjpeg=builtin \
+             --with-libpng=builtin \
+             --with-libtiff=builtin \
+             --with-zlib=builtin \
+             --with-regex=builtin \
+             --with-expat=builtin \
+              --enable-optimise \
+             --disable-compat26 \
+             --enable-webview \
+             --enable-webview-webkit \</code></pre></div>
+Finally compile the source code with <span style="text-decoration: underline"><strong>one</strong></span> of the following:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>make
+make -j2 # for Dual Core processors
+make -j4 # for Quad Core processors</code></pre></div>
+&amp; build a deb package with <em>checkinstall</em>:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo checkinstall</code></pre></div>
+&amp; the deb package will install itself (&amp; can be found in the source code folder)<br>
+<br>
+The 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/file/3mopld98kirt71e/wxwidgets_2.9.3-1_i386.deb"<br>linktext was:"Wheezy wxwidgets-2.9.3 deb package can be found here"<br>====================================<br>
+ (9.2 meg)<br>
+<br>
+You also need to add the new <strong>wxwidget</strong> library to the Library &amp; Binary PATH's:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>nano /etc/ld.so.conf
+### &amp; add the following on the first line:
+/opt/wx/2.9.3/lib</code></pre></div>
+&amp; add the new Binary PATH to <strong>/root/.bashrc</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>export PATH=$PATH:/opt/wx/2.9.3/bin</code></pre></div>
+Finally as root run:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ldconfig
+### &amp; check the wxwidgets version:
+wx-config --version</code></pre></div>
+<span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">Finally build wxMupen64plus</span></span><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install mercurial
+hg clone https://bitbucket.org/auria/wxmupen64plus
+cd wxmupen64plus
+### download mupen64plus API (not wx)
+hg clone https://bitbucket.org/richard42/mupen64plus-core</code></pre></div>
+The <em>configure</em> command must include the <span style="text-decoration: underline"><strong>absolute path to the API</strong></span> or it will fail - it should be something like:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>./waf configure --mupenapi=/home/user/build/wxmupen64plus/mupen64plus-core/src/api --wxconfig=/opt/wx/2.9.3/bin/wx-config</code></pre></div>
+Finally compile &amp; build a deb package:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>./waf
+sudo checkinstall --fstrans=no --nodoc ./waf install</code></pre></div>
+The 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mediafire.com/file/ciyxlihnd38u64y/wxmupen64plus_0.3~wheezy_i386.tar.bz"<br>linktext was:"wxmupen64plus 0.30 deb package can be found here"<br>====================================<br>
+ (305k). A desktop dot file &amp; script to register the mime type are included in the archive.<br>
+<br>
+Games can be played inside the application or externally:<br>
+<br>
+<a href="http://postimage.org/image/boikzkiyl/" class="postlink"><img src="http://s14.postimage.org/boikzkiyl/wxmupen64plus2_1.jpg" class="postimage" alt="Image"></a><br>
+<br>
+<a href="http://postimage.org/image/hj5sl5rln/" class="postlink"><img src="http://s17.postimage.org/hj5sl5rln/wxmupen64plus3.jpg" class="postimage" alt="Image"></a></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24983" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24983">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1</span></div>
+
+</div>
+</div>
+<span class="username">vknecht</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Jun 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24983">
+
+<time datetime="2012-06-08T08:42">posted: 2012-06-08 &nbsp; 08:42</time>
+<span class="permalink"><a href="./backporting-wxwidgets-2-9-wxmupen64plus-gui-n64-em-t3650.html#p24983" title="permalink">#2</a></span>
+
+<div class="content">Hello,<br>
+<br>
+as CuteMupen author, I'm interested in details about the problem you encountered.<br>
+Was it with a source build, or a binary tarball ? Which release of Mupen64Plus and CM ?<br>
+Any message ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24987" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24987">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 75</span></div>
+
+ </div>
+</div>
+<span class="username">tradetaxfree</span>
+</dt>
+<dd class="profile-joined">Joined: 18 Jan 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24987">
+
+<time datetime="2012-06-08T12:21">posted: 2012-06-08 &nbsp; 12:21</time>
+<span class="permalink"><a href="./backporting-wxwidgets-2-9-wxmupen64plus-gui-n64-em-t3650.html#p24987" title="permalink">#3</a></span>
+
+<div class="content">I did not have any problems building wxmupen64plus - it compiled on the first attempt.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

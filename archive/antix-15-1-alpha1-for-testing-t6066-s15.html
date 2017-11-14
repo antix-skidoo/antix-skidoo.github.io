@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX-15.1 alpha1 for testing - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./announcements-and-news-old-f38/index.html"><span>Announcements and News (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html">antiX-15.1 alpha1 for testing</a></div>
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-15-1-alpha1-for-testing-t6066.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-15-1-alpha1-for-testing-t6066-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_44072" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44072">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44072">
+<p class="author">
+<a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44072" title="Post"> 01 Dec 2015, 07:10 <span style="padding-left:10px">#16</span></a>
+<time class="hide" datetime="2015-12-01 &nbsp; 07:10">2015-12-01 &nbsp; 07:10</time>
+ </p>
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>Microphone command I posted earlier spits out no sound (no reaction in terminal to voice test). Might have to tweak something on that.</div></blockquote>A suggestion to help, temporarily set ALSA to an unconfigured state before running your test. Hint, make sure the microphone input is activated in alsamixer before starting.<br>
+<br>
+Something along the following lines...<br>
+<br>
+<br>
+<strong>Verify sound is output without tweaking</strong><br>
+Control Center--&gt;Hardware--&gt;Test Sound<br>
+or manually
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>speaker-test --channels 2 --test wav --nloops 3</code></pre></div>
+If the shipped ISO outputs sounds without modifying <em>/</em>etc/asound.conf, move on to the recording test.<br>
+<br>
+<br>
+<strong>Temporarily disable ALSA configuration</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo mv / etc/asound.conf / etc/asound.conf.DISABLED</code></pre></div>Hint, command purposely malformed to work around forum bug. To use, remove the space between each occurrence of"/ etc"<br>
+<br>
+<br>
+<strong>Restart ALSA to commit the change</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo service alsa-utils restart</code></pre></div>
+<br>
+<strong>Test recording via the microphone input</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>arecord --vumeter stereo --format dat test_recording.wav
+CTRL+C to stop recording</code></pre></div>
+<br>
+<strong>Test play the recorded file</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>aplay test_recording.wav</code></pre></div>
+<br>
+Alternatives<br>
+antiX-Full ships with SoX which can also record and play sounds via commands <em>rec</em> and <em>play</em><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>rec test_recording.wav
+CTRL+C to stop recording</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>play test_recording.wav</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44148" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44148">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44148">
+
+<time datetime="2015-12-09T07:03">posted: 2015-12-09 &nbsp; 07:03</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44148" title="permalink">#17</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>Microphone command I posted earlier spits out no sound (no reaction in terminal to voice test). Might have to tweak something on that.</div></blockquote>
+Continuing listing problems noticed with ALSA in antiX-15.1-a1.<br>
+Different results observed on the same hardware...<br>
+<br>
+<strong>Booted live before installation</strong><br>
+I've seen the live boot fail to detect the soundcard i.e. no audio at all<br>
+<br>
+<strong>Booted from conventional hard disk installation</strong><br>
+Vanilla installation (as shipped) without updates/upgrades applied<br>
+The soundcard is detected and works as expected</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44157" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44157">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">masinick</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44157">
+
+<time datetime="2015-12-10T13:30">posted: 2015-12-10 &nbsp; 13:30</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44157" title="permalink">#18</a></span>
+
+<div class="content">Hmm, sounds like I have to"carve out a bit of time" for a new antiX test release! I've been a lot busier this past year with much less time to devote to software testing (except on the paid job). I'll try to get some time to run this one through my two systems. Usually I do not encounter any hardware-software configuration issues on either of my 2007-2008 vintage laptop systems, but still, I'll try to find some time to test to make sure they still run great with the upcoming version.<br>
+<br>
+Thanks for the efforts gentlemen! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44220" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44220">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44220">
+
+<time datetime="2015-12-13T07:01">posted: 2015-12-13 &nbsp; 07:01</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44220" title="permalink">#19</a></span>
+
+<div class="content">the dual entries on the grub2 boot screen<br>
+-- blahblah<br>
+-- blahblah (sysvinit)<br>
+presence of both those make sense for mx, but introduces confusion when someone boots antix</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44238" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44238">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">bedna</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44238">
+
+<time datetime="2015-12-13T23:03">posted: 2015-12-13 &nbsp; 23:03</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44238" title="permalink">#20</a></span>
+
+<div class="content">Crash <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://kernelultras.org/index.php?shell=feh%20/var/www/cesspool___zumpa/IMG_20151212_195651.jpg"<br>linktext was:"http://kernelultras.org/index.php?shell ... 195651.jpg"<br>====================================<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: s29 Kernel: 4.0.5-antix.2-amd64-smp x86_64 (64 bit) Desktop: IceWM 1.3.8
+           Distro: antiX-15-V_x64-full Killah P 30 June 2015
+Machine:   Mobo: ASUSTeK model: M4N68T-M-V2 v: Rev X.0x Bios: American Megatrends v: 0402 date: 07/30/2010
+CPU:       Single core AMD Athlon II X2 250 (-UP-) cache: 1024 KB speed: 3000 MHz (max)
+Graphics:  Card: NVIDIA C61 [GeForce 7025 / nForce 630a]
+           Display Server: X.Org 1.16.4 drivers: nouveau (unloaded: fbdev,vesa) Resolution: 1600x1200@60.00hz
+           GLX Renderer: Gallium 0.4 on NV4C GLX Version: 2.1 Mesa 10.3.2
+Audio:     Card NVIDIA MCP61 High Definition Audio driver: snd_hda_intel Sound: ALSA v: k4.0.5-antix.2-amd64-smp
+Network:   Card: NVIDIA MCP61 Ethernet driver: forcedeth
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: 20:cf:30:b2:42:ab
+Drives:    HDD Total Size: 812.6GB (33.3% used) ID-1: /dev/sda model: ST500LT012 size: 500.1GB
+           ID-2: /dev/sdb model: ST3300622A size: 300.1GB ID-3: USB /dev/sdc model: USB_2.0_Flash size: 4.1GB
+           ID-4: USB /dev/sdd model: Android_Phone size: 8.4GB
+Partition: ID-1: / size: 20G used: 3.5G (19%) fs: ext4 dev: /dev/sda1
+           ID-2: /home size: 343G used: 230G (71%) fs: ext4 dev: /dev/sda2
+           ID-3: swap-1 size: 9.44GB used: 0.00GB (0%) fs: swap dev: /dev/sda7
+           ID-4: swap-2 size: 4.09GB used: 0.00GB (0%) fs: swap dev: /dev/sdb6
+Sensors:   System Temperatures: cpu: 36.0C mobo: 25.0C
+           Fan Speeds (in rpm): cpu: 1467 sys-1: 0
+Info:      Processes: 128 Uptime: 24 min Memory: 837.2/3703.7MB Client: Shell (bash) inxi: 2.2.31</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44239" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44239">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44239">
+
+<time datetime="2015-12-13T23:46">posted: 2015-12-13 &nbsp; 23:46</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44239" title="permalink">#21</a></span>
+
+<div class="content">Wishing to help skidoo to confirm the bug he found here misunderstanding-or-installer-bug-t6082.html , I tried to install first antiX 15 base 32bit, then after getting an unbootable system I tried to install antiX 15.1 base alpha1 64bit in several possible ways - every time I got either kernel panic or the following boot error:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/scripts/init-top/udev : line 14 : can't create /sys/kernel/uevent_helper
+Permission denied
+Scanning for Btrfs filesystems
+Gaveup waiting for root device. Common problems
+- Boot args (cat /proc/cmdline)
+- Check rootdelay= (...)
+- Check root= (...)
+- Missing modules (cat /proc/modules; ls /dev)
+ALERT! /dev/disk/by-uuid/e353... does not exist.
+Propping to a shell!
+modprobe: module ehci-orion not found in modules.dep
+</code></pre></div>
+I will reboot to live USB to post my specs, here are those specs on Manjaro
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[eugen@manjaro ~]$ inxi /F
+CPU~Dual core AMD Athlon X2 BE-2350 (-MCP-) speed/max~1000/2100 MHz Kernel~4.2.7-1-MANJARO x86_64 
+Up~19 min Mem~569.0/3829.3MB HDD~36.1GB(52.5% used) Procs~170 Client~Shell inxi~2.2.31 </code></pre></div>
+On this machine MX-15 installed without issues. I would suspect the 64bit kernel, but there was also an error with an older 32bit antiX 15 kernel. I'll describe the cases how I installed:<br>
+#1: antiX 15 base 32bit ISO, installed on HDD (logical) partition with btrfs, only root partition, no bootloader --&gt; kernel panic<br>
+#2: antiX 15.1 base 64bit ISO, '' , '' , '' --&gt; kernel panic<br>
+#3: '' , '' with ext4, '' , bootloader to root --&gt; boot error see above<br>
+#4: '' , '' with btrfs, '' , bootloader to MBR --&gt; boot error see above<br>
+#5: '' , on a primary partition with btrfs, '' , bootloader to MBR --&gt; boot error ''<br>
+#6: '' , on a primary partition with ext4, '' , bootloader to MBR --&gt; boot error ''<br>
+<br>
+Feedback about look and feel: Many things have improved aestetically on Fluxbox (didn't test the others). I don't know the reason, maybe the icons in the menu. Today I tested Manjaro Deepin, it feels like a Porsche; antiX 15.1 feels like a small electric vehicle. I prefer the second.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44240" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44240">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44240">
+
+<time datetime="2015-12-13T23:54">posted: 2015-12-13 &nbsp; 23:54</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44240" title="permalink">#22</a></span>
+
+<div class="content">bedna,"module echi-orion not found"<br>
+Your hardware contains an unsupported Marvell"Orion" onboard USB host controller.<br>
+You may be able to boot successfully if you can disable that device in bios setup.<br>
+Later, you can find/install a suitable driver (or maybe the device is a secondary controller, providing extra USB ports, and is non-essential)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44241" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44241">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44241">
+
+<time datetime="2015-12-13T23:58">posted: 2015-12-13 &nbsp; 23:58</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44241" title="permalink">#23</a></span>
+
+ <div class="content">I have the same output"module echi-orion not found", thanks skidoo!<br>
+But it comes after some other errors, so I guess it won't solve my issue.<br>
+Darn, I have the same screen as bedna. And I first wrote down the text and then type it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44242" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44242">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44242">
+
+<time datetime="2015-12-14T00:12">posted: 2015-12-14 &nbsp; 00:12</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44242" title="permalink">#24</a></span>
+
+<div class="content">eugen, I just noticed this detail:<br>
+"On this machine MX-15 installed without issues. I would suspect the 64bit kernel, but there was also an error with an older 32bit antiX 15 kernel."<br>
+<br>
+Did antix previously (live) work on that same hardware? The problem you mention here, it only surfaced after installed to hdd?<br>
+<br>
+Is MX is shipping a liquorix kernel?<br>
+Either that kernel has inbuilt orion driver or MX has bundled an orion driver into the distro.<br>
+So, smooth sailing for your hardware with MX either way (live or installed).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44253" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44253">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">bedna</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44253">
+
+<time datetime="2015-12-14T08:47">posted: 2015-12-14 &nbsp; 08:47</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44253" title="permalink">#25</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>bedna,"module echi-orion not found"<br>
+Your hardware contains an unsupported Marvell"Orion" onboard USB host controller.<br>
+You may be able to boot successfully if you can disable that device in bios setup.<br>
+Later, you can find/install a suitable driver (or maybe the device is a secondary controller, providing extra USB ports, and is non-essential)</div></blockquote>
+Thank you for your reply, skido. In antiX15 32bit and 64bit is supported.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44255" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44255">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 307</span></div>
+
+</div>
+</div>
+<span class="username">eugen-b</span>
+</dt>
+<dd class="profile-joined">Joined: 23 Aug 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44255">
+
+<time datetime="2015-12-14T10:07">posted: 2015-12-14 &nbsp; 10:07</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44255" title="permalink">#26</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>
+Did antix previously (live) work on that same hardware? The problem you mention here, it only surfaced after installed to hdd?
+</div></blockquote>
+Yes, it dit. How would I be able to post screenshots otherwise.
+<blockquote><div><cite>skidoo wrote:</cite>
+Is MX is shipping a liquorix kernel?
+</div></blockquote>
+Yes, it does, but I was also able to install a 32bit version of MX-15 b1/2 on that machine.
+<blockquote><div><cite>skidoo wrote:</cite>
+Either that kernel has inbuilt orion driver or MX has bundled an orion driver into the distro.<br>
+So, smooth sailing for your hardware with MX either way (live or installed).</div></blockquote>
+I'm testing antiX and MX on that machine, but I probably won't use it there as my daily OS. Nevertheless, I wish the team good luck so they would be able to fix the problem in the next alpha 2 release. These Thinkcentre PCs are cheap but reliable pieces of hardware, perfectly fit for antiX and MX.<br>
+I wasn't able to disable the USB etirely in BIOS, because I couldn't use my keyboard then to select antiX from my boot menu. Well with some effort I could try to make it the default OS in / etc/default/grub, but do I need to? I tried setting everything to USB 1.0, but it didn't help, same boot error.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44268" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44268">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">bedna</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44268">
+
+<time datetime="2015-12-15T22:07">posted: 2015-12-15 &nbsp; 22:07</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44268" title="permalink">#27</a></span>
+
+<div class="content">Hi skidoo, returns support echi-orion from antiX15?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44272" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44272">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44272">
+
+<time datetime="2015-12-16T03:59">posted: 2015-12-16 &nbsp; 03:59</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44272" title="permalink">#28</a></span>
+
+<div class="content">"does the antix15 kernel support echi-orion?"<br>
+From what I see, <strong>no</strong>, it does not.<br>
+The config I checked is for the"4.3.0-antix.2-amd64-smp" kernel. I don't have the original antix15 kernel installed right now.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44274" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44274">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">bedna</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2015</dd>
+</dl>
+<div class="postbody">
+ <div id="post_content44274">
+
+<time datetime="2015-12-16T16:44">posted: 2015-12-16 &nbsp; 16:44</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44274" title="permalink">#29</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>"does the antix15 kernel support echi-orion?"<br>
+From what I see, <strong>no</strong>, it does not.<br>
+The config I checked is for the"4.3.0-antix.2-amd64-smp" kernel. I don't have the original antix15 kernel installed right now.</div></blockquote>
+My config in antiX15<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>zcat /proc/config.gz | grep -i ehci
+CONFIG_USB_EHCI_HCD=y
+CONFIG_USB_EHCI_ROOT_HUB_TT=y
+CONFIG_USB_EHCI_TT_NEWSCHED=y
+CONFIG_USB_EHCI_PCI=y
+CONFIG_USB_EHCI_HCD_PLATFORM=y</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44277" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44277">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44277">
+
+<time datetime="2015-12-16T19:57">posted: 2015-12-16 &nbsp; 19:57</time>
+<span class="permalink"><a href="./antix-15-1-alpha1-for-testing-t6066-s15.html#p44277" title="permalink">#30</a></span>
+
+<div class="content">I don't know what else to say.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://lmgtfy.com/?q=linux+echi-orion"<br>linktext was:"http://lmgtfy.com/?q=linux+echi-orion"<br>====================================<br>
+<br>
+<br>
+If inbuilt support for the orion driver existed, your kernel config would contain a line specifically mentioning"orion", like<br>
+<span style="color: green">CONFIG_USB_EHCI_HCD_ORION=y</span><br>
+or<br>
+<span style="color: green">CONFIG_USB_EHCI_HCD_ORION=m</span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+47 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./antix-15-1-alpha1-for-testing-t6066.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066-s30.html" role="button">3</a></li>
+<li><a class="button" href="./antix-15-1-alpha1-for-testing-t6066-s45.html" role="button">4</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-15-1-alpha1-for-testing-t6066-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

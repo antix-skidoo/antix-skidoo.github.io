@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Problem with Graphic Resolution on Lifebook E-6575 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m11-jayaben-desai-f43/index.html"><span>antiX-M11 Jayaben Desai</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html">Problem with Graphic Resolution on Lifebook E-6575</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_22675" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22675">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">Schnake</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22675">
+<time datetime="2011-11-18T12:03">posted: 2011-11-18 &nbsp; 12:03</time>
+<span class="permalink"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html#p22675" title="permalink">#1</a></span>
+
+<div class="content">Hi Guys, once more, its me again....<br>
+<br>
+Yesterday i tried to re-install my Laptop and this time everything works perfectly! <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Really everything? Unfortunally not, since i boot on the Laptop, i have a Resolution from 800x600 and a Depth from"maybe" 16 bit, if not 8...... I see on black/dark background some Pixels and my Desktop/the Windows are too big for this Resolution.... I tried to Put a New Configuration to the Xorg.conf (my xorg.conf is empty by default, dont know why, maybe its normal) and so i have after restart a Resolution from Desktop from 1024x768, but its to big for my monitor, means i need to scroll on the side of the monitor to see all of my desktop..... I tried this Config for xorg.conf:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># xserver-xorg-video-ati
+# native Aufloesung 1024x768, 24 bit, 60 Hz
+# 2010-11-03
+ 
+Section"Device"
+        Identifier     "rage"
+        Driver         "ati"
+        Screen          0
+EndSection
+ 
+Section"Monitor"
+        Identifier     "xga"
+        DisplaySize     1024 768
+        Gamma           1
+EndSection
+ 
+Section"Screen"
+        Identifier     "Default Screen"
+        Device         "rage"
+        Monitor        "xga"
+        DefaultDepth    24
+        SubSection     "Display"
+                Virtual 1024    768
+                Depth   24
+                Modes  "1024x768@60"  "800x600@60"
+        EndSubSection
+EndSection</code></pre></div>
+Just want to know how can i change it, that the resolution is 1024x768 and 24-bit that i can see everything of my desktop... I know from the paste, that my monitor can show this resolution and the depth.... <br>
+<br>
+Thanks in Advance,<br>
+Schnake</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22678" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22678">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22678">
+
+<time datetime="2011-11-18T15:54">posted: 2011-11-18 &nbsp; 15:54</time>
+<span class="permalink"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html#p22678" title="permalink">#2</a></span>
+
+<div class="content">Try booting with the vga=791 cheat at boot/menu.lst removed (or added if it isn't there).<br>
+<br>
+If that doesn't work, you could type in a root terminal, (this should create an /etc/X11/xorg.conf file)<br>
+<br>
+buildxconfig<br>
+<br>
+then reboot.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22685" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22685">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">Schnake</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22685">
+
+<time datetime="2011-11-18T20:07">posted: 2011-11-18 &nbsp; 20:07</time>
+<span class="permalink"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html#p22685" title="permalink">#3</a></span>
+
+<div class="content">okay, on the boot i deleted on the boot screen"Vga=791" it dont work.... i type buildxconfig on the terminal it dont work too.... i deleted my config on the xorg.conf, try to type buildxconfig again, now bash tell me that the command is not knowing and the xorg.conf is still empty....</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22686" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22686">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22686">
+
+<time datetime="2011-11-18T20:19">posted: 2011-11-18 &nbsp; 20:19</time>
+<span class="permalink"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html#p22686" title="permalink">#4</a></span>
+
+<div class="content">buildxconfig must be done as root user.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22687" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22687">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">Schnake</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22687">
+
+<time datetime="2011-11-18T20:33">posted: 2011-11-18 &nbsp; 20:33</time>
+<span class="permalink"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html#p22687" title="permalink">#5</a></span>
+
+<div class="content">i have opened the Terminal as Root, as allways if i need to edit the xorg.conf....<br>
+<br>
+Any changes on this need root acces, so i know it allready.... ^^</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22691" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22691">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22691">
+
+<time datetime="2011-11-18T22:16">posted: 2011-11-18 &nbsp; 22:16</time>
+<span class="permalink"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html#p22691" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>Schnake wrote:</cite>[...] buildxconfig again, now bash tell me that the command is not knowing and the xorg.conf is still empty....</div></blockquote>
+The buildxconfig command should be at /usr/sbin/buildxconfig. If you are in a terminal as root then /usr/sbin should be part of your path. You seem to be sure you are root so you could try giving the absolute path to the command:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># /usr/sbin/buildxconfig</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22693" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile22693">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">Schnake</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22693">
+
+<time datetime="2011-11-19T01:09">posted: 2011-11-19 &nbsp; 01:09</time>
+<span class="permalink"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html#p22693" title="permalink">#7</a></span>
+
+<div class="content">Okay thanks for this Info... now the buildxconfig command work, but the xorg.conf still stand empty.... And still cant change the resolution....</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_22743" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile22743">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">Schnake</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content22743">
+
+<time datetime="2011-11-21T23:52">posted: 2011-11-21 &nbsp; 23:52</time>
+<span class="permalink"><a href="./problem-with-graphic-resolution-on-lifebook-e-6575-t3430.html#p22743" title="permalink">#8</a></span>
+
+<div class="content">Okay i Fixed it now... <br>
+<br>
+I put this Command on the Shell:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade </code></pre></div>
+And restarted, seems like on this command the true Graphic driver was installed and they put my real Resolution and Depth in, so now i can use it!<br>
+I used the command for a Problem with Wine wich i fixed too! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Wireless error on Dell Laptop isl3886 firmware SOLVED - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./wireless-error-on-dell-laptop-isl3886-firmware-sol-t6517.html">Wireless error on Dell Laptop isl3886 firmware SOLVED</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47702" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47702">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47702">
+<time datetime="2016-07-31T21:11">posted: 2016-07-31 &nbsp; 21:11</time>
+<span class="permalink"><a href="./wireless-error-on-dell-laptop-isl3886-firmware-sol-t6517.html#p47702" title="permalink">#1</a></span>
+
+<div class="content">The machine is a Dell Inspiron 8100 laptop and its got antiX 16 loaded and running, but I can't get wireless to work. The wireless card is a 2Wire PCMCIA card fcc id M4Y-XG-300<br>
+<br>
+By default it loads prism54<br>
+<br>
+I will run some diagnostics on it and transfer them via USB and post them in a few minutes. I've already tried all the things I could find from websites.<br>
+<br>
+It won't let me add a .txt attachment so I'll post it inline
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Dell inspiron 8100 laptop
+
+# inxi -Fxz
+System:    Host: antix1 Kernel: 4.4.10-antix.1-486-smp i686 (32 bit gcc: 4.9.3)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-16_386-full Berta Cáceres 26 June 2016
+Machine:   System: Dell (portable) product: Inspiron 8100
+           Mobo: Dell model: Inspiron 8100 Bios: Dell v: A08 date: 12/21/2001
+Battery    BAT1: charge: 0.0 Wh 0.0% condition: 66.0/66.0 Wh (100%)
+           model: Panasonic 4460 status: Charging
+CPU:       Single core Intel Pentium III Mobile (-UP-) cache: 512 KB
+           flags: (pae sse) bmips: 1993 speed: 1000 MHz (max)
+Graphics:  Card: NVIDIA NV11M [GeForce2 Go] bus-ID: 01:00.0
+           Display Server: X.org 1.16.4 drivers: nouveau (unloaded: fbdev,vesa)
+           tty size: 80x28 Advanced Data: N/A for root
+Audio:     Card ESS ES1983S Maestro-3i PCI Audio Accelerator
+           driver: snd_maestro3 port: dc00 bus-ID: 02:03.0
+           Sound: ALSA v: k4.4.10-antix.1-486-smp
+Network:   Card-1: Intel 82557/8/9/0/1 Ethernet Pro 100
+           driver: e100 v: 3.5.24-k2-NAPI port: ecc0 bus-ID: 08:04.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card-2: Intersil ISL3886 [Prism Javelin/Prism Xbow]
+           driver: prism54 bus-ID: 09:00.0
+           IF: eth1 state: down mac: &lt;filter&gt;
+Drives:    HDD Total Size: 60.0GB (7.7% used)
+           ID-1: /dev/sda model: HTS726060M9AT00 size: 60.0GB
+Partition: ID-1: / size: 25G used: 2.5G (11%) fs: ext4 dev: /dev/sda2
+           ID-2: swap-1 size: 2.15GB used: 0.00GB (0%) fs: swap dev: /dev/sda1
+Sensors:   System Temperatures: cpu: 46.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 136 Uptime: 4 min Memory: 123.9/496.9MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.3.0
+           
+           
+From /var/log/dmesg:
+
+[   14.831723] eth1: resetting device...
+[   14.831752] eth1: uploading firmware...
+[   14.883790] prism54 0000:09:00.0: Direct firmware load for isl3886 failed with error -2
+[   14.883809] prism54: request_firmware() failed for 'isl3886'
+[   14.883860] eth1: could not upload firmware ('isl3886')
+[   14.883882] eth1: islpci_reset: failure
+[   15.033184] NET: Registered protocol family 10
+[   15.035414] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+[   15.847686] eth1: resetting device...
+[   15.847719] eth1: uploading firmware...
+[   15.956717] prism54 0000:09:00.0: Direct firmware load for isl3886 failed with error -2
+[   15.956736] prism54: request_firmware() failed for 'isl3886'
+[   15.956786] eth1: could not upload firmware ('isl3886')
+[   15.956807] eth1: islpci_reset: failure
+[   16.059346] NET: Registered protocol family 17
+[   16.236933] RPC: Registered named UNIX socket transport module.
+[   16.236946] RPC: Registered udp transport module.
+[   16.236951] RPC: Registered tcp transport module.
+[   16.236955] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[   16.273433] FS-Cache: Loaded
+[   16.316968] FS-Cache: Netfs 'nfs' registered for caching
+[   16.377624] Installing knfsd (copyright (C) 1996 okir@monad.swb.de).
+From lspci -nn
+09:00.0 Network controller [0280]: Intersil Corporation ISL3886 [Prism Javelin/Prism Xbow] [1260:3886] (rev 01)
+
+From iwconfig
+# iwconfig
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+
+eth1      NOT READY!  ESSID:off/any  
+          Mode:Managed  Channel:0  Access Point: Not-Associated   
+          Tx-Power=31 dBm   Sensitivity=0/200  
+          Retry short limit:0   RTS thr=0 B   Fragment thr=0 B   
+          Encryption key:off
+          Link Quality:0  Signal level:0  Noise level:0
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+          
+Ceni gets a message...
+Scannning for wireless networks..
+Successfully initialized wpa_supplicant         
+nl80211/: Driver does not support authentiucatioon/association or connect commands.
+Could not set interface eth1 flags (UP)
+From lsmod
+Module                  Size  Used by
+nls_utf8                1152  1 
+nls_cp437               4737  1 
+uas                    11737  0 
+usb_storage            41035  2 uas
+bnep                    8651  2 
+bluetooth             280777  5 bnep
+nfsd                  223819  2 
+auth_rpcgss            34240  1 nfsd
+oid_registry            2211  1 auth_rpcgss
+nfs_acl                 2351  1 nfsd
+nfs                   152935  0 
+lockd                  50426  2 nfs,nfsd
+grace                   1394  2 nfsd,lockd
+fscache                58202  1 nfs
+sunrpc                186660  6 nfs,nfsd,auth_rpcgss,lockd,nfs_acl
+af_packet              28396  4 
+ipv6                  308799  34 
+lp                      7647  0 
+dm_crypt               15458  0 
+dm_mod                 79809  1 dm_crypt
+wl                   6142090  0 
+p54pci                  7647  0 
+p54common              26611  1 p54pci
+mac80211              494447  1 p54common
+cfg80211              405884  3 wl,mac80211,p54common
+prism54                46137  0 
+ch7006                 14934  1 
+nouveau              1243141  2 
+dell_laptop            12656  0 
+rfkill                 12491  4 cfg80211,bluetooth,dell_laptop
+iTCO_wdt                5064  0 
+mxm_wmi                 1267  1 nouveau
+iTCO_vendor_support     1645  1 iTCO_wdt
+dcdbas                  4227  1 dell_laptop
+wmi                     6694  2 mxm_wmi,nouveau
+ttm                    62479  1 nouveau
+ppdev                   4978  0 
+drm_kms_helper         89024  2 ch7006,nouveau
+dell_smm_hwmon          5532  0 
+drm                   229081  6 ttm,drm_kms_helper,ch7006,nouveau
+pcmcia                 29916  0 
+fb_sys_fops             1098  1 drm_kms_helper
+syscopyarea             2926  1 drm_kms_helper
+sysfillrect             3194  1 drm_kms_helper
+sysimgblt               2159  1 drm_kms_helper
+evdev                   9534  11 
+joydev                  7951  0 
+nvidiafb               35358  0 
+input_leds              2382  0 
+serio_raw               3841  0 
+yenta_socket           19024  0 
+pcmcia_rsrc             7241  1 yenta_socket
+pcspkr                  1587  0 
+lpc_ich                12648  0 
+rivafb                 41504  0 
+vgastate                8041  2 rivafb,nvidiafb
+pcmcia_core            10007  3 pcmcia,pcmcia_rsrc,yenta_socket
+i2c_algo_bit            4708  3 nouveau,rivafb,nvidiafb
+rng_core                5056  0 
+fb_ddc                  1261  2 rivafb,nvidiafb
+snd_maestro3           14570  1 
+snd_ac97_codec         88723  1 snd_maestro3
+ac97_bus                1134  1 snd_ac97_codec
+snd_pcm                67431  2 snd_ac97_codec,snd_maestro3
+snd_timer              16116  1 snd_pcm
+snd                    45230  6 snd_ac97_codec,snd_timer,snd_pcm,snd_maestro3
+soundcore               4455  1 snd
+intel_agp               8912  1 
+video                  22079  2 nouveau,dell_laptop
+intel_gtt              10204  1 intel_agp
+acpi_cpufreq            6254  0 
+processor              20972  2 acpi_cpufreq
+shpchp                 21906  0 
+tpm_tis                 8787  0 
+irda                   87270  0 
+tpm                    26977  1 tpm_tis
+crc_ccitt               1259  2 irda,p54common
+ac                      2967  0 
+button                  3720  1 nouveau
+parport_pc             27363  1 
+parport                28410  3 lp,ppdev,parport_pc
+rtc_cmos                8766  0 
+battery                 6042  0 
+8250_fintek             2381  0 
+btrfs                 957242  0 
+xor                    16504  1 btrfs
+raid6_pq               92121  1 btrfs
+psmouse                92585  0 
+firewire_ohci          28514  0 
+firewire_core          44501  1 firewire_ohci
+e100                   26480  0 
+mii                     3571  1 e100
+floppy                 51550  0 
+thermal                 6939  0 
+
+</code></pre></div></div>
+<div class="notice">
+Last edited by <b>thriftee</b> on 01 Aug 2016, 01:44, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47704" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47704">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47704">
+
+<time datetime="2016-07-31T21:42">posted: 2016-07-31 &nbsp; 21:42</time>
+<span class="permalink"><a href="./wireless-error-on-dell-laptop-isl3886-firmware-sol-t6517.html#p47704" title="permalink">#2</a></span>
+
+<div class="content">
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wireless.wiki.kernel.org/en/users/Drivers/p54"<br>linktext was:"https://wireless.wiki.kernel.org/en/users/Drivers/p54"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47705" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47705">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47705">
+
+<time datetime="2016-08-01T01:39">posted: 2016-08-01 &nbsp; 01:39</time>
+<span class="permalink"><a href="./wireless-error-on-dell-laptop-isl3886-firmware-sol-t6517.html#p47705" title="permalink">#3</a></span>
+
+<div class="content">Well, I tried a 4th time starting from a fresh download and this time it worked. The only change was the fresh download. <br>
+<br>
+blacklist prism54<br>
+modprobe -r prism54<br>
+modprobe -r p54pci<br>
+download file from site above, rename to isl3886pci, copy to /lib/firmware and also /usr/local/firmware<br>
+modprobe p54pci<br>
+iwconfig<br>
+ceni<br>
+<br>
+thanks, your suggestion worked</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47706" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47706">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47706">
+
+<time datetime="2016-08-01T02:06">posted: 2016-08-01 &nbsp; 02:06</time>
+<span class="permalink"><a href="./wireless-error-on-dell-laptop-isl3886-firmware-sol-t6517.html#p47706" title="permalink">#4</a></span>
+
+<div class="content">You are welcome.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

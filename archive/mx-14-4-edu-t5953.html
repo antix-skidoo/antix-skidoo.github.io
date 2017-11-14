@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>MX 14.4 &quot;Edu&quot; - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-mx-14-symbiosis-f50/index.html"><span>antiX MX-14 Symbiosis</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./mx-14-4-edu-t5953.html">MX 14.4 &quot;Edu&quot;</a></div>
+<div class="pagination">
+42 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./mx-14-4-edu-t5953-s15.html" role="button">2</a></li>
+<li><a class="button" href="./mx-14-4-edu-t5953-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./mx-14-4-edu-t5953-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43257" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43257">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43257">
+<time datetime="2015-09-27T21:22">posted: 2015-09-27 &nbsp; 21:22</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43257" title="permalink">#1</a></span>
+
+<div class="content">Hello,<br>
+<br>
+I have changed an install in an old Compaq Presario 920 (proc AMD Athlon XP 2000+, no sse, and 1 GB RAM) into an"Edu" version, for a little 5 years old girl.<br>
+<br>
+I wanted to remix it and to get it lower than 700MB as an ISO and I am still working on it (removed libreoffice, and lots of packages not needed for the purpose of providing an Edu version). If this works I'll upload the remix to a repos on the web.<br>
+<br>
+Here is what it looks like at the moment:<br>
+<img src="http://meets.free.fr/images/antiX-Edu.png" class="postimage" alt="Image"><br>
+<br>
+<br>
+I have to say I have a hard time getting the Grub background the way I want it. Now it does not display an image anymore. I wonder if Grub can use jpg files? <br>
+<br>
+And what about the installer in a remix? I did a first try with the option"remix to share", and it removed the Qimo wallpaper and restored the MX background, so I changed the method, and did a"remix for backup purpose" (which I intend to share). Then after starting the iso generated from there, in virtualbox, the minstaller does not have the launcher on the desktop.<br>
+<br>
+When I copy it from /usr/share/applications/mx to the desktop, and install from there, it's not removed from the desktop after install to the virtual hard drive.<br>
+<br>
+Do you have any advice?<br>
+<br>
+Best regards,<br>
+Mélodie</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43260" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43260">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43260">
+
+<time datetime="2015-09-27T23:42">posted: 2015-09-27 &nbsp; 23:42</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43260" title="permalink">#2</a></span>
+
+ <div class="content"><blockquote class="uncited"><div>removed libreoffice, and lots of packages not needed for the purpose of providing an Edu version</div></blockquote>libreoffice does not uninstall cleanly, in the sense that many of its dependent packages (needed by nothing else) are needlessly left in place.<br>
+examples:<br>
+/home/*/.config/libreoffice/3/user/uno_packages/cache/*<br>
+/home/*/.libreoffice/3/user/uno_packages/cache/*<br>
+/home/*/.libreoffice/3-suse/user/config/uno_packages/cache/*<br>
+<br>
+Install <strong>deborphan</strong> and <strong>gtkorphan</strong> and use them to help identify those leftovers.<br>
+Help -- meaning use discretion in deciding what to remove; don't trust autoremove to wisely decide (it will not, cannot).<br>
+Some of the packages I would choose to uninstall at this step, you (for your respin) would disagree with.<br>
+Here, I would remove anything postscript-document related. I would also remove most, if not all, of the CUPS infrastructure.<br>
+<br>
+Next step, consider whether the expected audience is"global", vs will only ever be installed/used locally to your region.<br>
+If local only, <strong>dpkg-reconfigure locales</strong> and pare down the list of to-be-supported locales (languages).<br>
+Afterward, run <strong>bleachbit</strong> (twice, once as user, again as root) (also check whether etc/skel contains any locale-specific bloat)<br>
+followed by <strong>updatedb</strong> (to freshen the mlocate.db file)<br>
+<br>
+The above 2 steps will clear away 10,000+ unneeded files. The effect on the resultant iso, though, may only be 25MB or so.<br>
+If your thinning is thorough / aggressive, the savings can be improved quite a bit further.<br>
+Next step, IMO, is to install and run from root terminal the tiny <strong>ncdu</strong> (ncurses disk usage) utility.<br>
+ncdu enables you to quickly, easily,"walk" through your filesystem dirs to identify"what's taking up how much room".<br>
+/usr/share/themes, /usr/share/icons ...do you really want to keep all the existing"stuffs" installed?<br>
+Fonts? How many do you need/want installed, and did you realize which of the installed fonts is hogging however much storage space?<br>
+<strong>man ncdu</strong> -- although ncdu enables you to selectively delete items, I perform the deletions via a GUI file manager.<br>
+Does ANY installed iconset really need to ship with 256px versions ?!? (I've even seen 512px tile images shipped in some iconsets!)<br>
+For your distro, maybe some of the apps _are_ displaying super-large icons. <br>
+<br>
+I can recite at least a dozen other"steps" to pursue, paths containing"unneeded bloat"...<br>
+...but, compared to the steps above, chasing those provides diminishing returns.<br>
+<br>
+-- ANY *.pyc file can be deleted (or excluded/omitted when building the iso)<br>
+<br>
+-- python, perl, and vim paths contain a LOT of locale files (missed by bleachbit)<br>
+/usr/share/perl/5.18.1/Unicode/Collate/Locale/<br>
+/usr/share/vim/vim*/lang/*<br>
+<br>
+-- /usr/share/doc contains a LOT of files that 5yr-olds will never read<br>
+<br>
+-- if shipping iceweasel, most of the ~/profile/../*.sqlite files can be excluded/deleted (even from the etc/skel copy)<br>
+<br>
+-- aptitude, if present, and apt-xapian-index (drives the in-toolbar version of the synaptic search) can be removed<br>
+(along with the huge xapian search index file)<br>
+Do I see docfetcher icon in the panel of your screenshot?<br>
+Any prebuilt docfetcher/beagle index could be excluded from the iso (call a shell script from the installer to rebuild the index)<br>
+<br>
+<span style="color: blue">melodie, I hope you'll jot notes as you perform the various"cleaning" steps,<br>
+and post a followup to let us know"how much space freed" by each step.</span><br>
+<br>
+Speaking of notes, below I'm pasting a mostly-notes portion of my own cleanup script:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>rm /usr/share/icons/gnome/icon-theme.cache
+#    ^--- if this exists, its size will be 62Mb ^^^^^^ 78.7Mb as seen in antixFull
+#       you can later regenerate the cache manually, at will
+#    (if desired, and if it doesn't get regenerated automatically)
+#     via cli     gtk-update-icon-cache &lt;path to your icon theme&gt;
+#
+#  ISSUE:  EVEN IF YOU NEVER ELECT TO USE/SEE THIS ICON THEME
+#  CAN'T UNINSTALL THE GNOME THEME B/C IT IS MARKED AS A"DEPENDENCY" OF BASIC DEBIAN PKGS
+#  in my testing, absence of the cache is a non-issue
+#
+#    v---- 73.4Mb as seen in antixFull
+rm /usr/share/icons/HighContrast/icon-theme.cache
+#
+# these are automatically regenerated by each"apt-get update" operation  42Mb+/usr/share/vim/
+rm /var/cache/apt/*.bin
+#
+#        ANY CRUFT PRESENT IN  /skel REPRESENTS A TWO(three four...)FOLD PROBLEM
+#        because an additional copy gets created in /home/ for each new user
+# v--- these will be autogenerated at first run, if absent, and are present
+#     from the outset (new install, browser not yet launched) 17Mb /skel cruft + 13Mb+ per user
+rm /__etc/skel/.mozilla/firefox/*.default/places.sqlite
+rm /__etc/skel/.mozilla/firefox/*.default/cookies.sqlite
+rm /__etc/skel/.mozilla/firefox/*.default/downloads.sqlite
+rm /__etc/skel/.mozilla/firefox/*.default/formhistory.sqlite
+rm /__etc/skel/.mozilla/firefox/*.default/webappsstore.sqlite
+rm /__etc/skel/.mozilla/firefox/*.default/signons.sqlite
+rm /__etc/skel/.mozilla/firefox/*.default/startupCache/*
+rm -Rf /__etc/skel/.mozilla/firefox/*.default/thumbnails/*
+rm -Rf /__etc/skel/.mozilla/firefox/*.default/safebrowsing/*
+#   ^--- this 17Mb is NOT a comprehensive list of"what all" may be safely excluded
+#   but it's better than complete inattention to this cruft by the iceweasel package maintainer
+#
+#  note: bleachbit"vacuums" places.sqlite ...and the resulting file is still 10Mb (size on disk) (i suspect they're highly compressable in squashfs)
+rm /home/*/.mozilla/firefox/*.default/cookies.sqlite
+rm /home/*/.mozilla/firefox/*.default/places.sqlite
+rm /home/*/.mozilla/firefox/*.default/signons.sqlite
+rm /home/*/.mozilla/firefox/*.default/formhistory.sqlite
+#   the following are late (May 2014) additions
+rm -Rf /home/*/.cache/mozilla/firefox/*/Cache/*
+# rm /home/*/.cache/mozilla/firefox/*default/thumbnails/*     Grrrr user may have multiple profiles
+rm -Rf /home/*/.cache/mozilla/firefox/*/thumbnails/*
+#  ^---- reflects my choice. Other user may wish to preserve signons+formhistory
+#       /home/*/.mozilla/plugins/libflashplayer.so       18Mb per user
+#       /__etc/skel/.mozilla/plugins/libflasplayer.so            18Mb
+#       ^------ placing ONE instance pathed within /usr/local/share
+#       and symlinks to it @ home and /etc will free at least 18Mb
+#      THIS IS A DISTROMAKER DESIGN CONSIDERATION, NOT A CLEANUP ITEM
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43261" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43261">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43261">
+
+<time datetime="2015-09-27T23:46">posted: 2015-09-27 &nbsp; 23:46</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43261" title="permalink">#3</a></span>
+
+<div class="content">can also withhold from the iso the (40Mb+) linux-headers* package and<br>
+...did you build in place any of to-be-preinstalled applications? If so, you can omit any packages added for/by build-essentials<br>
+<br>
+synaptic<br>
+status = installed<br>
+sort = size<br>
+Won't exactly match what's installed on the system you're starting from, but here I quickly found 72Mb<br>
+( vim, vim-runtime, python-samba, samba-common-bin, mupdf-tools, luckybackup-data, luckybackup, alpine )<br>
+installed stuff that I'd probably exclude from an EDU respin. Some of these are"easily overlooked" b/c they don't have a desktop menu launcher.<br>
+-=-<br>
+Also, while browsing the synaptic"installed" listing,<br>
+consider whatall unneeded locale-specific ispell / aspell / hunspell dictionary packages (based on the language(s) of the intended audience) are installed.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># not needed, and (on my system) cumulatively amount to several Mb
+ /var/backups/dpkg.status.*.gz</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43268" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43268">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43268">
+
+<time datetime="2015-09-28T19:21">posted: 2015-09-28 &nbsp; 19:21</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43268" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>melodie wrote:</cite>I have to say I have a hard time getting the Grub background the way I want it. Now it does not display an image anymore. I wonder if Grub can use jpg files?</div></blockquote>
+but can grub2 the .jpg format<br>
+example<br>
+<br>
+<br>
+show it <strong>etc/default/grub</strong><br>
+and the characteristics of your image. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43269" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43269">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43269">
+
+<time datetime="2015-09-28T19:38">posted: 2015-09-28 &nbsp; 19:38</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43269" title="permalink">#5</a></span>
+
+<div class="content">Make sure the image.jpg is not too big, and also you need to do an update-grub</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43276" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43276">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43276">
+
+<time datetime="2015-09-29T08:48">posted: 2015-09-29 &nbsp; 08:48</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43276" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Make sure the image.jpg is not too big, and also you need to do an update-grub</div></blockquote>
+Hello,<br>
+<br>
+I did, however the image appeared at the start of the computer only when I used a png image. Also, now I can't use an image anymore on the login screen. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Not that it's very important, but I would have liked it to work.<br>
+<br>
+Anyway the spinoff will soon be online…<br>
+<br>
+What about the default background in the session after remixing : if choosing the remixing option"for distribution" instead of"for backup purpose" ? Is there a way to not fall back to the defaut antiX MX background? (Not that I don't like it, but if we customize, we might want to make it a custom one for all details?)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43277" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43277">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43277">
+
+<time datetime="2015-09-29T08:52">posted: 2015-09-29 &nbsp; 08:52</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43277" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>
+(…)<br>
+<br>
+but here I quickly found 72Mb<br>
+( vim, vim-runtime, python-samba, samba-common-bin, mupdf-tools, luckybackup-data, luckybackup, alpine )<br>
+installed stuff that I'd probably exclude from an EDU respin. Some of these are"easily overlooked" b/c they don't have a desktop menu launcher.</div></blockquote>
+<br>
+Hello skidoo,<br>
+<br>
+I wrote yesterday to answer your 2 posts, but for unknown reason I could not get it paste the"submit" button, I had a"Forbiden" message instead…<br>
+<br>
+I am going to check all your details to see what I can use from it. Thanks! <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43282" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43282">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+ <dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43282">
+
+<time datetime="2015-09-29T14:51">posted: 2015-09-29 &nbsp; 14:51</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43282" title="permalink">#8</a></span>
+
+<div class="content">I have a hard time posting here, with"Forbidden" messages in white pages. Please read here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forum.linuxvillage.org/index.php/topic,727.msg4107.html#msg4107"<br>linktext was:"[antiX MX-14 ]Remix and issues"<br>====================================<br>
+</div>
+<div class="notice">
+Last edited by <b>melodie</b> on 29 Sep 2015, 14:51, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43283" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43283">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">rokytnji</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43283">
+
+<time datetime="2015-09-29T14:51">posted: 2015-09-29 &nbsp; 14:51</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43283" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>melodie wrote:</cite><blockquote><div><cite>skidoo wrote:</cite>
+(…)<br>
+<br>
+but here I quickly found 72Mb<br>
+( vim, vim-runtime, python-samba, samba-common-bin, mupdf-tools, luckybackup-data, luckybackup, alpine )<br>
+installed stuff that I'd probably exclude from an EDU respin. Some of these are"easily overlooked" b/c they don't have a desktop menu launcher.</div></blockquote>
+<br>
+Hello skidoo,<br>
+<br>
+I wrote yesterday to answer your 2 posts, but for unknown reason I could not get it paste the"submit" button, I had a"Forbiden" message instead…<br>
+<br>
+I am going to check all your details to see what I can use from it. Thanks! <span class="emoticon"> __{{emoticon}}__ </span></div></blockquote>
+php-error-t3861.html</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43285" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43285">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43285">
+
+<time datetime="2015-09-29T14:56">posted: 2015-09-29 &nbsp; 14:56</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43285" title="permalink">#10</a></span>
+
+<div class="content">couldn't post: Forbidden<br>
+is due to a"feature" of phpBB forum software in use by freeforums.org<br>
+/ etc<br>
+^------ a post submission is rejected if parser encounters"forward-slash ee tee cee" substring.<br>
+Can workaround by inserting a space between, or by using markup ala [ b ]/[ /b ]etc</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43286" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43286">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43286">
+
+<time datetime="2015-09-29T15:12">posted: 2015-09-29 &nbsp; 15:12</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43286" title="permalink">#11</a></span>
+
+<div class="content">This isn't very convenient for posting. I have posted at Linuxvillage forums. I will be looking forward to solutions (for any or all of the issues).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43293" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43293">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43293">
+
+<time datetime="2015-09-29T17:16">posted: 2015-09-29 &nbsp; 17:16</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43293" title="permalink">#12</a></span>
+
+<div class="content">(I looked at your post there, but can't figure out how to register...)<br>
+<br>
+Did you try using Grub Customizer to change the screen?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43306" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43306">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43306">
+
+<time datetime="2015-09-29T20:44">posted: 2015-09-29 &nbsp; 20:44</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43306" title="permalink">#13</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Did you try using Grub Customizer to change the screen?</div></blockquote>I looked. Grub-o-mizer doesn't provide a way to change the image.<br>
+I haven't read whether this is a snapshot or remaster... but I'm thinking that, for the live boot,<br>
+bgimage ALSO needs to be specied in /boot/isonlinux/isolinux.cfg and syslinux.cfg</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43307" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43307">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 452</span></div>
+
+</div>
+</div>
+<span class="username">Jerry</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43307">
+
+<time datetime="2015-09-29T20:56">posted: 2015-09-29 &nbsp; 20:56</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43307" title="permalink">#14</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Grub-o-mizer doesn't provide a way to change the image.</div></blockquote>Grub Customizer has a tab for appearance that appears to allow for an image (size and format important) to be selected, though I never tried it. There is a lot of advice out there through a web search on"Grub Customizer change background."</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43308" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43308">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,444</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43308">
+
+<time datetime="2015-09-29T20:59">posted: 2015-09-29 &nbsp; 20:59</time>
+<span class="permalink"><a href="./mx-14-4-edu-t5953.html#p43308" title="permalink">#15</a></span>
+
+<div class="content"><blockquote class="uncited"><div>This isn't very convenient for posting. I have posted at Linuxvillage forums.</div></blockquote>FYI, I have an old account at LV (different username) but seldom visit b/c all the nagivation text, and stuff, is displayed in some weird language. Well, not weird, just fRenCh, but anyhow...</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+42 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./mx-14-4-edu-t5953-s15.html" role="button">2</a></li>
+<li><a class="button" href="./mx-14-4-edu-t5953-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./mx-14-4-edu-t5953-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

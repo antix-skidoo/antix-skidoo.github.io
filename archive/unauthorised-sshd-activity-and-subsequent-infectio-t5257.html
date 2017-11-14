@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Unauthorised sshd Activity and Subsequent Infection - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html">Unauthorised sshd Activity and Subsequent Infection</a></div>
+<div class="pagination">
+26 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_36885" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36885">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36885">
+<time datetime="2014-09-08T09:55">posted: 2014-09-08 &nbsp; 09:55</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36885" title="permalink">#1</a></span>
+
+<div class="content">The following has been observed on multiple separate occasions over the last 3-4 days.<br>
+<br>
+antiX was installed from the shipped ISO. It was the only OS on the system, so the risk of cross contamination is vanishingly small.<br>
+<br>
+Once the basic installation was completed, the standard apt update and upgrade procedure was conducted to bring the antiX and Debian software up to date. Some time afterwards (varying from a few minutes to many hours), an unathorised ssh session was started. This contacted a remote address. The remote address also varies, but always points to various locations in China. <br>
+<br>
+The results of the connection are not always successful or obvious. When successful, changes are made to <br>
+<em>/</em>etc/rc.local<br>
+/var/spool/cron/<br>
+/var/spool/cron/crontabs/<br>
+The alterations appear to be designed to drop the defences of the local system and allow (re)infection of a trojan. These changes are not always apparent until after a reboot and again may take minutes or hours to show up.<br>
+<br>
+<br>
+I have not been able to pin down which package delivers this threat, nor have I been able to create an uncompromised system after numerous attempts.<br>
+<br>
+<br>
+The following procedure has consistently produced an undesirable outcome.<br>
+<br>
+<strong>Installed via shipped ISO</strong><br>
+antiX-13.2-Full-Stable (Wheezy)<br>
+<br>
+<br>
+<strong>After Installation Finished</strong><br>
+Reboot (power on warm boot)<br>
+Reboot (power off cold boot)<br>
+<br>
+<br>
+<strong>Changes Made to Installed Packages</strong><br>
+None<br>
+<br>
+<br>
+<strong>Third Party Software Installed</strong><br>
+None<br>
+<br>
+<br>
+<strong>Repos Status</strong><br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.daveserver.info/stable"<br>linktext was:"http://antix.daveserver.info/stable"<br>====================================<br>
+ stable main <br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.uk.debian.org/debian/"<br>linktext was:"http://ftp.uk.debian.org/debian/"<br>====================================<br>
+ wheezy main contrib non-free <br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org/"<br>linktext was:"http://security.debian.org/"<br>====================================<br>
+ wheezy/updates main contrib non-free<br>
+<br>
+<br>
+<strong>Establish What is to be Upgraded</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update
+apt-get --simulate upgrade
+...
+The following packages have been kept back:
+  iceweasel
+The following packages will be upgraded:
+  acpi-fakekey acpi-support acpi-support-base antix-libs apt apt-utils base-files connectshares-antix cups cups-client cups-common cups-filters cups-ppdc dbus dbus-x11 desktop-defaults-full-antix dpkg faq-docs-antix ffmpeg file gir1.2-gtk-3.0 gnupg gnupg-agent gnupg-curl gnupg2 gpgv gstreamer0.10-plugins-bad icewmcc-antix install-meta-antix libapt-inst1.5 libapt-pkg4.12 libav-tools libavcodec53 libavdevice53 libavfilter2 libavformat53 libavutil51 libc-bin libc6 libcups2 libcupscgi1 libcupsfilters1 libcupsimage2 libcupsmime1 libcupsppdc1 libcurl3 libcurl3-gnutls libdbus-1-3 libexpat1 libgimp2.0 libgnutls26 libgssapi-krb5-2 libgstreamer-plugins-bad0.10-0 libgtk-3-0 libgtk-3-bin libgtk-3-common libjbig0 libjpeg62 libjpeg8 libk5crypto3 libkrb5-3 libkrb5support0 liblcms2-2 liblua5.1-0 liblzo2-2 libmagic1 libmms0 libnss3 libopenjpeg2 libpixman-1-0 libpostproc52 libpurple0 libquvi-scripts ibrsvg2-2 librsvg2-common libsmbclient libsoup-gnome2.4-1 libsoup2.4-1 libssl1.0.0 libswscale2 libwbclient0 libxfont1 libxine1 libxine1-bin libxine1-ffmpeg libxine1-misc-plugins libxine1-plugins libxml2 libxmmsclient6 links2 live-usb-gui-antix locales menu-fluxbox-antix menu-icewm-antix menu-jwm-antix mobile-broadband-provider-info mountbox-antix mp3gain multiarch-support newsbeuter openssh-client openssh-server openssl pidgin pidgin-data python-imaging python-libxml2 python-lxml python2.7 python2.7-minimal rxvt-unicode samba-common samba-common-bin smbclient smxi-inxi-antix spacefm transmission transmission-cli transmission-common transmission-daemon transmission-gtk tzdata udevil udisks wget whois xserver-common xserver-xorg-core xsw yad
+130 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
+...</code></pre></div>
+<strong>Bring Software Upto Date</strong><br>
+apt-get upgrade<br>
+<br>
+<br>
+<strong>Result</strong><br>
+Upgrade completed without errors<br>
+<br>
+<br>
+<strong>Restart System</strong><br>
+Reboot (power off cold boot)<br>
+<br>
+<br>
+<strong>Monitor System</strong><br>
+Start htop, put in tree mode and watch /usr/sbin/sshd<br>
+As root start <em>netstat -Wpc</em> to display the address to which sshd connects<br>
+<br>
+<br>
+<strong>When the address is known verify its location</strong><br>
+Open Iceweasel at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.en.utrace.de"<br>linktext was:"http://www.en.utrace.de"<br>====================================<br>
+, enter the ip address and search.<br>
+<br>
+<br>
+<strong>Verify whether the connection delivered its payload.</strong> <br>
+Note: delivery is not always successful.<br>
+Reboot (power off cold boot)<br>
+cat <em>/</em>etc/rc.local, should usually not contain any extra commands<br>
+ls /var/spool/cron/, should usually not contain a file named root<br>
+ls /var/spool/cron/crontab/, should usually not contain a file named root</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36886" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36886">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36886">
+
+<time datetime="2014-09-08T11:41">posted: 2014-09-08 &nbsp; 11:41</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36886" title="permalink">#2</a></span>
+
+<div class="content">I have noticed some comments about daveserver being inaccessible recently, might be something or nothing.<br>
+<br>
+Edit: I upgraded my system on 5-9-2014 &amp; don't have any 'extras' like you have.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36889" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36889">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36889">
+
+<time datetime="2014-09-08T13:07">posted: 2014-09-08 &nbsp; 13:07</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36889" title="permalink">#3</a></span>
+
+<div class="content">SamK,<br>
+<br>
+Do you get the same behaviour with a fresh install and no upgrades?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36890" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36890">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36890">
+
+<time datetime="2014-09-08T13:40">posted: 2014-09-08 &nbsp; 13:40</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36890" title="permalink">#4</a></span>
+
+<div class="content">this sounds close to what happend to this guy.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://blogg.openend.se/2014/3/2/malware-under-linux"<br>linktext was:"http://blogg.openend.se/2014/3/2/malware-under-linux"<br>====================================<br>
+<br>
+<br>
+this guy was running debian on a server. he never found the entry vector either.<br>
+<br>
+I'll be checking my antiX box when I get home to see if I've got anything.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36894" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36894">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36894">
+
+<time datetime="2014-09-08T14:39">posted: 2014-09-08 &nbsp; 14:39</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36894" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Do you get the same behaviour with a fresh install and no upgrades?</div></blockquote>It's 2-3 days ago since I ran that test and kept no notes. From my fallible recall it did not produce the unwanted behaviour. <br>
+<br>
+I'll run the installation again without upgrades and leave it overnight (local time) and confirm tomorrow.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36899" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36899">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36899">
+
+<time datetime="2014-09-08T17:30">posted: 2014-09-08 &nbsp; 17:30</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36899" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Do you get the same behaviour with a fresh install and no upgrades</div></blockquote>Yes it seems to be within the shipped ISO.<br>
+<br>
+<br>
+<strong>Installed via shipped ISO</strong><br>
+antiX-13.2-Full-Stable (Wheezy)<br>
+<br>
+<br>
+<strong>After Installation Finished</strong><br>
+Reboot (power on warm boot)<br>
+Reboot (power off cold boot)<br>
+<br>
+<br>
+<strong>Changes Made to Installed Packages</strong><br>
+None<br>
+<br>
+<br>
+<strong>Third Party Software Installed</strong><br>
+None<br>
+<br>
+<br>
+<strong>Repos Status</strong><br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.daveserver.info/stable"<br>linktext was:"http://antix.daveserver.info/stable"<br>====================================<br>
+ stable main <br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.uk.debian.org/debian/"<br>linktext was:"http://ftp.uk.debian.org/debian/"<br>====================================<br>
+ wheezy main contrib non-free <br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org/"<br>linktext was:"http://security.debian.org/"<br>====================================<br>
+ wheezy/updates main contrib non-free<br>
+<br>
+<br>
+<strong>Bring Software Upto Date</strong><br>
+Not done<br>
+<br>
+<br>
+<strong>Monitor System</strong><br>
+Start htop, put in tree mode and watch /usr/sbin/sshd<br>
+As root start <em>netstat -Wpc</em> to display the address to which sshd connects<br>
+<br>
+<br>
+<strong>When the address is known verify its location</strong><br>
+Open Iceweasel at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.en.utrace.de"<br>linktext was:"http://www.en.utrace.de"<br>====================================<br>
+, enter the ip address and search.<br>
+<br>
+<br>
+<strong>Observed</strong><br>
+sshd tried to establish an unathorised connection to 194.58.88.75 which is in Russia.<br>
+After the connection closes the /usr/sbin/sshd process continues run apparently awaiting its next wake-up call, which sometime later turned out to be 116.10.191.168 which is in China.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36900" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36900">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36900">
+
+<time datetime="2014-09-08T20:17">posted: 2014-09-08 &nbsp; 20:17</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36900" title="permalink">#7</a></span>
+
+<div class="content">Just a question from me, for interest.<br>
+Does the iso md5sum match the 'official' md5?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36901" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36901">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36901">
+
+<time datetime="2014-09-09T03:44">posted: 2014-09-09 &nbsp; 03:44</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36901" title="permalink">#8</a></span>
+
+<div class="content">Samk maybe you could do a dpkg --list for an infected machine for those with non infected machines to compare? And possibly post a few of the logs in /var/logs like ssh and Auth log? Also seeing how this is a trial and a reinstall is done for each attempt I am guessing you are using different passwords for each attempt... it may be worth noting as well if there is a firewall on the machine and / or on your network. another interesting test may be to stop the sshd service and see if there are still ssh sessions happening. Perhaps these"supposed" logins are actually from another ssh service. I know that the netstat command will also display information based on any traffic on a specific port. So even though ssh is showing it may be possible that they are only attempts and not logins to the computer (thus the auth.log would be beneficial) <br>
+<br>
+Ps the server should be up. I am going to add some external monitoring to verify that it is up solidly. There also does not seem to be activity on the server that sticks out like a sore thumb. I will be checking package integrity for the repo files to make sure none of them are modified to potentially cause a backdoor. However I would think it very unlikely seeing how there are no apparent logins and that even a non updated system in your tests can be compromised.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36903" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36903">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">SamK</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36903">
+
+<time datetime="2014-09-09T09:34">posted: 2014-09-09 &nbsp; 09:34</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36903" title="permalink">#9</a></span>
+
+<div class="content">﻿<blockquote><div><cite>fatmac wrote:</cite>Just a question from me, for interest.<br>
+Does the iso md5sum match the 'official' md5?</div></blockquote>Yes, they match.<br>
+<br>
+<blockquote><div><cite>dolphin_oracle wrote:</cite>this sounds close to what happend to this guy.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://blogg.openend.se/2014/3/2/malware-under-linux"<br>linktext was:"http://blogg.openend.se/2014/3/2/malware-under-linux"<br>====================================<br>
+<br>
+<br>
+this guy was running debian on a server. he never found the entry vector either.</div></blockquote>There are certainly some similarities.
+<ul>
+<li>Cron was used</li>
+<li><em>/</em>etc/init.d was compromised e.g. S99DbSecuritySpt amongst others was delivered by the trojan</li>
+<li>Immutable files were created by the trojan</li></ul>
+It also has similarities to and may be a variation of:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.securityweek.com/kaspersky-lab-details-versatile-ddos-trojan-linux-systems"<br>linktext was:"https://www.securityweek.com/kaspersky- ... ux-systems"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://blog.malwaremustdie.org/2014/05/linux-reversing-is-fun-toying-with-elf.html"<br>linktext was:"http://blog.malwaremustdie.org/2014/05/ ... h-elf.html"<br>====================================<br>
+<br>
+<br>
+It seems closest to this<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://remchp.com/blog/?p=163"<br>linktext was:"http://remchp.com/blog/?p=163"<br>====================================<br>
+<br>
+Have a look down the page to get an idea of how the trojan works<br>
+<br>
+<br>
+It appears to have three distinct elements
+<ol style="list-style-type: decimal">
+<li> Allow root access via ssh to the local system</li>
+<li> Deliver a trojan to the local system, as seen here and documented across the web</li>
+<li> Have defence mechanisms built in e.g. self-renewal and track covering as described in the above honey pot test and seen here</li></ol>
+<br>
+<blockquote><div><cite>Dave wrote:</cite>...is a firewall on the machine and / or on your network</div></blockquote>Yes, in this test environment the LAN firewall is always operational.<br>
+<blockquote><div><cite>Dave wrote:</cite>...stop the sshd service and see if there are still ssh sessions happening. Perhaps these"supposed" logins are actually from another ssh service.</div></blockquote>As far as I can remember the Debian default is to boot with both sshd running and with root ssh access granted. Tthe login attempts are definitely external and bogus.<br>
+<blockquote><div><cite>Dave wrote:</cite>So even though ssh is showing it may be possible that they are only attempts and not logins to the computer</div></blockquote>As mentioned in a previous post the login attempts are not always successful, but always repeat trying different addresses.<br>
+<blockquote><div><cite>Dave wrote:</cite>I am guessing you are using different passwords for each attempt...</div></blockquote>The quality of the password does seem relevant. An account for a test user with a password that was not guessed produced the following abstracted from auth.log
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+Sep  8 18:06:21 antiX1 sshd[3317]: Server listening on 0.0.0.0 port 22.
+Sep  8 18:06:21 antiX1 sshd[3317]: Server listening on :: port 22.
+Sep  8 18:11:31 antiX1 sshd[4064]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=194.58.88.75  user=root
+Sep  8 18:11:33 antiX1 sshd[4064]: Failed password for root from 194.58.88.75 port 38177 ssh2
+Sep  8 18:11:33 antiX1 sshd[4064]: Received disconnect from 194.58.88.75: 11: Bye Bye [preauth]
+ADDED BY SAMK the above lines repeated many times
+...
+Sep  8 18:32:08 antiX1 sshd[7282]: Did not receive identification string from 116.10.191.168
+Sep  8 18:33:48 antiX1 sshd[7517]: Invalid user admin from 116.10.191.168
+Sep  8 18:33:48 antiX1 sshd[7517]: input_userauth_request: invalid user admin [preauth]
+Sep  8 18:33:49 antiX1 sshd[7517]: pam_unix(sshd:auth): check pass; user unknown
+Sep  8 18:33:49 antiX1 sshd[7517]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=116.10.191.168 
+Sep  8 18:33:51 antiX1 sshd[7517]: Failed password for invalid user admin from 116.10.191.168 port 47697 ssh2
+ADDED BY SAMK the above lines repeated many times
+...
+08:17:01 antiX1 CRON[15927]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 08:17:01 antiX1 CRON[15927]: pam_unix(cron:session): session closed for user root
+Sep  9 08:21:58 antiX1 sshd[16642]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=113.247.227.28  user=root
+Sep  9 08:22:00 antiX1 sshd[16642]: Failed password for root from 113.247.227.28 port 3526 ssh2
+Sep  9 08:22:00 antiX1 sshd[16642]: Received disconnect from 113.247.227.28: 11: Bye Bye [preauth]
+Sep  9
+ADDED BY SAMK the above lines repeated many times
+...
+08:31:46 antiX1 sshd[18082]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=60.173.10.142  user=root
+Sep  9 08:31:48 antiX1 sshd[18082]: Failed password for root from 60.173.10.142 port 2718 ssh2
+Sep  9 08:31:48 antiX1 sshd[18082]: Received disconnect from 60.173.10.142: 11: Normal Shutdown, Thank you for playing [preauth]
+ADDED BY SAMK the above lines repeated many times
+...
+09:20:17 antiX1 sshd[26061]: Invalid user admin from 61.190.90.196
+Sep  9 09:20:17 antiX1 sshd[26061]: input_userauth_request: invalid user admin [preauth]
+Sep  9 09:20:17 antiX1 sshd[26061]: pam_unix(sshd:auth): check pass; user unknown
+Sep  9 09:20:17 antiX1 sshd[26061]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=61.190.90.196 
+Sep  9 09:20:20 antiX1 sshd[26061]: Failed password for invalid user admin from 61.190.90.196 port 3177 ssh2
+Sep  9 09:20:20 antiX1 sshd[26061]: Received disconnect from 61.190.90.196: 11: Bye Bye [preauth]
+</code></pre></div>
+Blind chance ensured the trojan part of the infection could not be installed because the password was not guessed. It seems only a question of time and repeated tries until it is cracked. I suspect that using an easily guessable password, (such as the word"password") will contribute to ease of the trojan element being installed.<br>
+<br>
+<br>
+<br>
+Because the antiX-shipped ISO is compromised and the Debian default is to allow root ssh access, it is an insufficient defence to rely solely upon the strength of a password. The ability to perpetually make bogus login attempts increases the likelihood that a system will eventually become infected with the trojan element. In my opinion, focussing on the origin of the problem within the ISO is the way forward. Closing that door means that a strong password provides a *further* layer of defence which is a preferable long term resolution.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36909" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36909">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36909">
+
+<time datetime="2014-09-09T19:47">posted: 2014-09-09 &nbsp; 19:47</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36909" title="permalink">#10</a></span>
+
+<div class="content">I've been running my antiX system all day, and so far no evidence similar to SamK's. Has anyone duplicated this?<br>
+<br>
+no changes in /var/spool/crontab or rc.local, at least so far.<br>
+<br>
+<br>
+***edit***</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36910" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36910">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36910">
+
+<time datetime="2014-09-09T20:59">posted: 2014-09-09 &nbsp; 20:59</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36910" title="permalink">#11</a></span>
+
+<div class="content">Not on any of my machines and I am kind of curious as to how the ssh logins are happening when the auth.log does not seem to show a login and it is behind a firewall... the firewall I guess has an port forward to the machine in question? If not then my question is how are we bypassing the firewall? If it is reverse ssh sessions (machine is tunneling out to a server) than it would make sense as to why there doesn't appear to be anything successful in the auth.log and how the firewall is being bypassed. then the question becomes how did the machine start to make the tunneling...</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36920" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36920">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36920">
+
+<time datetime="2014-09-10T06:52">posted: 2014-09-10 &nbsp; 06:52</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36920" title="permalink">#12</a></span>
+
+<div class="content">@Dave<br>
+Thanks for taking the time to ensure your servers are clean, appreciated.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36921" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36921">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36921">
+
+<time datetime="2014-09-10T08:15">posted: 2014-09-10 &nbsp; 08:15</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36921" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>no changes in /var/spool/crontab or rc.local, at least so far.</div></blockquote>These only occur once the trojan is installed (and probably rebooted). If the bogus ssh has not been able to guess the password to the local system, the changes to the files do not happen. Have a look in /var/log/auth.log to see if it contains any failed login attempts similar to those in my previous post.<br>
+<br>
+By way of additional information about all the tests
+<ul>
+<li> are made using real hardware rather than virtual machines</li>
+<li> are conventionally installed to a physical hard disk (no live, no frugal etc)</li>
+<li> are done using the standard antiX installer</li>
+<li> are installed by booting antix-13.2_386-full.iso to its standard installation environment</li></ul>
+Note: Booting using the ISO does not automatically start sshd. It is automatically started after the OS is installed and rebooted.<br>
+<br>
+<br>
+<blockquote><div><cite>Dave wrote:</cite>...the firewall I guess has an port forward to the machine in question?</div></blockquote>A good guess but not quite right. Port fowarding is set up for others systems but not for this one. However, NAT is operating for this system but not for others. I have disabled NAT and will monitor what happens.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36922" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile36922">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36922">
+
+<time datetime="2014-09-10T11:56">posted: 2014-09-10 &nbsp; 11:56</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36922" title="permalink">#14</a></span>
+
+<div class="content">I'm behind a nat. I've let the system stay on for an entire day. here is the auth.log for yesterday through this morning.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Sep  9 07:58:38 littlebyte slim: PAM unable to dlopen(pam_gnome_keyring.so): /lib/security/pam_gnome_keyring.so: cannot open shared object file: No such file or directory
+Sep  9 07:58:38 littlebyte slim: PAM adding faulty module: pam_gnome_keyring.so
+Sep  9 07:58:42 littlebyte slim: pam_unix(slim:session): session opened for user dolphin by (uid=0)
+Sep  9 07:58:50 littlebyte dbus[2841]: [system] Rejected send message, 2 matched rules; type="method_call", sender=":1.15" (uid=1000 pid=3294 comm="synapse -s") interface="org.freedesktop.DBus.Properties" member="GetAll" error name="(unset)" requested_reply="0" destination=":1.2" (uid=0 pid=3012 comm="/usr/sbin/console-kit-daemon --no-daemon")
+Sep  9 07:58:50 littlebyte dbus[2841]: [system] Rejected send message, 2 matched rules; type="method_call", sender=":1.15" (uid=1000 pid=3294 comm="synapse -s") interface="org.freedesktop.DBus.Properties" member="GetAll" error name="(unset)" requested_reply="0" destination=":1.2" (uid=0 pid=3012 comm="/usr/sbin/console-kit-daemon --no-daemon")
+Sep  9 07:59:02 littlebyte sudo:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/usr/local/bin/connectshares.sh /home/dolphin/.config/connectshares/connectshares.conf
+Sep  9 07:59:02 littlebyte sudo: pam_unix(sudo:session): session opened for user root by (uid=0)
+Sep  9 07:59:02 littlebyte sudo: pam_unix(sudo:session): session closed for user root
+Sep  9 08:15:29 littlebyte su[7067]: Successful su for root by dolphin
+Sep  9 08:15:29 littlebyte su[7067]: + /dev/pts/0 dolphin:root
+Sep  9 08:15:29 littlebyte su[7067]: pam_unix(su:session): session opened for user root by (uid=1000)
+Sep  9 08:17:01 littlebyte CRON[8015]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 08:17:01 littlebyte CRON[8015]: pam_unix(cron:session): session closed for user root
+Sep  9 08:22:12 littlebyte su[9284]: Successful su for root by dolphin
+Sep  9 08:22:12 littlebyte su[9284]: + /dev/pts/2 dolphin:root
+Sep  9 08:22:12 littlebyte su[9284]: pam_unix(su:session): session opened for user root by dolphin(uid=1000)
+Sep  9 09:17:01 littlebyte CRON[26975]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 09:17:01 littlebyte CRON[26975]: pam_unix(cron:session): session closed for user root
+Sep  9 10:17:01 littlebyte CRON[10814]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 10:17:01 littlebyte CRON[10814]: pam_unix(cron:session): session closed for user root
+Sep  9 11:17:01 littlebyte CRON[28075]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 11:17:01 littlebyte CRON[28075]: pam_unix(cron:session): session closed for user root
+Sep  9 11:23:16 littlebyte su[9284]: pam_unix(su:session): session closed for user root
+Sep  9 11:23:43 littlebyte su[29113]: Successful su for root by dolphin
+Sep  9 11:23:43 littlebyte su[29113]: + /dev/pts/1 dolphin:root
+Sep  9 11:23:43 littlebyte su[29113]: pam_unix(su:session): session opened for user root by (uid=1000)
+Sep  9 11:24:01 littlebyte su[29113]: pam_unix(su:session): session closed for user root
+Sep  9 11:24:05 littlebyte sudo:  dolphin : TTY=unknown ; PWD=/home/dolphin ; USER=root ; COMMAND=/usr/local/bin/persist-config --shutdown --command reboot
+Sep  9 11:24:05 littlebyte sudo: pam_unix(sudo:session): session opened for user root by (uid=0)
+Sep  9 11:24:06 littlebyte sudo: pam_unix(sudo:session): session closed for user root
+Sep  9 11:24:08 littlebyte su[7067]: pam_unix(su:session): session closed for user root
+Sep  9 11:24:45 littlebyte slim: PAM unable to dlopen(pam_gnome_keyring.so): /lib/security/pam_gnome_keyring.so: cannot open shared object file: No such file or directory
+Sep  9 11:24:45 littlebyte slim: PAM adding faulty module: pam_gnome_keyring.so
+Sep  9 11:24:49 littlebyte slim: pam_unix(slim:session): session opened for user dolphin by (uid=0)
+Sep  9 11:24:59 littlebyte dbus[2830]: [system] Rejected send message, 2 matched rules; type="method_call", sender=":1.14" (uid=1000 pid=3216 comm="synapse -s") interface="org.freedesktop.DBus.Properties" member="GetAll" error name="(unset)" requested_reply="0" destination=":1.6" (uid=0 pid=3120 comm="/usr/sbin/console-kit-daemon --no-daemon")
+Sep  9 11:24:59 littlebyte dbus[2830]: [system] Rejected send message, 2 matched rules; type="method_call", sender=":1.14" (uid=1000 pid=3216 comm="synapse -s") interface="org.freedesktop.DBus.Properties" member="GetAll" error name="(unset)" requested_reply="0" destination=":1.6" (uid=0 pid=3120 comm="/usr/sbin/console-kit-daemon --no-daemon")
+Sep  9 11:25:09 littlebyte sudo:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/usr/local/bin/connectshares.sh /home/dolphin/.config/connectshares/connectshares.conf
+Sep  9 11:25:09 littlebyte sudo: pam_unix(sudo:session): session opened for user root by (uid=0)
+Sep  9 11:25:09 littlebyte sudo: pam_unix(sudo:session): session closed for user root
+Sep  9 11:25:23 littlebyte su[3872]: Successful su for root by dolphin
+Sep  9 11:25:23 littlebyte su[3872]: + /dev/pts/0 dolphin:root
+Sep  9 11:25:23 littlebyte su[3872]: pam_unix(su:session): session opened for user root by dolphin(uid=1000)
+Sep  9 11:33:07 littlebyte su[3872]: pam_unix(su:session): session closed for user root
+Sep  9 11:33:18 littlebyte su[5422]: Successful su for root by dolphin
+Sep  9 11:33:18 littlebyte su[5422]: + /dev/pts/1 dolphin:root
+Sep  9 11:33:18 littlebyte su[5422]: pam_unix(su:session): session opened for user root by (uid=1000)
+Sep  9 11:33:44 littlebyte su[5422]: pam_unix(su:session): session closed for user root
+Sep  9 11:34:14 littlebyte su[5677]: Successful su for root by dolphin
+Sep  9 11:34:14 littlebyte su[5677]: + /dev/pts/0 dolphin:root
+Sep  9 11:34:14 littlebyte su[5677]: pam_unix(su:session): session opened for user root by dolphin(uid=1000)
+Sep  9 12:00:17 littlebyte sshd[26049]: Server listening on 0.0.0.0 port 22.
+Sep  9 12:00:17 littlebyte sshd[26049]: Server listening on :: port 22.
+Sep  9 12:07:50 littlebyte su[5677]: pam_unix(su:session): session closed for user root
+Sep  9 12:07:52 littlebyte sshd[26049]: Received signal 15; terminating.
+Sep  9 12:08:35 littlebyte sshd[3015]: Server listening on 0.0.0.0 port 22.
+Sep  9 12:08:35 littlebyte sshd[3015]: Server listening on :: port 22.
+Sep  9 12:08:35 littlebyte slim: PAM unable to dlopen(pam_gnome_keyring.so): /lib/security/pam_gnome_keyring.so: cannot open shared object file: No such file or directory
+Sep  9 12:08:35 littlebyte slim: PAM adding faulty module: pam_gnome_keyring.so
+Sep  9 12:08:39 littlebyte slim: pam_unix(slim:session): session opened for user dolphin by (uid=0)
+Sep  9 12:08:48 littlebyte dbus[2950]: [system] Rejected send message, 2 matched rules; type="method_call", sender=":1.11" (uid=1000 pid=3236 comm="synapse -s") interface="org.freedesktop.DBus.Properties" member="GetAll" error name="(unset)" requested_reply="0" destination=":1.6" (uid=0 pid=3140 comm="/usr/sbin/console-kit-daemon --no-daemon")
+Sep  9 12:08:48 littlebyte dbus[2950]: [system] Rejected send message, 2 matched rules; type="method_call", sender=":1.11" (uid=1000 pid=3236 comm="synapse -s") interface="org.freedesktop.DBus.Properties" member="GetAll" error name="(unset)" requested_reply="0" destination=":1.6" (uid=0 pid=3140 comm="/usr/sbin/console-kit-daemon --no-daemon")
+Sep  9 12:08:59 littlebyte sudo:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/usr/local/bin/connectshares.sh /home/dolphin/.config/connectshares/connectshares.conf
+Sep  9 12:08:59 littlebyte sudo: pam_unix(sudo:session): session opened for user root by (uid=0)
+Sep  9 12:08:59 littlebyte sudo: pam_unix(sudo:session): session closed for user root
+Sep  9 12:09:34 littlebyte sshd[3015]: Received signal 15; terminating.
+Sep  9 12:09:34 littlebyte sshd[3984]: Server listening on 0.0.0.0 port 22.
+Sep  9 12:09:34 littlebyte sshd[3984]: Server listening on :: port 22.
+Sep  9 12:17:01 littlebyte CRON[5244]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 12:17:01 littlebyte CRON[5244]: pam_unix(cron:session): session closed for user root
+Sep  9 13:17:01 littlebyte CRON[15372]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 13:17:01 littlebyte CRON[15372]: pam_unix(cron:session): session closed for user root
+Sep  9 14:17:01 littlebyte CRON[25494]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 14:17:01 littlebyte CRON[25494]: pam_unix(cron:session): session closed for user root
+Sep  9 15:17:01 littlebyte CRON[3386]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 15:17:01 littlebyte CRON[3386]: pam_unix(cron:session): session closed for user root
+Sep  9 15:37:48 littlebyte su[7009]: Successful su for root by dolphin
+Sep  9 15:37:48 littlebyte su[7009]: + /dev/pts/0 dolphin:root
+Sep  9 15:37:48 littlebyte su[7009]: pam_unix(su:session): session opened for user root by dolphin(uid=1000)
+Sep  9 15:43:27 littlebyte su[7009]: pam_unix(su:session): session closed for user root
+Sep  9 15:56:48 littlebyte su[10953]: Successful su for root by dolphin
+Sep  9 15:56:48 littlebyte su[10953]: + /dev/pts/0 dolphin:root
+Sep  9 15:56:48 littlebyte su[10953]: pam_unix(su:session): session opened for user root by dolphin(uid=1000)
+Sep  9 15:57:31 littlebyte su[10953]: pam_unix(su:session): session closed for user root
+Sep  9 15:58:16 littlebyte su[11329]: Successful su for root by dolphin
+Sep  9 15:58:16 littlebyte su[11329]: + /dev/pts/0 dolphin:root
+Sep  9 15:58:16 littlebyte su[11329]: pam_unix(su:session): session opened for user root by dolphin(uid=1000)
+Sep  9 16:00:40 littlebyte su[11329]: pam_unix(su:session): session closed for user root
+Sep  9 16:00:48 littlebyte su[11889]: Successful su for root by dolphin
+Sep  9 16:00:48 littlebyte su[11889]: + /dev/pts/0 dolphin:root
+Sep  9 16:00:48 littlebyte su[11889]: pam_unix(su:session): session opened for user root by dolphin(uid=1000)
+Sep  9 16:17:01 littlebyte CRON[14721]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 16:17:01 littlebyte CRON[14721]: pam_unix(cron:session): session closed for user root
+Sep  9 17:17:01 littlebyte CRON[24839]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 17:17:01 littlebyte CRON[24839]: pam_unix(cron:session): session closed for user root
+Sep  9 18:17:01 littlebyte CRON[2514]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 18:17:01 littlebyte CRON[2514]: pam_unix(cron:session): session closed for user root
+Sep  9 19:17:01 littlebyte CRON[12790]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 19:17:01 littlebyte CRON[12790]: pam_unix(cron:session): session closed for user root
+Sep  9 20:17:01 littlebyte CRON[23340]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 20:17:01 littlebyte CRON[23340]: pam_unix(cron:session): session closed for user root
+Sep  9 21:17:01 littlebyte CRON[999]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 21:17:01 littlebyte CRON[999]: pam_unix(cron:session): session closed for user root
+Sep  9 22:08:01 littlebyte CRON[9761]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 22:08:02 littlebyte CRON[9761]: pam_unix(cron:session): session closed for user root
+Sep  9 22:17:01 littlebyte CRON[11291]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 22:17:01 littlebyte CRON[11291]: pam_unix(cron:session): session closed for user root
+Sep  9 23:17:01 littlebyte CRON[21425]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep  9 23:17:01 littlebyte CRON[21425]: pam_unix(cron:session): session closed for user root
+Sep  9 23:28:01 littlebyte CRON[23285]: pam_unix(cron:session): session opened for user dolphin by (uid=0)
+Sep  9 23:28:01 littlebyte CRON[23285]: pam_unix(cron:session): session closed for user dolphin
+Sep 10 00:17:01 littlebyte CRON[31553]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep 10 00:17:01 littlebyte CRON[31553]: pam_unix(cron:session): session closed for user root
+Sep 10 01:17:01 littlebyte CRON[9482]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep 10 01:17:01 littlebyte CRON[9482]: pam_unix(cron:session): session closed for user root
+Sep 10 02:17:01 littlebyte CRON[19614]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep 10 02:17:01 littlebyte CRON[19614]: pam_unix(cron:session): session closed for user root
+Sep 10 03:17:01 littlebyte CRON[29741]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep 10 03:17:01 littlebyte CRON[29741]: pam_unix(cron:session): session closed for user root
+Sep 10 04:17:01 littlebyte CRON[7550]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep 10 04:17:01 littlebyte CRON[7550]: pam_unix(cron:session): session closed for user root
+Sep 10 05:17:01 littlebyte CRON[17681]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep 10 05:17:01 littlebyte CRON[17681]: pam_unix(cron:session): session closed for user root
+Sep 10 06:17:01 littlebyte CRON[27917]: pam_unix(cron:session): session opened for user root by (uid=0)
+Sep 10 06:17:01 littlebyte CRON[27917]: pam_unix(cron:session): session closed for user root
+Sep 10 06:25:01 littlebyte CRON[29267]: pam_unix(cron:session): session opened for user root by (uid=0)
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_36929" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile36929">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content36929">
+
+<time datetime="2014-09-11T10:22">posted: 2014-09-11 &nbsp; 10:22</time>
+<span class="permalink"><a href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257.html#p36929" title="permalink">#15</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite><blockquote><div><cite>Dave wrote:</cite>...the firewall I guess has an port forward to the machine in question?</div></blockquote>A good guess but not quite right. Port fowarding is set up for others systems but not for this one. However, NAT is operating for this system but not for others. I have disabled NAT and will monitor what happens.</div></blockquote>After running for almost a day with NAT disabled, the bogus ssh login attempts have stopped. Although not 100% definitive it seems highly likely that the previous tests led to the mistaken conlusion that the shipped antiX ISO was compromised. I will continue to monitor and test using a working assumption that the problem lay in the configuration of the LAN firewall and *not* in antiX.<br>
+<br>
+Thanks to all who chipped in on this matter. In my view this topic is a good example of the benefit of having lots of eyes on a problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+26 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./unauthorised-sshd-activity-and-subsequent-infectio-t5257-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Autologin to X without a display manager - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./autologin-to-x-without-a-display-manager-t4518.html">Autologin to X without a display manager</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_30546" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30546">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30546">
+<time datetime="2013-08-03T18:18">posted: 2013-08-03 &nbsp; 18:18</time>
+<span class="permalink"><a href="./autologin-to-x-without-a-display-manager-t4518.html#p30546" title="permalink">#1</a></span>
+
+<div class="content">I'm trying to automatically start a desktop environment without login, or running any display manager in the background.<br>
+My goal is to better understand how things are working. <br>
+<br>
+OK, so .. If I understand correctly:<br>
+<br>
+- /etc/inittab specifies the default runlevel, in our case 5 and runs level S ( links in /etc/rcS.d)<br>
+- when entering runlevel 5, /etc/init.d/rc runs links named"SXXscriptname" in /etc/rc5.d <br>
+(links pointing to script files in /etc/init.d )<br>
+- one of the scripts is handling the display manager (start/stop service)<br>
+<br>
+I'm using lightdm &amp; Mate, but xfce is easier to start, therefore I tried this:<br>
+- renamed S21lightdm to K21lightdm in /etc/rc5.d and /etc/rcS.d <br>
+- Made a copy of /etc/init.d/lightdm script named nodm in the original directory<br>
+- added a link to nodm in /etc/rc5.d<br>
+- run 'update-rc.d lightdm defaults' and 'update-rc.d nodm defaults' as root<br>
+- edited the nodm script:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          no dm
+# Should-Start:      console-screen kbd acpid dbus hal consolekit
+# Required-Start:    $local_fs $remote_fs x11-common
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: No Display Manager
+# Description:       Debian init script for No Display Manager
+### END INIT INFO
+#
+# Author:       Eperbab
+#               
+#
+
+echo"No DM"
+set -e
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+#/bin/su - enzo -c"sudo -n startxfce4"
+#exec sudo -u enzo startxfce4
+#exec startxfce4
+/bin/su - enzo -c"startxfce4"
+exit 0</code></pre></div> <br>
+<br>
+Now I have the following problems:<br>
+- /bin/su - enzo -c"sudo -n startxfce4" will not start xfce, because user 'enzo' needs to be prompted for sudo, -n not supported<br>
+- exec sudo -u enzo startxfce4 will not start xfce, because user 'enzo' doesn't have the privilege to start X<br>
+- /bin/su - enzo -c"startxfce4" will not start xfce, because user 'enzo' doesn't have the privilege to start X<br>
+- exec startxfce4 starts XFCE .. as root. I don't want to surf the web as superuser.<br>
+<br>
+Interestingly, If I log in to console as 'enzo', and run startxfce4 from there without sudo, then it starts propely. <br>
+I guess it has something to do with duplicated lightdm start in rcS.d and rc5.d, and I need some orientation at this point. <br>
+(help, please.. )<br>
+<br>
+*** Update: Since I am able to manually start xfce/mate from tty1, I decided to modify the nodm script, so it logs in to tty1 as user.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          no dm
+# Should-Start:      console-screen kbd acpid dbus hal consolekit
+# Required-Start:    $local_fs $remote_fs x11-common
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: No Display Manager
+# Description:       Debian init script for No Display Manager
+### END INIT INFO
+#
+# Author:       Eperbab
+
+echo"No DM"
+set -e
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+/bin/login -f enzo tty1 &lt;/dev/tty1 &gt;/dev/tty1 2&gt;&amp;1
+
+exit 0</code></pre></div>
+As a next step I added this to ~/.bashrc:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>if ["$(tty)" ="/dev/tty1" ] ; then
+startx
+fi</code></pre></div>
+It works, but.. if I replace"startx" with"exec mate-session" ,then it won't start. Also tried to run"exec startxfce4", and at first it worked, but I accidentally run"exec mate-session" while xfce was running. This time it started! <br>
+Now if - after restarting PC - I start xfce, then mate also starts.<br>
+And the"switch off" button is greyed out. I can only log out.<br>
+<a href="http://img837.imageshack.us/i/2mys.png/" class="postlink"><img src="http://img837.imageshack.us/img837/2842/2mys.th.png" class="postimage" alt="Image"></a><br>
+Any idea?</div>
+<div class="notice">
+Last edited by <b>Eperbab</b> on 03 Aug 2013, 20:32, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30550" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30550">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30550">
+
+<time datetime="2013-08-03T20:26">posted: 2013-08-03 &nbsp; 20:26</time>
+<span class="permalink"><a href="./autologin-to-x-without-a-display-manager-t4518.html#p30550" title="permalink">#2</a></span>
+
+<div class="content">First I suggest starting X as a normal user running xinit:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>xinit [desktop] -- :&lt;display&gt;</code></pre></div>where [desktop] is the desktop program you want to run such as xfce and &lt;display&gt; is usually either 0 or 1. It specifies which virtual console to open X on: 0 --&gt; vt7 and 1 --&gt; vt8. You can have xcfc automatically added to your .xinitrc file with the update-default-desktop program. Make sure this works from a virtual console as user enzo.<br>
+<br>
+Next, instead of dealing with /etc/init.d scripts, I would suggest that you"sacrifice" one of the virtual consoles for this task. Let's use tty3. Edit /etc/inittab and change the line that starts with"3:" to:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>3:2345:respawn:/usr/sbin/autologin tty3 login -f enzo</code></pre></div>
+This will automatically open up a bash shell in vc3 (get to it with &lt;ctrl&gt;&lt;alt&gt;&lt;f3&gt;). Use"sudo telinit q" to get the init process to reread the /etc/inittab file. Log into vc3 and then exit from the shell. If the above line works then every time you exit you should get back to a shell without having to enter your username and password.<br>
+<br>
+Now make a little shell script at /usr/local/bin/my-xinit that starts up X the way you want it:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+/usr/bin/xinit xfce -- :1</code></pre></div>Make sure you run"chmod a+x /usr/local/bin/my-xinit". You can test the script by running it from a virtual console.<br>
+<br>
+Now replace the 3: line in inittab with:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>3:2345:respawn:/usr/sbin/autologin tty3  /bin/su -c /usr/local/bin/my-xinit enzo</code></pre></div>so it runs the my-xinit script as enzo instead of opening up a login shell. Run"sudo telinit q" again then switch to vt3 and run"exit". If it all works then X will start up when you do this. <br>
+<br>
+I tested this on my Gentoo system. It is possible things are slightly different in antiX but the idea is the same. The format of the inittab line might be a little different and the locations of some programs may be different. This should be easy to debug because you can test the parts separately and you don't have to reboot to try it. You can have your normal X session running in vt7 while you test the new system in vt8.<br>
+<br>
+Once it is all working, edit your menu.lst to boot into runlevel 3 to keep the normal desktop manager from starting. The way it is set up now, X will automatically restart whenever you exit from it. You can change this by adding a few more lines to my-xinit. This may not be the"best" or most secure approach but it is easy and flexible. <br>
+<br>
+I've been wanting to offer an option to replace SLiM with a text based desktop-manager. It would use some of the ideas here. Instead of immediately running xinit, the script would first prompt with a list of desktop programs to run.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30559" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30559">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30559">
+
+<time datetime="2013-08-04T20:55">posted: 2013-08-04 &nbsp; 20:55</time>
+<span class="permalink"><a href="./autologin-to-x-without-a-display-manager-t4518.html#p30559" title="permalink">#3</a></span>
+
+<div class="content"><span style="font-size: 85%; line-height: normal">During the tests I managed to screw up my default user's home - mate always starts if X starts, regardless choosen desktop. My mistake. But I continued testing with enzo2 user.</span><br>
+<br>
+So this method works:<br>
+<br>
+Steps 1-4 perform autologin, 5-6 run the requested environment. If you don't need the autologin feature, then skip steps 2-3 and 4B.<br>
+<br>
+Step 1. The display manager should not start. <br>
+Options:<br>
+1. uninstall the display manager or<br>
+2. edit /etc/rc5.d and rcS.d as root. In case of the lightdm display manager I renamed S21lightdm to K21lightdm in /etc/rc5.d and /etc/rcS.d. Do the same with your display manager. Numbers after S may vary.<br>
+<br>
+Step 2. Add my nodm script to /etc/init.d , and make it rwx for root (set the executable bit).<br>
+<strong>Replace"enzo2" everywhere in the script with the username who should autologin.</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          no dm
+# Should-Start:      console-screen kbd acpid dbus hal consolekit
+# Required-Start:    $local_fs $remote_fs x11-common
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: No Display Manager
+# Description:       Debian init script for No Display Manager
+### END INIT INFO
+#
+# Author:       Eperbab
+
+echo"No DM"
+set -e
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+/bin/login -f enzo2 tty1 &lt;/dev/tty1 &gt;/dev/tty1 2&gt;&amp;1
+#/usr/sbin/autologin tty1  /bin/su -c /home/enzo2/.zsession enzo2
+
+exit 0</code></pre></div>
+Remark: the commented '/usr/sbin/autologin..' line also works. Feel free to comment '/bin/login/..' and uncomment '/usr/sbin/autologin..'.<br>
+<br>
+Step 3. Add a link of nodm script to /etc/rc5.d . Use the numbers of your display manager, or any free two digit number. In my case it was S21nodm.<br>
+<br>
+Step 4. Update init config:<br>
+A, if you have chosen option 2 in step 1: Run 'update-rc.d lightdm defaults' as root. Replace"lightdm" with your dm.<br>
+B, Run 'update-rc.d nodm defaults' as root. So nodm script will run propely. <br>
+<br>
+Step 5. Edit ~/.profile for the user who will autologin. Add this to the end of the file:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>if ["$(tty)" ="/dev/tty1" ] ; then
+exec ~/.zsession
+fi</code></pre></div>
+So if the user logs in to tty1, then the (not yet created) script ~/.zsession will run. If anything goes wrong with the script, the user will be logged off automatically at tty1. Troubleshooting: In this case hit Ctrl+alt+F2 and log into tty2. The .zsession script will not run there. Run 'startx', 'xinit' or things like 'xinit rox-fluxbox -- :0' etc.<br>
+<br>
+Step 6. Create the script ~/zsession for the user who will autologin. Make it executable. It will start xinit. Replace"mate" with your prefferred choice. Valid choices are listed in ~/.xinitrc. e.g." Rox-fluxbox|rox-fluxbox)" means you can select rox-fluxbox. (with OR without capital R)
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh
+/usr/bin/xinit mate -- :0</code></pre></div>
+Special thanks to BitJam. Without his post I would not post it here.<br>
+<br>
+Remarks: ~/.zsession could be the place to create a text base login manager script. In this case"mate" can be replaced by a parameter defined by the script. The nodm script may wait x seconds for a valid username, and login that user. Since every user can have his/her own ~/.zsession script, this solution would be a fully functional multiuser friendly login manager solution.<br>
+<br>
+Remaining problems: shutdown button doesn't work (greyed out or not avalaible) in big desktop environments like mate or xfce.<br>
+AntiX shutdown script should be added to the GUI manually.<br>
+<br>
+Screenshots:<br>
+/bin/login way:<br>
+<a href="http://img713.imageshack.us/i/g9ig.png/" class="postlink"><img src="http://img713.imageshack.us/img713/5536/g9ig.th.png" class="postimage" alt="Image"></a><br>
+/usr/sbin/autologin way:<br>
+<a href="http://img839.imageshack.us/i/385c.png/" class="postlink"><img src="http://img839.imageshack.us/img839/5818/385c.th.png" class="postimage" alt="Image"></a></div>
+<div class="notice">
+Last edited by <b>Eperbab</b> on 05 Aug 2013, 15:50, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30562" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30562">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30562">
+
+<time datetime="2013-08-04T21:57">posted: 2013-08-04 &nbsp; 21:57</time>
+<span class="permalink"><a href="./autologin-to-x-without-a-display-manager-t4518.html#p30562" title="permalink">#4</a></span>
+
+<div class="content">I'm glad you got it to work. Here are a couple of thoughts:
+<blockquote><div><cite>Eperbab wrote:</cite>Step 1. The display manager should not start. <br>
+Options: <br>
+1. uninstall the display manager or<br>
+2. edit /etc/rc5.d and rcS.d as root.</div></blockquote> A third option is to boot into runlevel 3 by adding the boot parameter"3". If you send xinit":1" instead of":0" then there will be no conflict if you omit the"3"; both X servers will run on different vt's.<br>
+<br>
+IMO, the Debian init.d scripts system is a big pain and quite brain-dead. YMMVG. That's why it seemed so much simpler to just modify one of the inittab entries. Also, I am concerned about a possible fight between the init process and your script over control of tty1 but maybe it's not an issue. ISTM that if you want to run something specific in a virtual console than the standard procedure is to modify inittab. <br>
+<br>
+BTW: My first idea was similar to what you did. I used autologin in inittab to autologin to tty3 and then in .bashrc if I detected we were in tty3 then I would run xinit. IoW, with your modified .profile, you should be able to get by with just an autologin on the tty that you want to use. I suggest using something other than tty1 so you don't lose the boot messages. ISTM the approach of detecting the tty in a startup scripts like .bashrc or .profile was more fragile and complicated than the method I eventually suggested.<br>
+<br>
+The important thing is that you got it working to your satisfaction. Congrats.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30579" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30579">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30579">
+
+<time datetime="2013-08-05T16:18">posted: 2013-08-05 &nbsp; 16:18</time>
+<span class="permalink"><a href="./autologin-to-x-without-a-display-manager-t4518.html#p30579" title="permalink">#5</a></span>
+
+<div class="content">Thanks. The other motivation to not use a DM was that I have an outdated, not supported hardware (Radeon 9200 SE + non-standards compliant TV-monitor), and according to my experiments I have two options to run lightdm/kdm/gdm/etc:<br>
+A, If I set"options radeon modeset=0" in /etc/modeprobe.d/radeon-kms.conf, then lightdm runs propely, X starts, but tty1-6 doesn't show up. I have to kill X with with ctrl+alt+backspace to see the terminals.<br>
+B, After modeset=1 lightdm starts but won't show up, and X crashes, but tty1-6 is visible.<br>
+<br>
+Now the nodm script logs me in to tty1 and ~/.profile loads the environment, so X starts propely and tty1-6 are also visible.<br>
+And now that I can switch again between terminal and X (like in the good old days with Ubuntu 6.05), I can start again several X paralel. <br>
+Just for fun: <br>
+<a href="http://img706.imageshack.us/i/6l21.png/" class="postlink"><img src="http://img706.imageshack.us/img706/693/6l21.th.png" class="postimage" alt="Image"></a><br>
+<br>
+The only remaining task is to make a shutdown script and a shutdown button on the upper panel. The default shutdown button doesn't work without a DM. (xfce/mate/..)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30581" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30581">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+ </div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30581">
+
+<time datetime="2013-08-05T22:52">posted: 2013-08-05 &nbsp; 22:52</time>
+<span class="permalink"><a href="./autologin-to-x-without-a-display-manager-t4518.html#p30581" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>Eperbab wrote:</cite>The only remaining task is to make a shutdown script and a shutdown button on the upper panel. The default shutdown button doesn't work without a DM. (xfce/mate/..)</div></blockquote>
+Have you tried the /usr/local/bin/exitantix.sh script?<br>
+<br>
+If you don't want all the options it gives you, it should be easy to pare it down. On non-live systems it executes:<br>
+<br>
+"sudo halt" and"sudo reboot"<br>
+<br>
+to shutdown and reboot the system.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30587" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30587">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30587">
+
+<time datetime="2013-08-06T20:42">posted: 2013-08-06 &nbsp; 20:42</time>
+<span class="permalink"><a href="./autologin-to-x-without-a-display-manager-t4518.html#p30587" title="permalink">#7</a></span>
+
+<div class="content">Yes, I have found it before reading your reply.<br>
+I have remembered that there is an antix script, so started a fluxbox session, and did a 'ps -eF &gt;~/procX.txt' with and without the antix exit script running. Checked the lists with diffuse, and found the difference:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>enzo      3710  3426  0  1686  1300   0 19:49 ?        00:00:00 /bin/bash /usr/local/bin/exitantix.sh
+enzo      3727  3710  1  7794  9412   0 19:49 ?        00:00:00 gtkdialog --program LOGOUT</code></pre></div>
+Tested the first one in virtual terminal, than created a .desktop file with the command '/bin/bash /usr/local/bin/exitantix.sh' and moved it to /home/common/exit_antix folder. Made it executable to the users group. Then I moved it with mouse to the upper panel, so a link was created there. <br>
+It looks like this now: <br>
+<a href="http://img11.imageshack.us/i/upnq.png/" class="postlink"><img src="http://img11.imageshack.us/img11/5348/upnq.th.png" class="postimage" alt="Image"></a></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30697" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30697">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 146</span></div>
+
+</div>
+</div>
+<span class="username">Eperbab</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Dec 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30697">
+
+<time datetime="2013-08-11T12:08">posted: 2013-08-11 &nbsp; 12:08</time>
+<span class="permalink"><a href="./autologin-to-x-without-a-display-manager-t4518.html#p30697" title="permalink">#8</a></span>
+
+<div class="content">Just realised that automount usb devices also doesn't work without a display manager. Followed the 99-usbstorage.rules trick from here:
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/mounting-usb-devices-in-rox-t3048.html"<br>linktext was:"link"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

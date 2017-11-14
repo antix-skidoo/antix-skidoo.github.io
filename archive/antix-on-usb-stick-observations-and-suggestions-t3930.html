@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX on USB Stick - Observations and Suggestions - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html">antiX on USB Stick - Observations and Suggestions</a></div>
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-on-usb-stick-observations-and-suggestions-t3930-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-on-usb-stick-observations-and-suggestions-t3930-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_26295" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26295">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26295">
+<time datetime="2012-09-26T14:46">posted: 2012-09-26 &nbsp; 14:46</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26295" title="permalink">#1</a></span>
+
+<div class="content">The script, new_usb.sh seems to be aimed at antiX-M11, and is not fully compatible with the changes introduced with antiX-12. Having spent a few days prodding and poking at this, here are some thoughts, observations and ideas as requested in shoutbox.<br>
+<br>
+<br>
+Not all the longform switches work (--whatever)<br>
+<br>
+<br>
+Specifying the persistance mode at the command line fails<br>
+<br>
+<br>
+Specifying an alternative file system label fails<br>
+<br>
+<br>
+Include the unit size in the help text of the size switch. It currently requires MB therefore GB needs to be expressed as MBx1000<br>
+<br>
+<br>
+A partition size less than or equal to 1000MB can be specified at the command line. Thereafter, it is not possible to specify in less than GB units (e.g. 1500MB=fail, 2000MB=OK). It would be preferable to specify a size in units of less than 1000MB<br>
+<br>
+<br>
+A bootcode of vga=791 is added by default to a GRUB command line. It is also possible to specify an alternative bootcode (e.g. vga=788) at the end of the new_usb.sh command line. In the latter case both are present in the GRUB command line when booting from the USB stick. It is preferable to use only the user specified bootcode when provided.<br>
+<br>
+<br>
+In systems that employ automounting of a USB drive upon plugging in, the script fails as it requires the drive to be manually unmounted. Perhaps this might be automated via unplugdrive.sh<br>
+<br>
+<br>
+When the USB stick contains multiple unmounted partitions/filesystems, the script fails to complete. It appears to handle the first partition OK but in the process mounts the second partition, causing the failure. Without examining the script in detail, I suspect mounting might occur in order apply the file system on the newly created partition.<br>
+<br>
+<br>
+There are issues with the on-screen progress information from the script when running.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+Copying antiX compressed file system (1MB) to the mounted device
+...
+
+... initrd
+cp: cannot stat `/tmp/antix_iso/boot/initrd*': No such file or directory
+... vmlinuz
+cp: cannot stat `/tmp/antix_iso/boot/vmlinuz*': No such file or directory
+</code></pre></div>These do not affect the successful completion of the script.<br>
+<br>
+<br>
+The ability to run from a USB stick will increase the chances of it being used on machines which run Windows as their primary installed OS. In such cases it might be helpful to provide a common area that is accessible to both Windows and Linux. Currently this may be possible via new_usb.sh, if the option to format the entire stick as FAT32 is chosen, but not if either ext2/3 is selected. This might be made available in all cases if new_usb.sh optionally offered to create two partitions as follows:<br>
+<br>
+Partition 1<br>
+Format=FAT32<br>
+Label=LINWIN-ZONE<br>
+Size=User discretion<br>
+Primary use=Exchange of files between Linux and Windows<br>
+<br>
+Partition 2<br>
+Format=ext2/3/FAT32 at user discretion<br>
+Label=antiXlive<br>
+Size=User discretion<br>
+Primary use=As at present (boot loader, antiX, persistent rootfs, persistent homefs)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26297" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26297">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 200</dd>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26297">
+
+<time datetime="2012-09-26T16:16">posted: 2012-09-26 &nbsp; 16:16</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26297" title="permalink">#2</a></span>
+
+<div class="content">Nice job, SamK<br>
+<blockquote class="uncited"><div>new_usb.sh seems to be aimed at antiX-M11, and is not fully compatible with the changes introduced with antiX-12</div></blockquote>
+True <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+I already identified some bugs, correction in progress...<br>
+<br>
+Ok, I pop anti2usb first priority in my TODO list.<br>
+<br>
+Thanks for the feedback.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26315" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26315">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26315">
+
+<time datetime="2012-09-28T14:09">posted: 2012-09-28 &nbsp; 14:09</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26315" title="permalink">#3</a></span>
+
+<div class="content">When shutting down antiX12 on a USB stick booted with the option for root persistence, a"bouncing bar" and message is displayed,"<em>antiX Save Persistent Root"</em>. This happens twice. Is it the expected behaviour, or should it be one referring to the rootfs and one referring to the homefs?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26319" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26319">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26319">
+
+<time datetime="2012-09-28T18:37">posted: 2012-09-28 &nbsp; 18:37</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26319" title="permalink">#4</a></span>
+
+<div class="content">Hi SamK
+<blockquote class="uncited"><div>When shutting down antiX12 on a USB stick booted with the option for root persistence, a"bouncing bar" and message is displayed,"antiX Save Persistent Root". This happens twice. Is it the expected behaviour, or should it be one referring to the rootfs and one referring to the homefs?</div></blockquote>
+I don't have the answer... ask anti or bitjam<br>
+<br>
+But you can help me: how did you set persistence: using the antixCC scripts?<br>
+Can you post your menu.lst, as a sample?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26320" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26320">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26320">
+
+<time datetime="2012-09-28T20:01">posted: 2012-09-28 &nbsp; 20:01</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26320" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>When shutting down antiX12 on a USB stick booted with the option for root persistence, a"bouncing bar" and message is displayed,"<em>antiX Save Persistent Root"</em>. This happens twice. Is it the expected behaviour, or should it be one referring to the rootfs and one referring to the homefs?</div></blockquote>
+That behavior is expected and necessary. While root persistence is enabled, all changes to the file system are stored in RAM. When the machine turns off, changes in RAM are forgotten so these changes must be written to disk as part of the shutdown procedure otherwise there would be no persistence.<br>
+<br>
+The programs that deal with this are all in /usr/local/bin. The program that you see running is"persist-save". It's behavior is controlled by persist-config which gives you three choices:<br>
+<ul><li>Manual Mode</li>
+<li>Semi-Automatic Mode, and</li>
+<li>Automatic Mode</li></ul>
+You can also run the persist-save program whenever you want. I see this as like putting in (environmentally friendly) pitons during the ascent of a cliff. In fact, in"Manual Mode" you must run it yourself. You are currently experiencing"Automatic Mode". If you want to feel more in control of the process then you can use"persist-config" to switch to"Semi-Automatic Mode" where you will get prompted on whether you want to save or not. You usually do. I think the current default is set to"Automatic Mode". Next time around we could change the default to"Semi-Automatic Mode" so you are always prompted before the changes are saved but that seemed like it would be an annoying nuisance. <br>
+<br>
+IMO, this is a weak point in our implementation of root persistence because if persist-save does not run then your file system changes are lost. On the plus side, our implementation is very fast. Previously we had saved all root persistence changes in a file. This was much safer but it was also dog slow on some systems so we opted for top speed performance this time around. A lot of the current system is documented in /usr/share/antiX/live/boot/persistence.html<br>
+<br>
+<strong>TIP:</strong> If you choose"Manual Mode" or"Semi-Automatic Mode" then you have control of whether your filesystems changes get saved or not. You can use this as a form of mini-remastering. On reboot the filesystem will return to the state it was in the last time persist-save was run.<br>
+<br>
+Another weak point of the current root persistence implementation is that all your filesystem changes accumulate in RAM (this was a weak point in our previous implementation as well). If you install enough new packages, you will eventually run out of RAM and even before that point, you will have less RAM available for running your system.<br>
+<br>
+BTW: If you want to store a lot of stuff, for example if you want to download ISO files, then you should enable home persistence and store things anywhere under the /home/ directory. Unlike root persistence, home persistence does not use RAM so you can store as much as you want (under /home) without worrying about eating up precious RAM. This is why some people might want to enable both root persistence and home persistence. There are a couple of tables on the HTML page mentioned above that try to explain all these trade-offs and considerations.<br>
+<br>
+You can clear persistence storage out of RAM by running the"remaster-me" program which remasters a LiveUSB system. One glaring bug with this is that it will not automatically regenerate an empty rootfs file. Until this bug is fixed, you will have to regenerate it manually with the"persist-makefs" program, otherwise root persistence will be turned off (perhaps with an error message on each boot) after you do the remaster. The"remaster-me" program should automatically call"persist-makefs" but this hasn't been done yet.<br>
+<br>
+On a related note, in the next version, we were thinking about relieving some of the RAM pressure caused by root persistence. Currently the persistence filesystem uses the magic of AUFS to combine a tmpfs filesystem in RAM with a squashfs that is contained in the linuxfs file. In fact, this is what most modern LiveUSBs and LiveCDs do. Our persistence is implemented by copying the tmpfs in RAM to a filesystem held in a file called rootfs when the system shuts down (that's what the persist-save program does). When the Live system boots and persistence is enabled then we look for that rootfs file and if it exists we copy its contents to the tmpfs filesystem in RAM.<br>
+<br>
+We could relieve the RAM pressure by creating a three tier AUFS filesystem that combines the squashfs and tmpfs (like we do now) but also adds a third filesystem in between those two. That middle filesystem would store all the previous changes so at every reboot the tmpfs (RAM) filesystem starts out nearly empty. At shutdown, the persist-save program would effectively merge all the information that is stored in the tmpfs into the information that is already in the middle filesystem. The three-tier system won't be as fast as the current two-tier system but it could be useful for people who want to add a lot of packages but don't want to remaster a lot and don't want persistence to chew up a lot of RAM. <br>
+<br>
+I have no idea if demand for the three-tier solution would make it worthwhile to implement. In the meantime, just run remaster-me and then run persist-makefs to make a new rootfs file.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26322" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26322">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 200</span></div>
+
+</div>
+</div>
+<span class="username">lagopus</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26322">
+
+<time datetime="2012-09-28T21:03">posted: 2012-09-28 &nbsp; 21:03</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26322" title="permalink">#6</a></span>
+
+<div class="content">Hello BitJam<br>
+<blockquote class="uncited"><div>While root persistence is enabled, all changes to the file system are stored in RAM. When the machine turns off, changes in RAM are forgotten so these changes must be written to disk as part of the shutdown procedure otherwise there would be no persistence.</div></blockquote>
+Ok, I understood that, reading your documentation under /usr/share last night (well written, but not for common people, grade 6a+)<br>
+<blockquote class="uncited"><div>Previously we had saved all root persistence changes in a file.</div></blockquote>
+These good old times are gone...(sigh)<br>
+<br>
+I have a question:<br>
+In the"Automatic" mode, at shutdown, when and where is called the please-save-me-to-file script ?<br>
+(yes, I can read the scripts and guess, but I feel down)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26324" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26324">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26324">
+
+<time datetime="2012-09-28T21:45">posted: 2012-09-28 &nbsp; 21:45</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26324" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>lagopus wrote:</cite><blockquote class="uncited"><div>Previously we had saved all root persistence changes in a file.</div></blockquote>
+These good old times are gone...(sigh)</div></blockquote>
+The problem was that the system became unacceptably slow for some people. This depending greatly on things like how they had partitioned and formated the USB stick, the brand and model of the USB stick, the phase of the moon, etc. <br>
+<br>
+It would probably be possible to give users an option to revert back to the older system where root filesystem changes are directly saved in a file. I worry that this would cause more trouble than it is worth especially if people don't link their massive system slowdown with their enabling this feature.<br>
+<blockquote class="uncited"><div>I have a question:<br>
+In the"Automatic" mode, at shutdown, when and where is called the please-save-me-to-file script ?<br>
+(yes, I can read the scripts and guess, but I feel down)</div></blockquote>
+All relevant scripts are in /usr/local/bin. The persist-config program (which calls persist-save) is called from within reboot.sh and shutdown.sh. Here is an example:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>if which persist-config &amp;&gt; /dev/null; then
+    sudo persist-config --shutdown --command halt
+else
+    sudo halt
+fi</code></pre></div>
+<strong>Edit:</strong> Here is the output of"persist-config --help":<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Usage: persist-config [options] 
+    
+    Configure root persistence saves to run either:
+                                                          
+    1) Automatic (at shutdown/reboot, no asking)
+    2) Semi-Automatic (ask at shutdown/reboot)
+    3) Manual (you snooze, you lose)
+
+    This program should be called with the --startup option in a 
+    startup script to ensure a config file is created.  It should be called 
+    with the --shutdown option in shutdown scripts so your changes can 
+    be saved before shutting down.
+
+Standard options: [omitted]
+ 
+persist-config specific options:
+    --startup         Create a persist-config.conf file if one is missing.
+    --shutdown        Run persist-save as directed by persist-config.conf file.
+    --command &lt;cmd&gt;   Run &lt;cmd&gt; if persist-save succeeded.
+                      If persist-save fails prompt user before running &lt;cmd&gt;.
+                      (implies --shutdown)
+
+Config file is located at: / etc/live/config/persist-config.conf</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26340" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26340">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26340">
+
+<time datetime="2012-09-30T04:10">posted: 2012-09-30 &nbsp; 04:10</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26340" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>lagopus wrote:</cite><blockquote class="uncited"><div>Previously we had saved all root persistence changes in a file.</div></blockquote>
+These good old times are gone...(sigh)</div></blockquote>
+That original system was easy to implement because it only required small changes to the code but there was another problem with it. It was impossible to cleanly umount the partition that holds the rootfs file because the rootfs file was an integral part of the root file system. There are further complications due to the fact that mounting filesystems via busybox is not identical to mounting them when the system is fully up and running. The best I could do is try to remount everything read-only. This problem is made worse when people want to put the rootfs file on an NTFS filesystem. <br>
+<br>
+Those NTFS filesystems would often be the main file system of a Windows machine the liveCD/USB was running on. Not being able to cleanly umount that filesystem seemed to me to violate the principle of"first do no harm". This was a major motivation for coming up with a new way to do persistence. It should be straightforward to add a switch that would allow you to return to the old behaviour but I don't want to advertise it because I'm tired of banging my head against the umount problems. I would rather bang my head against more interesting problems. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26343" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26343">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26343">
+
+<time datetime="2012-09-30T16:19">posted: 2012-09-30 &nbsp; 16:19</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26343" title="permalink">#9</a></span>
+
+ <div class="content"><blockquote><div><cite>lagopus wrote:</cite>But you can help me: how did you set persistence: using the antixCC scripts?<br>
+Can you post your menu.lst, as a sample?</div></blockquote>new_usb.sh plus command line switches were used. The system was then booted from the stick and antiXCC used to create both homefs and rootfs.<br>
+<br>
+This stick is used purely for experimentation/exploration. It will not remain in its current state for longer than a few days so the following GRUB menu.lst will also be gone. The default bootcode of vga=791 displays only 70% of each line of text during bootup. This was edited manually to 788 which is commonly used here as it works on most kit. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>default 0
+timeout 10
+color cyan/blue white/blue
+foreground ffffff
+background 003f7d
+gfxmenu /boot/grub/message
+
+## ISO boot
+title antiX-full-686 (LiveUSB)
+kernel /antiX/vmlinuz quiet noxorg vga=788
+initrd /antiX/initrd.gz
+
+## ISO boot
+title antiX-full-686 (Home Persistence)
+kernel /antiX/vmlinuz quiet noxorg persist=home vga=788
+initrd /antiX/initrd.gz
+
+## ISO boot
+title antiX-full-686 (Root Persistence)
+kernel /antiX/vmlinuz quiet noxorg persist vga=788
+initrd /antiX/initrd.gz
+
+title antiX-memtest (test system memory)
+kernel /boot/memtest
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26344" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26344">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26344">
+
+<time datetime="2012-09-30T16:43">posted: 2012-09-30 &nbsp; 16:43</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26344" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>That behavior is expected and necessary. While root persistence is enabled, all changes to the file system are stored in RAM. When the machine turns off, changes in RAM are forgotten so these changes must be written to disk as part of the shutdown procedure otherwise there would be no persistence.</div></blockquote>OK got that, but why does it display twice (rsync)?<br>
+<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>Next time around we could change the default to"Semi-Automatic Mode" so you are always prompted before the changes are saved but that seemed like it would be an annoying nuisance. </div></blockquote>For casual use, you probably made the correct choice by opting for Automatic Mode. I agree that this will probaly suit most users.<br>
+<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>A lot of the current system is documented in /usr/share/antiX/live/boot/persistence.html</div></blockquote>Just wanted to offer congratulations on this. Accepting the odd typo, incorrect path and obvious parts awaitng information, it is a very good work in progress.<br>
+<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>...running the"remaster-me" program which remasters a LiveUSB system.</div></blockquote>This has been done and a working remaster produced. It takes a long time to complete, almost two hours to create the new linuxfs. I was also suprised at the large size of this file, 808.2MB. The original linuxfs is 688MB and the original rootfs is 128MB of which less that 60MB is used. <br>
+<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>We could relieve the RAM pressure by creating a three tier AUFS filesystem that combines the squashfs and tmpfs (like we do now) but also adds a third filesystem in between those two. That middle filesystem would store all the previous changes so at every reboot the tmpfs (RAM) filesystem starts out nearly empty. At shutdown, the persist-save program would effectively merge all the information that is stored in the tmpfs into the information that is already in the middle filesystem. The three-tier system won't be as fast as the current two-tier system but it could be useful for people who want to add a lot of packages but don't want to remaster a lot and don't want persistence to chew up a lot of RAM.<br>
+<br>
+I have no idea if demand for the three-tier solution would make it worthwhile to implement.</div></blockquote>Modern systems tend to have large amounts of RAM (in excess of 4GB is common these days). It is not clear to what extent such systems will benefit from a three tier filesystem, although undoubtedly users will eventually push to its limits.<br>
+<br>
+Older, low spec machines are often considered beyond the point of economic upgrade. Limitations of their performance have a greater tendency to be tolerated given that the machines would otherwise be completely redundant. They will also probably be used with a traditional hard disk based installation of antiX to overcome issues such a v1 USB port speeds. This will obviate the pressure of a RAM based file system.<br>
+<br>
+The technical innovation of a three tier file system may not be apparent to a casual user. To such a user it is the direct experience that influences the perception of performance. Given that a three tier file system is slower (at both extremes of the above spectrum) than the alternatives, it may not find favour.<br>
+<br>
+<br>
+<br>
+Suggestions<br>
+The following should be read in conjunction with those made in the opening post of this topic.
+<ul><li>* Document antiX fundamentals using /usr/share/antiX/live/boot/persistence.html as a template design</li></ul>
+<ul><li>* Document GUI frontends in a simalar manner but aimed at a novice, non-technical user</li></ul>
+<ul><li>* Assosciate/reference GUI and CLI manuals</li></ul>
+<ul><li>* Make the existence and location of manuals highly visible</li></ul>
+<ul><li>* Add a reference to use the command persist-save to the appropriate antiXCC <em>Set up live persistence</em> message box</li></ul>
+<ul><li>* Add an description explanation to /usr/share/antiX/live/boot/persistence.html of how to remove an unwanted fs following a remaster</li></ul>
+<ul><li>* Running antiX from a USB stick makes nomadic use a possibilty. This ability to boot it on a wide range of machines increases the risk of experiencing a non-functioning network connection. Ceni might be used to address this on any given machine but this has a couple of drawbacks:<br>
+1. The need to run Ceni rather than have a working connection directly from bootup<br>
+2. Each time it is used, Ceni writes an additional configuration entry to / etc/udev/rules.d/70-persistent-net.rules which provides an increased risk of future lack of connectivity due to conflicting entries.<br>
+<br>
+When running from a USB stick, antiX might offer (at shutdown?) to optionally remove all configuration entries from / etc/udev/rules.d/70-persistent-net.rules. In this way a pristine version of the file is present and is automatically populated at bootup with the configuration details for the current machine.<br>
+<br>
+Making it optional will also allow users that use the stick on only a single machine to retain a known working configuration.</li></ul>
+<br>
+<br>
+Questions<br>
+Having produced a remaster:
+<ul><li>* Is it possible to conduct a traditional (not frugal) hard disk installation using it?</li></ul>
+<ul><li>* Is there an easy means of replicating (clone) the remaster to other USB sticks?</li></ul>
+<ul><li>* What is the best way to remove *.old files? Simply delete them?</li></ul></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26346" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26346">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26346">
+
+<time datetime="2012-09-30T18:52">posted: 2012-09-30 &nbsp; 18:52</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26346" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite><blockquote><div><cite>BitJam wrote:</cite>That behavior is expected and necessary. [...]</div></blockquote>OK got that, but why does it display twice (rsync)?</div></blockquote>
+I didn't realize it was happening twice each time you shutdown. I suggest you use persist-config to put it into semi-automatic mode. That will slow things down and give you a better picture of what is happening. The rsync program should only run once at shutdown, not twice. If it does run twice then while it is asking you if you want to run persist-save (or whatever it actually asks), you could run pstree in a terminal and try to see how persist-config was called.<br>
+<blockquote class="uncited"><div><blockquote><div><cite>BitJam wrote:</cite>...running the"remaster-me" program which remasters a LiveUSB system.</div></blockquote>This has been done and a working remaster produced. It takes a long time to complete, almost two hours to create the new linuxfs. I was also suprised at the large size of this file, 808.2MB. The original linuxfs is 688MB and the original rootfs is 128MB of which less that 60MB is used. </div></blockquote>
+If remastering were fast then we would not have bothered adding root persistence. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Two hours does seem extreme but depending on the umph of your system it could be reasonable. Anti would have a better idea of the reasonableness. Your linuxfs increased by only 120MB which seem pretty reasonable to me depending on what was added. The remaster-me program gives you an estimate of what the new size will be. If you think of it, jot that number down and see how it compares to the actually size of the new linuxfs. It should also end up in a log file under /var/log/antiX/ but I don't think those log files are saved when we remaster.<br>
+<br>
+The remaster-me program makes its estimate partly based on the size of the file system mounted at /live/aufs-ram. This reflects your current usage while the size of the rootfs filesystem reflects your usage the last time persist-save was run. You could try running"df -m /live/aufs-ram" to get an estimate of the amount of new space being used now.<br>
+<blockquote class="uncited"><div>The technical innovation of a three tier file system may not be apparent to a casual user. To such a user it is the direct experience that influences the perception of performance. Given that a three tier file system is slower (at both extremes of the above spectrum) than the alternatives, it may not find favour.</div></blockquote>I suspect the slowdown may be minor because we would only be doing reads from the usb-stick. These are usually fast. The great slowdown in our original scheme was due to the many small random writes to the usb-stick that it required. The random write speed on usb-sticks can be mind blowingly slow.<br>
+<blockquote class="uncited"><div>Suggestions [...]</div></blockquote>
+Thank you for the many suggestions. I need to take some time to digest them. This kind of feedback is extremely valuable.<br>
+<blockquote class="uncited"><div>Having produced a remaster:
+<ul><li>* Is it possible to conduct a traditional (not frugal) hard disk installation using it?</li></ul></div></blockquote> That is how it is supposed to work.
+<blockquote class="uncited"><div><ul><li>* Is there an easy means of replicating (clone) the remaster to other USB sticks?</li></ul></div></blockquote>You could use the"dd" command to clone the usb-stick to others sticks that are the same size (or larger). I clone using gparted, then"cp -a" followed by running the grub program on the new stick. I don't know if there is a GUI program to clone our LiveUSB. Anti or lagopus might know. The key thing is that the new remastered LiveUSB should work just like a LiveUSB made from one of anti's ISO files.
+<blockquote class="uncited"><div><ul><li>* What is the best way to remove *.old files? Simply delete them?</li></ul></div></blockquote>Good question. Just deleting them is fine. I think remaster-me (and maybe persist-makefs) give you an interactive way of removing .old files. Try running remaster-me again. It may seem odd that remaster-me does the clean up but that way the .old files are left for as long as possible and are only cleaned up when we might need more space to do another remaster.<br>
+<br>
+I eventually ran out of steam but part of the original plan was to have a perky paperclip wake up on boot and say things like:<blockquote class="uncited"><div>I see you have booted a remastered system for the first time. Do you want to clean up the mess that was left behind or would you rather wait and make sure the remaster was successful before you burn the bridges behind you?</div></blockquote>As long as the *.old files remain then you can use the"rollback" boot parameter to undo the remastering. This should work even if the remastering made the new system unbootable. This seems like a nice failsafe which is why I just leave the *.old files lying around for as long as possible.<br>
+<br>
+@SamK, I greatly appreciate your deep interest and the feedback you have given us. If you are interested in helping more on the things I've been working on, send me a PM.</div>
+ </div>
+</div>
+
+</div>
+</div>
+<div id="p_26347" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26347">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26347">
+
+<time datetime="2012-09-30T19:26">posted: 2012-09-30 &nbsp; 19:26</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26347" title="permalink">#12</a></span>
+
+<div class="content">BitJam:"Two hours does seem extreme but depending on the umph of your system it could be reasonable. Anti would have a better idea of the reasonableness."<br>
+<br>
+For remastering / building the linux fs when I build my server variations, the time it takes to build is around 5 to 10 minutes depending on the amount of files being compressed. This is on a core i3 with 6 gb ram and a corsair ssd running at full cpu usage. With SamK saying that the linux fs file is 808.2MB I would not be supprised to see a time of around 20 minutes to build. Here is my inxi for comparison.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: antiX1 Kernel: 3.2.0-2-686-pae i686 (32 bit) 
+           Desktop: Xfce 4.8.3 Distro: antiX-core-libre Edelweißpiraten 26 May 2012
+Machine:   System: Acer product: Aspire 5745G version: V1.15 serial: LXPTX0205603205A112500 
+           Mobo: Acer model: ZR7 serial: 028DZOMBQTF002A5 Bios: INSYDE version: V1.15 date: 07/27/2010
+CPU:       Dual core Intel Core i3 CPU M 370 (-HT-MCP-) cache: 3072 KB flags: (lm nx sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx) 
+           Clock Speeds: 1: 933.00 MHz 2: 933.00 MHz 3: 933.00 MHz 4: 933.00 MHz
+Graphics:  Card: NVIDIA GT218 [GeForce 310M] X.org: 1.12.3.902 driver: nvidia tty size: 122x28 Advanced Data: N/A for root 
+Audio:     Card-1: Intel 5 Series/3400 Series Chipset High Definition Audio driver: snd_hda_intel Sound: ALSA ver: 1.0.24
+           Card-2: NVIDIA High Definition Audio Controller driver: snd_hda_intel
+Network:   Card-1: Atheros AR9287 Wireless Network Adapter (PCI-Express) driver: ath9k 
+           IF: wlan0 state: up mac: 5c:ac:4c:48:b0:7e
+           Card-2: Atheros AR8151 v1.0 Gigabit Ethernet driver: atl1c 
+           IF: eth1 state: down mac: c8:0a:a9:ec:98:92
+Drives:    HDD Total Size: 120.0GB (51.6% used) 1: id: /dev/sda model: Corsair_Force_3 size: 120.0GB 
+Partition: ID: / size: 15G used: 11G (75%) fs: ext4 ID: /home size: 83G used: 58G (74%) fs: ext4 
+           ID: swap-1 size: 1.02GB used: 0.00GB (0%) fs: swap 
+Sensors:   None detected - is lm-sensors installed and configured?
+Info:      Processes: 133 Uptime: 1:19 Memory: 297.8/5941.2MB Client: Shell inxi: 1.8.13 
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26352" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26352">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26352">
+
+<time datetime="2012-10-01T09:40">posted: 2012-10-01 &nbsp; 09:40</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26352" title="permalink">#13</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>Two hours does seem extreme but depending on the umph of your system it could be reasonable. Anti would have a better idea of the reasonableness. Your linuxfs increased by only 120MB which seem pretty reasonable to me depending on what was added.]</div></blockquote><blockquote><div><cite>Dave wrote:</cite>For remastering / building the linux fs when I build my server variations, the time it takes to build is around 5 to 10 minutes depending on the amount of files being compressed. This is on a core i3 with 6 gb ram and a corsair ssd running at full cpu usage. With SamK saying that the linux fs file is 808.2MB I would not be supprised to see a time of around 20 minutes to build.</div></blockquote>
+Immediately before remastering, (if my fallible recall is accurate) the rootfs had used approximately 52MB of the 128MB available. From a clean reboot no further changes were made and presumably this meant nothing was pending to be saved.<br>
+<br>
+At this point remaster-me was run which eventually produced:<br>
+linuxfs.old=688MB<br>
+linuxfs=808.2MB<br>
+<br>
+Reference point for the time taken<br>
+Debian 6 Stable runs on a similar machine to the one which runs antiX-12. Mondorescue is used as part of the backup regime for the Debian machine. The backup is produced in the form of compressed ISO files. One is a standard boot ISO the other(s) contain the backup.<br>
+<br>
+The source files for the backup consist of the OS+Apps (data is excluded). Together these files occupy approximately 2GB of disk storage space. After compression (gz) the resulting ISO is 648.6MB. The boot ISO is also produced with each backup and this is 62.8MB A grand total of over 710MB for each backup run. These are written via USB (identical v2 ports on antiX and Debian machines) to an external hard disk (not flash drive as used for antiX), and verified for fidelity against the source files.<br>
+<br>
+According to the last backup log this entire process took exactly 40 minutes.<br>
+<br>
+Before testing with new_usb.sh, the USB stick (flash drive) was used to hold various distro ISO files and has always performed acceptably when writing and reading these large files.<br>
+<br>
+<br>
+Ref: Mondorescue <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mondorescue.org/"<br>linktext was:"http://www.mondorescue.org/"<br>====================================<br>
+<br>
+<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>You could use the"dd" command to clone the usb-stick to others sticks that are the same size (or larger). I clone using gparted, then"cp -a" followed by running the grub program on the new stick.</div></blockquote>Can you provide an example of the GRUB command? It is such a long time since I last used GRUB that I have forgotten most of the little I knew about it. Is the example of installing GRUB in the LiveCD/USB Guide correct?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26353" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26353">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26353">
+
+<time datetime="2012-10-01T11:41">posted: 2012-10-01 &nbsp; 11:41</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26353" title="permalink">#14</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>Can you provide an example of the GRUB command? It is such a long time since I last used GRUB that I have forgotten most of the little I knew about it. Is the example of installing GRUB in the LiveCD/USB Guide correct?</div></blockquote>
+Yes, the example in the guide is exactly what I recommend. I can never remember it either. I usually use"info grub" to remind myself. The example in the guide has an extra"setup" command so grub is installed on the usb-stick MBR and also on the boot partition on the usb-stick. <br>
+<br>
+Normally Grub is only installed on the MBR of the stick. This is what is used when you boot the stick normally. By also installing grub on the boot partition, you can boot the stick from your the Grub menu on your hard drive by adding entries like:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title USB STICK 1 (hd2,0)
+root (hd2,0)
+chainloader +1
+
+title USB STICK 2 (hd3,0)
+root (hd3,0)
+chainloader +1</code></pre></div>
+The key thing to installing Grub is to make sure you are installing it on the correct device. That is what the"find" command is for. Put a file with a unique name on the usb-stick you want to install Grub on and then use the"find" command within Grub to find that file in order to double check that you are installing Grub on the proper device.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26371" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26371">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26371">
+
+<time datetime="2012-10-04T06:19">posted: 2012-10-04 &nbsp; 06:19</time>
+<span class="permalink"><a href="./antix-on-usb-stick-observations-and-suggestions-t3930.html#p26371" title="permalink">#15</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>I eventually ran out of steam but part of the original plan was to have a perky paperclip wake up on boot and say things like:...</div></blockquote>Having a message is fine but a"perky paperclip" is far too reminiscent of another OS in which the paperclip was both frustrating and gimmicky.<br>
+<br>
+<br>
+<br>
+<blockquote><div><cite>BitJam wrote:</cite>Normally Grub is only installed on the MBR of the stick. This is what is used when you boot the stick normally. By also installing grub on the boot partition, you can boot the stick from your the Grub menu on your hard drive by adding entries like:...</div></blockquote>When reading the LiveCD/USB Guide, I wondered about the reason for the dual location. <br>
+<br>
+On machines that do not support booting from USB I tend to use a boot manager called, Plop (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.plop.at/en/bootmanager/index.html"<br>linktext was:"http://www.plop.at/en/bootmanager/index.html"<br>====================================<br>
+). It offers various ways to boot the system e.g. from floppy disk, CD/ROM, USB or hard disk. I often install Plop to the MBR and the OS boot loader to a boot partition. The machine becomes capable of offering a menu at bootup, displaying a range of devices and/or OSs from which to boot.<br>
+<br>
+This is my preferred method as it allows a degree of standardization across a range of OSs, i.e. it is not tied to GRUB-Legacy. In cases where a machine has developed a hard disk issue which prevents it from booting, the range of bootable media from which Plop works can be very handy, especially so with older kit.<br>
+<br>
+<br>
+<br>
+<br>
+Root Persistance Modes<br>
+<br>
+Switched to persist-save=Manual.<br>
+Test 1<br>
+Messagebox"Checking available space" displays for approximately 3 secs.<br>
+Inputbox"Ready to sync file system changes"=<strong>Yes</strong><br>
+Messagebox"antiX save persistent root" displays until save is completed<br>
+Messagebox"persist-save succeeded"<br>
+<br>
+<br>
+Test 2<br>
+Messagebox"Checking available space" displays for approximately 3 secs.<br>
+Inputbox"Ready to sync file system changes"=<strong>No</strong><br>
+Messagebox"antiX save persistent root" displays until save is completed<br>
+Messagebox"persist-save succeeded"<br>
+<br>
+<br>
+<br>
+<br>
+Switched to persist-save=Semi Automatic<br>
+Test 3<br>
+Messagebox"Checking available space" displays for approximately 3 secs.<br>
+Inputbox"Ready to sync file system changes"=<strong>Yes</strong><br>
+Messagebox"antiX save persistent root" displays until save is completed<br>
+Messagebox"persist-save succeeded"<br>
+<br>
+<br>
+Test 4<br>
+Messagebox"Checking available space" displays for approximately 3 secs.<br>
+Inputbox"Ready to sync file system changes"=<strong>No</strong><br>
+Messagebox"antiX save persistent root" displays until save is completed<br>
+Messagebox"persist-save succeeded"<br>
+<br>
+<br>
+<br>
+<br>
+Switched to persist-save=Automatic<br>
+Test 5<br>
+Messagebox"Checking if there is enough room" displays for approximately <strong>1.5</strong> secs.<br>
+Messagebox"antiX save persistent root" displays until save is completed</div>
+<div class="postcontent_footer">
+ 
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+17 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix-on-usb-stick-observations-and-suggestions-t3930-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix-on-usb-stick-observations-and-suggestions-t3930-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

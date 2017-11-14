@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>&quot;No wireless networks found&quot; with BCM4318 Wireless - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./no-wireless-networks-found-with-bcm4318-wireless-t3673.html">&quot;No wireless networks found&quot; with BCM4318 Wireless</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24458" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24458">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">paxform</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24458">
+<time datetime="2012-04-25T02:12">posted: 2012-04-25 &nbsp; 02:12</time>
+<span class="permalink"><a href="./no-wireless-networks-found-with-bcm4318-wireless-t3673.html#p24458" title="permalink">#1</a></span>
+
+<div class="content">I am very pleased to be part of this forum, and I am excited about using antix. For me, so far, antix is a nice balance between automation and control--it's a good learning linux, and I am still a beginner. I've done some searching on this forum and have read several posts about wireless issues, but I think I might have a unique problem, or at least one that has not really been addressed here.<br>
+<br>
+I just did a fresh install of antiX-M11 Jayaben Desai, and following the advice on 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/post23952.html#p23952"<br>linktext was:"this posting"<br>====================================<br>
+, got wireless up and running no problem. I specifically used this chain of commands
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>modprobe -r b43
+modprobe -r ssb
+modprobe -i b43</code></pre></div>and then assigned wlan0 to"Wireless interface" in wicd preferences. Refreshed and done. Even after rebooting, I still have the wireless connection I set up automatically, though the wicd status icon is gone.<br>
+<br>
+I did the same thing earlier today, so this recent reinstall is a sort of confirmation that my wireless card is working properly and that antix has everything needed to get my card receiving signals.<br>
+<br>
+The reason I just did this reinstall was also to revert back to whatever settings allowed my wireless to work. Earlier today, after doing <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get upgrade</code></pre></div> my wireless no longer worked, and I could not get it to work by repeating the steps I followed after the fresh reinstall.<br>
+<br>
+This is where I am stumped. My wlan0 still exists and shows up with ifconfig, etc. but in wicd and ceni, a scan for available networks yields nothing:"No wireless networks found." I figure that the upgrade must have created a change in configuration or introduced a driver/firmware incompatibility, but I am not sure how. I thought apt-get upgrade did not introduce new packages, just updates to existing ones. And if there are things I need to remove to eliminate the incompatibility, I am not sure what to remove or even how to remove it.<br>
+<br>
+Would anyone be willing to help me troubleshoot this one? I am willing to post whatever I need to and will continue to experiment until I get to the bottom of it. I am hoping also that this process might reveal some possible fixes that can be applied to antix12, in light of the recent exchange about wireless drivers in 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/post23952.html#p23952"<br>linktext was:"this posting"<br>====================================<br>
+.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24459" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24459">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24459">
+
+<time datetime="2012-04-25T02:19">posted: 2012-04-25 &nbsp; 02:19</time>
+<span class="permalink"><a href="./no-wireless-networks-found-with-bcm4318-wireless-t3673.html#p24459" title="permalink">#2</a></span>
+
+<div class="content">Sometimes an upgrade wipes out the B43 directory. Make sure it is there at /lib/firmware/b43<br>
+<br>
+If not, copy it over from your live cd. i used to keep b43 directory on a thumb drive just for this purpose.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24463" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24463">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">paxform</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24463">
+
+<time datetime="2012-04-25">posted: 04:44</time>
+<span class="permalink"><a href="./no-wireless-networks-found-with-bcm4318-wireless-t3673.html#p24463" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Sometimes an upgrade wipes out the B43 directory. Make sure it is there at /lib/firmware/b43.</div></blockquote>This suggestion pointed me in the right direction. Thanks! The b43 directory was still there after the upgrade but it contained many additional files.<br>
+<br>
+/lib/firmware/b43 before apt-get upgrade:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>a0g0bsinitvals5.fw
+a0g0bsinitvals9.fw
+a0g0initvals5.fw
+a0g0initvals9.fw
+a0g1bsinitvals13.fw
+a0g1bsinitvals5.fw
+a0g1bsinitvals9.fw
+a0g1initvals13.fw
+a0g1initvals5.fw
+a0g1initvals9.fw
+b0g0bsinitvals13.fw
+b0g0bsinitvals5.fw
+b0g0bsinitvals9.fw
+b0g0initvals13.fw
+b0g0initvals5.fw
+b0g0initvals9.fw
+lp0bsinitvals13.fw
+lp0bsinitvals14.fw
+lp0bsinitvals15.fw
+lp0initvals13.fw
+lp0initvals14.fw
+lp0initvals15.fw
+n0absinitvals11.fw
+n0bsinitvals11.fw
+n0initvals11.fw
+pcm5.fw
+ucode11.fw
+ucode13.fw
+ucode14.fw
+ucode15.fw
+ucode5.fw
+ucode9.fw</code></pre></div>
+/lib/firmware/b43 after apt-get upgrade:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>a0g0bsinitvals5.fw
+a0g0bsinitvals9.fw
+a0g0initvals5.fw
+a0g0initvals9.fw
+a0g1bsinitvals13.fw
+a0g1bsinitvals5.fw
+a0g1bsinitvals9.fw
+a0g1initvals13.fw
+a0g1initvals5.fw
+a0g1initvals9.fw
+b0g0bsinitvals13.fw
+b0g0bsinitvals5.fw
+b0g0bsinitvals9.fw
+b0g0initvals13.fw
+b0g0initvals5.fw
+b0g0initvals9.fw
+ht0bsinitvals26.fw
+ht0bsinitvals29.fw
+ht0initvals26.fw
+ht0initvals29.fw
+lcn0bsinitvals24.fw
+lcn0bsinitvals25.fw
+lcn0bsinitvals26.fw
+lcn0initvals24.fw
+lcn0initvals25.fw
+lcn0initvals26.fw
+lcn1bsinitvals24.fw
+lcn1bsinitvals25.fw
+lcn1bsinitvals26.fw
+lcn1initvals24.fw
+lcn1initvals25.fw
+lcn1initvals26.fw
+lcn2bsinitvals24.fw
+lcn2bsinitvals25.fw
+lcn2bsinitvals26.fw
+lcn2initvals24.fw
+lcn2initvals25.fw
+lcn2initvals26.fw
+lcn400bsinitvals33.fw
+lcn400initvals33.fw
+lp0bsinitvals13.fw
+lp0bsinitvals14.fw
+lp0bsinitvals15.fw
+lp0bsinitvals16.fw
+lp0initvals13.fw
+lp0initvals14.fw
+lp0initvals15.fw
+lp0initvals16.fw
+lp1bsinitvals20.fw
+lp1bsinitvals22.fw
+lp1initvals20.fw
+lp1initvals22.fw
+lp2bsinitvals19.fw
+lp2initvals19.fw
+n0absinitvals11.fw
+n0bsinitvals11.fw
+n0bsinitvals16.fw
+n0bsinitvals17.fw
+n0bsinitvals22.fw
+n0bsinitvals24.fw
+n0bsinitvals25.fw
+n0initvals11.fw
+n0initvals16.fw
+n0initvals17.fw
+n0initvals22.fw
+n0initvals24.fw
+n0initvals25.fw
+n16bsinitvals30.fw
+n16initvals30.fw
+n18bsinitvals32.fw
+n18initvals32.fw
+n1bsinitvals20.fw
+n1initvals20.fw
+n2bsinitvals19.fw
+n2initvals19.fw
+pcm5.fw
+sslpn0bsinitvals16.fw
+sslpn0initvals16.fw
+sslpn1bsinitvals20.fw
+sslpn1bsinitvals27.fw
+sslpn1initvals20.fw
+sslpn1initvals27.fw
+sslpn2bsinitvals19.fw
+sslpn2initvals19.fw
+sslpn3bsinitvals21.fw
+sslpn3initvals21.fw
+sslpn4bsinitvals22.fw
+sslpn4initvals22.fw
+ucode11.fw
+ucode13.fw
+ucode14.fw
+ucode15.fw
+ucode16_lp.fw
+ucode16_mimo.fw
+ucode16_sslpn.fw
+ucode16_sslpn_nobt.fw
+ucode17_mimo.fw
+ucode19_sslpn.fw
+ucode19_sslpn_nobt.fw
+ucode20_sslpn.fw
+ucode20_sslpn_nobt.fw
+ucode21_sslpn.fw
+ucode21_sslpn_nobt.fw
+ucode22_mimo.fw
+ucode22_sslpn.fw
+ucode24_lcn.fw
+ucode24_mimo.fw
+ucode25_lcn.fw
+ucode25_mimo.fw
+ucode26_mimo.fw
+ucode27_sslpn.fw
+ucode29_mimo.fw
+ucode30_mimo.fw
+ucode32_mimo.fw
+ucode33_lcn40.fw
+ucode5.fw
+ucode9.fw</code></pre></div>
+The additional files seem to have come from the updated firmware-b43-installer, which pulls from a newer firmware. Here is some output from the apt-get upgrade that might shed some light:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Setting up firmware-b43-installer (1:015-14) ...
+No chroot environment found. Starting normal installation
+This card work with newer 5.100.138 firmware. Trying to install it.
+--2012-04-24 23:36:53--  http://www.lwfinger.com/b43-firmware/broadcom-wl-5.100.138.tar.bz2
+Resolving www.lwfinger.com... 69.175.20.18
+Connecting to www.lwfinger.com|69.175.20.18|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 13514651 (13M) [application/x-tar]
+Saving to: “broadcom-wl-5.100.138.tar.bz2”
+
+100%[===================================================================================================================&gt;] 13,514,651  1.54M/s   in 10s     
+
+2012-04-24 23:37:03 (1.27 MB/s) - “broadcom-wl-5.100.138.tar.bz2” saved [13514651/13514651]
+
+Creating new firmware directory...
+broadcom-wl-5.100.138/
+broadcom-wl-5.100.138/linux/
+broadcom-wl-5.100.138/linux/wl_apsta.o
+broadcom-wl-5.100.138/linux/wl_ap.o
+broadcom-wl-5.100.138/linux/wl_sta.o
+broadcom-wl-5.100.138/README
+broadcom-wl-5.100.138/config/
+broadcom-wl-5.100.138/config/wlconfig_lx_shared
+broadcom-wl-5.100.138/config/wl.mk
+broadcom-wl-5.100.138/config/wl_default
+broadcom-wl-5.100.138/config/wl_hnd
+broadcom-wl-5.100.138/config/wlconfig_nomimo
+This file is recognised as:
+  filename   :  wl_apsta.o
+  version    :  666.2
+  MD5        :  e1b05e268bcdbfef3560c28fc161f30e
+Extracting b43/lp0initvals14.fw
+Extracting b43/lcn0bsinitvals25.fw
+Extracting b43/n0bsinitvals25.fw
+Extracting b43/n0bsinitvals17.fw
+Extracting b43/ucode17_mimo.fw
+Extracting b43/ucode16_lp.fw
+Extracting b43/sslpn1initvals27.fw
+Extracting b43/lp2bsinitvals19.fw
+Extracting b43/sslpn3bsinitvals21.fw
+Extracting b43/ucode16_sslpn.fw
+  ucode time:     01:15:07
+Extracting b43/ucode25_lcn.fw
+Extracting b43/ucode21_sslpn.fw
+Extracting b43/lp0bsinitvals14.fw
+Extracting b43/b0g0initvals9.fw
+Extracting b43/ucode20_sslpn.fw
+Extracting b43/a0g1bsinitvals9.fw
+Extracting b43/lp1initvals20.fw
+Extracting b43/b0g0bsinitvals13.fw
+Extracting b43/lp2initvals19.fw
+Extracting b43/n2bsinitvals19.fw
+Extracting b43/sslpn4bsinitvals22.fw
+Extracting b43/ucode16_sslpn_nobt.fw
+  ucode date:     2011-02-23
+Extracting b43/n1bsinitvals20.fw
+Extracting b43/n1initvals20.fw
+Extracting b43/b0g0bsinitvals5.fw
+Extracting b43/ucode22_sslpn.fw
+Extracting b43/b0g0initvals13.fw
+Extracting b43/ht0initvals26.fw
+Extracting b43/ucode33_lcn40.fw
+Extracting b43/sslpn1bsinitvals20.fw
+Extracting b43/lcn400bsinitvals33.fw
+Extracting b43/ucode14.fw
+Extracting b43/a0g0initvals5.fw
+Extracting b43/lp1bsinitvals22.fw
+Extracting b43/n16initvals30.fw
+Extracting b43/lp0bsinitvals16.fw
+Extracting b43/lcn1bsinitvals25.fw
+Extracting b43/lcn400initvals33.fw
+Extracting b43/n0bsinitvals24.fw
+Extracting b43/lcn2bsinitvals26.fw
+Extracting b43/lcn1initvals26.fw
+Extracting b43/n0bsinitvals22.fw
+Extracting b43/n18initvals32.fw
+Extracting b43/lcn2initvals26.fw
+Extracting b43/a0g1bsinitvals5.fw
+Extracting b43/n0bsinitvals11.fw
+Extracting b43/lcn2initvals24.fw
+Extracting b43/lcn0initvals26.fw
+Extracting b43/n0absinitvals11.fw
+Extracting b43/ucode21_sslpn_nobt.fw
+  ucode time:     01:15:07
+Extracting b43/ucode26_mimo.fw
+Extracting b43/n2initvals19.fw
+Extracting b43/sslpn3initvals21.fw
+Extracting b43/a0g1bsinitvals13.fw
+Extracting b43/sslpn4initvals22.fw
+Extracting b43/pcm5.fw
+Extracting b43/ucode22_mimo.fw
+Extracting b43/ucode9.fw
+Extracting b43/lcn2initvals25.fw
+Extracting b43/lp1initvals22.fw
+Extracting b43/sslpn1bsinitvals27.fw
+Extracting b43/lcn0initvals24.fw
+Extracting b43/ucode32_mimo.fw
+Extracting b43/a0g0bsinitvals9.fw
+Extracting b43/n18bsinitvals32.fw
+Extracting b43/n0initvals24.fw
+Extracting b43/n0initvals25.fw
+Extracting b43/a0g1initvals5.fw
+Extracting b43/ucode24_lcn.fw
+Extracting b43/n0initvals17.fw
+Extracting b43/n0bsinitvals16.fw
+Extracting b43/lp0initvals15.fw
+Extracting b43/b0g0initvals5.fw
+Extracting b43/ucode20_sslpn_nobt.fw
+Extracting b43/lcn1initvals24.fw
+Extracting b43/sslpn0initvals16.fw
+Extracting b43/a0g1initvals13.fw
+Extracting b43/lp1bsinitvals20.fw
+Extracting b43/sslpn2initvals19.fw
+Extracting b43/a0g1initvals9.fw
+Extracting b43/lcn1bsinitvals24.fw
+Extracting b43/ucode5.fw
+Extracting b43/lcn2bsinitvals24.fw
+Extracting b43/lp0bsinitvals13.fw
+Extracting b43/n0initvals16.fw
+Extracting b43/ucode19_sslpn_nobt.fw
+Extracting b43/b0g0bsinitvals9.fw
+Extracting b43/ucode11.fw
+Extracting b43/lp0initvals16.fw
+Extracting b43/ucode16_mimo.fw
+Extracting b43/lcn0bsinitvals26.fw
+Extracting b43/ht0initvals29.fw
+Extracting b43/lcn2bsinitvals25.fw
+Extracting b43/a0g0initvals9.fw
+Extracting b43/ucode29_mimo.fw
+Extracting b43/lcn0bsinitvals24.fw
+Extracting b43/ucode19_sslpn.fw
+Extracting b43/lcn1initvals25.fw
+Extracting b43/ucode30_mimo.fw
+Extracting b43/n16bsinitvals30.fw
+Extracting b43/ucode25_mimo.fw
+Extracting b43/ucode24_mimo.fw
+Extracting b43/ucode27_sslpn.fw
+Extracting b43/lp0initvals13.fw
+Extracting b43/a0g0bsinitvals5.fw
+Extracting b43/ht0bsinitvals26.fw
+Extracting b43/ucode13.fw
+Extracting b43/sslpn2bsinitvals19.fw
+Extracting b43/ucode15.fw
+Extracting b43/lp0bsinitvals15.fw
+Extracting b43/n0initvals11.fw
+Extracting b43/lcn0initvals25.fw
+Extracting b43/sslpn0bsinitvals16.fw
+Extracting b43/sslpn1initvals20.fw
+Extracting b43/lcn1bsinitvals26.fw
+Extracting b43/n0initvals22.fw
+Extracting b43/ht0bsinitvals29.fw
+Setting up firmware-b43legacy-installer (1:015-14) ...
+No chroot environment found. Starting normal installation
+No supported card found.
+Use b43 firmware. This is just for the b43legacy driver.
+Aborting.</code></pre></div>
+When I replaced the new b43 directory with the old one and restarted the module, everything worked fine. When I restored the new directory and restarted the module, I could not detect any wireless networks. So it appears that some of the additional files in the updated firmware are causing the problem, though I don't know which ones or why.<br>
+<br>
+Hope this discovery helps someone out. Also, I hope an expert might be able to shed some light on why the newer firmware caused wireless to fail (at least for BCM4318).<br>
+<br>
+Thanks to all.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24464" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24464">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24464">
+
+<time datetime="2012-04-25T10:00">posted: 2012-04-25 &nbsp; 10:00</time>
+<span class="permalink"><a href="./no-wireless-networks-found-with-bcm4318-wireless-t3673.html#p24464" title="permalink">#4</a></span>
+
+<div class="content">]"Setting up firmware-b43legacy-installer (1:015-14)"<br>
+<br>
+Your 4318 card does not use b43legacy drivers. Uninstall firmware-b43legacy-installer (1:015-14). I believe there is a thread somewhere on this board.<br>
+It appears that your upgrade is forcing use of the legacy driver creating a conflict.<br>
+<br>
+viewtopic.php?f=15&amp;t=3110&amp;hilit=firmware%20b43legacy%20installer</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24468" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24468">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">paxform</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24468">
+
+<time datetime="2012-04-25T19:18">posted: 2012-04-25 &nbsp; 19:18</time>
+<span class="permalink"><a href="./no-wireless-networks-found-with-bcm4318-wireless-t3673.html#p24468" title="permalink">#5</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Your 4318 card does not use b43legacy drivers. Uninstall firmware-b43legacy-installer (1:015-14). I believe there is a thread somewhere on this board. It appears that your upgrade is forcing use of the legacy driver creating a conflict.</div></blockquote>
+I purged firmware-b43legacy-installer, rebooted, and tried the updated firmware again. Same result:"no wireless networks found" in wicd. Once I restored the older set of b43 files, I could connect again. So it seems, in my case, that the problem is the newer version of the firmware, or how the newer firmware works with antix, not sure.<br>
+<br>
+At this point, I have working wireless, but I am willing to keep working on this until the real nature of the problem is revealed. In the end, updating b43 firmware should not render any b43 wireless card inoperable, but this seems to be happening with antix-M11.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24470" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24470">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24470">
+
+<time datetime="2012-04-26T00:45">posted: 2012-04-26 &nbsp; 00:45</time>
+<span class="permalink"><a href="./no-wireless-networks-found-with-bcm4318-wireless-t3673.html#p24470" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>paxform wrote:</cite> Once I restored the older set of b43 files, I could connect again. So it seems, in my case, that the problem is the newer version of the firmware, or how the newer firmware works with antix, not sure.<br>
+<br>
+At this point, I have working wireless, but I am willing to keep working on this until the real nature of the problem is revealed. In the end, updating b43 firmware should not render any b43 wireless card inoperable, but this seems to be happening with antix-M11.</div></blockquote>
+Well, keep fighting it if you want and I hope you come up with a final solution. (and if you do please share!) but I went round and round with this with my Dell D800 with the Broadcom wireless. Every time I did an upgrade it would roach my wireless.<br>
+I rolled back the b43 firmware, removed firmware-b43legacy-installer and pinned firmware-b43-installer.<br>
+Never had any more problems.<br>
+I don't think it has anything to do with antiX. It is a debian issue. i did notice that your upgrade installed the wl driver and this may be causing the problem too. Maybe blacklisting wl will do the trick. <br>
+check this out 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://linuxwireless.org/en/users/Drivers/b43"<br>linktext was:"http://linuxwireless.org/en/users/Drivers/b43"<br>====================================<br>
+<br>
+The notebook I use now has an Intel card and it is nice not to have to fight with the Broadcom wireless cards my previous 2 lappies had.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

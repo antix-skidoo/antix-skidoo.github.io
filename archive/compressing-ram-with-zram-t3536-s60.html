@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Compressing RAM with zRam - Page 5 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./compressing-ram-with-zram-t3536-s60.html">Compressing RAM with zRam</a></div>
+<div class="pagination">
+71 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./compressing-ram-with-zram-t3536-s45.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536.html" role="button">1</a></li>
+ <li><a class="button" href="./compressing-ram-with-zram-t3536-s15.html" role="button">2</a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s30.html" role="button">3</a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s45.html" role="button">4</a></li>
+<li class="active"><span>5</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_25732" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25732">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 162</span></div>
+
+</div>
+</div>
+<span class="username">drg</span>
+</dt>
+<dd class="profile-joined">Joined: 22 Feb 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25732">
+<time datetime="2012-08-11T20:42">posted: 2012-08-11 &nbsp; 20:42</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p25732" title="permalink">#61</a></span>
+
+<div class="content">The section that I used that made it work:<br>
+1.    # load dependency modules<br>
+2. # kernels 3.4 onwards<br>
+3. <br>
+4. modprobe zram num_devices=$num_cpus<br>
+5. <br>
+6. if [ $? -gt 0 ]; then<br>
+7. # kernels 3.1 - 3.3<br>
+8. #modprobe zram zram_num_devices=$num_cpus <br>
+9. #else<br>
+10. echo -e"Your Kernel needs to be compiled with ZRAM support:" \<br>
+<br>
+etc, etc.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25733" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile25733">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25733">
+
+<time datetime="2012-08-11T22:15">posted: 2012-08-11 &nbsp; 22:15</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p25733" title="permalink">#62</a></span>
+
+<div class="content"><blockquote><div><cite>drg wrote:</cite>EDIT point: the modified script I used was the one melodie pointed to yesterday, Aug10. Haven't read thru' his newest stuff yet. Just in case there is some difference. </div></blockquote>
+Hi,<br>
+<br>
+I pasted a diff file here, as said above : 
+<br>
+In the diff there is"zram-a" which is the script provided by tradetaxfree,"zram-b" his script with modifications done by my two friends, (I pointed to their websites), and the whole thing is : it works !<br>
+<br>
+The lines which were changed:<br>
+<br>
+-# Required-Start:<br>
++# Required-Start: $local_fs // needed in order to be started during boot - you can compare with other init scripts... <br>
+<br>
+- memtotal=$(grep MemTotal /proc/meminfo | awk ' { print $2 } ')<br>
++ memtotal=$(grep MemTotal /proc/meminfo | sed 's/[^0-9]\+//g') // there the friend thought /usr/bin/awk might not have been in the $PATH during the boot time<br>
+<br>
+the rest of the changes is directly related to the first error messages echoed by the script. This part is the one which was changed first and allowed me to succeed starting it manually. The 2 above finished to fix it. Since then it has been loaded each time I have booted or rebooted that machine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_25734" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25734">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25734">
+
+<time datetime="2012-08-11T22:30">posted: 2012-08-11 &nbsp; 22:30</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p25734" title="permalink">#63</a></span>
+
+<div class="content">I have been testing the modified zram script that melodie pointed to (zram-b) and it does seem to work <br>
+I'll test some more and then if all is still ok I'll upload the newer version via the antix-goodies-antix deb<br>
+(the new antix-goodies-antix deb will also make the youtube-viewer app work ootb without needing to set it up)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33342" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33342">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33342">
+
+<time datetime="2014-02-13T02:09">posted: 2014-02-13 &nbsp; 02:09</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p33342" title="permalink">#64</a></span>
+
+<div class="content">I've read through this thread, but I'm not sure I've really understood how small a system's RAM or how slow the processor can be before zram is counterproductive -- I've got 288 MiB RAM in my Pentium II 300 laptop, and partitioned the hard disk with 1 GB swap; I rarely see any swap usage on conky, and then only a few megabytes, but I haven't gotten to the point of trying to get anything actually done on that machine, it's still mainly running streamtuner2 and xmms, playing internet radio or locally stored mp3 sound.<br>
+<br>
+Is it likely to be worthwhile trying to set up zram on a machine with these specs?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33349" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33349">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33349">
+
+<time datetime="2014-02-13T14:52">posted: 2014-02-13 &nbsp; 14:52</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p33349" title="permalink">#65</a></span>
+
+<div class="content">Someone else probably know more about this, but as long as you just use"a few" mb of swap, I would leave it alone.<br>
+At least until you try to do some real work.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33350" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33350">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33350">
+
+<time datetime="2014-02-13T15:55">posted: 2014-02-13 &nbsp; 15:55</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p33350" title="permalink">#66</a></span>
+
+<div class="content">Hi,<br>
+<br>
+I have used it with 192 MB ram on a PII laptop. I had to setup the swappiness to avoid swapping which came fast, then it was alright. I had also setup libreoffice to be prelinked with prelink.<br>
+<br>
+The %age RAM was setup to 25% of the available ram for the size of the block device, which is the value recommended by the dev of the compcache project (where zram comes from) for desktop computers.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33356" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33356">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33356">
+
+<time datetime="2014-02-14T01:02">posted: 2014-02-14 &nbsp; 01:02</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p33356" title="permalink">#67</a></span>
+
+<div class="content"><blockquote><div><cite>melodie wrote:</cite>Hi,<br>
+<br>
+I have used it with 192 MB ram on a PII laptop. I had to setup the swappiness to avoid swapping which came fast, then it was alright. I had also setup libreoffice to be prelinked with prelink.<br>
+<br>
+The %age RAM was setup to 25% of the available ram for the size of the block device, which is the value recommended by the dev of the compcache project (where zram comes from) for desktop computers.</div></blockquote>
+Sigh.<br>
+<br>
+Just when I start to think I'm understanding Linux, I get an answer that might as well be in Greek. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+The only part of that that made any sense to me was setting up zram to use 25% of RAM, which given approximate 2:1 compression (average for random data, if they're using an algorithm as efficient as LZH), would eliminate swap usage (I plan on removing Libre Office from the laptop and using Abiword and Gnumeric for the limited productivity I'd want/need). I have no idea what prelinking libreoffice even means...<br>
+<br>
+What I'm not sure about is whether the 300 MHz processor running compression will cost more performance than I save by not writing to the"redneck SSD" -- or whether the write cycle reduction will be enough to matter on the usable life of the Compact Flash I'm using for a hard disk.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33357" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33357">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33357">
+
+<time datetime="2014-02-14T01:18">posted: 2014-02-14 &nbsp; 01:18</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p33357" title="permalink">#68</a></span>
+
+<div class="content">Hi,<br>
+<br>
+prelink is a program which allows prelinking the libs of a program to have them libs loaded at same time as the session, allowing the sayd program to be started faster when called.<br>
+<br>
+I found how to set it up the most efficient way (the exemple given everywhere is very wrong, it suggests to prelink everything, and I have done tests, doing so does not help because the cache created is big and slows it all down).<br>
+<br>
+Doing a prelink only on libreoffice helps starting it faster when it is launched from the menus.<br>
+<br>
+ie:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># prelink -vmR /usr/bin/libreoffice</code></pre></div>
+Then you need to configure the cron prelink : remove the X bit, or it will probably prelink everything automatically at the next cycle. :[<br>
+<br>
+and see the configuration file… (the one under /etc fortunately has lots of comments to explain more or less clearly what the options do).<br>
+<br>
+the swappiness, well you can read here for instance, about it:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/Swap#Swappiness"<br>linktext was:"https://wiki.archlinux.org/index.php/Swap#Swappiness"<br>====================================<br>
+<br>
+<blockquote class="uncited"><div>(I plan on removing Libre Office from the laptop and using Abiword and Gnumeric for the limited productivity I'd want/need)</div></blockquote>
+You could also choose to install just libreoffice writer and calc. You might want to compare both solutions and check which one brings in most depends as a total size. It might not make such a difference.<br>
+<br>
+PS: of course prelink needs to be installed:"sudo apt-get install prelink".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33361" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33361">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 347</span></div>
+
+</div>
+</div>
+<span class="username">Silent Observer</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33361">
+
+<time datetime="2014-02-14T12:25">posted: 2014-02-14 &nbsp; 12:25</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p33361" title="permalink">#69</a></span>
+
+<div class="content">Ah, given the little swap hit I ever get on that machine is happening before RAM gets very close to 100% usage, I might be able to just tweak down the swappiness and get it to run all in RAM -- and avoid the compression overhead.<br>
+<br>
+What I've read is that removing bits of LibreOffice doesn't help much for space or RAM usage, because the libre-office-core module is the biggest single part and it loads when any of the apps are in use -- IOW, even if I only have LibreOffice Write, I'll have to have libre-office-core to use it, and that is the big consumer of storage space and RAM in that suite. Abiword and gnumeric don't have big cores and can read/write formats that LibreOffice can import on my desktop systems.<br>
+<br>
+I'll do some testing with Abiword and gnumeric, but I suspect I'll be able to avoid zram just by using those lighter applications and tweaking swappiness. Thanks for mentioning that -- that's going to be useful for me.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33362" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33362">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33362">
+
+<time datetime="2014-02-14T13:19">posted: 2014-02-14 &nbsp; 13:19</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p33362" title="permalink">#70</a></span>
+
+<div class="content">Hi, <br>
+<br>
+In my opinion Abiword and Gnumerci are not light on resources. Yes the cpu of your machine does not provide enough. What could be used, would be online spreadsheet and text processor, with, perhaps, Midori? (Just an idea : and to be tested)<br>
+<br>
+You won't stop the swappiness completely, it seems a little is needed sometimes even if all the ram is not used. But if you set it up to 0 it will use the minimum required and not more.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33367" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33367">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+ <div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33367">
+
+<time datetime="2014-02-14T23:28">posted: 2014-02-14 &nbsp; 23:28</time>
+<span class="permalink"><a href="./compressing-ram-with-zram-t3536-s60.html#p33367" title="permalink">#71</a></span>
+
+<div class="content">In the case of my eeepc, which is very swap happy, I have to set swappiness to 4. <br>
+Any more, and it act the same as the default, and any less, and it some times gets confused, and locks up.<br>
+I would experiment with that a little.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+71 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./compressing-ram-with-zram-t3536-s45.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536.html" role="button">1</a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s15.html" role="button">2</a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s30.html" role="button">3</a></li>
+<li><a class="button" href="./compressing-ram-with-zram-t3536-s45.html" role="button">4</a></li>
+<li class="active"><span>5</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

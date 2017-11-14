@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>fromiso booting issues - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m11-jayaben-desai-f43/index.html"><span>antiX-M11 Jayaben Desai</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./fromiso-booting-issues-t3213.html">fromiso booting issues</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_21138" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21138">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">ggeorgan</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Jun 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21138">
+<time datetime="2011-06-28T18:55">posted: 2011-06-28 &nbsp; 18:55</time>
+<span class="permalink"><a href="./fromiso-booting-issues-t3213.html#p21138" title="permalink">#1</a></span>
+
+<div class="content">The instructions in 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.mepis.org/index.php?title=Installation_Tips"<br>linktext was:"Installation Tips Boot from iso on hard-disk"<br>====================================<br>
+ seem to be incomplete.<br>
+The user is supposed to create the directory/folder <strong>test</strong> and mount the AntiX.iso there. However, upon reboot, the <strong>test</strong> directory gets emptied, so the modified grub commands apparently cannot find the complete AntiX filesystem they are seeking.<br>
+Has anyone actually managed to boot fromiso following those instructions ?<br>
+Thank you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21154" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21154">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">kingneutron</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Jul 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21154">
+
+<time datetime="2011-07-02T21:48">posted: 2011-07-02 &nbsp; 21:48</time>
+<span class="permalink"><a href="./fromiso-booting-issues-t3213.html#p21154" title="permalink">#2</a></span>
+
+<div class="content">--I was able to get antiX booting from HD ( since it wouldn't"find" the cd ) by using system rescue cd to create a fat32 700MB filesystem and recreating the directory structure on the CD...<br>
+<br>
+[[<br>
+--To get antix to install, had to boot win98se boot floppy and fdisk+format 700MB C:<br>
+then boot sys rescue cd and move the resulting partition to far-right since it ended up in the MIDDLE<br>
+and then mount and FTP antiX/antiX file to it from another system for the liveCD to find it! <br>
+mepis/antiX livecd would NOT BOOT otherwise on thisbox no matter what boot options were tried.<br>
+]]<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Disk /dev/sda: 20.0 GB, 20003880960 bytes
+16 heads, 63 sectors/track, 38760 cylinders
+Units = cylinders of 1008 * 512 = 516096 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000d37d6
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1               1         969      488344+  83  Linux
+/dev/sda2             970        1357      195552   82  Linux swap / Solaris
+/dev/sda3           37330       38760      721224    c  W95 FAT32 (LBA)
+/dev/sda4   *        1358       37329    18129888   83  Linux
+
+</code></pre></div>
+' mount /dev/sda3 /mnt/tmp -oro '<br>
+' ls -al /mnt/tmp '<br>
+total 4<br>
+drwxr-xr-x 2 root root 4096 Jun 11 15:53 antiX<br>
+<br>
+' ls -al /mnt/tmp/antiX/ '<br>
+total 684940<br>
+-rwxr-xr-x 1 root root 701378560 May 1 16:10 antiX<br>
+<br>
+--Additional note: kernel boot options: ' nosmp irqpoll '<br>
+<blockquote><div><cite>ggeorgan wrote:</cite>The instructions in 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.mepis.org/index.php?title=Installation_Tips"<br>linktext was:"Installation Tips Boot from iso on hard-disk"<br>====================================<br>
+ seem to be incomplete.<br>
+The user is supposed to create the directory/folder <strong>test</strong> and mount the AntiX.iso there. However, upon reboot, the <strong>test</strong> directory gets emptied, so the modified grub commands apparently cannot find the complete AntiX filesystem they are seeking.<br>
+Has anyone actually managed to boot fromiso following those instructions ?<br>
+Thank you.</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21196" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21196">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">ggeorgan</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Jun 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21196">
+
+<time datetime="2011-07-08T17:26">posted: 2011-07-08 &nbsp; 17:26</time>
+<span class="permalink"><a href="./fromiso-booting-issues-t3213.html#p21196" title="permalink">#3</a></span>
+
+<div class="content">In my case, I managed to boot using the instructions for MEPIS 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.mepis.org/docs/en/index.php?title=Boot_from_ISO"<br>linktext was:"here"<br>====================================<br>
+.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

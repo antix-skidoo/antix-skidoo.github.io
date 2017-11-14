@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Setting Video resolution on VM - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./setting-video-resolution-on-vm-t4049.html">Setting Video resolution on VM</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_27103" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27103">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">waveqam</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27103">
+<time datetime="2012-11-29T16:36">posted: 2012-11-29 &nbsp; 16:36</time>
+<span class="permalink"><a href="./setting-video-resolution-on-vm-t4049.html#p27103" title="permalink">#1</a></span>
+
+<div class="content">Good day,<br>
+<br>
+I have just installed AntiX as a Virtual Machine on a HP G62 laptop.<br>
+<br>
+I am using Oracle VirtualBox version 4.2.4<br>
+<br>
+I have not been able to install guest additions. - The AUTORUN did not start when mounted so I opened a terminal and went to /media/cdrdom and issued ./autorun.sh and got back the reply Linux Guest additions installer not found -- try to start them manually.<br>
+<br>
+I thought I might be able to just modify the xorg.conf.in file but I am seeing @@MODE@@ in several sections which I have not seen before and I don't want to break anything so I did not try.<br>
+<br>
+My Laptop has an Intel HD Graphics (Core i3) chipset supporting the following res<br>
+800 x 600<br>
+1024 x 768<br>
+1280 x 600<br>
+1280 x 720<br>
+1280 x 768<br>
+1360 x 768<br>
+1366 x 768 - Current laptop setting<br>
+<br>
+Colour depth is 16 or 32<br>
+Refresh rate is 60 Hz<br>
+<br>
+XServer is showing the following modes available<br>
+1024 x 768 61 Hz<br>
+800 x 600 61 Hz<br>
+640 x 480 61 Hz<br>
+<br>
+In the xorg.conf.in I see<br>
+<br>
+Section"Monitor"<br>
+Identifier"Monitor0"<br>
+VendorName"unknown"<br>
+ModelName"unknown"<br>
+Option"DPMS""true"<br>
+HorizSync 30-75<br>
+VertRefresh 55-70<br>
+EndSection<br>
+<br>
+Section"Device"<br>
+Identifier"Card0"<br>
+Driver"@@XMODULE@@"<br>
+BoardName"unknown"<br>
+<br>
+Screen 0<br>
+#Option"UseDisplayDevice""dfp"<br>
+#Option"MonitorLayout""crt,crt"<br>
+#BusID"PCI:1:0:0"<br>
+#Option"sw_cursor" # needed for some ati cards<br>
+#Option"hw_cursor"<br>
+#Option"NoAccel"<br>
+#Option"ShowCache"<br>
+#Option"ShadowFB"<br>
+#Option"UseFBDev"<br>
+#Option"Rotate"<br>
+Option"UseInternalAGPGART""no"<br>
+<br>
+Option"XAANoOffscreenPixmaps""true"<br>
+<br>
+# savage special options, use with care<br>
+#Option"NoUseBios"<br>
+#Option"BusType""PCI"<br>
+Option"DmaMode""None"<br>
+<br>
+# nvidia special options, use with care<br>
+Option"CursorShadow""1"<br>
+Option"CursorShadowAlpha""63"<br>
+Option"CursorShadowYOffset""2"<br>
+Option"CursorShadowXOffset""4"<br>
+Option"FlatPanelProperties""Scaling = native"<br>
+Option"NoLogo""true"<br>
+Option"UseEDID""true"<br>
+Option"AddARGBGLXVisuals""true"<br>
+Option"RenderAccel""true"<br>
+#Option"AllowGLXWithComposite""true"<br>
+EndSection<br>
+<br>
+Section"Device"<br>
+Identifier"Card1"<br>
+Driver"@@XMODULE@@"<br>
+BoardName"unknown"<br>
+<br>
+Screen 1<br>
+#Option"MonitorLayout""crt,crt"<br>
+#BusID"PCI:1:0:0"<br>
+EndSection<br>
+<br>
+Section"Screen"<br>
+Identifier"Screen0"<br>
+Device"Card0"<br>
+Monitor"Monitor0"<br>
+DefaultColorDepth 16<br>
+SubSection"Display"<br>
+Depth 8<br>
+@@MODES@@<br>
+EndSubSection<br>
+SubSection"Display"<br>
+Depth 15<br>
+@@MODES@@<br>
+EndSubSection<br>
+SubSection"Display"<br>
+Depth 16<br>
+@@MODES@@<br>
+EndSubSection<br>
+SubSection"Display"<br>
+Depth 24<br>
+@@MODES@@<br>
+EndSubSection<br>
+SubSection"Display"<br>
+Depth 32<br>
+@@MODES@@<br>
+EndSubSection<br>
+<br>
+# Only the official NVIDIA driver supports twinview<br>
+# these setting are an example<br>
+Option"SecondMonitorVendorName""unknown"<br>
+Option"SecondMonitorModelName""unknown"<br>
+Option"SecondMonitorHorizSync""30-75"<br>
+Option"SecondMonitorVertRefresh""55-70"<br>
+#Option"MetaModes""1024x768, 1024x768"<br>
+Option"TwinViewOrientation""RightOf"<br>
+Option"ConnectedMonitor""dfp,dfp"<br>
+EndSection<br>
+<br>
+Section"DRI"<br>
+Mode 0666<br>
+EndSection<br>
+<br>
+Section"Extensions"<br>
+Option"Composite""Enable"<br>
+EndSection<br>
+<br>
+<br>
+<br>
+I would like to be able to go full screen on the VirtualBox which would be the 1366 x 768 setting.<br>
+<br>
+Any advice would be appreciated.<br>
+<br>
+Darcy</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27105" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile27105">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27105">
+
+<time datetime="2012-11-29T18:50">posted: 2012-11-29 &nbsp; 18:50</time>
+<span class="permalink"><a href="./setting-video-resolution-on-vm-t4049.html#p27105" title="permalink">#2</a></span>
+
+<div class="content">Try running antiX live in Virtualbox with the noxorg cheat in the boot menu removed and add by typing xres=1366x768<br>
+<br>
+(or use the no cheats optiom at boot menu screen and type xres=1366x768)<br>
+<br>
+If it boots to correct resolution, then copy your etc/X11/xorg.conf when running live to your installed partiton etc/X11/xorg.conf</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_27106" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile27106">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">waveqam</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Nov 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content27106">
+
+<time datetime="2012-11-29T19:58">posted: 2012-11-29 &nbsp; 19:58</time>
+<span class="permalink"><a href="./setting-video-resolution-on-vm-t4049.html#p27106" title="permalink">#3</a></span>
+
+<div class="content">Thx I will give that a try</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

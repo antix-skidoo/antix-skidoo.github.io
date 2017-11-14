@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Disable Ping in ufw - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./disable-ping-in-ufw-t3302.html">Disable Ping in ufw</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_21708" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21708">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 117</span></div>
+
+</div>
+</div>
+<span class="username">buttcoffee</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Aug 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21708">
+<time datetime="2011-08-24T04:06">posted: 2011-08-24 &nbsp; 04:06</time>
+<span class="permalink"><a href="./disable-ping-in-ufw-t3302.html#p21708" title="permalink">#1</a></span>
+
+<div class="content">I believe ufw is pre-installed in antix. If you go to that shieldsup site 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.grc.com"<br>linktext was:"https://www.grc.com"<br>====================================<br>
+ the default config of ufw won't pass the ping test with stealth. So, if you want to disable ping, just do this.<br>
+<br>
+sux<br>
+nano /etc/ufw/before.rules<br>
+<br>
+Look for these lines<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># ok icmp codes
+-A ufw-before-input -p icmp --icmp-type destination-unreachable -j ACCEPT
+-A ufw-before-input -p icmp --icmp-type source-quench -j ACCEPT
+-A ufw-before-input -p icmp --icmp-type time-exceeded -j ACCEPT
+-A ufw-before-input -p icmp --icmp-type parameter-problem -j ACCEPT
+-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT
+ </code></pre></div>
+and change them to this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># ok icmp codes
+-A ufw-before-input -p icmp --icmp-type destination-unreachable -j DROP
+-A ufw-before-input -p icmp --icmp-type source-quench -j DROP
+-A ufw-before-input -p icmp --icmp-type time-exceeded -j DROP
+-A ufw-before-input -p icmp --icmp-type parameter-problem -j DROP
+-A ufw-before-input -p icmp --icmp-type echo-request -j DROP
+</code></pre></div>
+Then type in:<br>
+<br>
+ufw disable<br>
+ufw enable<br>
+<br>
+Now, if you go back to 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.grc.com"<br>linktext was:"https://www.grc.com"<br>====================================<br>
+, you'll pass the test with stealth. Dropping ping request doesn't make you safer or anything.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

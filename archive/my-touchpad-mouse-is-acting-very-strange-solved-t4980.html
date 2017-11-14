@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>My touchpad mouse is acting very strange [SOLVED] - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./my-touchpad-mouse-is-acting-very-strange-solved-t4980.html">My touchpad mouse is acting very strange [SOLVED]</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34676" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34676">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34676">
+<time datetime="2014-04-18T20:05">posted: 2014-04-18 &nbsp; 20:05</time>
+<span class="permalink"><a href="./my-touchpad-mouse-is-acting-very-strange-solved-t4980.html#p34676" title="permalink">#1</a></span>
+
+<div class="content">Its a Dell Inspiron 8100 Laptop with a built in touchpad as well as a thumb mouse and 2 sets of left and right clickers.<br>
+<br>
+Its running antiX 13.2 but with a 3.2..0-4-486 kernel so that it can do 1600x1200 for the built in nvidia card.<br>
+<br>
+I generally don't use the thumb mouse. The touchpad mouse has a hard time staying where you move it long enough to be able to click. And sometimes it fires off 3 or 4 copies of a program after being clicked once. And its very difficult to scroll, for example to scroll back in an xterm session is a frustrating nightmare. Its like playing a game where you can't make the mouse do what you want. And inevitably, when you don't want it to scroll, it does, and backwards, LOL.<br>
+<br>
+Ok, I looked at dmesg and Xorg.0.log for errors, and tried adjusting the mouse settings in the console.<br>
+<br>
+I don't know what to try next? Any ideas, please?<br>
+<br>
+<br>
+I copied what appeared to be relevant into a text file....<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dmesg
+
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 3.2.0-4-486 (debian-kernel@lists.debian.org) (gcc version 4.6.3 (Debian 4.6.3-14) ) #1 Debian 3.2.54-2
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000]  BIOS-e820: 0000000000000000 - 000000000009fc00 (usable)
+[    0.000000]  BIOS-e820: 000000000009fc00 - 00000000000a0000 (reserved)
+[    0.000000]  BIOS-e820: 0000000000100000 - 000000001ffea800 (usable)
+[    0.000000]  BIOS-e820: 000000001ffea800 - 0000000020000000 (reserved)
+[    0.000000]  BIOS-e820: 00000000feea0000 - 00000000fef00000 (reserved)
+[    0.000000]  BIOS-e820: 00000000ffb80000 - 0000000100000000 (reserved)
+[    0.000000] Notice: NX (Execute Disable) protection missing in CPU!
+[    0.000000] SMBIOS 2.3 present.
+[    0.000000] DMI: Dell Computer Corporation Inspiron 8100                   /Inspiron 8100            , BIOS A08 12/21/2001
+[    0.000000] e820 update range: 0000000000000000 - 0000000000010000 (usable) ==&gt; (reserved)
+[    0.000000] e820 remove range: 00000000000a0000 - 0000000000100000 (usable)
+[    0.000000] last_pfn = 0x1ffea max_arch_pfn = 0x100000
+[    0.000000] MTRR default type: uncachable
+[    0.000000] MTRR fixed ranges enabled:
+[    0.000000]   00000-9FFFF write-back
+[    0.000000]   A0000-BFFFF uncachable
+[    0.000000]   C0000-CBFFF write-protect
+[    0.000000]   CC000-EFFFF uncachable
+[    0.000000]   F0000-FFFFF write-protect
+[    0.000000] MTRR variable ranges enabled:
+[    0.000000]   0 base 000000000 mask FE0000000 write-back
+[    0.000000]   1 base 0FEEA0000 mask FFFFE0000 write-through
+[    0.000000]   2 disabled
+[    0.000000]   3 disabled
+[    0.000000]   4 disabled
+[    0.000000]   5 disabled
+[    0.000000]   6 disabled
+[    0.000000]   7 disabled
+[    0.000000] PAT not supported by CPU.
+[    0.000000] initial memory mapped : 0 - 01800000
+[    0.000000] Base memory trampoline at [c009c000] 9c000 size 12288
+[    0.000000] init_memory_mapping: 0000000000000000-000000001ffea000
+[    0.000000]  0000000000 - 0000400000 page 4k
+[    0.000000]  0000400000 - 001fc00000 page 2M
+[    0.000000]  001fc00000 - 001ffea000 page 4k
+[    0.000000] kernel direct mapping tables up to 1ffea000 @ 17f8000-1800000
+[    0.000000] RAMDISK: 1f18c000 - 1ffdb000
+[    0.000000] ACPI: RSDP 000fde50 00014 (v00 DELL  )
+[    0.000000] ACPI: RSDT 000fde64 00028 (v01 DELL    CPi R   27D10C15 ASL  00000061)
+[    0.000000] ACPI: FACP 000fde90 00074 (v01 DELL    CPi R   27D10C15 ASL  00000061)
+[    0.000000] ACPI: DSDT fffe4000 02C80 (v01 INT430 SYSFexxx 00001001 MSFT 0100000D)
+[    0.000000] ACPI: FACS 1ffff800 00040
+[    0.000000] 0MB HIGHMEM available.
+[    0.000000] 511MB LOWMEM available.
+[    0.000000]   mapped low ram: 0 - 1ffea000
+[    0.000000]   low ram: 0 - 1ffea000
+[    0.000000] Zone PFN ranges:
+[    0.000000]   DMA      0x00000010 -&gt; 0x00001000
+[    0.000000]   Normal   0x00001000 -&gt; 0x0001ffea
+[    0.000000]   HighMem  empty
+[    0.000000] Movable zone start PFN for each node
+[    0.000000] early_node_map[2] active PFN ranges
+[    0.000000]     0: 0x00000010 -&gt; 0x0000009f
+[    0.000000]     0: 0x00000100 -&gt; 0x0001ffea
+[    0.000000] On node 0 totalpages: 130937
+[    0.000000] free_area_init_node: node 0, pgdat c13c5a88, node_mem_map ded8c200
+[    0.000000]   DMA zone: 32 pages used for memmap
+[    0.000000]   DMA zone: 0 pages reserved
+[    0.000000]   DMA zone: 3951 pages, LIFO batch:0
+[    0.000000]   Normal zone: 992 pages used for memmap
+[    0.000000]   Normal zone: 125962 pages, LIFO batch:31
+[    0.000000] Using APIC driver default
+[    0.000000] ACPI: PM-Timer IO Port: 0x808
+[    0.000000] Local APIC disabled by BIOS -- you can enable it with"lapic"
+[    0.000000] APIC: disable apic facility
+[    0.000000] APIC: switched to apic NOOP
+[    0.000000] nr_irqs_gsi: 16
+[    0.000000] PM: Registered nosave memory: 000000000009f000 - 00000000000a0000
+[    0.000000] PM: Registered nosave memory: 00000000000a0000 - 0000000000100000
+[    0.000000] Allocating PCI resources starting at 20000000 (gap: 20000000:deea0000)
+[    0.000000] Booting paravirtualized kernel on bare hardware
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 129913
+[    0.000000] Kernel command line: root=UUID=3a12a9eb-fff5-434a-bcb7-fa6a4976eef6 ro nomodeset nouveau.modeset=0
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Initializing CPU#0
+[    0.000000] Initializing HighMem for node 0 (00000000:00000000)
+[    0.000000] Memory: 499668k/524200k available (2599k kernel code, 24080k reserved, 1290k data, 456k init, 0k highmem)
+[    0.000000] virtual kernel memory layout:
+[    0.000000]     fixmap  : 0xfffa1000 - 0xfffff000   ( 376 kB)
+[    0.000000]     pkmap   : 0xff800000 - 0xffc00000   (4096 kB)
+[    0.000000]     vmalloc : 0xe07ea000 - 0xff7fe000   ( 496 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xdffea000   ( 511 MB)
+[    0.000000]       .init : 0xc13cd000 - 0xc143f000   ( 456 kB)
+[    0.000000]       .data : 0xc1289e2c - 0xc13cc6c0   (1290 kB)
+[    0.000000]       .text : 0xc1000000 - 0xc1289e2c   (2599 kB)
+[    0.000000] Checking if this processor honours the WP bit even in supervisor mode...Ok.
+[    0.000000] NR_IRQS:2304 nr_irqs:256 16
+[    0.000000] CPU 0 irqstacks, hard=de806000 soft=de808000
+[    0.000000] Console: colour VGA+ 80x25
+[    0.000000] console [tty0] enabled
+
+[    9.986335] psmouse serio1: synaptics: Touchpad model: 1, fw: 5.7, id: 0x8146b1, caps: 0x804793/0x0/0x0
+[    9.986468] psmouse serio1: synaptics: serio: Synaptics pass-through port at isa0060/serio1/input0
+[   10.034199] input: SynPS/2 Synaptics TouchPad as /devices/platform/i8042/serio1/input/input6
+[   10.331175] nvidia: module license 'NVIDIA' taints kernel.
+[   10.331267] Disabling lock debugging due to kernel taint
+[   17.597771] IBM TrackPoint firmware: 0x0b, buttons: 2/3
+[   17.826077] input: TPPS/2 IBM TrackPoint as /devices/platform/i8042/serio1/serio2/input/input7
+
+Xorg.0.log
+[    29.433] 
+X.Org X Server 1.12.4
+Release Date: 2012-08-27
+[    29.433] X Protocol Version 11, Revision 0
+[    29.433] Build Operating System: Linux 3.2.0-4-amd64 i686 Debian
+[    29.433] Current Operating System: Linux antiX132 3.2.0-4-486 #1 Debian 3.2.54-2 i686
+[    29.433] Kernel command line: root=UUID=3a12a9eb-fff5-434a-bcb7-fa6a4976eef6 ro nomodeset nouveau.modeset=0
+[    29.433] Build Date: 21 October 2013  05:31:52PM
+[    29.434] xorg-server 2:1.12.4-6+deb7u1 (Moritz Muehlenhoff &lt;jmm@debian.org&gt;) 
+[    29.434] Current version of pixman: 0.26.0
+[    29.434]     Before reporting problems, check http://wiki.x.org
+    to make sure that you have the latest version.
+[    29.434] Markers: (--) probed, (**) from config file, (==) default setting,
+    (++) from command line, (!!) notice, (II) informational,
+    (WW) warning, (EE) error, (NI) not implemented, (??) unknown.
+[    29.434] (==) Log file:"/var/log/Xorg.0.log", Time: Thu Apr 17 22:58:40 2014
+[    29.522] (==) Using config file:"/ etc/X11/xorg.conf"
+[    29.522] (==) Using config directory:"/ etc/X11/xorg.conf.d"
+[    29.522] (==) Using system config directory"/usr/share/X11/xorg.conf.d"
+[    29.581] (==) ServerLayout"X.org Configured"
+[    29.581] (**) |--&gt;Screen"Screen0" (0)
+[    29.581] (**) |   |--&gt;Monitor"Monitor0"
+[    29.606] (**) |   |--&gt;Device"Card0"
+[    29.606] (**) |--&gt;Screen"Screen1" (1)
+[    29.606] (**) |   |--&gt;Monitor"Monitor1"
+[    29.607] (**) |   |--&gt;Device"Card1"
+[    29.607] (**) |--&gt;Screen"Screen2" (2)
+[    29.607] (**) |   |--&gt;Monitor"Monitor2"
+[    29.608] (**) |   |--&gt;Device"Card2"
+[    29.608] (**) |--&gt;Input Device"Mouse0"
+[    29.608] (**) |--&gt;Input Device"Keyboard0"
+[    29.608] (==) Automatically adding devices
+[    29.608] (==) Automatically enabling devices
+
+[    32.881] (II) SELinux: Disabled on system
+[    34.165] (II) config/udev: Adding input device Video Bus (/dev/input/event1)
+[    34.165] (**) Video Bus: Applying InputClass"evdev keyboard catchall"
+[    34.165] (II) LoadModule:"evdev"
+[    34.165] (II) Loading /usr/lib/xorg/modules/input/evdev_drv.so
+[    34.183] (II) Module evdev: vendor="X.Org Foundation"
+[    34.184]     compiled for 1.12.1, module version = 2.7.0
+[    34.184]     Module class: X.Org XInput Driver
+[    34.184]     ABI class: X.Org XInput driver, version 16.0
+[    34.184] (II) Using input driver 'evdev' for 'Video Bus'
+[    34.184] (**) Video Bus: always reports core events
+[    34.184] (**) evdev: Video Bus: Device:"/dev/input/event1"
+[    34.184] (--) evdev: Video Bus: Vendor 0 Product 0x6
+[    34.184] (--) evdev: Video Bus: Found keys
+[    34.184] (II) evdev: Video Bus: Configuring as keyboard
+[    34.184] (**) Option"config_info""udev:/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A03:00/device:07/LNXVIDEO:00/input/input1/event1"
+[    34.185] (II) XINPUT: Adding extended input device"Video Bus" (type: KEYBOARD, id 6)
+[    34.185] (**) Option"xkb_rules""evdev"
+[    34.185] (**) Option"xkb_model""pc105"
+[    34.185] (**) Option"xkb_layout""us,us"
+[    34.185] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"
+[    34.312] (II) config/udev: Adding input device Power Button (/dev/input/event4)
+[    34.313] (**) Power Button: Applying InputClass"evdev keyboard catchall"
+[    34.313] (II) Using input driver 'evdev' for 'Power Button'
+[    34.313] (**) Power Button: always reports core events
+[    34.313] (**) evdev: Power Button: Device:"/dev/input/event4"
+[    34.313] (--) evdev: Power Button: Vendor 0 Product 0x1
+[    34.313] (--) evdev: Power Button: Found keys
+[    34.313] (II) evdev: Power Button: Configuring as keyboard
+[    34.313] (**) Option"config_info""udev:/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0C:00/input/input4/event4"
+[    34.313] (II) XINPUT: Adding extended input device"Power Button" (type: KEYBOARD, id 7)
+[    34.313] (**) Option"xkb_rules""evdev"
+[    34.313] (**) Option"xkb_model""pc105"
+[    34.313] (**) Option"xkb_layout""us,us"
+[    34.313] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"
+[    34.315] (II) config/udev: Adding input device Lid Switch (/dev/input/event3)
+[    34.316] (II) No input driver specified, ignoring this device.
+[    34.316] (II) This device may have been added with another device file.
+[    34.317] (II) config/udev: Adding input device Sleep Button (/dev/input/event5)
+[    34.317] (**) Sleep Button: Applying InputClass"evdev keyboard catchall"
+[    34.317] (II) Using input driver 'evdev' for 'Sleep Button'
+[    34.317] (**) Sleep Button: always reports core events
+[    34.317] (**) evdev: Sleep Button: Device:"/dev/input/event5"
+[    34.317] (--) evdev: Sleep Button: Vendor 0 Product 0x3
+[    34.317] (--) evdev: Sleep Button: Found keys
+[    34.317] (II) evdev: Sleep Button: Configuring as keyboard
+[    34.317] (**) Option"config_info""udev:/sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0E:00/input/input5/event5"
+[    34.317] (II) XINPUT: Adding extended input device"Sleep Button" (type: KEYBOARD, id 8)
+[    34.317] (**) Option"xkb_rules""evdev"
+[    34.317] (**) Option"xkb_model""pc105"
+[    34.318] (**) Option"xkb_layout""us,us"
+[    34.318] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"
+[    34.320] (II) config/udev: Adding input device AT Translated Set 2 keyboard (/dev/input/event0)
+[    34.320] (**) AT Translated Set 2 keyboard: Applying InputClass"evdev keyboard catchall"
+[    34.320] (II) Using input driver 'evdev' for 'AT Translated Set 2 keyboard'
+[    34.320] (**) AT Translated Set 2 keyboard: always reports core events
+[    34.320] (**) evdev: AT Translated Set 2 keyboard: Device:"/dev/input/event0"
+[    34.320] (--) evdev: AT Translated Set 2 keyboard: Vendor 0x1 Product 0x1
+[    34.320] (--) evdev: AT Translated Set 2 keyboard: Found keys
+[    34.320] (II) evdev: AT Translated Set 2 keyboard: Configuring as keyboard
+[    34.321] (**) Option"config_info""udev:/sys/devices/platform/i8042/serio0/input/input0/event0"
+[    34.321] (II) XINPUT: Adding extended input device"AT Translated Set 2 keyboard" (type: KEYBOARD, id 9)
+[    34.321] (**) Option"xkb_rules""evdev"
+[    34.321] (**) Option"xkb_model""pc105"
+[    34.321] (**) Option"xkb_layout""us,us"
+[    34.321] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"
+[    34.323] (II) config/udev: Adding input device SynPS/2 Synaptics TouchPad (/dev/input/event6)
+[    34.323] (**) SynPS/2 Synaptics TouchPad: Applying InputClass"evdev touchpad catchall"
+[    34.323] (**) SynPS/2 Synaptics TouchPad: Applying InputClass"touchpad catchall"
+[    34.323] (**) SynPS/2 Synaptics TouchPad: Applying InputClass"Default clickpad buttons"
+[    34.323] (**) SynPS/2 Synaptics TouchPad: Applying InputClass"Touchpad"
+[    34.323] (II) LoadModule:"synaptics"
+[    34.324] (II) Loading /usr/lib/xorg/modules/input/synaptics_drv.so
+[    34.345] (II) Module synaptics: vendor="X.Org Foundation"
+[    34.346]     compiled for 1.12.4, module version = 1.6.2
+[    34.346]     Module class: X.Org XInput Driver
+[    34.346]     ABI class: X.Org XInput driver, version 16.0
+[    34.346] (II) Using input driver 'synaptics' for 'SynPS/2 Synaptics TouchPad'
+[    34.346] (**) SynPS/2 Synaptics TouchPad: always reports core events
+[    34.346] (**) Option"Device""/dev/input/event6"
+[    34.346] (--) synaptics: SynPS/2 Synaptics TouchPad: x-axis range 1472 - 5472
+[    34.346] (--) synaptics: SynPS/2 Synaptics TouchPad: y-axis range 1408 - 4448
+[    34.346] (--) synaptics: SynPS/2 Synaptics TouchPad: pressure range 0 - 255
+[    34.346] (--) synaptics: SynPS/2 Synaptics TouchPad: finger width range 0 - 15
+[    34.346] (--) synaptics: SynPS/2 Synaptics TouchPad: buttons: left right double triple
+[    34.347] (--) synaptics: SynPS/2 Synaptics TouchPad: Vendor 0x2 Product 0x7
+[    34.347] (**) Option"VertEdgeScroll""1"
+[    34.347] (**) Option"CornerCoasting""1"
+[    34.347] (**) Option"VertTwoFingerScroll""1"
+[    34.347] (**) Option"HorizTwoFingerScroll""1"
+[    34.347] (**) Option"EdgeMotionUseAlways""1"
+[    34.347] (**) Option"RBCornerButton""9"
+[    34.347] (**) Option"LBCornerButton""8"
+[    34.347] (**) Option"TapButton1""1"
+[    34.347] (**) Option"TapButton2""2"
+[    34.347] (**) Option"TapButton3""3"
+[    34.348] (**) Option"CircularScrolling""1"
+[    34.348] (**) Option"CircScrollTrigger""7"
+[    34.348] (**) Option"MinSpeed""0.5"
+[    34.348] (**) Option"MaxSpeed""1.0"
+[    34.348] (**) Option"AccelFactor""0.075"
+[    34.348] (**) Option"CoastingSpeed""8"
+[    34.348] (--) synaptics: SynPS/2 Synaptics TouchPad: touchpad found
+[    34.348] (**) SynPS/2 Synaptics TouchPad: always reports core events
+[    34.348] (**) Option"config_info""udev:/sys/devices/platform/i8042/serio1/input/input6/event6"
+[    34.349] (II) XINPUT: Adding extended input device"SynPS/2 Synaptics TouchPad" (type: TOUCHPAD, id 10)
+[    34.349] (**) synaptics: SynPS/2 Synaptics TouchPad: (accel) MinSpeed is now constant deceleration 2.0
+[    34.349] (**) synaptics: SynPS/2 Synaptics TouchPad: MaxSpeed is now 2.00
+[    34.349] (**) synaptics: SynPS/2 Synaptics TouchPad: AccelFactor is now 0.075
+[    34.350] (**) SynPS/2 Synaptics TouchPad: (accel) keeping acceleration scheme 1
+[    34.350] (**) SynPS/2 Synaptics TouchPad: (accel) acceleration profile 1
+[    34.350] (**) SynPS/2 Synaptics TouchPad: (accel) acceleration factor: 2.000
+[    34.350] (**) SynPS/2 Synaptics TouchPad: (accel) acceleration threshold: 4
+[    34.350] (--) synaptics: SynPS/2 Synaptics TouchPad: touchpad found
+[    34.351] (II) config/udev: Adding input device SynPS/2 Synaptics TouchPad (/dev/input/mouse0)
+[    34.351] (**) SynPS/2 Synaptics TouchPad: Ignoring device from InputClass"touchpad ignore duplicates"
+[    34.352] (II) config/udev: Adding input device TPPS/2 IBM TrackPoint (/dev/input/event7)
+[    34.352] (**) TPPS/2 IBM TrackPoint: Applying InputClass"evdev pointer catchall"
+[    34.352] (II) Using input driver 'evdev' for 'TPPS/2 IBM TrackPoint'
+[    34.352] (**) TPPS/2 IBM TrackPoint: always reports core events
+[    34.352] (**) evdev: TPPS/2 IBM TrackPoint: Device:"/dev/input/event7"
+[    34.352] (--) evdev: TPPS/2 IBM TrackPoint: Vendor 0x2 Product 0xa
+[    34.353] (--) evdev: TPPS/2 IBM TrackPoint: Found 3 mouse buttons
+[    34.353] (--) evdev: TPPS/2 IBM TrackPoint: Found relative axes
+[    34.353] (--) evdev: TPPS/2 IBM TrackPoint: Found x and y relative axes
+[    34.353] (II) evdev: TPPS/2 IBM TrackPoint: Configuring as mouse
+[    34.353] (**) evdev: TPPS/2 IBM TrackPoint: YAxisMapping: buttons 4 and 5
+[    34.353] (**) evdev: TPPS/2 IBM TrackPoint: EmulateWheelButton: 4, EmulateWheelInertia: 10, EmulateWheelTimeout: 200
+[    34.353] (**) Option"config_info""udev:/sys/devices/platform/i8042/serio1/serio2/input/input7/event7"
+[    34.353] (II) XINPUT: Adding extended input device"TPPS/2 IBM TrackPoint" (type: MOUSE, id 11)
+[    34.353] (II) evdev: TPPS/2 IBM TrackPoint: initialized for relative axes.
+[    34.354] (**) TPPS/2 IBM TrackPoint: (accel) keeping acceleration scheme 1
+[    34.354] (**) TPPS/2 IBM TrackPoint: (accel) acceleration profile 0
+[    34.354] (**) TPPS/2 IBM TrackPoint: (accel) acceleration factor: 2.000
+[    34.354] (**) TPPS/2 IBM TrackPoint: (accel) acceleration threshold: 4
+[    34.355] (II) config/udev: Adding input device TPPS/2 IBM TrackPoint (/dev/input/mouse1)
+[    34.355] (II) No input driver specified, ignoring this device.
+[    34.355] (II) This device may have been added with another device file.
+[    34.356] (II) config/udev: Adding input device PC Speaker (/dev/input/event2)
+[    34.356] (II) No input driver specified, ignoring this device.
+[    34.356] (II) This device may have been added with another device file.
+[    34.358] (II) config/udev: Adding input device ACPI Virtual Keyboard Device (/dev/input/event8)
+[    34.358] (**) ACPI Virtual Keyboard Device: Applying InputClass"evdev keyboard catchall"
+[    34.358] (II) Using input driver 'evdev' for 'ACPI Virtual Keyboard Device'
+[    34.358] (**) ACPI Virtual Keyboard Device: always reports core events
+[    34.358] (**) evdev: ACPI Virtual Keyboard Device: Device:"/dev/input/event8"
+[    34.358] (--) evdev: ACPI Virtual Keyboard Device: Vendor 0 Product 0
+[    34.359] (--) evdev: ACPI Virtual Keyboard Device: Found keys
+[    34.359] (II) evdev: ACPI Virtual Keyboard Device: Configuring as keyboard
+[    34.359] (**) Option"config_info""udev:/sys/devices/virtual/input/input8/event8"
+[    34.359] (II) XINPUT: Adding extended input device"ACPI Virtual Keyboard Device" (type: KEYBOARD, id 12)
+[    34.359] (**) Option"xkb_rules""evdev"
+[    34.359] (**) Option"xkb_model""pc105"
+[    34.359] (**) Option"xkb_layout""us,us"
+[    34.359] (**) Option"xkb_options""grp:alt_shift_toggle,terminate:ctrl_alt_bksp,grp_led:scroll"
+</code></pre></div>
+and here is the xorg.conf
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Section"ServerLayout"
+    Identifier    "X.org Configured"
+    Screen      0 "Screen0" 0 0
+    Screen      1 "Screen1" RightOf"Screen0"
+    Screen      2 "Screen2" RightOf"Screen1"
+    InputDevice   "Mouse0""CorePointer"
+    InputDevice   "Keyboard0""CoreKeyboard"
+EndSection
+
+Section"Files"
+    ModulePath  "/usr/lib/xorg/modules"
+    FontPath    "/usr/share/fonts/X11/misc"
+    FontPath    "/usr/share/fonts/X11/cyrillic"
+    FontPath    "/usr/share/fonts/X11/100dpi/:unscaled"
+    FontPath    "/usr/share/fonts/X11/75dpi/:unscaled"
+    FontPath    "/usr/share/fonts/X11/Type1"
+    FontPath    "/usr/share/fonts/X11/100dpi"
+    FontPath    "/usr/share/fonts/X11/75dpi"
+    FontPath    "/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType"
+    FontPath    "built-ins"
+EndSection
+
+Section"Module"
+    Load "dbe"
+    Load   "glx"
+#    Load   "dri"
+    Load "dri2"
+    Load "extmod"
+    Load "record"
+EndSection
+
+Section"InputDevice"
+    Identifier "Keyboard0"
+    Driver     "kbd"
+EndSection
+
+Section"InputDevice"
+    Identifier "Mouse0"
+    Driver     "mouse"
+    Option       "Protocol""auto"
+    Option       "Device""/dev/input/mice"
+    Option       "ZAxisMapping""4 5 6 7"
+EndSection
+
+Section"Monitor"
+    Identifier  "Monitor0"
+    VendorName  "Monitor Vendor"
+    ModelName   "Monitor Model"
+EndSection
+
+Section"Monitor"
+    Identifier  "Monitor1"
+    VendorName  "Monitor Vendor"
+    ModelName   "Monitor Model"
+EndSection
+
+Section"Monitor"
+    Identifier  "Monitor2"
+    VendorName  "Monitor Vendor"
+    ModelName   "Monitor Model"
+EndSection
+
+Section"Device"
+        ### Available Driver options are:-
+        ### Values: &lt;i&gt;: integer, &lt;f&gt;: float, &lt;bool&gt;:"True"/"False",
+        ### &lt;string&gt;:"String", &lt;freq&gt;:"&lt;f&gt; Hz/kHz/MHz",
+        ### &lt;percent&gt;:"&lt;f&gt;%"
+        ### [arg]: arg optional
+        #Option    "SWcursor"               # [&lt;bool&gt;]
+        #Option    "HWcursor"               # [&lt;bool&gt;]
+        #Option    "NoAccel"                # [&lt;bool&gt;]
+        #Option    "ShadowFB"               # [&lt;bool&gt;]
+        #Option    "VideoKey"               # &lt;i&gt;
+        #Option    "WrappedFB"              # [&lt;bool&gt;]
+        #Option    "GLXVBlank"              # [&lt;bool&gt;]
+        #Option    "ZaphodHeads"            # &lt;str&gt;
+        #Option    "PageFlip"               # [&lt;bool&gt;]
+        #Option    "SwapLimit"              # &lt;i&gt;
+        #Option    "AsyncUTSDFS"            # [&lt;bool&gt;]
+    Identifier "Card0"
+    Driver   "nvidia"
+    Option     "Coolbits"   "1"
+    Option     "AddARGBGLXVisuals"   "true"
+    Option     "TripleBuffer"   "false"
+    BusID      "PCI:1:0:0"
+EndSection
+
+Section"Device"
+        ### Available Driver options are:-
+        ### Values: &lt;i&gt;: integer, &lt;f&gt;: float, &lt;bool&gt;:"True"/"False",
+        ### &lt;string&gt;:"String", &lt;freq&gt;:"&lt;f&gt; Hz/kHz/MHz",
+        ### &lt;percent&gt;:"&lt;f&gt;%"
+        ### [arg]: arg optional
+        #Option    "ShadowFB"               # [&lt;bool&gt;]
+        #Option    "Rotate"                 # &lt;str&gt;
+        #Option    "fbdev"                  # &lt;str&gt;
+        #Option    "debug"                  # [&lt;bool&gt;]
+    Identifier "Card1"
+    Driver   "nvidia"
+    Option     "Coolbits"   "1"
+    Option     "AddARGBGLXVisuals"   "true"
+    Option     "TripleBuffer"   "false"
+    BusID      "PCI:1:0:0"
+EndSection
+
+Section"Device"
+        ### Available Driver options are:-
+        ### Values: &lt;i&gt;: integer, &lt;f&gt;: float, &lt;bool&gt;:"True"/"False",
+        ### &lt;string&gt;:"String", &lt;freq&gt;:"&lt;f&gt; Hz/kHz/MHz",
+        ### &lt;percent&gt;:"&lt;f&gt;%"
+        ### [arg]: arg optional
+        #Option    "ShadowFB"               # [&lt;bool&gt;]
+        #Option    "DefaultRefresh"         # [&lt;bool&gt;]
+        #Option    "ModeSetClearScreen"     # [&lt;bool&gt;]
+    Identifier "Card2"
+    Driver   "nvidia"
+    Option     "Coolbits"   "1"
+    Option     "AddARGBGLXVisuals"   "true"
+    Option     "TripleBuffer"   "false"
+    BusID      "PCI:1:0:0"
+EndSection
+
+Section"Screen"
+    Identifier"Screen0"
+    Device    "Card0"
+    Monitor   "Monitor0"
+    SubSection"Display"
+        Viewport   0 0
+        Depth     1
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     4
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     8
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     15
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     16
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     24
+    EndSubSection
+EndSection
+
+Section"Screen"
+    Identifier"Screen1"
+    Device    "Card1"
+    Monitor   "Monitor1"
+    SubSection"Display"
+        Viewport   0 0
+        Depth     1
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     4
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     8
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     15
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     16
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     24
+    EndSubSection
+EndSection
+
+Section"Screen"
+    Identifier"Screen2"
+    Device    "Card2"
+    Monitor   "Monitor2"
+    SubSection"Display"
+        Viewport   0 0
+        Depth     1
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     4
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     8
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     15
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     16
+    EndSubSection
+    SubSection"Display"
+        Viewport   0 0
+        Depth     24
+    EndSubSection
+EndSection
+Section"Extensions"
+    Option     "Composite"   "enable"
+#    Option     "RENDER"   "disable"
+EndSection
+</code></pre></div></div>
+<div class="notice">
+Last edited by <b>thriftee</b> on 18 Apr 2014, 22:14, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34681" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34681">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34681">
+
+<time datetime="2014-04-18T21:59">posted: 2014-04-18 &nbsp; 21:59</time>
+<span class="permalink"><a href="./my-touchpad-mouse-is-acting-very-strange-solved-t4980.html#p34681" title="permalink">#2</a></span>
+
+<div class="content">Hold off on this... <br>
+<br>
+I installed a couple of packages (tpconfig and gpointing-device-settings) to control it and made some adjustments. Let me see if that fixes it before anyone else spends time on it, unless of course you happen to have seen the problem before, in which case an easy answer would be appreciated.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34682" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34682">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34682">
+
+<time datetime="2014-04-18T22:13">posted: 2014-04-18 &nbsp; 22:13</time>
+<span class="permalink"><a href="./my-touchpad-mouse-is-acting-very-strange-solved-t4980.html#p34682" title="permalink">#3</a></span>
+
+<div class="content">Yup, its fixed.<br>
+<br>
+It works correctly now in chromium, leafpad and xterm, and the problems I'm having in netsurf are different, so I think the netsurf problems ARE netsurf problems.<br>
+<br>
+I fixed it by changing the settings with gpointing-device-settings</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34692" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34692">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<span> <a href="#" class="username">duncan_mk</a>  </span>
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 137</span></div>
+
+</div>
+</div>
+<span class="username">duncan_mk</span>
+</dt>
+<dd class="profile-joined">Joined: 19 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34692">
+
+<time datetime="2014-04-19T12:25">posted: 2014-04-19 &nbsp; 12:25</time>
+<span class="permalink"><a href="./my-touchpad-mouse-is-acting-very-strange-solved-t4980.html#p34692" title="permalink">#4</a></span>
+
+<div class="content">editing the file 'dkms' in etc/modprobe.d/ can do can help too - see:<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/post26250.html#p26250"<br>linktext was:"antix.freeforu ms.org/post26250.html#p26250"<br>====================================<br>
+<br>
+<br>
+dmk</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34696" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34696">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 604</span></div>
+
+</div>
+</div>
+<span class="username">thriftee</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34696">
+
+<time datetime="2014-04-19T12:53">posted: 2014-04-19 &nbsp; 12:53</time>
+<span class="permalink"><a href="./my-touchpad-mouse-is-acting-very-strange-solved-t4980.html#p34696" title="permalink">#5</a></span>
+
+<div class="content">duncan,<br>
+<br>
+i've bookmarked it, and if nothing else, might use it to test to see if problems are really at the system level or application software. The only program still having problems is netsurf, and I see we are using a two year old version there, so I am thinking the remaining problem is likely in that program. I haven't figured out how to go about getting that fixed, if possible, but that's another issue.<br>
+<br>
+Thanks <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

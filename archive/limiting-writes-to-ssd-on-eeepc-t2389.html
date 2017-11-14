@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Limiting writes to SSD on EEEPC - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./limiting-writes-to-ssd-on-eeepc-t2389.html">Limiting writes to SSD on EEEPC</a></div>
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_15549" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile15549">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15549">
+<time datetime="2010-04-29T13:47">posted: 2010-04-29 &nbsp; 13:47</time>
+<span class="permalink"><a href="./limiting-writes-to-ssd-on-eeepc-t2389.html#p15549" title="permalink">#1</a></span>
+
+<div class="content">Guys, I have been trying to setup this EEEPC so as to minimise writes as much as possible to internal SSD<br>
+drives. And the below is what I have come up with so far<br>
+<br>
+This is how I have my browser cache setup. Borrowed from this page<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://posterous.mauriciovieira.net/how-to-firefox-cache-in-ramdisk-tmpfs"<br>linktext was:"http://posterous.mauriciovieira.net/how ... disk-tmpfs"<br>====================================<br>
+<br>
+<br>
+I make a new directory in /media called /media/ramdisk<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@biker:/mnt/sdb1/home/harry# mkdir /media/ramdisk
+root@biker:/mnt/sdb1/home/harry#  mount -t tmpfs -o size=64M,nr_inodes=10k,mode=0777 tmpfs /media/ramdisk
+</code></pre></div>
+Then I go into Iceape preferences and move cache to /media/ramdisk <br>
+<br>
+about:config looks like this now when I type in browser.cache in the filter box<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>browser.cache.disk.parent_directory;/media/ramdisk</code></pre></div>
+To automount the ramdisk I edit my /etc/fstab as follows<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+/dev/sda1 / auto defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+/dev/sdb1 /mnt/sdb1 ext2 auto,users,exec,noatime,errors=remount-ro 1 2
+# Dynamic entries below
+/dev/sda3 /mnt/sda3 vfat noauto,users,gid=users,dmask=002,fmask=113,relatime 0 0
+tmpfs /media/ramdisk tmpfs size=64M,nr_inodes=10k,mode=777 0 0</code></pre></div>
+My Next step was to borrow some stuff from this page below.<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://lonesysadmin.net/2008/02/21/elevatornoop/"<br>linktext was:"http://lonesysadmin.net/2008/02/21/elevatornoop/"<br>====================================<br>
+<br>
+<br>
+So I edited my /boot/grub/menu.lst as follows<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>timeout 10
+color cyan/blue white/blue
+foreground ffffff
+background 0639a1
+
+gfxmenu /boot/grub/message
+
+title antiX at sda1, kernel 2.6.32-1-mepis-smp
+root (hd0,0)
+kernel /boot/vmlinuz-2.6.32-1-mepis-smp root=/dev/sda1 elevator=noop nomce quiet nosplash vga=788
+initrd /boot/initrd.img-2.6.32-1-mepis-smp
+boot
+
+### BEGIN AUTOMAGIC KERNELS LIST
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified
+## by the debian update-grub script except for the default options below
+
+## DO NOT UNCOMMENT THEM, Just edit them to your needs
+
+## ## Start Default Options ##
+## default kernel options
+## default kernel options for automagic boot options
+## If you want special options for specific kernels use kopt_x_y_z
+## where x.y.z is kernel version. Minor versions can be omitted.
+## e.g. kopt=root=/dev/hda1 ro
+##      kopt_2_6_8=root=/dev/hdc1 ro
+##      kopt_2_6_8_2_686=root=/dev/hdc2 ro
+# kopt=root=UUID=b5c8ff9d-5016-4862-8c6c-b96ac634f9de ro
+# kopt_2_6=root=UUID=b5c8ff9d-5016-4862-8c6c-b96ac634f9de ro nosplash quiet
+
+## default grub root device
+## e.g. groot=(hd0,0)
+# groot=(hd0,0)
+
+## should update-grub create alternative automagic boot options
+## e.g. alternative=true
+##      alternative=false
+# alternative=true
+
+## should update-grub lock alternative automagic boot options
+## e.g. lockalternative=true
+##      lockalternative=false
+# lockalternative=false
+
+## additional options to use with the default boot option, but not with the
+## alternatives
+## e.g. defoptions=vga=788 resume=/dev/hda5
+# defoptions=
+
+## should update-grub lock old automagic boot options
+## e.g. lockold=false
+##      lockold=true
+# lockold=false
+
+## Xen hypervisor options to use with the default Xen boot option
+# xenhopt=
+
+## Xen Linux kernel options to use with the default Xen boot option
+# xenkopt=console=tty0
+
+## altoption boot targets option
+## multiple altoptions lines are allowed
+## e.g. altoptions=(extra menu suffix) extra boot options
+##      altoptions=(single-user) single
+# altoptions=(init-3) 3
+
+## controls how many kernels should be put into the menu.lst
+## only counts the first occurence of a kernel, not the
+## alternative kernel options
+## e.g. howmany=all
+##      howmany=7
+# howmany=all
+
+## should update-grub create memtest86 boot option
+## e.g. memtest86=true
+##      memtest86=false
+# memtest86=true
+
+## should update-grub adjust the value of the default booted system
+## can be true or false
+# updatedefaultentry=false
+
+## should update-grub add savedefault to the default options
+## can be true or false
+# savedefault=false
+
+## ## End Default Options ##
+
+title        antiX-M8.5, kernel 2.6.32-1-mepis-smp
+root        (hd0,0)
+kernel        /boot/vmlinuz-2.6.32-1-mepis-smp root=UUID=b5c8ff9d-5016-4862-8c6c-b96ac634f9de ro elevator=noop nosplash quiet 
+initrd        /boot/initrd.img-2.6.32-1-mepis-smp
+
+title        antiX-M8.5, kernel 2.6.32-1-mepis-smp (init-3)
+root        (hd0,0)
+kernel        /boot/vmlinuz-2.6.32-1-mepis-smp root=UUID=b5c8ff9d-5016-4862-8c6c-b96ac634f9de ro elevator=noop nosplash quiet 3
+initrd        /boot/initrd.img-2.6.32-1-mepis-smp
+
+title        antiX-M8.5, kernel memtest86+
+root        (hd0,0)
+kernel        /boot/memtest86+.bin
+
+### END DEBIAN AUTOMAGIC KERNELS LIST</code></pre></div>
+<br>
+I have rebooted since doing all these changes and it may be my imagination. But my Asus EEEPC 900 seems <br>
+to boot up faster and Iceape also seems to open up faster now also. I hope I got this right before I add<br>
+it to the How to Install AntiX 8.5 at my blog <span class="emoticon"> __{{emoticon}}__ </span> . Whaddya think?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_15550" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile15550">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content15550">
+
+<time datetime="2010-04-29T14:06">posted: 2010-04-29 &nbsp; 14:06</time>
+<span class="permalink"><a href="./limiting-writes-to-ssd-on-eeepc-t2389.html#p15550" title="permalink">#2</a></span>
+
+<div class="content">Great post.<br>
+<br>
+I tried on my desktop, and tbh didn't notice any difference, but I'm sure eeepc users will see the benefits.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48291" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48291">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 107</span></div>
+
+</div>
+</div>
+<span class="username">brian</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48291">
+
+<time datetime="2016-09-22T16:31">posted: 2016-09-22 &nbsp; 16:31</time>
+<span class="permalink"><a href="./limiting-writes-to-ssd-on-eeepc-t2389.html#p48291" title="permalink">#3</a></span>
+
+<div class="content">Thanks for the tips, you guys! So I can change ondemand to performance at bootup? I'll look into it! I thought it was a line to be changed in a file somewhere.<br>
+<br>
+I found menu.lst in /usr/share/doc/memtest86+/examples/grub-menu.lst on my pc. It's quite a short file length and it sounds like it may not make much difference to my setup.. ?<br>
+<br>
+PuppyStudio sounds interesting; I'll have to try it out in the future. For now, I think AntiX will do just about everything I need, and it's much faster than Ubuntu Studio was! Good work! <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+If I may add here: <br>
+I also noticed, since I use Audacity A LOT, I'm not sure which version of Wx widgets to use. So I've asked help over at the Audacity forum here:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://forum.audacityteam.org/viewtopic.php?f=48&amp;t=92394&amp;start=10"<br>linktext was:"Audacity"<br>====================================<br>
+<br>
+<br>
+Do any of you guys have any recommendations about Wx widgets and Audacity? (So far I've used it without any crashes, but extra opinions are always useful! <span class="emoticon"> __{{emoticon}}__ </span> )<br>
+<br>
+<br>
+brian</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48292" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48292">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48292">
+
+<time datetime="2016-09-22T17:32">posted: 2016-09-22 &nbsp; 17:32</time>
+<span class="permalink"><a href="./limiting-writes-to-ssd-on-eeepc-t2389.html#p48292" title="permalink">#4</a></span>
+
+<div class="content"><blockquote class="uncited"><div>any recommendations about Wx widgets and Audacity?</div></blockquote>
+? don't feed them after midnight?<br>
+<br>
+Seriously, I don't understand what/why you are asking.<br>
+Installation of audacity from debian repositories automatically installs the appropriate wxWidgets.<br>
+Are you compiling your own modified/optimized version of audacity?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48293" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48293">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 107</span></div>
+
+</div>
+</div>
+<span class="username">brian</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48293">
+
+<time datetime="2016-09-22T17:51">posted: 2016-09-22 &nbsp; 17:51</time>
+<span class="permalink"><a href="./limiting-writes-to-ssd-on-eeepc-t2389.html#p48293" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite><blockquote class="uncited"><div>any recommendations about Wx widgets and Audacity?</div></blockquote>
+? don't feed them after midnight?<br>
+<br>
+Seriously, I don't understand what/why you are asking.<br>
+Installation of audacity from debian repositories automatically installs the appropriate wxWidgets.<br>
+Are you compiling your own modified/optimized version of audacity?</div></blockquote>
+My apologies, I posted on the wrong thread.. (I was reading roky's post from another thread, and accidentially posted here.)<br>
+I did in fact install from the repos, but the developers at Audacity seem to think I might run into problems with the repository version, so I was asking suggestions.<br>
+<br>
+So any possible suggestions ought to be posted on the original thread, here: <br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/tweaks-for-audio-production-on-antix-16-t6603.html"<br>linktext was:"antix.freeforu ms.org/tweaks-for- ... t6603.html"<br>====================================<br>
+<br>
+<br>
+Sorry 'bout that! <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+<br>
+brian</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+5 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

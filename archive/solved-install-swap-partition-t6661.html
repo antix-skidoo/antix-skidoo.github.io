@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] install swap partition - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-install-swap-partition-t6661.html">[SOLVED] install swap partition</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_48843" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48843">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48843">
+<time datetime="2016-10-30T17:39">posted: 2016-10-30 &nbsp; 17:39</time>
+<span class="permalink"><a href="./solved-install-swap-partition-t6661.html#p48843" title="permalink">#1</a></span>
+
+<div class="content">For some reason, AntiX failed to notice or record a pre-existing Linux swap partition during install, despite I had one premade for it to use, and now my AntiX i's running without a swap <span class="emoticon"> __{{emoticon}}__ </span> . I've searched the board and found a thread with a similar problem, but since it's 2 years old and since I'd like<em> newbie-friendly easy-to-follow cut-n-pasteable instructions</em> <span class="emoticon"> __{{emoticon}}__ </span> that apply to my situation rather than a theory of why the installer did not do its magic, I' m posting a new question.<br>
+<br>
+Here are the outputs of lsblk &amp; blkid.The desired swap space is sda7 (1.2 G), and you'll notice it was skipped by the"blkid" listing. Please help !
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ lsblk
+NAME    MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+fd0       2:0    1     4K  0 disk 
+sda       8:0    0  74,5G  0 disk 
+├─sda1    8:1    0  31,4M  0 part 
+├─sda2    8:2    0     1G  0 part 
+├─sda3    8:3    0   7,8G  0 part 
+├─sda4    8:4    0     1K  0 part 
+├─sda5    8:5    0  13,7G  0 part 
+├─sda6    8:6    0   9,3G  0 part /
+├─sda7    8:7    0   1,2G  0 part 
+├─sda8    8:8    0 996,2M  0 part 
+├─sda9    8:9    0  40,5G  0 part 
+└─sda10   8:10   0  23,5M  0 part 
+sdb       8:16   0  76,3G  0 disk 
+├─sdb1    8:17   0  15,6G  0 part 
+├─sdb2    8:18   0     1K  0 part 
+├─sdb5    8:21   0    16G  0 part 
+└─sdb6    8:22   0  44,5G  0 part 
+sr0      11:0    1  1024M  0 rom
+___________________________________________________________________
+  $ sudo blkid 
+/dev/sda1: SEC_TYPE="msdos" LABEL="31M_FAT12" UUID="3C74-1BEA" TYPE="vfat" PARTUUID="00000950-01"
+/dev/sda2: SEC_TYPE="msdos" LABEL="1G_FAT16" UUID="9863-F4B1" TYPE="vfat" PARTUUID="00000950-02"
+/dev/sda3: LABEL="W98_FAT32" UUID="0959-1B0F" TYPE="vfat" PARTUUID="00000950-03"
+/dev/sda5: LABEL="WXP_FAT32" UUID="FC90-BDF4" TYPE="vfat" PARTUUID="00000950-05"
+/dev/sda6: LABEL="antiX-16" UUID="3811044d-c6b0-4f13-93d6-701f2039a173" TYPE="ext3" PTTYPE="dos" PARTUUID="00000950-06"
+/dev/sda8: LABEL="NTFS_1G" UUID="3C44575F44571ACA" TYPE="ntfs" PARTUUID="00000950-08"
+/dev/sda9: LABEL="NTFS_40G" UUID="5C3C3E3C3C3E120E" TYPE="ntfs" PARTUUID="00000950-09"
+/dev/sda10: SEC_TYPE="msdos" LABEL="24M_FAT16" UUID="D623-70C6" TYPE="vfat" PARTUUID="00000950-0a"
+/dev/sdb1: LABEL="D2_P1" UUID="F8D4-5F87" TYPE="vfat" PARTUUID="4b8e39d2-01"
+/dev/sdb5: LABEL="D2_BAKUPS" UUID="0C58-B395" TYPE="vfat" PARTUUID="4b8e39d2-05"
+/dev/sdb6: LABEL="D2_NTFS_45G" UUID="BE5C34B75C346BF1" TYPE="ntfs" PARTUUID="4b8e39d2-06"
+/dev/sda7: PARTUUID="00000950-07"
+___________________________________________________________________
+
+</code></pre></div></div>
+<div class="notice">
+Last edited by <b>Ninho</b> on 31 Oct 2016, 00:13, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48845" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48845">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48845">
+
+<time datetime="2016-10-30T17:49">posted: 2016-10-30 &nbsp; 17:49</time>
+<span class="permalink"><a href="./solved-install-swap-partition-t6661.html#p48845" title="permalink">#2</a></span>
+
+<div class="content">Just to be clear. This is a swap partition we are talking about here. Not a swap file.<br>
+<br>
+Post<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> sudo fdisk -l</code></pre></div>
+During the install process. There is a button with a drop down menu for swap.<br>
+One option is to use present swap or existing swap partition. Did you use that button<br>
+option during the install process before proceeding to the file copy install process?<br>
+<br>
+In all the testing and installs I have done since AntiX 7. This is the 1st I have heard of this happening.<br>
+My second question then is.<br>
+<br>
+Did you md5sum your downloaded iso before making a bootable install disk/usb?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48846" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48846">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48846">
+
+<time datetime="2016-10-30T17:52">posted: 2016-10-30 &nbsp; 17:52</time>
+<span class="permalink"><a href="./solved-install-swap-partition-t6661.html#p48846" title="permalink">#3</a></span>
+
+<div class="content">Your sda7 might have been ignored b/c it is considered too small to serve as an effective swap partition.<br>
+4Gb is the recommended minimum size for swap partition?<br>
+ask google:"linux minimum swap partition size"<br>
+<br>
+How much RAM on your system?<br>
+FWIW, here, @2Gb, I set swappiness (via sysctl.conf) to a low value<br>
+and on 4Gb+ systems, I usually outright disable swap.<br>
+<br>
+related: zram<br>
+(I believe zram too is often unneeded nowadays, and its use is potentially counterproductive)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48848" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48848">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48848">
+
+<time datetime="2016-10-30T18:11">posted: 2016-10-30 &nbsp; 18:11</time>
+<span class="permalink"><a href="./solved-install-swap-partition-t6661.html#p48848" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>skidoo wrote:</cite>Your sda7 might have been ignored b/c it is considered too small to serve as an effective swap partition.<br>
+How much RAM on your system?</div></blockquote>
+Just 0ne gigabyte minus a few mega (stolen by the integrated video).<br>
+I don't think size is a reson why the partition's been ignored, since it's greater than physical memory (which is not even a requirement for swap space. I had smaller swaps with the Linuces that I have ditched to make room for AntiX).<br>
+Rather it's the installer having a problem with the provided swapspace for some reason (maybe it was looking for some missing pattern).<br>
+<br>
+Whatever... I wish to add that as a swap now !<br>
+<blockquote class="uncited"><div>related: zram<br>
+(I believe zram too is often unneeded nowadays, and its use is potentially counterproductive)</div></blockquote>
+I have no idea what a"zram" is, sorry ! Is the 'zee' related to Zimmerman ? Something cryptographic ? Or compressed RAM space perhaps ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48849" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48849">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48849">
+
+<time datetime="2016-10-30T18:33">posted: 2016-10-30 &nbsp; 18:33</time>
+<span class="permalink"><a href="./solved-install-swap-partition-t6661.html#p48849" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>Just to be clear. This is a swap partition we are talking about here. Not a swap file.</div></blockquote>
+Indeed. Agreed.
+<blockquote class="uncited"><div> During the install process. There is a button with a drop down menu for swap.<br>
+One option is to use present swap or existing swap partition. Did you use that button option during the install process before proceeding to the file copy install process?</div></blockquote>
+Yes I did, but it did not seem to"see" the premade swap part (type 82). In an earlier attempt, I had let"gparted" create the partitions - which it borked the threading - creating links back from higher to lower disk positions ! Fortunately I'm rather experienced with partitionning and equipped with enough tools that i could rebuild EBRs without losing data from any other OS. <br>
+<blockquote class="uncited"><div>In all the testing and installs I have done since AntiX 7. This is the 1st I have heard of this happening.<br>
+<br>
+My second question then is : did you md5sum your downloaded iso before making a bootable install disk/usb?</div></blockquote>
+Good question. Yes I did md5sum the ISO. The burner in turn checked the install medium (CD). <br>
+<br>
+I can't <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> sudo fdisk -l</code></pre></div> at the moment (since I'm in Windows XP) but my partitions are good and sane I assure you.<br>
+<br>
+I think I need a couple command lines (as root) to reset the would-be swap partition type (if needed), format it as a linux swap2 (if needed) and install it (in fstab IIRC). My linuxee was never strong and is totally rusty now, please help !</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48850" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48850">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">hobbyist7890</span>
+</dt>
+<dd class="profile-joined">Joined: 24 Apr 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48850">
+
+<time datetime="2016-10-30T18:50">posted: 2016-10-30 &nbsp; 18:50</time>
+<span class="permalink"><a href="./solved-install-swap-partition-t6661.html#p48850" title="permalink">#6</a></span>
+
+<div class="content">mkswap /dev/sda7<br>
+swapon /dev/sda7<br>
+free<br>
+<br>
+Then just add the swap partition to the fstab file for automatic mounting.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48852" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48852">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 69</span></div>
+
+</div>
+</div>
+<span class="username">Ninho</span>
+</dt>
+<dd class="profile-joined">Joined: 28 Oct 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48852">
+
+<time datetime="2016-10-30T19:47">posted: 2016-10-30 &nbsp; 19:47</time>
+<span class="permalink"><a href="./solved-install-swap-partition-t6661.html#p48852" title="permalink">#7</a></span>
+
+<div class="content">@ hobbyist7890 :<br>
+Done making and mounting the swap on /dev/sda7 !!
+<blockquote class="uncited"><div> Then just add the swap partition to the fstab file for automatic mounting.</div></blockquote>
+Like this : <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/sda7 swap swap defaults 0 0</code></pre></div>
+Right ? ... <br>
+<span style="font-size: 85%; line-height: normal">Edited: </span>Yep! This has installed the swap persistently!<br>
+<br>
+Thank <em>you</em> so very much !</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>How I got Skype working in AntiX 8.5 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./how-i-got-skype-working-in-antix-8-5-t2290.html">How I got Skype working in AntiX 8.5</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_14990" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile14990">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content14990">
+<time datetime="2010-03-16T20:19">posted: 2010-03-16 &nbsp; 20:19</time>
+<span class="permalink"><a href="./how-i-got-skype-working-in-antix-8-5-t2290.html#p14990" title="permalink">#1</a></span>
+
+<div class="content">I am making the title simple so when somebody googles skype and AntiX it will bring them to this post. I am doing this on a IBM A22m running one of the AntiX 8.5rcs<br>
+<br>
+So you know what my sound driver and Alsa Mixer Version is on this laptop.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Audio:     Card Cirrus Logic CS 4614/22/24/30 [CrystalClear SoundFusion Audio Accelerator] driver Sound Fusion CS46xx BusID: 00:05.0
+           Sound: Advanced Linux Sound Architecture Version 1.0.21
+</code></pre></div>
+I downloaded and install the Debian Lenny pkg from Skypes site. Downloaded to Download Folder in /home/harry (if you don't have a Download folder in home, make one)<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.skype.com/intl/en/download/skype/linux/choose/"<br>linktext was:"http://www.skype.com/intl/en/download/s ... ux/choose/"<br>====================================<br>
+<br>
+<br>
+Manuver to Download folder in PCmanFM and right click on empty space and select open Terminal.<br>
+<br>
+<span style="color: #FF0000"><strong>UPDATE</strong></span><br>
+<br>
+Since PCManFM Update. Right click open Terminal not available any more. Thanks Secipolla;<br>
+<blockquote class="uncited"><div>Actually there's no right-click option to open a terminal in pcmanfm anymore. To open a terminal in the same location that the file manager (pcmanfm) is opened, just hit F4 or go to Tools&gt;Open the current folder in terminal (F4)</div></blockquote>
+If Default terminal isn't set yet. Select Rox Terminal from drop down list and OK it. Right click again and select terminal.<br>
+Become root in terminal by typing sux and enter your password.<br>
+as root <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dpkg -i skype-debian_2.1.0.81_1_i386.deb</code></pre></div>
+Hit enter. Wait for it to finish installing. I log in and out so as to refresh menu list.<br>
+<br>
+Now don't open skype yet. I wanted to make sure my New External Mic would work first. My laptop internal mic either does not work or there isn't one. Not sure.<br>
+<br>
+mhWaveedit which is in Start&gt;Applications&gt;Multimedia uses xmixer as the mixer in Antix. xmixer does not exist. So to fix this. Open pcmanfm or rox. View hidden files. Go to .mhwaveedit file and open it. Inside is config. Left double click to open as text and edit the line mixerUtility = xmixer to mixerUtility = gamix.<br>
+Log in and out is what I did to make sure it resets.<br>
+Open mhwaveedit and go to play in taskbar and pick record.<br>
+When record opens select open mixer. Gamix should now open up.<br>
+<br>
+Note: if you get a Alsa Mixer is running or not supported format or whatever when you open up record. Just reboot to start over from scratch after editing .mhwaveedit/config.<br>
+Below I am showing how my setup now looks.<br>
+<br>
+<br>
+Start recording. If the needles are jumping you are good to go. If not you need to configure alsamixer (open terminal and type in alsamixer and adjust as necessary) so at least it looks similar to mine. By the way. Gamix is the GUI frontend for alsamixer so you can also use it instead of typing alsamixer in terminal. Use whichever feels more comfortable for you.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@biker:/home/harry# amixer
+Simple mixer control 'Master',0
+  Capabilities: pvolume pswitch pswitch-joined
+  Playback channels: Front Left - Front Right
+  Limits: Playback 0 - 63
+  Mono:
+  Front Left: Playback 51 [81%] [-18.00dB] [on]
+  Front Right: Playback 51 [81%] [-18.00dB] [on]
+Simple mixer control 'Master Mono',0
+  Capabilities: pvolume pvolume-joined pswitch pswitch-joined
+  Playback channels: Mono
+  Limits: Playback 0 - 31
+  Mono: Playback 31 [100%] [0.00dB] [on]
+Simple mixer control 'Headphone',0
+  Capabilities: pvolume pswitch pswitch-joined
+  Playback channels: Front Left - Front Right
+  Limits: Playback 0 - 31
+  Mono:
+  Front Left: Playback 22 [71%] [-13.50dB] [on]
+  Front Right: Playback 22 [71%] [-13.50dB] [on]
+Simple mixer control '3D Control - Center',0
+  Capabilities: volume volume-joined
+  Playback channels: Mono
+  Capture channels: Mono
+  Limits: 0 - 15
+  Mono: 12 [80%]
+Simple mixer control '3D Control - Depth',0
+  Capabilities: volume volume-joined
+  Playback channels: Mono
+  Capture channels: Mono
+  Limits: 0 - 15
+  Mono: 12 [80%]
+Simple mixer control '3D Control - Switch',0
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [off]
+Simple mixer control 'PCM',0
+  Capabilities: pvolume pswitch pswitch-joined
+  Playback channels: Front Left - Front Right
+  Limits: Playback 0 - 31
+  Mono:
+  Front Left: Playback 28 [90%] [7.50dB] [on]
+  Front Right: Playback 28 [90%] [7.50dB] [on]
+Simple mixer control 'Line',0
+  Capabilities: pvolume pswitch pswitch-joined cswitch cswitch-exclusive
+  Capture exclusive group: 0
+  Playback channels: Front Left - Front Right
+  Capture channels: Front Left - Front Right
+  Limits: Playback 0 - 31
+  Front Left: Playback 31 [100%] [12.00dB] [on] Capture [off]
+  Front Right: Playback 31 [100%] [12.00dB] [on] Capture [off]
+Simple mixer control 'CD',0
+  Capabilities: pvolume pswitch pswitch-joined cswitch cswitch-exclusive
+  Capture exclusive group: 0
+  Playback channels: Front Left - Front Right
+  Capture channels: Front Left - Front Right
+  Limits: Playback 0 - 31
+  Front Left: Playback 27 [87%] [6.00dB] [on] Capture [off]
+  Front Right: Playback 27 [87%] [6.00dB] [on] Capture [off]
+Simple mixer control 'Mic',0
+  Capabilities: pvolume pvolume-joined pswitch pswitch-joined cswitch cswitch-exclusive
+  Capture exclusive group: 0
+  Playback channels: Mono
+  Capture channels: Front Left - Front Right
+  Limits: Playback 0 - 31
+  Mono: Playback 27 [87%] [6.00dB] [on]
+  Front Left: Capture [on]
+  Front Right: Capture [on]
+Simple mixer control 'Mic Boost (+20dB)',0
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [off]
+Simple mixer control 'Mic Select',0
+  Capabilities: enum
+  Items: 'Mic1' 'Mic2'
+  Item0: 'Mic1'
+Simple mixer control 'Video',0
+  Capabilities: pvolume pswitch pswitch-joined cswitch cswitch-exclusive
+  Capture exclusive group: 0
+  Playback channels: Front Left - Front Right
+  Capture channels: Front Left - Front Right
+  Limits: Playback 0 - 31
+  Front Left: Playback 27 [87%] [6.00dB] [on] Capture [off]
+  Front Right: Playback 27 [87%] [6.00dB] [on] Capture [off]
+Simple mixer control 'Phone',0
+  Capabilities: pvolume pvolume-joined pswitch pswitch-joined cswitch cswitch-exclusive
+  Capture exclusive group: 0
+  Playback channels: Mono
+  Capture channels: Front Left - Front Right
+  Limits: Playback 0 - 31
+  Mono: Playback 28 [90%] [7.50dB] [on]
+  Front Left: Capture [off]
+  Front Right: Capture [off]
+Simple mixer control 'IEC958',0
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [off]
+Simple mixer control 'IEC958 Input',0
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [off]
+Simple mixer control 'IEC958 Output',0
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [off]
+Simple mixer control 'PC Speaker',0
+  Capabilities: pvolume pvolume-joined pswitch pswitch-joined
+  Playback channels: Mono
+  Limits: Playback 0 - 15
+  Mono: Playback 13 [87%] [-6.00dB] [on]
+Simple mixer control 'Aux',0
+  Capabilities: pvolume pswitch pswitch-joined cswitch cswitch-exclusive
+  Capture exclusive group: 0
+  Playback channels: Front Left - Front Right
+  Capture channels: Front Left - Front Right
+  Limits: Playback 0 - 31
+  Front Left: Playback 31 [100%] [12.00dB] [on] Capture [off]
+  Front Right: Playback 31 [100%] [12.00dB] [on] Capture [off]
+Simple mixer control 'Mono Output Select',0
+  Capabilities: enum
+  Items: 'Mix' 'Mic'
+  Item0: 'Mic'
+Simple mixer control 'Capture',0
+  Capabilities: cvolume cswitch cswitch-joined
+  Capture channels: Front Left - Front Right
+  Limits: Capture 0 - 15
+  Front Left: Capture 6 [40%] [9.00dB] [on]
+  Front Right: Capture 6 [40%] [9.00dB] [on]
+Simple mixer control 'Mix',0
+  Capabilities: cswitch cswitch-exclusive
+  Capture exclusive group: 0
+  Capture channels: Front Left - Front Right
+  Front Left: Capture [off]
+  Front Right: Capture [off]
+Simple mixer control 'Mix Mono',0
+  Capabilities: cswitch cswitch-exclusive
+  Capture exclusive group: 0
+  Capture channels: Front Left - Front Right
+  Front Left: Capture [off]
+  Front Right: Capture [off]
+Simple mixer control 'ADC',0
+  Capabilities: volume cswitch cswitch-joined
+  Playback channels: Front Left - Front Right
+  Capture channels: Front Left - Front Right
+  Limits: 0 - 32767
+  Front Left: 32767 [100%] Capture [on]
+  Front Right: 32767 [100%] Capture [on]
+Simple mixer control 'DAC',0
+  Capabilities: volume cswitch cswitch-joined
+  Playback channels: Front Left - Front Right
+  Capture channels: Front Left - Front Right
+  Limits: 0 - 32767
+  Front Left: 26214 [80%] Capture [on]
+  Front Right: 26214 [80%] Capture [on]
+Simple mixer control 'External Amplifier',0
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [on]
+</code></pre></div>
+Once you can record in mhwaveedit. You should be able to talk in Skype.<br>
+Skype will be in Start&gt;Applications&gt;Network<br>
+Happy Trails, Rok</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Add Boot via USB to Ancient Kit After antiX is Installed - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./add-boot-via-usb-to-ancient-kit-after-antix-is-ins-t4501.html">Add Boot via USB to Ancient Kit After antiX is Installed</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_30422" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30422">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30422">
+<time datetime="2013-07-20T16:26">posted: 2013-07-20 &nbsp; 16:26</time>
+<span class="permalink"><a href="./add-boot-via-usb-to-ancient-kit-after-antix-is-ins-t4501.html#p30422" title="permalink">#1</a></span>
+
+<div class="content">Old desktop and laptop computers may have been maufactured without an ability to boot from a USB device. Often they were designed to boot from internal hard disk, CD-ROM or floppy disk. Nowadays, booting from a USB device is commonplace, so it is helpful to do so on an antiX system.<br>
+<br>
+A boot manager named Plop is often used to create a bootable CD-ROM or floppy disk. Starting up a machine with either of these displays a menu at boot up. One of menu entries enables booting the operating system on a USB stick attached to the machine. <br>
+<br>
+After antiX has been installed to the hard disk in your machine, the hard disk becomes the ususal way in which you boot up your system. In this case using a bootable CD-ROM or floppy disk is a less than ideal method. There is a better way...<br>
+<br>
+When antiX is started from a hard disk, a menu is immediately displayed. This offers a range of choices of how antiX can be started. The following method describes how to add an option to boot from USB to this menu.<br>
+<br>
+<br>
+<strong>Set Up Plop</strong><br>
+1. From the Plop web site (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.plop.at/"<br>linktext was:"http://www.plop.at/"<br>====================================<br>
+) download the current versions of:
+<ul><li>plpbt-5.0.14.zip</li>
+<li>plpcfgbt-0.11.zip</li></ul>
+2. Unzip both of the zip files<br>
+<br>
+3. Place plpbt.bin and plpcfgbt in the same directory<br>
+<br>
+4. Open a terminal in that directory and run the command<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>plpcfgbt hiddenusb plpbt.bin</code></pre></div>
+Note: These steps have configured plpbt.bin to boot from USB and hide an extra uneeded level of menu.<br>
+<br>
+<br>
+<strong>Add plpbt.bin to Your antiX System</strong><br>
+Do the following as root<br>
+1. Create the directory /boot/plop<br>
+<br>
+2. Copy plpbt.bin to the directory /boot/plop/<br>
+<br>
+<br>
+<strong>Add the additional entry in the boot menu</strong><br>
+1. antiX Control Center--&gt;System--&gt;Edit Config Files<br>
+<br>
+2. Select the menu.lst tab<br>
+<br>
+3. Add the following entry after the first stanza that begins, <em>title antiX</em>...<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+
+title antiX...
+kernel...
+initrd...
+boot
+
+title  Boot USB via Plop Boot Manager
+root   (hd0,0)
+kernel /boot/plop/plpbt.bin
+boot
+
+### BEGIN AUTOMAGIC KERNELS LIST...</code></pre></div>Note: (hd0,0) refers to the first hard disk and the first partition on that disk.<br>
+<br>
+<br>
+Reboot with a bootable USB stick plugged-in and select the appropriate menu entry.<br>
+<br>
+<br>
+<br>
+<br>
+Edit: typos</div>
+<div class="notice">
+Last edited by <b>SamK</b> on 21 Jul 2013, 07:45, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30424" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30424">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30424">
+
+<time datetime="2013-07-20T16:47">posted: 2013-07-20 &nbsp; 16:47</time>
+<span class="permalink"><a href="./add-boot-via-usb-to-ancient-kit-after-antix-is-ins-t4501.html#p30424" title="permalink">#2</a></span>
+
+<div class="content">cool!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30426" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30426">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30426">
+
+<time datetime="2013-07-20T16:55">posted: 2013-07-20 &nbsp; 16:55</time>
+<span class="permalink"><a href="./add-boot-via-usb-to-ancient-kit-after-antix-is-ins-t4501.html#p30426" title="permalink">#3</a></span>
+
+<div class="content">I agree, pretty neat. Thanks!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

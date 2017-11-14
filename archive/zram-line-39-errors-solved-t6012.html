@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Zram line 39 errors: (SOLVED) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./zram-line-39-errors-solved-t6012.html">Zram line 39 errors: (SOLVED)</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43711" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43711">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43711">
+<time datetime="2015-11-04T04:21">posted: 2015-11-04 &nbsp; 04:21</time>
+<span class="permalink"><a href="./zram-line-39-errors-solved-t6012.html#p43711" title="permalink">#1</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ zram
+Usage: /usr/local/bin/zram {start|stop|restart}
+harry@biker:~
+$ /usr/local/bin/zram start
+/usr/local/bin/zram: line 39: modprobe: command not found
+Your Kernel needs to be compiled with ZRAM support: 
+
+Device Drivers --&gt; Staging Drivers --&gt; Compressed RAM block device support (M) 
+Device Drivers --&gt; Staging Drivers --&gt; Dynamic compression of swap pages and clean pagecache pages (*) 
+
+The Liquorix Kernel (http://liquorix.net) has ZRAM support built in.
+harry@biker:~
+$ linuxinfo
+Linux biker 4.0.5-antix.1-486-smp #1 SMP Mon Jun 8 00:21:57 EEST 2015
+Two Intel Unknown 800MHz processors, 6383.88 total bogomips, 2010M RAM
+System library 2.19.0
+harry@biker:~
+$ dpkg --list | grep linux-image
+ii  linux-image-4.0.5-antix.1-486-smp    4.0.5-antix.1-486-smp-1              i386         Linux kernel, version 4.0.5-antix.1-486-smp
+ii  linux-image-4.2.1-antix.2-486-smp    4.2.1-antix.2-486-smp-5              i386         Linux kernel, version 4.2.1-antix.2-486-smp
+harry@biker:~
+</code></pre></div>
+I get the same errors on the 4.2 antix kernel when running it also. I was just double checking if it was only the 4.2 but I guess the stock 4.0.5 left out zram support also.<br>
+Or am I doing something wrong <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+I run no /swap partition on this Kingspec SSD <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo parted -l
+Model: ATA KingSpec KSD-ZF1 (scsi)
+Disk /dev/sda: 63.3GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  8914MB  8913MB  primary  ext4
+ 2      8914MB  63.3GB  54.4GB  primary  ext4
+</code></pre></div>
+The netbook is <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxz
+System:    Host: biker Kernel: 4.0.5-antix.1-486-smp i686 (32 bit gcc: 4.9.2)
+           Desktop: IceWM 1.3.8
+           Distro: antiX-15-V_386-full Killah P 30 June 2015
+Machine:   System: Intel product: Intel powered classmate PC v: 3rd Gen
+           Mobo: QCI model: Intel powered classmate PC v: 3rd Gen
+           Bios: Phoenix v: HP94510A.86A.0035.2009.0427.2020 date: 04/27/2009
+CPU:       Single core Intel Atom N270 (-HT-) cache: 512 KB
+           flags: (nx pae sse sse2 sse3 ssse3) bmips: 3191
+           clock speeds: max: 1600 MHz 1: 1333 MHz 2: 1333 MHz
+Graphics:  Card: Intel Mobile 945GSE Express Integrated Graphics Controller
+           bus-ID: 00:02.0
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1024x600@60.00hz
+           GLX Renderer: Mesa DRI Intel 945GME x86/MMX/SSE2
+           GLX Version: 2.1 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Intel NM10/ICH7 Family High Definition Audio Controller
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture v: k4.0.5-antix.1-486-smp
+Network:   Card-1: Realtek RTL8101E/RTL8102E PCI Express Fast Ethernet controller
+           driver: r8169 v: 2.3LK-NAPI port: 2000 bus-ID: 02:00.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card-2: Ralink RT2870/RT3070 Wireless Adapter
+           driver: rt2800usb v: 2.3.0 usb-ID: 002-004
+           IF: wlan0 state: N/A mac: N/A
+Drives:    HDD Total Size: 63.3GB (58.5% used)
+           ID-1: /dev/sda model: KingSpec_KSD size: 63.3GB
+Partition: ID-1: / size: 8.1G used: 3.0G (40%) fs: ext4 dev: /dev/sda1
+           ID-2: /home size: 50G used: 32G (67%) fs: ext4 dev: /dev/sda2
+Sensors:   System Temperatures: cpu: 51.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 117 Uptime: 12 min Memory: 350.0/2010.4MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.2.28 
+</code></pre></div>
+Hope I provided enough info. I could go Liqourix but figured I better let anti know. I am not going to touch anything till I get some feed back on this. This SSD does not have trim support supplied by the manfacturer either and is a zif 40 pin ribbon cable pata/ide 1.8 hard drive.<br>
+<br>
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.amazon.com/KingSpec-1-8-inch-40-pin-Solid-Controller/product-reviews/B007PR8NQO/ref=cm_cr_dp_see_all_btm/192-8119323-4442419?ie=UTF8&amp;showViewpoints=1&amp;sortBy=bySubmissionDateDescending"<br>linktext was:"http://www.amazon.com/KingSpec-1-8-inch ... Descending"<br>====================================<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-cache policy antix-goodies
+antix-goodies:
+  Installed: 0.5.0
+  Candidate: 0.5.0
+  Version table:
+ *** 0.5.0 0
+        500 http://antix.daveserver.info/jessie/ jessie/main i386 Packages
+        100 /var/lib/dpkg/status
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43712" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43712">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43712">
+
+<time datetime="2015-11-04T04:40">posted: 2015-11-04 &nbsp; 04:40</time>
+<span class="permalink"><a href="./zram-line-39-errors-solved-t6012.html#p43712" title="permalink">#2</a></span>
+
+<div class="content">Tested in MX-14<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxz
+System:    Host: scuzbucket Kernel: 3.14-0.bpo.2-686-pae i686 (32 bit gcc: 4.6.3)
+           Desktop: Xfce 4.12.2 (Gtk 2.24.10)
+           Distro: MX-14.4-pae Symbiosis 22 March 2015
+Machine:   System: LENOVO product: 6075BHU v: ThinkCentre M57
+           Mobo: LENOVO model: LENOVO
+           Bios: LENOVO v: 2RKT41AUS date: 03/20/2008
+CPU:       Dual core Intel Pentium Dual E2160 (-MCP-) cache: 1024 KB
+           flags: (lm nx pae sse sse2 sse3 ssse3) bmips: 7182
+           clock speeds: max: 1800 MHz 1: 1200 MHz 2: 1200 MHz
+Graphics:  Card: Intel 82Q35 Express Integrated Graphics Controller
+           bus-ID: 00:02.0
+           Display Server: X.Org 1.12.4 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1920x1080@60.0hz
+           GLX Renderer: Mesa DRI Intel Q35 x86/MMX/SSE2
+           GLX Version: 1.4 Mesa 8.0.5 Direct Rendering: Yes
+Audio:     Card Intel 82801I (ICH9 Family) HD Audio Controller
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture v: k3.14-0.bpo.2-686-pae
+Network:   Card: Intel 82566DM-2 Gigabit Network Connection
+           driver: e1000e v: 2.3.2-k port: 1820 bus-ID: 00:19.0
+           IF: eth0 state: up speed: 100 Mbps duplex: full mac: &lt;filter&gt;
+Drives:    HDD Total Size: 320.1GB (18.2% used)
+           ID-1: /dev/sda model: WDC_WD3200AAKS size: 320.1GB
+Partition: ID-1: / size: 51G used: 19G (40%) fs: ext4 dev: /dev/sda1
+           ID-2: swap-1 size: 4.19GB used: 0.00GB (0%) fs: swap dev: /dev/sda5
+Sensors:   System Temperatures: cpu: 55.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 158 Uptime: 1 day Memory: 760.4/3751.8MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.7.2
+           Client: Shell (bash 4.2.371) inxi: 2.2.19 
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-cache policy antix-goodies
+antix-goodies:
+  Installed: 0.4.7.2
+  Candidate: 0.4.7.2
+  Version table:
+ *** 0.4.7.2 0
+        500 http://antix.daveserver.info/stable/ stable/main i386 Packages
+        100 /var/lib/dpkg/status
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ zram
+Usage: /usr/local/bin/zram {start|stop|restart}
+$ /usr/local/bin/zram start
+/usr/local/bin/zram: line 39: modprobe: command not found
+Your Kernel needs to be compiled with ZRAM support: 
+
+Device Drivers --&gt; Staging Drivers --&gt; Compressed RAM block device support (M) 
+Device Drivers --&gt; Staging Drivers --&gt; Dynamic compression of swap pages and clean pagecache pages (*) 
+
+The Liquorix Kernel (http://liquorix.net) has ZRAM support built in.
+</code></pre></div>
+I run a /swap partition on this desktop.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo parted -l
+
+Model: ATA WDC WD3200AAKS-0 (scsi)
+Disk /dev/sda: 320GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type      File system     Flags
+ 1      1049kB  54.8GB  54.8GB  primary   ext4
+ 3      54.8GB  320GB   265GB   extended
+ 5      54.8GB  59.0GB  4194MB  logical   linux-swap(v1)
+ 6      59.0GB  320GB   261GB   logical   ext4
+</code></pre></div>
+My MX-15 boxes are outside in the shop. Will check them later on tomorrow. I will post findings on those in the Mepis testing forum thread though. 64bit thread and 32 bit thread.</div>
+</div>
+</div>
+<div class="back2top">
+
+</div>
+</div>
+</div>
+<div id="p_43713" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43713">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43713">
+
+<time datetime="2015-11-04T05:34">posted: 2015-11-04 &nbsp; 05:34</time>
+<span class="permalink"><a href="./zram-line-39-errors-solved-t6012.html#p43713" title="permalink">#3</a></span>
+
+<div class="content">My Bad. I am now back on my netbook running 4.2 kernel.<br>
+I ran zram in root terminal this time instead of as user.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@# zram start
+zram devices probed successfully
+Setting up swapspace version 1, size = 257172 KiB
+no label, UUID=d0db192c-76da-4708-a8f6-5810c7b7f602
+Setting up swapspace version 1, size = 257172 KiB
+no label, UUID=10796b04-68f0-4812-8f26-e5b967f7a91f
+# free
+             total       used       free     shared    buffers     cached
+Mem:       2057400     575444    1481956      27632      30064     242424
+-/+ buffers/cache:     302956    1754444
+Swap:       514344          0     514344
+# parted -l
+Model: ATA KingSpec KSD-ZF1 (scsi)
+Disk /dev/sda: 63.3GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  8914MB  8913MB  primary  ext4
+ 2      8914MB  63.3GB  54.4GB  primary  ext4
+Model: Unknown (unknown)
+Disk /dev/zram0: 263MB
+Sector size (logical/physical): 4096B/4096B
+Partition Table: loop
+Disk Flags: 
+
+Number  Start  End    Size   File system     Flags
+ 1      0.00B  263MB  263MB  linux-swap(v1)
+Model: Unknown (unknown)
+Disk /dev/zram1: 263MB
+Sector size (logical/physical): 4096B/4096B
+Partition Table: loop
+Disk Flags: 
+
+Number  Start  End    Size   File system     Flags
+ 1      0.00B  263MB  263MB  linux-swap(v1)
+# linuxinfo
+Linux biker 4.2.1-antix.2-486-smp #5 SMP Wed Sep 30 15:14:04 EEST 2015
+Two Intel Unknown 800MHz processors, 6384.14 total bogomips, 2009M RAM
+System library 2.19.0
+
+</code></pre></div>
+<br>
+<br>
+Can I get the command syntax to run zram at boot as user root for AntiX/icewm startup?<br>
+I guess I was doing something wrong earlier running zram as user. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43714" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43714">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43714">
+
+<time datetime="2015-11-04T05:48">posted: 2015-11-04 &nbsp; 05:48</time>
+<span class="permalink"><a href="./zram-line-39-errors-solved-t6012.html#p43714" title="permalink">#4</a></span>
+
+<div class="content">Jumped over to the MX-14 Desktop computer. Ran zram as root in terminal also on it. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~
+$ su
+Password: 
+root@# zram start
+zram devices probed successfully
+Setting up swapspace version 1, size = 480224 KiB
+no label, UUID=6263bee5-dc45-4e37-b6ef-89c881d2e4e1
+Setting up swapspace version 1, size = 480224 KiB
+no label, UUID=b68cab29-b307-4b2f-ba20-2b2eca8c56f8
+root@s# free
+             total       used       free     shared    buffers     cached
+Mem:       3841812    2527336    1314476          0     164256    1773116
+-/+ buffers/cache:     589964    3251848
+Swap:      5056444          0    5056444
+root@# parted -l
+Model: ATA WDC WD3200AAKS-0 (scsi)
+Disk /dev/sda: 320GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type      File system     Flags
+ 1      1049kB  54.8GB  54.8GB  primary   ext4
+ 3      54.8GB  320GB   265GB   extended
+ 5      54.8GB  59.0GB  4194MB  logical   linux-swap(v1)
+ 6      59.0GB  320GB   261GB   logical   ext4
+You found a bug in GNU Parted! Here's what you have to do:
+
+Don't panic! The bug has most likely not affected any of your data.
+Help us to fix this bug by doing the following:
+
+Check whether the bug has already been fixed by checking
+the last version of GNU Parted that you can find at:
+
+    http://ftp.gnu.org/gnu/parted/
+
+Please check this version prior to bug reporting.
+
+If this has not been fixed yet or if you don't know how to check,
+please visit the GNU Parted website:
+
+    http://www.gnu.org/software/parted
+
+for further information.
+
+Your report should contain the version of this release (3.2)
+along with the error message below, the output of
+
+    parted DEVICE unit co print unit s print
+
+and the following history of commands you entered.
+Also include any additional information about your setup you
+consider important.
+
+Command History:
+Segmentation fault
+root@# apt-cache policy parted
+parted:
+  Installed: 3.2-4cmr120+1
+  Candidate: 3.2-4cmr120+1
+  Version table:
+ *** 3.2-4cmr120+1 0
+        500 http://main.mepis-deb.org/mepiscr/repo/ mepis12cr/main i386 Packages
+        100 /var/lib/dpkg/status
+     2.3-12 0
+        500 http://ftp.us.debian.org/debian/ wheezy/main i386 Packages
+
+# parted /dev/sda  unit co print unit s print
+Model: ATA WDC WD3200AAKS-0 (scsi)
+Disk /dev/sda: 320GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type      File system     Flags
+ 1      1049kB  54.8GB  54.8GB  primary   ext4
+ 3      54.8GB  320GB   265GB   extended
+ 5      54.8GB  59.0GB  4194MB  logical   linux-swap(v1)
+ 6      59.0GB  320GB   261GB   logical   ext4
+
+Model: ATA WDC WD3200AAKS-0 (scsi)
+Disk /dev/sda: 625142448s
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start       End         Size        Type      File system     Flags
+ 1      2048s       106958847s  106956800s  primary   ext4
+ 3      106958848s  625141759s  518182912s  extended
+ 5      106960896s  115152895s  8192000s    logical   linux-swap(v1)
+ 6      115154944s  625141759s  509986816s  logical   ext4
+
+</code></pre></div>
+To late to file a bug report for me. One thing after another it seems. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43715" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43715">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43715">
+
+<time datetime="2015-11-04T06:45">posted: 2015-11-04 &nbsp; 06:45</time>
+<span class="permalink"><a href="./zram-line-39-errors-solved-t6012.html#p43715" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>Can I get the command syntax to run zram at boot as user root for AntiX/icewm startup?</div></blockquote>Try the steps outlined in zram file<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo cp /usr/local/bin/zram  / etc/init.d/
+sudo update-rc.d zram defaults</code></pre></div>
+Reboot<br>
+<br>
+Check whether zram loaded
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod | grep zram
+sudo swapon --summary</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43716" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43716">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43716">
+
+<time datetime="2015-11-04T13:19">posted: 2015-11-04 &nbsp; 13:19</time>
+<span class="permalink"><a href="./zram-line-39-errors-solved-t6012.html#p43716" title="permalink">#6</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ lsmod | grep zram
+zram                   24576  2 
+lz4_compress           16384  1 zram
+harry@biker:~
+$ sudo swapon --summary
+[sudo] password for harry: 
+Filename                Type        Size    Used    Priority
+/dev/zram0                                 partition    257172    0    100
+/dev/zram1                                 partition    257172    0    100
+</code></pre></div>
+Thank you very much SamK. Readout is after a reboot on this netbook. <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ linuxinfo
+Linux biker 4.2.1-antix.2-486-smp #5 SMP Wed Sep 30 15:14:04 EEST 2015
+Two Intel Unknown 1600MHz processors, 6383.92 total bogomips, 2009M RAM
+System library 2.19.0
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ free
+             total       used       free     shared    buffers     cached
+Mem:       2057400     564356    1493044      35036      29436     247932
+-/+ buffers/cache:     286988    1770412
+Swap:       514344          0     514344
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ sudo parted -l
+Model: ATA KingSpec KSD-ZF1 (scsi)
+Disk /dev/sda: 63.3GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  8914MB  8913MB  primary  ext4
+ 2      8914MB  63.3GB  54.4GB  primary  ext4
+Model: Unknown (unknown)
+Disk /dev/zram0: 263MB
+Sector size (logical/physical): 4096B/4096B
+Partition Table: loop
+Disk Flags: 
+
+Number  Start  End    Size   File system     Flags
+ 1      0.00B  263MB  263MB  linux-swap(v1)
+Model: Unknown (unknown)
+Disk /dev/zram1: 263MB
+Sector size (logical/physical): 4096B/4096B
+Partition Table: loop
+Disk Flags: 
+
+Number  Start  End    Size   File system     Flags
+ 1      0.00B  263MB  263MB  linux-swap(v1)
+</code></pre></div>
+I love learning something new every day. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43717" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43717">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43717">
+
+<time datetime="2015-11-05T07:36">posted: 2015-11-05 &nbsp; 07:36</time>
+<span class="permalink"><a href="./zram-line-39-errors-solved-t6012.html#p43717" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite>I love learning something new every day.</div></blockquote>With zram working there are plenty of opportunities for that.<br>
+<br>
+Things to explore...<br>
+<br>
+If the amount of swap space created by zram is not large enough for your needs you might partner zram swap with a conventional swap file. You have the choice of starting them manually and individually after boot-up, or automatically during boot-up (zram via <em>/</em>etc/init.d/zram and swap file via <em>/</em>etc/rc.local).<br>
+<br>
+If you use zram and a swap file in partnership, you might want to manage the order in which they are used. A swap space in RAM is faster than a swap file in conventional storage. Consider whether there is any benefit to your local system in assigning the zram swap space a higher priority than the swap file. zram space is usually created with a priority of 100. Assign a lower priority to the swap file (e.g. 90) when activating via the swapon command.<br>
+<br>
+The way in which your system handles any and all swap spaces can be tuned with plenty of scope for experimentaion. The following are entries that I have used for some years as starting points in <em>/</em>etc/sysctl.d/local.conf. They are then adjusted to suit the characteristics of the particular system.<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Uncomment the following two values to improve percieved system performance
+# Threshold at which swapping starts
+# Values lower than default favour filling physical RAM before begining to use a swap area 
+# Default vm.swappiness=60
+vm.swappiness=10
+#
+# Threshold at which the directory and inode caches are reclaimed
+# Values lower than default favour retaining them rather than recovering the memory they occupy
+# Default vm.vfs_cache_pressure=100
+vm.vfs_cache_pressure=50
+</code></pre></div>
+A related matter...<br>
+<br>
+I know you are moving to newer kit than previously. I mention the following just in case you try zram on older kit.<br>
+<br>
+The basic action of zram is to create a swap space per CPU in the local system (zram0, zram1...). In a modern system with multiple CPUs the shipped zram script does this OK. In an older single CPU system the shipped zram script calculates the number incorrectly and therefore creates an incorrect number of swap spaces. It still works but just with the wrong number of swap spaces.<br>
+<br>
+Because antiX is aimed at both modern and older kit I found the shipped zram script disappointing and unsatisfactory. Eventually I decided to do something about it and rewrote my own version of the zram script which works correctly with both single and multiple CPU systems.</div>
+</div>
+</div>
+
+</div>
+</div>
+ </div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

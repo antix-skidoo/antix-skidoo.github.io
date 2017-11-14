@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Problems with nouveau driver: func 07 lookup failed - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html">Problems with nouveau driver: func 07 lookup failed</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43509" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43509">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">marko</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43509">
+<time datetime="2015-10-17T19:23">posted: 2015-10-17 &nbsp; 19:23</time>
+<span class="permalink"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html#p43509" title="permalink">#1</a></span>
+
+<div class="content">Hello,<br>
+<br>
+every time on bootup the nouveau driver complains:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    nouveau E[ DISPLAY][0000:01:00.0][0x00000000] 01:0130: func 07 lookup failed, -2
+</code></pre></div>
+The system starts anyway and runs rather stable. Exept for the hardware video acceleration. E.g. Chromium freezes and has to be killed, glxgears freezes after drawing one frame.<br>
+From time to time (ca. 1 in 10) nouveau complains
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    nouveau E[     DRM] GPU lockup - switching to software fbcon
+</code></pre></div>
+and the system freezes completely.<br>
+<br>
+Deactivating the hw acceleration via the xorg.conf (Option noaccel and nofbaccel) had no effect. The nvidia driver seems to be working (at least nearly: some programs windows need a couple of seconds for redrawing on tabbing/maximizing), but I had to choose the debian kernel from smxi. I couldn't install it on the antix kernel. On the 4.2.1-gnu-antix kernel it is allways the second error and the system allways freezes. <br>
+<br>
+My card
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -G
+Graphics:  Card: NVIDIA G72M [Quadro NVS 110M/GeForce Go 7300]
+           Display Server: X.Org 1.16.4 driver: nouveau
+           Resolution: 1280x800@59.91hz
+           GLX Renderer: Gallium 0.4 on NV46 GLX Version: 2.1 Mesa 10.3.2
+</code></pre></div>
+worked fine with antix 13.2 (hw acceleration with nouveau, but same issues with nvidia).<br>
+<br>
+Preferably I would like to have the nouveau driver working. But if alternatively the delay on the redraw on the nvidia driver can be helped i would be glad too.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43510" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43510">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43510">
+
+<time datetime="2015-10-17T19:31">posted: 2015-10-17 &nbsp; 19:31</time>
+<span class="permalink"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html#p43510" title="permalink">#2</a></span>
+
+<div class="content">What are outputs of<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ xvidtune -show
+"1366x768"     72.14   1366 1414 1446 1522    768  770  775  790 +hsync -vsync
+
+harry@biker:~
+$ glxinfo | grep -i"direct rendering"
+direct rendering: Yes
+harry@biker:~
+$ cat /var/log/Xorg.0.log | grep -i"dri" | grep -v -i"driver"
+[     6.562] (II) xfree86: Adding drm device (/dev/dri/card0)
+[     6.627] (II) Loading sub module"dri2"
+[     6.627] (II) LoadModule:"dri2"
+[     6.627] (II) Module"dri2" already built-in
+[     6.629] (II) intel(0): [DRI2] Setup complete
+[     6.645] (II) intel(0): direct rendering: DRI2 Enabled
+[     6.692] (II) GLX: Initialized DRI2 GL provider for screen 0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43511" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43511">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">marko</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43511">
+
+
+<time datetime="2015-10-17T19:55">posted: 2015-10-17 &nbsp; 19:55</time>
+<span class="permalink"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html#p43511" title="permalink">#3</a></span>
+
+<div class="content"><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>xvidtune -show
+"1280x800"     71.00   1280 1328 1360 1440    800  803  809  823 -hsync -vsync
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>glxinfo | grep -i"direct rendering"
+direct rendering: Yes
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /var/log/Xorg.0.log | grep -i"dri" | grep -v -i"driver"
+[    22.424] (II) xfree86: Adding drm device (/dev/dri/card0)
+[    22.941] (II) Loading sub module"dri2"
+[    22.941] (II) LoadModule:"dri2"
+[    22.942] (II) Module"dri2" already built-in
+[    23.436] (II) NOUVEAU(0): [DRI2] Setup complete
+[    26.090] (II) GLX: Initialized DRI2 GL provider for screen 0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43623" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43623">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">marko</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 11 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43623">
+
+<time datetime="2015-10-24T10:09">posted: 2015-10-24 &nbsp; 10:09</time>
+<span class="permalink"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html#p43623" title="permalink">#4</a></span>
+
+<div class="content">I made a little testrun installing other kernels via apt-get:<br>
+<br>
+3.7.10-antix.7-pae<br>
+3.6.11-antix.1-486-smp<br>
+- boots ok<br>
+- glxgears runs, chromium runs hardware accelerated<br>
+<br>
+3.11.5-antix.1-486-smp<br>
+3.9.5-antix.1-486-smp<br>
+- boots only to command line, but without these errors<br>
+- Xorg.log: <br>
+[ 23.841] (EE) [drm] KMS not enabled<br>
+[ 23.841] (EE) No devices detected.<br>
+[ 23.841] (EE) no screens found(EE) <br>
+<br>
+3.12.6-antix.1-486-smp<br>
+- like 3.7.10, but at shutdown now -r there are endless messages scrolling<br>
+<br>
+3.13.3-antix.1-486-smp<br>
+- boots into gui<br>
+- glxgears and hw accellerated chromium not working<br>
+- no func 07 lookup error in dmesg<br>
+<br>
+3.14.4-antix.3-486<br>
+- like 3.13, but at shutdown now -r there are endless messages scrolling<br>
+<br>
+3.15.2-antix.3-486<br>
+4.0.5-antix.1-486-smp<br>
+4.2.1-antix.3-686-pae<br>
+- boots into gui<br>
+- glxgears and hw accellerated chromium not working<br>
+- func 07 lookup failed <br>
+<br>
+Since the old 3.7 kernel seems to be working, i will stay with it. Or are there any critical bugs in it?<br>
+<br>
+Some questions that came up during the tests:<br>
+- Sometimes during the bootup messages alsa (alsactl) complains, but I didn't find any entry under /var/log/. Does Alsa has an own log elsewhere? Sound seems to be running though.<br>
+- Installing the linux-image* over apt-get creates two entries in the grub menu: one extra with (sysvinit) appendix. Why?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43671" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43671">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">marko</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43671">
+
+<time datetime="2015-10-29T09:54">posted: 2015-10-29 &nbsp; 09:54</time>
+<span class="permalink"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html#p43671" title="permalink">#5</a></span>
+
+<div class="content">No insights from anyone?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43673" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43673">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43673">
+
+<time datetime="2015-10-29T15:45">posted: 2015-10-29 &nbsp; 15:45</time>
+<span class="permalink"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html#p43673" title="permalink">#6</a></span>
+
+<div class="content"><blockquote class="uncited"><div>- Installing the linux-image* over apt-get creates two entries in the grub menu: one extra with (sysvinit) appendix. Why?</div></blockquote>
+In case you want to cli boot to run smxi.<br>
+<blockquote class="uncited"><div> <br>
+No insights from anyone?</div></blockquote>
+Some of us are busy alpha testing MX-15 presently. So things are quiet around here because of that.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43674" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43674">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43674">
+
+<time datetime="2015-10-29T16:33">posted: 2015-10-29 &nbsp; 16:33</time>
+<span class="permalink"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html#p43674" title="permalink">#7</a></span>
+
+<div class="content">irc #nouveau channel might be your best source for help.<br>
+<br>
+a web search didn't 't provide a definitive answer<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://people.freedesktop.org/~cbrill/dri-log/?channel=nouveau&amp;date=2014-06-18"<br>linktext was:"http://people.freedesktop.org/~cbrill/d ... 2014-06-18"<br>====================================<br>
+<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://bugzilla.redhat.com/show_bug.cgi?id=918732"<br>linktext was:"https://bugzilla.redhat.com/show_bug.cgi?id=918732"<br>====================================<br>
+<br>
+<br>
+but, from what I read, proprietary nvidia driver is less problematic than noveau for the 7300 series cards</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43697" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43697">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 10</span></div>
+
+</div>
+</div>
+<span class="username">marko</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43697">
+
+<time datetime="2015-11-01T15:22">posted: 2015-11-01 &nbsp; 15:22</time>
+<span class="permalink"><a href="./problems-with-nouveau-driver-func-07-lookup-failed-t5984.html#p43697" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>rokytnji wrote:</cite><blockquote class="uncited"><div>- Installing the linux-image* over apt-get creates two entries in the grub menu: one extra with (sysvinit) appendix. Why?</div></blockquote>
+In case you want to cli boot to run smxi.
+</div></blockquote>
+That could explain the boot to cli in my kernel tests. Is sysvinit the same as init 3?<br>
+<blockquote><div><cite>skidoo wrote:</cite>but, from what I read, proprietary nvidia driver is less problematic than noveau for the 7300 series cards</div></blockquote>
+It is at least the most upcoming answer. But there's that window switching delay thingy. Also installing them is quite a pain in the neck. Over smxi i only could install with the debian kernel. And with 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/NvidiaGraphicsDrivers#Version_304.125_.28legacy_GPUs.29"<br>linktext was:"https://wiki.debian.org/NvidiaGraphicsD ... cy_GPUs.29"<br>====================================<br>
+ i only resulted in cli boots.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

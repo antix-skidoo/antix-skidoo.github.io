@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>installation and configurations (solved) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installation-and-configurations-solved-t7161.html">installation and configurations (solved)</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_52849" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52849">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">tradonal</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Sep 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52849">
+<time datetime="2017-09-08T15:15">posted: 2017-09-08 &nbsp; 15:15</time>
+<span class="permalink"><a href="./installation-and-configurations-solved-t7161.html#p52849" title="permalink">#1</a></span>
+
+<div class="content">hello all<br>
+I am french, so is subject is translated by google <br>
+<br>
+<strong>A) information about partitions and the boot manager<br>
+</strong>-)  grub2 installed in mbr <br>
+-) sda1 primary partition with MX16<br>
+-) sda2 extended <br>
+<br>
+<img src="https://framapic.org/VVpPSUT8yRDg/mJDwXx7Xon72.png" class="postimage" alt="Image"><br>
+<br>
+<strong>B) configuration for installation</strong><br>
+-) creation of a new ext4 partition (sda7) with <strong>antiX-Persist label</strong><br>
+-) copies the directories /antiX and /boot/grub of the iso image to a partition <strong>sda7</strong><br>
+I therefore a / of sda7 this :<br>
+/antiX/*<br>
+/boot/grub/*<br>
+-) creating an entry in grub2
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry"antix sur sda7" {
+set root='hd0,msdos7'
+configfile (hd0,msdos7)/boot/grub/grub.cfg
+linux /antiX/vmlinuz from=hd bdev=sda7 bdir=antiX 
+initrd /antiX/initrd.gz
+}</code></pre></div>
+<strong>C) installation</strong><br>
+-) l boot  on menuentry"antix sur sda7"<br>
+-) I choose the line  <strong>antiX-16.1 Customize Boot (text menus)</strong><br>
+-) i choose mode <strong>persist_static</strong><br>
+Start creating the homefs persistence file is good<br>
+Start creating the rootfs persistence file is good<br>
+here is the /var/log/live/initrd.log
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Run custom code before reading boot codes: /live/custom/antiX/0.sh
+Setting font to default
+setfont /live/locale/fonts/default -C /dev/console
+=== initrd bootstrap ==================================================
+initrd init started at 0.02 seconds
+Welcome to antiX 16.1 (Berta Cáceres) 32-bit!
+  BusyBox v1.22.1 (2014-08-20 14:42:05 MDT) multi-call binary.
+  ntfs-3g 2013.1.13AR.1 external FUSE 29
+           initrd version: 7.63.07
+             initrd built: Tue Dec 13 20:51:41 MST 2016
+             Total Memory:  1256 M
+              Used Memory:    22 M
+             Linux kernel: 4.4.10-antix.1-486-smp
+             Screen width: 123
+              Kernel arch: i686
+                 Hardware: Hewlett-Packard Pavilion zv6000 (PZ989EA#UUG)
+Current boot codes:
+     BOOT_IMAGE=/antiX/vmlinuz quiet splash=v disable=lx menus
+Found overlay
+Loading hardware specific modules ...
+Language set to French (BE)
+Setting font to default
+setfont /live/locale/fonts/default -C /dev/console
+Translate to fr
+Le fuseau horaire Fuseau horaire a été réglé à UTC
+Le fuseau horaire Options a été réglé à from=hd
+Le fuseau horaire Monter a été réglé à mount=all
+Le fuseau horaire Persistance a été réglé à persist_static
+Balayer les périphériques de type hd. Chercher les fichiers de type boot avec les noms antiX/linuxfs
+Les périphériques filtrés  /dev/sda7 /dev/sda6 /dev/sda5 /dev/sda2 /dev/sda1 /dev/sda
+mount -t ext4 -o ro,noatime /dev/sda7 /live/boot-dev
+On a monté le périphérique boot. Il est de type /dev/sda7 et a été monté à /live/boot-dev
+Périphérique de type boot avec le système de fichiers: ext4
+boot device model: IC25N060ATMR04-0
+Spent 0.22 seconds looking for boot file(s) antiX/linuxfs
+boot device uuid: 197196f1-5bd0-4695-9ce9-7c50e8c10358
+Mount file /live/boot-dev/antiX/linuxfs at /live/linux
+mount -t squashfs -o loop,ro /live/boot-dev/antiX/linuxfs /live/linux
+sqfs_vid: === 405c224e43aa332528c317e495a9863f
+LD_PATH: /live/linux/lib:/live/linux/lib/i386-linux-gnu:/live/linux/usr/lib
+----------------------------------------------------------------------
+Commencer Monter le périphérique de persistance (si on en a besoin)
+Chercher des périphériques de type persist avec l'attribut name /dev/sda7
+Chercher le(s) fichier(s) homefs.new homefs rootfs sur le(s) périphérique(s) /dev/sda7
+Le périphérique /dev/sda7 est déjà monté à /live/boot-dev
+
+root persistence was requested but no rootfs file was found
+
+      Free space: 17575 Meg
+ Available space: 17565 Meg
+    Default size: 2000 Meg
+----------------------------------------------------------------------
+Commencer créer le fichier de persistance rootfs
+La taille par défaut: 2000 meg. Le système de fichiers de type: ext4
+Cette taille par défaut laissera libre 15565 meg
+Créer le fichier rootfs de type ext4 et de taille 2000 meg
+command makefs /live/boot-dev/antiX/rootfs ext4 2000 ext4 took 2.86 seconds
+verifier le système de fichiers new rootfs file
+fsck /live/boot-dev/antiX/rootfs
+/live/boot-dev/antiX/rootfs: clean, 11/128000 files, 16986/512000 blocks
+Pas d'erreurs sur rootfs
+
+home persistence was requested but no homefs file was found
+
+sparse: r=2000 o=  33 of=17543 nf=15576 /live/boot-dev/antiX/rootfs
+      Free space: 15576 Meg
+ Available space: 15566 Meg
+    Default size: 3966 Meg
+----------------------------------------------------------------------
+Commencer créer le fichier de persistance homefs
+La taille par défaut: 3966 meg. Le système de fichiers de type: ext4
+Cette taille par défaut laissera libre 11600 meg
+Créer le fichier homefs de type ext4 et de taille 3966 meg
+warning: Unable to get device geometry for /live/boot-dev/antiX/homefs
+command makefs /live/boot-dev/antiX/homefs ext4 3966 ext4 took 4.33 seconds
+verifier le système de fichiers new homefs file
+fsck /live/boot-dev/antiX/homefs
+/live/boot-dev/antiX/homefs: clean, 11/253952 files, 34316/1015296 blocks
+Pas d'erreurs sur homefs
+Spent 54.19 seconds looking for persist file(s) antiX/homefs.new antiX/homefs antiX/rootfs
+       persist_mp: /live/boot-dev
+   persist_device: /dev/sda7
+     persist_uuid: 197196f1-5bd0-4695-9ce9-7c50e8c10358
+Loaded 8 module(s)
+sdhci_pci sdhci shpchp mmc_block mmc_core overlay battery fotg210_hcd
+precheck filesystem on /dev/sda7
+Créer aufs ram tmpfs à /live/aufs-ram       (987 MB)
+/bin/mount -t tmpfs -o size=987m,noatime tmpfs /live/aufs-ram
+precheck filesystem on /live/boot-dev/antiX/rootfs
+----------------------------------------------------------------------
+Commencer monter le fichier de persistance rootfs à /live/persist-root
+Copier linuxfs VID à rootfs vide
+mkdir -p /live/persist-root/upper/etc/live/version
+cp /live/linux/etc/live/version/linuxfs.ver /live/persist-root/upper/etc/live/version/rootfs.ver
+A activé static root de persistance
+umount /live/aufs-ram
+Activer la persistance de type static rootfs
+Mount overlayfs at /live/aufs
+mount -t overlay overlay -o lowerdir=/live/linux,upperdir=/live/persist-root/upper,workdir=/live/persist-root/work /live/aufs
+precheck filesystem on /live/boot-dev/antiX/homefs
+----------------------------------------------------------------------
+Commencer monter le fichier de persistance homefs à /tmp/home
+files in /live/aufs/home: 0
+A activé home de persistance
+Créer   /media tmpfs à /live/aufs/media     (10 MB)
+/bin/mount -t tmpfs -o size=10m,noatime tmpfs /live/aufs/media
+Créer     /run tmpfs à /live/aufs/run       (10 MB)
+/bin/mount -t tmpfs -o size=10m,mode=755,nodev,noatime tmpfs /live/aufs/run
+Créer    /live tmpfs à /live/aufs/live      (10 MB)
+/bin/mount -t tmpfs -o size=10m,mode=755,noatime tmpfs /live/aufs/live
+mount --move /live/boot-dev /live/aufs/live/boot-dev
+mount --move /live/linux /live/aufs/live/linux
+mount --move /live/persist-root /live/aufs/live/persist-root
+Run custom code before running live init.d scripts: /live/custom/antiX/8.sh
+
+The initrd init program took 277.52 seconds
+======================================================================
+</code></pre></div>
+-) the system is well functional<br>
+<br>
+<strong>D) operation on the system at the first boot</strong><br>
+-) I have not used apt-get update and upgrade<br>
+-) I did not use the persistence of the central menu Antix Control<br>
+-) I used iso-snapshot<br>
+-) reboot<br>
+<br>
+I have now homefs and rotfs in the directory sda7/antiX<br>
+<br>
+abstract:<br>
+grub entries to launch antix for the first time
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry"antix sur sda7" {
+set root='hd0,msdos7'
+configfile (hd0,msdos7)/boot/grub/grub.cfg
+linux /antiX/vmlinuz from=hd bdev=sda7 bdir=antiX 
+initrd /antiX/initrd.gz
+}
+</code></pre></div>
+installation antiX-16.1 Customize Boot (text menus)<br>
+I during installation i choose mode persist_static<br>
+<br>
+<strong>? Questions ?<br>
+</strong>what should now be the entry in grub?<br>
+Is this entry sufficient or other?
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry"antix sur sda7" {
+set root='hd0,msdos7'
+linux /antiX/vmlinuz from=hd bdev=sda7 bdir=antiX  plab=antiX-Persist 
+initrd /antiX/initrd.gz
+}</code></pre></div>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://download.tuxfamily.org/antix/docs-antiX-15/FAQ/boot-params.html"<br>linktext was:"boot param"<br>====================================<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://download.tuxfamily.org/antix/docs-antiX-15/live-boot/index.html"<br>linktext was:"live boot"<br>====================================<br>
+<br>
+<br>
+thank you</div>
+<div class="notice">
+Last edited by <b>tradonal</b> on 09 Sep 2017, 13:30, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52852" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile52852">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52852">
+
+<time datetime="2017-09-08T16:51">posted: 2017-09-08 &nbsp; 16:51</time>
+<span class="permalink"><a href="./installation-and-configurations-solved-t7161.html#p52852" title="permalink">#2</a></span>
+
+<div class="content">I have this, obviously adjust to suit your partition set up<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry"antiX live persist on sda1" {
+set root='hd0,msdos1'
+linux /antiX/vmlinuz bdev=sda1 persist quiet
+initrd /antiX/initrd.gz
+}
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_52861" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52861">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 11</span></div>
+
+</div>
+</div>
+<span class="username">tradonal</span>
+</dt>
+<dd class="profile-joined">Joined: 02 Sep 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52861">
+
+<time datetime="2017-09-09T13:26">posted: 2017-09-09 &nbsp; 13:26</time>
+<span class="permalink"><a href="./installation-and-configurations-solved-t7161.html#p52861" title="permalink">#3</a></span>
+
+<div class="content">re, thanks for the information.<br>
+I place in solved</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

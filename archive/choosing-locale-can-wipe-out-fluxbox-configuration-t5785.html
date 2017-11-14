@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Choosing locale can wipe out fluxbox configuration files - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html">Choosing locale can wipe out fluxbox configuration files</a></div>
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_42068" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42068">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42068">
+<time datetime="2015-07-16T19:51">posted: 2015-07-16 &nbsp; 19:51</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42068" title="permalink">#1</a></span>
+
+<div class="content">Hi,<br>
+<br>
+In a previous test I had already experienced a broken fluxbox after configuring locales. I can now reproduce the problem.
+<ul>
+<li>Open Antix CC | System | Configure System</li>
+<li>In tab |Locale|, check the buttons [Enable locale options] (heading), [Enable locale options] (in right hand panel) and [enable language select]. Press [OK]</li>
+<li>In the ROXTerm window, change one locale option, e.g. enable or disable one of the nl_BE locales.</li>
+<li>Press &lt;Enter&gt; on the textbutton [OK]</li></ul>
+Now beware! If you have not backupped your .fluxbox folder you can get yourself in big trouble.<br>
+<br>
+<a href="http://imageshack.com/i/idX4Ydphp" class="postlink"><img src="http://imagizer.imageshack.com/img661/4232/X4Ydph.th.png" class="postimage" alt="Image"></a><br>
+<br>
+The default locale is already highlighted. If you just press &lt;Enter&gt; here, I find that 4 or 5 files in the .fluxbox folder (in your HOME-folder) are wiped out. However, if you are careful, press [Tab] to highlight the text-button &lt;Ok&gt; en THEN press &lt;Enter&gt; on your keyboard, no harm seems to be done.<br>
+<br>
+Nonetheless, even then the results are not what I expect. I want to be able to switch keyboard layouts with the &lt;Alt-Shf&gt; key combination. I have been unable to do so, even when I get the message that the necessary locales have been generated, and even when I check the button [select keyboard map]. I seem to remember that Antix 13.2 behaved better when configuring multiple keyboard layouts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42070" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42070">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42070">
+
+<time datetime="2015-07-16T20:40">posted: 2015-07-16 &nbsp; 20:40</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42070" title="permalink">#2</a></span>
+
+<div class="content"><blockquote><div><cite>dirkd wrote:</cite>Nonetheless, even then the results are not what I expect. I want to be able to switch keyboard layouts with the &lt;Alt-Shf&gt; key combination. I have been unable to do so, even when I get the message that the necessary locales have been generated, and even when I check the button [select keyboard map]. I seem to remember that Antix 13.2 behaved better when configuring multiple keyboard layouts.</div></blockquote>
+I don't fully understand everything that is involved in generating locales. The <em>/</em>etc/locale.gen file indicates that nl_BE is already enabled even though there is no /usr/share/locale/nl_BE/ directory. This may be perfectly normal. In addition, I believe the number of locales is larger than the number of keyboard layouts. For example, if I look in the file /usr/share/X11/xkb/rules/xorg.lst, I see there is an"nl" keyboard layout but no"nl_BE" keyboard layout. There is not even a Belgian variant to the nl layout. This file is independent of what locales you have on your system.<br>
+<br>
+Assuming the keyboard layouts you want to use are available then it should be easy to select them with a command like:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>setxkbmap nl,us</code></pre></div>
+After I do that I can switch between the two layouts with &lt;Alt&gt;&lt;Shift&gt; and I can also switch between them by clicking on the flag in the system-tray/tool-bar. If there is no flag and you want one then run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>fbxkb&amp;</code></pre></div> and add this line to one of your startup files.<br>
+<br>
+To make the keyboard layout change permanent, you are supposed to be able to edit <em>/</em>etc/default/keyboard but that does not seem to be working here. An alternative is to add the setxkbmap command to one of the startup files. We used to always add the setxkbmap command by default but, of course, it interferes with <em>/</em>etc/default/keyboard so we took it out. We made sure the keyboard file was controlling the keyboard layout during development but something may have changed recently.<br>
+<br>
+I did all of the above on a live system. It is possible the installed system behaves differently.<br>
+<br>
+HTH</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42083" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42083">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42083">
+
+<time datetime="2015-07-17T18:56">posted: 2015-07-17 &nbsp; 18:56</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42083" title="permalink">#3</a></span>
+
+<div class="content">I'm posting to confirm a bug exists. It might be separate from, unrelated to, what dirkd reported.<br>
+It's not specific to"nl_BE" and, when triggered, it affects _all_ sessions (IOW, not specific to fluxbox).<br>
+<br>
+TO CONSISTENTLY REPRODUCE / TRIGGER THE BUG:<br>
+In the yad dialog, titled"Choose your locale for antiX applications"<br>
+<strong>click OK, without choosing (focusing/highlighting) any listed entry</strong><span style="color: silver"><br>
+<br>
+After the fact, in fluxbox, launching the menu produces:<br>
+"Fluxbox Default Menu"(header)<br>
+xterm(menu item)<br>
+Reload Config (menu item) ------- no effect (er, does not resolve the problem)<br>
+Restart (menu item) ----- no effect (does not resolve the problem)<br>
+Exit (menu item) ------------} leads to slim login screen, no logout/shutdown dialog is offered<br>
+<br>
+Via the slim login F1 session chooser, I chose iceWM. Launching iceWM menus produces:<br>
+Run (menu item)<br>
+Settings (menu item)<br>
+Logout (menu item)<br>
+<br>
+JWM menu displays a single entry:"Logout"</span><br>
+<br>
+After the operation -- if controlCentre is still open -- I was able to quickly recover/fix, by re-running the"Configure System".<br>
+Otherwise (if user has closed controlCentre prior to discovering problem) ouch, that would amount to a not-easily-recoverable scenario.<br>
+<br>
+===============<br>
+<br>
+dirkd, the screen (displayed to a roxterm window) is simply running"sudo dpkg-reconfigure locales".<br>
+As you pointed out,"the current default locale is (was) already highlighted"; are you certain your choice there ("clicking OK or being careful and tabbing") triggers the menus problem?<br>
+dpkg-reconfigure locales just regenerates the content of a configuration file, so that when you install (or REinstall) individual debian packages...<br>
+... at time of installation, _if_ the package provides translation files for your previously missing locale(s) those will be installed to your system.<br>
+(related note:"sudo dpkg-reconfigure locales" does not thouroughly cleanup/remove files for recently unselected locales. Use 'bleachbit' program to remove those.)<br>
+-=-<br>
+The antixCC wrapper script (separate from running 'dpkg-reconfigure locales') handles the immediate task of adjusting the DE/menu language labels.<br>
+<br>
+===============<br>
+<br>
+dirkd wanted to select"nl_BE"...<br>
+but the"Choose your locale for antiX applications" doesn't offer an exact match and, even if it did, fluxbox does not have a"nl_BE" translation file.<br>
+-=-<br>
+Prior to today, I've never tested the controlCentre locales tool.<br>
+I would have chosen"en_US", but that's not an available choice in the yad dialog, so I chose"en"...<br>
+and I noted the displayed confirmation"language has changed to LANG=en_US.UTF-8". Result: no bug -- menus contain expected content.<br>
+(Arguably, may have been no change, so"lang is now set to" vs"lang has been changed to" might be preferable wording)<br>
+I repeated the operation, forcibly closing the roxterm window without making any 'dpkg-reconfigure locales' changes... then chose"en". Same result: no menus bug<br>
+<br>
+<span style="color: silver">edit: fixed typo</span></div>
+<div class="notice">
+Last edited by <b>skidoo</b> on 18 Jul 2015, 02:35, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42090" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42090">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42090">
+
+<time datetime="2015-07-17T22:01">posted: 2015-07-17 &nbsp; 22:01</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42090" title="permalink">#4</a></span>
+
+<div class="content">@skidoo: I didn't try any and all combinations of going through the locale settings procedure. I just tried to find one reproducable scenario that would destroy the fluxbox configuration files. <br>
+<br>
+I'm pretty shure that hitting the return key immediately in the roxterm window that I took a screenshot of, always wipes out the fluxbox menu. In the previous dialog, where you actually choose the locales you want on your system I alway changed at least one option, like choosing Armenian locale or whatever.<br>
+<br>
+If instead of hitting the return key immediately, I activate the &lt;Ok&gt; text button in that roxterm window en THEN hit the return key, the fluxbox menu's still work. I then recover by logging in as root and overwriting my .fluxbox folder (in my home folder) with a backup copy I put aside for that purpose.<br>
+<br>
+It's too late now to do further experiments, but I will tomorrow. From your description I'm sure we are seeing the same bug. I just didn't try other then fluxbox sessions.<br>
+<br>
+@bitjam: thanks for the keyboard instructions. I can live without full nl_BE locale to start with. But I do need either the belgian keyboard or the us international keyboard, besides the standard us keyboard layout.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42091" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42091">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42091">
+
+<time datetime="2015-07-17T22:56">posted: 2015-07-17 &nbsp; 22:56</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42091" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>dirkd wrote:</cite>@bitjam: thanks for the keyboard instructions. I can live without full nl_BE locale to start with. But I do need either the belgian keyboard or the us international keyboard, besides the standard us keyboard layout.</div></blockquote>
+By far the easiest way would have been to have used the F2-Language menu in the live bootloader and selected"Nederlands (BE)". This would have set:<br>
+<ul>
+<li> The locale to nl_BE.UTF-8</li>
+<li> The Debian mirror to the one in Belguim</li>
+<li> The antiX mirror to the one in the Netherlands</li>
+<li> The main desktop menu translated into Dutch</li>
+<li> The time zone to Europe/Brussels, and</li>
+<li> The keyboard layouts to be,fr,us</li></ul>
+We do try to make localization very easy for international users but our main thrust has been to have users use the live bootloader menus to customize the system however they want and then carry over these settings during the install. Trying to make all of these changes manually after an install will probably be much more difficult and frustrating.<br>
+<br>
+Some of our more advanced Live features such as persistence and remastering make it easy to customize a LiveUSB so that it has the package selection you want but still has the run-time customization offered in the live bootloader menu. The F8-Save menu on the LiveUSB even allows you to set the default language and timezone (and other things) in the bootloader menus.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42093" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42093">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42093">
+
+<time datetime="2015-07-18T02:51">posted: 2015-07-18 &nbsp; 02:51</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42093" title="permalink">#6</a></span>
+
+<div class="content">dirkd, I repeated exactly what you described and it doesn't trigger the bug for me.<br>
+-- in roxterm window, add an asterisk for nl_BE.UTF-8<br>
+-- tab, to move focus to OK button and press enter (also tested: omit tab and just press enter)<br>
+-- next screen displays"choose your system default locale". Just press enter.<br>
+<br>
+Neglecting to select an entry in the yad"Choose your locale for antiX applications" dialog is the only way I've found to trigger the bug.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42104" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42104">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<span class="username">dirkd</span>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42104">
+
+<time datetime="2015-07-18T16:09">posted: 2015-07-18 &nbsp; 16:09</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42104" title="permalink">#7</a></span>
+
+<div class="content">Skidoo, it seems you are right. It's the YAD window that triggers the problem, and not the previous ROXTerm window. Sorry if I have wasted your time.<br>
+<br>
+BitJam: I realise I'm a difficult customer. Sorry about that too. I don't like a translated interface. More often than not the translation is sloppy or inconsistent, and then I have to guess what is meant by this or that element of the interface. Also, I'm used to qwerty-layout, even if the standard in Belgium is azerty. However, I do produce quite some text in Dutch, and then I need at least US-international keyboard layout. Full locale can be handy for spellchecking software and the like, but in a pinch, I can do without. Btw., it seems the keyboard layouts are now properly installed, and I CAN switch with &lt;Alt-Shft&gt;. Don't know precisely when that happened.<br>
+<br>
+I dawned upon me that I might have jumbled up my IceWM configuration too, without noticing it. And shure enough, the menu there is gone, and I can't get it back. While I'm not planning to use IceWM, one never knows what tomorrow may bring. So I guess I will start over with a clean slate. Maybe it's a bit early to install Antix15 on my main machine (thank God I used a dedicated hard disk, so I can return to my not so terribly beloved Ubuntu for the moment). I'll do some further virtual testing first.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42107" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42107">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42107">
+
+<time datetime="2015-07-18T16:59">posted: 2015-07-18 &nbsp; 16:59</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42107" title="permalink">#8</a></span>
+
+<div class="content">Doesn't seem like a waste of time. Pinning down an exact bug/trigger often requires testing by multiple people.
+<blockquote class="uncited"><div>After the operation -- if controlCentre is still open -- I was able to quickly recover/fix, by re-running the"Configure System".</div></blockquote>Just to clarify:<br>
+re-running the operation and supplying the expected choice in yad dialog immediately fixed ALL menus for me (including iceWM menus)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42112" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42112">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">dirkd</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42112">
+
+<time datetime="2015-07-18T20:07">posted: 2015-07-18 &nbsp; 20:07</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42112" title="permalink">#9</a></span>
+
+<div class="content">Skidoo: that's great! All menus fixed, as you said! Thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42120" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42120">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 91</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+ <a href="#" class="username">dirkd</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 30 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42120">
+
+<time datetime="2015-07-19T20:09">posted: 2015-07-19 &nbsp; 20:09</time>
+<span class="permalink"><a href="./choosing-locale-can-wipe-out-fluxbox-configuration-t5785.html#p42120" title="permalink">#10</a></span>
+
+<div class="content">Just for completeness sake: although I have my menu's back, something is still broken. It seems I only got the default menu's back, as they appear right after a fresh installation. Programs that were added afterwards (I had SMPlayer and q4wine added) are missing from the fluxbox menu (and probably from the other ones too). Reinstalling the apllications didn't help. Clicking 'Update menu' in the fluxbox root menu didn't help either.<br>
+<br>
+I also tested adding one more new application, and althought the installation was succesful, it too didn't appear in the fluxbox menu.<br>
+<br>
+Added note: the missing menu choices WERE present in IceWM, but still not in fluxbox, even after reboot, reconfigure fluxbox, update menu.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+10 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

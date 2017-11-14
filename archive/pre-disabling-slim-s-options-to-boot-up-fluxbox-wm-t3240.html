@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Pre-disabling SLiM's options to boot up Fluxbox, WMII, etc. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./pre-disabling-slim-s-options-to-boot-up-fluxbox-wm-t3240.html">Pre-disabling SLiM's options to boot up Fluxbox, WMII, etc.</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_21247" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21247">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">swiftlinuxcreator</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21247">
+<time datetime="2011-07-12T02:01">posted: 2011-07-12 &nbsp; 02:01</time>
+<span class="permalink"><a href="./pre-disabling-slim-s-options-to-boot-up-fluxbox-wm-t3240.html#p21247" title="permalink">#1</a></span>
+
+<div class="content">I'm working on modifications of the installer script for Swift Linux. I've figured out how to make most of the changes I want to make. But there's one I'm still confused on.<br>
+<br>
+How do I make SLiM pre-disable the options to boot up Fluxbox, WMII, and other window managers? I tried making the changes in /etc/slim.conf and /usr/share/slim/slim.template, but some mysterious force in the installation process or something specific to the remastering process overrides my settings.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21251" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21251">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21251">
+
+<time datetime="2011-07-12T03:16">posted: 2011-07-12 &nbsp; 03:16</time>
+<span class="permalink"><a href="./pre-disabling-slim-s-options-to-boot-up-fluxbox-wm-t3240.html#p21251" title="permalink">#2</a></span>
+
+<div class="content">Ok, noticed that you had made a thread for the issue. To recap with the chat, <br>
+<br>
+The files that will need to be changed / looked into are:<br>
+/etc/slim.conf<br>
+/usr/share/slim/slim.template<br>
+/etc/skel/.xinitrc<br>
+/etc/init.d/antiX-init.sh (line 724 and below)<br>
+/usr/share/slim/themes/antiX/slim-install.conf<br>
+/usr/local/bin/user-management ( lines 507, 533, 602, 628 ) ( This is only for use by user, does not change install or remaster processes, will be fixed in the future )<br>
+<br>
+It may need more looking into by the way, as I am still not sure how"demo" autologin works ( i have only done a quick look ). So there may indeed be more files that will need a change. Main dir's to check /etc, /usr/share, /usr/share/anti*, and */lib/*</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21443" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21443">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">swiftlinuxcreator</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21443">
+
+<time datetime="2011-08-05T04:56">posted: 2011-08-05 &nbsp; 04:56</time>
+<span class="permalink"><a href="./pre-disabling-slim-s-options-to-boot-up-fluxbox-wm-t3240.html#p21443" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>Ok, noticed that you had made a thread for the issue. To recap with the chat, <br>
+<br>
+The files that will need to be changed / looked into are:<br>
+/etc/slim.conf<br>
+/usr/share/slim/slim.template<br>
+/etc/skel/.xinitrc<br>
+/etc/init.d/antiX-init.sh (line 724 and below)<br>
+/usr/share/slim/themes/antiX/slim-install.conf<br>
+/usr/local/bin/user-management ( lines 507, 533, 602, 628 ) ( This is only for use by user, does not change install or remaster processes, will be fixed in the future )<br>
+<br>
+It may need more looking into by the way, as I am still not sure how"demo" autologin works ( i have only done a quick look ). So there may indeed be more files that will need a change. Main dir's to check /etc, /usr/share, /usr/share/anti*, and */lib/*</div></blockquote>
+I have confirmed that the /etc/slim.conf is the critical file. When I trim the extra available sessions (fluxbox, wmii, gnome, kde, openbox, etc.), these options are (as expected) gone when I log out and end up back in SLiM.<br>
+<br>
+When I remaster antiX Linux WITH the modified /etc/slim.conf file, the changes carry over into the live CD. When I'm in the live CD and log out and end up in SLiM, my changes are preserved.<br>
+<br>
+However, once I install Swift Linux (antiX Linux with my modifications), the changes I made to the /etc/slim.conf file are mysteriously lost, and the extra sessions show up in SLiM.<br>
+<br>
+Taking the extra sessions out of both user-management files (the one in /usr/local/bin AND the one in the localisation directory) did NOT work. You'd think that this was the file overwriting the /etc/slim.conf file, but that's not the case. So I've eliminated this file as the culprit, as the unwanted overwriting took place without the help of the user-management files.<br>
+<br>
+From doing a search for the text"Rox-fluxbox", the only thing I can see as a possible culprit is the /usr/share/slim/themes/antiX/slim-install.conf file that shows up in the remastering process. I'll have to try modifying this file in the remastering process to see if this resolves the issue. If it doesn't, I'm hard-pressed to think of what else could be wiping out my changes to the /etc/slim.conf file.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21460" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21460">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 51</span></div>
+
+</div>
+</div>
+<span class="username">swiftlinuxcreator</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Nov 2010</dd>
+
+</dl>
+<div class="postbody">
+<div id="post_content21460">
+
+<time datetime="2011-08-05T18:43">posted: 2011-08-05 &nbsp; 18:43</time>
+<span class="permalink"><a href="./pre-disabling-slim-s-options-to-boot-up-fluxbox-wm-t3240.html#p21460" title="permalink">#4</a></span>
+
+<div class="content">Indeed it is the /usr/share/slim/themes/antiX/slim-install.conf file that proved to be the critical one. Thanks for the suggestions, Dave.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

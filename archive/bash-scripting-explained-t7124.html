@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>bash scripting explained - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./kafeneio-chats-f25/index.html"><span>Kafeneio chats</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./in-a-greek-kafeneio-f7/index.html"><span>In a Greek kafeneio</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./bash-scripting-explained-t7124.html">bash scripting explained</a></div>
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_52500" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile52500">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">figosdev</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Jun 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content52500">
+<time datetime="2017-08-11T22:32">posted: 2017-08-11 &nbsp; 22:32</time>
+<span class="permalink"><a href="./bash-scripting-explained-t7124.html#p52500" title="permalink">#1</a></span>
+
+<div class="content">if you find code or a script written"in bash" it is probably written for a number of common utilities for gnu/linux.<br>
+<br>
+bash has some native commands, but most are actually external programs. some are not standard, and you can call programs youve written yourself from bash scripts. take this code:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>echo"find text:";e="$(echo -e \\033)";read p;find -type f|egrep -v"\ |^\.\/sys\/|^\.\/proc\/|^\.\/dev\/|^\.\/run\/|headers|modules|gnu|cert|icons|^\.\/live\/"|xargs grep"$p"|cat -A|sed"s/\^\[/$e/g"</code></pre></div>
+what you actually have here is:<br>
+<br>
+a few echo commands (echo writes out text)<br>
+a read command (gets input from the keyboard)<br>
+some variables ($p and $e)<br>
+the find command (searches for files)<br>
+the egrep command (searches through text for multiple items at once)<br>
+the xargs command (turns a list of files or text into input for another command)<br>
+the cat command (writes out text, but has slightly different input than echo)<br>
+the sed command (does many things; used here to make changes to text)<br>
+<br>
+this code:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>echo"find text:";e="$(echo -e \\033)";read p;find -type f|egrep -v"\ |^\.\/sys\/|^\.\/proc\/|^\.\/dev\/|^\.\/run\/|headers|modules|gnu|cert|icons|^\.\/live\/"|xargs grep"$p"|cat -A|sed"s/\^\[/$e/g"</code></pre></div>
+does the same thing as this code:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>echo"find text:"
+e="$(echo -e \\033)"
+read p
+find -type f|egrep -v"\ |^\.\/sys\/|^\.\/proc\/|^\.\/dev\/|^\.\/run\/|headers|modules|gnu|cert|icons|^\.\/live\/" |
+xargs grep"$p" |
+cat -A |
+sed"s/\^\[/$e/g"</code></pre></div>
+which does this:<br>
+<br>
+* change colour to yellow, say"find text:" and gets input<br>
+* finds files, skipping filepaths that begin with /sys/ or /proc/ or /dev/ or /run/ or ./live/ or that contain any of these:"headers""modules""gnu""cert""icons"<br>
+* feeds that list to grep to search each file for the thing you typed in<br>
+* feeds all of those searches through cat -A which transforms characters that would give problems to plain keyboard text<br>
+* changes all isntances of ^[ to a code that says"make this text yellow." (it reduces noise in the output.)<br>
+<br>
+bash can be easier than this code, and this isnt even a good script. its a bash one-liner, which sometimes exchanges easily read code for the sake of"putting all code on a single line."<br>
+<br>
+i like bash one-liners, because theyre easy to organise. you can even fill your bash history with them, start each one with its own name, and call them easily as needed.<br>
+<br>
+its a better and more conventional practice to assign such things to aliases in .bashrc (a list of lines to run when bash starts, or when you go to the command line.)</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+1 post
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

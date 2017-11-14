@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>701SD Conky with temps,fanspeed,battery, link strength - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html">701SD Conky with temps,fanspeed,battery, link strength</a></div>
+<div class="pagination">
+19 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_16945" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16945">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16945">
+<time datetime="2010-08-23T11:13">posted: 2010-08-23 &nbsp; 11:13</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16945" title="permalink">#1</a></span>
+
+<div class="content">This is my conky for Asus EEEPC 701SD. I needed to install acpi, acpi tools, lm-sensors<br>
+I used synaptic package manager because I am running AntiX 8.5 Upgrade Full Iso installed using antix2usb via antiX control center. This is a live 4gig SD Kingston Flash Drive with persistence. I kept this simple. Just the facts. No bling here but all works.<br>
+<br>
+I have root, Home,Battery,Fan Speed,CPU Temp,Battery all displayed and working.<br>
+Icewm conky.rc
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># set to yes if you want Conky to be forked in the background
+background yes
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+out_to_console no
+
+# X font when Xft is disabled, you can pick one with program xfontsel
+#font 7x12
+#font 6x10
+#font 7x13
+ font 8x12
+#font 7x12
+#font *mintsmild.se*
+#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
+#font -artwiz-snap-normal-r-normal-*-*-100-*-*-p-*-iso8859-1
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont gentium:size=11
+
+own_window_transparent yes
+own_window_colour hotpink
+own_window_type desktop
+
+# Create own window instead of using desktop (required in nautilus, pcmanfm and rox desktops)
+own_window no
+
+# Text alpha when using Xft
+xftalpha 0.8
+
+#on_bottom no
+
+# mail spool
+mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 1
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 5 5
+maximum_width 200
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 10
+
+# border width
+border_width 2
+
+# Default colors and also border colors
+default_color White
+default_shade_color white
+default_outline_color white
+
+# Text alignment, other possible values are commented
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+
+gap_x 10
+gap_y 10
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer right
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# boinc (seti) dir
+# seti_dir /opt/seti
+
+# Possible variables to be used:
+#
+#      Variable         Arguments                  Description                
+#  acpiacadapter                     ACPI ac adapter state.                   
+#  acpifan                           ACPI fan state                           
+#  acpitemp                          ACPI temperature.                        
+#  adt746xcpu                        CPU temperature from therm_adt746x       
+#  adt746xfan                        Fan speed from therm_adt746x             
+#  battery           (num)           Remaining capasity in ACPI or APM        
+#                                    battery. ACPI battery number can be      
+#                                    given as argument (default is BAT0).     
+#  buffers                           Amount of memory buffered                
+#  cached                            Amount of memory cached                  
+#  color             (color)         Change drawing color to color            
+#  cpu                               CPU usage in percents                    
+#  cpubar            (height)        Bar that shows CPU usage, height is      
+#                                    bar's height in pixels                   
+#  downspeed         net             Download speed in kilobytes              
+#  downspeedf        net             Download speed in kilobytes with one     
+#                                    decimal                                  
+#  exec              shell command   Executes a shell command and displays    
+#                                    the output in torsmo. warning: this      
+#                                    takes a lot more resources than other    
+#                                    variables. I'd recommend coding wanted   
+#                                    behaviour in C and posting a patch :-).  
+#  execi             interval, shell Same as exec but with specific interval. 
+#                    command         Interval can't be less than              
+#                                    update_interval in configuration.        
+#  fs_bar            (height), (fs)  Bar that shows how much space is used on 
+#                                    a file system. height is the height in   
+#                                    pixels. fs is any file on that file      
+#                                    system.                                  
+#  fs_free           (fs)            Free space on a file system available    
+#                                    for users.                               
+#  fs_free_perc      (fs)            Free percentage of space on a file       
+#                                    system available for users.              
+#  fs_size           (fs)            File system size                         
+#  fs_used           (fs)            File system used space                   
+#  hr                (height)        Horizontal line, height is the height in 
+#                                    pixels                                   
+#  i2c               (dev), type, n  I2C sensor from sysfs (Linux 2.6). dev   
+#                                    may be omitted if you have only one I2C  
+#                                    device. type is either in (or vol)       
+#                                    meaning voltage, fan meaning fan or temp 
+#                                    meaning temperature. n is number of the  
+#                                    sensor. See /sys/bus/i2c/devices/ on     
+#                                    your local computer.                     
+#  kernel                            Kernel version                           
+#  loadavg           (1), (2), (3)   System load average, 1 is for past 1     
+#                                    minute, 2 for past 5 minutes and 3 for   
+#                                    past 15 minutes.                         
+#  machine                           Machine, i686 for example                
+#  mails                             Mail count in mail spool. You can use    
+#                                    program like fetchmail to get mails from 
+#                                    some server using your favourite         
+#                                    protocol. See also new_mails.            
+#  mem                               Amount of memory in use                  
+#  membar            (height)        Bar that shows amount of memory in use   
+#  memmax                            Total amount of memory                   
+#  memperc                           Percentage of memory in use              
+#  new_mails                         Unread mail count in mail spool.         
+#  nodename                          Hostname                                 
+#  outlinecolor      (color)         Change outline color                     
+#  pre_exec          shell command   Executes a shell command one time before 
+#                                    torsmo displays anything and puts output 
+#                                    as text.                                 
+#  processes                         Total processes (sleeping and running)   
+#  running_processes                 Running processes (not sleeping),        
+#                                    requires Linux 2.6                       
+#  shadecolor        (color)         Change shading color                     
+#  stippled_hr       (space),        Stippled (dashed) horizontal line        
+#                    (height)        
+#  swapbar           (height)        Bar that shows amount of swap in use     
+#  swap                              Amount of swap in use                    
+#  swapmax                           Total amount of swap                     
+#  swapperc                          Percentage of swap in use                
+#  sysname                           System name, Linux for example           
+#  time              (format)        Local time, see man strftime to get more 
+#                                    information about format                 
+#  totaldown         net             Total download, overflows at 4 GB on     
+#                                    Linux with 32-bit arch and there doesn't 
+#                                    seem to be a way to know how many times  
+#                                    it has already done that before torsmo   
+#                                    has started.                             
+#  totalup           net             Total upload, this one too, may overflow 
+#  updates                           Number of updates (for debugging)        
+#  upspeed           net             Upload speed in kilobytes                
+#  upspeedf          net             Upload speed in kilobytes with one       
+#                                    decimal                                  
+#  uptime                            Uptime                                   
+#  uptime_short                      Uptime in a shorter format               
+#
+#  seti_prog                         Seti@home current progress
+#  seti_progbar      (height)        Seti@home current progress bar
+#  seti_credit                       Seti@hoome total user credit
+## antiX additives examples. Add below Text##
+##${color cccccc}battery: ${color cccccc}$acpiacadapter, ${battery_percent BAT1}% 
+##${color}battery:${color} ${battery}
+##Witeless example##
+#${color cccccc}Wireless:
+#${color cccccc}essid: ${wireless_essid wlan0}
+#${color cccccc}IP:${color cccccc} ${addr wlan0}
+#${color cccccc}speed: ${color cccccc} ${wireless_bitrate wlan0}
+#${color cccccc}link strength: ${color cccccc} ${wireless_link_bar 7,50 wlan0}
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+${color}antiX-M8.5-icewm
+${color}$sysname $kernel
+${color}Uptime: $uptime
+${color}${time %a %d %b %k:%M}
+
+${color}Monitors:
+${color}cpu: ${color}${cpu}%
+Cpu: ${color}${acpitemp}°C${color}
+${color}ram : ${color}$mem${color}/${color}$memmax ${color}- ${color}$memperc%
+${color}processes: ${color}$processes  ${color}running: ${color}$running_processes
+${color white}link strength: ${color white} ${wireless_link_bar 7,50 wlan0}
+${color white}Battery: ${color white} ${battery_bar BAT0}
+${color}Space:
+${color}Root:${color} ${fs_free /isosrc} ${color}= ${fs_free_perc /isosrc}%
+${color}Home:${color} ${fs_free /persist-root} ${color}= ${fs_free_perc /persist-root}%
+${color white}${exec sensors | grep 'RPM'}
+</code></pre></div>
+fuxbox conky.rc
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># set to yes if you want Conky to be forked in the background
+background yes
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+out_to_console no
+
+# X font when Xft is disabled, you can pick one with program xfontsel
+#font 7x12
+#font 6x10
+#font 7x13
+ font 8x12
+#font 7x12
+#font *mintsmild.se*
+#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
+#font -artwiz-snap-normal-r-normal-*-*-100-*-*-p-*-iso8859-1
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont gentium:size=11
+
+own_window_transparent yes
+own_window_colour hotpink
+own_window_type desktop
+
+# Create own window instead of using desktop (required in nautilus, pcmanfm and rox desktops)
+own_window no
+
+# Text alpha when using Xft
+xftalpha 0.8
+
+#on_bottom no
+
+# mail spool
+mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 1
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 5 5
+maximum_width 200
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 10
+
+# border width
+border_width 2
+
+# Default colors and also border colors
+default_color white
+default_shade_color white
+default_outline_color white
+
+# Text alignment, other possible values are commented
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+
+gap_x 10
+gap_y 10
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer right
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# boinc (seti) dir
+# seti_dir /opt/seti
+
+# Possible variables to be used:
+#
+#      Variable         Arguments                  Description                
+#  acpiacadapter                     ACPI ac adapter state.                   
+#  acpifan                           ACPI fan state                           
+#  acpitemp                          ACPI temperature.                        
+#  adt746xcpu                        CPU temperature from therm_adt746x       
+#  adt746xfan                        Fan speed from therm_adt746x             
+#  battery           (num)           Remaining capasity in ACPI or APM        
+#                                    battery. ACPI battery number can be      
+#                                    given as argument (default is BAT0).     
+#  buffers                           Amount of memory buffered                
+#  cached                            Amount of memory cached                  
+#  color             (color)         Change drawing color to color            
+#  cpu                               CPU usage in percents                    
+#  cpubar            (height)        Bar that shows CPU usage, height is      
+#                                    bar's height in pixels                   
+#  downspeed         net             Download speed in kilobytes              
+#  downspeedf        net             Download speed in kilobytes with one     
+#                                    decimal                                  
+#  exec              shell command   Executes a shell command and displays    
+#                                    the output in torsmo. warning: this      
+#                                    takes a lot more resources than other    
+#                                    variables. I'd recommend coding wanted   
+#                                    behaviour in C and posting a patch :-).  
+#  execi             interval, shell Same as exec but with specific interval. 
+#                    command         Interval can't be less than              
+#                                    update_interval in configuration.        
+#  fs_bar            (height), (fs)  Bar that shows how much space is used on 
+#                                    a file system. height is the height in   
+#                                    pixels. fs is any file on that file      
+#                                    system.                                  
+#  fs_free           (fs)            Free space on a file system available    
+#                                    for users.                               
+#  fs_free_perc      (fs)            Free percentage of space on a file       
+#                                    system available for users.              
+#  fs_size           (fs)            File system size                         
+#  fs_used           (fs)            File system used space                   
+#  hr                (height)        Horizontal line, height is the height in 
+#                                    pixels                                   
+#  i2c               (dev), type, n  I2C sensor from sysfs (Linux 2.6). dev   
+#                                    may be omitted if you have only one I2C  
+#                                    device. type is either in (or vol)       
+#                                    meaning voltage, fan meaning fan or temp 
+#                                    meaning temperature. n is number of the  
+#                                    sensor. See /sys/bus/i2c/devices/ on     
+#                                    your local computer.                     
+#  kernel                            Kernel version                           
+#  loadavg           (1), (2), (3)   System load average, 1 is for past 1     
+#                                    minute, 2 for past 5 minutes and 3 for   
+#                                    past 15 minutes.                         
+#  machine                           Machine, i686 for example                
+#  mails                             Mail count in mail spool. You can use    
+#                                    program like fetchmail to get mails from 
+#                                    some server using your favourite         
+#                                    protocol. See also new_mails.            
+#  mem                               Amount of memory in use                  
+#  membar            (height)        Bar that shows amount of memory in use   
+#  memmax                            Total amount of memory                   
+#  memperc                           Percentage of memory in use              
+#  new_mails                         Unread mail count in mail spool.         
+#  nodename                          Hostname                                 
+#  outlinecolor      (color)         Change outline color                     
+#  pre_exec          shell command   Executes a shell command one time before 
+#                                    torsmo displays anything and puts output 
+#                                    as text.                                 
+#  processes                         Total processes (sleeping and running)   
+#  running_processes                 Running processes (not sleeping),        
+#                                    requires Linux 2.6                       
+#  shadecolor        (color)         Change shading color                     
+#  stippled_hr       (space),        Stippled (dashed) horizontal line        
+#                    (height)        
+#  swapbar           (height)        Bar that shows amount of swap in use     
+#  swap                              Amount of swap in use                    
+#  swapmax                           Total amount of swap                     
+#  swapperc                          Percentage of swap in use                
+#  sysname                           System name, Linux for example           
+#  time              (format)        Local time, see man strftime to get more 
+#                                    information about format                 
+#  totaldown         net             Total download, overflows at 4 GB on     
+#                                    Linux with 32-bit arch and there doesn't 
+#                                    seem to be a way to know how many times  
+#                                    it has already done that before torsmo   
+#                                    has started.                             
+#  totalup           net             Total upload, this one too, may overflow 
+#  updates                           Number of updates (for debugging)        
+#  upspeed           net             Upload speed in kilobytes                
+#  upspeedf          net             Upload speed in kilobytes with one       
+#                                    decimal                                  
+#  uptime                            Uptime                                   
+#  uptime_short                      Uptime in a shorter format               
+#
+#  seti_prog                         Seti@home current progress
+#  seti_progbar      (height)        Seti@home current progress bar
+#  seti_credit                       Seti@hoome total user credit
+## antiX additives examples. Add below Text##
+##${color cccccc}battery: ${color cccccc}$acpiacadapter, ${battery_percent BAT1}% 
+##${color}battery:${color} ${battery}
+##Witeless example##
+#${color cccccc}Wireless:
+#${color cccccc}essid: ${wireless_essid wlan0}
+#${color cccccc}IP:${color cccccc} ${addr wlan0}
+#${color cccccc}speed: ${color cccccc} ${wireless_bitrate wlan0}
+#${color cccccc}link strength: ${color cccccc} ${wireless_link_bar 7,50 wlan0}
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+${color}antiX-M8.5-fluxbox
+${color}$sysname $kernel
+${color}Uptime: $uptime
+${color}${time %a %d %b %k:%M}
+
+${color}Monitors:
+${color}cpu: ${color}${cpu}%
+Cpu: ${color}${acpitemp}°C${color}
+${color}ram : ${color}$mem${color}/${color}$memmax ${color}- ${color}$memperc%
+${color}processes: ${color}$processes  ${color}running: ${color}$running_processes
+${color white}link strength: ${color white} ${wireless_link_bar 7,50 wlan0}
+${color white}Battery: ${color white}$ ${battery_bar BAT0}
+${color}Space:
+${color}Root:${color} ${fs_free /isosrc} ${color}= ${fs_free_perc /isosrc}%
+${color}Home:${color} ${fs_free /persist-root} ${color}= ${fs_free_perc /persist-root}%
+${color white}${exec sensors | grep 'RPM'}
+</code></pre></div>
+Make a backup of original .conkyrc. Then you can copy and paste my ~/.conky.rc<br>
+into your /home folder to overwrite old .conkyrc. Remember to install above mentioned packages first though.<br>
+<br>
+<br>
+<br>
+Guys, in case you are reading this. As you can see. I have
+<blockquote class="uncited"><div># Default colors and also border colors<br>
+default_color white<br>
+default_shade_color white<br>
+default_outline_color white</div></blockquote>
+Yet every time I boot I get the default grey conky without my changes applied. Something in Live is defaulting to the default grey conky first. I have to turn conky on and off before my changes show up. Logging in and out same same also. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Happy Trails, Rok</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16946" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16946">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16946">
+
+<time datetime="2010-08-23T12:53">posted: 2010-08-23 &nbsp; 12:53</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16946" title="permalink">#2</a></span>
+
+<div class="content">That <strong>${color cccccc}</strong> means gray. You can leave it <strong>${color}</strong> for the default colour.<br>
+<br>
+- if you open gcolor2 (in the Graphics menu) and expand"Saved colors" you have a lot of predefined colors and their codes.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16947" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16947">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16947">
+
+<time datetime="2010-08-23T13:31">posted: 2010-08-23 &nbsp; 13:31</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16947" title="permalink">#3</a></span>
+
+<div class="content">Are you referring to
+<blockquote class="uncited"><div>## antiX additives examples. Add below Text##<br>
+##${color cccccc}battery: ${color cccccc}$acpiacadapter, ${battery_percent BAT1}% <br>
+##${color}battery:${color} ${battery}<br>
+##Witeless example##<br>
+#${color cccccc}Wireless:<br>
+#${color cccccc}essid: ${wireless_essid wlan0}<br>
+#${color cccccc}IP:${color cccccc} ${addr wlan0}<br>
+#${color cccccc}speed: ${color cccccc} ${wireless_bitrate wlan0}<br>
+#${color cccccc}link strength: ${color cccccc} ${wireless_link_bar 7,50 wlan0]</div></blockquote>
+Cuz those are just commented out examples. Am I missing/misunderstanding something Secipolla?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16948" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16948">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16948">
+
+<time datetime="2010-08-23T14:18">posted: 2010-08-23 &nbsp; 14:18</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16948" title="permalink">#4</a></span>
+
+<div class="content">Are you using rootfs= or homefs= for persistence option? (Not that it should make any difference).<br>
+I just tested and it works ok on my box.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16949" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16949">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">oldhoghead</a> </section>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16949">
+
+<time datetime="2010-08-23T14:44">posted: 2010-08-23 &nbsp; 14:44</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16949" title="permalink">#5</a></span>
+
+<div class="content">Well you may have found a bug, as my new install with no tweaks to conky exhibits the same behavior, I am guessing that the first screen afterl login(blue) then the next screen, default desktop in icewm. I think the first screen is being set to the blue color of that screen and then not being reset by the default screen. <br>
+Going to try and set conky to show white and see what happens as opposed to color.<br>
+<br>
+clear as mud<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16951" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16951">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16951">
+
+<time datetime="2010-08-23T14:57">posted: 2010-08-23 &nbsp; 14:57</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16951" title="permalink">#6</a></span>
+
+<div class="content">rok,<br>
+<br>
+your conky <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>${color}antiX-M8.5-icewm</code></pre></div>
+change to<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>(color white)</code></pre></div>
+in all instances, even the conkyrc in home, I have three one in .icewm, .fluxbox and home<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+<div class="notice">
+Last edited by <b>oldhoghead</b> on 23 Aug 2010, 14:59, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16952" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16952">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16952">
+
+<time datetime="2010-08-23T14:58">posted: 2010-08-23 &nbsp; 14:58</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16952" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Are you using rootfs= or homefs= for persistence option? (Not that it should make any difference).<br>
+I just tested and it works ok on my box.</div></blockquote>
+What I show in df -h<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:/aufs/home/demo$ df -h
+Filesystem            Size  Used Avail Use% Mounted on
+tmpfs                 501M  4.0K  501M   1% /aufs/lib/init/rw
+udev                  500M  272K  499M   1% /dev
+tmpfs                 501M  8.0K  501M   1% /dev/shm
+rootfs                 16M  103K   16M   1% /
+/dev/sda1             1.2G  573M  555M  51% /isosrc
+/dev/loop0            564M  564M     0 100% /cdrom
+/dev/loop1            557M  557M     0 100% /linux
+/ramdisk              801M  4.0K  801M   1% /ramdisk
+/dev/sda2             2.6G  546M  2.0G  22% /persist-root
+/aufs                 2.6G  546M  2.0G  22% /aufs
+/dev/sda2             2.6G  546M  2.0G  22% /mnt/sda2
+/dev/sdb1             7.5G  3.2G  4.3G  43% /mnt/sdb1
+</code></pre></div>
+inxi -F<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>demo@antiX1:/aufs/home/demo$ inxi -F
+System:    Host antiX1 Kernel 2.6.32-1-mepis-smp i686 (32 bit) Distro antiX-M8.5-686-update 27 July 2010
+CPU:       Single core Intel Celeron M (-UP-) cache 512 KB flags (nx sse sse2) bmips 1796.47 clocked at 897.829 MHz 
+Graphics:  Card Intel Mobile 915GM/GMS/910GML Express Graphics Controller X.Org 1.7.7 Res: 800x480@60.0hz 
+           GLX Renderer Mesa DRI Intel 915GM GEM 20091221 2009Q4 x86/MMX/SSE2 GLX Version 1.4 Mesa 7.7.1 Direct Rendering Yes
+Audio:     Card Intel 82801FB/FBM/FR/FW/FRW (ICH6 Family) High Definition Audio Controller driver HDA Intel BusID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture Version 1.0.21
+Network:   Card-1 Realtek RTL8187SE Wireless LAN Controller driver ndiswrapper v: 1.56 at port d800 BusID: 01:00.0
+           Card-2 Atheros AR8121/AR8113/AR8114 Gigabit or Fast Ethernet driver ATL1E at port ec00 BusID: 03:00.0
+Disks:     HDD Total Size: 12.0GB (43.0% used) 1: USB /dev/sda Flash_Reader 4.0GB 
+           2: /dev/sdb ASUS 8.1GB 
+Partition: ID:/ size: 16M used: 103K (1%) fs: rootfs 
+Sensors:   System Temperatures: cpu: 56.0C mobo: N/A 
+           Fan Speeds (in rpm): cpu: 1400 
+Info:      Processes 111 Uptime 5:25 Memory 185.9/1000.8MB Runlevel 5 Client Shell inxi 1.4.12 
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16954" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16954">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">rokytnji</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16954">
+
+<time datetime="2010-08-23T15:23">posted: 2010-08-23 &nbsp; 15:23</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16954" title="permalink">#8</a></span>
+
+<div class="content"><span class="emoticon"> __{{emoticon}}__ </span> My bad as usual. My .conkyrc in /home was the default .conkyrc. So it was loading first. I took my modified .conkyrc and overwrote default .conkyrc and now it logs out and in to whiite text with my mods.<br>
+<br>
+Spaced out Tattooed Linux user as usual/ <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16955" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16955">
+<dt class="has-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 516</span></div>
+
+</div>
+</div>
+<span class="username">oldhoghead</span>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 01 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16955">
+
+<time datetime="2010-08-23T15:29">posted: 2010-08-23 &nbsp; 15:29</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16955" title="permalink">#9</a></span>
+
+<div class="content">excellent, that's why antiX forums and ML are great, always seem fo find a way to fix my mess<br>
+<br>
+cheers,<br>
+oldhoghead</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16956" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16956">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16956">
+
+<time datetime="2010-08-23T15:29">posted: 2010-08-23 &nbsp; 15:29</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16956" title="permalink">#10</a></span>
+
+<div class="content">roky, glad it is sorted.<br>
+<br>
+How are you running frugal? I didn't quite understand from df -h.<br>
+<br>
+Is the antiX.iso on hard drive and the persistent changes on another hard drive?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16957" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16957">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+ </div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16957">
+
+<time datetime="2010-08-23T15:51">posted: 2010-08-23 &nbsp; 15:51</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16957" title="permalink">#11</a></span>
+
+<div class="content">I just installed frugal as a Ext2 file system. I gave about 1.2 gig for / (live ) so to give it room to breath itn case I start something later like Apt-get dist-upgrade or install Gnome, KDE, XFCE, LXDE whatever. <br>
+<br>
+The rest of card for persiistence partition Ext2 fie system. However antix2usb does it's thing (default) is how I installed it. Not sure either how to tell if rootfs= or persistence=. I have 2 partitions on my card Anti. One for Live. The Other for Persistence. Thats all I know. That was why I posted df-h and inxi -F. Figuring mmaybe something would show in those readouts.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16958" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16958">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16958">
+
+<time datetime="2010-08-23T15:55">posted: 2010-08-23 &nbsp; 15:55</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16958" title="permalink">#12</a></span>
+
+<div class="content">Ah, ok I forgot it's a card (so it's a bit like a usb stick, but it is a card instead).<br>
+<br>
+When you install anything, is the repackaging part of apt-get fast enough? On my usb persistence stick, downloads are fast, but writing the information is slow.<br>
+Also, reboot is a bit slow too.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16959" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile16959">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16959">
+
+<time datetime="2010-08-23T17:48">posted: 2010-08-23 &nbsp; 17:48</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16959" title="permalink">#13</a></span>
+
+<div class="content">Sorry for not looking that conky thing carefully, rok.<br>
+<br>
+Your live partition needs only to have space for the ISO and for GRUB. All the things (like DEs and apps) you install go to your persistence partition.<br>
+You can resize back the live partition but you can also leave it that way and, for example, put another ISO there, edit GRUB and have two systems (like for testing, but then just don't set any persistent partition for it).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_16961" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile16961">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content16961">
+
+<time datetime="2010-08-23T18:40">posted: 2010-08-23 &nbsp; 18:40</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p16961" title="permalink">#14</a></span>
+
+<div class="content">Anti says
+<blockquote class="uncited"><div>is the repackaging part of apt-get fast enough</div></blockquote>
+Believe it or not. It is quite fast on my Kingston SD cards. Shutdown is a little slow but it is slow on my internal SSD drive also on my Asus EEEPC 900. I commented out halvet &amp; in .icewm /startup file and did the same for .fluxbox/startup also since I only run those 2 desktops to see if it improves shutdown and startup as per your thread. Did the same on Live persistent SD flash install also.<br>
+<br>
+Secipolla says<br>
+<blockquote class="uncited"><div>Sorry for not looking that conky thing carefully, rok.</div></blockquote>
+Shucks Bro. I look forward to your answers to my posts. I appreciate the time you put in to teach me new things. You're a stand-up bro in my opinion. Along with the rest of the full-time Antix users here. I was pretty ignorant when I started using Antix. You guys learned me well.<br>
+<blockquote class="uncited"><div>Your live partition needs only to have space for the ISO and for GRUB. </div></blockquote>
+I had tried that when I did a base frugal install with XFCE. I noticed when I went hog wild installing stuff with apt-get, then synaptic (which I installed later. Live partition was filling up. That was why I made room on this install.<br>
+<br>
+This flash install I did was to test/bed and fix certain bugs/jump through hoops to show 701SD users that AntiX 8.5 Upgrade Iso. Is a viable option to Jolicloud, Leenux (which seems dead in the water), Ubuntu NBR. I figure google will start pulling into my posts on this forum and tweak their interest maybe. Gotta remember. If this uneducated Biker can run Antix. Then all those blogs about only for advanced users might start fading away. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_17052" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile17052">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content17052">
+
+<time datetime="2010-08-28T19:01">posted: 2010-08-28 &nbsp; 19:01</time>
+<span class="permalink"><a href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618.html#p17052" title="permalink">#15</a></span>
+
+<div class="content">Previous posts were of my Conky on a Frugal AntiX install on SD flash drive. Below is my conkyrc for Full Install on internal SSD drive. Learned a little bit more about editing Icewm startup file since starting this thread plus making sure /home conkyrc reflects changes also. This conky is set up for a Asus EEEPC 701SD with a full AntiX install to internal SD. No seperate /home partition on this install. Think of it as a Ubuntu default install with out swap partition.<br>
+<br>
+<br>
+My startup in ~/.icwm (commented out halevt for better boot times)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#halevt &amp;
+#conky &amp;
+## use for multiple conky
+conky -c ~/.icewm/conkyrc &amp;</code></pre></div>
+startup file in ~/.fluxbox<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#halevt &amp;
+#conky &amp;
+## use for more than one conky
+conky -c ~/.fluxbox/conkyrc &amp;</code></pre></div>
+<br>
+<br>
+lm-sensors and acpi installed through Synaptic Package Manager First. Then conkyrc edit. (Hint: I always make a backup of original stock antix .conkyrc in /home before editing .conkyrc)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># set to yes if you want Conky to be forked in the background
+background yes
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+out_to_console no
+
+# X font when Xft is disabled, you can pick one with program xfontsel
+#font 7x12
+#font 6x10
+#font 7x13
+font 8x12
+#font 7x12
+#font *mintsmild.se*
+#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
+#font -artwiz-snap-normal-r-normal-*-*-100-*-*-p-*-iso8859-1
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont gentium:size=11
+
+own_window_transparent yes
+own_window_colour hotpink
+own_window_type desktop
+
+# Create own window instead of using desktop (required in nautilus, pcmanfm and rox desktops)
+own_window no
+
+# Text alpha when using Xft
+xftalpha 0.8
+
+#on_bottom no
+
+# mail spool
+mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 1
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 5 5
+maximum_width 200
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 10
+
+# border width
+border_width 2
+
+# Default colors and also border colors
+default_color white
+default_shade_color white
+default_outline_color white
+
+# Text alignment, other possible values are commented
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+
+gap_x 10
+gap_y 10
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer right
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# boinc (seti) dir
+# seti_dir /opt/seti
+
+# Possible variables to be used:
+#
+#      Variable         Arguments                  Description               
+#  acpiacadapter                     ACPI ac adapter state.                   
+#  acpifan                           ACPI fan state                           
+#  acpitemp                          ACPI temperature.                       
+#  adt746xcpu                        CPU temperature from therm_adt746x       
+#  adt746xfan                        Fan speed from therm_adt746x             
+#  battery           (num)           Remaining capasity in ACPI or APM       
+#                                    battery. ACPI battery number can be     
+#                                    given as argument (default is BAT0).     
+#  buffers                           Amount of memory buffered               
+#  cached                            Amount of memory cached                 
+#  color             (color)         Change drawing color to color           
+#  cpu                               CPU usage in percents                   
+#  cpubar            (height)        Bar that shows CPU usage, height is     
+#                                    bar's height in pixels                   
+#  downspeed         net             Download speed in kilobytes             
+#  downspeedf        net             Download speed in kilobytes with one     
+#                                    decimal                                 
+#  exec              shell command   Executes a shell command and displays   
+#                                    the output in torsmo. warning: this     
+#                                    takes a lot more resources than other   
+#                                    variables. I'd recommend coding wanted   
+#                                    behaviour in C and posting a patch :-). 
+#  execi             interval, shell Same as exec but with specific interval.
+#                    command         Interval can't be less than             
+#                                    update_interval in configuration.       
+#  fs_bar            (height), (fs)  Bar that shows how much space is used on
+#                                    a file system. height is the height in   
+#                                    pixels. fs is any file on that file     
+#                                    system.                                 
+#  fs_free           (fs)            Free space on a file system available   
+#                                    for users.                               
+#  fs_free_perc      (fs)            Free percentage of space on a file       
+#                                    system available for users.             
+#  fs_size           (fs)            File system size                         
+#  fs_used           (fs)            File system used space                   
+#  hr                (height)        Horizontal line, height is the height in
+#                                    pixels                                   
+#  i2c               (dev), type, n  I2C sensor from sysfs (Linux 2.6). dev   
+#                                    may be omitted if you have only one I2C 
+#                                    device. type is either in (or vol)       
+#                                    meaning voltage, fan meaning fan or temp
+#                                    meaning temperature. n is number of the 
+#                                    sensor. See /sys/bus/i2c/devices/ on     
+#                                    your local computer.                     
+#  kernel                            Kernel version                           
+#  loadavg           (1), (2), (3)   System load average, 1 is for past 1     
+#                                    minute, 2 for past 5 minutes and 3 for   
+#                                    past 15 minutes.                         
+#  machine                           Machine, i686 for example               
+#  mails                             Mail count in mail spool. You can use   
+#                                    program like fetchmail to get mails from
+#                                    some server using your favourite         
+#                                    protocol. See also new_mails.           
+#  mem                               Amount of memory in use                 
+#  membar            (height)        Bar that shows amount of memory in use   
+#  memmax                            Total amount of memory                   
+#  memperc                           Percentage of memory in use             
+#  new_mails                         Unread mail count in mail spool.         
+#  nodename                          Hostname                                 
+#  outlinecolor      (color)         Change outline color                     
+#  pre_exec          shell command   Executes a shell command one time before
+#                                    torsmo displays anything and puts output
+#                                    as text.                                 
+#  processes                         Total processes (sleeping and running)   
+#  running_processes                 Running processes (not sleeping),       
+#                                    requires Linux 2.6                       
+#  shadecolor        (color)         Change shading color                     
+#  stippled_hr       (space),        Stippled (dashed) horizontal line       
+#                    (height)       
+#  swapbar           (height)        Bar that shows amount of swap in use     
+#  swap                              Amount of swap in use                   
+#  swapmax                           Total amount of swap                     
+#  swapperc                          Percentage of swap in use               
+#  sysname                           System name, Linux for example           
+#  time              (format)        Local time, see man strftime to get more
+#                                    information about format                 
+#  totaldown         net             Total download, overflows at 4 GB on     
+#                                    Linux with 32-bit arch and there doesn't
+#                                    seem to be a way to know how many times 
+#                                    it has already done that before torsmo   
+#                                    has started.                             
+#  totalup           net             Total upload, this one too, may overflow
+#  updates                           Number of updates (for debugging)       
+#  upspeed           net             Upload speed in kilobytes               
+#  upspeedf          net             Upload speed in kilobytes with one       
+#                                    decimal                                 
+#  uptime                            Uptime                                   
+#  uptime_short                      Uptime in a shorter format               
+#
+#  seti_prog                         Seti@home current progress
+#  seti_progbar      (height)        Seti@home current progress bar
+#  seti_credit                       Seti@hoome total user credit
+## antiX additives examples. Add below Text##
+##${color cccccc}battery: ${color cccccc}$acpiacadapter, ${battery_percent BAT1}%
+##${color}battery:${color} ${battery}
+##Witeless example##
+#${color cccccc}Wireless:
+#${color cccccc}essid: ${wireless_essid wlan0}
+#${color cccccc}IP:${color cccccc} ${addr wlan0}
+#${color cccccc}speed: ${color cccccc} ${wireless_bitrate wlan0}
+#${color cccccc}link strength: ${color cccccc} ${wireless_link_bar 7,50 wlan0}
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+${color}antiX-M8.5
+${color}$sysname $kernel
+${color}Uptime: $uptime
+${color}${time %a %d %b %k:%M}
+
+${color}Monitors:
+${color}cpu: ${color}${cpu}%
+Cpu: ${color}${acpitemp}°C${color}
+${color}ram : ${color}$mem${color}/${color}$memmax ${color}- ${color}$memperc%
+${color}processes: ${color}$processes  ${color}running: ${color}$running_processes
+${color white}link strength: ${color white} ${wireless_link_bar 7,50 wlan0}
+${color white}Battery: ${color white}$ ${battery_bar BAT0}
+${color}Root:${color} ${fs_free /} ${color}= ${fs_free_perc /}%
+${color white}${exec sensors | grep 'RPM'}</code></pre></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+19 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./701sd-conky-with-temps-fanspeed-battery-link-stren-t2618-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

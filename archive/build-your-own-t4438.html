@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Build your own! - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./build-your-own-t4438.html">Build your own!</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_29931" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29931">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29931">
+<time datetime="2013-06-23T19:30">posted: 2013-06-23 &nbsp; 19:30</time>
+<span class="permalink"><a href="./build-your-own-t4438.html#p29931" title="permalink">#1</a></span>
+
+<div class="content">antiX provides several ways for user customisation. You can make it as fat or thin as you like either installed to hard drive and then using the antixsnapshot application to make a live iso of your installed system, or running live on a stick or frugally on a hard drive and then using the persistence/remaster scripts to create a new live iso. There is also another way. That is building from scratch using our live build scripts.<br>
+<br>
+This post is what I did earlier today, using the live persistence/remaster scripts, running frugally on a hard drive.<br>
+<br>
+1. I booted the latest antiX-13.1-386-core-libre as a frugal install on an internal hard drive. Since this is X less, you boot into a termial screen. Login as user (demo/demo). I checked the RAM use with inxi -F and it showed less than 20MB.<br>
+<br>
+2. Set up root persistence. <br>
+sudo persist-makefs<br>
+Option 1 asks to set up rootfs. Choose yes and set the size. I chose 512MB and ext2.<br>
+reboot.<br>
+<br>
+3. Boot again making sure you use the persistent root cheat. You will be prompted to change your root password and user (demo) password. Login as root and now we will install some apps.<br>
+<br>
+4. For this test I wanted to get a low RAM desktop so I decided on JWM.<br>
+apt-get update<br>
+apt-get install xserver-xorg-core xserver-xorg-input-all xserver-xorg-video-vesa xserver-xorg xinit (probably not needed) rxvt-unicode-256color leafpad rox-filer jwm iceape-browser slim <br>
+<br>
+5. If you install slim, you should edit /etc/slim.conf to enable this top line (use mc editor or nano as root).<br>
+<br>
+login_cmd exec /bin/bash -login /etc/X11/Xsession %session <br>
+# login_cmd exec /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors$DISPLAY 2&gt;&amp;1<br>
+# login_cmd exec dbus-launch /bin/bash -login ~/.xinitrc %session &gt;~/.xsession-errors 2&gt;&amp;1<br>
+<br>
+You may want to enable autologin as well. Edit the same slim.conf file.<br>
+<br>
+exit and login as demo then type startx and you should login to a very basic jwm desktop.<br>
+<br>
+Open htop to see the RAM use.<br>
+<br>
+6. VIP before you reboot, you need to make sure the persistent changes are saved.<br>
+Ctrl Alt F1 to console screen<br>
+Login as demo<br>
+sudo persist-save <br>
+<br>
+Once that is done, sudo reboot<br>
+<br>
+7. Make sure rootfs is chosen again, you will see a message saying that that the persistent root changes are being copied and then you should boot to your jwm desktop. Chack RAM via htop.<br>
+In my test, running live on real hardware it was 40MB, in VirtualBox it was less than 30MB.<br>
+<br>
+8. Now to remaster.<br>
+<br>
+Ctrl Alt F1 to console screen<br>
+Login as demo<br>
+sudo remaster-live<br>
+<br>
+and follow the instructions.<br>
+<br>
+Once finished, this creates a new linuxfs image that contains all your changes.<br>
+<br>
+9. Reboot, this time do not choose persist option. It should boot very fast to a jwm desktop.<br>
+In my test in VB it booted in 8 seconds and RAM use was only 25MB! Remember we are still running live! Use the cli-installer if you want to install to hard drive.<br>
+<br>
+10. Make an iso file. To do this we need to cd into where the linuxfs, initrd.gz and vmlinuz files are. Typically they will be in the iso directory you booted frugally from.<br>
+cd /media/sda3/frugal/iso<br>
+mkt (This bash alias makes a live iso called antiX-test.iso)<br>
+<br>
+11. Enjoy!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29938" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29938">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29938">
+
+<time datetime="2013-06-24T09:12">posted: 2013-06-24 &nbsp; 09:12</time>
+<span class="permalink"><a href="./build-your-own-t4438.html#p29938" title="permalink">#2</a></span>
+
+<div class="content">Very interesting indeed.<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>...xserver-xorg-video-vesa...</div></blockquote>Is the idea behind the inclusion of this to enable straight-from-the-box operation across the widest range of hardware?<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>...xserver-xorg-input-all...</div></blockquote>Abstract from <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache show xserver-xorg-input-all
+...
+Description-en: X.Org X server -- input driver metapackage
+ This package depends on the full suite of input drivers for the X.Org X server
+ (Xorg).  It does not provide any drivers itself, and may be removed if you wish to only have certain drivers installed.
+...</code></pre></div>Just musing aloud...
+<ul><li>Maybe this means it can be omitted?</li>
+<li>I wonder if leaving it out has any noticeable affect on the amount of RAM used?</li>
+<li>Perhaps the value of including it is as preparation for the user to install other drivers</li></ul>
+<br>
+If I understand correctly the build produces a system
+<ul><li>Capable of booting from a USB flash drive</li>
+<li>Contains a user specified application set</li>
+<li>Is able to be used with non-persistent / and /home</li></ul>This is the way I use a different distro to build live systems dedicated to a narrow range of tasks rather than general purpose desktop duties. To do this and have access to the Debian stable repository is very appealing.<br>
+<br>
+<br>
+What are the storage sizes of the build as described for
+<ul><li>The new linuxfs image that contains all your changes</li>
+<li>The ISO file created from the new linuxfs image</li></ul>
+<br>
+A major benefit of non-persistent / and /home is that the system is highly resistant to corruption, malicious tampering and infection. At bootup a pristine environment is always created. At power-down this environment is destroyed together with all its contents. One consequence of this is that changes made to the configuration of an app during a live session are not preserved across a reboot. Live persistance might be enabled for /home, however this means that a pristine environment is no longer created following a reboot.<br>
+<br>
+One way of maximizing the pristine condition and enabling the preserving of configuration changes made during a live session might be similar to the following method.<br>
+<br>
+During a live session (non-persistent / and /home), the user specifies the app configuration to be preserved. This is stored in a compressed preserved.tgz format. Preserved.tgz is stored in the persistent storage area that holds the linuxfs bootable image. Preserved.tgz may be manually created by the user at any time during the live session, and/or automatically at log-out or reboot. At bootup, the startup sequence automatically restores preserved.tgz.<br>
+<br>
+The outcome is
+<ul><li>A pristine environment is produced for / and /home</li>
+<li>The user can change the configuration of an app during a live session</li>
+<li>At the user's discretion, the configuration is preserved across a reboot</li></ul>
+Do you see this as complementing and compatible with your promising idea? If so, perhaps selecting a file to be preserved might be done via ROX-Filer"send to". Alternatively a method independent of ROX might be to use Dialog to present a"GUI" selection list that will also work in a CLI system (does Yad work in CLI or only GUI ?).</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29944" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29944">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29944">
+
+<time datetime="2013-06-24T11:08">posted: 2013-06-24 &nbsp; 11:08</time>
+<span class="permalink"><a href="./build-your-own-t4438.html#p29944" title="permalink">#3</a></span>
+
+<div class="content">Is the idea behind the inclusion of this to enable straight-from-the-box operation across the widest range of hardware?<br>
+<br>
+It was only to use this driver as it is supposed to work on all hardware and with low RAM. <br>
+<br>
+xserver-xorg-input-all<br>
+<br>
+This detects devices like mouse, keyboards etc.<br>
+<br>
+If I understand correctly the build produces a system<br>
+<br>
+Capable of booting from a USB flash drive<br>
+Contains a user specified application set<br>
+Is able to be used with non-persistent / and /home<br>
+<br>
+That is correct.<br>
+<br>
+What are the storage sizes of the build as described for<br>
+<br>
+The new linuxfs image that contains all your changes<br>
+The ISO file created from the new linuxfs image<br>
+<br>
+New linuxfs is 215MB and iso is 221MB<br>
+<br>
+About persistence. Once user is satisfied with persistence changes, user should then remaster to create a new, pristine linuxfs file and then run without persistence or only run with home persistence and have the home data encrypted.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29946" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29946">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+
+</dl>
+<div class="postbody">
+<div id="post_content29946">
+
+<time datetime="2013-06-24T13:29">posted: 2013-06-24 &nbsp; 13:29</time>
+<span class="permalink"><a href="./build-your-own-t4438.html#p29946" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>About persistence.</div></blockquote>I was not really aiming at persistence, but at a way of obtaining a pristine environment at each bootup, particulary the user's home directory.<br>
+<br>
+Perhaps a simplified example may help. Your build on a bootable USB flash drive is used to boot the system with persistent / and non-persistent user home. The user now installs an additional app that looks to place its configuration file in the user home area.<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>Once user is satisfied with persistence changes, user should then remaster to create a new, pristine linuxfs file...</div></blockquote>This will capture the application executables but not its configuration file.<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>...and then run without persistence...</div></blockquote>The app configuration will not exist in this circumstance.<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>...or only run with home persistence...</div></blockquote>In which case there is no longer a pristine user home.<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>...and have the home data encrypted.</div></blockquote>In order to read and write to the encrypted user home, the encryption must first be"unlocked". Once this has been done, the system has transparent access to the user home. In this condition the user home is persistent and non-pristine. It is also non-selective. At shutdown everything in the user home area is saved and encrypted. The encryption will help prevent unauthorized access to the data in a persistent user home area when the USB stick is attached to a machine that was not booted from the stick. <br>
+<br>
+The idea of using preserved.tgz is to capture app config files <em>without enabling home persistence</em>. It would also be able to capture similar files in /. It is very selective. Only the configuration files explicitly specified by the user are retained in preserved.tgz, all other files in the user home area are destroyed once the system is powered off. In so doing a fresh / and a pristine user home are always created at each boot up. The outcome is a self-protected system which is insulated from unwanted changes and maximizes reliability. <br>
+<br>
+If preserved.tgz cannot restore the configs to the USB live file system then the idea is redundant. It is also redundant if the user home must be persistent. I am looking for information on these points but have not found any up to now. Perhaps <strong>BitJam</strong> might be willing to offer a view on these particular aspects? If they are not"blockers", then it is likely that it can be done without needing changes to the way antiX live USB works. The idea is as yet untested in antiX and I won't be able to test it for a while.<br>
+<br>
+<br>
+<br>
+Note:<br>
+I found this file on the local system /usr/share/antiX/FAQ/persistence.html. It is refering to antix2usb and indicates <blockquote class="uncited"><div>Persistence. There are four options here.
+<ul><li>No persistence - just leave as default.</li>
+<li>home persistence - check home and select size</li>
+<li>root persistence - check root and select size</li>
+<li>Both home and root persistence - check both home and root and select sizes.</li></ul> </div></blockquote>If this is correct then LiveUSB can be run with non-persistent user home</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33953" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33953">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 177</span></div>
+
+</div>
+</div>
+<span class="username">rmcellig</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Mar 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33953">
+
+<time datetime="2014-03-12T20:43">posted: 2014-03-12 &nbsp; 20:43</time>
+<span class="permalink"><a href="./build-your-own-t4438.html#p33953" title="permalink">#5</a></span>
+
+<div class="content">Am I right to assume that this is similar to Puppy Linux in regard to save files and remastering in Puppy Linux? Can I have multiple persistent files like I can have multiple save files in Puppy?<br>
+<br>
+Does the Antix way of doing this offer a better solution than Puppy? One thing I like about Antix is that it is connected to the Debian repos so I don't have to go searching for .pet files.<br>
+<br>
+I think I will try out your above steps and see what happens.<br>
+<br>
+I love a minimalist approach to computing, and this is from a Mac user who didn't want to deal with bloat anymore. I'm hoping Antix will meet my needs. At the moment, my distro is Crunchbang 11. I love it!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33960" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33960">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33960">
+
+<time datetime="2014-03-13T04:03">posted: 2014-03-13 &nbsp; 04:03</time>
+<span class="permalink"><a href="./build-your-own-t4438.html#p33960" title="permalink">#6</a></span>
+
+<div class="content">I think antix provides more flexibility in choosing what to persist (does puppyPrecise offer a choice of root vs home persistence?)<br>
+<br>
+Using the antix"semi-automatic" root persistence, I'm able to update the savefile at will, on demand (vs only at shutdown).<br>
+I don't recall whether pPrecise supports on-demand savefile update.<br>
+In puppy FatDog64 and some other puppy derivatives, on-demand savefile update is available via bullseye icon on the desktop.<br>
+<br>
+Multiple savefiles? How awkward is it to manage multiple savefiles (*.2fs) in puppyPrecise?<br>
+(<em>I'm uncertain which exact puppy derivative you're using</em>)<br>
+Managing multiples in antix would be equally (managed manually) awkward, and a bit more"dicey".<br>
+Due to the antix rolling release model, and the frequency of Debian's package updates, mix-n-match root persistence files invites breakage.</div>
+<div class="notice">
+Last edited by <b>skidoo</b> on 14 Mar 2014, 08:16, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33962" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33962">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33962">
+
+<time datetime="2014-03-13T08:39">posted: 2014-03-13 &nbsp; 08:39</time>
+<span class="permalink"><a href="./build-your-own-t4438.html#p33962" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>rmcellig wrote:</cite>Am I right to assume that this is similar to Puppy Linux in regard to save files and remastering in Puppy Linux? </div></blockquote>I'm not really familiar with how Puppy does it so I don't know how similar it is. I imagine it is basically the same idea of adding persistence and remastering to a live system. If you know Puppy, maybe you could write a post or an article comparing the two systems after you get some more experience with ours. Perhaps that would provide some useful cross fertilization.
+<blockquote class="uncited"><div>Can I have multiple persistent files like I can have multiple save files in Puppy?</div></blockquote>This is possible but we have not set it up for this to be streamlined and easy. You just need to put homefs and rootfs files in different directories and then specify the directory as a boot option"pdir=xxxx". The default pdir is the boot directory, the one that contains the linuxfs file. So if you want to have different remaster versions just put the remastered linuxfs files in different directories and use the"bdir=xxxx" option. This way each remastered linuxfs file can have its own rootfs persistence. All of this makes it easy to have several distros or several versions of the same distro on one LiveUSB. Here is an example of the file layout for booting 2 different systems:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>antiX/
+    vmlinuz
+    initrd.gz
+    linuxfs
+    rootfs
+
+antiX-64/
+    vmlinuz
+    initrd.gz
+    linuxfs
+    rootfs</code></pre></div>
+And so on. The default boot-directory is"antiX' so the 64-bit system would need a"bdir=antiX-64" boot parameter while the system in antiX/ would not need any. Legacy Grub entries would look like:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Title antiX 32-bit
+kernel /antiX/vmlinuz [etc]
+initrd /antiX/initrd.gz
+
+title antiX 64-bit
+kernel /antiX-64/vmlinuz bdir=antiX-64 [etc]
+initrd /antiX-64/initrd.gz</code></pre></div>We've made it easy for users to modify bootloader menus so if you just want to change the rootfs file, you could do that with a custom bootloader menu that sets"pdir=xxx". Also, you should check out the"F7 Save" feature in our Live bootloader. This is only enabled on LiveUSBs. It lets you set the defaults in the bootloader itself. Just set whatever menus or custom boot parameters you want (language, timezone, persistence option, etc) and then select"F7 Save" --&gt;"both" and those settings should become the defaults the next time you boot. This might be the easiest way possible to customize a LiveUSB.<br>
+<blockquote class="uncited"><div>Does the Antix way of doing this offer a better solution than Puppy? One thing I like about Antix is that it is connected to the Debian repos so I don't have to go searching for .pet files.</div></blockquote>I'm not familiar with the Puppy system so I can't tell you about better or worse. Each system probably has its own strengths and weaknesses. If you are looking for something that is like Puppy + Debian then antiX is probably a good choice.<br>
+<br>
+One hurdle we got over was being about to do a dist-upgrade on the Live system. First we needed to make the Live file system mimic the installed filesystem better. Next we added static root persistence so RAM would no longer be a limiting factor for how much you can install on the root filesystem. AFAIK we are the only ones offering the choice at boot time of static and dynamic root persistence. Another thing we are very careful about is cleanly unmounting everything at shutdown. I think our Live shutdown procedures might be better than those on most Linux distros. We can give you shell access even after all the filesytems have been umounted and all process but init have been killed. This means it should be safe to put static root persistence files on an ntfs file system. The normal Debian shutdown procedure does not handle this situation well. To get shell access during shutdown use the boot parameter"ubp=a". This will set a series of breakpoints during the shutdown process before and after processes get killed off and filesystems get unmounted. You can also get our shutdown process to print more with the"uverb=X" parameter. Use"uverb=8" or so. You can get more debugging output with"ushow=X". Here are what various ushow values will give you:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>  1) ps
+  2) free -m
+  3) lsof
+  4) df -h
+  5) df -ha
+  11) ps</code></pre></div>The difference between (1) and (11) is that (11) will print out at many more places.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50370" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50370">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50370">
+
+<time datetime="2017-02-13T23:04">posted: 2017-02-13 &nbsp; 23:04</time>
+<span class="permalink"><a href="./build-your-own-t4438.html#p50370" title="permalink">#8</a></span>
+
+<div class="content">posting to this pinned topic to mention that although instruction 2 is still"valid" <br>
+nowadays setup will be performed automatically if persistence option is selected in the (antiX or MX 'legacy boot') setup menu<br>
+and<br>
+can nowadays setup can be invoked via ControlCenter (vs terminal"sudo persist-makefs")<br>
+<br>
+<br>
+Regarding Instruction<strong>3</strong>, it might still be effective, but nowadays hand-typing (use the 'persistent root cheat') isn't necessary ~~ a user can choose a bootmenu screen option (dropdown item) instead.
+<blockquote class="uncited"><div>2. Set up root persistence.<br>
+sudo persist-makefs<br>
+Option 1 asks to set up rootfs. Choose yes and set the size. I chose 512MB and ext2.<br>
+reboot.<br>
+<br>
+3. Boot again making sure you use the persistent root cheat. You will be prompted to change your root password and user (demo) password. Login as root and now we will install some apps.</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

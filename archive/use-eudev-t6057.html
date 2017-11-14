@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Use eudev - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./use-eudev-t6057.html">Use eudev</a></div>
+<div class="pagination">
+19 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./use-eudev-t6057-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./use-eudev-t6057-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_43952" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43952">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43952">
+<time datetime="2015-11-23T18:28">posted: 2015-11-23 &nbsp; 18:28</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p43952" title="permalink">#1</a></span>
+
+<div class="content">Thanks to the hard work by others, antiX can now be 100% systemd-free! <br>
+What was missing was udev bringing in various libs from systemd and even running one (check htop).<br>
+Now we can use eudev and then there will be no systemd libs running at all.<br>
+This is experimental so do so at your own risk.<br>
+I will NOT be responsible if it doesn't work.<br>
+<br>
+Simply make this change to antix.list in etc/apt/sources.list.d/ (ie add the word dev)<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>deb http://antix.daveserver.info/jessie jessie main nosystemd dev
+</code></pre></div>
+apt-get update &amp;&amp; apt-get dist-upgrade should automatically replace the systemd-udev with systemd-free eudev. The name does not change. It still calls itself udev.<br>
+<br>
+Reboot and (hopefully) boot to desktop. You should see on boot no reference to systemd and also in htop, the same.<br>
+<br>
+I have tested this running a fresh install of antiX-15-base in VBox. No issues.<br>
+I'm running eudev/udev on my main sid box. No issues.<br>
+I also tested on an old antiX-14 sid partition. No issues.<br>
+<br>
+No idea how well core will work.<br>
+<br>
+If you have removed any nosystemd stuff from the default apt, then this will almost certainly brick your install.<br>
+<br>
+Post here for feedback.<br>
+<br>
+Once again - I claim no responsibility if this bricks your install.<br>
+<br>
+EDIT: I also tested a new install of antiX-15-full_386 and all worked as it should.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43979" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43979">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43979">
+
+<time datetime="2015-11-25T23:05">posted: 2015-11-25 &nbsp; 23:05</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p43979" title="permalink">#2</a></span>
+
+<div class="content">Can you explain how you edit and add the dev?<br>
+<br>
+As I am unable to make it stick.<br>
+A link or explanation would be appreciated.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43980" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43980">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43980">
+
+<time datetime="2015-11-25T23:22">posted: 2015-11-25 &nbsp; 23:22</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p43980" title="permalink">#3</a></span>
+
+<div class="content">In rox-filer go to etc/apt/sources.list.d/antix.list<br>
+<br>
+Right-click on that file and choose edit as root<br>
+<br>
+Then on the line with jessie , just type the word dev, save and close<br>
+<br>
+You need to update the repos afterwards with apt-get update</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43981" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43981">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43981">
+
+<time datetime="2015-11-25T23:54">posted: 2015-11-25 &nbsp; 23:54</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p43981" title="permalink">#4</a></span>
+
+<div class="content">Thank YOU!<br>
+I appreciate the help!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43985" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43985">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43985">
+
+<time datetime="2015-11-26T03:24">posted: 2015-11-26 &nbsp; 03:24</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p43985" title="permalink">#5</a></span>
+
+<div class="content">feedback: antix15-64bit full -- successful update. Afterward, live persistence sessions seem fine so far.<br>
+Is there anything specific we should test?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43986" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile43986">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43986">
+
+<time datetime="2015-11-26T03:37">posted: 2015-11-26 &nbsp; 03:37</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p43986" title="permalink">#6</a></span>
+
+<div class="content">Feedback:<br>
+Update successful.<br>
+antiX-15-V_x64-full Killah P 30 June 2015</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_43994" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile43994">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 667</span></div>
+
+</div>
+</div>
+<span class="username">jdmeaux1952</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content43994">
+
+<time datetime="2015-11-26T23:01">posted: 2015-11-26 &nbsp; 23:01</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p43994" title="permalink">#7</a></span>
+
+<div class="content">antix-15-V x64-full successful<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -F
+System:    Host: antix1 Kernel: 4.0.5-antix.2-amd64-smp x86_64 (64 bit) Desktop: IceWM 1.3.8
+           Distro: antiX-15-V_x64-full Killah P 30 June 2015
+Machine:   Mobo: MICRO-STAR model: MS-16D3 v: REV:1.0 Bios: American Megatrends v: E16D3IMR.10B date: 06/01/2010
+CPU:       Dual core Intel Core i5 M 450 (-HT-MCP-) cache: 3072 KB 
+           clock speeds: max: 2400 MHz 1: 1466 MHz 2: 1199 MHz 3: 1199 MHz 4: 1199 MHz
+Graphics:  Card: Intel Core Processor Integrated Graphics Controller
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa) Resolution: 1366x768@60.03hz
+           GLX Renderer: Mesa DRI Intel Ironlake Mobile GLX Version: 2.1 Mesa 10.3.2
+Audio:     Card Intel 5 Series/3400 Series High Definition Audio driver: snd_hda_intel
+           Sound: Advanced Linux Sound Architecture v: k4.0.5-antix.2-amd64-smp
+Network:   Card-1: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller driver: r8169
+           IF: eth0 state: down mac: 40:61:86:af:d7:2a
+           Card-2: Qualcomm Atheros AR9285 Wireless Network Adapter (PCI-Express) driver: ath9k
+           IF: wlan0 state: up mac: 74:f0:6d:32:de:66
+Drives:    HDD Total Size: 500.1GB (1.0% used) ID-1: /dev/sda model: Hitachi_HTS54505 size: 500.1GB
+Partition: ID-1: / size: 58G used: 4.9G (9%) fs: ext4 dev: /dev/sda5
+Sensors:   System Temperatures: cpu: 42.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 159 Uptime: 1 min Memory: 527.7/3747.3MB Client: Shell (bash) inxi: 2.2.25 
+antix15@antix1:~
+</code></pre></div>
+<br>
+EDIT: I spoke too soon. After the update as above, I went to YouTube to watch a couple of videos and had<span style="color: #FF0000"> no sound</span>. I opened Synaptic and re-installed the ALSA programs already installed. That solved my problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44144" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44144">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">TonyVanDam</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44144">
+
+<time datetime="2015-12-08T01:06">posted: 2015-12-08 &nbsp; 01:06</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p44144" title="permalink">#8</a></span>
+
+<div class="content">I just installed eudev today. So far, so good. My laptop is still 100% systemd free!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44147" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile44147">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 173</span></div>
+
+</div>
+</div>
+<span class="username">DeepDayze</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44147">
+
+<time datetime="2015-12-09T01:00">posted: 2015-12-09 &nbsp; 01:00</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p44147" title="permalink">#9</a></span>
+
+<div class="content">Would be great if Debian itself has packages that are built without any systemd dependencies for those who still prefer good ol' Sysvinit for the init system. I am sure a lot less resources are used which will be a benefit for those old machines!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_44523" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile44523">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 45</span></div>
+
+</div>
+</div>
+<span class="username">TonyVanDam</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content44523">
+
+<time datetime="2016-01-02T14:10">posted: 2016-01-02 &nbsp; 14:10</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p44523" title="permalink">#10</a></span>
+
+<div class="content">I do not know for sure if this counts as new news, but eudev also works in MX-15.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45242" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45242">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 99</span></div>
+
+</div>
+</div>
+<span class="username">spaceman</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45242">
+
+<time datetime="2016-02-02T18:02">posted: 2016-02-02 &nbsp; 18:02</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p45242" title="permalink">#11</a></span>
+
+<div class="content">Someone loves Core. <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+I installed Core and played around with the 'dev' flat. Sadly I fell at the first hurdle as <strong>xorg</strong> depends <strong>eudev</strong> allegedly...so I could apparently kiss a graphical environment goodbye.<br>
+<br>
+I have a Core deployment using the antiX / Debian Stable repos; I installed <strong>xorg</strong>; <strong>Xfce4</strong> and <strong>nVidia</strong> proprietaries. Who it be valuable to add the 'dev line' at this point and test? I suspect I've already got <strong>udev</strong> and a whole dump of <strong>systemd</strong>...<br>
+<br>
+Or shall I just play on my own. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: monnbase Kernel: 4.0.5-gnu-antix.2-amd64-smp x86_64 (64 bit)
+           Desktop: Xfce 4.10.2
+           Distro: antiX-15-V_x64-core-libre Killah P 30 June 2015
+Machine:   Mobo: ASUSTeK model: SABERTOOTH 990FX v: Rev 1.xx
+           Bios: American Megatrends v: 1604 date: 10/16/2012
+CPU:       Quad core AMD Phenom II X4 965 (-MCP-) cache: 2048 KB 
+           clock speeds: max: 3400 MHz 1: 2200 MHz 2: 800 MHz 3: 3400 MHz
+           4: 800 MHz
+Graphics:  Card-1: NVIDIA GF104 [GeForce GTX 460]
+           Card-2: NVIDIA GM107 [GeForce GTX 750 Ti]
+           Display Server: X.org 1.16.4 drivers: nouveau (unloaded: fbdev,vesa)
+           Resolution: 80x24
+Audio:     Card-1 NVIDIA GF104 High Definition Audio Controller
+           driver: snd_hda_intel
+           Card-2 NVIDIA Device 0fbc driver: snd_hda_intel
+           Card-3 Advanced Micro Devices [AMD/ATI] SBx00 Azalia (Intel HDA)
+           driver: snd_hda_intel
+           Sound: ALSA v: k4.0.5-gnu-antix.2-amd64-smp
+Network:   Card: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+           driver: r8169
+           IF: eth0 state: up speed: 100 Mbps duplex: half
+           mac: c8:60:00:79:fb:5d
+Drives:    HDD Total Size: 2564.5GB (0.4% used)
+           ID-1: /dev/sda model: SAMSUNG_SP2504C size: 250.1GB
+           ID-2: /dev/sdb model: SAMSUNG_SP2504C size: 250.1GB
+           ID-3: /dev/sdc model: TOSHIBA_DT01ACA2 size: 2000.4GB
+           ID-4: USB /dev/sdd model: Cruzer size: 64.0GB
+Partition: ID-1: / size: 20G used: 1.7G (9%) fs: ext4 dev: /dev/sda9
+           ID-2: swap-1 size: 8.59GB used: 0.00GB (0%) fs: swap dev: /dev/sda12
+Sensors:   None detected - is lm-sensors installed and configured?
+Info:      Processes: 144 Uptime: 32 min Memory: 926.4/16012.6MB
+           Init: SysVinit runlevel: 5 Client: Shell (bash) inxi: 2.2.31 
+</code></pre></div>
+Hey, could be wrong:"Init: SysVinit runlevel: 5 Client: Shell (bash) inxi: 2.2.31"</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45244" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile45244">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 521</span></div>
+
+</div>
+</div>
+<span class="username">Shay</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Apr 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45244">
+
+<time datetime="2016-02-02T18:30">posted: 2016-02-02 &nbsp; 18:30</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p45244" title="permalink">#12</a></span>
+
+<div class="content">I did this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ locate udev
+/ etc/udev
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>whereis udev
+udev: / etc/udev /lib/udev /usr/share/man/man7/udev.7.gz
+</code></pre></div>
+HTHs</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45254" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45254">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 99</span></div>
+
+</div>
+</div>
+<span class="username">spaceman</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45254">
+
+<time datetime="2016-02-03T14:50">posted: 2016-02-03 &nbsp; 14:50</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p45254" title="permalink">#13</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Simply make this change to antix.list in etc/apt/sources.list.d/ (ie add the word dev)<br>
+<br>
+Code:<br>
+deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.daveserver.info/jessie"<br>linktext was:"http://antix.daveserver.info/jessie"<br>====================================<br>
+ jessie main nosystemd dev<br>
+<br>
+<br>
+apt-get update &amp;&amp; apt-get dist-upgrade should automatically replace the systemd-udev with systemd-free eudev. The name does not change. It still calls itself udev.<br>
+<br>
+Reboot and (hopefully) boot to desktop. You should see on boot no reference to systemd and also in htop, the same.<br>
+<br>
+...No idea how well core will work.</div></blockquote>
+Not at all...or at least the way I'm doing it (wrong?)<br>
+<br>
+I installed Core a couple of times. First time I installed xorg; xfce4 and nVidia proprietary drivers. When I had a basic GUI up and running I dropped out of the GUI and edited antix.list appending <strong>dev</strong> to the appropriate line (testing). Then I did a <strong>dist-upgrade</strong>. BRICK! <span class="emoticon"> __{{emoticon}}__ </span> Xfce wouldn't start predictably, as X wasn't fully functional , I tried to reinstall but it wouldn't install as it's dependent on <strong>udev</strong>. Hmmm...<br>
+<br>
+Second time I installed Core flat. Added dev, enable Testing repos, and ran a <strong>dist-upgrade</strong>. Rebooted. Wow. There's not a lot you can do without a 'net connection and ceni depends on udev too it turns out.<br>
+<br>
+Do you want me to try anything? I haz limitless time and patience. LOL</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45255" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile45255">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45255">
+
+<time datetime="2016-02-03T14:58">posted: 2016-02-03 &nbsp; 14:58</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p45255" title="permalink">#14</a></span>
+
+<div class="content">It seems that it will only work with jessie for now. Upgrading to testing or sid will almost certainly break something. So best NOT to install eudev from dev if you want to run testing or sid.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45258" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45258">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 99</span></div>
+
+</div>
+</div>
+<span class="username">spaceman</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45258">
+
+<time datetime="2016-02-03T15:24">posted: 2016-02-03 &nbsp; 15:24</time>
+<span class="permalink"><a href="./use-eudev-t6057.html#p45258" title="permalink">#15</a></span>
+
+<div class="content">Righto boss. I'll only use stable and see if I can get to working.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+19 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./use-eudev-t6057-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./use-eudev-t6057-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

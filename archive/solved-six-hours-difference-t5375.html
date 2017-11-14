@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>(SOLVED) Six hours difference - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-six-hours-difference-t5375.html">(SOLVED) Six hours difference</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+ <div id="p_38045" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38045">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38045">
+<time datetime="2014-11-13T18:49">posted: 2014-11-13 &nbsp; 18:49</time>
+<span class="permalink"><a href="./solved-six-hours-difference-t5375.html#p38045" title="permalink">#1</a></span>
+
+<div class="content">Hello,<br>
+<br>
+I had time again to tinker with my homeserver and I found an interesting problem.<br>
+<br>
+My BIOS clock is all right, keeps the time and stores the UTC time.<br>
+The timezone file contains Europe/Berlin - which is UTC +1 right now.<br>
+<br>
+On the other hand when I issue the"date" command it tells me a wrong time, which is exactly UTC -5 hours!<br>
+<br>
+Hint: when I first realized that there is a problem with my time the timezone file contained United States / New York. I have no idea how it could be there because I 've never set the timezone intentionaly (say during install) to the New York local time. I corrected the file to Europe/Berlin but it seems (after several restarts) that it had no effect.<br>
+<br>
+I also tried to delete the adjtime file and reboot, but it had no effect either.<br>
+<br>
+What should I check?<br>
+<br>
+It is a solo Antix 13.1 system, updated, no dual booting with anything.</div>
+<div class="notice">
+Last edited by <b>Pumukli</b> on 13 Nov 2014, 19:56, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38046" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile38046">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38046">
+
+<time datetime="2014-11-13T18:59">posted: 2014-11-13 &nbsp; 18:59</time>
+<span class="permalink"><a href="./solved-six-hours-difference-t5375.html#p38046" title="permalink">#2</a></span>
+
+<div class="content">Any Time Zone changes I screw up during install I usually straighten out with dpkg tzdata.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.debian.org/TimeZoneChanges"<br>linktext was:"https://wiki.debian.org/TimeZoneChanges"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_38047" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile38047">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content38047">
+
+<time datetime="2014-11-13T19:55">posted: 2014-11-13 &nbsp; 19:55</time>
+<span class="permalink"><a href="./solved-six-hours-difference-t5375.html#p38047" title="permalink">#3</a></span>
+
+<div class="content">Yes, thank you rokytnji, dpkg-reconfigure tzdata did the trick!<br>
+<br>
+Now hwclock --debug shows that everything is as it should be, ... 8:48 PM CET ...<br>
+Before the reconfigure that line said ... 2:48 PM EST ...<br>
+<br>
+Now it is obvious that changing the etc(timezone file alone is not enough, there are other hidden things to be changed during a timezone tinkering.</div>
+<div class="postcontent_footer">
+ 
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

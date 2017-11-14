@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[antiX Core M12] ownership in several root folders - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html">[antiX Core M12] ownership in several root folders</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_25838" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile25838">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content25838">
+<time datetime="2012-08-17T01:44">posted: 2012-08-17 &nbsp; 01:44</time>
+<span class="permalink"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html#p25838" title="permalink">#1</a></span>
+
+<div class="content">Hi, in the folder /usr/local/bin the ownership of the files are almost all"1000 users" : is that normal ?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># pwd
+/usr/local/bin
+# ls -l
+total 900
+-rwxr-xr-x 1 1000 users   7804 Jul 12 08:43 antixsnapshot
+-rwxr-xr-x 1 1000 users   1513 Jun 19  2009 burniso
+-rwxr-xr-x 1 root root    5362 Nov 15  2011 change-default-desktop
+-rwxr-xr-x 1 root root    2073 Dec 31  2011 change-display-manager
+-rwxr-x--x 1 1000 users   8869 Aug  6 17:28 cli-installer
+-rwxr-xr-x 1 1000 users    723 Sep  8  2011 du-excludes
+-rwx---r-x 1 1000 users  45621 Apr  3  2011 exoodles
+.......
+........</code></pre></div>
+Another question, in the parent directories it is not rare to see ownership to"root:staff" is there a special reason for that ? <br>
+<br>
+And a last one, not related but I am not sure I'll open a new topic just for this one : why is there a directory having for name"/sda1" under the / of my antiX Core vbox install ?<br>
+<br>
+Thanks for your help!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26027" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26027">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26027">
+
+<time datetime="2012-08-26T10:23">posted: 2012-08-26 &nbsp; 10:23</time>
+<span class="permalink"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html#p26027" title="permalink">#2</a></span>
+
+<div class="content">Hi,<br>
+<br>
+I am back about the directory /usr/sbin now, because while searching for"minstall" I unexpectedly found a bunch of files in there also belong to 1000:users instead of belongling to root:root.<br>
+<br>
+It looks like the packager has forgotten to apply the right ownership to the files before packaging.<br>
+<br>
+Here are the files:
+<blockquote class="uncited"><div>
+-rwxr-xr-x 1 1000 users 73 Feb 28 19:08 autologin<br>
+-rwxr-xr-x 1 1000 users 4042 Apr 21 2011 buildfstab<br>
+-rwxr-xr-x 1 1000 users 5450 Mar 25 2011 buildxconfig<br>
+-rwxr-xr-x 1 1000 users 870 Sep 26 2010 dev2uuid_fstab.sh<br>
+-rwxr-xr-x 1 1000 users 275656 Jul 17 18:08 minstall<br>
+-rwxrwxr-x 1 1000 users 2274 Dec 22 2011 scanpartitions<br>
+-rwxr-xr-x 1 1000 users 4992 Feb 25 2010 smxi<br>
+-rwxr-xr-x 1 1000 users 30054 Apr 12 16:29 update-grub-antiX
+</div></blockquote>
+all theses files are probably provided by antiX, as is"autologin" ?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/usr/sbin# dpkg -S autologin
+desktop-defaults-core-antix: /usr/sbin/autologin</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># dpkg -l desktop-defaults-core-antix
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name                  Version         Architecture    Description
++++-=====================-===============-===============-================================================
+ii  desktop-defaults-core 0.1.8.0         all             desktop defaults for antiX</code></pre></div>
+With these two posts I have a question : which of these ownerships can I change to"root:root" ? The ones in /usr/sbin ? the ones in /usr/local/bin ? What about the ownership in /usr/local which belong to"staff" ?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26028" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26028">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26028">
+
+<time datetime="2012-08-26T10:50">posted: 2012-08-26 &nbsp; 10:50</time>
+<span class="permalink"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html#p26028" title="permalink">#3</a></span>
+
+<div class="content">Hi again, <br>
+<br>
+Now one in /usr/bin :
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/usr/bin# ls -l nicinfo 
+-rwxr-xr-x 1 1000 users 2739 Mar 15 00:07 nicinfo
+root@antiX1:/usr/bin# </code></pre></div>
+(belongs to ceni)<br>
+Shouldn't these packages get a fix ?<br>
+Thanks.<br>
+<br>
+PS: why is there an executable shell script under /usr/share ?<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/usr/share# pwd
+/usr/share
+root@antiX1:/usr/share# ls -l pkg-config-crosswrapper 
+-rwxr-xr-x 1 root root 219 May 15  2011 pkg-config-crosswrapper
+root@antiX1:/usr/share# file pkg-config-crosswrapper 
+pkg-config-crosswrapper: POSIX shell script, ASCII text executable
+root@antiX1:/usr/share# </code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26034" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26034">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26034">
+
+<time datetime="2012-08-26T12:30">posted: 2012-08-26 &nbsp; 12:30</time>
+<span class="permalink"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html#p26034" title="permalink">#4</a></span>
+
+<div class="content">I would say that all those files should be changed to root:root, as long as the global permission is set to execute as well. However the system appears to want the permissions root:staff as the rest of /usr/ is root:staff, so i would probably change the permissions to that. <br>
+<br>
+I am thinking the reason for the permissions being odd is that the antix pacages were built by the first regular user on the system. When the files were copied to thier mirror location within the deb they would have been copied as regualar user and those permissions set. This is a good catch and i believe we should start packaging as root, or at least remember to change the permissions before packaging <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26035" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26035">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26035">
+
+<time datetime="2012-08-26T12:34">posted: 2012-08-26 &nbsp; 12:34</time>
+<span class="permalink"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html#p26035" title="permalink">#5</a></span>
+
+<div class="content">I agree with Dave and am repackaging the offending debs.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26036" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26036">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26036">
+
+<time datetime="2012-08-26T12:43">posted: 2012-08-26 &nbsp; 12:43</time>
+<span class="permalink"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html#p26036" title="permalink">#6</a></span>
+
+<div class="content">Hi,<br>
+<br>
+I thought it was something like that. I have also met the case once with a Ubuntu program and package, I had written a mail to the packager and he fixed it. That had consequences in another distribution, so the sources tarball files ownerships needed to be fixed too.<br>
+<br>
+I thank you both for your fast reaction !</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26083" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26083">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 6</span></div>
+
+</div>
+</div>
+<span class="username">djohnston</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Aug 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26083">
+
+<time datetime="2012-08-29T19:29">posted: 2012-08-29 &nbsp; 19:29</time>
+<span class="permalink"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html#p26083" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>I would say that all those files should be changed to root:root, as long as the global permission is set to execute as well. However the system appears to want the permissions root:staff as the rest of /usr/ is root:staff, so i would probably change the permissions to that.
+</div></blockquote>
+Hey, Dave. I'm not sure how the directory ownerships are in Mepis, but I'm looking at a Debian wheezy install now. The /usr directory all belongs to root:root except for /usr/local.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>darrel@Deb-e17:~$ ls -l /usr
+total 72
+drwxr-xr-x   2 root root  36864 Aug 28 12:07 bin
+drwxr-xr-x   2 root root   4096 May 21 08:50 games
+drwxr-xr-x  35 root root   4096 Aug 19 16:20 include
+drwxr-xr-x  88 root root  12288 Aug 28 12:07 lib
+drwxrwsr-x  10 root staff  4096 Aug 14 02:43 local
+drwxr-xr-x   2 root root   4096 Aug 28 08:37 sbin
+drwxr-xr-x 158 root root   4096 Aug 28 12:07 share
+drwxr-xr-x   4 root root   4096 Aug 23 20:07 src
+darrel@Deb-e17:~$</code></pre></div> <br>
+Hope that helps. I gotta change these forum colors. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26092" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26092">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 96</span></div>
+
+</div>
+</div>
+<span class="username">melodie</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Feb 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26092">
+
+<time datetime="2012-08-30T19:13">posted: 2012-08-30 &nbsp; 19:13</time>
+<span class="permalink"><a href="./antix-core-m12-ownership-in-several-root-folders-t3854.html#p26092" title="permalink">#8</a></span>
+
+<div class="content">Hi,<br>
+djohnston, since I posted here anticapitalista has redone and uploaded new packages in order to fix the ownerships. I do suppose that it is all straight now.<br>
+<br>
+/call me the debug girl. <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

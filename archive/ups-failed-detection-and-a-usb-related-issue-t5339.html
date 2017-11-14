@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>UPS failed detection and a USB-related issue - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./ups-failed-detection-and-a-usb-related-issue-t5339.html">UPS failed detection and a USB-related issue</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_37681" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37681">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">musetto</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37681">
+<time datetime="2014-10-25T08:55">posted: 2014-10-25 &nbsp; 08:55</time>
+<span class="permalink"><a href="./ups-failed-detection-and-a-usb-related-issue-t5339.html#p37681" title="permalink">#1</a></span>
+
+<div class="content">Hello to everybody and in particular to the Antix guys. I think this linux distro is amongst the best distro I've ever used and been using. And indeed apart from my poor, old Pentium 166 MHz running Tiny Core, in all the other Antix is a must-be-there.<br>
+<br>
+Anyway, my knowledge of Linux is limited even if I strive to learn as much as possible.<br>
+<br>
+I have two questions here which are intertwined.<br>
+<br>
+1) I resumed an UPS, changed its dead battery with a new one. I read in the accompanying CD that it is possible to interact with the UPS and retrieve useful pieces of information from it. So, I started searching for some documentation about UPS management. <br>
+<br>
+I downloaded apcupsd and gapcmon (though I haven't compiled it yet) but I was not able to establish any communication with the unit<br>
+<br>
+What I found is that the UPS unit, connected to the PC by means of a standard USB cable, is recognized (I found it in the list of USB devices) but it doesn't use any driver. Indeed, in the driver section it is written:"none" while the others feature"hub_controller","usb_storage","usb_keyboard" and the like.<br>
+<br>
+Browsing the net I found:<br>
+a) that the usb_linux file system is not mounted;<br>
+b) that there should be a"hid" or better a"usbhid" module loaded in the kernel.<br>
+<br>
+So, I found something explaining the usb_linux file system and I am started studying it.<br>
+<br>
+However, before spending time in something coming out to be useless (which would actually result in a waste of time), I would like to know the opinion of the other antix people.<br>
+<br>
+2) the second question is related again to the USB management. If I run the Hardinfo (main menu Antix -&gt; applications -&gt; System Tools -&gt; System Profiler and Benchmark) in the USB section, there is no USB devices listed. But in the"Storage" section, the USB external hard-disks are all there; in the"Input devices", the mouse, the keyboard and the web-cam are present. (There is something more missing as the fact that Conky correctly shows the battery status while Hardinfo states that there is no battery in my laptop ...).<br>
+<br>
+So, I wonder if the fact that no USB devices is listed in Hardinfo is a consequence of the fact that the UPS is not detected.<br>
+<br>
+<br>
+Thank to whoever will provide useful clues.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37683" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37683">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37683">
+
+<p class="author">
+<a href="./ups-failed-detection-and-a-usb-related-issue-t5339.html#p37683" title="Post"> 25 Oct 2014, 09:24 <span style="padding-left:10px">#2</span></a>
+<time class="hide" datetime="2014-10-25 &nbsp; 09:24">2014-10-25 &nbsp; 09:24</time>
+ </p>
+<div class="content">The H(uman)I(nterface)D(river) is up &amp; running, to find out what the system names your usb UPS, detach it, then reattach it &amp; run <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dmesg | tail</code></pre></div> that should show the device name, then try to list it <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls /dev/&lt;device&gt;</code></pre></div> if that doesn't show anything try mounting it first <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo mount /dev/&lt;device&gt;</code></pre></div>
+Hope that helps.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37724" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37724">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">musetto</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37724">
+
+
+<time datetime="2014-10-27T08:01">posted: 2014-10-27 &nbsp; 08:01</time>
+<span class="permalink"><a href="./ups-failed-detection-and-a-usb-related-issue-t5339.html#p37724" title="permalink">#3</a></span>
+
+<div class="content">Hello and thank for your quick reply. Unfortunately I did not have any chance to try what you wrote in the week-end. Anyway, this morning I did it.<br>
+Also, I beg your pardon if there is written slash at any occurrence of the corresponding sign ...<br>
+<br>
+First, I want to show what is normally detected, i.e. without unplugging and plugging the USB cable of the UPS.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>T:  Bus=05 Lev=02 Prnt=02 Port=02 Cnt=02 Dev#=  4 Spd=1.5 MxCh= 0
+D:  Ver= 1.00 Cls=ff(vend.) Sub=ff Prot=00 MxPS= 8 #Cfgs=  1
+P:  Vendor=075d ProdID=0001 Rev=02.00
+S:  Manufacturer=Microdowell 
+S:  Product=MicroDowell BBox Interactive UPS
+C:  #Ifs= 1 Cfg#= 1 Atr=40 MxPwr=100mA
+I:  If#= 0 Alt= 0 #EPs= 1 Cls=ff(vend.) Sub=ff Prot=00 Driver=(none)</code></pre></div>
+As you can see in the last line there is no driver loaded: Driver=(none)<br>
+while, for instance, in case of a small USB stick which is completely operational, the output is:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>T:  Bus=05 Lev=02 Prnt=02 Port=01 Cnt=01 Dev#=  3 Spd=12  MxCh= 0
+D:  Ver= 2.00 Cls=00(&gt;ifc ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
+P:  Vendor=08ec ProdID=0008 Rev=01.00
+S:  Manufacturer=Kingston
+S:  Product=DataTraveler 2.0
+S:  SerialNumber=0C21285162E329F6
+C:  #Ifs= 1 Cfg#= 1 Atr=80 MxPwr=200mA
+I:  If#= 0 Alt= 0 #EPs= 2 Cls=08(stor.) Sub=06 Prot=50 Driver=usb-storage</code></pre></div>
+Then, I unplug and plug (changing the USB port in the process ...) and dmsg |tail resulted in:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[ 1495.964026] usb 4-1: new full-speed USB device number 12 using uhci_hcd
+[ 1496.114655] usb 4-1: New USB device found, idVendor=0451, idProduct=1446
+[ 1496.114663] usb 4-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[ 1496.117786] hub 4-1:1.0: USB hub found
+[ 1496.119687] hub 4-1:1.0: 4 ports detected
+[ 1496.401605] usb 4-1.3: new low-speed USB device number 13 using uhci_hcd
+[ 1496.544582] usb 4-1.3: New USB device found, idVendor=075d, idProduct=0001
+[ 1496.544590] usb 4-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[ 1496.544595] usb 4-1.3: Product: MicroDowell BBox Interactive UPS
+[ 1496.544599] usb 4-1.3: Manufacturer: Microdowell </code></pre></div>
+For the sake of completeness, this UPS sports also 3 USB ports. They are all correctly recognized and working: if I connect a USB stick, I can access the data written inside it. However, no USB stick was plugged during this test.<br>
+<br>
+Since the output of dmsg |tail shows 2 USB devices (number 12 and number 13), is it correct to assume that both the USB hub and the UPS were detected?<br>
+<br>
+I also typed ls slash dev without specifying the device as I did not understand the relation between dmsg's output and ls slash dev. Indeed, it seems that the UPS is located in <br>
+slash dev slash bus slash usb slash 004 slash 013 because I found that T: Bus=04 Lev=02 Prnt=12 Port=02 Cnt=01 Dev#= 13 Spd=1.5 MxCh= 0<br>
+<br>
+I typed:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo mount slash dev slash bus slash  usb slash 004 slash 013</code></pre></div>
+but the output was:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mount: can't find  slash dev slash bus slash usb slash 004 slash 013 in  slash etc slash fstab or slash etc slash mtab
+</code></pre></div>
+Therefore, I wonder if:<br>
+<br>
+a) it is necessary to mount that linux_usb file so that typing:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>more /proc /bus /usb /devices</code></pre></div>
+results in something useful (at present in the /proc slash bus folder there are only two sub-folders:"input" and"pci") instead of:"/proc /bus /usb /drivers: No such file or directory".<br>
+<br>
+b) there is something wrong with the UPS. Anyway, I have some doubts because as I wrote earlier, Hardinfo doesn't show any USB devices connected to my PC even if there a keyboard, a mouse, a webcam, an external HD, ... all perfectly running.<br>
+<br>
+Thank you in advance.<br>
+##########################################################################################<br>
+Threads and posts cleaned up by Rok. One only needs to worry about / etc in this forum layout when getting the forum forbidden message.<br>
+/proc, /usb,/dev,/mtab, / anything other than / etc does not stop you from posting. So no need for the"slash" wording though it is nice<br>
+you took the effort. When in doubt. Just use the space bar between / and etc to give you"/ etc" and we will know what the deal is.<br>
+Happy Trails, Rok</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37739" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37739">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">musetto</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37739">
+
+<time datetime="2014-10-27T18:05">posted: 2014-10-27 &nbsp; 18:05</time>
+<span class="permalink"><a href="./ups-failed-detection-and-a-usb-related-issue-t5339.html#p37739" title="permalink">#4</a></span>
+
+<div class="content">I want to thank you Rok very much for cleaning my threads.<br>
+I am ashamed I haven't read the rules governing the forum layout yet.<br>
+I hope to bridge the gap as soon as possible.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37745" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37745">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 850</span></div>
+
+</div>
+</div>
+<span class="username">fatmac</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Jul 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37745">
+
+<time datetime="2014-10-27T20:45">posted: 2014-10-27 &nbsp; 20:45</time>
+<span class="permalink"><a href="./ups-failed-detection-and-a-usb-related-issue-t5339.html#p37745" title="permalink">#5</a></span>
+
+<div class="content">Only other thing I can think of is to check /dev before &amp; after connecting it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37846" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile37846">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">musetto</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37846">
+
+<time datetime="2014-11-01T11:52">posted: 2014-11-01 &nbsp; 11:52</time>
+<span class="permalink"><a href="./ups-failed-detection-and-a-usb-related-issue-t5339.html#p37846" title="permalink">#6</a></span>
+
+<div class="content">Then I wonder:<br>
+a) which command should I type to know which USB drivers are actually running?<br>
+b) there is a way to force a device to use a given driver? That is, if my UPS keeps on showing 'driver=none', can I type something so to force it to use the usbhid driver, for instance?<br>
+<br>
+Thank you.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_37884" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile37884">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 9</span></div>
+
+</div>
+</div>
+<span class="username">musetto</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Sep 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content37884">
+
+<time datetime="2014-11-03T11:08">posted: 2014-11-03 &nbsp; 11:08</time>
+<span class="permalink"><a href="./ups-failed-detection-and-a-usb-related-issue-t5339.html#p37884" title="permalink">#7</a></span>
+
+<div class="content">It seems that when a USB device is connected to the system, the kernel reacts to it by searching the proper driver to be associated with it. The search should more or less be performed in the following way: <br>
+<br>
+Does the device meet the requirements for the storage media?<br>
+Yes? Then let's assign to it the usb_storage driver.<br>
+No? Does it meet the requirements for the keyboard, then?<br>
+Yes? Then let's assign to it the usb_keyboard.<br>
+No? Does it meet the requirements for the hub, then?<br>
+...<br>
+<br>
+If the search ends and no driver is assigned to the device, then no driver is selected and the"driver=none" appears after typing the usb-devices command.<br>
+<br>
+At this point, I wonder if there is actually a way to force the kernel to assign a given driver to a given device. Apparently, there is not.<br>
+<br>
+Moreover, I think that the UPS had always had some faults/bug/... Even when the UPS was working connected to a Windows XP PC, there was no way to have it communicate whether with the driver provided with the installation CD or with updated version downloaded from the manufacturer site.<br>
+<br>
+Maybe when I will have studied enough to write my own Linux driver code, I will try again ...</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

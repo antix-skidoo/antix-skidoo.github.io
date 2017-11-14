@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Fancy Bash Prompts made easy - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./fancy-bash-prompts-made-easy-t3074.html">Fancy Bash Prompts made easy</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_20338" class="post has-profile bg2">
+ <div class="inner">
+<dl class="postprofile" id="profile20338">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20338">
+<time datetime="2011-04-27T22:48">posted: 2011-04-27 &nbsp; 22:48</time>
+<span class="permalink"><a href="./fancy-bash-prompts-made-easy-t3074.html#p20338" title="permalink">#1</a></span>
+
+<div class="content">When I'm working on the command line I find that colorful and informative prompts make me more productive. I know who I am, what time it is, what system I'm on, and what directory I'm in. I can also easily spot where my previous commands were in the scrollback buffer. I like to use multi-line prompts so they can be informative yet the cursor starts very close to the left edge of the terminal.<br>
+<br>
+I've created a little script called fancy-prompts that gives you easy access to seven different prompts. Each prompt has a limited amount of customization available. If you"source" the script:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ source ./fancy-prompts
+[demo@antiX]-[04:13:39 PM]-------------------------------------[/usr/local/bin]</code></pre></div> then the fancy prompts will be added to your current shell. If, instead, you run the script as a program, it creates a new Bash shell that has access to the fancy prompts:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ./fancy-prompts
+============================================================================
+Starting a new bash shell.  You can avoid this by sourcing this file
+instead of running it as a command.  For example:
+
+    $ source ./fancy-prompts
+
+You can return to your previous shell by typing"exit" or hitting &lt;ctrl-d&gt;
+use -q (--quiet) to supress this message.  Use -h (--help) to display help.
+
+Type"prompt-usage" to get instructions on using fancy-prompts.
+============================================================================
+
+[demo@antiX]-[04:13:39 PM]-------------------------------------[/usr/local/bin]
+$ </code></pre></div>
+Here is the usage:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ ./fancy-prompts -h
+There are seven fancy prompt commands available:
+
+      prompt-tiny          prompt-narrow    
+      prompt-std           prompt-med       
+      prompt-color         prompt-wide      
+      prompt-gentoo
+
+Each command changes your prompt ranging from prompt-tiny, which gives you
+a very simple prompt, to prompt-wide which gives you a very fancy one.
+They all have these options:
+
+    -d|--dark               Make all colors darker
+    -h|--help               Display this help
+    -l|--lines    &lt;INTEGER&gt; The number of extra new lines before the prompt
+    -n|--nocolor            Turn off colors
+    -p|--prompt   &lt;STRING&gt;  The final charter(s) displayed in the prompt
+
+Examples:
+
+    Use prompt-med with no extra newline and a"&gt;" final prompt character:
+        prompt-med -n 0 -p"&gt;"
+
+    Use a simple prompt containing the hostname:
+        prompt-tiny -p"\h &gt;"
+
+Note: The username and the final prompt characters are red for the root user.</code></pre></div>
+If you want a fancy prompt to be your default, just source the fancy-prompts script from your .bashrc and then set the prompt to what you want. For example:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> source /usr/local/bin/fancy-prompts
+prompt-wide --prompt"&gt;" --dark</code></pre></div>
+DO NOT call fancy-prompts as a program from within your bashrc.<br>
+<br>
+I've attached a gzipped copy of the fancy-prompts script. I hope this encourages people to use a more productive prompt for the command line and maybe it will even inspire a few people to make their own further customizations.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_20341" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile20341">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content20341">
+
+<time datetime="2011-04-27T23:12">posted: 2011-04-27 &nbsp; 23:12</time>
+<span class="permalink"><a href="./fancy-bash-prompts-made-easy-t3074.html#p20341" title="permalink">#2</a></span>
+
+<div class="content">Thanks for sharing BitJam, this is a great script you made up. Will need to spend some more time looking at how it is constructed</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

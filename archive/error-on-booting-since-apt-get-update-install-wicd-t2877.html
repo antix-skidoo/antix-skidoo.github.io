@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Error on booting since apt-get update &amp; install wicd - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-5-marek-edelman-f40/index.html"><span>antiX-M8.5 Marek Edelman</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./error-on-booting-since-apt-get-update-install-wicd-t2877.html">Error on booting since apt-get update &amp; install wicd</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_18838" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18838">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 64</span></div>
+
+</div>
+</div>
+<span class="username">floppy</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Dec 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18838">
+<time datetime="2010-12-31T16:10">posted: 2010-12-31 &nbsp; 16:10</time>
+<span class="permalink"><a href="./error-on-booting-since-apt-get-update-install-wicd-t2877.html#p18838" title="permalink">#1</a></span>
+
+<div class="content">Hello,<br>
+I tried to install wicd.<br>
+I made"apt-get update", then"apt-get install wicd". Then the boot stop with the first message"mount: cannot read etc/fstab: no such file or directory". Other messages appear. Then it stay at the prompt"(initramfs)".<br>
+<br>
+Has somebody an idea what happens here? Is grub destroyed since I updated antiX M8.5?<br>
+It was running before.<br>
+<br>
+PC spec: AMDK6-2 450MhZ and RAM 680MB, 2 HDDs in it, Lan card, Fritz WLAN USB.<br>
+a) Boot on the first HDD 10GB with antiX on it (no swap; see the fstab; this fstab is readen from TinyCoreLinux)<br>
+b) Choice to go to TinyCoreLinux 3.4.1 which is installed on the second HDD 6GB (with swap on it)<br>
+<br>
+<em>Ideas:<br>
+- should a swap exist on the sda instead of the sdb?<br>
+- should the swap have a minimum size?<br>
+- is grub destroyed or should it be remade/updated? by which command? </em><br>
+<br>
+Any help would be good before I start making changes in the system (the last changes made it not running anymore).<br>
+<br>
+fstab, menu.lst and the message log from apt-gets are not included as attachment files here because the loading dont work. The whole content is in the text below.<br>
+<br>
+Thanks a lot.<br>
+<br>
+<br>
+<strong>fstab; readen from TinyCoreLinux because antiX is not running anymore..</strong><br>
+# Pluggable devices are handled by uDev, they are not in fstab<br>
+/dev/sda2 / ext3 defaults,noatime 1 1<br>
+proc /proc proc defaults 0 0<br>
+devpts /dev/pts devpts mode=0622 0 0<br>
+/dev/sda3 /home ext3 defaults,noatime 1 2<br>
+# Dynamic entries below<br>
+/dev/sdb1 /mnt/sdb1 ext3 noauto,users,exec,relatime 0 0<br>
+/dev/sdb2 swap swap sw,pri=1 0 0<br>
+/dev/sdb3 /mnt/sdb3 ext3 noauto,users,exec,relatime 0 0<br>
+/dev/sda1 /mnt/sda1 vfat noauto,users,gid=users,dmask=002,fmask=113,relatime 0 0<br>
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+<br>
+<strong>menu.lst readen from TinyCoreLinux because antiX is not running..</strong><br>
+timeout 20<br>
+color cyan/blue white/blue<br>
+foreground ffffff<br>
+background 0639a1<br>
+<br>
+gfxmenu /boot/grub/message<br>
+<br>
+# setkey veraendert die Tastaturbelegung auf die deutsche Tastatur<br>
+setkey y z<br>
+setkey z y<br>
+setkey Y Z<br>
+setkey Z Y<br>
+setkey equal parenright<br>
+setkey parenright parenleft<br>
+setkey parenleft asterisk<br>
+setkey doublequote at<br>
+setkey plus bracketright<br>
+setkey minus slash<br>
+setkey slash ampersand<br>
+setkey ampersand percent<br>
+setkey percent caret<br>
+setkey underscore question<br>
+setkey question underscore<br>
+setkey semicolon less<br>
+setkey less numbersign<br>
+setkey numbersign backslash<br>
+setkey colon greater<br>
+setkey greater bar<br>
+setkey asterisk braceright<br>
+<br>
+default 1<br>
+<br>
+title antiX M8.5, kernel 2.6.32-1-mepis, at sda2<br>
+root (hd0,1)<br>
+kernel /boot/vmlinuz-2.6.32-1-mepis nomce quiet nosplash vga=normal <br>
+initrd /boot/initrd.img-2.6.32-1-mepis<br>
+<br>
+### BEGIN AUTOMAGIC KERNELS LIST<br>
+## lines between the AUTOMAGIC KERNELS LIST markers will be modified<br>
+## by the debian update-grub script except for the default options below<br>
+<br>
+## DO NOT UNCOMMENT THEM, Just edit them to your needs<br>
+<br>
+## ## Start Default Options ##<br>
+## default kernel options<br>
+## default kernel options for automagic boot options<br>
+## If you want special options for specific kernels use kopt_x_y_z<br>
+## where x.y.z is kernel version. Minor versions can be omitted.<br>
+## e.g. kopt=root=/dev/hda1 ro<br>
+## kopt_2_6_8=root=/dev/hdc1 ro<br>
+## kopt_2_6_8_2_686=root=/dev/hdc2 ro<br>
+# kopt=root=UUID=bba1ff2c-8798-405a-99c8-9d90b908e90f ro<br>
+# kopt_2_6=root=UUID=bba1ff2c-8798-405a-99c8-9d90b908e90f ro nosplash quiet<br>
+<br>
+## default grub root device<br>
+## e.g. groot=(hd0,0)<br>
+# groot=(hd0,1)<br>
+<br>
+## should update-grub create alternative automagic boot options<br>
+## e.g. alternative=true<br>
+## alternative=false<br>
+# alternative=true<br>
+<br>
+## should update-grub lock alternative automagic boot options<br>
+## e.g. lockalternative=true<br>
+## lockalternative=false<br>
+# lockalternative=false<br>
+<br>
+## additional options to use with the default boot option, but not with the<br>
+## alternatives<br>
+## e.g. defoptions=vga=791 resume=/dev/hda5<br>
+# defoptions=<br>
+<br>
+## should update-grub lock old automagic boot options<br>
+## e.g. lockold=false<br>
+## lockold=true<br>
+# lockold=false<br>
+<br>
+## Xen hypervisor options to use with the default Xen boot option<br>
+# xenhopt=<br>
+<br>
+## Xen Linux kernel options to use with the default Xen boot option<br>
+# xenkopt=console=tty0<br>
+<br>
+## altoption boot targets option<br>
+## multiple altoptions lines are allowed<br>
+## e.g. altoptions=(extra menu suffix) extra boot options<br>
+## altoptions=(single-user) single<br>
+# altoptions=(init-3) 3<br>
+<br>
+## controls how many kernels should be put into the menu.lst<br>
+## only counts the first occurence of a kernel, not the<br>
+## alternative kernel options<br>
+## e.g. howmany=all<br>
+## howmany=7<br>
+# howmany=all<br>
+<br>
+## should update-grub create memtest86 boot option<br>
+## e.g. memtest86=true<br>
+## memtest86=false<br>
+# memtest86=true<br>
+<br>
+## should update-grub adjust the value of the default booted system<br>
+## can be true or false<br>
+# updatedefaultentry=false<br>
+<br>
+## should update-grub add savedefault to the default options<br>
+## can be true or false<br>
+# savedefault=false<br>
+<br>
+## ## End Default Options ##<br>
+<br>
+# falls Knoppix-CDs sind auf /dev/hda5 kopiert .. beispiel<br>
+# title Knoppix v3.4 Kernel 2.4<br>
+# root (hd0,4)<br>
+# kernel /boot/isolinux/linux24<br>
+# initrd /boot/isolinux/minirt24.gz<br>
+<br>
+title    Tiny Core Linux 3_4_1, Kernel 2.6.33.3-tinycore, auf sdb1<br>
+root    (hd1,0)<br>
+kernel    /boot/bzImage root=/dev/hdb1 quiet showapps nodhcp noacpi noscsi noapm tinycore tce=hdb3 restore=hdb3 home=hdb3 host=OldBoy1 tz=GMT+1 vga=normal kmap=qwertz/de-latin1<br>
+initrd    /boot/tinycore.gz<br>
+boot<br>
+<br>
+# title antiX-M8.5, kernel memtest86+<br>
+# root (hd0,1)<br>
+# kernel /boot/memtest86+.bin<br>
+<br>
+### END DEBIAN AUTOMAGIC KERNELS LIST<br>
+<br>
+<strong>log files from upgrade + install which were done during the update + install of WICD</strong><br>
+pascal@OldBoy1:~$ su<br>
+Password: <br>
+root@OldBoy1:/home/pascal# apt/get update<br>
+bash: apt/get: No such file or directory<br>
+root@OldBoy1:/home/pascal# apt-get update<br>
+Get:1 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release.gpg [197B]<br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Translation-en_US <br>
+Get:2 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing Release.gpg [198B] <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing/main Translation-en_US <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing/non-free Translation-en_US <br>
+Get:3 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates Release.gpg [835B] <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/main Translation-en_US <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/contrib Translation-en_US<br>
+Get:4 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing Release [26.7kB] <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/non-free Translation-en_US <br>
+Get:5 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates Release [44.6kB] <br>
+Get:6 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing Release.gpg [835B] <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main Translation-en_US <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/contrib Translation-en_US <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/non-free Translation-en_US <br>
+Err 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release <br>
+<br>
+Get:7 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing Release [89.9kB] <br>
+Get:8 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release [2,295B] <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing/main Packages/DiffIndex <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing/non-free Packages/DiffIndex <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/main Packages/DiffIndex <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/contrib Packages/DiffIndex<br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/non-free Packages/DiffIndex<br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/main Packages<br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/contrib Packages <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Packages/DiffIndex <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/non-free Packages <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Packages <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Packages <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Packages<br>
+Get:9 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main Packages/DiffIndex [2,038B]<br>
+Get:10 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/contrib Packages/DiffIndex [2,023B] <br>
+Get:11 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/non-free Packages/DiffIndex [2,023B] <br>
+Get:12 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-26-0209.27.pdiff [2,202B] <br>
+Get:13 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-26-0209.27.pdiff [2,202B] <br>
+Get:14 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-26-0209.27.pdiff [2,202B] <br>
+Get:15 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-27-0218.20.pdiff [1,896B] <br>
+Get:16 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-27-0218.20.pdiff [1,896B]<br>
+Get:17 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-27-0218.20.pdiff [1,896B]<br>
+Fetched 176kB in 48s (3,602B/s)<br>
+Reading package lists... Done<br>
+W: GPG error: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release: The following signatures were invalid: KEYEXPIRED 1284453048 KEYEXPIRED 1284453048 KEYEXPIRED 1284453048<br>
+root@OldBoy1:/home/pascal# apt-get update<br>
+Get:1 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release.gpg [197B]<br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Translation-en_US <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing Release.gpg <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing/main Translation-en_US <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates Release.gpg <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/main Translation-en_US <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/contrib Translation-en_US <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing/non-free Translation-en_US <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/non-free Translation-en_US <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates Release <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing Release <br>
+Get:2 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing Release.gpg [835B] <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main Translation-en_US<br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/contrib Translation-en_US<br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/non-free Translation-en_US<br>
+Err 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release <br>
+<br>
+Get:3 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing Release [89.9kB]<br>
+Get:4 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release [2,295B] <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/main Packages/DiffIndex <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/contrib Packages/DiffIndex <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/non-free Packages/DiffIndex <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/main Packages <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/contrib Packages <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing/main Packages/DiffIndex <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://security.debian.org"<br>linktext was:"http://security.debian.org"<br>====================================<br>
+ testing/updates/non-free Packages <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-multimedia.org"<br>linktext was:"http://www.debian-multimedia.org"<br>====================================<br>
+ testing/non-free Packages/DiffIndex <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Packages/DiffIndex <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Packages <br>
+Ign 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Packages<br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable/main Packages<br>
+Get:5 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main Packages/DiffIndex [2,038B]<br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/contrib Packages/DiffIndex <br>
+Hit 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/non-free Packages/DiffIndex <br>
+Get:6 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-27-1411.35.pdiff [4,699B] <br>
+Get:7 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-27-1411.35.pdiff [4,699B] <br>
+Get:8 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main 2010-12-27-1411.35.pdiff [4,699B] <br>
+Fetched 100.0kB in 26s (3,794B/s) <br>
+Reading package lists... Done<br>
+W: GPG error: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://apt.progchild.de"<br>linktext was:"http://apt.progchild.de"<br>====================================<br>
+ stable Release: The following signatures were invalid: KEYEXPIRED 1284453048 KEYEXPIRED 1284453048 KEYEXPIRED 1284453048<br>
+root@OldBoy1:/home/pascal# apt-get install wicd<br>
+Reading package lists... Done<br>
+Building dependency tree <br>
+Reading state information... Done<br>
+The following extra packages will be installed:<br>
+libcanberra-gtk-module libcanberra-gtk0 libcanberra0 libltdl7 libnotify1<br>
+libogg0 libtdb1 libvorbis0a libvorbisfile3 libwnck-common libwnck22 libxres1<br>
+notification-daemon python-dbus python-glade2 python-gtk2 python-iniparse<br>
+python-notify python-numpy python-wicd wicd-daemon wicd-gtk<br>
+Suggested packages:<br>
+libcanberra-pulse python-dbus-doc python-dbus-dbg python-gtk2-doc<br>
+python-numpy-doc python-numpy-dbg python-nose python-dev gfortran<br>
+The following NEW packages will be installed:<br>
+libcanberra-gtk-module libcanberra-gtk0 libcanberra0 libltdl7 libnotify1<br>
+libogg0 libtdb1 libvorbis0a libvorbisfile3 libwnck-common libwnck22 libxres1<br>
+notification-daemon python-dbus python-glade2 python-iniparse python-notify<br>
+python-wicd wicd wicd-daemon wicd-gtk<br>
+The following packages will be upgraded:<br>
+python-gtk2 python-numpy<br>
+2 upgraded, 21 newly installed, 0 to remove and 390 not upgraded.<br>
+Need to get 5,310kB of archives.<br>
+After this operation, 10.4MB of additional disk space will be used.<br>
+Do you want to continue [Y/n]? Y<br>
+Get:1 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libltdl7 2.2.6b-2 [295kB]<br>
+Get:2 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libogg0 1.2.0~dfsg-1 [16.5kB]<br>
+Get:3 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libtdb1 1.2.1-2+b1 [31.3kB]<br>
+Get:4 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libvorbis0a 1.3.1-1 [99.7kB]<br>
+Get:5 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libvorbisfile3 1.3.1-1 [24.2kB]<br>
+Get:6 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libcanberra0 0.24-1 [38.9kB]<br>
+Get:7 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libcanberra-gtk0 0.24-1 [17.4kB]<br>
+Get:8 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libcanberra-gtk-module 0.24-1 [16.0kB]<br>
+Get:9 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libnotify1 0.5.0-2 [28.7kB]<br>
+Get:10 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libwnck-common 2.30.4-2 [348kB]<br>
+Get:11 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libxres1 2:1.0.4-1 [11.2kB]<br>
+Get:12 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main libwnck22 2.30.4-2 [122kB]<br>
+Get:13 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main notification-daemon 0.5.0-2 [82.1kB]<br>
+Get:14 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main python-dbus 0.83.1-1 [221kB]<br>
+Get:15 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main python-numpy 1:1.4.1-5 [1,927kB]<br>
+Get:16 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main python-gtk2 2.17.0-4 [1,414kB] <br>
+Get:17 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main python-glade2 2.17.0-4 [30.5kB] <br>
+Get:18 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main python-notify 0.1.1-2+b2 [21.2kB] <br>
+Get:19 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main python-wicd 1.7.0+ds1-5 [76.3kB] <br>
+Get:20 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main python-iniparse 0.3.2-1 [19.6kB] <br>
+Get:21 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main wicd-daemon 1.7.0+ds1-5 [278kB] <br>
+Get:22 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main wicd-gtk 1.7.0+ds1-5 [150kB] <br>
+Get:23 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://ftp.us.debian.org"<br>linktext was:"http://ftp.us.debian.org"<br>====================================<br>
+ testing/main wicd 1.7.0+ds1-5 [40.9kB] <br>
+Fetched 5,310kB in 18s (286kB/s) <br>
+Preconfiguring packages ...<br>
+Selecting previously deselected package libltdl7.<br>
+(Reading database ... 57414 files and directories currently installed.)<br>
+Unpacking libltdl7 (from .../libltdl7_2.2.6b-2_i386.deb) ...<br>
+Selecting previously deselected package libogg0.<br>
+Unpacking libogg0 (from .../libogg0_1.2.0~dfsg-1_i386.deb) ...<br>
+Selecting previously deselected package libtdb1.<br>
+Unpacking libtdb1 (from .../libtdb1_1.2.1-2+b1_i386.deb) ...<br>
+Selecting previously deselected package libvorbis0a.<br>
+Unpacking libvorbis0a (from .../libvorbis0a_1.3.1-1_i386.deb) ...<br>
+Selecting previously deselected package libvorbisfile3.<br>
+Unpacking libvorbisfile3 (from .../libvorbisfile3_1.3.1-1_i386.deb) ...<br>
+Selecting previously deselected package libcanberra0.<br>
+Unpacking libcanberra0 (from .../libcanberra0_0.24-1_i386.deb) ...<br>
+Selecting previously deselected package libcanberra-gtk0.<br>
+Unpacking libcanberra-gtk0 (from .../libcanberra-gtk0_0.24-1_i386.deb) ...<br>
+Selecting previously deselected package libcanberra-gtk-module.<br>
+Unpacking libcanberra-gtk-module (from .../libcanberra-gtk-module_0.24-1_i386.deb) ...<br>
+Selecting previously deselected package libnotify1.<br>
+Unpacking libnotify1 (from .../libnotify1_0.5.0-2_i386.deb) ...<br>
+Selecting previously deselected package libwnck-common.<br>
+Unpacking libwnck-common (from .../libwnck-common_2.30.4-2_all.deb) ...<br>
+Selecting previously deselected package libxres1.<br>
+Unpacking libxres1 (from .../libxres1_2%3a1.0.4-1_i386.deb) ...<br>
+Selecting previously deselected package libwnck22.<br>
+Unpacking libwnck22 (from .../libwnck22_2.30.4-2_i386.deb) ...<br>
+Selecting previously deselected package notification-daemon.<br>
+Unpacking notification-daemon (from .../notification-daemon_0.5.0-2_i386.deb) ...<br>
+Selecting previously deselected package python-dbus.<br>
+Unpacking python-dbus (from .../python-dbus_0.83.1-1_i386.deb) ...<br>
+Preparing to replace python-numpy 1:1.3.0-3+b1 (using .../python-numpy_1%3a1.4.1-5_i386.deb) ...<br>
+Unpacking replacement python-numpy ...<br>
+Preparing to replace python-gtk2 2.16.0-2 (using .../python-gtk2_2.17.0-4_i386.deb) ...<br>
+Unpacking replacement python-gtk2 ...<br>
+Selecting previously deselected package python-glade2.<br>
+Unpacking python-glade2 (from .../python-glade2_2.17.0-4_i386.deb) ...<br>
+Selecting previously deselected package python-notify.<br>
+Unpacking python-notify (from .../python-notify_0.1.1-2+b2_i386.deb) ...<br>
+Selecting previously deselected package python-wicd.<br>
+Unpacking python-wicd (from .../python-wicd_1.7.0+ds1-5_all.deb) ...<br>
+Selecting previously deselected package python-iniparse.<br>
+Unpacking python-iniparse (from .../python-iniparse_0.3.2-1_all.deb) ...<br>
+Selecting previously deselected package wicd-daemon.<br>
+Unpacking wicd-daemon (from .../wicd-daemon_1.7.0+ds1-5_all.deb) ...<br>
+Selecting previously deselected package wicd-gtk.<br>
+Unpacking wicd-gtk (from .../wicd-gtk_1.7.0+ds1-5_all.deb) ...<br>
+Selecting previously deselected package wicd.<br>
+Unpacking wicd (from .../wicd_1.7.0+ds1-5_all.deb) ...<br>
+Processing triggers for man-db ...<br>
+Processing triggers for gconf2 ...<br>
+Processing triggers for hicolor-icon-theme ...<br>
+Processing triggers for python-support ...<br>
+Processing triggers for menu ...<br>
+Setting up libltdl7 (2.2.6b-2) ...<br>
+Setting up libogg0 (1.2.0~dfsg-1) ...<br>
+Setting up libtdb1 (1.2.1-2+b1) ...<br>
+Setting up libvorbis0a (1.3.1-1) ...<br>
+Setting up libvorbisfile3 (1.3.1-1) ...<br>
+Setting up libcanberra0 (0.24-1) ...<br>
+Setting up libcanberra-gtk0 (0.24-1) ...<br>
+Setting up libcanberra-gtk-module (0.24-1) ...<br>
+Setting up libnotify1 (0.5.0-2) ...<br>
+Setting up libwnck-common (2.30.4-2) ...<br>
+Setting up libxres1 (2:1.0.4-1) ...<br>
+Setting up libwnck22 (2.30.4-2) ...<br>
+Setting up notification-daemon (0.5.0-2) ...<br>
+notification-daemon: no process found<br>
+Setting up python-dbus (0.83.1-1) ...<br>
+Remove stale byte-compiled files...<br>
+Setting up python-numpy (1:1.4.1-5) ...<br>
+Setting up python-gtk2 (2.17.0-4) ...<br>
+Setting up python-glade2 (2.17.0-4) ...<br>
+Setting up python-notify (0.1.1-2+b2) ...<br>
+Setting up python-wicd (1.7.0+ds1-5) ...<br>
+Setting up python-iniparse (0.3.2-1) ...<br>
+Setting up wicd-daemon (1.7.0+ds1-5) ...<br>
+Starting Network connection manager: wicd failed!<br>
+Setting up wicd-gtk (1.7.0+ds1-5) ...<br>
+Setting up wicd (1.7.0+ds1-5) ...<br>
+Processing triggers for python-support ...<br>
+Processing triggers for menu ...<br>
+root@OldBoy1:/home/pascal#</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18938" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18938">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 64</span></div>
+
+</div>
+</div>
+<span class="username">floppy</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Dec 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18938">
+
+<time datetime="2011-01-04T15:10">posted: 2011-01-04 &nbsp; 15:10</time>
+<span class="permalink"><a href="./error-on-booting-since-apt-get-update-install-wicd-t2877.html#p18938" title="permalink">#2</a></span>
+
+<div class="content">I loaded antiX M11 pt1. WICD is in it. Lets redesign my pc with M11. This post is nomore valid.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

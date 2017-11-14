@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Errors - fstab and USB mounting after installing updates - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html">Errors - fstab and USB mounting after installing updates</a></div>
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_29663" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29663">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29663">
+<time datetime="2013-06-13T07:27">posted: 2013-06-13 &nbsp; 07:27</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29663" title="permalink">#1</a></span>
+
+<div class="content"><strong>System Summary</strong><br>
+The system is an old PC used for testing and evaluation<br>
+antiX-13-full (original non-beta ISO) installed to internal hard disk.<br>
+<br>
+Drives<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /proc/partitions
+   major minor  #blocks  name
+
+   8        0   40146624 sda
+   8        1    5120000 sda1
+   8        2    5120000 sda2
+  11        0    1048575 sr0
+  11        1    1048575 sr1
+   2        0          4 fd0</code></pre></div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blkid -o list
+device     fs_type label    mount point    UUID
+-------------------------------------------------------------------------------
+/dev/sda1  ext4    SYSTEM   /              86bab6c0-738d-4a7f-8461-cb7c10053adf
+/dev/sda2  ext4    HOME     /home          2f7d67c8-a67d-4468-9c41-7f97dc1dde41</code></pre></div>
+Active Repos<br>
+wheezy main contrib non-free <br>
+wheezy/updates main contrib non-free<br>
+antiX/debs testing main<br>
+<br>
+<br>
+Yesterday, (June 12 2013) the system was updated/upgraded for the first time since installation.<br>
+<br>
+<strong>Symptom 1</strong><br>
+The following error messages are now obtained during the text phase of bootup<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+[mntent]: line 10 in /etc/fstab is bad
+[mntent]: line 11 in /etc/fstab is bad
+...</code></pre></div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /etc/fstab
+# Pluggable devices are handled by uDev, they are not in fstab
+UUID=86bab6c0-738d-4a7f-8461-cb7c10053adf / auto defaults,noatime 1 1
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+UUID=2f7d67c8-a67d-4468-9c41-7f97dc1dde41 /home auto defaults,noatime 1 2
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/cdrom1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0
+0 0                                                                          
+0 0                                                                          
+# Added by antiX
+/dev/sda1        /media/sda1      ext4       noauto,exec,relatime,users      0 0
+# Added by antiX
+/dev/sda2        /home            ext4       noauto,exec,relatime            0 0
+# Added by antiX
+/dev/cdrom       /media/cdrom     iso9660    noauto,exec,users,ro            0 0
+# Added by antiX
+/dev/cdrom1      /media/cdrom1    iso9660    noauto,exec,users,ro            0 0
+# Added by antiX
+/dev/dvd1        /media/dvd1      udf        noauto,exec,users,ro            0 0
+# Added by antiX
+/dev/sr0         /media/sr0       auto       noauto,exec,users,ro            0 0
+# Added by antiX
+/dev/sr1         /media/sr1       auto       noauto,exec,users,ro            0 0
+# Added by antiX
+/dev/cdrw        /media/cdrw      iso9660    noauto,exec,users,rw            0 0
+# Added by antiX
+/dev/fd0         /media/fd0       auto       noauto,exec,users,rw            0 0</code></pre></div>All the above are now listed in /media<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls -1 /media
+cdrom
+cdrom1
+cdrw
+dvd1
+fd0
+sda1
+sda2
+sr0
+sr1</code></pre></div>
+<strong>Symptom 2</strong><br>
+USB sticks have reverted to mounting as the generic sdb1 rather than using the file system label (as reported in post29499.html?hilit=Scenario#p29499).<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blkid -o list
+device     fs_type label    mount point    UUID
+-------------------------------------------------------------------------------
+/dev/sda1  ext4    SYSTEM   /              86bab6c0-738d-4a7f-8461-cb7c10053adf
+/dev/sda2  ext4    HOME     /home          2f7d67c8-a67d-4468-9c41-7f97dc1dde41
+/dev/sdb1  ext4    USB-RED  /media/sdb1    de1839f4-e552-478d-9039-87d8130c16dd</code></pre></div>
+<strong>Symptom 3</strong><br>
+In ROX-Filer
+<ul><li> sda1 (/) is not shown as mounted (missing green dot)</li>
+<li> sda2 (/home)has neither a grey or green dot</li></ul></div>
+<div class="hide">
+<dl class="fileimage">
+
+<dd>ROX-Filer Missing Mount Status Indicators</dd>
+</dl>
+<dd>ROX-Filer Missing Mount Status Indicators</dd>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29664" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29664">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29664">
+
+<time datetime="2013-06-13T07:32">posted: 2013-06-13 &nbsp; 07:32</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29664" title="permalink">#2</a></span>
+
+<div class="content">Remove the unwanted entries in /etc/fstab and also remove the /etc/fstab.hotplug file. Reboot and then remove unwanted folders in /media</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29665" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29665">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29665">
+
+<time datetime="2013-06-13T08:37">posted: 2013-06-13 &nbsp; 08:37</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29665" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Remove the unwanted entries in /etc/fstab and also remove the /etc/fstab.hotplug file. Reboot and then remove unwanted folders in /media</div></blockquote>Completed these steps:<br>
+<br>
+Having used the values in fstab.backup, fstab now reads
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cat /etc/fstab
+# Pluggable devices are handled by uDev, they are not in fstab
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+UUID=86bab6c0-738d-4a7f-8461-cb7c10053adf / auto defaults,noatime 1 1
+UUID=2f7d67c8-a67d-4468-9c41-7f97dc1dde41 /home auto defaults,noatime 1 2
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/cdrom1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0</code></pre></div>
+<strong>Symptom 1</strong><br>
+Fixed<br>
+The error messages are no longer seen.<br>
+<br>
+<strong>Symptom 2</strong><br>
+Partly fixed. <br>
+A USB stick is now mounted using the file system label. After unmounting it the mountpoint is removed.<br>
+<br>
+If the system is shutdown without explicitly unmounting the stick, it is unmounted during the shutdown process, however the mountpoint is not removed. If the stick is removed from the hardware before rebooting the system, the former mountpoint is still present in /media.<br>
+<br>
+<strong>Symptom 3</strong><br>
+Not fixed. <br>
+ROX-Filer lists /media/sda1 and /media/sda2 (/ and /home respectively). Both are now presented without a grey or green status indicator. Neither are able to be mounted via ROX-Filer and cannot be browsed using it. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls /media
+cdrom  cdrom1  fd0  sda1  sda2</code></pre></div>Both are actually mounted as shown below <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blkid -o list
+device     fs_type label    mount point    UUID
+-------------------------------------------------------------------------------
+/dev/sda1  ext4    SYSTEM   /              86bab6c0-738d-4a7f-8461-cb7c10053adf
+/dev/sda2  ext4    HOME     /home          2f7d67c8-a67d-4468-9c41-7f97dc1dde41</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29667" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29667">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29667">
+
+<time datetime="2013-06-13T18:08">posted: 2013-06-13 &nbsp; 18:08</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29667" title="permalink">#4</a></span>
+
+<div class="content">so what updated that caused the issue? I'm looking at my possible updates and nothing is leaping out at me.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29668" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29668">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29668">
+
+<time datetime="2013-06-13T19:45">posted: 2013-06-13 &nbsp; 19:45</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29668" title="permalink">#5</a></span>
+
+<div class="content">The upgrade that causefs the issue is desktop-defaults.<br>
+<br>
+At the moment it changes users apt sources.d files (it does make a backup of your existing sources.d folder)<br>
+and it adds these files to /etc/udev/rules.d/ <br>
+<br>
+90-fstab-automount.rules<br>
+90-usb-semiauto.rules<br>
+<br>
+The mounting/fstab errors reported are due to the existence of 90-fstab-automount.rules on an installed system. It should be 90-fstab-automount.rules.live<br>
+<br>
+I'll fix both.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29669" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29669">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29669">
+
+<time datetime="2013-06-13T20:05">posted: 2013-06-13 &nbsp; 20:05</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29669" title="permalink">#6</a></span>
+
+<div class="content">In my case the problem is that fstab is auto-updated<br>
+<br>
+I need this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+UUID=419ad2c2-a347-4b58-ad65-eee0c6e57bbe / auto defaults,noatime 1 1
+UUID=6451fe25-a469-4b67-b276-4eef6e1298fb swap swap sw,pri=1 0 0
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+</code></pre></div>
+But antiX add this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Added by antiX
+/dev/sda3        /media/sda3      ext4       noauto,exec,relatime,users      0 0
+# Added by antiX
+/dev/sda4        swap             swap       defaults                        0 0
+# Added by antiX
+/dev/sda1        /media/sda1      ntfs-3g    noauto,noexec,uid=1000,gid=users,dmask=002,fmask=113,users  0 0
+# Added by antiX
+/dev/sda5        /media/sda5      ntfs-3g    noauto,noexec,uid=1000,gid=users,dmask=002,fmask=113,users  0 0
+# Added by antiX
+/dev/cdrom       /media/cdrom     iso9660    noauto,exec,users,ro            0 0
+# Added by antiX
+/dev/dvd         /media/dvd       udf        noauto,exec,users,ro            0 0
+# Added by antiX
+/dev/dvdrw       /media/dvdrw     udf        noauto,exec,users,rw            0 0
+# Added by antiX
+/dev/sr0         /media/sr0       auto       noauto,exec,users,ro            0 0
+# Added by antiX
+/dev/cdrw        /media/cdrw      iso9660    noauto,exec,users,rw            0 0
+</code></pre></div>
+The duplicated swap entry cause a warning during boot<br>
+Remove the lines not works it appears again.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29670" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29670">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29670">
+
+<time datetime="2013-06-13T20:13">posted: 2013-06-13 &nbsp; 20:13</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29670" title="permalink">#7</a></span>
+
+
+<div class="content"><blockquote><div><cite>CGarces wrote:</cite>The duplicated swap entry cause a warning during boot<br>
+Remove the lines not works it appears again.</div></blockquote>
+The solution should be the same:<blockquote><div><cite>anticapitalista wrote:</cite>Remove the unwanted entries in /etc/fstab and also remove the /etc/fstab.hotplug file. Reboot and then remove unwanted folders in /media</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29671" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29671">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29671">
+
+<time datetime="2013-06-13T20:19">posted: 2013-06-13 &nbsp; 20:19</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29671" title="permalink">#8</a></span>
+
+<div class="content">Future uploads to desktop-defaults package should not have this issue.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29673" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29673">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29673">
+
+<time datetime="2013-06-14 &nbsp; 07:05">posted: 2013-06-14 &nbsp; 07:05</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29673" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>The upgrade that causefs the issue is desktop-defaults.<br>
+...<br>
+Future uploads to desktop-defaults package should not have this issue.</div></blockquote><strong>@ anticapitalista</strong><br>
+It will be helpful if you announce when the fix is added to the repo together with what (if anything) needs to be done to affected antiX-13 systems.<br>
+<br>
+The nature of this particular issue is probably beyond the understanding of users here. They tend to possess limited skills and liitle technical interest. In order that they gain a good initial impression, it may be prudent to delay installing antiX-13 until the matter is resolved.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29914" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29914">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29914">
+
+<time datetime="2013-06-23T10:29">posted: 2013-06-23 &nbsp; 10:29</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29914" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite><blockquote><div><cite>anticapitalista wrote:</cite>Remove the unwanted entries in /etc/fstab and also remove the /etc/fstab.hotplug file. Reboot and then remove unwanted folders in /media</div></blockquote>Completed these steps:<br>
+<br>
+<strong>Symptom 3</strong><br>
+Not fixed. <br>
+ROX-Filer lists /media/sda1 and /media/sda2 (/ and /home respectively). Both are now presented without a grey or green status indicator. Neither are able to be mounted via ROX-Filer and cannot be browsed using it. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>ls /media
+cdrom  cdrom1  fd0  sda1  sda2</code></pre></div>Both are actually mounted as shown below <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blkid -o list
+device     fs_type label    mount point    UUID
+-------------------------------------------------------------------------------
+/dev/sda1  ext4    SYSTEM   /              86bab6c0-738d-4a7f-8461-cb7c10053adf
+/dev/sda2  ext4    HOME     /home          2f7d67c8-a67d-4468-9c41-7f97dc1dde41</code></pre></div></div></blockquote>Has this been fixed in the update/upgrade from 13 to 13.1? The above symptom remains unchnged after the upgrade.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29916" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29916">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29916">
+
+<time datetime="2013-06-23T10:51">posted: 2013-06-23 &nbsp; 10:51</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29916" title="permalink">#11</a></span>
+
+<div class="content">SamK what does /etc/fstab show?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29917" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29917">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29917">
+
+<time datetime="2013-06-23T10:55">posted: 2013-06-23 &nbsp; 10:55</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29917" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>SamK what does /etc/fstab show?</div></blockquote>
+Following a reboot<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+proc /proc proc defaults 0 0
+devpts /dev/pts devpts mode=0622 0 0
+UUID=86bab6c0-738d-4a7f-8461-cb7c10053adf / auto defaults,noatime 1 1
+UUID=2f7d67c8-a67d-4468-9c41-7f97dc1dde41 /home auto defaults,noatime 1 2
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/cdrom1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0
+###0 0                                                                          
+###0 0                                                                          
+# Added by antiX
+###/dev/sda1        /media/sda1      ext4       noauto,exec,relatime,users      0 0
+# Added by antiX
+###/dev/sda2        /home            ext4       noauto,exec,relatime            0 0
+# Added by antiX
+###/dev/sdb1        /media/sdb1      ext4       noauto,exec,relatime,users      0 0
+# Added by antiX
+###/dev/cdrom       /media/cdrom     iso9660    noauto,exec,users,ro            0 0
+# Added by antiX
+###/dev/cdrom1      /media/cdrom1    iso9660    noauto,exec,users,ro            0 0
+# Added by antiX
+###/dev/dvd1        /media/dvd1      udf        noauto,exec,users,ro            0 0
+# Added by antiX
+###/dev/sr0         /media/sr0       auto       noauto,exec,users,ro            0 0
+# Added by antiX
+###/dev/sr1         /media/sr1       auto       noauto,exec,users,ro            0 0
+# Added by antiX
+###/dev/cdrw        /media/cdrw      iso9660    noauto,exec,users,rw            0 0
+# Added by antiX
+###/dev/fd0         /media/fd0       auto       noauto,exec,users,rw            0 0</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29918" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29918">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29918">
+
+<time datetime="2013-06-23T11:09">posted: 2013-06-23 &nbsp; 11:09</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29918" title="permalink">#13</a></span>
+
+<div class="content">You should only have the cdrom folder(s) in /media.<br>
+<br>
+Remove sda1 and sda2.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29920" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29920">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><a href="#"> <span>1,028</span></a></td>
+</tr>
+</table>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29920">
+
+<time datetime="2013-06-23T11:38">posted: 2013-06-23 &nbsp; 11:38</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29920" title="permalink">#14</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>You should only have the cdrom folder(s) in /media.<br>
+<br>
+Remove sda1 and sda2.</div></blockquote>The issue remains as reported for the floppy drive in this system. /media/fd0 is no longer seen as a mountpoint in ROX-Filer, It does not have the grey (unmounted) or green (mounted) indicator. See screen-shot in opening post.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29922" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29922">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,956</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29922">
+
+<time datetime="2013-06-23T12:01">posted: 2013-06-23 &nbsp; 12:01</time>
+<span class="permalink"><a href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400.html#p29922" title="permalink">#15</a></span>
+
+<div class="content">Remove all in media that does not appear in your fstab<br>
+<br>
+# Pluggable devices are handled by uDev, they are not in fstab<br>
+proc /proc proc defaults 0 0<br>
+devpts /dev/pts devpts mode=0622 0 0<br>
+UUID=86bab6c0-738d-4a7f-8461-cb7c10053adf / auto defaults,noatime 1 1<br>
+UUID=2f7d67c8-a67d-4468-9c41-7f97dc1dde41 /home auto defaults,noatime 1 2<br>
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0<br>
+/dev/cdrom1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0<br>
+/dev/sr1 /media/cdrom1 udf,iso9660 noauto,users,exec,ro 0 0</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+16 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./errors-fstab-and-usb-mounting-after-installing-upd-t4400-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

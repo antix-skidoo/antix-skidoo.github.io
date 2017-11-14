@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>antiX16-b5 iso-snapshot report - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./antix16-b5-iso-snapshot-report-t6399.html">antiX16-b5 iso-snapshot report</a></div>
+<div class="pagination">
+31 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix16-b5-iso-snapshot-report-t6399-s15.html" role="button">2</a></li>
+<li><a class="button" href="./antix16-b5-iso-snapshot-report-t6399-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix16-b5-iso-snapshot-report-t6399-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_46925" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46925">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46925">
+<time datetime="2016-06-07T07:33">posted: 2016-06-07 &nbsp; 07:33</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46925" title="permalink">#1</a></span>
+
+<div class="content">Note (1)<br>
+This is a bug report, not a request for help.<br>
+<br>
+Note (2)<br>
+I have been able to create working ISO's from MX with no problems.<br>
+<br>
+Test 1 - 32 bit on Thinkpad T23:<br>
+This install had a number of additional programs installed, and was customised WRT appearance. The ISO was created without any changes to the default options. It was larger than would fit on a CD, and the machine only has a CD optical drive, so the ISO was transferred to another machine for creation.<br>
+The resultant disk was then tried in both the original (T23) laptop, and in a Thinkpad T41. In each case it failed to boot, stopping around the time that 'X' would normally appear.<br>
+The process was repeated. It was noted this time that when the media creation was finished, the burning program (K3B) reported it had burnt 783 of 851MiB. I have never seen this before! The second DVD failed in the same way as the first.<br>
+<br>
+Test 2 - 64 bit on desktop with Core i5 CPU:<br>
+This install was only altered from OOTB by the addition of Firefox, and updated to current. An ISO was created again using all defaults. It was burnt from within the antiX install. Nothing untoward was reported. A boot from the created media was attempted on the machine from which it was created, and it failed in the same way.<br>
+With the machine stalled, using Ctrl-Alt_F1 to a console showed that the last message on-screen was:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>antix16b5 login: / etc/rc.local: 30: / etc/rc.local: boot-log: not found</code></pre></div>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46926" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46926">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46926">
+
+<time datetime="2016-06-07T10:53">posted: 2016-06-07 &nbsp; 10:53</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46926" title="permalink">#2</a></span>
+
+<div class="content">make sure you have all the latest updates from antiX repos before you use the snapshot.<br>
+rc.local in etc should basically only have this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will"exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+
+exit 0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46927" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46927">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46927">
+
+<time datetime="2016-06-07T10:55">posted: 2016-06-07 &nbsp; 10:55</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46927" title="permalink">#3</a></span>
+
+<div class="content">The live rc.local in a snapshot should look something like this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will"exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+
+restore=/live/ etc/init.d/live-restore-services
+
+[ -x $restore ] &amp;&amp; $restore start
+
+# Add a background image to every virtual console if the splash
+# boot parameter was given
+/sbin/splash-all --auto
+
+# Enable fstab auto-stuff after udev has run
+fstab_rules=/live/ etc/udev/rules.d/90-fstab-automount.rules
+test -e /live/config/fstab-hotplug \
+    &amp;&amp; test -e $fstab_rules &amp;&amp; cp $fstab_rules / etc/udev/rules.d/
+
+# Detect and set up correct broadcom
+/usr/local/bin/BroadcomStartup
+
+exit 0
+</code></pre></div>
+Maybe the latest hasn't hit the repos yet.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46928" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46928">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46928">
+
+<time datetime="2016-06-07T12:26">posted: 2016-06-07 &nbsp; 12:26</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46928" title="permalink">#4</a></span>
+
+<div class="content">I did an apt-get upgrade before I started, and the second one was this am.<br>
+<br>
+I will check the contents of those files.<br>
+<br>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46929" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46929">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46929">
+
+<time datetime="2016-06-07T12:40">posted: 2016-06-07 &nbsp; 12:40</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46929" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>make sure you have all the latest updates from antiX repos before you use the snapshot.<br>
+rc.local in etc should basically only have this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will"exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+
+exit 0
+</code></pre></div></div></blockquote>
+rc.local on both 32 and 64 bit installs is this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will"exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+
+restore=/live/ etc/init.d/live-restore-services
+
+[ -x $restore ] &amp;&amp; $restore start
+
+# Add a background image to every virtual console if the splash
+# boot parameter was given
+/sbin/splash-all --auto
+
+# Enable fstab auto-stuff after udev has run
+fstab_rules=/live/ etc/udev/rules.d/90-fstab-automount.rules
+test -e /live/config/fstab-hotplug \
+    &amp;&amp; test -e $fstab_rules &amp;&amp; cp $fstab_rules / etc/udev/rules.d/
+
+# Detect and set up correct broadcom
+/usr/local/bin/BroadcomStartup
+
+test -d /root/LiveUSB-Storage &amp;&amp; which boot-log &amp;&gt;/dev/null \
+    &amp;&amp; (sleep 10 &amp;&amp; boot-log) &amp;
+
+exit 0
+</code></pre></div>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46934" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46934">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46934">
+
+<time datetime="2016-06-07T14:35">posted: 2016-06-07 &nbsp; 14:35</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46934" title="permalink">#6</a></span>
+
+<div class="content">That second one is for the live set up.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46937" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46937">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46937">
+
+<time datetime="2016-06-07T15:50">posted: 2016-06-07 &nbsp; 15:50</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46937" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>That second one is for the live set up.</div></blockquote>
+It was copied and pasted from an install, definitely not live, and the identical file exists on the other install.<br>
+<br>
+Would that be the reason the snapshot failed? If so, I will do a fresh install, then see what rc.local contains.<br>
+<br>
+Perhaps someone else could try to create a working snapshot?<br>
+<br>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46938" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46938">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,955</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46938">
+
+<time datetime="2016-06-07T16:52">posted: 2016-06-07 &nbsp; 16:52</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46938" title="permalink">#8</a></span>
+
+<div class="content">There was an upgrade of rc.local via apt and you probably answered yes instead of no.<br>
+I'm making a snapshot and will see how it goes,</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46939" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46939">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46939">
+
+<time datetime="2016-06-07T17:19">posted: 2016-06-07 &nbsp; 17:19</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46939" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>There was an upgrade of rc.local via apt and you probably answered yes instead of no.
+</div></blockquote>
+Yes, I did. Was that change needed for some reason? Perhaps it needs reappraising?<br>
+<br>
+In the meantime, a fresh install of the 64 bit leaves etc/rc.local with just the exit 0 command.<br>
+<br>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46940" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46940">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,955</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46940">
+
+<time datetime="2016-06-07T21:42">posted: 2016-06-07 &nbsp; 21:42</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46940" title="permalink">#10</a></span>
+
+<div class="content">I made a snapshot (in VBox) of latest (not released pre-RC1 with various changes to b5) upgraded to Debian Testing. The resultant iso booted just fine to desktop again in VB.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46942" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46942">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 148</dd>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46942">
+
+<time datetime="2016-06-08T06:21">posted: 2016-06-08 &nbsp; 06:21</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46942" title="permalink">#11</a></span>
+
+<div class="content">Should/will there be any steps taken to prevent someone else doing this? If someone did, is the situation recoverable?<br>
+<br>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46947" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46947">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 148</span></div>
+
+</div>
+</div>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46947">
+
+<time datetime="2016-06-08T13:02">posted: 2016-06-08 &nbsp; 13:02</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46947" title="permalink">#12</a></span>
+
+<div class="content">The change to rc.local during updates is not the cause of the failed snapshot ISO's I am experiencing.<br>
+<br>
+I did a fresh install of 32 bit. I checked rc.local only contained the 'exit 0' line. I updated, being careful to keep the original rc.local configuration. I re-booted, and again checked rc.local hadn't changed.<br>
+<br>
+I then created a snapshot ISO. When I tried this both in the original machine, and another, it failed in exactly the same way I reported earlier.<br>
+<br>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46950" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46950">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46950">
+
+<time datetime="2016-06-08T14:28">posted: 2016-06-08 &nbsp; 14:28</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46950" title="permalink">#13</a></span>
+
+<div class="content">chris, could you clarify whether you used a DVD or a CD as the media. You mentioned that the T23 only has a cd drive, so that's why I'm asking.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46952" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46952">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 148</dd>
+<span class="username">chrispop99</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46952">
+
+<time datetime="2016-06-08T15:36">posted: 2016-06-08 &nbsp; 15:36</time>
+<span class="permalink"><a href="./antix16-b5-iso-snapshot-report-t6399.html#p46952" title="permalink">#14</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>chris, could you clarify whether you used a DVD or a CD as the media. You mentioned that the T23 only has a cd drive, so that's why I'm asking.</div></blockquote>
+The T23 has a combination drive; it reads and writes CD's, but the DVD is read only.<br>
+<br>
+I created the snapshot on the T23. Because I had added a few things it wouldn't fit on a CD, so I transferred the snapshot folder to another machine and created a DVD with it there.<br>
+<br>
+During the tests I have been doing on this, I installed (64 bit) onto the desktop in my sig, and created a snapshot on it. I burnt the ISO to a DVD using that machine’s drive. It also failed to boot, with the identical error message.<br>
+<br>
+Chris</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46955" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46955">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46955">
+
+<p class="author">
+<a href="./antix16-b5-iso-snapshot-report-t6399.html#p46955" title="Post"> 08 Jun 2016, 19:48 <span style="padding-left:10px">#15</span></a>
+<time class="hide" datetime="2016-06-08 &nbsp; 19:48">2016-06-08 &nbsp; 19:48</time>
+ </p>
+<div class="content">Look in /usr/local/share/live-files/files/ etc/rc.local<br>
+<br>
+It should look like this.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will"exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+
+restore=/live/ etc/init.d/live-restore-services
+
+[ -x $restore ] &amp;&amp; $restore start
+
+# Add a background image to every virtual console if the splash
+# boot parameter was given
+/sbin/splash-all --auto
+
+# Enable fstab auto-stuff after udev has run
+fstab_rules=/live/ etc/udev/rules.d/90-fstab-automount.rules
+test -e /live/config/fstab-hotplug \
+    &amp;&amp; test -e $fstab_rules &amp;&amp; cp $fstab_rules / etc/ udev/rules.d/
+
+# Detect and set up correct broadcom
+/usr/local/bin/BroadcomStartup
+
+exit 0
+[code]
+
+BTW is the snapshot Personal or system? My success was with Personal</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+31 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./antix16-b5-iso-snapshot-report-t6399-s15.html" role="button">2</a></li>
+<li><a class="button" href="./antix16-b5-iso-snapshot-report-t6399-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./antix16-b5-iso-snapshot-report-t6399-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] Installing remastered Antix w/Grub legacy on Win-7 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html">[SOLVED] Installing remastered Antix w/Grub legacy on Win-7</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_46172" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46172">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46172">
+<time datetime="2016-04-06T14:34">posted: 2016-04-06 &nbsp; 14:34</time>
+<span class="permalink"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html#p46172" title="permalink">#1</a></span>
+
+<div class="content">Greetings. Trying to install remastered Antix on Windows 7 (NON-uefi install), but uses Windows bootloader and bcdedit. 1st 3 partitions (all NTFS) are"Recovery" (hidden), SYSTEM, and Windows (C:). The 2nd (SYSTEM) is the one that's bootable and where the bootloader stuff is. Successfully schrunk the third (C:) and installed Antix (remastered) using cli-installer, installed it's Grub legacy in"root". Successfully used bcdedit to create a boot option for antix. <br>
+<br>
+On Windows I did:<br>
+bcdedit /create /d"Antix" /application bootsector<br>
+bcdedit /set {id} device partition=C:<br>
+bcdedit /set {id} path \antix.bin<br>
+bcdedit /displayorder {id} /addlast<br>
+<br>
+On the live-cd, I did:<br>
+<br>
+mount /dev/sda2 /mnt<br>
+for i in /sys /proc /run /dev; do sudo mount --bind"$i""/mnt$i"; done<br>
+sudo chroot /mnt<br>
+edited my /boot/grub/menu.lst to:<br>
+<br>
+title antiX - Latest<br>
+root (hd0,4)<br>
+kernel /boot/vmlinuz-4.0.5-antix.1-486-smp root=UUID=191c123a-ee47-42ba-8c23-99da69b010d7 quiet nosplash cgroup_disable=cpuset,cpu,cpuacct,blkio,memory ipv6.disable=1 ro <br>
+initrd /boot/initrd.img-4.0.5-antix.1-486-smp<br>
+title Windows 7<br>
+hide (hd0,0)<br>
+rootnoverify (hd0,1)<br>
+chainloader +1<br>
+boot<br>
+<br>
+Then:<br>
+<br>
+update-grub<br>
+exited chroot and mounted my linux root partition and Windows partition (C:), did:<br>
+dd if=/mnt/root/boot/grub/stage1 of=/mnt/windows/antix.bin bs=512 count=1<br>
+rebooted<br>
+Windows shows both boot choices (Win7 and Antix). Win7 choice will boot Windows ok, but Antix just blanks the screen and then goes back to the boot menu.<br>
+<br>
+Any ideas what I'm doing wrong or how to get this to work?! I'm using the remaster b/c I don't want to do a fresh install, got sooooo much customization and packages installed and configured. I've found grub2 to be very complicated to configure, so have stuck w/the last Legacy vsn. Even if you could tell me how to make a USB stick that could boot it, that would be helpful!<br>
+<br>
+Thanks!</div>
+<div class="notice">
+Last edited by <b>wildstar84</b> on 11 Apr 2016, 03:00, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46173" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46173">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 22</span></div>
+
+</div>
+</div>
+<span class="username">watsoccurring</span>
+</dt>
+<dd class="profile-joined">Joined: 30 Jun 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46173">
+
+<time datetime="2016-04-07T05:00">posted: 2016-04-07 &nbsp; 05:00</time>
+<span class="permalink"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html#p46173" title="permalink">#2</a></span>
+
+<div class="content">Hello wildstar84<br>
+My skills are limited but in the past when I have had trouble with boot I have used this utility:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.supergrubdisk.org/category/download/supergrub2diskdownload/super-grub2-disk-stable/"<br>linktext was:"http://www.supergrubdisk.org/category/d ... sk-stable/"<br>====================================<br>
+<br>
+I hope it works for you</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46176" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46176">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46176">
+
+<time datetime="2016-04-07T16:55">posted: 2016-04-07 &nbsp; 16:55</time>
+<span class="permalink"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html#p46176" title="permalink">#3</a></span>
+
+<div class="content">I think that you may find replies to your question limited.<br>
+Your particular method of booting is kind of backwards from normality I believe. Normally one overwrites the windows mbr bootloader with grub, rather than trying to chainload grub from the windows boot loader. I could be wrong with this, but it is the way I have always handled it. So, at least for me to write some helpful advice or an instruction set describing what to do in your specific configuration would be a wild guess. I did not even know it was possible to load another os using the windows bootloader. I have always thought that it could only load different copies of windows.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46178" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46178">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+ <div id="post_content46178">
+
+<time datetime="2016-04-07T21:34">posted: 2016-04-07 &nbsp; 21:34</time>
+<span class="permalink"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html#p46178" title="permalink">#4</a></span>
+
+<div class="content">Thanks for the reply, Dave. I would rather do it as you've suggested, but don't know if that would work because 1) The designated"boot" partition is the SECOND partion and it, along with the first are both NTFS (See my partition layout in OP above). If it's possible to install GRUB legacy in the MBR and NOT bork Windows-7, I'll be more than happy to do it that way (That IS the way I successfully did it on a prev. Win-7 box which had the 1st partition VFAT and bootable). Any suggestions on how to safely proceed are definitely appreciated! Please note that I do not have either another large disk to back up Windows to nor install CDs to reinstall Windows.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46179" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46179">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46179">
+
+<time datetime="2016-04-08T09:59">posted: 2016-04-08 &nbsp; 09:59</time>
+<span class="permalink"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html#p46179" title="permalink">#5</a></span>
+
+<div class="content">You probably don't want to hear this. But on this Dell E4310 that my wife gave me after I bought her a new Acer Windows 10 Flip.<br>
+<br>
+It came with Windows 7 Enterprise on a 500 gig drive and I was in the same boat as you as far as<br>
+<blockquote class="uncited"><div>! Please note that I do not have either another large disk to back up Windows to nor install CDs to reinstall Windows.</div></blockquote>
+So I bit the bullet and bought me a small SSD drive and removed the 500 gig platter drive with Windows 7 Enterprise that would never be reactivated because it is a city hall laptop that my wife had used for her job. In other words. If I screwed up Windows 7 Enterprise. It was gone for good.<br>
+<br>
+I went this route in case I ever sell this laptop. I wanted to be sure it would get the bang for buck to a buyer who would look crossed eyed at me when I show<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ inxi -Fxz
+System:    Host: biker Kernel: 4.2.1-antix.2-686-pae i686 (32 bit gcc: 4.9.2)
+           Desktop: IceWM 1.3.8 Distro: antiX-15-V_386-full Killah P 30 June 2015
+Machine:   System: Dell (portable) product: Latitude E4310 v: 0001
+           Mobo: Dell model: 0T6M8G v: A01 Bios: Dell v: A03 date: 07/08/2010
+CPU:       Dual core Intel Core i5 M 520 (-HT-MCP-) cache: 3072 KB
+           flags: (lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx) bmips: 9578
+           clock speeds: max: 2400 MHz 1: 1199 MHz 2: 1733 MHz 3: 1199 MHz
+           4: 1333 MHz
+Graphics:  Card: Intel Core Processor Integrated Graphics Controller
+           bus-ID: 00:02.0
+           Display Server: X.Org 1.16.4 drivers: intel (unloaded: fbdev,vesa)
+           Resolution: 1366x768@60.00hz
+           GLX Renderer: Mesa DRI Intel Ironlake Mobile x86/MMX/SSE2
+           GLX Version: 2.1 Mesa 10.3.2 Direct Rendering: Yes
+Audio:     Card Intel 5 Series/3400 Series High Definition Audio
+           driver: snd_hda_intel bus-ID: 00:1b.0
+           Sound: Advanced Linux Sound Architecture v: k4.2.1-antix.2-686-pae
+Network:   Card-1: Intel 82577LM Gigabit Network Connection
+           driver: e1000e v: 3.2.5-k port: 6040 bus-ID: 00:19.0
+           IF: eth0 state: down mac: &lt;filter&gt;
+           Card-2: Intel Centrino Advanced-N 6200 driver: iwlwifi bus-ID: 02:00.0
+           IF: wlan0 state: up mac: &lt;filter&gt;
+Drives:    HDD Total Size: 60.0GB (45.7% used)
+           ID-1: /dev/sda model: KINGSTON_SV300S3 size: 60.0GB
+Partition: ID-1: / size: 7.6G used: 4.9G (69%) fs: ext3 dev: /dev/sda2
+           ID-2: /home size: 48G used: 21G (47%) fs: ext3 dev: /dev/sda1
+Sensors:   System Temperatures: cpu: 52.0C mobo: N/A
+           Fan Speeds (in rpm): cpu: N/A
+Info:      Processes: 147 Uptime: 11 min Memory: 551.1/8027.1MB
+           Init: SysVinit runlevel: 5 Gcc sys: 4.9.2
+           Client: Shell (bash 4.3.301) inxi: 2.2.38 
+</code></pre></div>
+8 gig of ram with a I5 processor with AntiX on it will not get me top dollar on a sell on the Mexican border.<br>
+I am glad I went this way as this install boots in seconds, loads pages instantly, runs like a raped ape, and the other drive sits pristine in the laptop bag.<br>
+This SSD was cheap brand new (28 bucks&gt; 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.newegg.com/Product/Product.aspx?Item=9SIA5AD3W13234"<br>linktext was:"Newegg blowout sale"<br>====================================<br>
+) and has awesome read write speeds.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>~# hdparm -Tt /dev/sda
+
+/dev/sda:
+ Timing cached reads:   6504 MB in  2.00 seconds = 3254.62 MB/sec
+ Timing buffered disk reads: 402 MB in  3.01 seconds = 133.41 MB/sec
+</code></pre></div>
+Just posting this in case you did not think of it. You will notice it runs cool and I am a happy camper with this setup.<br>
+I don't know if you need Windows 7 available alongside linux. I tend to keep them on separate computers. But my Windows needs are only for tuning motorcycles. Which is not a every day computer user needs.<br>
+Not sure where you are located on the planet or how cheap computer parts are for you to get also.<br>
+Sorry, I cannot help on the Windows MBR booting priority over Antix grub legacy is in /boot/grub .<br>
+<br>
+All I can think of &lt;maybe something below will light up a idea for you&gt;<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://sites.google.com/site/easylinuxtipsproject/grub"<br>linktext was:"https://sites.google.com/site/easylinuxtipsproject/grub"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46181" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46181">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46181">
+
+<time datetime="2016-04-08 &nbsp; 12:14">posted: 2016-04-08 &nbsp; 12:14</time>
+<span class="permalink"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html#p46181" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>wildstar84 wrote:</cite>Thanks for the reply, Dave. I would rather do it as you've suggested, but don't know if that would work because 1) The designated"boot" partition is the SECOND partion and it, along with the first are both NTFS (See my partition layout in OP above). If it's possible to install GRUB legacy in the MBR and NOT bork Windows-7, I'll be more than happy to do it that way (That IS the way I successfully did it on a prev. Win-7 box which had the 1st partition VFAT and bootable). Any suggestions on how to safely proceed are definitely appreciated! Please note that I do not have either another large disk to back up Windows to nor install CDs to reinstall Windows.</div></blockquote>
+Hi, based on my experiences, it <strong><em>is</em></strong> possible to boot using either GRUB Legacy, GRUB 2, or the Windows boot loader, regardless of where they happen to be physically located. This is true with the exception of any cases where the physical hardware is not recognized, which is not common.<br>
+<br>
+I was not familiar with the commands used in the Windows boot loader approach explained. The last time I multi-booted using a Windows boot loader was many years ago, so the techniques and methods may have changed, but it is definitely possible. I multi-booted multiple Windows systems as far back as the 1990s, and I even multi-booted Windows and UNIX systems, so you are not limited to Windows, or Windows and Linux. Whatever your hardware can support and the software recognizes, it's theoretically possible.<br>
+<br>
+When you add a GRUB bootloader, whether the Legacy style or GRUB 2, should you remove it, then you have to have a way to replace it with something else. Otherwise should you remove a bootloader without a way to reference the MBR, you'll then have to use a boot CD or temporary way to access your system.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.tldp.org/HOWTO/Remote-Serial-Console-HOWTO/configure-boot-loader.html"<br>linktext was:"http://www.tldp.org/HOWTO/Remote-Serial ... oader.html"<br>====================================<br>
+ has some old documentation about configuring various bootloaders, including LILO, GRUB, and SYSLINUX.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://sites.google.com/site/easylinuxtipsproject/grub"<br>linktext was:"https://sites.google.com/site/easylinuxtipsproject/grub"<br>====================================<br>
+ will provide many alternatives that you can consider, depending on your software and hardware configuration. If you are very new to doing this kind of thing, even reading these documents could be daunting and difficult, so if you run into problems, let us know and give us a detailed description of what the difficulty is.<br>
+<br>
+At the same time, what you did with the Windows bootloader looked pretty detailed to me. If you can figure that out, I think all it will take is some research and a matter of time and experimentation to get any of these other approaches as well.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46190" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile46190">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 173</span></div>
+
+</div>
+</div>
+<span class="username">DeepDayze</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46190">
+
+<time datetime="2016-04-11T01:49">posted: 2016-04-11 &nbsp; 01:49</time>
+<span class="permalink"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html#p46190" title="permalink">#7</a></span>
+
+<div class="content">@Roky, I just bought that same Intel SSD tonight and will be using it in an HP EliteBook 8460p that has an i7-2620M CPU and 8GB RAM. This SSD is an older model but still decent for even a machine like mine. Will be installing AntiX MX15 on this SSD and will keep data on a 2nd regular hard drive in the 2nd drive bay.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_46191" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile46191">
+<dt class="no-profile-rank has-avatar avatar-username">
+ <div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 119</span></div>
+
+</div>
+</div>
+<span class="username">wildstar84</span>
+</dt>
+<dd class="profile-joined">Joined: 31 May 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content46191">
+
+<time datetime="2016-04-11T02:57">posted: 2016-04-11 &nbsp; 02:57</time>
+<span class="permalink"><a href="./solved-installing-remastered-antix-w-grub-legacy-o-t6325.html#p46191" title="permalink">#8</a></span>
+
+<div class="content">[SOLVED!] - Here's what I did that worked: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wildstar84.wordpress.com/2016/04/10/gettin-down-grubby-with-grub/"<br>linktext was:"https://wildstar84.wordpress.com/2016/0 ... with-grub/"<br>====================================<br>
+<br>
+<br>
+Thanks all responders who tried to help!<br>
+<br>
+Jim</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

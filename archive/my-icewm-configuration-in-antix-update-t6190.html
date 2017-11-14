@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>My IceWM Configuration in antiX - (UPDATE) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./my-icewm-configuration-in-antix-update-t6190.html">My IceWM Configuration in antiX - (UPDATE)</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_45044" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45044">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45044">
+<time datetime="2016-01-25T15:42">posted: 2016-01-25 &nbsp; 15:42</time>
+<span class="permalink"><a href="./my-icewm-configuration-in-antix-update-t6190.html#p45044" title="permalink">#1</a></span>
+
+<div class="content">My IceWM Configuration in antiX<br>
+<br>
+Obviously, this is a subjective matter.<br>
+<br>
+IceWM comes by default with alt-tab to switch windows, alt-F10 to maximize,<br>
+alt-F9 to minimize the screen, the Windows key will give you the main menu.<br>
+In the main menu click on Settings &gt; Focus and choose your favorite, (i like"Sloppy").<br>
+Do it again, and click on Themes and choose.<br>
+<br>
+NOTE: winkey (Windows key) + space bar will give a 'run box' at the taskbar by default.<br>
+from where you can launch apps, sudo reboot, etc a la fbrun.<br>
+<br>
+If you go to the icewm site icewm.org -&gt; IceWM Manual you get all<br>
+the keybinds and mouse commands.<br>
+It's a very worthwile read, it will teach you how to lock your screen<br>
+(xtrlock), move a window to another workspace, screensavers, and so forth, how to start<br>
+an app in a different workspace when you enter the X system, etc.<br>
+<br>
+Congratulations! you're ready for prime time. Just point and click.<br>
+<br>
+But if you want to increase your speed, if you're a geek wannabe, if the Windows-eske way<br>
+of working bring tears to your eyes then KEYBINDINGS are for you.<br>
+<br>
+My configuration uses 4 files: preferences, keys, winoptions, and prefoverride.<br>
+<br>
+Preferences deals with the wm behavior.<br>
+Keys with keybinds.<br>
+Winoptions with options that alter the windows.<br>
+Prefoverride changes the default keybinds for the ones you like.<br>
+<br>
+CREATING SOME FILES<br>
+$ mkdir -p .icewm<br>
+$ touch .icewm/preferences<br>
+$ touch .icewm/keys<br>
+$ touch .icewm/winoptions<br>
+$ touch .icewm/prefoverride<br>
+<br>
+PREFERENCES<br>
+<br>
+The global preference are in /usr/share/icewm/preferences<br>
+you CAN NOT edit this file.<br>
+<br>
+Every preference consists of 2 lines, both of which are comented (#),<br>
+uncomment (erase the hash mark) on the second line of the preference,<br>
+and add 1 or 0 (zero) at the end.<br>
+<br>
+1 = enables the preference<br>
+0 = disables it.<br>
+<br>
+save/exit and RESTART icewm - Menu &gt;Logout &gt;Restart icewm for it to take <br>
+effect. The usual Ctrl+Alt+Delete +r has a bug, doesn't work.<br>
+<br>
+Clear as mud?<br>
+<br>
+Example:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Hide title bar when maximized
+# HideTitleBarWhenMaximized=0 # 0/1
+</code></pre></div>
+After editing it, it should look like this if you wanted enabled:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Hide title bar when maximized
+HideTitleBarWhenMaximized=1
+</code></pre></div>
+Restart icewm, restart icewm, restart icewm <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+Me? I copied/pasted my personal preferences i stored in my icewm config <br>
+folder in my web mail. It takes me 5 minutes to config icewm.<br>
+<br>
+Here's my .icewm/preferences:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>
+    OpaqueMove=0
+    OpaqueResize=0
+    SmartPlacement=1
+    MenuMouseTracking=1
+    ModSuperIsCtrlAlt=1
+    UseMouseWheel=1
+    QuickSwitch=1
+    AutoReloadMenus=1
+    ShowProgramsMenu=1
+    ShowThemesMenu=1
+    ShowHelp=1
+    TerminalCommand="lxterminal"
+    ShutdownCommand="sudo halt -p"
+    RebootCommand="sudo reboot"
+    WorkspaceNames=" 1"," 2"
+
+    TaskBarAutoHide=0
+    TaskBarShowClock=1
+    TaskBarShowAPMStatus=0
+    TaskBarAtTop=0
+    TaskBarShowAPMStatus=0
+    TaskBarShowAPMTime=0
+    TaskBarShowMailboxStatus=0
+    TaskBarShowWindows=1
+    TaskBarShowShowDesktopButton=0
+    TaskBarShowTray=1
+    TaskBarShowWindowIcons=0
+    TaskBarShowCPUStatus=1
+    TaskBarShowNetStatus=0
+    TaskBarShowCollapseButton=1
+    TaskBarWorkspacesLeft=1
+    TimeFormat="%R"
+    TaskBarShowShowDesktopButton=0
+    TaskBarShowWindowListMenu=1
+    TaskBarShowMailboxStatus=0
+    TaskBarMailboxStatusBeepOnNewMail=0
+    NormalTaskBarFontName="-*-sans-medium-r-*-*-*-100-*-*-*-*-*- *"
+    NormalTaskBarFontNameXft="sans-serif:size=10"
+    ActiveTaskBarFontName="-*-sans-r-*-*-*-100-*-*-*-*-*-*"
+    ActiveTaskBarFontNameXft="sans-serif:size=10"
+    HideTitleBarWhenMaximized=0
+</code></pre></div>
+<br>
+KEYS
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ nano .icewm/keys
+</code></pre></div>
+and paste this:<br>
+<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    key"F1" lxterminal
+    key"F2" xfe
+    key"F3" iceweasel
+    key"F5" chromium
+    key"F6" qupzilla
+    key"F7" geeqie
+    key"F8" xchat
+    key"F9" libreoffice
+    key"Print" lxterminal -e scrot -cd 10
+    key"F10" sh -c 'kill -s HUP $(pgrep -u `whoami` '\''icewm$'\'')' # restarts icewm
+    key"Ctrl+u" antixcc.sh
+
+    #Sound volume
+    key"Ctrl+Down" amixer -q set PCM 6- unmute # lower volume
+    key"Ctrl+Up" amixer -q set PCM 6+ unmute #increase volume
+    key"Ctrl+0"  amixer sset Master,0 toggle #mutes sound
+</code></pre></div>
+Substitute my apps for yours.<br>
+<br>
+NOTE: the first time you need to restart do it from the menu, after that<br>
+you can use F10.<br>
+<br>
+I have no use for the Fn keys, but if you do, just add Alt or Ctrl or Super (winkey)<br>
+example:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>key"Alt+ l" leafpad
+</code></pre></div>
+The sound is simple:,<br>
+<br>
+Control + Up arrow increases volume<br>
+Control + Down arrow,decreases volume<br>
+Control + 0 (zero) mutes the sound, hit the combo again and the sound returns.<br>
+<br>
+If you get no sound go to alsamixer as USER and unmute with M key.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ alsamixer
+</code></pre></div>
+NOTE: If nothing works, do as ROOT:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># alsactl init
+</code></pre></div>
+Do the alsamixer config and then:<br>
+#alsactl store<br>
+# reboot<br>
+<br>
+<br>
+<br>
+WINOPTIONS<br>
+<br>
+I'm only interested in maximizing my windows:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>
+lxterminal.startMaximized: 1
+xchat.startMaximized: 1
+iceweasel.startMaximized: 1
+xfe.startMaximized: 1
+chromium.startMaximized: 1
+qupzilla.startMaximized: 1
+</code></pre></div>
+<br>
+PREFOVERRIDE<br>
+<br>
+I edit .icewm/prefoverride and leave it looking like this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>KeyWinClose="F4"
+KeyWinMaximize="F12"
+</code></pre></div>
+So now i close apps with F4 (boom! gone)<br>
+and maximize the window with one key (F12), instead of the default Alt+F10.<br>
+<br>
+<br>
+THEMES<br>
+I'm not much for themes and eye-candy, my thing is simplicity and speed.<br>
+<br>
+<br>
+Go to 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.box-look.org"<br>linktext was:"http://www.box-look.org"<br>====================================<br>
+, click on"icewm themes" in the left column,<br>
+if you know the name, click on"alphabetical", i find Narciso on page 14,<br>
+click on Download.<br>
+<br>
+I launch xfe (my file manager) and as ROOT, i find the theme in <br>
+Downloads (home/macondo/Downloads), click on it and choose"Extract to" <br>
+in the next screen at the bottom i type the location where to be <br>
+extracted, (/usr/share/icewm/themes) press Enter, restart icewm, and <br>
+that's it, the new theme appears in Settings&gt; Themes from the main menu.<br>
+<br>
+NOTE: Restart icewm every time you do changes on the wm.<br>
+<br>
+Have fun,<br>
+macondo aka bobo, Lou, cerealkiller<br>
+<br>
+<a href="http://www.imagebam.com/image/a52309461395318" class="postlink"><img src="http://thumbnails105.imagebam.com/46140/a52309461395318.jpg" class="postimage" alt="Image"></a> <a href="http://www.imagebam.com/image/f37a59461395335" class="postlink"><img src="http://thumbnails113.imagebam.com/46140/f37a59461395335.jpg" class="postimage" alt="Image"></a> <a href="http://www.imagebam.com/image/6783c1461395348" class="postlink"><img src="http://thumbnails113.imagebam.com/46140/6783c1461395348.jpg" class="postimage" alt="Image"></a><br>
+<br>
+From left to right:<br>
+taskbar on top - no titlebar<br>
+taskbar on top in Autohide<br>
+Regular look</div>
+<div class="notice">
+Last edited by <b>macondo</b> on 25 Jan 2016, 18:55, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45045" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile45045">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+ <div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45045">
+
+<time datetime="2016-01-25T18:03">posted: 2016-01-25 &nbsp; 18:03</time>
+<span class="permalink"><a href="./my-icewm-configuration-in-antix-update-t6190.html#p45045" title="permalink">#2</a></span>
+
+<div class="content">nice write up!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45047" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile45047">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45047">
+
+<time datetime="2016-01-25T18:15">posted: 2016-01-25 &nbsp; 18:15</time>
+<span class="permalink"><a href="./my-icewm-configuration-in-antix-update-t6190.html#p45047" title="permalink">#3</a></span>
+
+<div class="content">Thanks, pal</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_45050" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile45050">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 215</span></div>
+
+</div>
+</div>
+<span class="username">macondo</span>
+</dt>
+<dd class="profile-joined">Joined: 14 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content45050">
+
+<time datetime="2016-01-25T18:59">posted: 2016-01-25 &nbsp; 18:59</time>
+<span class="permalink"><a href="./my-icewm-configuration-in-antix-update-t6190.html#p45050" title="permalink">#4</a></span>
+
+<div class="content">My original keybinds do not work in antix (Ctrl + up/down arrows <span class="emoticon"> __{{emoticon}}__ </span><br>
+They work fine in JWM though.<br>
+<br>
+After googling I found this and put it in my .icewm/keys in the sound section:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#Sound volume
+    key"Ctrl+KP_Divide"   amixer set Front 5%-  # lower volume of sound
+    key"Ctrl+KP_Multiply" amixer set Front 5%+  # raise volume of sound
+    key"Ctrl+0"  amixer sset Master,0 toggle #mutes sound
+</code></pre></div>
+IOW, Ctrl + * (asterisk sign) increases volume<br>
+Ctrl + / (forward slash) decreases volume <br>
+(in the numerical pad to your right in the keyboard.)<br>
+<br>
+It works flawlessly <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

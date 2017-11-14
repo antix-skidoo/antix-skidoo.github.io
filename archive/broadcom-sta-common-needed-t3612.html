@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>broadcom-sta-common needed? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./broadcom-sta-common-needed-t3612.html">broadcom-sta-common needed?</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_23901" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23901">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23901">
+<time datetime="2012-03-09T21:03">posted: 2012-03-09 &nbsp; 21:03</time>
+<span class="permalink"><a href="./broadcom-sta-common-needed-t3612.html#p23901" title="permalink">#1</a></span>
+
+<div class="content">antiX-full has broadcom-sta-common and some people have had issues with wireless, fixed by removing /etc/modprobe.d/broadcom-sta-common.conf<br>
+<br>
+antiX-base does not have broadcom-sta-common.<br>
+<br>
+So do we need it or not?</div>
+</div>
+</div>
+
+
+</div>
+</div>
+<div id="p_23954" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23954">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23954">
+
+<time datetime="2012-03-13T23:44">posted: 2012-03-13 &nbsp; 23:44</time>
+<span class="permalink"><a href="./broadcom-sta-common-needed-t3612.html#p23954" title="permalink">#2</a></span>
+
+<div class="content">Anti, for me, getting rid of the sta firmware and sticking to the use of firmware-b43-installer works much better.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24442" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24442">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24442">
+
+<time datetime="2012-04-24T03:52">posted: 2012-04-24 &nbsp; 03:52</time>
+<span class="permalink"><a href="./broadcom-sta-common-needed-t3612.html#p24442" title="permalink">#3</a></span>
+
+<div class="content">More on this, anti, based on experimenting with some other distros. Today, I was messing around with the year or two old PCLinuxOS"Full Monty" Edition, which came out, I think, around Christmas in 2010 or early 2011. It had been working just fine until recently, but all of a sudden, wireless went away. That was curious, because antiX and PCLinuxOS are two systems that nearly always get wireless right.<br>
+<br>
+Doing some investigation, I found the very same issue we were having with antiX M12.0 Test 2"Full Edition": too many Broadcom firmware drivers. They had one called Broadcom-wl, which appeared to be the same as the one we call"Broadcom STA". I wired up, got rid of it, got rid of some other firmware that wasn't being used on my hardware, then I reinstalled the firmware-b43-fwcutter package they had, ran modprobe -r b43 then modprobe b43, and without that extra firmware conflicting, I got it up without an issue.<br>
+<br>
+Of course, it's possible to blacklist everything but the driver that you are using, but to me, at least on Debian-based systems, including only two Broadcom firmware packages, firmware-b43-installer and firmware-b43legacy-installer, then having the system select the right one, based on which Broadcom wireless interface is actually present, seems to do the job and cover the entire Broadcom product line, based on what I've read over and over on the Debian Wiki in the Wifi and Wireless sections.<br>
+<br>
+Hope this helps. If anyone thinks otherwise, I hope they speak up soon, because I am recommending that we take this approach, which has worked PERFECTLY for me in antiX Base, but was giving me problems in antiX Full until I pared it down. Please comment, and let's adjust what gets included based on feedback; if none, please go with my suggestion.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24456" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24456">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">nadir</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">nadir</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content24456">
+
+<time datetime="2012-04-24T23:55">posted: 2012-04-24 &nbsp; 23:55</time>
+<span class="permalink"><a href="./broadcom-sta-common-needed-t3612.html#p24456" title="permalink">#4</a></span>
+
+<div class="content">I got a laptop with broadcom, but bought myself a netgear WG111, which runs with free software.<br>
+I just downloaded the test-iso. If someone tells me what commands exactly i have to run i will be happy to do it<br>
+(yes, i am not good with wireless). <br>
+I will fiddle with it now anyway (but if i do it without instructions it might take forever...)<br>
+<br>
+What i do recall is that one method for the broadcom worked, while the other failed. Let me look for the thread to figure out which one failed (and which one worked).<br>
+Looks like this method kinda worked for me: 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/wl"<br>linktext was:"http://wiki.debian.org/wl"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24460" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24460">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24460">
+
+<time datetime="2012-04-25T02:41">posted: 2012-04-25 &nbsp; 02:41</time>
+<span class="permalink"><a href="./broadcom-sta-common-needed-t3612.html#p24460" title="permalink">#5</a></span>
+
+<div class="content">@nadir: While 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/wl"<br>linktext was:"http://wiki.debian.org/wl"<br>====================================<br>
+ - which uses the Broadcom WL driver *might* work for you, I have had much better success, personally, using the b43 driver, which, on Debian-based systems, comes from the firmware-b43-installer (or the firmware-b43legacy installer, if you have a really old Broadcom wireless interface). Personally, I find the site 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/bcm43xx"<br>linktext was:"http://wiki.debian.org/bcm43xx"<br>====================================<br>
+, which discusses both b43 and b43legacy, to be more helpful and more reliable. If you read the reference that you provided, notice that it has several caveats. The site 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://wiki.debian.org/bcm43xx"<br>linktext was:"http://wiki.debian.org/bcm43xx"<br>====================================<br>
+, in my opinion, provides much better drivers, and superior support for any difficulties, which nearly always result due to redundant and conflicting drivers installed on the same system.<br>
+<br>
+If your setup works, fine, but I'd expect that the drivers I mention, in the long run, will serve you much better. Check it out and see if you agree with me or not.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24465" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24465">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<span> <strong><span class="username">nadir</span></strong> </span>
+<div class="thread-user-detail">
+<table>
+<tr>
+<td valign="top" class="detail-title"><a><span>Posts</span></a></td>
+<td valign="top" class="detail-value"><span>0</span></td>
+</tr>
+</table>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<strong><span class="username">nadir</span></strong> </section>
+</dt>
+</dl>
+<div class="postbody">
+<div id="post_content24465">
+
+<time datetime="2012-04-25T13:37">posted: 2012-04-25 &nbsp; 13:37</time>
+<span class="permalink"><a href="./broadcom-sta-common-needed-t3612.html#p24465" title="permalink">#6</a></span>
+
+<div class="content">Kinda good news:<br>
+I couldn't get it running at all, with none of the options.<br>
+I tried for ca 2 hours. <br>
+For testing there is no broadcom-sta-source at all, it is mentioned at the Debian wiki. So i enabled sid repos and now"m-a a-i broadcom-sta" failed with an error (for unknown reasons).<br>
+<br>
+Like said above: i am not good with wireless at all. I barely know about blacklisting.<br>
+<br>
+Edit: what i recall is that most options (besides broadcom-sta) didn't gave an error message.<br>
+But when i did:<br>
+ifconfig<br>
+it didn't show the wlan0, while<br>
+ifconfig -a<br>
+sometimes showed it, sometimes not (but if trying to set it up with wicd-gtk it didn't work)<br>
+I also got a strange"rfkill ...." error, which i didn't understand.<br>
+<br>
+My chipset is 4313.<br>
+I used the new antiX testing iso from sourceforge. <br>
+I will try again, and what you said.<br>
+Thanks for your explanations.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

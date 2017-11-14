@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[Solved] Installing xlockmore-gl, fixing xlock font - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-installing-xlockmore-gl-fixing-xlock-font-t6844.html">[Solved] Installing xlockmore-gl, fixing xlock font</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_50256" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50256">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 80</span></div>
+
+</div>
+</div>
+<span class="username">Rademes</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Dec 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50256">
+<time datetime="2017-02-09T17:16">posted: 2017-02-09 &nbsp; 17:16</time>
+<span class="permalink"><a href="./solved-installing-xlockmore-gl-fixing-xlock-font-t6844.html#p50256" title="permalink">#1</a></span>
+
+<div class="content">Good Day!<br>
+I have noticed, that only <strong>xlockmore</strong> package is available in repositories, which offers only blank screen mode. Also in package description is written, that to be able to use different modes, a package <strong>xlockmore-gl</strong> should be used. But I can not find it in repositories. How can I install it?<br>
+<br>
+Also xlock uses very small font, because it can not find appropriate font (attachment). How to fix it?</div>
+
+<div class="notice">
+Last edited by <b>Rademes</b> on 10 Feb 2017, 09:31, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50258" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50258">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50258">
+
+<time datetime="2017-02-09T18:18">posted: 2017-02-09 &nbsp; 18:18</time>
+<span class="permalink"><a href="./solved-installing-xlockmore-gl-fixing-xlock-font-t6844.html#p50258" title="permalink">#2</a></span>
+
+<div class="content">xlockmore is hosted in the antix forum, and there is not upstream package in debian for quite some time. xlockmore-gl was apparently never brought over. there might be good reasons for that.<br>
+<br>
+however, you can set the font with this.<br>
+<br>
+xlock --font <em>fontname</em><br>
+<br>
+where the fontname is taken from the list in xlsfonts command output.<br>
+<br>
+i used a terminus font to test that was quite nice. <br>
+<br>
+xlock -font terminus-iso8859-16-bold-24<br>
+<br>
+you can also take advantage of the path system by doing something like this.<br>
+<br>
+1. make a new text file /usr/local/bin/xlock<br>
+<br>
+2. input the following code:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+
+/usr/bin/xlock -font terminus-iso8859-16-bold-24"$@" &amp;
+
+</code></pre></div>
+3. make it executable<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>chmod a+x /usr/local/bin/xlock
+</code></pre></div>
+Now any app that just calls"xlock", like the desktop-session-exit script (the logout/restart/shutdown buttons), will use the modified font parameter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50260" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50260">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 80</span></div>
+
+</div>
+</div>
+<span class="username">Rademes</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Dec 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50260">
+
+ <time datetime="2017-02-09T18:44">posted: 2017-02-09 &nbsp; 18:44</time>
+<span class="permalink"><a href="./solved-installing-xlockmore-gl-fixing-xlock-font-t6844.html#p50260" title="permalink">#3</a></span>
+
+<div class="content">Thank You!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

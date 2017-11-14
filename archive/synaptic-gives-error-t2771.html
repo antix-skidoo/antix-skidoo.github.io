@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Synaptic gives error - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-m8-2-t-a-u-ke-witko-f37/index.html"><span>antiX-M8.2 Tȟašúŋke Witkó</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./synaptic-gives-error-t2771.html">Synaptic gives error</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_18051" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18051">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 19</span></div>
+
+</div>
+</div>
+<span class="username">acidblue</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18051">
+<time datetime="2010-11-09T03:17">posted: 2010-11-09 &nbsp; 03:17</time>
+<span class="permalink"><a href="./synaptic-gives-error-t2771.html#p18051" title="permalink">#1</a></span>
+
+<div class="content">I'm getting this error when I try to run Synaptic<br>
+<br>
+E: Dynamic MMap ran out of room. Please increase the size of APT::Cache-Limit. Current value: 20000000. (man 5 apt.conf)<br>
+E: Error occurred while processing xorg (NewVersion1)<br>
+E: Problem with MergeList /var/lib/apt/lists/ftp.us.debian.org_debian_dists_testing_main_binary-i386_Packages<br>
+E: The package lists or status file could not be parsed or opened.<br>
+E: _cache-&gt;open() failed, please report.<br>
+<br>
+Plus this error when I try <strong>apt-get</strong> <strong>update</strong>:<br>
+E: Could not get lock /var/lib/dpkg/lock - open (11 Resource temporarily unavailable)<br>
+E: Unable to lock the administration directory (/var/lib/dpkg/), is another process using it?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18056" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile18056">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18056">
+
+<time datetime="2010-11-09T06:32">posted: 2010-11-09 &nbsp; 06:32</time>
+<span class="permalink"><a href="./synaptic-gives-error-t2771.html#p18056" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div> Dynamic MMap ran out of room. Please increase the size of APT::Cache-Limit. Current value: 20000000</div></blockquote>
+<br>
+Start&gt;Gexec<br>
+<br>
+Type in <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>leafpad /etc/apt/apt.conf </code></pre></div>
+check the box to run as root.<br>
+<br>
+edit in/etc/apt/apt.conf <br>
+from <br>
+<br>
+APT::Cache-Limit 20000000<br>
+<br>
+to<br>
+<br>
+APT::Cache-Limit 60000000 (at least that is what I did). Close and save document.<br>
+<br>
+For everything else. Open terminal
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sux</code></pre></div>
+enter password
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get update</code></pre></div>
+Hit enter. When done. Close terminal. Then you can go and start installing stuff in synaptic or terminal. Whichever you prefer. Hopefully you won't get any errors.<br>
+<br>
+Post back on any errors if you do get any after this. A
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>inxi -F</code></pre></div>
+readout from terminal would be nice in next post also.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_18059" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile18059">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 19</span></div>
+
+</div>
+</div>
+<span class="username">acidblue</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Nov 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content18059">
+
+<time datetime="2010-11-09T18:07">posted: 2010-11-09 &nbsp; 18:07</time>
+<span class="permalink"><a href="./synaptic-gives-error-t2771.html#p18059" title="permalink">#3</a></span>
+
+
+<div class="content">Thanks, setting to 60000000 worked.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

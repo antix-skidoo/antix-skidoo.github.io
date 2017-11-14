@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>smxi debian kernel option for antix - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./development-old-f39/index.html"><span>Development (Old)</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html">smxi debian kernel option for antix</a></div>
+<div class="pagination">
+31 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./smxi-debian-kernel-option-for-antix-t953.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./smxi-debian-kernel-option-for-antix-t953.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./smxi-debian-kernel-option-for-antix-t953-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./smxi-debian-kernel-option-for-antix-t953-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_5726" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5726">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5726">
+<time datetime="2008-07-29T21:06">posted: 2008-07-29 &nbsp; 21:06</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5726" title="permalink">#16</a></span>
+
+<div class="content">Yes, you can, but you'll have to edit fstab too.<br>
+You can edit the /boot/grub/menu.lst as h2 suggests to include the kopt line (use your UUID)<br>
+<br>
+## ## Start Default Options ##<br>
+## default kernel options<br>
+## default kernel options for automagic boot options<br>
+## If you want special options for specific kernels use kopt_x_y_z<br>
+## where x.y.z is kernel version. Minor versions can be omitted.<br>
+## e.g. kopt=root=/dev/hda1 ro<br>
+## kopt_2_6_8=root=/dev/hdc1 ro<br>
+## kopt_2_6_8_2_686=root=/dev/hdc2 ro<br>
+# kopt=root=UUID=e16357e4-6122-46df-9098-d68055385d08 ro vga=791 nosplash</div>
+</div>
+</div>
+
+</div>
+</div>
+ <div id="p_5728" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile5728">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5728">
+
+<time datetime="2008-07-29T22:23">posted: 2008-07-29 &nbsp; 22:23</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5728" title="permalink">#17</a></span>
+
+<div class="content">Ok, I switched everything over uuid and the system booted up no problem. However, the fstab gets updated on boot and puts the partitions under the dynamic entry line.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Pluggable devices are handled by uDev, they are not in fstab
+# /dev/sda2=root
+UUID=5404e421-0ca5-41e1-96cf-cb03ab0620bb / ext3 defaults,noatime 1 1
+# /dev/sda3=swap
+UUID=ad1bfbfe-5748-42ee-90ca-46de5591f313 swap swap sw,pri=1 0 0
+proc /proc proc defaults 0 0
+procbususb /proc/bus/usb usbfs devmode=0666 0 0
+devpts /dev/pts devpts mode=0622 0 0
+sysfs /sys sysfs defaults 0 0
+# /dev/sda1=windows
+UUID=36C473897F2419FF /home/eriefisher/Windows ntfs-3g defaults,noatime 0 0
+# Dynamic entries below
+/dev/sda1 /mnt/sda1 vfat,ext3,ext2,reiserfs noauto,users,exec 0 0
+/dev/sda2 /mnt/sda2 ext3 noauto,users,exec 0 0
+/dev/sda3 swap swap sw,pri=1 0 0
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/scd0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5731" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5731">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5731">
+
+<time datetime="2008-07-29T22:44">posted: 2008-07-29 &nbsp; 22:44</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5731" title="permalink">#18</a></span>
+
+<div class="content"><blockquote><div><cite>h2 wrote:</cite>masinick, the grub stuff is the result of mepis using a non debian standard grub updating method, that's out of my hands, long term hopefully mepis will abandon that idea and use update-grub compatible syntax.<br>
+<br>
+I'm not going to try to work around what is essentially in my opinion an error, and not debian compatible, that's far too much work, so that's something mepis/antix users will have to resolve, probably by setting up a simple how to update /boot/grub/menu.lst page, the edits aren't that hard, and should be done after the first new kernel install.<br>
+<br>
+Once you sync the stuff, it all works fine, and all future kernel updates will work as expected for sidux and debian kernels.<br>
+<br>
+In general, if systems are going to use debian as their source, it's a fairly good idea to not drift very far from core debian methods, it's just harder to maintain longterm.</div></blockquote>
+I understand, and I appreciate your viewpoint on this point. Hopefully SimplyMEPIS will adopt the standard Debian practice. I suspect that the code that was written was done so before any standard techniques were in place and it worked for a simple setup, so it never got changed. Hopefully that will change with the next release. Trickles of information suggest there will be a Version 8 sometime this year.<br>
+<br>
+I'm like you, though, I am not inclined to put much into it. I keep SimplyMEPIS out there mostly to have a nice, simple, stable system to fall back on when I torch one of my other favorite systems, which I am known to do every 1-2 years. Now having four pieces of hardware and dozens of distros, I am less worried about what I may do to any one of them, though ideally I like them all to work.<br>
+<br>
+After fooling around with it a bit, I am most likely to just install the new version of SimplyMEPIS when the next one comes out and use antiX and sidux for most of my day to day stuff anyway.<br>
+<br>
+Thanks for the explanation!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5815" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile5815">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5815">
+
+<time datetime="2008-07-31T23:00">posted: 2008-07-31 &nbsp; 23:00</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5815" title="permalink">#19</a></span>
+
+<div class="content">Alright, for testing purposes I used smxi -T and installed the 2.6.25-2-686 Debian kernel. Install was smooth and the machine rebooted into it without issue. I have noticed that some modules are not available for some kernels, but, nothing I needed though.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5818" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5818">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5818">
+
+<time datetime="2008-08-01T02:03">posted: 2008-08-01 &nbsp; 02:03</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5818" title="permalink">#20</a></span>
+
+<div class="content">I have installed both Debian and sidux kernels, and kept an old MEPIS 2.6.22-1-mepis-smp kernel around,"Just in case". All of them work. The older Debian kernels require using either the old hda device naming conventions or the use of UUID strings to identify mount points. All of the kernels work fine, with that one difference in usage.<br>
+<br>
+I've upgraded using smxi a number of times with both SimplyMEPIS and antiX, as well as the sidux instances I use, and all of them work fine. SimplyMEPIS, given differing conventions, is the roughest with smxi, but I still find it useful and usable. AntiX has become nearly as good as sidux in its use of smxi, and I found my"autograph" in the contributer's section - thanks, h2!<br>
+<br>
+smxi is looking real solid and I think it will be ready for the next release. Only remaining questions are the various upgrade scenarios. Anti, what scenarios do you still need tested? If I can squeeze in some time, I can always install some old CDs of AntiX and upgrade. I think it is a 7.0 image that I have already been upgrading on my old Dell for some time, and that works great, as does my 7.2 image on my much newer Lenovo. If you are lacking test scenarios I may be able to help out. Do let me know and I will confirm whether or not I can run the scenarios you need.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5820" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile5820">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">h2</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5820">
+
+<time datetime="2008-08-01T03:05">posted: 2008-08-01 &nbsp; 03:05</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5820" title="permalink">#21</a></span>
+
+<div class="content">eriefisher, some modules get merged into kernel, others vanish, and so on, so I just keep a fairly long list for all systems and test if they are available, so the missing module thing has no real meaning except to let you know it's not available.<br>
+<br>
+I've done a load of tweaks and improvements all through smxi to smooth things out even more for all platforms, and I'll have to let this stuff settle down a bit pretty soon.<br>
+<br>
+Just cleaned up package groups in package install, and updated especially all the utility groups, so they are more complete now, installing good utilities etc that you might not know about but which are almost always useful.<br>
+<br>
+Nice new tweak in system information in first part of smxi: shows your / (and /home if mounted elsewhere) partition size, percent used, free, and file system type. This helps solve a long term problem where people accidentally run their partitions to 100% full,which makes desktops etc unable to start.<br>
+<br>
+Also finished up full logging, that's now a quite effective debugging tool, and I can easily add more data to be logged any time I hear a bug report that we can't easily figure out. (/var/log/smxi.log, /var/log/sgfxi/sgfxi.log)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5827" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5827">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5827">
+
+<time datetime="2008-08-01T07:52">posted: 2008-08-01 &nbsp; 07:52</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5827" title="permalink">#22</a></span>
+
+<div class="content">One request, not necessarily just for antiX.<br>
+Could you make more debian kernels available?<br>
+486 as well as 686. It may help those using older boxes.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5834" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile5834">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">h2</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5834">
+
+<time datetime="2008-08-01T18:03">posted: 2008-08-01 &nbsp; 18:03</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5834" title="permalink">#23</a></span>
+
+<div class="content">486 are available, but you need to start with a 486 kernel, the debian kernel detection automatically tests for bigmem, xen, 686, amd64, 486.<br>
+<br>
+smxi handles that automatically at the moment, if you start with a debian 486, it will continue with a debian 486, for modules and everything else.<br>
+<br>
+For now that's enough I think, offering fine tuned debian kernel options is more work than I think it's currently worth doing, though in the future it might be a choice.<br>
+<br>
+It wouldn't be super hard to integrate it, but the hard part is in correctly offering that only where applicable, that kind of detection isn't that easy. The debian installer, by the way, does a really good job of it, offering a range that works on your kernel, but nothing that doesn't.<br>
+<br>
+Keep in mind, the system must have booted to run smxi, so whatever kernel the person is using by definition works, that's why smxi uses their default.<br>
+<br>
+Default for sidux is always: 686/amd64.<br>
+<br>
+For antix, there's no way to know which if they start with a mepis kernel, so currently default is 686 for mepis too.<br>
+<br>
+To change it, just: apt-get install linux-image-2.6.25-2-486, for example, for testing/sid at the moment, then smxi will always offer 486 debian kernels.<br>
+<br>
+I suppose I can offer debian 486 as a fourth option if it's not 64 bit without a lot of work... hmmm</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5836" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5836">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">h2</span>
+</dt>
+
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5836">
+
+<time datetime="2008-08-01T18:28">posted: 2008-08-01 &nbsp; 18:28</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5836" title="permalink">#24</a></span>
+
+<div class="content">The latest modularization and abstraction stuff made this trivial to add, so I did. <br>
+<br>
+Now, for any system that supports debian kernels, or for antix with smxi -T start, smxi will show both 686 and 486 (for 32 bit systems) as debian kernel install options.<br>
+<br>
+And it will default to the currently installed debian type for standard use, ie, if you have 486 installed, it will offer the next 486 in the default kernel install section.<br>
+<br>
+This, by the way, is why structured and modularized code is always better, it's more flexible and powerful, and requests like this help remind me of that fact.<br>
+<br>
+That's going to be redundant in some cases, because the default kernel will be set by the currently run use kernel.<br>
+<br>
+hmmm.... that's the problem with trying to to do too much fine tuning, it ends of getting more and more complex, but for now I'll just leave the 486 as an extra option, and the default will just be whatever the user is currently running. Otherwise I'd have to add all this super specific stuff.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5837" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile5837">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5837">
+
+<time datetime="2008-08-01T18:52">posted: 2008-08-01 &nbsp; 18:52</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5837" title="permalink">#25</a></span>
+
+<div class="content">Great work, h2! We sure appreciate all of the extras you are including to make smxi even more useful to a broader audience, namely we people who like both sidux and antiX!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5838" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5838">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">h2</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5838">
+
+<time datetime="2008-08-01T18:56">posted: 2008-08-01 &nbsp; 18:56</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5838" title="permalink">#26</a></span>
+
+<div class="content">now it offers you the opposite of what you're using, but only in the case of kernels ending with 686/486<br>
+<br>
+I believe for antix and 686 users, this means that they will always see the 486 when using default mepis -smp marked kernels, which is what you want. And 486 users will see 686 option, with a warning about trying to install 686 on non 686 compatible cpus (older than pentium 3)<br>
+<br>
+I'm not going to get more specific than this though.<br>
+<br>
+The default debian kernel install option will install whatever you are currently using.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5839" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile5839">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,520</span></div>
+
+</div>
+</div>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5839">
+
+<time datetime="2008-08-01T18:58">posted: 2008-08-01 &nbsp; 18:58</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5839" title="permalink">#27</a></span>
+
+<div class="content">This will allow these older boxes to at least run modern kernels. This is great stuff.<br>
+<br>
+Thanks h2.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5840" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5840">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">h2</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5840">
+
+<time datetime="2008-08-01T19:13">posted: 2008-08-01 &nbsp; 19:13</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5840" title="permalink">#28</a></span>
+
+<div class="content">masinick, without getting into specific numbers, smxi pretty much hit a plateau of users over the last year, which is one reason I decided to make it available to a broader base. Well, plus I wanted to use it for my own installs of Debian too.<br>
+<br>
+I have a rule with learning most linux stuff, if I want to do something, I have to wait until I script it into smxi, sgfxi, or svmi until I can do it. While this can be a pain sometimes, it's one of the things I use to motivate myself.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5843" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile5843">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,139</span></div>
+
+</div>
+</div>
+<span class="username">masinick</span>
+</dt>
+<dd class="profile-joined">Joined: 26 Apr 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5843">
+
+<time datetime="2008-08-01T19:49">posted: 2008-08-01 &nbsp; 19:49</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5843" title="permalink">#29</a></span>
+
+<div class="content"><blockquote><div><cite>h2 wrote:</cite>masinick, without getting into specific numbers, smxi pretty much hit a plateau of users over the last year, which is one reason I decided to make it available to a broader base. Well, plus I wanted to use it for my own installs of Debian too.<br>
+<br>
+I have a rule with learning most linux stuff, if I want to do something, I have to wait until I script it into smxi, sgfxi, or svmi until I can do it. While this can be a pain sometimes, it's one of the things I use to motivate myself.</div></blockquote>
+Did you say that at one point you taught yourself Bash and used smxi as a learning point? I just took a quick look at the script, and I found it to be very well documented, it uses good variables and generally seems reasonably conceived. Of course, doing stuff in Bash quickly grows, and it has become a large script - but a good one and a very useful one.<br>
+<br>
+Kind of reminds me, in a round about way, about exmh, a TCL/Tk script written to be a more powerful replacement for the old xmh mail handling program. Xmh itself was just one of a few sample programs designed to show people how they could code applications in X. It is a powerful program but not really all that flashy (but it is fast). Exmh, on the other hand, was a exercise in TCL and the TCL Toolkit, Tk. It started out as a set of functions that performed many of the same things that the command line MH mail tools would do, and basically do them like xmh. But Tk is much more extensible than plain old Xlib, so before you know it, colors and all kinds of other extensions were written.<br>
+<br>
+Your script shows the same kind of growth. I suppose there comes a time (at least in some people's minds) where an application grows too much. I do not think that smxi is in that spot at all. Instead, I think it fills a niche that only one or two efforts have even attempted to address in the past, and to me, it is the only tool that does a good job with Debian based systems. (I used to like what Libranet did with their tools way back when).<br>
+<br>
+Anyway, keep at it; your work is greatly valued! Like you said, though, this may be around the time to step back and assess the overall architecture to make sure it does reasonable things - and should there be any future turns or bends in the road, it will be able to adapt appropriately.<br>
+<br>
+I think that you have a far better handle on that than I do, and I applaud everything that you are doing!</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_5847" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile5847">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">h2</span>
+</dt>
+<dd class="profile-joined">Joined: 13 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content5847">
+
+<time datetime="2008-08-01T21:26">posted: 2008-08-01 &nbsp; 21:26</time>
+<span class="permalink"><a href="./smxi-debian-kernel-option-for-antix-t953-s15.html#p5847" title="permalink">#30</a></span>
+
+<div class="content">masinick, actually, the time to reassess the architecture already came, twice in fact, once during the initial sidux launch, and once about 6-8 months ago.<br>
+<br>
+I've actually been going over most of it this past month as I further improved and abstracted everything away from specifics to general, so now it's getting pretty flexible and easy to work with again. Except for the graphics lib, sm-lib-graphics, that is just basically always fighting with the non free logic to maintain some type of functionality amid various changes and failures in non free drivers.<br>
+<br>
+Your view is interesting on this though, for a while I worried about smxi getting too big, but the more I modularize and abstract, the less that worries me, most core functions are all controlled from a single place now, so it's really just repeating function calls, less and less hardcoding going on.<br>
+<br>
+One thing I found especially interesting, if you look at the code on 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://code.google.com/p/smxi"<br>linktext was:"http://code.google.com/p/smxi"<br>====================================<br>
+ you'll see that the dev tools, for example, and kernel tools, which are dev scripts I modified for public release from simple linear scripts with no structure, anyway, as I structured each in turn, I realized that each one gained power and flexibility, even when they were really short.<br>
+<br>
+So I'm increasingly starting to believe that there is almost no case where writing unstructured code is a good idea, no matter how simply you think the tool will be. I'm always amazed to see that major bash etc scripts out there, like the fglrx / nvidia installers, still do not follow such good practices.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+31 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./smxi-debian-kernel-option-for-antix-t953.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./smxi-debian-kernel-option-for-antix-t953.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+<li><a class="button" href="./smxi-debian-kernel-option-for-antix-t953-s30.html" role="button">3</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./smxi-debian-kernel-option-for-antix-t953-s30.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

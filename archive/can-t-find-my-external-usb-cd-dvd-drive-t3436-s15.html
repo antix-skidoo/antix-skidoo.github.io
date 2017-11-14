@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Can't find my external USB CD/DVD drive - Page 2 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./can-t-find-my-external-usb-cd-dvd-drive-t3436-s15.html">Can't find my external USB CD/DVD drive</a></div>
+<div class="pagination">
+19 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./can-t-find-my-external-usb-cd-dvd-drive-t3436.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./can-t-find-my-external-usb-cd-dvd-drive-t3436.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_23441" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23441">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23441">
+<time datetime="2012-01-25T19:39">posted: 2012-01-25 &nbsp; 19:39</time>
+<span class="permalink"><a href="./can-t-find-my-external-usb-cd-dvd-drive-t3436-s15.html#p23441" title="permalink">#16</a></span>
+
+<div class="content">The device should be similar to<br>
+/dev/sdb1 (normally usb key)<br>
+/dev/hdb1 (normally older internal hdd)<br>
+<br>
+/dev (meaning the /dev folder)<br>
+hd/sd (meaning hard disk / sata device)<br>
+b (meaning the seccond device a,b,c,etc...)<br>
+1 (meaning the first partition on the device 1,2,3,etc...)<br>
+<br>
+I normally find my device by issuing blkid as root *before* it is plugged in, then after it is plugged in to compare. ( this will give you the UUID + the relative file in /dev ) The one that shows up the seccond time will be your device.<br>
+<br>
+The output should be similar to
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/hda1: UUID="b6e350ac-53ef-491a-bf28-9353b364f1bb" TYPE="ext3" 
+/dev/hda2: UUID="e3bb28f8-6695-4cfa-9bf6-c70280a0e13d" TYPE="swap"
+</code></pre></div>
+with the outputed code above, to mount the seccond partition I would use the following commands (as root)<br>
+mkdir /mnt/hda2<br>
+mount /dev/hda2 /mnt/hda2<br>
+<br>
+THIS WILL MOUNT AS ROOT USER. You will then need to make your changes as ROOT. To mount as a normal user you would use pmount and pumount to replace mount and umount respectively.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23449" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23449">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 107</span></div>
+
+</div>
+</div>
+<span class="username">brian</span>
+</dt>
+<dd class="profile-joined">Joined: 10 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23449">
+
+<time datetime="2012-01-26T19:50">posted: 2012-01-26 &nbsp; 19:50</time>
+<span class="permalink"><a href="./can-t-find-my-external-usb-cd-dvd-drive-t3436-s15.html#p23449" title="permalink">#17</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite>The device should be similar to<br>
+/dev/sdb1 (normally usb key)<br>
+/dev/hdb1 (normally older internal hdd)<br>
+<br>
+/dev (meaning the /dev folder)<br>
+hd/sd (meaning hard disk / sata device)<br>
+b (meaning the seccond device a,b,c,etc...)<br>
+1 (meaning the first partition on the device 1,2,3,etc...)<br>
+<br>
+I normally find my device by issuing blkid as root *before* it is plugged in, then after it is plugged in to compare. ( this will give you the UUID + the relative file in /dev ) The one that shows up the seccond time will be your device.<br>
+<br>
+The output should be similar to
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/hda1: UUID="b6e350ac-53ef-491a-bf28-9353b364f1bb" TYPE="ext3" 
+/dev/hda2: UUID="e3bb28f8-6695-4cfa-9bf6-c70280a0e13d" TYPE="swap"
+</code></pre></div>
+with the outputed code above, to mount the seccond partition I would use the following commands (as root)<br>
+mkdir /mnt/hda2<br>
+mount /dev/hda2 /mnt/hda2<br>
+<br>
+THIS WILL MOUNT AS ROOT USER. You will then need to make your changes as ROOT. To mount as a normal user you would use pmount and pumount to replace mount and umount respectively.</div></blockquote>
+Hi Dave,<br>
+much appreciate your time. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I followed your advice putting blkid as root, which gave me pretty much the same results you showed. But when I connected my USB drive and ran blkid again, there was no difference at all.<br>
+<br>
+And yet, if I connect a USB wireless antenna, it works immediately, without mounting anything! <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+brian</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23452" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile23452">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23452">
+
+<time datetime="2012-01-26T21:05">posted: 2012-01-26 &nbsp; 21:05</time>
+<span class="permalink"><a href="./can-t-find-my-external-usb-cd-dvd-drive-t3436-s15.html#p23452" title="permalink">#18</a></span>
+
+<div class="content"><span class="emoticon"> __{{emoticon}}__ </span> hhmm try the going through the same sequence only instead of using blkid use fdisk -l. <br>
+<br>
+If that does not show anything type lsusb and post the output here.<br>
+EDIT:<br>
+for before and after the usb device is inserted<br>
+<br>
+ANOTHER EDIT:<br>
+I have been treating this as though it is a usb-hdd, I did not take into consideration that it is a cd/dvd player. Just to eliminate another easy problem, is there a cd / dvd in the drive? Sometimes that will make a differance.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_23488" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile23488">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 107</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+
+<a href="#" class="username">brian</a> </section>
+</dt>
+<dd class="profile-joined">Joined: 10 Sep 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content23488">
+
+<time datetime="2012-01-31T20:12">posted: 2012-01-31 &nbsp; 20:12</time>
+<span class="permalink"><a href="./can-t-find-my-external-usb-cd-dvd-drive-t3436-s15.html#p23488" title="permalink">#19</a></span>
+
+<div class="content"><blockquote><div><cite>Dave wrote:</cite><span class="emoticon"> __{{emoticon}}__ </span> hhmm try the going through the same sequence only instead of using blkid use fdisk -l. <br>
+<br>
+If that does not show anything type lsusb and post the output here.<br>
+EDIT:<br>
+for before and after the usb device is inserted<br>
+<br>
+ANOTHER EDIT:<br>
+I have been treating this as though it is a usb-hdd, I did not take into consideration that it is a cd/dvd player. Just to eliminate another easy problem, is there a cd / dvd in the drive? Sometimes that will make a differance.</div></blockquote>
+Hi Dave,<br>
+still here, sorry about the delay... just real busy these days..<br>
+<br>
+I ran fdisk -l as root before and after inserting the drive. No difference.<br>
+So I ran lsusb before inserting the drive and got this: <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+</code></pre></div>
+and after inserting the drive got this:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 001 Device 003: ID 0e8d:1836 MediaTek Inc. Samsung SE-S084 Super WriteMaster Slim External DVD writer
+</code></pre></div>
+<br>
+I did all this while a CD was in the drive.<br>
+<br>
+Also, I tried to mount it through Nautilus running as root, but it told me that I wasn't authorized. But it did recognize the CD in the driver, so it might be progress.. <br>
+<br>
+Any thoughts?<br>
+<br>
+Brian</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+19 posts
+<ul>
+<li class="arrow previous"><span class="jumptopagez">jump to page: </span><a class="button button-icon-only" href="./can-t-find-my-external-usb-cd-dvd-drive-t3436.html" rel="prev" role="button"><span class="sr-only">Previous</span></a></li>
+<li><a class="button" href="./can-t-find-my-external-usb-cd-dvd-drive-t3436.html" role="button">1</a></li>
+<li class="active"><span>2</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

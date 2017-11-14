@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>A Script to Unmount Removable Drives - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./a-script-to-unmount-removable-drives-t3294.html">A Script to Unmount Removable Drives</a></div>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_21674" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21674">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21674">
+<time datetime="2011-08-21T18:11">posted: 2011-08-21 &nbsp; 18:11</time>
+<span class="permalink"><a href="./a-script-to-unmount-removable-drives-t3294.html#p21674" title="permalink">#1</a></span>
+
+<div class="content">I've been looking at antiX-M11 for about a week and like other users who don't use ROX as a file manager, I soon encountered the problem of unmounting a removable drive via the GUI (IceWM). A search of the forum provided some useful information but no answers without introducing changes to the standard distro, which I prefer not to do.<br>
+<br>
+To a Windows user is is not intuitive to unmount a removable drive using a file manager. To a Linux user it is more usual, but not always convenient if a file manager it is not permanently running.<br>
+<br>
+A variety of removable (flash and hard disk) drives are used here. Some have multiple partitions. Frequently, multiple drives with multiple partitions are concurrently connected. It can rapidly become tedious to have to adopt root privileges and unmount each individually.<br>
+<br>
+I decided to try and do something about it. The objectives were to produce something that is obvious, convenient and concise to use, and does not require root privileges.<br>
+<br>
+The result is the script shown below. It requires no additional software above that supplied as standard in antiX-M11.
+<ul><li>* It works via the GUI<br>
+* It lists only removable drives<br>
+* It is independant of the file manager<br>
+* It works for an unprivileged user<br>
+* It is launched from a button on the taskbar or entry in the menu<br>
+* It caters for multiple concurrently connected removable drives<br>
+* It simultaneously unmounts each partition on drive(s) specified by the user<br>
+* It removes the released mountpoint(s)</li></ul>
+Below are the script, and the steps to follow to get it up and running. I am not a coder, and only a very occasional script writer, consequently I adopt a style that I might easily understand in twelve months time. If anyone finds the script to be of any value, perhaps they might polish it into an antiX form, if such a thing exists.<br>
+<br>
+<em>Script - unplugdrive.sh</em>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+# unplugdrive.sh
+#
+# Enables unmounting prior to unplugging removable storage
+# Allows simultaneous selection of multiple drives
+# Unmounts all mounted partitions on nominated drive(s)
+# Removes mountpoints
+#
+# Requires zenity and pmount to be installed. 
+# Requires /etc/udev/rules.d/99-usbstorage.unused to be renamed 99-usbstorage
+# Store and set the locale value
+langbackup=$LANG
+LANG=C
+# Collect details of each removable device that has at least one mounted partition
+discovered=$(pmount|grep /dev/|sort|tr ' ' '_'|cut -d _ -f 1,2,3)
+# Create a list of removable devices excluding CD/DVD 
+for item in $discovered;do
+   if [[ ! $item = /dev/sr* ]];then
+     detectedlist="$detectedlist$item"
+   fi
+done
+# Create a list of each removable drive, mounted partition and mountpoint
+removablelist=""
+removablenow=""
+for item in $detectedlist;do
+   removablenow=$(echo $item|cut -c 6-|tr '_' ' ')
+   removablelist="$removablelist$removablenow\n"
+done
+# Create a list of each unplugable drive
+drivelist=""
+drivenow=""
+driveprevious=""
+position=0
+for item in $detectedlist;do
+   drivenow=$(echo $item|cut -d _ -f 1|cut -c 6-8)
+   if ["$drivenow" !="$driveprevious" ];then
+      drivelist="$drivelist $position $drivenow"
+      driveprevious=$drivenow
+   fi
+   position=$(expr $position + 1)
+done
+# Display a message that no candidate for unmounting was discovered
+if [ -z"$drivelist" ];then
+   zenity --warning --text"A removable drive with a mounted partition was not found.\n\nIt is safe to unplug the drive(s)"
+   LANG=$langbackup
+   exit 0
+fi
+# Display a list from which the drives to be unplugged may be selected
+selected=$(zenity --list --width="300" --height="350"  --text="The following are currently mounted:\n$removablelist\nChoose the drive(s) to be unplugged\n" --checklist --column="Select" --column="Drives" --separator="" $drivelist)
+   if [ -z"$selected" ];then
+      zenity --warning --text="Nothing selected.\nAborting without unmounting."
+      LANG=$langbackup
+      exit 1
+   fi
+# Create a list of mountpoints used by the drives selected to be unplugged 
+mountpointlist=""
+mountpointnow=""
+for item in $selected;do
+   mountpointnow=$(pmount|grep $item|cut -d"" -f 3)
+   mountpointlist="$mountpointlist$mountpointnow"
+done
+# Create a list summarising what is about to be unmounted
+summarylist=""
+summarypoint=""
+for item in $selected;do
+   summarypoint=$(pmount|grep $item|cut -d"" -f 1,2,3|cut -c 6-)
+   summarylist="$summarylist$summarypoint\n"
+done
+# Obtain confirmation to proceed with unmounting
+zenity --question --text="About to unmount:\n$summarylist\nPlease confirm you wish to proceed."
+if [ $? ="1" ];then
+   zenity --warning --text="Nothing has been unmounted.\nAborting as requested with no action taken."
+   LANG=$langbackup
+   exit 1
+else
+# Ensure everything is written to storage then unmount
+   zenity --progress --text="Data is being written to devices. Please wait..." &amp; pid1="$!"
+   sync
+   kill $pid1
+   for item in $mountpointlist;do
+      $(pumount $item)
+   done
+fi
+#  Collect details of each removable device that has at least one mounted partition
+postunmount=$(pmount|grep /dev/|sort|cut -d _ -f 1,2,3)
+# Collect details of each mountpoint that pumount failed to remove 
+mountpointerror=""
+mountpointerrorlist=""
+for item in $mountpointlist;do
+   mountpointerror="$(echo $postunmount|grep -o $item)"
+   if [ ! -z $mountpointerror ];then
+      mountpointerrorlist="$mountpointerrorlist$mountpointerror\n"
+   fi
+done
+# Display a message if unmount failed
+if [ ! -z"$mountpointerrorlist" ];then
+   zenity --error --text="Mountpoint removal failed.\n\nA mountpoint remains present at:\n$mountpointerrorlist\nCheck each mountpoint listed before unpluging the drive(s)."
+   LANG=$langbackup
+   exit 1
+else
+   # Display a message if unmount successful   
+   zenity --info --text="Unmounted:\n$summarylist\n It is safe to unplug the drive(s)"
+   LANG=$langbackup
+   exit 0
+fi
+</code></pre></div>
+<br>
+<em>Configuration steps for IceWM on AntiX-M11</em><br>
+<br>
+<strong>Required Applications</strong><br>
+pmount and zenity are needed. These are both installed by default.<br>
+Verify the required applications are installed:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-cache policy pmount zenity</code></pre></div>
+<br>
+<strong>Automatically Mount Upon Plugging-in</strong><br>
+An antiX default file that is unused needs to be enabled.<br>
+Rename /etc/udev/rules.d/99-usbstorage.unused to /etc/udev/rules.d/99-usbstorage<br>
+<br>
+<br>
+<strong>Create the unplugdrive.sh Executable Script</strong><br>
+Ensure line wrapping is switched off in your text editor as it may help to preserve long lines<br>
+Copy and paste the script code into a new text file<br>
+Save the file as /usr/local/unplugdrive.sh<br>
+Make the script executable
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>chmod +x /usr/local/bin/unplugdrive.sh</code></pre></div>
+<br>
+<strong>Add an Entry at the Head of the IceWM Menu</strong><br>
+Start Menu--&gt;Applications--&gt;Preferences--&gt;antiXCC--&gt;Edit IceWM Settings<br>
+Select the Menu tab <br>
+Add the following entry at line number 1
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>prog"Unplug Drive" /usr/share/icons/gTangish-2.0a1/32x32/actions/remove.png unplugdrive.sh</code></pre></div>
+<br>
+<strong>Add a Button to the IceWM Toolbar</strong><br>
+Start Menu--&gt;Applications--&gt;Preferences--&gt;antiXCC--&gt;Edit IceWM Settings<br>
+Select the Toolbar tab <br>
+Add the following entry in the section: System/settings applications
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>prog"Unplug Drive" /usr/share/icons/gTangish-2.0a1/32x32/actions/remove.png unplugdrive.sh</code></pre></div>
+<br>
+<strong>Initiate the Changes in IceWM</strong><br>
+Start Menu--&gt;Logout--&gt;Restart IceWM<br>
+If needed:<br>
+Start Menu--&gt;Desktop--&gt;IceWM--&gt;Update Menu (Auto)<br>
+<br>
+<br>
+Edits by SamK
+<ul><li>* It no longer finds and reports a mounted CD/DVD as an upluggable drive</li></ul>
+<ul><li>* The icons referred to in the configuration steps now point to icons that are provided as part of the default installation of antiX-M11-Full</li></ul></div>
+<div class="notice">
+Last edited by <b>SamK</b> on 24 Aug 2011, 13:52, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21675" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21675">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21675">
+
+<time datetime="2011-08-21T20:32">posted: 2011-08-21 &nbsp; 20:32</time>
+<span class="permalink"><a href="./a-script-to-unmount-removable-drives-t3294.html#p21675" title="permalink">#2</a></span>
+
+<div class="content">Nice work SamK.<br>
+<br>
+I tested it on 2 different usb sticks and 2 different usb external hard drives, individually and mixed and all works very well.<br>
+<br>
+Is it possible though to have the choice to unmount only one partition (or however many user wants) rather than the whole device?<br>
+<br>
+eg sdc has 2 partitions. I only want to unmount sdc2. At the moment the script cannot do so.<br>
+<br>
+A great addition to antiX.<br>
+<br>
+Added: Just to point out that users may not want to have auto-mount enabled when plugging in their sticks/devices.<br>
+For those that do want it, and a pop-up opening a filer, you can use devmon.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21677" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21677">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21677">
+
+<time datetime="2011-08-21T20:37">posted: 2011-08-21 &nbsp; 20:37</time>
+<span class="permalink"><a href="./a-script-to-unmount-removable-drives-t3294.html#p21677" title="permalink">#3</a></span>
+
+<div class="content">Very nice SamK, I really like how the script detects which drive is currently mounted.<br>
+I have made a similar script, but it only detects the drives as with mountbox included in antix. It currently uses yad instead of zenity, because yad has a nice feature to allow it to be in the system tray. I think yours is much better than mine, but maybe you can find parts of mine useful in developing further. <br>
+<br>
+usb-helper.sh
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#!/bin/bash
+export XAUTHORITY=/home/David/.Xauthority;
+export DISPLAY=":0.0";
+#SCRIPT MAIN BODY
+function run {
+ yad --form --always-print-result --align="left" --mouse --title="Disk Management" --image=drive-removable-media --button="Unmount:0" --button="Mount:1" --button="gtk-close:2" --field="DISK":"CB" --item-separator="\:" $PARTITIONS --field="Open file manager:CHK" &gt; $HOME/.disk; ANSWER="$?";
+ DISK=`cat $HOME/.disk | cut -d"|" -f1`;
+  if [ $ANSWER = 0 ] ; then
+  pumount /dev/$DISK;
+  notify-send -i drive-removable-media"$DISK has been unmounted";
+  elif [ $ANSWER = 1 ] ; then
+  pmount /dev/"$DISK";
+  notify-send -i drive-removable-media"$DISK has been mounted to $HOME/media/$DISK";
+  CHECK=`cat $HOME/.disk | cut -d"|" -f2`;
+   if ["$CHECK" ="TRUE" ] ; then
+   pcmanfm $HOME/media/$DISK &amp;
+   fi
+  elif [ $ANSWER = 2 ] ; then
+  exit;
+  fi 
+ exit;
+}
+#SET VARIABLES HERE
+ PART=`cat /proc/partitions | grep -o '[h,s,v].[a-z][1-9]'`;
+ PARTITIONS=`echo $PART |tr""":"`;
+#CHECK SCRIPT REQUIREMENTS AND RUN
+DIRNAME="media";
+ if [ -d $HOME/$DIRNAME ] ; then
+ run;
+ else
+ ln -s /media $HOME/;
+ run;
+ fi
+</code></pre></div>
+99-usbstorage
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>KERNEL!="sd*[1-9]*", GOTO="exit"
+
+# Import FS infos
+SUBSYSTEMS=="usb", IMPORT{program}="/sbin/blkid -o udev -p %N"
+
+# Get a label if present, otherwise specify one
+SUBSYSTEMS=="usb", ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+SUBSYSTEMS=="usb", ENV{ID_FS_LABEL}=="", ENV{dir_name}="usb-%k"
+
+# Global pmount options
+SUBSYSTEMS=="usb", ACTION=="add", ENV{pmount_options}="--noatime"
+
+# File system specific pmount options to avoid auto probing
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs|vfat", ENV{pmount_options}="%E{pmount_options} --umask 007 --charset utf8"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", ENV{pmount_options}="%E{pmount_options} -t ntfs-3g"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="vfat", ENV{pmount_options}="%E{pmount_options} -t vfat"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext2", ENV{pmount_options}="%E{pmount_options} -t ext2"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext3", ENV{pmount_options}="%E{pmount_options} -t ext3"
+SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_FS_TYPE}=="ext4", ENV{pmount_options}="%E{pmount_options} -t ext4"
+
+# Mount the device
+SUBSYSTEMS=="usb", ACTION=="add",   RUN+="/bin/su #### USER OF SYSTEM #### -c '/usr/local/bin/usb-helper'"
+# RUN+="/bin/su #### USER OF SYSTEM ##### -c '/usr/bin/pmount $env{mount_options} /dev/%k /media/%E{dir_name}'",
+
+# Clean up after removal
+SUBSYSTEMS=="usb", ACTION=="remove", ENV{dir_name}!="", RUN+="/usr/bin/pumount /dev/%k"
+
+# Exit
+LABEL="exit"
+</code></pre></div>
+EDIT: was holding off on posting this because it uses YAD which antix does not have by default currently</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21680" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21680">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<section class="desktop-hide">
+<a href="#" class="username">dolphin_oracle</a>  </section>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21680">
+
+<time datetime="2011-08-21T23:12">posted: 2011-08-21 &nbsp; 23:12</time>
+<span class="permalink"><a href="./a-script-to-unmount-removable-drives-t3294.html#p21680" title="permalink">#4</a></span>
+
+<div class="content">i think this is a great step. its not that windows users don't unmount drives, they just don't know that's what they are doing. you have to"safely remove the drive" or something from a utility shown in the system tray or from a right-click menu in the file manager. a little icon in the toolbar or system tray would be very familiar to users coming from the windows world.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21695" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21695">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21695">
+
+<time datetime="2011-08-23T09:34">posted: 2011-08-23 &nbsp; 09:34</time>
+<span class="permalink"><a href="./a-script-to-unmount-removable-drives-t3294.html#p21695" title="permalink">#5</a></span>
+
+<div class="content">Thanks for the kind comments. It's always encouraging when one's first contribution is well recieved.<br>
+<br>
+<blockquote><div><cite>anticapitalista wrote:</cite>
+Is it possible though to have the choice to unmount only one partition (or however many user wants) rather than the whole device?</div></blockquote>
+This is not to rule it out forever but it was not one of the goals for a few reasons...<br>
+<br>
+The basic intention is to mimic the way in which Windows XP deals with plug-in USB storage. <strong>dolphin_oracle</strong> seems to have got the idea. A Windows user may not know (or want to know) what happens when they click the button, but they have learned to do it. In this respect it is simple and concise to use for a non-technical user.<br>
+<br>
+External USB storage, particularly flash drives, generally tend to have a single usable partition. I am also aware of huge (1TB+) external drives being sold with a single partition. A non-technical user (particularly in the Windows world) has a tendency to leave them in this condition. In contrast, repartitioning a USB drive occurs more often in the Linux world. To do so implies both a degree of technical understanding and competence. For such a user, there already exists within antiX various ways (albeit not always convenient ways) of dealing with multi-partition storage.<br>
+<br>
+The main concept of the script is that when a user plugs-in a drive it is with the intention of using it, i.e. read/write to it, so all usable areas are made available. Conversely, when the user wishes to unplug the drive, this signifies the user has finished with it, which in turn implies that everything needs to be unmounted. Additionally, if one of multiple partitions was unmounted, how would it be remounted? File managers other than ROX (via pmount) are presently unable to do it without using root privileges. The command line can be used to directly invoke pmount or mount but the latter will require the manual creation of a mount point, which in turn may require using the root account. These options conflict with the goals of the script and in my opinion, potentially lead a user into a confused position.<br>
+<br>
+Once the current issue of the user being unable to mount/unmount drives without generating the"Not Authorized" error message is resolved, it may be worth revisiting.<br>
+<br>
+<br>
+<br>
+A Question from a User New to antiX<br>
+I use various distros for different purposes. I have not previously seen the"Not Authorized" mounting issue in any of them, not even a distro based on Debian. I must admit to not researching the matter as it was peripheral to producing the script. The antiX approach of using ROX-filer to invoke pmount is a practical way to work around the issue (for ROX users) but addresses the symptoms rather than the cause. Is the problem found only in antiX, Mepis, or Debian? What exactly is its cause? Is a resolution being worked on?<br>
+<br>
+<br>
+Edit by SamK<br>
+* Correction of typos</div>
+<div class="notice">
+Last edited by <b>SamK</b> on 24 Aug 2011, 13:55, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21701" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21701">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,228</span></div>
+
+</div>
+</div>
+<span class="username">secipolla</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Jun 2008</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21701">
+
+<time datetime="2011-08-23T14:12">posted: 2011-08-23 &nbsp; 14:12</time>
+<span class="permalink"><a href="./a-script-to-unmount-removable-drives-t3294.html#p21701" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>A Question from a User New to antiX<br>
+I use various distros for different purposes. I have not previously seen the"Not Authorized" mounting issue in any of them, not even a distro based on Debian. I must admit to not researching the matter as it was peripheral to producing the script. The antiX approach of using ROX-filer to invoke pmount is a practical way to work around the issue (for ROX users) but addresses the symptoms rather than the cause. Is the problem found only in antiX, Mepis, or Debian? What exactly is its cause? Is a resolution being worked on?</div></blockquote>
+Hello, Sam.<br>
+I don't use antiX (just Debian and now posting from a recently installed Frugalware) but I've used it quite some time and come here now and then because of the community.<br>
+I think this issue is due either to the SLiM display manager itself as it's an old app or to the way it's configured in antiX that has a tweaked /etc/slim.con and uses ~/.xinitrc to start the session instead of Xsession itself as used by default in debian. It may be related to gnome-keyring as well.<br>
+As you can see at usb-not-authorized-in-pcmanfm-nautilus-t3280.html , my advice to replace slim for gdm3 (which also takes care of any previous custom way of starting the session) and properly starting gnome-keyring solved the issue for another antiX user.<br>
+<br>
+anticapitalista will have more background to answer this.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21710" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile21710">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21710">
+
+<time datetime="2011-08-24T13:30">posted: 2011-08-24 &nbsp; 13:30</time>
+<span class="permalink"><a href="./a-script-to-unmount-removable-drives-t3294.html#p21710" title="permalink">#7</a></span>
+
+<div class="content">Hi secipolla,
+<blockquote><div><cite>secipolla wrote:</cite>I don't use antiX (just Debian and now posting from a recently installed Frugalware) but I've used it quite some time and come here now and then because of the community.</div></blockquote>The folks here do seem friendly.<br>
+<br>
+<blockquote><div><cite>secipolla wrote:</cite>I think this issue is due either to the SLiM display manager itself as it's an old app or to the way it's configured in antiX..</div></blockquote>OK, thanks for this info. To keep this thread on topic I will probably open another thread to continue the discussion.<br>
+<br>
+Edit - The new topic can be found at:<br>
+post21723.html#p21723<br>
+<br>
+<br>
+<br>
+Edit by SamK<br>
+* Added link to new topic</div>
+<div class="notice">
+Last edited by <b>SamK</b> on 25 Aug 2011, 07:36, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_21711" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile21711">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content21711">
+
+<time datetime="2011-08-24T13:44">posted: 2011-08-24 &nbsp; 13:44</time>
+<span class="permalink"><a href="./a-script-to-unmount-removable-drives-t3294.html#p21711" title="permalink">#8</a></span>
+
+<div class="content">I have amended the script a little. <br>
+<ul><li>* It no longer finds and reports a mounted CD/DVD as an upluggable drive.</li></ul> <ul><li>* The icons referred to in the configuration steps now point to icons that are provided as part of the default installation of antiX-M11-Full.</li></ul></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

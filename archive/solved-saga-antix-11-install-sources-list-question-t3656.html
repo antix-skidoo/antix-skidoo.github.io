@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED]saga: antix-11 install &amp; sources.list question - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-saga-antix-11-install-sources-list-question-t3656.html">[SOLVED]saga: antix-11 install &amp; sources.list question</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_24293" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24293">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24293">
+<time datetime="2012-04-15T18:40">posted: 2012-04-15 &nbsp; 18:40</time>
+<span class="permalink"><a href="./solved-saga-antix-11-install-sources-list-question-t3656.html#p24293" title="permalink">#1</a></span>
+
+<div class="content">OK so antiX-11-686 looks purty durned good on my AMD_64 desktop...
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>CPU:       Single core AMD Athlon 64 3800+ (-UP-) cache 512 KB flags (lm nx sse sse2 sse3) bmips 2003.91 clocked at 1000.00 MHz 
+Graphics:  Card: nVidia C51 [GeForce 6150 LE] bus-ID: 00:05.0 X.Org 1.9.5 Res: 1024x768@0.0hz </code></pre></div>
+Though I had to tweak a few things. <br>
+<br>
+I installed E17 (my favorite WM/DE) but for some reason the session selector in slim didn't pick it up. So since I prefer to boot to console and use startx when I want the gui anyway, I tried to use update-rc.d to stop slim from actually running...<br>
+<br>
+IE:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>update-rc.d -f slim remove
+update-rc.d slim stop 20 2 3 4 5 .</code></pre></div>
+But it decined to actually do it. So I got stubborn and used a root mc session to manually replace all the S01slim links with K01slim links, rebooted to a pure console session, created my own simple ~/.xinitrc, and used startx to fire up E17... And things were looking pretty good...<br>
+<br>
+But I also had to eliminate some garbage in /etc/default/keyboard XKBOPTIONS="" In order that I could asign/use key bindings that depend on &lt;shift&gt;+&lt;alt&gt; being a seperate modifier combo from just &lt;alt&gt; {Aside from my persional E17 bindings that affected the abillity to use &lt;shift&gt;+&lt;alt&gt;+&lt;a&gt; to insert the path of the directory displayed in the other pannel to midnight commanders commad line} It also for some reason I can't figgure, affected the behavior of the"v" key binding in less, preventing it from opening the current file with EDITOR exported from my .bashrc (in my case that's vim) Which I was pleasently surprized to notice started working upon the next boot after setting those XKBOPTIONS to"".<br>
+<br>
+Antway once I did all that, antiX works well on my desktop.<br>
+<br>
+I'm a little puzzeled though about the text in my sources.list:<blockquote class="uncited"><div>
+# MEPIS 11 series. <br>
+# Uncomment all MEPIS repos shown here to install headers and linux-kbuild<br>
+# from MEPIS repo for latest MEPIS kernel (2.6.36). Then comment back once installed.</div></blockquote> The antiX-11-686.iso already installed the 2.6.36 kernel... And I'm not sure I understand the logic of only uncommenting that long enough to update the kernel???<br>
+<br>
+Also, while iceweasel is a great drop in replacement for firefox which I use for secure connections to specific sites (like my bank) after which I always close the browser completely.<br>
+For generic browsing with multiple tabs left open to several sites (each of which might be positioned where I left off reading. I prefer to use a seperate browser. And for that, I like opera. So I uncommented the opera repository. <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>deb http://deb.opera.com/opera/ squeeze non-free</code></pre></div> (Though I'm wondering if it should be testing rather than squeeze for the rolling release configuration????)<br>
+Anyway uncommenting that line led to"apt-get update" complaining that there was no public key available. Which inturn led to an"apt-get install opera" warning that: <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>WARNING: The following packages cannot be authenticated!
+  opera
+Install these packages without verification [y/N]?</code></pre></div>
+I poked around in my old xubuntu sources notes and found an instruction on importing the key for the medibuntu repo, and browsed the opera repo untill I found a gpg file for squeeze, but: <div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>wget -q http://deb.opera.com/opera/dists/squeeze/Release.gpg -O- | apt-key add - &amp;&amp; sudo apt-get update
+gpg: no valid OpenPGP data found. </code></pre></div> So I gotta ask, How do I import the gpg key for the opera repository????</div>
+<div class="notice">
+Last edited by <b>jtwdyp</b> on 18 Apr 2012, 17:35, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24296" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24296">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 279</span></div>
+
+</div>
+</div>
+<span class="username">afab4</span>
+</dt>
+<dd class="profile-joined">Joined: 17 Oct 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24296">
+
+<time datetime="2012-04-16T02:13">posted: 2012-04-16 &nbsp; 02:13</time>
+<span class="permalink"><a href="./solved-saga-antix-11-install-sources-list-question-t3656.html#p24296" title="permalink">#2</a></span>
+
+<div class="content"><blockquote><div><cite>jtwdyp wrote:</cite> So I gotta ask, How do I import the gpg key for the opera repository????</div></blockquote>
+From a root terminal:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>wget -O - http://deb.opera.com/archive.key | sudo apt-key add -
+</code></pre></div>
+antiX 11 uses testing repo sources. Squeeze has gone stable. Opera is still in squeeze repo though.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24297" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile24297">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24297">
+
+<time datetime="2012-04-16T02:19">posted: 2012-04-16 &nbsp; 02:19</time>
+<span class="permalink"><a href="./solved-saga-antix-11-install-sources-list-question-t3656.html#p24297" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>The antiX-11-686.iso already installed the 2.6.36 kernel... And I'm not sure I understand the logic of only uncommenting that long enough to update the kernel???</div></blockquote>
+Don't touch Mepis repos. AntiX 11 by default is now completely Debian Testing (Wheezy).<br>
+If wanting a newer kernel. Look at Liqourix repos in sources.list.<br>
+<br>
+Also. Running smxi in init. 3 boot as root will give choices on kernel upgrades also.<br>
+Plus Anti has posted kernel debs also.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_24300" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile24300">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 71</span></div>
+
+</div>
+</div>
+<span class="username">jtwdyp</span>
+</dt>
+<dd class="profile-joined">Joined: 08 Apr 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content24300">
+
+<time datetime="2012-04-16T05:33">posted: 2012-04-16 &nbsp; 05:33</time>
+<span class="permalink"><a href="./solved-saga-antix-11-install-sources-list-question-t3656.html#p24300" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>afab4 wrote:</cite><blockquote><div><cite>jtwdyp wrote:</cite> So I gotta ask, How do I import the gpg key for the opera repository????</div></blockquote>
+From a root terminal:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>wget -O - http://deb.opera.com/archive.key | sudo apt-key add -
+</code></pre></div> </div></blockquote>Thanks. And done...<br>
+<blockquote class="uncited"><div>antiX 11 uses testing repo sources. Squeeze has gone stable. Opera is still in squeeze repo though.</div></blockquote> As long as it doesn't cause a conflict with the rest of the repos, I'm happy! Thanks again...<br>
+<br>
+<blockquote><div><cite>rokytnji wrote:</cite><blockquote class="uncited"><div>The antiX-11-686.iso already installed the 2.6.36 kernel... And I'm not sure I understand the logic of only uncommenting that long enough to update the kernel???</div></blockquote>
+Don't touch Mepis repos. AntiX 11 by default is now completely Debian Testing (Wheezy).<br>
+If wanting a newer kernel. Look at Liqourix repos in sources.list.</div></blockquote> And Thank You!<br>
+As it happens the Liquorix repos are already uncommented in my sources.list... Don't remember uncommenting them, but as long as they are the right ones, I can't see any reason to re-comment them...<br>
+<blockquote class="uncited"><div>Also. Running smxi in init. 3 boot as root will give choices on kernel upgrades also.<br>
+Plus Anti has posted kernel debs also.</div></blockquote> Good to know! Thanks again.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

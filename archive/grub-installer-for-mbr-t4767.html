@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Grub installer for mbr. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./grub-installer-for-mbr-t4767.html">Grub installer for mbr.</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_32617" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32617">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32617">
+<time datetime="2013-12-31T03:55">posted: 2013-12-31 &nbsp; 03:55</time>
+<span class="permalink"><a href="./grub-installer-for-mbr-t4767.html#p32617" title="permalink">#1</a></span>
+
+<div class="content">Actually for the most part Antix has what I need except 1 thing. A script to install the grub to the MBR or a frugal install script which includes the grub installation. (Maybe I missed it somewhere but someone mentioned a script antix-system.sh which does a repair that they said doesn't work with the 13 version and it didn't create the grub for me) Somehow I was able to get it installed once and when I was recreating my steps to make a new remaster and write instructions, I just can't get it. I don't have a problem changing or even creating a menu list because I have a copy of my original but it's so time consuming especially now that I can't figure out what's wrong.<br>
+<br>
+The frugal instructions here 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.mepis.org/index.php?title=Frugal_install"<br>linktext was:"http://antix.mepis.org/index.php?title=Frugal_install"<br>====================================<br>
+ start off with the 6th paragraph down"You need a working grub already installed" and then it continues on how to move stuff over from Live to the Frugal HDD install. I think it would be so much nicer (and help me scratching my head each time) if there was a script for this.<br>
+<br>
+Here I am now:<br>
+I have 2 partitions created. sda1 (fat32 set with boot flag) &amp; sda2 (ext2). Booted live antiX13.2 (x386) . What do I do now if I want it installed to the MBR of sda? I tried :
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo grub
+grub&gt; root (hd0,0)
+grub&gt; setup (hd0)
+</code></pre></div>
+Responds with
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Checking if"/boot/grub/stage1" exists... no
+Checking if"/grub/stage1" exists... no
+Error 15: File not found
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32623" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32623">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32623">
+
+<time datetime="2013-12-31T17:17">posted: 2013-12-31 &nbsp; 17:17</time>
+<span class="permalink"><a href="./grub-installer-for-mbr-t4767.html#p32623" title="permalink">#2</a></span>
+
+<div class="content">OK, I had some success and hope maybe some slight changes are done to the next antiX to make it easier.<br>
+<br>
+After seeing errors like:<br>
+grub error 15: file not found<br>
+<br>
+and trying to install grub2 which was very simple with a nice gui front end to install the MBR it gave me:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/usr/sbin/grub-probe: error: /live/aufs is not a block device.
+Auto-detection of a filesystem of /live/aufs failed.
+Try with --recheck
+device node not found
+</code></pre></div>
+It looks like antiX-M8.5 has the tool I needed under the Applications/Other menu called <strong>MEPIS System Assistant</strong>. It is such a primary tool for those who want to install grub either don't have it or want to dual boot windows. It would be nice if that was added to AntiX13.2. The problem seems that the repair grub tool (antix-system.sh) doesn't add the *stage* files needed for grub to install to the MBR. It is basically as easy as just copying /usr/lib/grub/i386-pc/* to /boot/grub on the running linux root partition (not the sda1,sda2 since it's done automatically after you do this step. Note I'm only testing the 386 and not 64 bit. Their might be a different folder for this) It's so nice to read a bit about grub. Some real cool articles on 'tab-completion' for finding files and devices. Anyhow my first suggestion for the next version of antiX is either:<br>
+-fixing antix-system.sh (or creating a new grub installer script) so that it copies /usr/lib/grub/i386-pc/* to /boot/grub <br>
+-adding it to a separate menu more clear like installing grub or something more intuitive.<br>
+<br>
+Since this antix-system.sh is already in control-centre it could use a rewording:<br>
+-rewording 'Configure system' in control centre to something like 'Config Sys &amp; Disk)<br>
+and<br>
+<br>
+It's probably important too mentioning it in the frugal instructions I noted in the previous post.<br>
+<br>
+<strong>The overall conclusion to get grub installed had 2 steps involved.</strong> I ran this a few times in VirtualBox to test it(. <br>
+1) Running AntiX-M8.5's tool MEPIS System Assistant ignoring the popup msystem error"Sorry, creating the menu.lst failed. Root filesystem may be faulty. (antiX-system.sh didn't work)<br>
+2) Running the following code afterwards
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo grub
+grub&gt; root (hd0,1)
+grub&gt; setup (hd0)
+</code></pre></div> <br>
+Which basically means<br>
+1) Start grub command prompt<br>
+2) root (hd0,1) means I'll be using my 2nd partition sda2 to install linux<br>
+3) setup (hd0) installs to MBR of first physical drive (sda) where it looks in this partition under /boot/grub for the *stage* files and menu.lst<br>
+<br>
+[Anyone new to grub. They mention many times the convention for naming drives is different in grub and not /sda1 /sda2 etc.]<br>
+<br>
+So basically after that I could do my antiX copying to the partition. In my case it was from /live/boot-dev/antix to /media/sda2/antiX-base and added a new section to the bottom with the slight change to the /media/sda2/boot/grub/menu.lst as so: <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>title My antiX frugal hdd install
+root (hd0,1)
+kernel /antiX-base/vmlinuz quiet bdev=sda2 bdir=antiX-base antiX=LMX nomodeset persist
+initrd /antiX-base/initrd.gz
+</code></pre></div>
+<br>
+I hope this helps someone else.<br>
+<br>
+Note. Running Rox as root, you can't edit text files (it looses file associates)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32625" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile32625">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32625">
+
+<time datetime="2013-12-31T17:42">posted: 2013-12-31 &nbsp; 17:42</time>
+<span class="permalink"><a href="./grub-installer-for-mbr-t4767.html#p32625" title="permalink">#3</a></span>
+
+<div class="content">The only thing that puzzled me after I got it working is how I installed grub to the MBR the first time in antiX 13.2 with no effort. After creating multiple new virtual machines and digging around and tossing files all around and I also got grub installed to the MBR by just copying the files from /usr/lib/grub/i386-pc/* to /boot/grub on sda2 and running the grub commands I listed above root(hd0,1) &amp; setup (hd0) without downloading Antix 8.5 and running it's tool.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_32660" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile32660">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 38</span></div>
+
+</div>
+</div>
+<span class="username">nassausky</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content32660">
+
+<time datetime="2014-01-02T04:02">posted: 2014-01-02 &nbsp; 04:02</time>
+<span class="permalink"><a href="./grub-installer-for-mbr-t4767.html#p32660" title="permalink">#4</a></span>
+
+<div class="content">OK I think I figured out what I did the first time when I coasted through my first remaster.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo mkdir /mnt/hdd2
+sudo mount /dev/sda2 /mnt/hdd2
+sudo grub-install --root-directory=/mnt/hdd2/ /dev/sda
+</code></pre></div>
+I think what worked during my first frugal install is I mounted the 2nd partition and assigned it the root directory directly as a grub-install parameter. Still would be nice to have this done in a GUI for newbies.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

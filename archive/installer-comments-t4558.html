@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Installer comments - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-13-luddite-f49/index.html"><span>antiX-13 Luddite</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./installer-comments-t4558.html">Installer comments</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_30791" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30791">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4</span></div>
+
+</div>
+</div>
+<span class="username">qosmio</span>
+</dt>
+<dd class="profile-joined">Joined: 11 Aug 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30791">
+<time datetime="2013-08-18T22:32">posted: 2013-08-18 &nbsp; 22:32</time>
+<span class="permalink"><a href="./installer-comments-t4558.html#p30791" title="permalink">#1</a></span>
+
+<div class="content">Hi.<br>
+Very nice release but i have a request. The installer can only install to one hard drive and for my laptop that is fine but for my main box wich have a 250gb SSD and 2 storage drives it would be nice to be able to choose the ssd for system and another drive for /home. I dont need a ssd for /home. Many computers today have this type of setup so it would be nice to have that feature in the installer so you dont have to move /home from you ssd drive later. That said its a great distro in my opinion and moving /home is easy. Here is how i do it.<br>
+<br>
+You should not need to boot into a live CD. Just log out completely and log in as root.Once logged in as root execute<br>
+# telinit 1<br>
+this will change you to single user mode and will ensure that you are not using any of the files in /home.<br>
+From there, make your changes to fstab to mount your partition as /home. For example you might add:<br>
+/dev/sda8 /home ext4 defaults 0 1<br>
+to your /etc/fstab. The drive might be different (sda, sdb, sdc etc) on your system and also the filessytem (ext2, ext3, reiser etc) so make sure you know where to put /home and what filesystem you have on the drive you want to use for /home (fdisk -l will help)<br>
+Next, copy your current /home onto sda8. Make sure that there are no naming conflicts and that your home folder name still matches your user name.<br>
+Once you are sure all your data is safely copied over to sda8, move /home to /home-backup<br>
+#mv /home /home-backup <br>
+and then manually mount sda8 at /home<br>
+#mount /dev/sda8 /home<br>
+no additional flags should be needed if you have already updated /etc/fstab appropriately.<br>
+Finally, run<br>
+#telinit 3<br>
+and then log back in as your regular user. Reboot to make sure everything went well. If everything is fine you can safely delete /home-backup if you dont need it.<br>
+<br>
+Other than that thumbs up <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Cheers.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30797" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30797">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 765</span></div>
+
+</div>
+</div>
+<span class="username">rust collector</span>
+</dt>
+<dd class="profile-joined">Joined: 27 Dec 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30797">
+
+<time datetime="2013-08-19T11:26">posted: 2013-08-19 &nbsp; 11:26</time>
+<span class="permalink"><a href="./installer-comments-t4558.html#p30797" title="permalink">#2</a></span>
+
+<div class="content">Thanks, nice how to.<br>
+And yes it would be nice to have that in the installer</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30798" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30798">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 29</span></div>
+
+</div>
+</div>
+<span class="username">julian516</span>
+</dt>
+<dd class="profile-joined">Joined: 06 Sep 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30798">
+
+<time datetime="2013-08-19T12:46">posted: 2013-08-19 &nbsp; 12:46</time>
+<span class="permalink"><a href="./installer-comments-t4558.html#p30798" title="permalink">#3</a></span>
+
+<div class="content">Agreed. I have a desktop with an SSD for the op system and a conventional HD for data files. This is a very good idea. Thanks to qosmio!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

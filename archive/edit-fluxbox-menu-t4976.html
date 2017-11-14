@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Edit Fluxbox Menu - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./general-f21/index.html"><span>General</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./tips-and-tricks-f4/index.html"><span>Tips and Tricks</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./edit-fluxbox-menu-t4976.html">Edit Fluxbox Menu</a></div>
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_34647" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile34647">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34647">
+<time datetime="2014-04-17T23:26">posted: 2014-04-17 &nbsp; 23:26</time>
+<span class="permalink"><a href="./edit-fluxbox-menu-t4976.html#p34647" title="permalink">#1</a></span>
+
+<div class="content">Starting with this. I am sure dolphin_oracle will be posting videos on this stuff also.<br>
+<br>
+Just showing what I do.<br>
+<br>
+I open AntiX Control Center and hit the edit Flixbox settings button for starters.<br>
+<br>
+<img src="http://postmyimage.com/img2/753_antixcc.jpg" class="postimage" alt="Image"><br>
+<br>
+Then I get this window next which is geany. I go to the startup tab and comment out <br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Auto-update menu
+#auto-fluxbox-menu.sh &amp;</code></pre></div>
+You don't have to do this if you rely on auto-update menus. I hand edit my stuff so I do not wish to have<br>
+auto-update messing with my custom setting entries and erase them.<br>
+<br>
+<img src="http://postmyimage.com/img2/790_geany.jpg" class="postimage" alt="Image"><br>
+<br>
+Now to show how I use the locate command to find me a icon for browser in the menu entry. I will also find a icon for rox, leafpad,and terminal and show how I custom insert icons into the menu,<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ locate iceweasel
+&lt;snip&gt;
+/usr/share/icons/hicolor/128x128/apps/iceweasel.png
+/usr/share/icons/hicolor/16x16/apps/iceweasel.png
+/usr/share/icons/hicolor/32x32/apps/iceweasel.png
+/usr/share/icons/hicolor/48x48/apps/iceweasel.png
+/usr/share/icons/hicolor/64x64/apps/iceweasel.png
+/usr/share/icons/hicolor/scalable/apps/iceweasel.svg
+/usr/share/man/man1/iceweasel.1.gz
+/usr/share/menu/iceweasel
+/usr/share/pixmaps/iceweasel.png
+&lt;snip&gt;
+</code></pre></div>
+&lt;snip&gt;= where I cut out the readout and am only showing relevant entries for icons for iceweasel.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ locate rox-filer
+&lt;snip&gt;
+/usr/share/icons/antiX/rox-filer.png
+&lt;snip&gt;
+</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>locate leafpad
+&lt;snip&gt;
+/usr/share/pixmaps/leafpad.png
+&lt;snip&gt;</code></pre></div>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>locate roxterm
+&lt;snip&gt;
+/usr/share/pixmaps/roxterm.xpm
+&lt;snip&gt;</code></pre></div>
+Now to add to my menu some icons<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[begin] (--antiX--)
+  [exec] (Terminal) {roxterm} &lt;/usr/share/pixmaps/roxterm.xpm&gt;
+  [exec] (Files) {antiX-FileManager.sh} &lt;/usr/share/icons/antiX/rox-filer.png&gt;
+  [exec] (Editor) {leafpad} &lt;/usr/share/pixmaps/leafpad.png&gt;
+  [exec] (Browser) {iceweasel} &lt;/usr/share/icons/hicolor/16x16/apps/iceweasel.png&gt;</code></pre></div>
+The &lt;&gt; are needed for the icon to show. The inbetween entry is the path to the icon. I am going to log out and back in to supply the screenshot and show the difference between my first screenshot showing my menus and how it looks after the change.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_34649" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile34649">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content34649">
+
+<time datetime="2014-04-18T00:13">posted: 2014-04-18 &nbsp; 00:13</time>
+<span class="permalink"><a href="./edit-fluxbox-menu-t4976.html#p34649" title="permalink">#2</a></span>
+
+<div class="content"><img src="http://postmyimage.com/img2/632_menu_change.jpg" class="postimage" alt="Image"><br>
+<br>
+Ok. Now you see icons next to my top menu entries where there were non before in the 1st screenshot.<br>
+<br>
+I recommend for new users to leave autoupdate in startup alone.<br>
+I installed mousepad for a test and re-enabled auto-update menu in startup.<br>
+<br>
+Mousepad showed up in Apllications&gt;accessories&gt;mousepad <br>
+<br>
+with a icon next to it also.<br>
+<br>
+<img src="http://postmyimage.com/img2/596_mousepad_entry.jpg" class="postimage" alt="Image"></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+2 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

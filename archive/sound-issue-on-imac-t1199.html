@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>sound issue on imac - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./antix-m7-5-toussaint-louverture-f20/index.html"><span>antiX-M7.5 Toussaint Louverture</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./sound-issue-on-imac-t1199.html">sound issue on imac</a></h2>
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_7572" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7572">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 22</dd>
+<span class="username">Steve</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7572">
+
+<time datetime="2008-11-14T18:00">posted: 2008-11-14  &nbsp; 18:00</time>
+<span class="permalink"><a href="./sound-issue-on-imac-t1199.html#p7572" title="permalink">#1</a></span>
+
+<div class="content">Hello people after a very long hiatus. I have installed M7.5 on an imac5,1 (late 06)<br>
+I must say it is working great except for one problem, sound.<br>
+I tried to set up the sound card in the control center. At the selection screen I see<br>
+hda-intel Intel Corp. 82801G (ICH7 family) High Definition Audio and<br>
+legacy.<br>
+<br>
+I chose hda-intel. I said yes to the question about modifying /etc/modprobe.d/sound and<br>
+/etc/modprobe.conf (if present).<br>
+<br>
+alsaconf claimed the sound driver is configured, but xmms gives this message:<br>
+Couldn't open audio, please check that: Your soundcard is configured properly.<br>
+You have the correct output plugin selected. No other program is blocking the soundcard.<br>
+<br>
+I checked and the ALSA 1.2.10 output plugin [libALSA.so] was selected in xmmx's preferences.<br>
+<br>
+Here are some checks done after the above mentioned steps:<br>
+<br>
+# lshw (excerpts)<br>
+mepis1 <br>
+description: All In One<br>
+product: iMac5,1<br>
+vendor: Apple Computer, Inc.<br>
+version: 1.0<br>
+width: 32 bits<br>
+capabilities: smbios-2.4 dmi-2.4<br>
+configuration: boot=normal chassis=all-in-one<br>
+*-core<br>
+description: Motherboard<br>
+product: Mac-F4228EC8<br>
+vendor: Apple Computer, Inc.<br>
+physical id: 0<br>
+version: DVT<br>
+serial: 1<br>
+slot: Part Component<br>
+*-firmware<br>
+description: BIOS<br>
+vendor: Apple Computer, Inc.<br>
+physical id: 0<br>
+version: IM51.88Z.0090.B09.0706270921 (06/27/07)<br>
+size: 1MiB<br>
+capacity: 1984KiB<br>
+capabilities: pci upgrade shadowing cdboot bootselect acpi ieee1394boot smartbattery netboot<br>
+... <br>
+*-multimedia UNCLAIMED<br>
+description: Audio device<br>
+product: 82801G (ICH7 Family) High Definition Audio Controller<br>
+vendor: Intel Corporation<br>
+physical id: 1b<br>
+bus info: pci@0000:00:1b.0<br>
+version: 02<br>
+width: 64 bits<br>
+clock: 33MHz<br>
+capabilities: pm msi pciexpress cap_list<br>
+configuration: latency=0<br>
+*-pci:1<br>
+description: PCI bridge<br>
+product: 82801G (ICH7 Family) PCI Express Port 1<br>
+vendor: Intel Corporation<br>
+physical id: 1c<br>
+bus info: pci@0000:00:1c.0<br>
+version: 02<br>
+width: 32 bits<br>
+clock: 33MHz<br>
+capabilities: pci pciexpress msi pm normal_decode bus_master cap_list<br>
+configuration: driver=pcieport-driver<br>
+<br>
+<br>
+<br>
+<br>
+# alsactl -v<br>
+alsactl version 1.0.16<br>
+<br>
+<br>
+# aplay -l<br>
+aplay: device_list:207: no soundcards found...<br>
+<br>
+<br>
+# aplay<br>
+ALSA lib confmisc.c:768:(parse_card) cannot find card '0'<br>
+ALSA lib conf.c:3513:(_snd_config_evaluate) function snd_func_card_driver returned error: No such file or directory<br>
+ALSA lib confmisc.c:392:(snd_func_concat) error evaluating strings<br>
+ALSA lib conf.c:3513:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory<br>
+ALSA lib confmisc.c:1251:(snd_func_refer) error evaluating name<br>
+ALSA lib conf.c:3513:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory<br>
+ALSA lib conf.c:3985:(snd_config_expand) Evaluate error: No such file or directory<br>
+ALSA lib pcm.c:2144:(snd_pcm_open_noupdate) Unknown PCM default<br>
+aplay: main:564: audio open error: No such file or directory<br>
+<br>
+Thanks for looking! steve</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7573" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7573">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,520</dd>
+<span class="username">eriefisher</span>
+</dt>
+<dd class="profile-joined">Joined: 07 Oct 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7573">
+
+<time datetime="2008-11-14T18:29">posted: 2008-11-14  &nbsp; 18:29</time>
+<span class="permalink"><a href="./sound-issue-on-imac-t1199.html#p7573" title="permalink">#2</a></span>
+
+<div class="content">Possible fix?<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://antix.freeforu ms.org/xmms-player-not-working-right-t1184.html?hilit=sound#p7555"<br>linktext was:"http://antix.freeforu ms.org/xmms-player ... ound#p7555"<br>====================================<br>
+" onclick="window.open(this.href);return false</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7574" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7574">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 22</dd>
+<span class="username">Steve</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7574">
+
+<time datetime="2008-11-14T18:42">posted: 2008-11-14  &nbsp; 18:42</time>
+<span class="permalink"><a href="./sound-issue-on-imac-t1199.html#p7574" title="permalink">#3</a></span>
+
+<div class="content">Thanks for the suggestion.<br>
+<br>
+After trying that I still get the same results from xmms and aplay.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7575" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7575">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,959</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7575">
+
+<time datetime="2008-11-14T18:47">posted: 2008-11-14  &nbsp; 18:47</time>
+<span class="permalink"><a href="./sound-issue-on-imac-t1199.html#p7575" title="permalink">#4</a></span>
+
+<div class="content">Did you comment out the first line in /etc/modprobe.d/snd-hda-intel?<br>
+You then need to reconfigure alsaconf.<br>
+You might ned to reboot.<br>
+<br>
+This may help:<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.waynekhan.com/blog/tag/mepis/"<br>linktext was:"http://www.waynekhan.com/blog/tag/mepis/"<br>====================================<br>
+" onclick="window.open(this.href);return false</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7576" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7576">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 22</dd>
+<span class="username">Steve</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7576">
+
+<time datetime="2008-11-14T20:19">posted: 2008-11-14  &nbsp; 20:19</time>
+<span class="permalink"><a href="./sound-issue-on-imac-t1199.html#p7576" title="permalink">#5</a></span>
+
+<div class="content">I had tried commenting out the first line, running alsaconf, and rebooting, but that didn't help.<br>
+<br>
+Wayne's blog said to comment out both lines and simply reboot. That didn't work. So with both lines commented out I ran alsaconf again and rebooted. I still get all the same error messages.<br>
+<br>
+I should have mentioned I am not running antix inside virtual machine or any thing like that. It is installed on an actual partition. Also, sound works fine when I boot from osx, so I know the sound card is okay and the speakers are on. Also, even as root:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># aplay -l
+aplay: device_list:207: no soundcards found...</code></pre></div>
+Thanks anyway for the suggestions.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7578" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7578">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,959</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7578">
+
+<time datetime="2008-11-14T20:43">posted: 2008-11-14  &nbsp; 20:43</time>
+<span class="permalink"><a href="./sound-issue-on-imac-t1199.html#p7578" title="permalink">#6</a></span>
+
+<div class="content">Maybe pop over to Mepislovers forum and see if anyone there can help.<br>
+I'm sure it involves blaclisting some conflicting card, but which one ...</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7582" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile7582">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 22</dd>
+<span class="username">Steve</span>
+</dt>
+<dd class="profile-joined">Joined: 01 Nov 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7582">
+
+<time datetime="2008-11-14T21:33">posted: 2008-11-14  &nbsp; 21:33</time>
+<span class="permalink"><a href="./sound-issue-on-imac-t1199.html#p7582" title="permalink">#7</a></span>
+
+<div class="content">Well I went over to mepislovers and according to mos:<br>
+<blockquote class="uncited"><div>A note to users of the snd-hda-intel module. This driver is very poorly supported and I have only seen one person's card work with it. If you can do some research on a new card and get a better supported one, then you will save yourself a lot of hassle.</div></blockquote>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://mepislovers.org/forums/showthread.php?t=506"<br>linktext was:"http://mepislovers.org/forums/showthread.php?t=506"<br>====================================<br>
+" onclick="window.open(this.href);return false<br>
+<br>
+Not a good sign.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_7583" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile7583">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<dd class="detail-title-numposts">Posts: 5,959</dd>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content7583">
+
+<time datetime="2008-11-14T21:41">posted: 2008-11-14  &nbsp; 21:41</time>
+<span class="permalink"><a href="./sound-issue-on-imac-t1199.html#p7583" title="permalink">#8</a></span>
+
+<div class="content">That was in 2006. Fortunately things have improved, though if we can't get your card working, you may not think so.<br>
+<br>
+Post a question there. They are very helpful and antiX is part of the MEPIS family.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+8 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>php5-fpm install - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./php5-fpm-install-t5848.html">php5-fpm install</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_42428" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile42428">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 73</span></div>
+
+</div>
+</div>
+<span class="username">zpimp</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42428">
+<time datetime="2015-08-08T09:21">posted: 2015-08-08 &nbsp; 09:21</time>
+<span class="permalink"><a href="./php5-fpm-install-t5848.html#p42428" title="permalink">#1</a></span>
+
+<div class="content">another problem plagues my migration to linux (and antix)<br>
+i want to install nginx and php5-fpm<br>
+and as i understand antix is jessie without systemd<br>
+i installed nginx, but on<br>
+sudo apt-get install php5-fpm<br>
+it gives me<br>
+php5-fpm : Depends: libsystemd0 but it is not installable<br>
+cant i use a php version which doesent depend on systemd ?<br>
+shoud i try wheezy repository ?<br>
+<br>
+edit<br>
+now im running live, and i think it defaults to jessie repos<br>
+but i remember when i installed it asked for jessie/wheezy and i selected jessie, will try changing to wheezy repos<br>
+<br>
+2nd edit<br>
+after changing jessie to wheezy on sources list i get<br>
+<br>
+$ sudo apt-get install php5-fpm<br>
+Reading package lists... Done<br>
+Building dependency tree <br>
+Reading state information... Done<br>
+Some packages could not be installed. This may mean that you have<br>
+requested an impossible situation or if you are using the unstable<br>
+distribution that some required packages have not yet been created<br>
+or been moved out of Incoming.<br>
+The following information may help to resolve the situation:<br>
+<br>
+The following packages have unmet dependencies:<br>
+libice6 : Depends: x11-common but it is not going to be installed<br>
+libpulse0 : Depends: libxtst6 but it is not going to be installed<br>
+libuuid1 : Depends: passwd but it is not going to be installed<br>
+php5-fpm : Depends: libssl1.0.0 (&gt;= 1.0.0) but it is not going to be installed<br>
+Depends: php5-common (= 5.4.41-0+deb7u1) but it is not going to be installed<br>
+Depends: ucf but it is not going to be installed<br>
+Depends: tzdata but it is not going to be installed<br>
+PreDepends: dpkg (&gt;= 1.16.1~) but it is not going to be installed<br>
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.<br>
+<br>
+<br>
+3rd edit:<br>
+end up running lighttpd<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.ubuntu.com/Lighttpd%2BPHP"<br>linktext was:"https://wiki.ubuntu.com/Lighttpd%2BPHP"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_42431" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile42431">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content42431">
+
+<time datetime="2015-08-08T12:49">posted: 2015-08-08 &nbsp; 12:49</time>
+<span class="permalink"><a href="./php5-fpm-install-t5848.html#p42431" title="permalink">#2</a></span>
+
+<div class="content">Go into / etc/prefernces.d/00systemd<br>
+<br>
+That is where systemd is blacklisted to keep AntiX systemd d free.<br>
+Change Pin priority line.<br>
+(I just add another pin line and comment out the one not being used)<br>
+<br>
+Then apt-get update to load the systemd stuff.<br>
+Install php5-fm. When done. If not wanting systemd.<br>
+<br>
+Change / etc/ apt/prefernces.d/00systemd back to how it was before.<br>
+<br>
+sudo apt-get update to remove the systemd who do again.<br>
+<br>
+Go about running running antix as a happy camper again.<br>
+<br>
+Howdy and Happy Trailz, Rok</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48828" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48828">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1</span></div>
+
+</div>
+</div>
+<span class="username">mzilikazi</span>
+</dt>
+<dd class="profile-joined">Joined: 12 Jan 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48828">
+
+<time datetime="2016-10-30T04:58">posted: 2016-10-30 &nbsp; 04:58</time>
+<span class="permalink"><a href="./php5-fpm-install-t5848.html#p48828" title="permalink">#3</a></span>
+
+<div class="content">This is an old thread sure but still an issue. I found a better answer in changing the control file in the *.deb itself
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>$ apt-get download php5-fpm
+$ ar x php5-fpm_5.6.27+dfsg-0+deb8u1_i386.deb
+$ tar xzf control.tar.gz
+$ sed -i 's|libsystemd0, ||' control
+$ tar c {post,pre}{inst,rm} md5sums control | gzip -c &gt; control.tar.gz
+$ ar rcs php5-fpm_5.6.27+dfsg-0+deb8u1_i386.deb debian-binary control.tar.gz data.tar.xz
+$ su
+# dpkg -i php5-fpm_5.6.27+dfsg-0+deb8u1_i386.deb</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Tips for getting i3wm on core system. - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./tips-for-getting-i3wm-on-core-system-t4500.html">Tips for getting i3wm on core system.</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="viewtopic_wrapper">
+<div id="p_30408" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30408">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">leke</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30408">
+<time datetime="2013-07-19T22:20">posted: 2013-07-19 &nbsp; 22:20</time>
+<span class="permalink"><a href="./tips-for-getting-i3wm-on-core-system-t4500.html#p30408" title="permalink">#1</a></span>
+
+<div class="content">Hi, I managed to get a live usb core system up and running. I was wondering if there were any guides for getting a custom window manager installed (I haven't been able to find one)? <br>
+<br>
+I was going to go with lightdm for the display manager, and i3 for the tiling window manager. What do you think about these choices? Is it as straight forward as installing them, or is there some hoop jumping needed with the core build? <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+If anyone is interested in playing with core, here are some things I noted down post install: <br>
+<br>
+(boot with static root persistence)<br>
+<br>
+## Change the keyboard locale (if you're using a non US keyboard).<br>
+<br>
+ dpkg-reconfigure keyboard-configuration<br>
+<br>
+<br>
+## Change the old default user name. <br>
+<br>
+You probably don't want your user to be the demo account. So: <br>
+<br>
+Login as root:<br>
+<br>
+killall -u demo<br>
+usermod -l new demo<br>
+groupmod -n new demo<br>
+usermod -d /home/new -m new<br>
+<br>
+Check all went well with: <br>
+<br>
+id new<br>
+<br>
+<br>
+## Connecting to your encrypted wifi access point<br>
+<br>
+Restrict the permissions of /etc/network/interfaces, to prevent pre-shared key (PSK) disclosure:<br>
+<br>
+chmod 0600 /etc/network/interfaces<br>
+<br>
+Open /etc/network/interfaces in a text editor:<br>
+<br>
+nano /etc/network/interfaces<br>
+<br>
+Define appropriate stanzas for your wireless interface, along with the SSID and PSK. For example:<br>
+<br>
+auto wlan0<br>
+iface wlan0 inet dhcp<br>
+wpa-ssid mynetworkname<br>
+wpa-psk mysecretpassphrase<br>
+<br>
+The"auto" stanza will bring your interface up at system startup. If not desired, remove or comment this line.<br>
+<br>
+Save the file and exit the editor.<br>
+<br>
+Bring your interface up. This will start wpa_supplicant as a background process.<br>
+<br>
+ifup wlan0</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30412" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30412">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30412">
+
+<time datetime="2013-07-19T23:22">posted: 2013-07-19 &nbsp; 23:22</time>
+<span class="permalink"><a href="./tips-for-getting-i3wm-on-core-system-t4500.html#p30412" title="permalink">#2</a></span>
+
+<div class="content"><blockquote><div><cite>leke wrote:</cite>I was wondering if there were any guides for getting a custom window manager installed (I haven't been able to find one)? </div></blockquote>
+Anticapitalista recently posted a guide called 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/build-your-own-t4438.html"<br>linktext was:"Build your own!"<br>====================================<br>
+ where he starts with a Live core system and then installs JWM. This might be a good place to start. He ends up remastering and making a new iso file. You may not want a new iso file but after you have things set up how you want them, it would make sense to remaster (if you have the space). After you reboot into the remastered system, you will have to run persist-makefs again to re-enable root persistence. This should happen automatically but someone got lazy.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30417" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30417">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">leke</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30417">
+
+<time datetime="2013-07-20T07:06">posted: 2013-07-20 &nbsp; 07:06</time>
+<span class="permalink"><a href="./tips-for-getting-i3wm-on-core-system-t4500.html#p30417" title="permalink">#3</a></span>
+
+<div class="content">Thanks, that's a nice guide. There is a lot things that needed to be installed there that I didn't realise had to be.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30419" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30419">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 20</span></div>
+
+</div>
+</div>
+<span class="username">leke</span>
+</dt>
+<dd class="profile-joined">Joined: 29 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30419">
+
+<time datetime="2013-07-20T09:17">posted: 2013-07-20 &nbsp; 09:17</time>
+<span class="permalink"><a href="./tips-for-getting-i3wm-on-core-system-t4500.html#p30419" title="permalink">#4</a></span>
+
+<div class="content">Is anyone here responsible for daveserver.info? I'm getting a 113: No route to host. I think it's down. <br>
+<br>
+Thanks.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30420" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile30420">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30420">
+
+<time datetime="2013-07-20T09:25">posted: 2013-07-20 &nbsp; 09:25</time>
+<span class="permalink"><a href="./tips-for-getting-i3wm-on-core-system-t4500.html#p30420" title="permalink">#5</a></span>
+
+<div class="content">The user Dave is responsible for daveserver.info. I also had trouble with it this evening. I just sent him an email about the problem.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_30421" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile30421">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,062</span></div>
+
+</div>
+</div>
+<span class="username">Dave</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Jan 2010</dd>
+</dl>
+<div class="postbody">
+<div id="post_content30421">
+
+<time datetime="2013-07-20T12:23">posted: 2013-07-20 &nbsp; 12:23</time>
+<span class="permalink"><a href="./tips-for-getting-i3wm-on-core-system-t4500.html#p30421" title="permalink">#6</a></span>
+
+<div class="content">we were in a really bad storm..... everything seems to have settled down, so I think it is safe to start it back up <span class="emoticon"> __{{emoticon}}__ </span></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

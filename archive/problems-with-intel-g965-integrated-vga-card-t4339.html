@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Problems with Intel G965 integrated VGA card - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./problems-with-intel-g965-integrated-vga-card-t4339.html">Problems with Intel G965 integrated VGA card</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_29261" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29261">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29261">
+<time datetime="2013-05-26T15:57">posted: 2013-05-26 &nbsp; 15:57</time>
+<span class="permalink"><a href="./problems-with-intel-g965-integrated-vga-card-t4339.html#p29261" title="permalink">#1</a></span>
+
+<div class="content">It's my second system with Antix and my second problem with VGA configuration <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+This is my VGA<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> inxi -G
+Graphics:  Card: Intel Mobile GM965/GL960 Integrated Graphics Controller (primary) 
+           X.org: 1.12.4 drivers: vesa,intel (unloaded: fbdev) tty size: 80x28 Advanced Data: N/A for root 
+</code></pre></div>
+Runing Antix beta 2 32 bits, loads the intel driver, detect the card as 965 but fails loading the driver, I don't have HW aceleration<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/demo# glxinfo
+name of display: :0.0
+Error: couldn't find RGB GLX visual or fbconfig
+</code></pre></div>
+I don't have the exact log on 32 bits, I'm running x64 now, but is similar to:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/demo# less /var/log/Xorg.0.log | grep EE
+[    16.057] (EE) AIGLX error: dlopen of /usr/lib/xorg/modules/dri/i965_dri.so failed
+[    16.057] (EE) AIGLX: reverting to software rendering
+</code></pre></div>
+But the result with this URL was very good, 24 FPS vs 9 on Windows XP<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://developer.mozilla.org/media/uploads/demos/p/a/paulrouget/8bfba7f0b6c62d877a2b82dd5e10931e/hacksmozillaorg-achi_1334270447_demo_package/HWACCEL/"<br>linktext was:"https://developer.mozilla.org/media/upl ... e/HWACCEL/"<br>====================================<br>
+<br>
+<br>
+The surprise was test the Antix beta 3 64 bits<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/demo# less /var/log/Xorg.0.log | grep EE
+[    14.454] Current Operating System: Linux antiX1 3.7.10-antix.2-amd64-smp #1 SMP Sun Mar 3 19:33:00 EET 2013 x86_64
+    (WW) warning, (EE) error, (NI) not implemented, (??) unknown.
+[    14.512] (II) Loading extension MIT-SCREEN-SAVER
+[    14.644] (EE) open /dev/fb0: No such file or directory
+[    14.794] (EE) AIGLX error: dlopen of /usr/lib/x86_64-linux-gnu/dri/swrast_dri.so failed (/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so: cannot open shared object file: No such file or directory)
+[    14.794] (EE) GLX: could not load software renderer
+</code></pre></div>
+The error is different and the test raise ONLY 9 FPS!<br>
+<br>
+Any idea about this differences and how improve the intel G965 performance?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29262" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29262">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29262">
+
+<time datetime="2013-05-26T16:07">posted: 2013-05-26 &nbsp; 16:07</time>
+<span class="permalink"><a href="./problems-with-intel-g965-integrated-vga-card-t4339.html#p29262" title="permalink">#2</a></span>
+
+<div class="content">Ok, runign beta 3 64 with HP laptop options raise the same errors that beta 2 32 bits<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/demo# less /var/log/Xorg.0.log | grep EE
+[    15.452] Current Operating System: Linux antiX1 3.7.10-antix.2-amd64-smp #1 SMP Sun Mar 3 19:33:00 EET 2013 x86_64
+    (WW) warning, (EE) error, (NI) not implemented, (??) unknown.
+[    15.521] (II) Loading extension MIT-SCREEN-SAVER
+[    16.553] (EE) AIGLX error: dlopen of /usr/lib/x86_64-linux-gnu/dri/i965_dri.so failed (/usr/lib/x86_64-linux-gnu/dri/i965_dri.so: cannot open shared object file: No such file or directory)
+[    16.553] (EE) AIGLX: reverting to software rendering
+[    16.554] (EE) AIGLX error: dlopen of /usr/lib/x86_64-linux-gnu/dri/swrast_dri.so failed (/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so: cannot open shared object file: No such file or directory)
+[    16.554] (EE) GLX: could not load software renderer
+</code></pre></div>
+Performace on HW aceleration test is 26 FPS.<br>
+<br>
+What is the difference between normal boot and HP laptop options? (Im using Acer Aspire 5315)</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29263" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29263">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29263">
+
+<time datetime="2013-05-26T20:36">posted: 2013-05-26 &nbsp; 20:36</time>
+<span class="permalink"><a href="./problems-with-intel-g965-integrated-vga-card-t4339.html#p29263" title="permalink">#3</a></span>
+
+<div class="content">the hp laptop settings have to do with monitor brightness mostly. the default setting will leave you with a brightness setting of zero sometimes.<br>
+<br>
+I would say based on your inxi info that the vesa driver has precedence. You should probably try playing with the modeset options and see if any of them work better. <br>
+<br>
+on my eeepc netbook I have to use the"nomodset" boot parameter to have a working"x" setup.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29264" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29264">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29264">
+
+<time datetime="2013-05-26T20:41">posted: 2013-05-26 &nbsp; 20:41</time>
+<span class="permalink"><a href="./problems-with-intel-g965-integrated-vga-card-t4339.html#p29264" title="permalink">#4</a></span>
+
+<div class="content">I have solved the problem<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt-get install --reinstall xserver-xorg-video-intel  libgl1-mesa-glx libgl1-mesa-dri xserver-xorg-core
+</code></pre></div>
+And the xorg log...<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root@antiX1:/home/Carlos# less /var/log/Xorg.0.log | grep GLX
+[    16.441] (==) AIGLX enabled
+[    16.442] (II) Loading extension GLX
+[    17.989] (II) AIGLX: enabled GLX_MESA_copy_sub_buffer
+[    17.989] (II) AIGLX: enabled GLX_INTEL_swap_event
+[    17.989] (II) AIGLX: enabled GLX_SGI_swap_control and GLX_MESA_swap_control
+[    17.989] (II) AIGLX: GLX_EXT_texture_from_pixmap backed by buffer objects
+[    17.989] (II) AIGLX: Loaded and initialized i965
+[    17.989] (II) GLX: Initialized DRI2 GL provider for screen 0
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29265" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29265">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29265">
+
+<time datetime="2013-05-26T20:52">posted: 2013-05-26 &nbsp; 20:52</time>
+<span class="permalink"><a href="./problems-with-intel-g965-integrated-vga-card-t4339.html#p29265" title="permalink">#5</a></span>
+
+<div class="content">it seems the libgl1-mesa-dri package is not inculded in the default install. I just checked on my HP laptop and had the same messages as you. I installed the libgl1-mesa-dri and I the same end result as you. Thanks for posting on this, I never even checked mine ever.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29266" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile29266">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29266">
+
+<time datetime="2013-05-26T22:25">posted: 2013-05-26 &nbsp; 22:25</time>
+<span class="permalink"><a href="./problems-with-intel-g965-integrated-vga-card-t4339.html#p29266" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>CGarces wrote:</cite>What is the difference between normal boot and HP laptop options? (Im using Acer Aspire 5315)</div></blockquote>The F12 key in the boot loader should show you the list of selected boot parameters. The"HP Laptop" option always includes these:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>video.use_bios_initial_backlight=0 video.brightness_switch_enabled=1</code></pre></div>which should only affect the backlight.<br>
+<br>
+The"nomodeset" option affects graphics acceleration. I believe the first incarnation of the"HP Laptop" option turned off"nomodeset" which would enable acceleration. The F12 key will show you for sure. In the most recent versions"nomodeset" is controlled by the"F5 Video Mode" menu. Again, the F12 key will show you exactly which boot options are being enabled.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_29286" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile29286">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 74</span></div>
+
+</div>
+</div>
+<span class="username">CGarces</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content29286">
+
+<time datetime="2013-05-28T16:18">posted: 2013-05-28 &nbsp; 16:18</time>
+<span class="permalink"><a href="./problems-with-intel-g965-integrated-vga-card-t4339.html#p29286" title="permalink">#7</a></span>
+
+<div class="content"><blockquote><div><cite>dolphin_oracle wrote:</cite>it seems the libgl1-mesa-dri package is not inculded in the default install. I just checked on my HP laptop and had the same messages as you. I installed the libgl1-mesa-dri and I the same end result as you. Thanks for posting on this, I never even checked mine ever.</div></blockquote>
+If you have a Intel VGA card, consider 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://wiki.archlinux.org/index.php/Intel#Choose_acceleration_method"<br>linktext was:"set SNA as hardware acceleration"<br>====================================<br>
+, should increase the performance for 2D operations.<br>
+<br>
+
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://openbenchmarking.org/result/1305282-FO-SNAVSUXA622"<br>linktext was:"See my results"<br>====================================<br>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

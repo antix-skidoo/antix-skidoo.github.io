@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Cannot shutdown or reboot from Log Out gui - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./cannot-shutdown-or-reboot-from-log-out-gui-t4277.html">Cannot shutdown or reboot from Log Out gui</a></div>
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_28770" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28770">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28770">
+<time datetime="2013-04-18T18:45">posted: 2013-04-18 &nbsp; 18:45</time>
+<span class="permalink"><a href="./cannot-shutdown-or-reboot-from-log-out-gui-t4277.html#p28770" title="permalink">#1</a></span>
+
+<div class="content">I am using antix12, live usb with persistence. Originally OK, but now cannot shutdown from Log Out gui. If I click shutdown button, Log Out window freezes. I tried BitJam's suggestions in can-t-shut-down-nor-reboot-t3425.html, but they did not help. I can shutdown using terminal command halt.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28771" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28771">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner"> 
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28771">
+
+<time datetime="2013-04-18T18:56">posted: 2013-04-18 &nbsp; 18:56</time>
+<span class="permalink"><a href="./cannot-shutdown-or-reboot-from-log-out-gui-t4277.html#p28771" title="permalink">#2</a></span>
+
+<div class="content">Instead of editing /etc/sudoers edit /etc/sudoers.d/antixers<br>
+<br>
+/etc/sudoers should look like this :
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults    env_reset
+Defaults    mail_badpass
+Defaults    secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo    ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on"#include" directives:
+
+#includedir /etc/sudoers.d
+</code></pre></div>
+/etc/sudoers.d/antixers like this
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># sudoers file.
+ 
+%users ALL=(root) NOPASSWD: /sbin/halt 
+
+%users ALL=(root) NOPASSWD: /sbin/reboot  
+
+%users ALL=(root) NOPASSWD: /sbin/blkid 
+
+%users ALL=(root) NOPASSWD: /sbin/fdisk.distrib 
+
+%users ALL=(root) NOPASSWD: /usr/bin/ceni 
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-config
+
+%users ALL=(root) NOPASSWD: /usr/local/bin/persist-save
+
+</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28774" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28774">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28774">
+
+<time datetime="2013-04-18T19:50">posted: 2013-04-18 &nbsp; 19:50</time>
+<span class="permalink"><a href="./cannot-shutdown-or-reboot-from-log-out-gui-t4277.html#p28774" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Instead of editing /etc/sudoers edit /etc/sudoers.d/antixers</div></blockquote>
+/etc/sudoers is correct.<br>
+/etc/sudoers.d/antixers does not have"%users ALL=(root) NOPASSWD: /usr/bin/ceni". Should I add it?<br>
+It also has"#%users ALL=(root) NOPASSWD: /usr/bin/rox".</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28778" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28778">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28778">
+
+<time datetime="2013-04-18T20:36">posted: 2013-04-18 &nbsp; 20:36</time>
+<span class="permalink"><a href="./cannot-shutdown-or-reboot-from-log-out-gui-t4277.html#p28778" title="permalink">#4</a></span>
+
+<div class="content">Ok, those do not really matter, as long as you have the reboot/halt options.<br>
+<br>
+Something else is wrong with the logout script.<br>
+<br>
+Open a terminal and type extantix.sh and then click on reboot and see what message is in the terminal</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28790" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28790">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28790">
+
+<time datetime="2013-04-19T15:37">posted: 2013-04-19 &nbsp; 15:37</time>
+<span class="permalink"><a href="./cannot-shutdown-or-reboot-from-log-out-gui-t4277.html#p28790" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Open a terminal and type extantix.sh and then click on reboot and see what message is in the terminal</div></blockquote>
+I typed extantix.sh in root terminal and got"bash: extantix.sh: command not found". Did I not do this correctly? When I clicked on reboot, gui froze as previously.<br>
+<br>
+I think this problem involves saving rootfs. I booted using rollback hoping that a previous linuxfs would not have this problem. Now, if I boot with homefs enabled and rootfs disabled, I can reboot or shutdown with no problem. If I boot with rootfs enabled, problem appears - I cannot use gui to reboot or shutdown.<br>
+<br>
+This is what I found with rootfs enabled: I opened the gui and clicked reboot. The gui froze. I then opened antixcc, clicked save root persistence, and got an error message"Another copy of remaster-me or persist-save is running. If you are certain this is not so then delete the file: /live/config/locked and try again." I deleted locked and was then able to access save root persistence. With the /live/config directory open, I clicked on reboot in the gui, the locked file immediately appeared in /live/config, and the gui froze. So it seems the rootfs file is not saving at gui reboot or shutdown and preventing either of those actions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28884" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28884">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 21</span></div>
+
+</div>
+</div>
+<span class="username">jsr</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Apr 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28884">
+
+<time datetime="2013-04-25T16:58">posted: 2013-04-25 &nbsp; 16:58</time>
+<span class="permalink"><a href="./cannot-shutdown-or-reboot-from-log-out-gui-t4277.html#p28884" title="permalink">#6</a></span>
+
+<div class="content">Update:<br>
+I had forgotten that I had recently selected the"semi-automatic" option for rootfs save at reboot or shutdown. When I changed the option to"automatic" in persist-config.conf, I can now reboot or shutdown using the gui. When I use the"semi-automatic" option and try to reboot or shutdown, I do not get the popup offering me the choice to either save or not. Since I do not get the popup and therefore cannot select a choice, the logout gui appears to freeze when it actually is waiting for me to select a choice. Has anyone else had this problem?</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+6 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

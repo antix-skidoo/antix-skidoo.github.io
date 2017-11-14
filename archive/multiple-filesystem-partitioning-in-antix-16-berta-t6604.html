@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Multiple filesystem partitioning in antiX-16 Berta Cáceres? - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html">Multiple filesystem partitioning in antiX-16 Berta Cáceres?</a></div>
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_48285" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48285">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">nycace36</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Sep 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48285">
+<time datetime="2016-09-22T00:18">posted: 2016-09-22 &nbsp; 00:18</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48285" title="permalink">#1</a></span>
+
+<div class="content">According to the Securing Debian Manual - Before and during the installation section 3.2.1 <em>Choose an intelligent partition scheme</em> 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.debian.org/doc/manuals/securing-debian-howto/ch3.en.html"<br>linktext was:"https://www.debian.org/doc/manuals/secu ... h3.en.html"<br>====================================<br>
+, it makes sense to put /tmp , /var , and maybe even /usr on separate partitions <strong>other than</strong> just on the /((root)) partition and /home.<br>
+<br>
+But antiX-16 Full and Base versions <strong>only</strong> allow /((root)), /home, and the Linux swap partitions to be formatted and then mounted during installation.<br>
+<br>
+What suggestions would any of you antiX-16 experts have for activating multiple filesystem partitions such as for /tmp, /var, /usr, ...etc <strong>during</strong> installation of antiX, and <strong>besides</strong> solely for /((root)), /home, and swap??</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48289" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48289">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48289">
+
+<time datetime="2016-09-22T15:18">posted: 2016-09-22 &nbsp; 15:18</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48289" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>etc during installation of antiX,</div></blockquote>
+Not sure what you mean. So all I can say is how I do things.<br>
+<br>
+Divide up your partition scheme to how you want.<br>
+<br>
+Install antix normally on a good size 10 gig partition for /. There is a function on the installer for installing to seperate /home partition if you so wish.<br>
+<br>
+After installing. Move folders/directories to the partitions you think it is important to have those folders in. <br>
+Move them and them symlink them back to their original location.<br>
+Then modify fstab file to see and mount the drives on boot up.<br>
+<br>
+eg: mine:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ sudo disk -l
+[sudo] password for harry: 
+sudo: disk: command not found
+harry@biker:~
+$ sudo fdisk -l
+
+Disk /dev/sda: 320 GB, 320070320640 bytes
+255 heads, 63 sectors/track, 38913 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System 
+/dev/sda1               1        1020     8193118   83  Linux
+/dev/sda2            1020        9944    71682030   83  Linux
+/dev/sda3            9944       10454     4096575   82  Linux swap
+/dev/sda4           10454       38914   228604950    5  Extended
+/dev/sda6           10454       23202   102398310   83  Linux
+/dev/sda5           23202       38914   126206640   83  Linux
+harry@biker:~
+$ df -l
+Filesystem     1K-blocks     Used Available Use% Mounted on
+udev               10240        0     10240   0% /dev
+tmpfs            1631452      648   1630804   1% /run
+/dev/sda1        7932336  5350212   2156140  72% /
+tmpfs               5120        4      5116   1% /run/lock
+tmpfs            4082100        4   4082096   1% /run/shm
+/dev/sda2       70423984  4595476  62228124   7% /home
+/dev/sda5      124090316 34541580  83222260  30% /media/_data1
+/dev/sda6      100658608  5699904  89822424   6% /media/_data2
+harry@biker:~
+$ cat / etc/fstab
+# / etc/fstab: static file system information
+#
+# Created by make-fstab on Thu Oct 29 15:42:46 CDT 2015
+
+# &lt;file system&gt;                            &lt;mount point&gt;                               &lt;type&gt;     &lt;options&gt;                       &lt;dump/pass&gt;
+
+UUID=685d85b2-6651-49ed-928c-d5e17f70f500  /                                           ext4       defaults                        1 1
+UUID=8d150b09-c903-4b7d-9326-7b88e7ac84f2  /home                                       ext4       defaults                        1 1
+UUID=45720f5c-3d28-4e6d-a06d-9ce4a9fe5370  swap                                        swap       defaults                        0 0
+UUID=8c692b69-46f7-48ef-abc9-e6963655e259  /media/_data1                               ext4       auto,exec,users,rw              1 1
+UUID=b76696e8-11ba-4177-970b-0d237aa5a8ae  /media/_data2                               ext4       auto,exec,users,rw              1 1
+/dev/cdrom                                 /media/cdrom                                iso9660    noauto,exec,users,ro            0 0
+/dev/cdrw                                  /media/cdrw                                 iso9660    noauto,exec,users,rw            0 0
+/dev/dvd                                   /media/dvd                                  udf        noauto,exec,users,ro            0 0
+/dev/sr0                                   /media/sr0                                  auto       noauto,exec,users,ro            0 0
+# Added by make-fstab /dev/mmcblk0p1
+UUID=596C-0657                             /media/mmcblk0p1                            vfat       noauto,uid=1000,gid=users,dmask=002,fmask=113,users  0 0
+harry@biker:~
+$ 
+</code></pre></div>
+Member opinion responce. Frankly. I think you are overthing thinking this unless this is a production machine in a working environment.<br>
+My setup is just fine for a home user who wished to backup their installed stuff/changes in case of a reinstall.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48297" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48297">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">nycace36</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Sep 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48297">
+
+<time datetime="2016-09-23T16:43">posted: 2016-09-23 &nbsp; 16:43</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48297" title="permalink">#3</a></span>
+
+<div class="content"><blockquote class="uncited"><div>Forbidden<br>
+<br>
+You don't have permission to access /posting.php on this server.</div></blockquote></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48298" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48298">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48298">
+
+<time datetime="2016-09-23T18:18">posted: 2016-09-23 &nbsp; 18:18</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48298" title="permalink">#4</a></span>
+
+<div class="content">"forbidden" is due to a bug with the forum software, explained here: php-error-t3861.html<br>
+<br>
+TLDR version:<br>
+<br>
+/ etc<br>
+is acceptable<br>
+<br>
+<span style="color: red"><strong>/</strong></span>etc<br>
+is NOT acceptable<br>
+(forward-slash character cannot immediately precede etc)<br>
+(causes forum sw to react like it has detected a"hack attempt")</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48299" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48299">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48299">
+
+<time datetime="2016-09-23T18:38">posted: 2016-09-23 &nbsp; 18:38</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48299" title="permalink">#5</a></span>
+
+<div class="content"><blockquote class="uncited"><div>According to the Securing Debian Manual - Before and during the installation section 3.2.1<br>
+<br>
+. . .<br>
+<br>
+An intelligent partition scheme depends on how the machine is used.</div></blockquote>Bear in mind that documentation covers the gamut of use cases ~~ servers exposed to the internet, multi-user installs, etc.
+<blockquote class="uncited"><div>Any directory tree which a user has write permissions to, such as e.g. /home, /tmp and /var/tmp/, should be on a separate partition. This reduces the risk of a user DoS by filling up your"/" mount point and rendering the system unusable (Note: this is not strictly true, since there is always some space reserved for root which a normal user cannot fill), and it also prevents hardlink attacks.</div></blockquote>
+Will other people be using the machine? <br>
+Do you need to worry someone will run a an automated"download cat videos 'til you puke" program?<br>
+With that in mind (hey, it might be one of YOUR user's progs which fills the storage), the installer accommodates <strong>/home</strong> on a separate partition.<br>
+IOW, no, clearly the installer doesn't attempt to support the gamut of use case scenarios (beyond"typical desktop computer").<br>
+You're free to juggle the partitioning post-install, and/or free to play with jfs, reiserfs, lvm and all the debian-supported"stuffs" mentioned in that cited usermanual page.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48300" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48300">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 3</span></div>
+
+</div>
+</div>
+<span class="username">nycace36</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Sep 2016</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48300">
+
+<time datetime="2016-09-23T18:42">posted: 2016-09-23 &nbsp; 18:42</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48300" title="permalink">#6</a></span>
+
+<div class="content">TY for referring to that bug with the forum software at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"antix.freeforu ms.org/php-error-t3861.html"<br>linktext was:"antix.freeforu ms.org/php-error-t3861.html"<br>====================================<br>
+<br>
+Am correcting my intended reply below b/c of this.<br>
+<br>
+TY rokytnji for the response <span class="emoticon"> __{{emoticon}}__ </span>
+<blockquote class="uncited"><div>Install antix normally on a good size 10 gig partition for /. There is a function on the installer for installing to seperate /home partition if you so wish.<br>
+<br>
+After installing. Move folders/directories to the partitions you think it is important to have those folders in.<br>
+Move them and them symlink them back to their original location.<br>
+Then modify fstab file to see and mount the drives on boot up.</div></blockquote>
+Very useful, but this requires performing the various steps such as editing / etc / fstab <strong>after</strong> installing antiX. I was thinking more along the lines of debian-installer's manualized individual partitioning and mounting utility for Debian 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.debian.org/releases/jessie/i386/ch06s03.html.en"<br>linktext was:"https://www.debian.org/releases/jessie/ ... 03.html.en"<br>====================================<br>
+ (subsections 6.3.3.2 - 6.3.3.3) during <strong>its</strong> installation, if antiX-16 should have something similar for this exact purpose(?) <br>
+If there's no debian-installer utility in the various flavours of antiX-16, then maybe I'll just <strong>have to</strong> perform the above post-install steps <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+<blockquote class="uncited"><div>My setup is just fine for a home user who wished to backup their installed stuff/changes in case of a reinstall.</div></blockquote>
+OTOH, my own preferred setup ("use-case scenario") would be more similar to Debian's Recommended Partitioning Scheme 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://www.debian.org/releases/stable/i386/apcs03.html.en"<br>linktext was:"https://www.debian.org/releases/stable/ ... 03.html.en"<br>====================================<br>
+, i.e.:<br>
+- systems with Windows already pre-installed and with sufficient disk space for antiX <br>
+- a larger than average / tmp for burning cd's / dvd's using xfburn<br>
+- a / usr / local for <strong>separately</strong> storing various scripts and code.<br>
+<br>
+Of course I realize I could just install vanilla Jessie, Testing or Unstable using Debian's own debian-installer to pre-partition as desired, and then throw in antiX-16 as an antiX VM image 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.osboxes.org/antix/"<br>linktext was:"http://www.osboxes.org/antix/"<br>====================================<br>
+ within that Debian install. But then I'd lose the fast, non-bloated performance of having antiX run natively, non-virtually....so there'd be a tradeoff.</div>
+<div class="notice">
+Last edited by <b>nycace36</b> on 23 Sep 2016, 23:25, edited 3 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48301" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48301">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,445</span></div>
+
+</div>
+</div>
+<span class="username">skidoo</span>
+</dt>
+<dd class="profile-joined">Joined: 09 Feb 2012</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48301">
+
+<time datetime="2016-09-23T18:57">posted: 2016-09-23 &nbsp; 18:57</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48301" title="permalink">#7</a></span>
+
+<div class="content">This is a low-traffic forum. Let's give it a day or two for folks to find this topic and hopefully post some insightful howto.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48303" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile48303">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 4,164</span></div>
+
+</div>
+</div>
+<span class="username">rokytnji</span>
+</dt>
+<dd class="profile-joined">Joined: 20 Feb 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48303">
+
+<time datetime="2016-09-23T23:06">posted: 2016-09-23 &nbsp; 23:06</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48303" title="permalink">#8</a></span>
+
+<div class="content">There is already a /usr/local in / in AntiX.<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>harry@biker:~
+$ cd /usr
+harry@biker:/usr
+$ ls
+bin  games  include  lib  local  sbin  share  src
+</code></pre></div>
+I will mention that Debian by it's very nature and mission. Is a server distro. So their installer will of course follow a server setup of preferences.<br>
+AntiX is a personal desktop system. Simplified down for user, not server. So the installer will of course follow that.<br>
+I don't think Ubuntu desktop installer allows server assignment schemes either. But I could be wrong.<br>
+<br>
+I'll defer to BitJam, Dave, and Anti. As I cannot speak for the installer feature request your thread is about.<br>
+I only mentioned what I do as a members example showing real life case usage.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_48304" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile48304">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content48304">
+
+<time datetime="2016-09-24T00:10">posted: 2016-09-24 &nbsp; 00:10</time>
+<span class="permalink"><a href="./multiple-filesystem-partitioning-in-antix-16-berta-t6604.html#p48304" title="permalink">#9</a></span>
+
+<div class="content"><blockquote><div><cite>nycace36 wrote:</cite>What suggestions would any of you antiX-16 experts have for activating multiple filesystem partitions such as for /tmp, /var, /usr, ...etc <strong>during</strong> installation of antiX, and <strong>besides</strong> solely for /((root)), /home, and swap??</div></blockquote>
+As Roky explained, the antiX installer does not support multiple partitions besides /(root) and /home. The next step in complexity would be to support a separate /boot partition which would enable using RAID and/or LVM for the root partition. <br>
+<br>
+Systemd no longer supports a separate /usr partition although you can get around this limitation by using an initrd that mounts /usr before the systemd init starts. I don't know if this is automated in the Debian initrd or not. I imagine it is but may need to be enabled. We don't use systemd by default so maybe this won't be an issue.<br>
+<br>
+Many years ago I boosted the performance of some servers I was running by keeping /var (I think) on a different physical drive to reduce seek times. You're going to get a much better performance boost using an sdd. If you are not using separate physical disks then I don't think there will be much, if any advantage to using more partitions than the ones we make available (and /boot). In fact, putting different parts of the system on different partitions on the same disk will probably decrease performance since it will require larger seeks to access different parts of the same system.<br>
+<br>
+However, if that is what you want to do then here is what I suggest. First do a normal antiX install. Then before shutting down the live system, mount the new root partition and mount the partitions you want to use for /var, etc. Then, as root do a cp -a from the directory in the root partition to the separate partitions. Example:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cp -a /media/root/var/* /media/var/</code></pre></div>where I've assumed you've labelled the root partition as"root" and the"var" partition as"var" and they both were mounted under /media via standard tools.<br>
+<br>
+Finally edit <em>/</em>etc/fstab on the new root partition to tell the new system to automatically mount the separate partitions. You should/need-to use UUIDs in the fstab because the naming of physical disks is no longer guaranteed to be consistent between reboots.<br>
+<br>
+If you want to be really daring (I don't recommend it) then you can delete the content of the directories on the root partition after you have copied their contents to the separate partitions.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+9 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

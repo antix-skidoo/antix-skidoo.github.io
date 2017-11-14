@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>can't mount external hd (unable to enumerate usb device) - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./can-t-mount-external-hd-unable-to-enumerate-usb-de-t4202.html">can't mount external hd (unable to enumerate usb device)</a></div>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_28166" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28166">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 44</span></div>
+
+</div>
+</div>
+<span class="username">Johnn</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28166">
+<time datetime="2013-03-07T00:11">posted: 2013-03-07 &nbsp; 00:11</time>
+<span class="permalink"><a href="./can-t-mount-external-hd-unable-to-enumerate-usb-de-t4202.html#p28166" title="permalink">#1</a></span>
+
+<div class="content">I'm getting a lot of this messages:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[534646.693520] hub 1-1:1.0: unable to enumerate USB device on port 3
+[534646.949437] hub 1-1:1.0: unable to enumerate USB device on port 3
+[534647.205321] hub 1-1:1.0: unable to enumerate USB device on port 3
+[534647.461274] hub 1-1:1.0: unable to enumerate USB device on port 3
+</code></pre></div>
+And usually to solve this I whould do: <br>
+<br>
+echo -n"0000:00:1a.0" &gt; /sys/bus/pci/drivers/ehci_hcd/unbind<br>
+<br>
+And then I whould be able to mount it, but there is no 0000:00:1a.0, only 0000:00:1d.0 and that one disables all my usb ports :\ <br>
+<br>
+Any way to solve this? The last distribution that I got this old hard drive working was like ubuntu 9.10, and then ubuntu started to not being able to mount it aswell..<br>
+<br>
+Don't bother asking me if the hard drive is broken, because it's not.. it's just old, I tested it today on a window$ machine.<br>
+<br>
+Thanks in advance.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28168" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28168">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28168">
+
+<time datetime="2013-03-07T01:12">posted: 2013-03-07 &nbsp; 01:12</time>
+<span class="permalink"><a href="./can-t-mount-external-hd-unable-to-enumerate-usb-de-t4202.html#p28168" title="permalink">#2</a></span>
+
+<div class="content">Do you have a /sys/bus/pci/drivers/ohci_hcd/ directory? If so, what are the contents?<br>
+<br>
+There are four different 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://en.wikipedia.org/wiki/Host_controller_interface_%28USB,_Firewire%29"<br>linktext was:"*hci_hcd drivers"<br>====================================<br>
+:<br>
+<br>
+ohci: usb 1.1<br>
+ehci: usb 2.0<br>
+uhci: proprietary, incompatible with ohci<br>
+xhci: supposed to be faster and better<br>
+<br>
+On the antiX I'm running, all four are compiled in. Maybe there is a different ^hci_hcd/ directory where you need to do the unbind trick. You want to get your old drive to use ohci.<br>
+<br>
+If this doesn't work the only other thing I know to try is to ask anti very kindly if he would be willing to try making a kernel that has ehci_hcd compiled as a module. I think the unbind trick is pretty much the equivalent of this (except perhaps for when it happens). Also, this could require us to make other changes in order to ensure we use the faster ehci on systems that boot from a USB stick.<br>
+<br>
+I'd certainly like to see the contents of the other *hci_hcd/ directories before asking anti for a new kernel.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28177" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile28177">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 44</span></div>
+
+</div>
+</div>
+<span class="username">Johnn</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28177">
+
+<time datetime="2013-03-07T20:00">posted: 2013-03-07 &nbsp; 20:00</time>
+<span class="permalink"><a href="./can-t-mount-external-hd-unable-to-enumerate-usb-de-t4202.html#p28177" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>Do you have a /sys/bus/pci/drivers/ohci_hcd/ directory? If so, what are the contents?<br>
+<br>
+There are four different 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://en.wikipedia.org/wiki/Host_controller_interface_%28USB,_Firewire%29"<br>linktext was:"*hci_hcd drivers"<br>====================================<br>
+:<br>
+<br>
+ohci: usb 1.1<br>
+ehci: usb 2.0<br>
+uhci: proprietary, incompatible with ohci<br>
+xhci: supposed to be faster and better<br>
+<br>
+On the antiX I'm running, all four are compiled in. Maybe there is a different ^hci_hcd/ directory where you need to do the unbind trick. You want to get your old drive to use ohci.<br>
+<br>
+If this doesn't work the only other thing I know to try is to ask anti very kindly if he would be willing to try making a kernel that has ehci_hcd compiled as a module. I think the unbind trick is pretty much the equivalent of this (except perhaps for when it happens). Also, this could require us to make other changes in order to ensure we use the faster ehci on systems that boot from a USB stick.<br>
+<br>
+I'd certainly like to see the contents of the other *hci_hcd/ directories before asking anti for a new kernel.</div></blockquote>
+<br>
+I've:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>0000:00:1d.0  bind  module  new_id  remove_id  uevent  unbind
+</code></pre></div>
+Thanks for replying.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_28335" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile28335">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 44</span></div>
+
+</div>
+</div>
+<span class="username">Johnn</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Feb 2013</dd>
+</dl>
+<div class="postbody">
+<div id="post_content28335">
+
+<time datetime="2013-03-18T23:03">posted: 2013-03-18 &nbsp; 23:03</time>
+<span class="permalink"><a href="./can-t-mount-external-hd-unable-to-enumerate-usb-de-t4202.html#p28335" title="permalink">#4</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>Do you have a /sys/bus/pci/drivers/ohci_hcd/ directory? If so, what are the contents?<br>
+<br>
+There are four different 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"https://en.wikipedia.org/wiki/Host_controller_interface_%28USB,_Firewire%29"<br>linktext was:"*hci_hcd drivers"<br>====================================<br>
+:<br>
+<br>
+ohci: usb 1.1<br>
+ehci: usb 2.0<br>
+uhci: proprietary, incompatible with ohci<br>
+xhci: supposed to be faster and better<br>
+<br>
+On the antiX I'm running, all four are compiled in. Maybe there is a different ^hci_hcd/ directory where you need to do the unbind trick. You want to get your old drive to use ohci.<br>
+<br>
+If this doesn't work the only other thing I know to try is to ask anti very kindly if he would be willing to try making a kernel that has ehci_hcd compiled as a module. I think the unbind trick is pretty much the equivalent of this (except perhaps for when it happens). Also, this could require us to make other changes in order to ensure we use the faster ehci on systems that boot from a USB stick.<br>
+<br>
+I'd certainly like to see the contents of the other *hci_hcd/ directories before asking anti for a new kernel.</div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/sys/bus/pci/drivers/ohci_hcd:
+bind  new_id  remove_id  uevent  unbind
+
+/sys/bus/pci/drivers/uhci_hcd:
+bind  module  new_id  remove_id  uevent  unbind
+
+/sys/bus/pci/drivers/xhci_hcd:
+0000:05:00.0  bind  module  new_id  remove_id  uevent  unbind
+</code></pre></div>
+hummm... so weird, kernel 3.6 works fine with the HD because it has the ehci_hcd folder and I can unbind, but this one I'm finding it hard to.<br>
+<br>
+EDT: Thank you for helping me, I hope you guys don't need to change the kernel :\</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

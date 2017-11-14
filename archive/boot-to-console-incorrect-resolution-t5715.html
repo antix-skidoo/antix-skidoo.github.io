@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Boot to Console Incorrect Resolution - antiX oldforums archive</title>
+     
+
+<link rel="stylesheet" href="../aaa_style.css">
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX oldforumums archive</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a>
+ &raquo; &raquo; 
+</span>
+<span class="crumb"><a href="./antix-15-killah-p-f53/index.html"><span>antiX-15 Killah P</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<h2 class="topic-title" style="display: inline-block;"><a href="./boot-to-console-incorrect-resolution-t5715.html">Boot to Console Incorrect Resolution</a></h2>
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_41673" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41673">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,028</dd>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41673">
+
+<time datetime="2015-07-02T14:13">posted: 2015-07-02  &nbsp; 14:13</time>
+<span class="permalink"><a href="./boot-to-console-incorrect-resolution-t5715.html#p41673" title="permalink">#1</a></span>
+
+<div class="content"><strong>Boot to Console Incorrect Resolution</strong><br>
+<br>
+Conventional installation to hard disk<br>
+cat /proc/cmdline
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>BOOT_IMAGE=/boot/vmlinuz-4.0.5-antix.1-486-smp root=UUID=blurb... ro quiet 3</code></pre></div><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>Graphics:  Card: Silicon Integrated Systems [SiS] 630/730 PCI/AGP VGA Display Adapter
+           Display Server: X.org 1.16.4 driver: N/A
+           tty size: 80x25 Advanced Data: N/A out of X</code></pre></div>
+The vga setting used in the live installation media is not carried across to the hard disk installation. The resolution of 25 lines is for all practical purposes unusable. The minimum resolution should be the equivalent of 800x600 which corresponds to the lowest resolution in the antiX live mode.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41675" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41675">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 2,238</dd>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41675">
+
+<time datetime="2015-07-02T15:52">posted: 2015-07-02  &nbsp; 15:52</time>
+<span class="permalink"><a href="./boot-to-console-incorrect-resolution-t5715.html#p41675" title="permalink">#2</a></span>
+
+<div class="content">its the vga= line that you need to add. The default in the live is vga=788 (I think) which will give 100x37 (800x600) resolution. vga=791 will give you 128x48 (1024x768).<br>
+<br>
+just add that on the kernel line with the"3".<br>
+<br>
+OR the current method...<br>
+<br>
+use <strong>on its own line</strong> BEFORE the linux kernel line<br>
+<br>
+gfxpayload=1024x768x16, 1024x768<br>
+<br>
+to get the resolution set the way you want. just replace the numbers with the resolution of your choice.<br>
+<br>
+so my custom init 3 entry looks like this:<br>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>load_video
+insmod gzio
+if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+insmod part_msdos
+insmod ext2
+set root='hd0,msdos1'
+if [ x$feature_platform_search_hint = xy ]; then
+  search --no-floppy --fs-uuid --set=root --hint-ieee1275='ieee1275//disk@0,msdos1' --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  f66c6f73-b657-4954-bfdb-695088d591a9
+else
+  search --no-floppy --fs-uuid --set=root f66c6f73-b657-4954-bfdb-695088d591a9
+fi
+echo    'Loading Linux 4.0.5-antix.1-486-smp ...'
+gfxpayload=1024x768x16, 1024x768
+linux    /boot/vmlinuz-4.0.5-antix.1-486-smp root=UUID=f66c6f73-b657-4954-bfdb-695088d591a9 ro  quiet 3
+echo    'Loading initial ramdisk ...'
+initrd    /boot/initrd.img-4.0.5-antix.1-486-smp</code></pre></div></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41677" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile41677">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,028</dd>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41677">
+
+<time datetime="2015-07-02T18:17">posted: 2015-07-02  &nbsp; 18:17</time>
+<span class="permalink"><a href="./boot-to-console-incorrect-resolution-t5715.html#p41677" title="permalink">#3</a></span>
+
+<div class="content"><strong>@dolphin_oracle</strong>, thanks for the info. I use gfxpayload in other GRUB2 setups but not quite in the way you describe. It is good to learn another way. Even though the use of the vga= parameter is deprecated but still works in GRUB2, I was using that setting with antiX-15 to successfully boot with that resolution.<br>
+<br>
+My post was not really aiming at how to do it. Quite a while back there were discussions that settled on using vga=788 (800x600x16) as the minimum resolution for antiX-15. It is the case for live, but installed has not followed suit and still uses the old 80x25. The latter works but is unusable for most purposes. The former produces a useful environment straight-from-the-box. Both live and installed should automatically use the same minimum vga=788.</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_41679" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile41679">
+<dt class="no-profile-rank has-avatar avatar-username">
+<dd class="detail-title-numposts">Posts: 1,308</dd>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content41679">
+
+<time datetime="2015-07-02T19:16">posted: 2015-07-02  &nbsp; 19:16</time>
+<span class="permalink"><a href="./boot-to-console-incorrect-resolution-t5715.html#p41679" title="permalink">#4</a></span>
+
+<div class="content">It appears that the installer is not carrying over live boot parameters to the installed system. This is a bug IMO and may be the worst bug found so far. Good catch SamK!</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+4 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+
+<div class="scrollToTopText"><a href="#top">Back to top</a></div> </div>
+</div>
+
+</div>
+</body></html>

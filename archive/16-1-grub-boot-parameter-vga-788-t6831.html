@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>16.1 GRUB boot parameter VGA=788 - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./16-1-grub-boot-parameter-vga-788-t6831.html">16.1 GRUB boot parameter VGA=788</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_50143" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50143">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">brucehohl</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Feb 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50143">
+<time datetime="2017-02-05T16:32">posted: 2017-02-05 &nbsp; 16:32</time>
+<span class="permalink"><a href="./16-1-grub-boot-parameter-vga-788-t6831.html#p50143" title="permalink">#1</a></span>
+
+<div class="content">My first post so firstly, many thanks for this excellent low resource Linux distro. <br>
+<br>
+In antiX 16.1 the default GRUB boot parameter of VGA=788 caused some unwanted results ("fix" explained below) so my question is why is this parameter included by default?<br>
+<br>
+I installed antiX 16.1 on to a qemu disk image using KVM. With the default boot parameter of VGA=788 at startup my VM window was always sized to 1280x720 but the antiX desktop was sized to 1280x768, thus I had to scroll up and down to see the entire desktop. <br>
+<br>
+I"fixed" this by using arandr to create a screenlayout file for the"default" video hardware to specify a screen resolution of 1280x720: <br>
+Menu &gt; Outputs &gt; default &gt; Resolution = 1280x720<br>
+Menu &gt; Layout &gt; Apply<br>
+Menu &gt; Layout &gt; Save As ~/.screenlayout/default_1280x720.sh<br>
+<br>
+I then added this to the desktop session startup file ~/desktop-session/startup:<br>
+Menu &gt; Control Centre &gt; Session &gt; User Desktop-Session<br>
+# Screen layout files from ARandR<br>
+.screenlayout/default_1280x720.sh<br>
+<br>
+If I edit GRUB during boot to remove VGA=788, after startup antiX offers me video hardware Virtual-0 and screen resolutions up to 1920x1080. So I went through the above steps to add a file for this case as well: ~/.screenlayout/Virtual-0_1440x900.sh. I guess I can use update-grub to remove the VGA=788 but just seems like VGA=788 should not be included as a default since it seems to limit available screen resolutions.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50146" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile50146">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50146">
+
+<time datetime="2017-02-05T17:00">posted: 2017-02-05 &nbsp; 17:00</time>
+<span class="permalink"><a href="./16-1-grub-boot-parameter-vga-788-t6831.html#p50146" title="permalink">#2</a></span>
+
+<div class="content">It is included by default since some users had the opposite problem of not booting without it. A vga= option is also needed for the live boot splash to work. User can use F7 to set any/none as they wish and this will carry over to install.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_50149" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile50149">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2</span></div>
+
+</div>
+</div>
+<span class="username">brucehohl</span>
+</dt>
+<dd class="profile-joined">Joined: 05 Feb 2017</dd>
+</dl>
+<div class="postbody">
+<div id="post_content50149">
+
+<time datetime="2017-02-05T18:13">posted: 2017-02-05 &nbsp; 18:13</time>
+<span class="permalink"><a href="./16-1-grub-boot-parameter-vga-788-t6831.html#p50149" title="permalink">#3</a></span>
+
+<div class="content">Got it. Thanks for the explanation, and tip to use F7, and a very nice distro!</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

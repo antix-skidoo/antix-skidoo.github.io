@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>[SOLVED] ffmpeg and gstreamer1.0* missing dependancies - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./official-releases-f42/index.html"><span>Official releases</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-16-berta-caceres-f58/index.html"><span>antiX-16 Berta Cáceres</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./solved-ffmpeg-and-gstreamer1-0-missing-dependancie-t6539.html">[SOLVED] ffmpeg and gstreamer1.0* missing dependancies</a></div>
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_47841" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47841">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47841">
+<time datetime="2016-08-11T00:24">posted: 2016-08-11 &nbsp; 00:24</time>
+<span class="permalink"><a href="./solved-ffmpeg-and-gstreamer1-0-missing-dependancie-t6539.html#p47841" title="permalink">#1</a></span>
+
+<div class="content">Hi ho, thanks for stopping by <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+I'm currently unable to install gstreamer-{libav,plugins-bad} or ffmpeg with both stable and Debian backports. Having both would allow to add h264 (aac and mp3) playing support on Palemoon &gt;=26.2 (a good little browser particularly for antique boxes). <br>
+EDIT: issue (and solution) in the source.list below... Or in post #3.
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>apt install gstreamer1.0-plugins-bad  # 1
+                                                                                 
+    The following packages have unmet dependencies:
+     gstreamer1.0-plugins-bad : Depends: libchromaprint1 but it is not going to be installed
+                    Depends: libgme0 (&gt;= 0.6.0) but 0.5.5-2 is to be installed
+                    Depends: libgstreamer-plugins-bad1.0-0 (= 1:1.8.2-dmo2) but it is not going to be ...
+                    Depends: libgstreamer-plugins-base1.0-0 (&gt;= 1.8.0) but 1.4.4-2 is to be installed
+                    Depends: libgstreamer1.0-0 (&gt;= 1.6.0) but 1.4.4-2 is to be installed
+                    Depends: libgtk-3-0 (&gt;= 3.16.2) but 3.14.5-1+deb8u1 is to be installed
+                    Depends: libilmbase12 (&gt;= 2.2.0) but it is not installable   
+                    Depends: libmodplug1 (&gt;= 1:0.8.8.5) but 1:0.8.8.4-4.1+b1 is to be installed
+                    Depends: libnettle6 but it is not installable                
+                    Depends: libopenexr22 (&gt;= 2.2.0) but it is not installable   
+                    Depends: liborc-0.4-0 (&gt;= 1:0.4.25) but 1:0.4.22-1 is to be installed
+                    Depends: libpng16-16 (&gt;= 1.6.2-1) but it is not installable  
+                    Depends: libsoundtouch1 (&gt;= 1.9.2) but it is not installable 
+                    Depends: libwayland-client0 (&gt;= 1.9.91) but 1.6.0-2 is to be installed
+                    Depends: libwebp5 (&gt;= 0.4.3) but it is not going to be installed
+    E: Unable to correct problems, you have held broken packages. 
+
+apt install ffmpeg   # 2
+                                                                                 
+    The following packages have unmet dependencies:
+     ffmpeg : Depends: libavcodec57 (&gt;= 10:3.1.1) but it is not going to be installed
+          Depends: libavdevice57 (&gt;= 10:3.1.1) but it is not going to be installed
+          Depends: libavfilter6 (&gt;= 10:3.1.1) but it is not going to be installed
+          Depends: libavformat57 (&gt;= 10:3.1.1) but it is not going to be installed
+    E: Unable to correct problems, you have held broken packages.
+
+apt install gstreamer1.0-libav         # 3
+
+    The following packages have unmet dependencies:                              
+     gstreamer1.0-libav : Depends: libgstreamer-plugins-base1.0-0 (&gt;= 1.6.0) but 1.4.4-2 is to be           installed
+                  Depends: libgstreamer1.0-0 (&gt;= 1.6.0) but 1.4.4-2 is to be installed
+    E: Unable to correct problems, you have held broken packages.
+ video streams</code></pre></div>
+→ A `apt-get remove libavformat56 libavcodec56 libavcodec-extra-56` and retry did not correct the missing dependancies part.<br>
+<br>
+→ If adding Jessie backports (deb 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://httpredir.debian.org/debian"<br>linktext was:"http://httpredir.debian.org/debian"<br>====================================<br>
+ jessie-backports main contrib non-free):<br>
+# 1 installs.<br>
+# 2 and 3 no change.<br>
+<br>
+→ If shifting to testing:<br>
+All three would install without a hitch according to apt install` (aborted as I would rather stay with stable on these set-ups).<br>
+<br>
+Am feeling just like on a Slack-based OS at this point. Please don't misrepresent my goal: Streamlight (and minitube) are brilliant tools and I personally &lt;3 them! Now it wouldn't hurt if the browser could use h264. PM with h264ify and uBlock on Lubuntu do shine on 720p vids quite better than without, despite the heavier system in the background.<br>
+<br>
+I read on the antiX 15 Killah part of this forum:
+<blockquote><div><cite>dolphin_oracle wrote:</cite>is suspect your issue is that you left deb-multimedia enabled when you did the dist-upgrade.<br>
+unpredictableness ensues when this happens.</div></blockquote>
+It shouldn't be the case when going with *stable*, should it?<br>
+<br>
+- cpus: Athlon XP (main goal), Pentium3<br>
+Present testing set-up:<br>
+- Palemoon 26.3.3<br>
+- antiX16 up to date with kernel 3.16.0-4-i586<br>
+- apt sources.lists:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    # Use with Debian Stable/Jessie repositories. Set as default for antiX-16.   
+    deb http://nl.mxrepo.com/antix/jessie jessie main nosystemd                  
+    # Use with Debian Testing repositories.                                      
+    #deb http://nl.mxrepo.com/antix/testing testing main nosystemd               
+                                                                                 
+    # Debian Stable. Default for antiX-16.                                       
+    # Use for maximum stability INSTEAD of the 'rolling' TESTING release concept.
+    deb http://ftp.fr.debian.org/debian/ jessie main contrib non-free            
+    deb http://security.debian.org/ jessie/updates main contrib non-free         
+    #deb-src http://ftp.fr.debian.org/debian/ jessie main contrib non-free       
+                                                                                 
+    # Debian Testing.                                                            
+    # Testing enabled for 'rolling' release.                                     
+    #deb http://ftp.fr.debian.org/debian/ testing main contrib non-free          
+    #deb http://security.debian.org/ testing/updates main contrib non-free       
+    #deb-src http://ftp.fr.debian.org/debian/ testing main contrib non-free      
+                                                                                 
+    # Multimedia Stable and Testing                                              
+    # Use to install libdvdcss2 and codecs.                                      
+    deb http://www.deb-multimedia.org jessie main non-free                       
+    deb http://www.deb-multimedia.org testing main non-free                      
+                                                                                 
+    ## Debian Backports                                                          
+    ## Backports are recompiled packages from testing (mostly) and unstable (in a few cases only, e.g.⟫
+    deb http://httpredir.debian.org/debian jessie-backports main contrib non-free
+                                                                                 
+    # Mepis Community Main and Test Repos. Only use with jessie on antiX         
+    deb http://nl.mxrepo.com/mx/repo/ mx15 main non-free                         
+                                                                                 
+    # firefox                                                                    
+    # For testing next Fx on cpus without sse2                                   
+    deb http://mozilla.debian.net/ jessie-backports firefox-aurora </code></pre></div></div>
+<div class="notice">
+Last edited by <b>kozaki</b> on 11 Aug 2016, 01:06, edited 2 times in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47842" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile47842">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 2,238</span></div>
+ 
+</div>
+</div>
+<span class="username">dolphin_oracle</span>
+</dt>
+<dd class="profile-joined">Joined: 16 Dec 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47842">
+
+<time datetime="2016-08-11T00:36">posted: 2016-08-11 &nbsp; 00:36</time>
+<span class="permalink"><a href="./solved-ffmpeg-and-gstreamer1-0-missing-dependancie-t6539.html#p47842" title="permalink">#2</a></span>
+
+<div class="content"><blockquote class="uncited"><div>
+It shouldn't be the case when going with *stable*, should it?</div></blockquote>
+as a matter of fact, yes, this kind of thing is a problem when deb-multimedia is left enabled. deb-multi uses its own ffmpeg, among other things, and you can rapidly descend into dependency hell this way.<br>
+<br>
+your case is exactly what happened to me, and why I oppose deb-multi being left enabled. In future MX releases, I'm going to lobby for it to be not even predefined in the sources lists.<br>
+<br>
+all that said, you should try disabling deb-multi and trying again. gstreamer1.0-plugins-bad installs perfectly on my antiX16 system I'm typing on right now. ffmpeg shouldn't be necessary as debian jessie utilizes the avconv system (libav*), with diversions to allow compatibility with ffmpeg . If the problem is just a version conflict, disabling deb-multi (and apt-get update your sources) might allow things to go thru.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_47843" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile47843">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 32</span></div>
+
+</div>
+</div>
+<span class="username">kozaki</span>
+</dt>
+<dd class="profile-joined">Joined: 15 Oct 2015</dd>
+</dl>
+<div class="postbody">
+<div id="post_content47843">
+
+<time datetime="2016-08-11T01:04">posted: 2016-08-11 &nbsp; 01:04</time>
+<span class="permalink"><a href="./solved-ffmpeg-and-gstreamer1-0-missing-dependancie-t6539.html#p47843" title="permalink">#3</a></span>
+
+<div class="content">dolphin, PM keeps having h264 support with ffmpeg uninstalled! Have tested very quick but it ooks like that avconv system whatever it is, is fully operational.<br>
+<br>
+As for my issue, errr it's gone. I disabled... the testing repo for deb-multimedia, keeping the stable and Debian backports. Gosh! it's harder to see things on these tiny screens vim mono-color vim.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+<div class="pagination">
+3 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

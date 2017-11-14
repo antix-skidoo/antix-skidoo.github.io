@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Laptop CD-ROM Issue - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./orphaned-posts-f27/index.html"><span>Orphaned Posts</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./releases-old-f44/index.html"><span>Releases (Old)</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./antix-12-edelweispiraten-f47/index.html"><span>antiX-12 Edelweißpiraten</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./laptop-cd-rom-issue-t3944.html">Laptop CD-ROM Issue</a></div>
+<div class="pagination">
+20 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./laptop-cd-rom-issue-t3944-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./laptop-cd-rom-issue-t3944-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+
+<div class="action-bar bar-top">
+</div>
+<div class="viewtopic_wrapper">
+<div id="p_26422" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26422">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26422">
+<time datetime="2012-10-08T09:24">posted: 2012-10-08 &nbsp; 09:24</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26422" title="permalink">#1</a></span>
+
+<div class="content">antiX-12-Full ISO burned to CD-ROM.<br>
+CD-ROM used to boot laptop and install antiX-12 to hard disk. No errors reported.<br>
+Machine boots successfully from installed antiX. <br>
+<br>
+Everything is OK except the CD-ROM drive from which the installation was done. The drive can only be opened via the paperclip method. Inserting a known good CD the media is not recognised and the drive will not mount. The media can be ejected via software, but not manually.<br>
+<br>
+I am reasonably confident that the hardware is not faulty as the drive works perfectly normally when the laptop is booted with others distros e.g. Tinycore, Parted Magic etc. It seems the source of the issue may lie somewhere within antiX.<br>
+<br>
+<br>
+The drive hardware is found at bootup as shown by the following extract from dmesg:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[    1.888419] ata2.00: ATAPI: SAMSUNG CD-ROM SN-124, N102, max UDMA/33, CDB intr
+[    1.904256] ata2.00: configured for UDMA/33
+[    1.905013] scsi 1:0:0:0: CD-ROM            SAMSUNG  CD-ROM SN-124    N102 PQ: 0 ANSI: 5
+[    1.909802] sr0: scsi3-mmc drive: 24x/24x cd/rw xa/form2 cdda tray
+[    1.909811] cdrom: Uniform CD-ROM driver Revision: 3.20
+[    1.910098] sr 1:0:0:0: Attached scsi CD-ROM sr0</code></pre></div>
+The device is recognised by antiX as shown by the following extract from Hard Info:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>-SCSI Disks-
+ATA FUJITSU MHR2020A
+SAMSUNG CD-ROM SN-124
+Device Information
+   Model          SAMSUNG CD-ROM SN-124
+   Vendor         SAMSUNG (www.samsun.com)
+   Type           CD-ROM
+   Revision       N102
+SCSI Controller
+   Controller     scsi1
+   Channel        0
+   ID             0
+   LUN            0</code></pre></div>
+Devices exist within /dev.<br>
+ls /dev/cd*<br>
+ls /dev/sr*
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dev/sr0
+/dev/cdrom</code></pre></div>
+Mountpoints exist within /media<br>
+ls /media
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cdrom
+sr0</code></pre></div>
+Entries exist in / etc/fstab:
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># Dynamic entries below
+/dev/cdrom /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0
+/dev/sr0 /media/cdrom udf,iso9660 noauto,users,exec,ro 0 0</code></pre></div>
+What is being missed?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26424" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26424">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26424">
+
+<time datetime="2012-10-08T11:47">posted: 2012-10-08 &nbsp; 11:47</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26424" title="permalink">#2</a></span>
+
+<div class="content">Try adding this to / etc/rc.local above exit.<br>
+<br>
+echo 2000 &gt; /sys/block/sr0/events_poll_msecs<br>
+<br>
+<br>
+probably needs a reboot</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26426" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26426">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26426">
+
+<time datetime="2012-10-08T13:26">posted: 2012-10-08 &nbsp; 13:26</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26426" title="permalink">#3</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Try adding this to / etc/rc.local above exit.<br>
+<br>
+echo 2000 &gt; /sys/block/sr0/events_poll_msecs<br>
+<br>
+<br>
+probably needs a reboot</div></blockquote>Thanks but the symptoms remain unchanged.<br>
+<br>
+From a cold reboot:<br>
+In the other distros, the CD-ROM tray can be ejected manually. In antiX the tray can only be opened via a paperclip.<br>
+In the other distros, once the CD is inserted and the tray closed the CD is read. In antiX this does not occur so the media is not recognized.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26427" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26427">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26427">
+
+<time datetime="2012-10-08T14:43">posted: 2012-10-08 &nbsp; 14:43</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26427" title="permalink">#4</a></span>
+
+<div class="content">Does eject in a terminal open it?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26428" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26428">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26428">
+
+<time datetime="2012-10-08T16:04">posted: 2012-10-08 &nbsp; 16:04</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26428" title="permalink">#5</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Does eject in a terminal open it?</div></blockquote>Unfortunately no.<br>
+<br>
+eject -n
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eject: device is `/dev/sr0'</code></pre></div>
+eject -v /dev/sr0
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eject: device name is `/dev/sr0'
+eject: expanded name is `/dev/sr0'
+eject: `/dev/sr0' is not mounted
+eject: `/dev/sr0' is not a mount point
+eject: `/dev/sr0' is not a multipartition device
+eject: trying to eject `/dev/sr0' using CD-ROM eject command
+eject: CD-ROM eject command failed
+eject: trying to eject `/dev/sr0' using SCSI commands
+eject: SCSI eject failed
+eject: trying to eject `/dev/sr0' using floppy eject command
+eject: floppy eject command failed
+eject: trying to eject `/dev/sr0' using tape offline command
+eject: tape offline command failed
+eject: unable to eject, last error: Inappropriate ioctl for device</code></pre></div>
+eject -v /dev/cdrom
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eject: device name is `/dev/cdrom'
+eject: expanded name is `/dev/cdrom'
+eject: `/dev/cdrom' is a link to `/dev/sr0'
+eject: `/dev/sr0' is not mounted
+eject: `/dev/sr0' is not a mount point
+eject: `/dev/sr0' is not a multipartition device
+eject: trying to eject `/dev/sr0' using CD-ROM eject command
+eject: CD-ROM eject command failed
+eject: trying to eject `/dev/sr0' using SCSI commands
+eject: SCSI eject failed
+eject: trying to eject `/dev/sr0' using floppy eject command
+eject: floppy eject command failed
+eject: trying to eject `/dev/sr0' using tape offline command
+eject: tape offline command failed
+eject: unable to eject, last error: Inappropriate ioctl for device</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26430" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26430">
+<dt class="has-profile-rank has-avatar avatar-username">
+<span class="username">anticapitalista</span>
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 5,955</span></div>
+
+</div>
+</div>
+</dt>
+<dd class="profile-rank">Site Admin</dd>
+<dd class="profile-joined">Joined: 11 Sep 2007</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26430">
+
+<time datetime="2012-10-08T17:40">posted: 2012-10-08 &nbsp; 17:40</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26430" title="permalink">#6</a></span>
+
+<div class="content">Do you have automount script in udev rules set? If so, try without it.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26431" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26431">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26431">
+
+<time datetime="2012-10-08T17:41">posted: 2012-10-08 &nbsp; 17:41</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26431" title="permalink">#7</a></span>
+
+<div class="content">SamK, I suspect the problem is with a kernel module. It is interesting that it booted fine from the LiveCD but now the drive does not work. There are several ways to approach this:<br>
+<ul><li>Google the cdrom drive model number</li><li>Explore your installed system</li><li>Boot Live system again to see what worked</li></ul>
+To explore your installed system run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lspci -k</code></pre></div>This will show you what kernel module is used with your cdrom. Newer versions of lspci would show you other available modules which would have been nice. Write down the module that is associated with your cdrom drive.<br>
+<br>
+You can also run:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># lspci -n</code></pre></div>Then open a browser at 
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://kmuto.jp/debian/hcl/"<br>linktext was:"http://kmuto.jp/debian/hcl/"<br>====================================<br>
+ and copy-and-paste the output of lspci -n into the text area and hit"check". This will give you a table of your devices and their associated drivers. Write down the drivers associated with your cdrom drive.<br>
+<br>
+You can use"lsmod" to list all the installed modules but the module used for your cdrom drive should have already been written down from the output of"lspci -k". Call this $MODULE_OLD. If more than one module showed up on the web page, call the other one $MODULE_NEW. You can then try (as root):<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code># modprobe -r $MODULE_OLD
+# modprobe $MODULE_NEW</code></pre></div>If you are very lucky and all this works then (as root) make a new file at / etc/modeprobe.d/cdrom.conf that contains:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blacklist $MODULE_OLD
+install $MODULE_NEW</code></pre></div>
+If the above doesn't work, you can try booting the LiveCD with the"bp=9" boot option. This will give you a limited shell right before init starts. Then run"lsmod". Write down the modules that show up. One of these will be $MODULE_NEW. Then proceed as above with modprobing and blacklisting. You could also just boot into the LiveCD (or let the boot finish after bp=9) and run lspci -k which should show you which module the LiveCD used to talk to your cdrom drive.<br>
+<br>
+The tricky part in the above is finding $MODULE_NEW. Booting the LiveCD again is a sure way to find it. If no $MODULE_NEW shows up at bp=9 then that means all you need do is blacklist $MODULE_OLD.<br>
+<br>
+I'm am fairly confident (90%+) that the problem is related to kernel modules. The general solution is to find out what module your installed system is using and what other modules are available for that device (or finding out what module the LiveCD used). Then you use"modprobe -r $MODULE" and"modprobe $MODULE" to remove and add modules. To make your changes permanent (or if modprobe -r doesn't work because a module is in use), edit a new file at / etc/modprobe.d/cdrom.conf and blacklist the old module and (optionally) install the new one. The key thing is to blacklist the old module because you can always modprobe the new one if it doesn't get installed automatically.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26439" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26439">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26439">
+
+<time datetime="2012-10-09T10:28">posted: 2012-10-09 &nbsp; 10:28</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26439" title="permalink">#8</a></span>
+
+<div class="content"><blockquote><div><cite>anticapitalista wrote:</cite>Do you have automount script in udev rules set? If so, try without it.</div></blockquote>Automounting is not activated. This is a clean install from CD-ROM, which has not been modified in order to reduce the risk of configuration errors.<br>
+<br>
+<br>
+<br>
+Comparing the installed antiX against the live CD-ROM seems most likely to yield results so...<br>
+<br>
+<strong>Booted LiveCD antiX bp=9</strong><br>
+antiX start messages
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>   Hardware  kernel modules:
+             ohci_hcd pata_sis
+Scanning usb,cd devices for antiX/linuxfs
+Mounted /dev/sr0 at /live/boot-dev
+
+The linux bootstrap is done.</code></pre></div>
+lsmod returns nothing other than the column headers, Module, Size, Used by<br>
+<br>
+<br>
+<br>
+<strong>Booted LiveCD antiX</strong><br>
+lsmod gives no references to a CD-ROM/DVD (ref: lsmod-antiX-live.txt)<br>
+lspci -k gives no references to a CD-ROM/DVD (ref: lspci-antiX-live.txt)<br>
+<br>
+Installed lsscsi<br>
+lsscsi -k finds the CD-ROM (ref: lsscsi-antiX-live.txt)<br>
+<br>
+mount retuns
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+/dev/sr0 on /live/boot-dev type iso9660 (ro.relatime)
+...</code></pre></div>
+<br>
+<br>
+<strong>Booted Installed antiX</strong><br>
+lsmod gives no references to a CD-ROM/DVD (ref: lsmod-antiX-installed.txt)<br>
+lspci -k gives no references to a CD-ROM/DVD (ref: lspci-antiX-installed.txt)<br>
+<br>
+Installed lsscsi<br>
+lsscsi -k finds the CD-ROM (ref: lsscsi-antiX-installed.txt)<br>
+<br>
+Opened CD-ROM tray via paperclip<br>
+Mount via ROX fails<br>
+Eject via ROX success<br>
+<br>
+<br>
+<br>
+<strong>Booted LiveCD Parted Magic - Debian</strong> (CD drives works as expected with this)<br>
+lsmod gives no references to a CD-ROM/DVD (ref: lsmod-pm-live.txt)<br>
+lspci -k gives no references to a CD-ROM/DVD (ref: lspci-pm-live.txt)<br>
+lsscsi -k finds the CD-ROM (ref: lsscsi-pm-installed.txt)<br>
+<br>
+Manually tested expected operation of CD-ROM drive, result=working OK<br>
+<br>
+Mounted CD-ROM drive<br>
+mount returns
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+/dev/sr0 on /media/cdrom1 type iso9660 (ro)
+...</code></pre></div>
+In all cases nothing is listed by lsmod that I can identify as the CD drive, or manage via modprobe.<br>
+<br>
+<br>
+<br>
+Not certain if the following has any relevance.<br>
+Another machine with entirely different hardware runs antiX-M11 with a liqorix kernel
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>lsmod | grep cdrom
+cdrom                  34418  1 sr_mod</code></pre></div></div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26442" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26442">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26442">
+
+<time datetime="2012-10-09T18:42">posted: 2012-10-09 &nbsp; 18:42</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26442" title="permalink">#9</a></span>
+
+<div class="content">Thank you for the extensive reports. The LiveCD system has to read from the cdrom in order to get to breakpoint 9 so the fact that there are no modules loaded then (Ismod output empty) means we don't need any modules to access your cdrom drive. Whatever is needed is already built into the kernel. It is quite possible that loading a module has blocked access to the drive and the only reason it works in the Live system is because the cdrom drive was mounted *before* the offending module got loaded.<br>
+<br>
+I've put together a list of all the loaded module in antiX that are not in PartEd Magic. If you blacklist all of these and you are still unable to access your cdrom drive then it is unlikely the problem is module related. Unfortunately, blacklisting all of these will probably prevent X from starting so you will only have the command line. If you add a boot parameter of"3" then the system won't even try to start X. You can then start it manually (as root) by running"/ etc/init.d/slim start".<br>
+<br>
+Here is blacklist-all.conf:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>blacklist ac
+blacklist af_packet
+blacklist agpgart
+blacklist battery
+blacklist button
+blacklist cpufreq_powersave
+blacklist cpufreq_stats
+blacklist cpufreq_userspace
+blacklist dm_crypt
+blacklist dm_mod
+blacklist drm
+blacklist firewire_core
+blacklist firewire_ohci
+blacklist floppy
+blacklist gameport
+blacklist joydev
+blacklist lp
+blacklist mac_hid
+blacklist microcode
+blacklist mperf
+blacklist parport
+blacklist parport_pc
+blacklist pci_hotplug
+blacklist pcmcia_rsrc
+blacklist ppdev
+blacklist processor
+blacklist sis
+blacklist snd
+blacklist snd_page_alloc
+blacklist snd_pcm
+blacklist snd_seq_dummy
+blacklist snd_seq_midi
+blacklist snd_timer
+blacklist soundcore
+blacklist thermal_sys
+blacklist uinput</code></pre></div>
+Put a copy of this in / etc/modprobe.d/ and then reboot with the"3" boot option. Log in as root and see if you can open the cdrom drive with"eject" or"eject /dev/sr0". If you still can't eject then the problem is not module related and I don't know what to look at next. I suppose we could try blacklisting all loaded modules. If you can't even boot (or get to a vconsole) then you will have to boot with the LiveCD and edit blacklist-all.conf by commenting out some of the lines and then try again. <br>
+<br>
+If eject now works, then again you want to start commenting out lines in blacklist-all.conf and rebooting until it breaks again. Not a fun task but with a binary search (start by commenting out half of them) you can narrow it down with 5 or 6 iterations. It is possible that you can try this without rebooting by just modprobe'ing each module in the blacklist and then trying the eject command again but it could be that it only breaks if the module is loaded before the first"eject".<br>
+<br>
+It is likely that there is someone else (probably not on these forums) who would know of a better way to proceed. I would certainly suggest posting the exact make and model of your laptop here (it is good to post the make and model of your equipment when you have hardware related problems) so I/we can help search to see if anyone else has run into this problem before.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26459" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26459">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26459">
+
+<time datetime="2012-10-10T11:06">posted: 2012-10-10 &nbsp; 11:06</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26459" title="permalink">#10</a></span>
+
+<div class="content"><blockquote><div><cite>Bitjam wrote:</cite>I would certainly suggest posting the exact make and model of your laptop here (it is good to post the make and model of your equipment when you have hardware related problems) so I/we can help search to see if anyone else has run into this problem before.</div></blockquote>I have no knowledge of the lineage this machine or its history. It has the name"Iridium" on the lid, but from the labels on its underside I suspect it may be a rebadged Clevo Model 2200T. It also has a sticker carrying the name"Starbook 510 S510-C1.3GHZ-CD"<br>
+<br>
+inxi report
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>System:    Host: Laptop1 Kernel: 3.5.0-antix.2-486-smp i686 (32 bit, gcc: 4.7.1) 
+           Desktop: IceWM 1.3.7 Distro: antiX-full Edelweißpiraten 06 August 2012
+Machine:   Mobo: KAPOK model: SiS 630S serial: 12345678 Bios: SystemSoft version: Version 1.00 date: 10/22/97
+CPU:       Single core Intel Celeron CPU (-UP-) cache: 256 KB flags: (sse) bmips: 2591.61 clocked at 1295.806 MHz 
+Graphics:  Card: Silicon Integrated Systems [SiS] 630/730 PCI/AGP VGA Display Adapter bus-ID: 01:00.0 
+           X.org: 1.12.3 drivers: sis (unloaded: fbdev,vesa) tty size: 125x44 Advanced Data: N/A for root 
+Audio:     Card: Silicon Integrated Systems [SiS] SiS PCI Audio Accelerator driver: snd_trident port: 3400 bus-ID: 00:01.4
+           Sound: Advanced Linux Sound Architecture ver: 1.0.25
+Network:   Card: Silicon Integrated Systems [SiS] SiS900 PCI Fast Ethernet driver: sis900 port: 3200 bus-ID: 00:01.1
+           IF: eth0 state: unknown speed: 100 Mbps duplex: full mac: 00:90:f5:13:a7:df
+Drives:    HDD Total Size: 20.1GB (14.5% used) 1: id: /dev/sda model: FUJITSU_MHR2020A size: 20.0GB 
+           2: USB id: /dev/sdb model: Flash_Disk size: 0.1GB 
+           Optical: /dev/sr0 model: N/A rev: N/A dev-links: cdrom
+           Features: speed: 24x multisession: yes audio: yes dvd: no rw: none state: N/A
+Partition: ID: / size: 17G used: 2.8G (18%) fs: ext3 ID: swap-1 size: 2.18GB used: 0.00GB (0%) fs: swap 
+Sensors:   None detected - is lm-sensors installed and configured?
+Info:      Processes: 90 Uptime: 21 min Memory: 91.7/342.6MB Runlevel: 5 Gcc sys: 4.7.1 Client: Shell inxi: 1.8.14 </code></pre></div>
+<br>
+<blockquote><div><cite>Bitjam wrote:</cite>Put a copy of this in / etc/modprobe.d/ ...</div></blockquote>ls / etc/modprobe.d/blacklist-all.conf
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/ etc/modprobe.d/blacklist-all.conf</code></pre></div>Contents copied and pasted into this file from the posted list.<br>
+<blockquote><div><cite>Bitjam wrote:</cite>...and then reboot with the"3" boot option.</div></blockquote>Boot command line
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>root=UUID=blah 3</code></pre></div>
+<blockquote><div><cite>Bitjam wrote:</cite>Log in as root and see if you can open the cdrom drive with"eject" or"eject /dev/sr0"</div></blockquote>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eject
+eject: unable to eject, last error: Inappropriate ioctl for device
+eject /dev/sr0
+eject: unable to eject, last error: Inappropriate ioctl for device</code></pre></div>
+<blockquote><div><cite>Bitjam wrote:</cite>I suppose we could try blacklisting all loaded modules</div></blockquote>Delete current blacklist and restart the system
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>rm / etc/modprobe.d/blacklist-all.conf
+reboot</code></pre></div>lsmod was run to obtain a list and the contents used to recreate / etc/modprobe.d/blacklist-all-2.conf. The system was rebooted and the eject commands tried again. Indentical failure messages were obtained.<br>
+<br>
+Running lsmod reported some modules were installed despite being blacklisted (ref: lsmod-blacklist-all-2.conf). Attempting to force unload via modprobe was unsuccessful for most of them, so I cannot eliminate them as a potential source of the problem. <br>
+<br>
+<br>
+<br>
+<br>
+One other possibility occurs to me, that although the modules have the same name they may be different. Comparing the size of the antix kernel modules with those from Parted Magic and Tinycore, the sizes reported by lsmod vary between the distros. Does this indicate that they may be built with different configurations and capabilities?</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26466" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26466">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26466">
+
+<time datetime="2012-10-10T18:59">posted: 2012-10-10 &nbsp; 18:59</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26466" title="permalink">#11</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eject
+eject: unable to eject, last error: Inappropriate ioctl for device</code></pre></div></div></blockquote>If this is *not* the same error as you had before then maybe we are making progress with the original blacklist. At this point it would be good to see if anything interesting shows up at the end of the output of"dmesg" (or in the system log). Changing an error message is the next best thing to getting rid of it. Please let me know if the error message is indeed different.
+<blockquote class="uncited"><div>One other possibility occurs to me, that although the modules have the same name they may be different. Comparing the size of the antix kernel modules with those from Parted Magic and Tinycore, the sizes reported by lsmod vary between the distros. Does this indicate that they may be built with different configurations and capabilities?</div></blockquote>I doubt this is an issue. Since you were able to access your cdrom device from the antiX LiveCD, we know antiX has what it takes as long as we configure it correctly.<br>
+<br>
+If the error message did change then one approach would be to explicitly modprobe modules from the blacklist and after each run"eject" until you get back to the original error message. This will tell us which one (I hope) module we need to blacklist in order to change the"eject" error message.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26468" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26468">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26468">
+
+<time datetime="2012-10-11T09:15">posted: 2012-10-11 &nbsp; 09:15</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26468" title="permalink">#12</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite><blockquote><div><cite>SamK wrote:</cite><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>eject
+eject: unable to eject, last error: Inappropriate ioctl for device</code></pre></div></div></blockquote>If this is *not* the same error as you had before then maybe we are making progress with the original blacklist. At this point it would be good to see if anything interesting shows up at the end of the output of"dmesg" (or in the system log). Changing an error message is the next best thing to getting rid of it. Please let me know if the error message is indeed different.</div></blockquote>The previously reported results of the eject command (ref: post #5 dated Mon Oct 08, 2012) included the -v switch, just in case a more verbose report included helpful information. The most recent reported results of the eject command (ref: post #10 dated Wed Oct 10, 2012) did not include the -v switch. Apart from the omission of the switch the results are identical.<br>
+<br>
+<br>
+Tests based on your original blacklist-all.conf have been re-run and the results reported in reports-blacklist-all.zip, together with other requested logs. The results of running lsmod are included to detail the modules loaded by the system as a result of excluding those listed in blacklist-all.conf. Based on these results the modules in blacklist-all.conf appear not to affect the issue, i.e. the original reported symptoms are unchanged.<br>
+<br>
+Tests have also been re-run based upon excluding all modules. The results are reported in blacklist-all-2.zip, together with other logs. Again the results of running lsmod are included to detail the modules loaded by the system as a result of excluding those listed in blacklist-all-2.conf. The outcome remains unchanged, i.e. the original reported symptoms are present. <br>
+<br>
+A small number of modules are loaded despite being excluded via blacklist-all-2.conf, and the problem is still present. Has the number of suspects been reduced to one or more of the modules listed in lsmod-blacklist-all-2.txt? If so I might be able to reduce them further by creating a matrix of these modulues compared to those loaded in Parted Magic and Tinycore.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26481" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26481">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26481">
+
+<time datetime="2012-10-12T22:37">posted: 2012-10-12 &nbsp; 22:37</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26481" title="permalink">#13</a></span>
+
+<div class="content">Since the error message remains the same I have no further suggestions. Sorry for having wasted your time.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26489" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile26489">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,028</span></div>
+
+</div>
+</div>
+<span class="username">SamK</span>
+</dt>
+<dd class="profile-joined">Joined: 21 Aug 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26489">
+
+<time datetime="2012-10-14T14:03">posted: 2012-10-14 &nbsp; 14:03</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26489" title="permalink">#14</a></span>
+
+<div class="content"><blockquote><div><cite>BitJam wrote:</cite>Since the error message remains the same I have no further suggestions. Sorry for having wasted your time.</div></blockquote>I'm grateful for your help.<br>
+<br>
+I have done some further tests that are shown in the rather long post that follows. After posting the details have been transferred from the post to the attached file, stages1-4.txt.zip Each stage is based on the result of the preceding stage.
+<ul><li>* Stage 1 eliminates booting from CD-ROM as a cause<br>
+* Stage 2 eliminates the kernel as the source of the issues<br>
+* Stage 3 eliminates the kernel modules as the cause<br>
+* Stage 4 indicates the problem is within antiX</li></ul>
+Perhaps someone my be able to point to precisely where.<br>
+<br>
+Where within antiX is the behaviour of eject altered?<br>
+<br>
+<br>
+Edited to improve clarity</div>
+<div class="notice">
+Last edited by <b>SamK</b> on 15 Oct 2012, 15:59, edited 1 time in total.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_26492" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile26492">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content26492">
+
+<time datetime="2012-10-14T18:08">posted: 2012-10-14 &nbsp; 18:08</time>
+<span class="permalink"><a href="./laptop-cd-rom-issue-t3944.html#p26492" title="permalink">#15</a></span>
+
+<div class="content"><blockquote><div><cite>SamK wrote:</cite>Where within antiX is the behaviour of eject altered?</div></blockquote>
+I just don't know. It is a puzzle (to me). We had been very aggressive in trying to build a lot of different modules with the antiX kernel in order to try to be compatible with a wide range of hardware. Sometimes this can backfire when one module blocks another module from correctly accessing hardware. I had suspected this might be the problem which is why I asked you to blacklist a bunch of modules. When that didn't fix the problem I realized my guess was probably incorrect. If my guess had been right then it would have been a"bug" in the antiX kernel configuration that we might have been able to fix. <br>
+<br>
+Anti had guessed the problem was in a udev rule. My next guess is that the problem is in udev itself. Udev is the program/service that automatically creates and destroys the devices nodes in /dev. The udev program is somewhat controversial at the moment. Some people (many of which I have great respect for) think udev is a bloated unmaintainable nightmare. I reached this same conclusion myself (independently, before I had a whiff of the controversy) when I was testing antiX on VirtualBox and udev would sometimes hang the boot process and I tried to figure out how to get it to not hang. <br>
+<br>
+To be honest, I'm intrigued by the controversy perhaps in the morbid way people can be captivated by the collision of trains.<br>
+<br>
+The antiX LiveCD/USB (probably like every other LiveCD/USB) starts out using a tiny little program called BusyBox. This program is only about 1 or 2 meg in size and it contains all the programs you need to get a system started. Here is the list of programs the stripped down antiX version of BusyBox contains:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>[, [[, addgroup, adduser, ash, awk, basename, bbconfig, beep, blkid, cat, chmod,
+chpasswd, chvt, cksum, clear, conspy, cp, cryptpw, cttyhack, cut, date, dd, delgroup,
+deluser, depmod, df, dirname, dmesg, du, dumpkmap, echo, egrep, eject, env, false, fdisk,
+fgrep, find, findfs, free, fsck, fsync, getty, grep, groups, gunzip, gzip, halt, head,
+hexdump, init, insmod, kill, killall, killall5, less, linuxrc, ln, loadkmap, login,
+losetup, ls, lsmod, lsof, lspci, lsusb, md5sum, mdev, mkdir, mkdosfs, mke2fs, mkfs.ext2,
+mkfs.vfat, mkpasswd, mkswap, modinfo, modprobe, more, mount, mountpoint, mv, openvt,
+passwd, pipe_progress, pivot_root, poweroff, printenv, printf, ps, pstree, pwd, pwdx,
+readahead, readlink, realpath, reboot, reset, rfkill, rm, rmdir, rmmod, script, sed, seq,
+setconsole, setfont, setserial, setsid, sh, sleep, sort, split, stat, stty, su, sulogin,
+swapoff, swapon, sync, tail, tar, tee, test, time, top, touch, tr, true, tty, tune2fs,
+umount, uname, usleep, vi, vlock, volname, wc, xargs, yes, zcat</code></pre></div>
+It is capable of containing 2 or 3 times as many programs as this. One of the programs in this list is"mdev". This stands for"mini-udev". It does the same job that udev does but is much smaller and simpler and faster. OTOH udev has many more features. On our liveCD/USB (and probably on every other LiveCD/USB) the mdev program runs before udev runs. On installed systems mdev does not run at all. <br>
+<br>
+My next guess was that your problem was associated with running udev and not mdev. Your test that shows your cdrom drive works with a LiveUSB lets me further refine my guess that the problem is associated with running udev <em>without</em> running mdev first. I was thinking that you might want to try getting rid of udev and only running mdev but it now appears that you might just need to run mdev first.<br>
+<br>
+My problem in helping has not been that I'm totally out of ideas. My problem has been that I was out of quick and easy things for you to try. I don't want to attempt a solution that would be a new programming project for me. But since the LiveUSB works, I have a couple of more ideas. First, you could try editing / etc/init.d/udev (as root) and above the lines that say:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    # clean up parts of the database created by the initramfs udev
+    udevadm info --cleanup-db</code></pre></div> add code that says:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>    if [ -x /bin/busybox ]; then
+        printf"Running mdev from busybox\n"
+        /bin/busybox mdev -s
+        sleep 2
+        /bin/busybox mdev -s
+    fi
+</code></pre></div>This solution is kind of like banging on the side of the television set to get it to work again because it started to work once after you accidentally banged into it one day.<br>
+<br>
+The other idea is to just do a"frugal" install on your laptop. This would make it work just like a LiveUSB. I hesitate to make this suggestion because you don't have a lot of memory on your laptop and on a Live system, all changes to the file system are stored in RAM which restrict the amount of things you could do/install.<br>
+<br>
+<strong>TL;DR</strong> We've already eliminated antiX specific stuff that could be causing the problem. The source of the problem likely lies elsewhere and we are not interested in making the journey there.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+20 posts
+<ul>
+<li class="active"><span>1</span></li>
+<li><a class="button" href="./laptop-cd-rom-issue-t3944-s15.html" role="button">2</a></li>
+<li class="arrow next"><a class="button button-icon-only" href="./laptop-cd-rom-issue-t3944-s15.html" rel="next" role="button"><span class="sr-only">Next</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>

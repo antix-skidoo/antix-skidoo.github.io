@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<title>Programs start-up places - antiX oldforums archive</title>
+   
+<link rel="stylesheet" href="../aaa_style.css">
+<script type="text/javascript" src ="../aaa_oldforums.js"></script>
+</head>
+<body>
+<div id="wrap" class="wrap">
+<a id="top" class="top-anchor" accesskey="t"></a>
+
+<div id="inner-wrap">
+<ul id="nav-breadcrumbs" class="nav-breadcrumbs linklist navlinks clear-after" role="menubar">
+<li class="scroll-breadcrumbs breadcrumbs">
+<span class="crumb"><a href="./index.html" accesskey="h" data-navbar-reference="index"><span>antiX - oldforums archive</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-f22/index.html"><span>New Users</span></a> &raquo;&raquo; </span>
+
+<span class="crumb"><a href="./new-users-general-questions-f16/index.html"><span>New Users &amp; General Questions</span></a></span>
+</li>
+</ul>
+
+<div id="page-body" class="page-body" role="main">
+<div class="postprofile_container postprofile_Left">
+<div>
+<div class="topictitleheader"><span class="statictopictitle">topic title: </span><span class="topic-titleb"><a href="./programs-start-up-places-t4836.html">Programs start-up places</a></div>
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+
+
+<div class="viewtopic_wrapper">
+<div id="p_33241" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33241">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33241">
+<time datetime="2014-02-03T19:28">posted: 2014-02-03 &nbsp; 19:28</time>
+<span class="permalink"><a href="./programs-start-up-places-t4836.html#p33241" title="permalink">#1</a></span>
+
+<div class="content">Hello All,<br>
+<br>
+As I am setting up a new antiX system (which will eventually retire the old HP Brio from"production machine" status to"tinkerer machine") I try to document the most important steps of what I do.<br>
+<br>
+AntiX 13.1 core is the choosen version and it has installed without any problems. After that I installed 9-10 more programs what I would need and they all went up fine too.<br>
+<br>
+You might remember from my earlier ramblings that I use ramdisks and need to save the important parts of their content before reboot and restore their directory and file structure on start-up.<br>
+<br>
+Here comes my problem:<br>
+I do the reconstruction in rc.local. But this"script" or whatever is the last to run in the startup sequence. So I get these error messages from various programs (lighttpd being the most notorious one) in which they complain about non-existent files... Of course, they are nonexistent because they are created in the last stage of the startup.<br>
+<br>
+What would be the most elegant solution? Starting the ramdisk file structure reconstruction at an earlier stage (where?) or postponing the startup of these programs what I run from the ramdisks and complain about non-existent files and dirs to a later stage (e.g. in the last few lines in rc.local)?<br>
+<br>
+(It is not a critical error because I can start these servers at the end of rc.local and they will run fine but it is not too elegant.)<br>
+<br>
+Thanks in advance,<br>
+<br>
+Pumukli</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33242" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33242">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33242">
+
+<time datetime="2014-02-03T21:22">posted: 2014-02-03 &nbsp; 21:22</time>
+<span class="permalink"><a href="./programs-start-up-places-t4836.html#p33242" title="permalink">#2</a></span>
+
+<div class="content">The standard way to deal with things like this is to set up your custom filesystem layout in an initramfs (also called an initrd). <br>
+<br>
+For example, for decades it has been a standard Unix practice to mount /usr on its own partition. This is why there are separate /bin and /usr/bin directories (same with /sbin and /lib). The stuff directly on / is supposed to be the bare minimum needed to boot the system. Extra stuff for"users" is under /usr. A huge controversy erupted when the udev developers added a requirement that /usr must be mounted *before* the udev service started. This forced people who mount /usr separately to use an initrd/initramfs to mount /usr before the system services start. There was a large outbreak of people thinking other people were very stupid.<br>
+<br>
+One of the primary purposes of initramfs/initrd is to mount filesystems before system services are initialized, just like what you want to do. Unlike the /usr situation, your use of initrd would be entirely uncontroversial. The initrd file to be loaded is usually specified in bootloaders with the word"initrd" although technically the technology is now called initramfs (IMO, the name change was not well thought out). It loads a small compressed filesystem-on-a-file usually called initrd.gz or initramfs.gz or something like that. This entire file system gets loaded into RAM and the script /init in the filesystem gets run. The job of that script is to do all of the mounting needed before turning control over to the /sbin/init process of the real root filesystem.<br>
+<br>
+Another reason people will use an initrd is to allow users to specify the root partition by label or uuid as in"root=LABEL=some-label" or"root=UUID=some-long-uuid". The Linux kernel does not support these boot parameters (although it does support"root=/dev/sd-whatever"). An initrd can be programmed to deal with this kind of boot parameter and make it look to the user as if the kernel was doing it.<br>
+<br>
+You should be able to piggy-back off of the standard Debian initrd that comes with antiX. The three tricks you need are:<br>
+<ul><li>unpack the initrd file</li>
+<li>edit the init script that got unpacked</li>
+<li>repack the initrd file</li></ul>
+<strong>Unpack the initrd file</strong>
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir my-initrd
+cd my-initrd
+gunzip -c /boot/initrd-[...] | cpio -idum</code></pre></div>Replace [...] with the rest of the actual file name. The name will depend on the version of the kernel you are using. If you get permission errors with the cpio command then just prepend it with the"sudo" command:"sudo cpio -idum".<br>
+<br>
+<strong>Edit the init script that got unpacked</strong><br>
+You probably want to add code to mount your partitions after the"mountroot" command gets executed. I think this mounts the root filesystem at /root. So if you wanted to mount /usr as tmpfs (this is just an example) then you would mount it at /root/usr. When the script finishes, it will get magically moved from /root/usr to /usr (via the switch_root command near the end of the script). Before adding your mounting code, you might want to start out with just adding the lines:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>echo"Hello World"
+sleep 10</code></pre></div> in order to be sure your version of the initrd and the init script are running. <br>
+<br>
+<strong>Repack the initrd file</strong><br>
+When you are still in the my-initrd directory you created, run the following:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code> find . | cpio -o -H newc --owner root:root | gzip -9 &gt; ../new-initrd.gz
+sudo cp ../new-initrd.gz /boot/initrd-[...]-2.gz</code></pre></div>I think it is best to not overwrite the original initrd but this means you need to edit your bootloader configuration to use your new initrd. An alternative is to first save the original initrd before overwriting it:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo cp /boot/initrd-[...] boot/initrd-[...].orig
+sudo cp ../new-initrd.gz /boot/initrd-[...]</code></pre></div>If you do it this way then you won't have to make changes to your bootloader configuration.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33249" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33249">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 13</span></div>
+
+</div>
+</div>
+<span class="username">Pumukli</span>
+</dt>
+<dd class="profile-joined">Joined: 03 Jan 2014</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33249">
+
+<time datetime="2014-02-04T19:29">posted: 2014-02-04 &nbsp; 19:29</time>
+<span class="permalink"><a href="./programs-start-up-places-t4836.html#p33249" title="permalink">#3</a></span>
+
+<div class="content">Hello,<br>
+<br>
+Thank you for the detailed description BitJam!<br>
+I tried the suggested method and it"sort of" worked: I made a new initrd.gz and was able to boot it to realize that it says something about"cant create directory - directory already exists" - which is strange because those directories should be on a tmpfs and right after reboot... So I re-edited the initrd.gz to include 20 sec sleep time after the directory creation part hoping I could read it.<br>
+But I made a typo in the name when renamed it to be in accordance with grub. A dot instead of a dash. You can imagine. I effectively prevented the system from boot. <span class="emoticon"> __{{emoticon}}__ </span><br>
+<br>
+So I tried to revive the installation, booted from the pendrive again, and to made a long story short: I ended up reinstalling the whole system. <span class="emoticon"> __{{emoticon}}__ </span> Fortunately it was just a fresh (yesterday) install anyway so I was back in business within 30 minutes.<br>
+<br>
+But it was a good lesson to look after some sort of"non-lethal" method.<br>
+<br>
+I found an article at debian administration about making scripts run at boot time (
+<br>========= SCRAPER REMOVED AN EMBEDDED LINK HERE ===========<br>url was:"http://www.debian-administration.org/articles/28"<br>linktext was:"http://www.debian-administration.org/articles/28"<br>====================================<br>
+) and I tried to digest and follow that.<br>
+<br>
+It seems to work. I wrote those two scripts (save and restore) and put them in the appropriate S and K groups of different runlevels. Now when the system reboots the important files are saved and restored on boot. And lighttpd does not complain about nonexistent files too. The only"problem" that arose is that the message on the screen"lighttpd ... started" and"vsftpd ... started" are now on the same line, concatenated, as if a CR/LF went missing somewhere.<br>
+<br>
+Is my solution a good one or just started to walk the path to hell (in the long run) unwary to something in the background? Any tips would be welcome! And thanks again BitJam, even if I chose another route.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33257" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33257">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33257">
+
+<time datetime="2014-02-06T10:47">posted: 2014-02-06 &nbsp; 10:47</time>
+<span class="permalink"><a href="./programs-start-up-places-t4836.html#p33257" title="permalink">#4</a></span>
+
+<div class="content">@BitJam<br>
+<br>
+Thanks for the excellent explanation. <br>
+I hope to have understood something.<br>
+<br>
+My problem is to start the ISO using Grub2. It fails m.E. to the rights of the initrd / initramfs at the time. Therefore, the USB stick (sdb1) with"antiX / linuxfs" not found.<br>
+<br>
+Examples:<br>
+snip &gt;grub2.cfg&lt;
+<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>...
+menuentry"Mageia-4-RC-dual-DVD.iso" {
+      set isofile="/boot/isos/Mageia-4-RC-dual-DVD.iso"
+      loopback loop $isofile
+      linux (loop)/isolinux/x86_64/vmlinuz from=$isofile ro rd.luks=0 rd.lvm=0 rd.md=0 rd.dm=0 lang=de xmode=800x600 xrandr 
+      initrd (loop)/isolinux/x86_64/all.rdz
+}
+
+menuentry"MX-14-i386-xfce.iso" {
+      set isofile="/boot/isos/MX.iso"
+      loopback loop $isofile
+      linux (loop)/antiX/vmlinuz antiX=MLX lang=de_DE
+      initrd (loop)/antiX/initrd.gz 
+}</code></pre></div>
+This command alone would correct this?<blockquote><div><cite>BitJam wrote:</cite><div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>find . | cpio -o -H newc --owner root:root | gzip -9 &gt; ../new-initrd.gz</code></pre></div></div></blockquote></div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33262" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33262">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33262">
+
+<time datetime="2014-02-06T21:39">posted: 2014-02-06 &nbsp; 21:39</time>
+<span class="permalink"><a href="./programs-start-up-places-t4836.html#p33262" title="permalink">#5</a></span>
+
+<div class="content">@male, I don't have a lot of time and energy for this now because I'm trying to make a final push to get MX-14 out the door. A quick suggestion is to try the"fromiso=$isofile" boot parameter.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33263" class="post has-profile bg1">
+<div class="inner">
+<dl class="postprofile" id="profile33263">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 1,308</span></div>
+
+</div>
+</div>
+<span class="username">BitJam</span>
+</dt>
+<dd class="profile-joined">Joined: 31 Aug 2009</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33263">
+
+<time datetime="2014-02-06T21:49">posted: 2014-02-06 &nbsp; 21:49</time>
+<span class="permalink"><a href="./programs-start-up-places-t4836.html#p33263" title="permalink">#6</a></span>
+
+<div class="content"><blockquote><div><cite>Pumukli wrote:</cite>Is my solution a good one or just started to walk the path to hell (in the long run) unwary to something in the background?</div></blockquote>I'm sorry I did not warn you about the possibility of borking your system. In future, the problem you had could have been fixed by booting via the pen drive and then mounting the root partition of your installed system and then restoring the original initrd file. Another, safer, route is to add an entry in your bootloader for the new initrd while leaving the old entry in place.<br>
+<br>
+From my perspective the Debian init system has been both brain-dead and changing so it is hard for me to keep track of it in my head.although I believe the most recent incarnation has fixed some of the brain damage. That was why I gave you instructions about something I know about. If your init scripts work then it is a good solution. There is a possibility there will be a conflict with udev or systemd down the road but it is also possible there won't be. I don't think your solution is the path to Redmond so you should be fine.</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="p_33270" class="post has-profile bg2">
+<div class="inner">
+<dl class="postprofile" id="profile33270">
+<dt class="no-profile-rank has-avatar avatar-username">
+<div class="avatar-username-inner">
+<div class="thread-user-detail">
+<div class="detail-title-numposts"><span class="detail-title-numposts">Posts: 325</span></div>
+
+</div>
+</div>
+<span class="username">male</span>
+</dt>
+<dd class="profile-joined">Joined: 04 Nov 2011</dd>
+</dl>
+<div class="postbody">
+<div id="post_content33270">
+
+<time datetime="2014-02-07T11:22">posted: 2014-02-07 &nbsp; 11:22</time>
+<span class="permalink"><a href="./programs-start-up-places-t4836.html#p33270" title="permalink">#7</a></span>
+
+<div class="content">@BitJam<br>
+<br>
+BINGO <span class="emoticon"> __{{emoticon}}__ </span> <span class="emoticon"> __{{emoticon}}__ </span> <br>
+<br>
+Although I have now used antiX and come up to the cli-installer.<br>
+I use a manually created grub.cfg<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>menuentry"antiX-13.2_x64-full.iso" {
+      set isofile="/boot/isos/antiX-13.2_x64-full.iso"
+      loopback loop $isofile
+      linux (loop)/antiX/vmlinuz fromiso=$isofile antiX=MLX lang=de_DE
+      initrd (loop)/antiX/initrd.gz
+}</code></pre></div>
+As I already wrote anti - it is not trivial, because each ISO behaves differently.<br>
+<br>
+Thanks again, BitJam!<br>
+<br>
+<span style="font-size: 85%; line-height: normal">@Pumukli<br>
+please excuse that I used your thread.</span></div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="action-bar bar-bottom">
+
+<div class="pagination">
+7 posts
+&bull; Page <strong>1</strong> of <strong>1</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="scrollToTopText"><a href="#top">goto top of page</a></div>
+
+</div>
+</body></html>
