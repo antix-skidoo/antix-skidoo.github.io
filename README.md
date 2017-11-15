@@ -9,9 +9,10 @@ v----- go here to browse the archive<br>
 
 
 
-yandex crawler expects this metatag within the document HEAD of antix-skidoo.io homepage
+yandex crawler expects this metatag within the document HEAD of antix-skidoo.io homepage<br>
 (which apparently is THIS "README.md" page) and I don't see any means to do so.
 <meta name="yandex-verification" content="59dc2de4a6d8b45b" />
+meta name="yandex-verification" content="59dc2de4a6d8b45b" 
 
 
 <!-- readme.md (of gh-pages branch) is served as the site's homepage? -->
